@@ -25,6 +25,37 @@ function W:RegisterGuide(def)
     ordered[#ordered + 1] = def
 end
 
+---------------------------------------------------------------------------
+-- Quest hints (Guides/QuestHints.lua): a note for the whole quest and notes per objective, by
+-- the objective's name as the quest log shows it. Your own notes (/ow hint) sit beside them.
+---------------------------------------------------------------------------
+local hints = {}
+function W:RegisterHints(t)
+    for q, h in pairs(t) do hints[q] = h end
+end
+-- built-in note for the quest, or nil
+function G:QuestHint(q)
+    return q and hints[q] and hints[q].quest
+end
+-- built-in note for one objective (matched by name inside the objective's text), or nil
+function G:ObjectiveHint(q, text)
+    local h = q and hints[q]
+    if not (h and h.objectives and text) then return end
+    for name, note in pairs(h.objectives) do
+        if text:find(name, 1, true) then return note end
+    end
+end
+function G:HintSource(q) return q and hints[q] and hints[q].source end
+-- your own note for the quest (account-wide), or nil
+function G:MyHint(q)
+    return q and W.db and W.db.hints and W.db.hints[q]
+end
+function G:SetMyHint(q, text)
+    W.db.hints = W.db.hints or {}
+    W.db.hints[q] = (text and text ~= "") and text or nil
+    W:Fire("WF_UPDATED")
+end
+
 function G:All() return ordered end
 function G:Get(id) return registry[id] end
 function G:Active() return active end

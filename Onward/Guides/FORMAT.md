@@ -62,6 +62,22 @@ Register with `kind = "profession"` and `skill = <skillLine>` (171 Alchemy, 164 
 | `group <kind>` | Needs a group: `elite` (elite targets), `dungeon` (targets only inside an instance) or `chain` (only reachable through one of those). Shown marked on the panel; left out when Options > Elite and dungeon quests is Hide (`/ow group hide`). The drafter sets it from Questie's NPC rank and spawn maps |
 | `optional` | Marks the step as optional |
 
+## Quest hints
+
+`QuestHints.lua` holds short notes for quests where the pin isn't enough. They show on the step card for any guide:
+
+```lua
+Onward:RegisterHints{
+  [662] = {
+    quest = "A note for the whole quest",
+    objectives = { ["Maiden's Folly Charts"] = "A note under that objective" },  -- matched by name
+    source = "Where it comes from",
+  },
+}
+```
+
+Write hints in your own words, from play or from what several players agree on. In game, `/ow hint <text>` adds a personal note and `/ow hints` lists them in this shape.
+
 ## Writing a guide by playing
 
 Turn on the recorder, play the zone in the order you want, then copy the result:

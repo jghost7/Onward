@@ -273,6 +273,41 @@ note done
     W.Guide:Activate("nav") settle()
 end
 
+-- quest hints: built-in notes on the card (per objective, gone once it's done), your own notes
+do
+    W:RegisterGuide{ id = "hints", title = "Hints", faction = "", steps = [[
+complete 662
+note done
+]] }
+    MOCK.addQuest(662, "Deep Sea Salvage", {
+        { text = "Maiden's Folly Charts: 0/1", finished = false, numFulfilled = 0, numRequired = 1 },
+        { text = "Maiden's Folly Log: 1/1", finished = true, numFulfilled = 1, numRequired = 1 },
+    })
+    MOCK.fire("QUEST_LOG_UPDATE")
+    W.Guide:Activate("hints") settle()
+    local function shown(s)
+        for _, fsn in ipairs(MOCK.strings) do if fsn.shown and (fsn.text or ""):find(s, 1, true) then return true end end
+    end
+    W.UI:Render()
+    check("quest hint on the card", shown("Naga in the lowest holds"))
+    check("objective hint under its objective", shown("north side of the mast"))
+    check("no hint for an objective already done", not shown("A book in a bucket"))
+    check("hint source is known", (W.Guide:HintSource(662) or ""):find("Wowhead", 1, true))
+    SlashCmdList.ONWARD("hint Swim in from the south side")
+    W.UI:Render()
+    check("/ow hint adds your own note", W.db.hints and W.db.hints[662] == "Swim in from the south side" and shown("Your note: Swim in"))
+    local shownText
+    local savedShow = W.UI.ShowText
+    W.UI.ShowText = function(title, text) shownText = text end
+    SlashCmdList.ONWARD("hints")
+    W.UI.ShowText = savedShow
+    check("/ow hints lists your notes to share", shownText and shownText:find("[662]", 1, true) and shownText:find("south side", 1, true), shownText)
+    SlashCmdList.ONWARD("hint clear")
+    check("/ow hint clear removes it", W.db.hints[662] == nil)
+    MOCK.turnIn(662) MOCK.fire("QUEST_TURNED_IN", 662) MOCK.fire("QUEST_LOG_UPDATE")
+    W.Guide:Activate("nav") settle()
+end
+
 -- come back later: a busy area offers it; set-aside quests are listed, offered when you're back
 -- near them, and brought back at the end of the guide
 do
@@ -883,7 +918,7 @@ MOCK.printed = {}
 check("riverglades guides registered", W.Guide:Get("riverglades-a") and W.Guide:Get("riverglades-h"))
 local nGuides, nSteps, mismatched, noQuest, ids = 0, 0, {}, 0, {}
 for _, def in ipairs(W.Guide:All()) do
-    if not ({ test = 1, riverglades = 1, nav = 1, resume = 1, resume2 = 1, modes = 1, target = 1, group = 1, groupq = 1, trail = 1, later = 1, nopin = 1, drops = 1, wait = 1, spots = 1 })[def.id] then
+    if not ({ test = 1, riverglades = 1, nav = 1, resume = 1, resume2 = 1, modes = 1, target = 1, group = 1, groupq = 1, trail = 1, later = 1, nopin = 1, hints = 1, drops = 1, wait = 1, spots = 1 })[def.id] then
         check("unique guide id " .. def.id, not ids[def.id]) ids[def.id] = true
         if def.next then check(def.id .. " next exists", W.Guide:Get(def.next) ~= nil, def.next) end
         local expect = 0

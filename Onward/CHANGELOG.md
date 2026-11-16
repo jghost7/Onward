@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.4.2
+
+- **Quest hints.** Tricky quests get a short note on the step card: one for the quest, and one
+  under each objective you still need (gone once you have it). First up: Deep Sea Salvage, with
+  where each chart and log is inside the two sunken ships.
+- Your own notes: `/ow hint <text>` adds one to the current quest (all your characters see it),
+  `/ow hint clear` removes it, and `/ow hints` lists them all, ready to paste into a GitHub issue
+  so they can go into the addon for everyone.
+- Hover the step card to read the quest's own text from your quest log, which often says where
+  to go.
+
 ## 0.4.1
 
 - Nav arrow on kill and loot steps whose mobs are over a zone border, like Bracers of Binding

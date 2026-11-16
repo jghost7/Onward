@@ -17,6 +17,7 @@ local C = {
     line    = { 1, 1, 1, 0.07 },
     accent  = S.ACCENT,                  -- the theme's accent (shared table, recoloured live)
     text    = { 0.93, 0.94, 0.96 },
+    hint    = { 0.87, 0.81, 0.62 },          -- quest hints: warm parchment, apart from objectives
     sub     = { 0.62, 0.65, 0.70 },
     dim     = { 0.45, 0.48, 0.52 },
     accept  = { 1.00, 0.82, 0.25 },
@@ -537,6 +538,13 @@ function UI:Render()
         anchor = l
         h = h + l:GetStringHeight() + (gap or 3)
     end
+    -- hints: the quest's note (built-in, then yours), and one under each unfinished objective
+    local function questHints(q, builtIn)
+        local h = builtIn and G:QuestHint(q)
+        if h then line(h, C.hint) end
+        local mine = G:MyHint(q)
+        if mine then line("Your note: " .. mine, C.hint) end
+    end
     local function objectives(s)
         local e = W.db.showObjectives and QS:Get(s.quest)
         if not e then return end
@@ -545,10 +553,13 @@ function UI:Render()
                 line((o.finished and "|cff66d973+|r " or "- ") .. (o.text or ""), o.finished and C.dim or C.sub)
                 local drop = W.Drops and W.Drops:Line(o, s.quest)
                 if drop then line("    " .. drop, C.dim, 1) end
+                local hint = not o.finished and G:ObjectiveHint(s.quest, o.text)
+                if hint then line("    " .. hint, C.hint, 1) end
             end
         end
     end
     if step.verb == "complete" and step.quest then
+        questHints(step.quest, true)
         objectives(step)
         local group = G:Group()
         shownTogether = {}
@@ -556,10 +567,12 @@ function UI:Render()
             local s = group[i]
             shownTogether[s] = true
             line("|cff73b3ffAlso here:|r " .. questTitle(s.quest), C.text, 7)
+            questHints(s.quest, true)
             objectives(s)
         end
     else
         shownTogether = {}
+        if step.quest then questHints(step.quest, false) end   -- your own note on accept / turn-in too
         if G.PROF_VERB[step.verb] and W.Prof then
             -- skill, crafts left, recipe to learn, mats against your bags, the game's best pick now
             for _, l in ipairs(W.Prof:CardLines(step)) do line(l[1], C[l[2] or "sub"] or C.sub) end
@@ -725,6 +738,19 @@ card:SetScript("OnEnter", function(self)
         GameTooltip:AddLine(self.recommend and "Click: start the recommended guide" or "Click: open the guide list")
         GameTooltip:Show()
         return
+    end
+    -- the quest's own text and its hint source, for the "where exactly?" moments
+    local q = self.step.quest
+    if q then
+        GameTooltip:AddLine(questTitle(q))
+        local desc = QS:Description(q)
+        if desc then
+            if #desc > 600 then desc = desc:sub(1, 600):gsub("%s+%S*$", "") .. " ..." end
+            GameTooltip:AddLine(desc, 0.85, 0.85, 0.85, true)
+        end
+        local src = G:HintSource(q)
+        if src then GameTooltip:AddLine("Hints: " .. src, 0.6, 0.6, 0.6, true) end
+        GameTooltip:AddLine(" ")
     end
     GameTooltip:AddLine("Left-click: open on map")
     GameTooltip:AddLine("Right-click: mark this step done", 0.7, 0.7, 0.7)

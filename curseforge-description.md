@@ -69,6 +69,10 @@ On kill and loot steps a crosshair appears next to the step. Click it, or **bind
 
 Fighting other players for every tag? Onward notices when most of the quest's mobs around you are tagged by someone else and offers to come back later (or shift-right-click the step, or `/ow later`). The guide moves on, reminds you when you're back in that area, and returns to it at the end of the guide.
 
+## Quest hints
+
+Tricky quests get a short hint on the step card: where in the sunken ship the charts are, which path leads up. Write your own with `/ow hint <text>`, and share them with `/ow hints` so they can go into the addon for everyone. Hover the step to read the quest's own text.
+
 ## Drop rates: lucky or not?
 
 For "collect" quests, each item objective shows your own drop rate per kill and the expected one (turn on enemy nameplates so kills you don't target are counted too), e.g. *3 in 14 kills (21%) · Wowhead 35% · unluckier · ~9 more kills*. The expected rates come from **Questie** (install it to see them; your own rate works without it). The Forever-only zones mostly have no expected rates yet. Stats add up across your characters; `/ow drops` lists them.
@@ -104,6 +108,7 @@ A compact panel showing the current step, its objectives and what comes next. Fr
 | `/ow mode all` / `efficient` / `fastest` | Which quests to include |
 | `/ow group show` / `hide` | Elite and dungeon quests in the guides |
 | `/ow later` | Come back to the current quest later |
+| `/ow hint <text>` / `/ow hints` | Your own note on the current quest / list your notes to share |
 | `/ow next` / `/ow prev` | Skip ahead or go back a step |
 | `/ow arrow` | Show or hide the nav arrow |
 | `/ow drops` | Your quest-item drop rates vs the expected ones |

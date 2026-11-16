@@ -144,6 +144,7 @@ local HELP = {
     "/ow mode all | efficient | fastest  - which quests the guides include",
     "/ow group show | hide  - elite and dungeon quests in the guides",
     "/ow later  - come back to the current quest later (or shift-right-click the step)",
+    "/ow hint <text> | clear  - your own note on the current quest; /ow hints lists them to share",
     "/ow next | prev  - skip or go back one step",
     "/ow rec start | stop | show  - record a route as you play",
     "/ow auto  - toggle auto accept / turn-in",
@@ -177,6 +178,31 @@ SlashCmdList.ONWARD = function(msg)
             W:Fire("WF_SETTINGS_CHANGED")
         end
         W.Print("quest mode:", W.db.questMode, "(all | efficient | fastest)")
+    elseif cmd == "hint" then
+        -- /ow hint <text>: your note on the current quest; /ow hint clear; /ow hint: show it
+        local step = W.Guide:Current()
+        local q = step and step.quest
+        if not q then W.Print("the current step isn't a quest") return end
+        local title = W.QuestState:Title(q) or ("quest " .. q)
+        if rest == "" then
+            W.Print(title .. ": " .. (W.Guide:MyHint(q) or "no note yet. /ow hint <text> adds one."))
+        elseif rest:lower() == "clear" then
+            W.Guide:SetMyHint(q, nil)
+            W.Print("note removed from " .. title)
+        else
+            W.Guide:SetMyHint(q, rest)
+            W.Print("note added to " .. title .. ". /ow hints lists all your notes to share.")
+        end
+    elseif cmd == "hints" then
+        -- every note you've written, ready to paste into a GitHub issue
+        local out, ids = {}, {}
+        for q in pairs(W.db.hints or {}) do ids[#ids + 1] = q end
+        table.sort(ids)
+        for _, q in ipairs(ids) do
+            out[#out + 1] = ("[%d] = { quest = %q },   -- %s"):format(q, W.db.hints[q], W.QuestState:Title(q) or "?")
+        end
+        if #out == 0 then W.Print("no notes yet: /ow hint <text> on a quest step adds one") return end
+        W.UI.ShowText("Your quest hints (paste into a GitHub issue to share)", table.concat(out, "\n"))
     elseif cmd == "later" then
         W.Guide:Later()
     elseif cmd == "group" or cmd == "elite" then
