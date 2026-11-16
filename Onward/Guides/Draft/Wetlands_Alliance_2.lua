@@ -88,7 +88,7 @@ fly 1453 71.3,72.2 |from 1437 9.5,59.7 |npc Stormwind City (Dungar Longdrink) |v
 turnin 293 |npc Archbishop Benedictus |at 1453 50.3,45.5 |value mid  -- Cleansing the Eye (30)
 fly 1424 49.3,52.3 |from 1453 71.3,72.2 |npc Hillsbrad Foothills (Darla Harris)  -- flight master Dungar Longdrink
 turnin 647 |npc Brewmeister Bilger |at 1424 52.1,58.7  -- MacKreel's Moonshine (30)
-complete 633  -- The Thandol Span (31)
+complete 633 |at 1417 48.8,88.0  -- The Thandol Span (31)
 fly 1437 9.5,59.7 |from 1424 49.3,52.3 |npc Shellei Brondir  -- flight master Darla Harris
 complete 296 |at 1437 33.3,51.5 |mobs Sarltooth  -- Ormer's Revenge (29)
 turnin 296 |npc Ormer Ironbraid |at 1437 38.2,50.9  -- Ormer's Revenge (29)

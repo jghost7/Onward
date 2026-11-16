@@ -85,7 +85,7 @@ turnin 1151 |npc Dorn Plainstalker |at 1441 54.0,41.5 |group elite  -- Test of S
 accept 1152 |npc Dorn Plainstalker |at 1441 54.0,41.5 |group chain  -- Test of Lore (30)
 fly 1443 21.6,74.1 |from 1441 45.1,49.1 |npc Desolace (Thalon)  -- flight master Nyse
 turnin 5361 |npc Nataka Longhorn |at 1443 55.4,55.8  -- Family Tree (35)
-complete 1107 |group elite  -- Encrusted Tail Fins (35)
+complete 1107 |at 1434 25.0,25.2 |group elite  -- Encrusted Tail Fins (35)
 fly 1413 63.1,37.2 |from 1443 21.6,74.1 |npc The Barrens (Bragok)  -- flight master Thalon
 turnin 1111 |npc Wharfmaster Dizzywig |at 1413 63.4,38.5  -- Wharfmaster Dizzywig (36)
 turnin 1148 |npc Korran |at 1413 51.1,29.6  -- Parts of the Swarm (35)
@@ -109,7 +109,7 @@ fly 1454 45.1,63.9 |from 1441 45.1,49.1 |npc Orgrimmar (Doras)  -- flight master
 turnin 1184 |npc Belgrom Rockmaul |at 1454 75.2,34.2  -- Parts of the Swarm (35)
 fly 1441 45.1,49.1 |from 1454 45.1,63.9 |npc Nyse  -- flight master Doras
 turnin 1107 |npc Wizzle Brassbolts |at 1441 78.1,77.1 |group elite  -- Encrusted Tail Fins (35)
-complete 1154 |group chain  -- Test of Lore (30)
+complete 1154 |at 1440 75.6,74.4 |group chain  -- Test of Lore (30)
 fly 1442 45.1,59.8 |from 1441 45.1,49.1 |npc Stonetalon Mountains (Tharm)  -- flight master Nyse
 turnin 1154 |npc Braug Dimspirit |at 1442 78.8,45.7 |group chain  -- Test of Lore (30)
 ]]}

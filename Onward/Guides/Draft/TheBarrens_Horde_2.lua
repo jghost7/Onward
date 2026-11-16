@@ -83,7 +83,7 @@ turnin 893 |npc Tatternack Steelforge |at 1413 45.1,57.7  -- Weapons of Choice (
 accept 1153 |npc Tatternack Steelforge |at 1413 45.1,57.7  -- A New Ore Sample (29)
 turnin 4921 |npc Mankrik |at 1413 52.0,31.6  -- Lost in Battle (20)
 accept 95774 |npc Mankrik |at 1413 52.0,31.6 |value mid  -- Her Name Is Olgra (20)
-complete 1069 |value low  -- Deepmoss Spider Eggs (20)
+complete 1069 |at 1442 61.6,59.4 |value low  -- Deepmoss Spider Eggs (20)
 fly 1442 45.1,59.8 |from 1413 51.5,30.3 |npc Stonetalon Mountains (Tharm)  -- flight master Devrak
 turnin 79192 |npc Pocket Litter |at 1442 40.8,52.6  -- Stepping Stones (24)
 fly 1413 51.5,30.3 |from 1442 45.1,59.8 |npc Devrak  -- flight master Tharm
@@ -94,7 +94,7 @@ complete 876 |at 1413 39.2,12.2 |mobs Serena Bloodfeather  -- Serena Bloodfeathe
 turnin 3513 |npc Kadrak |at 1413 48.1,5.4  -- The Runed Scroll (25)
 accept 6543 |npc Kadrak |at 1413 48.1,5.4  -- The Warsong Reports (19)
 accept 3514 |npc Kadrak |at 1413 48.1,5.4 |group elite  -- Horde Presence (29)
-complete 1153  -- A New Ore Sample (29)
+complete 1153 |at 1441 55.6,50.5  -- A New Ore Sample (29)
 turnin 6541 |npc Kadrak |at 1413 48.1,5.4  -- Report to Kadrak (19)
 turnin 92706 |npc Gazlowe |at 1413 62.7,36.2 |group elite  -- WANTED: Bruuz (20)
 accept 1483 |npc Sputtervalve |at 1413 63.0,37.2  -- Ziz Fizziks (21)
@@ -104,7 +104,7 @@ turnin 891 |npc Captain Thalo'thas Brightsun |at 1413 62.3,39.0 |value mid  -- T
 turnin 873 |npc Mahren Skyseer |at 1413 65.8,43.9  -- Isha Awak (27)
 complete 95774 |at 1413 50.1,51.2 |mobs Razormane Raider |value mid  -- Her Name Is Olgra (20)
 turnin 1153 |npc Tatternack Steelforge |at 1413 45.1,57.7  -- A New Ore Sample (29)
-complete 3514 |mobs Rynthariel the Keymaster |group elite  -- Horde Presence (29)
+complete 3514 |at 1442 29.7,16.9 |mobs Rynthariel the Keymaster |group elite  -- Horde Presence (29)
 complete 852 |at 1413 46.0,41.1 |mobs Hezrul Bloodmark  -- Hezrul Bloodmark (19)
 accept 3369 |npc Falla Sagewind |at 1413 48.2,32.8  -- In Nightmares (25)
 turnin 899 |npc Mankrik |at 1413 52.0,31.6 |value low  -- Consumed by Hatred (20)

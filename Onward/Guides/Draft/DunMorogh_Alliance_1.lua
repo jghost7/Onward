@@ -162,7 +162,7 @@ turnin 5541 |npc Hegnar Rumbleshot |at 1426 40.7,65.1  -- Ammo for Rumbleshot (6
 turnin 98321 |npc Tognus Flintfire |at 1426 45.3,51.9 |value mid  -- Flintfire's Shipment (7)
 turnin 2927 |npc Ozzie Togglevolt |at 1426 45.9,49.4  -- The Day After (27)
 turnin 2926 |npc Ozzie Togglevolt |at 1426 45.9,49.4 |group elite  -- Gnogaine (27)
-complete 466  -- Search for Incendicite (22)
+complete 466 |at 1437 48.4,62.1  -- Search for Incendicite (22)
 turnin 412 |npc Razzle Sprysprocket |at 1426 45.9,49.4 |value mid  -- Operation Recombobulation (10)
 turnin 320 |npc Pilot Bellowfiz |at 1426 49.4,48.4  -- Return to Bellowfiz (8)
 turnin 467 |npc Pilot Stonegear |at 1426 49.6,48.6  -- Stonegear's Search (23)

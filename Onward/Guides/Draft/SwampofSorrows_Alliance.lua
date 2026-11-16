@@ -7,7 +7,7 @@ Onward:RegisterGuide{
   steps = [[
 accept 93585 |npc Father Tuttle |at 1435 22.3,50.4  -- This Light of Mine (34)
 accept 93176 |npc Amaryllis Webb |at 1435 25.2,54.0  -- My Little Friends (35)
-complete 93176  -- My Little Friends (35)
+complete 93176 |at 1417 53.9,39.7  -- My Little Friends (35)
 accept 1396 |npc Watcher Biggs |at 1435 26.7,59.8  -- Encroaching Wildlife (37)
 complete 1396 |at 1435 33.2,43.2 |mobs Young Sawtooth Crocolisk;Sorrow Spinner;Swamp Jaguar  -- Encroaching Wildlife (37)
 turnin 1396 |npc Watcher Biggs |at 1435 26.7,59.8  -- Encroaching Wildlife (37)

@@ -51,7 +51,7 @@ fly 1444 89.5,45.9 |from 1442 36.4,7.2 |npc Feralas (Thyssiana) |value low  -- f
 turnin 1059 |npc Falfindel Waywarder |at 1444 89.6,46.6 |value low  -- Reclaiming the Charred Vale (27)
 fly 1442 36.4,7.2 |from 1444 89.5,45.9 |npc Teloren |value low  -- flight master Thyssiana
 complete 1096 |at 1442 64.5,40.2 |mobs Gerenzo Wrenchwhistle  -- Gerenzo Wrenchwhistle (27)
-complete 1076  -- Devils in Westfall (21)
+complete 1076 |at 1436 45.6,49.3  -- Devils in Westfall (21)
 fly 1453 71.3,72.2 |from 1442 36.4,7.2 |npc Stormwind City (Dungar Longdrink)  -- flight master Teloren
 turnin 1076 |npc Collin Mauren |at 1453 53.0,86.6  -- Devils in Westfall (21)
 accept 1077 |npc Collin Mauren |at 1453 53.0,86.6  -- Special Delivery for Gaxim (21)

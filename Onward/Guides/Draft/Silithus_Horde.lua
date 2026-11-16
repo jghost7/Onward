@@ -112,7 +112,7 @@ accept 8743 |npc The Scarab Gong |at 1451 25.7,90.9 |value mid |group chain  -- 
 complete 8301 |at 1451 36.8,61.3 |mobs Hive'Zora Wasp;Hive'Ashi Swarmer;Hive'Regal Slavemaker;Hive'Regal Spitfire |group chain  -- The Path of the Righteous (60)
 complete 8361 |at 1451 38.3,46.5 |mobs Crimson Templar;Azure Templar;Hoary Templar;Earthen Templar |group elite  -- Abyssal Contacts (60)
 complete 8332 |at 1451 38.3,46.5 |mobs Crimson Templar;Azure Templar;Hoary Templar;Earthen Templar |group elite  -- Dukes of the Council (60)
-complete 8306 |mobs Mistress Natalia Mar'alith |group elite  -- Into The Maw of Madness (60)
+complete 8306 |at 1414 44.4,86.1 |mobs Mistress Natalia Mar'alith |group elite  -- Into The Maw of Madness (60)
 complete 8856 |at 1451 36.7,45.2 |mobs Twilight Geolord;Azure Templar;The Duke of Fathoms;Lord Skwol |value low  -- Desert Survival Kits (0)
 complete 8320 |at 1451 36.7,45.2 |mobs Twilight Geolord |value mid  -- Twilight Geolords (60)
 turnin 8856 |value low  -- Desert Survival Kits (0)

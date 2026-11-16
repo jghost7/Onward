@@ -131,7 +131,7 @@ turnin 97977 |npc Tarindrella |at 1438 57.8,45.2 |race NightElf  -- Nature's Cal
 turnin 459 |npc Tarindrella |at 1438 57.8,45.2 |value low  -- The Woodland Protector (3)
 turnin 5842 |npc Orenthil Whisperwind |at 1438 58.8,44.4 |race NightElf  -- Welcome! (1)
 turnin 457 |npc Conservator Ilthalaine |at 1438 58.7,44.3 |value low  -- The Balance of Nature (3)
-complete 934  -- Crown of the Earth (11)
+complete 934 |at 1457 39.2,85.6  -- Crown of the Earth (11)
 turnin 934  -- Crown of the Earth (11)
 complete 2459 |at 1438 68.6,52.3 |mobs Gnarlpine Mystic  -- Ferocitas the Dream Eater (8)
 turnin 489 |npc Zenn Foulhoof |at 1438 60.4,56.2 |value mid  -- Seek Redemption! (7)

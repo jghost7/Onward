@@ -22,7 +22,7 @@ accept 1139 |npc Advisor Belgrum |at 1455 77.3,9.7 |group dungeon  -- The Lost T
 accept 2204 |group dungeon  -- Restoring the Necklace (44)
 accept 2279  -- The Platinum Discs (47)
 turnin 2279 |npc High Explorer Magellas |at 1455 69.9,18.6  -- The Platinum Discs (47)
-complete 735 |value mid |group elite  -- The Star, the Hand and the Heart (44)
+complete 735 |at 1416 35.6,54.4 |value mid |group elite  -- The Star, the Hand and the Heart (44)
 turnin 735 |npc Gerrig Bonegrip |at 1455 50.8,5.6 |value mid |group elite  -- The Star, the Hand and the Heart (44)
 complete 1139 |group dungeon  -- The Lost Tablets of Will (45)
 turnin 1139 |npc Advisor Belgrum |at 1455 77.3,9.7 |group dungeon  -- The Lost Tablets of Will (45)

@@ -66,7 +66,7 @@ turnin 2941 |npc Curgle Cranklehop |at 1446 52.4,26.9  -- The Borrower (48)
 accept 2944 |npc Curgle Cranklehop |at 1446 52.4,26.9 |group elite  -- The Super Snapper FX (48)
 fly 1444 89.5,45.9 |from 1446 51.0,29.3 |npc Thyssiana  -- flight master Bera Stonehammer
 accept 3841 |npc Kindal Moonweaver |at 1444 65.9,45.6  -- An Orphan Looking For a Home (47)
-complete 2944 |group elite  -- The Super Snapper FX (48)
+complete 2944 |at 1425 80.4,58.2 |group elite  -- The Super Snapper FX (48)
 fly 1438 58.4,94.0 |from 1444 89.5,45.9 |npc Teldrassil (Vesprystus)  -- flight master Thyssiana
 turnin 2944 |npc Daryn Lightwind |at 1438 55.4,92.2 |group elite  -- The Super Snapper FX (48)
 accept 2943 |npc Daryn Lightwind |at 1438 55.4,92.2 |group chain  -- Return to Troyas (48)
@@ -102,7 +102,7 @@ turnin 3791 |npc Quintis Jonespyre |at 1444 32.5,43.8  -- The Mystery of Morrowg
 fly 1425 11.1,46.1 |from 1444 30.2,43.2 |npc The Hinterlands (Guthrum Thunderfist)  -- flight master Fyldren Moonfeather
 turnin 3843 |npc Agnar Beastamer |at 1425 14.2,43.6  -- The Newest Member of the Family (47)
 accept 4297 |npc Agnar Beastamer |at 1425 14.2,43.6  -- Food for Baby (47)
-complete 4297  -- Food for Baby (47)
+complete 4297 |at 1425 65.4,53.3  -- Food for Baby (47)
 turnin 4297 |npc Agnar Beastamer |at 1425 14.2,43.6  -- Food for Baby (47)
 accept 4298 |npc Agnar Beastamer |at 1425 14.2,43.6  -- Becoming a Parent (48)
 turnin 4298 |npc Agnar Beastamer |at 1425 14.2,43.6  -- Becoming a Parent (48)

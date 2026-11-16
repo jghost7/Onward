@@ -41,7 +41,7 @@ turnin 2877 |npc Fraggar Thundermantle |at 1425 14.8,44.6 |value mid  -- Skulk R
 turnin 2880 |npc Fraggar Thundermantle |at 1425 14.8,44.6  -- Troll Necklace Bounty (45)
 turnin 2988 |npc Gryphon Master Talonaxe |at 1425 9.8,44.5  -- Witherbark Cages (45)
 turnin 2994 |npc Gryphon Master Talonaxe |at 1425 9.8,44.5 |group chain  -- Saving Sharpbeak (51)
-complete 1452  -- Rhapsody's Kalimdor Kocktail (43)
+complete 1452 |at 1444 68.1,44.8  -- Rhapsody's Kalimdor Kocktail (43)
 turnin 86616 |npc Farseer Maret Firetend |at 1425 14.4,42.6 |value mid  -- Repurposed Totems (48)
 turnin 1452 |npc Rhapsody Shindigger |at 1425 26.9,48.6  -- Rhapsody's Kalimdor Kocktail (43)
 accept 1469 |npc Rhapsody Shindigger |at 1425 26.9,48.6  -- Rhapsody's Tale (43)

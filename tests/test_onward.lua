@@ -251,6 +251,28 @@ note done
     W.Guide:Activate("nav") settle()
 end
 
+-- a kill/loot step with no coordinates (its mobs over a zone border): the nearest Questie spot
+do
+    local QBr = W.QuestieBridge
+    local saved = QBr.ObjectiveSpots
+    QBr.ObjectiveSpots = function(_, q)
+        if q == 9980 then return { { map = 1424, x = 80, y = 50, name = "Far Ogre" }, { map = 1423, x = 70, y = 50, name = "Near Ogre" } } end
+    end
+    W:RegisterGuide{ id = "nopin", title = "No pin", faction = "", steps = [[
+complete 9980
+note done
+]] }
+    MOCK.addQuest(9980, "Over the border") MOCK.fire("QUEST_LOG_UPDATE")
+    MOCK.pos = { map = 1423, x = 0.5, y = 0.5 }
+    W.Guide:Activate("nopin") settle()
+    local c = W.Waypoint:Current()
+    check("step without coordinates: points at the nearest Questie spot", c and c.map == 1423 and c.x == 70, c and (c.map .. " " .. c.x))
+    check("...so the arrow shows", W.Arrow.frame.shown)
+    QBr.ObjectiveSpots = saved
+    MOCK.turnIn(9980) MOCK.fire("QUEST_TURNED_IN", 9980) MOCK.fire("QUEST_LOG_UPDATE")
+    W.Guide:Activate("nav") settle()
+end
+
 -- come back later: a busy area offers it; set-aside quests are listed, offered when you're back
 -- near them, and brought back at the end of the guide
 do
@@ -861,7 +883,7 @@ MOCK.printed = {}
 check("riverglades guides registered", W.Guide:Get("riverglades-a") and W.Guide:Get("riverglades-h"))
 local nGuides, nSteps, mismatched, noQuest, ids = 0, 0, {}, 0, {}
 for _, def in ipairs(W.Guide:All()) do
-    if not ({ test = 1, riverglades = 1, nav = 1, resume = 1, resume2 = 1, modes = 1, target = 1, group = 1, groupq = 1, trail = 1, later = 1, drops = 1, wait = 1, spots = 1 })[def.id] then
+    if not ({ test = 1, riverglades = 1, nav = 1, resume = 1, resume2 = 1, modes = 1, target = 1, group = 1, groupq = 1, trail = 1, later = 1, nopin = 1, drops = 1, wait = 1, spots = 1 })[def.id] then
         check("unique guide id " .. def.id, not ids[def.id]) ids[def.id] = true
         if def.next then check(def.id .. " next exists", W.Guide:Get(def.next) ~= nil, def.next) end
         local expect = 0

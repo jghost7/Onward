@@ -24,13 +24,13 @@ turnin 1180 |npc Wharfmaster Lozgil |at 1434 26.4,73.6  -- Goblin Sponsorship (3
 accept 1181 |npc Wharfmaster Lozgil |at 1434 26.4,73.6  -- Goblin Sponsorship (37)
 turnin 1181 |npc Baron Revilgaz |at 1434 27.2,76.9  -- Goblin Sponsorship (37)
 accept 1182 |npc Baron Revilgaz |at 1434 27.2,76.9  -- Goblin Sponsorship (37)
-complete 1108  -- Indurium (39)
+complete 1108 |at 1418 50.9,67.2  -- Indurium (39)
 fly 1418 4.0,44.8 |from 1434 26.9,77.1 |npc Badlands (Gorrik)  -- flight master Gringer
 turnin 1108 |npc Martek the Exiled |at 1418 42.2,52.7  -- Indurium (39)
 accept 1137 |npc Martek the Exiled |at 1418 42.2,52.7  -- News for Fizzle (38)
 fly 1441 45.1,49.1 |from 1418 4.0,44.8 |npc Nyse  -- flight master Gorrik
 turnin 1137 |npc Fizzle Brassbolts |at 1441 78.1,77.1  -- News for Fizzle (38)
-complete 1182  -- Goblin Sponsorship (37)
+complete 1182 |at 1434 43.3,20.3  -- Goblin Sponsorship (37)
 fly 1434 26.9,77.1 |from 1441 45.1,49.1 |npc Stranglethorn Vale (Gringer)  -- flight master Nyse
 turnin 1182 |npc Baron Revilgaz |at 1434 27.2,76.9  -- Goblin Sponsorship (37)
 accept 1183 |npc Baron Revilgaz |at 1434 27.2,76.9  -- Goblin Sponsorship (37)
@@ -40,7 +40,7 @@ accept 1190 |npc Pozzik |at 1441 80.2,75.9  -- Keeping Pace (41)
 accept 1186 |npc Pozzik |at 1441 80.2,75.9  -- The Eighteenth Pilot (37)
 turnin 1186 |npc Razzeric |at 1441 80.3,76.1  -- The Eighteenth Pilot (37)
 accept 1187 |npc Razzeric |at 1441 80.3,76.1  -- Razzeric's Tweaking (41)
-complete 1187  -- Razzeric's Tweaking (41)
+complete 1187 |at 1445 54.1,56.5  -- Razzeric's Tweaking (41)
 turnin 1187 |npc Razzeric |at 1441 80.3,76.1  -- Razzeric's Tweaking (41)
 accept 1188 |npc Razzeric |at 1441 80.3,76.1  -- Safety First (41)
 fly 1446 51.6,25.4 |from 1441 45.1,49.1 |npc Tanaris (Bulkrek Ragefist)  -- flight master Nyse

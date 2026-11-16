@@ -144,7 +144,7 @@ accept 94618 |npc Benjy Wheeler |at 2548 54.9,73.0  -- Wheeler's Fleeing Steeds 
 turnin 94618 |npc Lost Horse |at 2548 54.9,73.0  -- Wheeler's Fleeing Steeds (38)
 accept 94617 |npc Benjy Wheeler |at 2548 54.9,73.0  -- Coyote Huntin' (38)
 turnin 95943 |npc Bertrand Ironbrow |at 2548 63.4,80.6  -- Foreman's Plight (38)
-complete 96081  -- Wound Dressings (40)
+complete 96081 |at 1434 41.8,35.6  -- Wound Dressings (40)
 accept 96009 |npc Bertrand Ironbrow |at 2548 63.4,80.6 |value low  -- High Stakes (38)
 turnin 95913 |npc Tessa Dawnbright |at 2548 63.9,82.2  -- Fit for a Princess (38)
 complete 95982 |value mid  -- Not My Circus (38)

@@ -32,7 +32,7 @@ fly 1456 47.0,49.8 |from 1442 45.1,59.8 |npc Thunder Bluff (Tal) |value low  -- 
 turnin 97538 |npc Tah Winterhoof |at 1456 54.1,47.0 |value low  -- Pigments for Paints (26)
 fly 1442 45.1,59.8 |from 1456 47.0,49.8 |npc Tharm |value low  -- flight master Tal
 complete 1058 |at 1442 38.2,15.4 |mobs Antlered Courser;Sap Beast;Twilight Runner;Great Courser |value mid  -- Jin'Zil's Forest Magic (26)
-complete 1088  -- Ordanus (29)
+complete 1088 |at 1440 62.0,51.4  -- Ordanus (29)
 complete 1096 |at 1442 64.5,40.2 |mobs Gerenzo Wrenchwhistle  -- Gerenzo Wrenchwhistle (27)
 turnin 1096 |npc Ziz Fizziks |at 1442 59.0,62.6  -- Gerenzo Wrenchwhistle (27)
 turnin 79974 |npc Carved Figurine |at 1432 49.4,12.9  -- Wet Job (32)

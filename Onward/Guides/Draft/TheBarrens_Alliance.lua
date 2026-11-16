@@ -39,7 +39,7 @@ turnin 97005 |npc Bainham |at 1413 61.9,39.4 |group elite  -- Chol'aruk the Rave
 complete 865 |at 1413 52.6,46.0 |mobs Sunscale Scytheclaw;Ishamuhale;Takk the Leaper |value mid  -- Raptor Horns (18)
 accept 79192 |npc Nailed Plank |at 1413 46.4,73.8  -- Stepping Stones (24)
 turnin 3370 |npc Mathrengyl Bearwalker |at 1457 35.4,8.4  -- In Nightmares (25)
-complete 1069 |value mid  -- Deepmoss Spider Eggs (20)
+complete 1069 |at 1442 61.6,59.4 |value mid  -- Deepmoss Spider Eggs (20)
 turnin 1483 |npc Ziz Fizziks |at 1442 59.0,62.6  -- Ziz Fizziks (21)
 turnin 79192 |npc Pocket Litter |at 1442 40.8,52.6  -- Stepping Stones (24)
 accept 1142 |group dungeon  -- Mortality Wanes (30)

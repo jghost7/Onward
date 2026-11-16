@@ -67,6 +67,21 @@ function WP:Resolve(step)
         local ok, map, x, y = pcall(C_QuestLog.GetNextWaypoint, step.quest)
         if ok and map and x then return map, x * 100, y * 100, nil end
     end
+    -- a kill/loot step the guide has no place for (its mobs are over a zone border, say): the
+    -- nearest place Questie knows the objective can be done
+    if step.verb == "complete" and step.quest then
+        local spots = QB:ObjectiveSpots(step.quest)
+        if spots then
+            local pc, px, py = T.PlayerWorld()
+            local best, bestD
+            for _, s in ipairs(spots) do
+                local c, wx, wy = T.World(s.map, s.x, s.y)
+                local d = c and pc == c and (wx - px) ^ 2 + (wy - py) ^ 2 or math.huge
+                if not best or d < bestD then best, bestD = s, d end
+            end
+            if best then return best.map, best.x, best.y, best.name end
+        end
+    end
 end
 
 -- fly steps: before take-off the pin is the departure flight master, after it the destination

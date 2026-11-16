@@ -13,7 +13,7 @@ accept 3509 |npc Loramus Thalipedes |at 1447 60.8,66.3  -- The Name of the Beast
 complete 91611 |at 1447 76.3,74.9 |mobs Mammoth Shark |value low |group elite  -- Deadliest Catch (56)
 accept 6805 |npc Duke Hydraxis |at 1447 79.3,73.7  -- Stormers and Rumblers (57)
 accept 6804 |npc Duke Hydraxis |at 1447 79.3,73.7  -- Poisoned Water (56)
-complete 6805 |mobs Dust Stormer;Desert Rumbler  -- Stormers and Rumblers (57)
+complete 6805 |at 1451 22.8,19.2 |mobs Dust Stormer;Desert Rumbler  -- Stormers and Rumblers (57)
 turnin 3509 |npc Lord Arkkoroc |at 1447 77.1,42.8  -- The Name of the Beast (58)
 accept 3510 |npc Lord Arkkoroc |at 1447 77.1,42.8 |group elite  -- The Name of the Beast (58)
 complete 3510 |at 1447 56.7,44.8 |mobs Hetaera |group elite  -- The Name of the Beast (58)
@@ -36,7 +36,7 @@ fly 1456 47.0,49.8 |from 1454 45.1,63.9 |npc Thunder Bluff (Tal)  -- flight mast
 turnin 92346 |npc Nara Wildmane |at 1456 75.7,31.6  -- Beneath Nordrassil (55)
 fly 1447 22.0,49.6 |from 1456 47.0,49.8 |npc Kroum  -- flight master Tal
 turnin 91500 |npc Ag'tor Bloodfist |at 1447 22.3,51.5  -- An Explosive Gambit (55)
-complete 6804  -- Poisoned Water (56)
+complete 6804 |at 1423 53.4,66.0  -- Poisoned Water (56)
 turnin 91611 |npc Kurll |at 1447 21.8,52.1 |value low |group elite  -- Deadliest Catch (56)
 turnin 6805 |npc Duke Hydraxis |at 1447 79.3,73.7  -- Stormers and Rumblers (57)
 turnin 6804 |npc Duke Hydraxis |at 1447 79.3,73.7  -- Poisoned Water (56)

@@ -102,7 +102,7 @@ accept 95420 |npc Tran'gul |at 2548 59.5,44.0 |group chain  -- Land of Giants (4
 complete 94481 |at 2548 59.9,37.9 |mobs Rog'mar Trainee  -- A Serving of Strength (38)
 turnin 95420 |npc Clugfist |at 2548 64.2,15.7 |group chain  -- Land of Giants (40)
 accept 95425 |npc Clugfist |at 2548 64.2,15.7 |group chain  -- Unworthy Champion (42)
-complete 95162  -- Paletusk Harvesting (41)
+complete 95162 |at 1411 45.7,44.6  -- Paletusk Harvesting (41)
 accept 95424 |npc Clugfist |at 2548 64.2,15.7 |group chain  -- Might Makes Right (41)
 complete 95882 |at 2548 76.0,33.9 |mobs Scoutmaster Vargas |group elite  -- WANTED: Scoutmaster Vargas (43)
 complete 95424 |at 2548 76.2,28.6 |mobs Twilight Mauler;Twilight Firecaller |group chain  -- Might Makes Right (41)

@@ -21,7 +21,7 @@ complete 630 |at 1434 41.0,83.9 |mobs King Mukla |group elite  -- Message in a B
 turnin 630 |npc Princess Poobah |at 1434 38.5,80.6 |group elite  -- Message in a Bottle (51)
 fly 1445 67.5,51.3 |from 1434 27.5,77.8 |npc Dustwallow Marsh (Baldruc)  -- flight master Gyll
 accept 626 |npc Musty Scroll |at 1445 31.1,66.1  -- Cortello's Riddle (51)
-complete 580  -- Whiskey Slim's Lost Grog (50)
+complete 580 |at 1425 77.4,70.3  -- Whiskey Slim's Lost Grog (50)
 fly 1434 27.5,77.8 |from 1445 67.5,51.3 |npc Gyll  -- flight master Baldruc
 complete 618 |at 1434 32.5,81.6 |mobs Negolash |value mid |group elite  -- Facing Negolash (50)
 fly 1425 11.1,46.1 |from 1434 27.5,77.8 |npc The Hinterlands (Guthrum Thunderfist)  -- flight master Gyll

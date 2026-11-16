@@ -85,7 +85,7 @@ complete 1386 |at 1443 70.1,45.5 |mobs Kolkar Centaur;Kolkar Scout;Kolkar Mauler
 complete 1384 |at 1443 71.5,45.5 |mobs Kolkar Battle Lord;Kolkar Windchaser;Kolkar Mauler;Kolkar Scout  -- Raid on the Kolkar (32)
 turnin 1386 |npc Warug |at 1443 75.0,68.2  -- Assault on the Kolkar (32)
 turnin 1371 |npc Warug |at 1443 75.0,68.2  -- Gizmo for Warug (35)
-complete 1373  -- Ongeku (37)
+complete 1373 |at 1435 65.1,22.0  -- Ongeku (37)
 accept 1375 |npc Warug |at 1443 75.0,68.2  -- Khan Shaka (37)
 complete 1375 |at 1443 40.5,95.5 |mobs Khan Shaka  -- Khan Shaka (37)
 accept 92814 |npc Molkar |at 1443 35.7,92.2  -- I Need a Tailor (35)

@@ -233,36 +233,67 @@ class Zone:
         fb = fb if isinstance(fb, dict) else dict(enumerate(lua_list(fb), 1))
         return self.place("npc", fb.get(1)) or self.place("obj", fb.get(2))
 
-    def item_points(self, item):
+    def any_points(self, spawns):
+        """spawns -> [(uiMap, (x, y))] on every open-world map (dungeon interiors left out)."""
         pts = []
-        for n in lua_list(self.db.field("Item-", item, 2)):          # npcDrops
-            pts += self.zone_points(self.db.npc(n, "spawns"))
-        for o in lua_list(self.db.field("Item-", item, 3)):          # objectDrops
-            pts += self.zone_points(self.db.obj(o, "spawns"))
+        spawns = as_area_map(spawns)
+        if spawns:
+            for area, lst in spawns.items():
+                m = self.a2m.get(area)
+                if not m or m in self.dungeon_maps:
+                    continue
+                for c in lua_list(lst):
+                    c = lua_list(c)
+                    if len(c) >= 2 and c[0] is not None and c[0] >= 0:
+                        pts.append((m, (float(c[0]), float(c[1]))))
         return pts
 
-    def objective_points(self, q):
+    def far_objective(self, q):
+        """(uiMap, (x, y)) for objectives that lie outside this zone: the medoid on the map that
+        holds most of their spawns (the mobs over the border in Alterac, say), or None."""
+        by_map = {}
+        for m, xy in self.objective_points(q, self.any_points):
+            by_map.setdefault(m, []).append(xy)
+        by_map.pop(self.map, None)
+        if not by_map:
+            return None
+        m = max(by_map, key=lambda k: len(by_map[k]))
+        return m, medoid(by_map[m])
+
+    def item_points(self, item, collect=None):
+        collect = collect or self.zone_points
+        pts = []
+        for n in lua_list(self.db.field("Item-", item, 2)):          # npcDrops
+            pts += collect(self.db.npc(n, "spawns"))
+        for o in lua_list(self.db.field("Item-", item, 3)):          # objectDrops
+            pts += collect(self.db.obj(o, "spawns"))
+        return pts
+
+    def objective_points(self, q, collect=None):
+        """objective spawn points on this zone's map (or, with collect=self.any_points, on every
+        open-world map as (map, (x, y)))"""
+        collect = collect or self.zone_points
         pts = []
         obj = self.db.quest(q, "objectives")
         groups = obj if isinstance(obj, dict) else dict(enumerate(lua_list(obj), 1))
         for e in lua_list(groups.get(1)):                            # creatures
-            pts += self.zone_points(self.db.npc(lua_list(e)[0], "spawns"))
+            pts += collect(self.db.npc(lua_list(e)[0], "spawns"))
         for e in lua_list(groups.get(2)):                            # objects
-            pts += self.zone_points(self.db.obj(lua_list(e)[0], "spawns"))
+            pts += collect(self.db.obj(lua_list(e)[0], "spawns"))
         for e in lua_list(groups.get(3)):                            # items
-            pts += self.item_points(lua_list(e)[0])
+            pts += self.item_points(lua_list(e)[0], collect)
         for e in lua_list(groups.get(5)):                            # kill credit: [[npcIds], creditId, text]
             for n in lua_list(lua_list(e)[0]):
-                pts += self.zone_points(self.db.npc(n, "spawns"))
+                pts += collect(self.db.npc(n, "spawns"))
         trig = self.db.quest(q, "triggerEnd")
         if trig:
             t = lua_list(trig)
             if len(t) > 1:
-                pts += self.zone_points(t[1])
+                pts += collect(t[1])
         for e in lua_list(self.db.quest(q, "extraObjectives")):
             e = lua_list(e)
             if e and isinstance(e[0], dict):
-                pts += self.zone_points(e[0])
+                pts += collect(e[0])
         return pts
 
     def mob_names(self, q, limit=4):
@@ -301,7 +332,7 @@ class Zone:
             "id": q, "name": s(db.quest(q, "name")) or f"quest {q}",
             "level": db.quest(q, "questLevel") or 0, "minLevel": db.quest(q, "requiredLevel") or 0,
             "start": start, "startItem": item, "finish": self.finisher(q),
-            "obj": medoid(pts) if pts else None, "hasObjectives": bool(db.quest(q, "objectives") or db.quest(q, "triggerEnd")),
+            "obj": medoid(pts) if pts else None, "objFar": None if pts else self.far_objective(q), "hasObjectives": bool(db.quest(q, "objectives") or db.quest(q, "triggerEnd")),
             "preAny": [p for p in lua_list(db.quest(q, "preQuestSingle")) if p],
             "preAll": [p for p in lua_list(db.quest(q, "preQuestGroup")) if p],
             "exclusive": [p for p in lua_list(db.quest(q, "exclusiveTo")) if p],
@@ -746,7 +777,7 @@ def render(zone, steps, leftovers, levels, name, faction, gid=None, next_id=None
             note = f" |note Starts from {clean(q['startItem'])}" if q["startItem"] else ""
             out.append(f"accept {q['id']}{npc}{fmt_at(loc)}{note}{who}{title}")
         elif verb == "complete":
-            at = f" |at {zone.map} {q['obj'][0]:.1f},{q['obj'][1]:.1f}" if q["obj"] else ""
+            at = f" |at {zone.map} {q['obj'][0]:.1f},{q['obj'][1]:.1f}" if q["obj"] else fmt_at(q.get("objFar"))
             mobs = f" |mobs {';'.join(q['mobs'])}" if q.get("mobs") else ""
             out.append(f"complete {q['id']}{at}{mobs}{who}{title}")
         else:

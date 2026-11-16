@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.4.1
+
+- Nav arrow on kill and loot steps whose mobs are over a zone border, like Bracers of Binding
+  and The Crown of Will (Hillsbrad quests done in Alterac Mountains). The guides now point into
+  the neighbouring zone: 133 more steps have a location.
+- Any step still without a location falls back to the nearest place Questie knows the objective
+  can be done, instead of showing no arrow.
+
 ## 0.4.0
 
 - **Come back later.** When an area is overrun and you're fighting other players for tags, set

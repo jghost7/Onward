@@ -21,7 +21,7 @@ complete 93430 |at 1435 53.7,30.6 |mobs Lost One Fisherman  -- Taking the Bait B
 complete 1389 |at 1435 62.3,23.6  -- Draenethyst Crystals (35)
 complete 698 |at 1435 78.0,28.4 |mobs Sawtooth Snapper;Sawtooth Crocolisk  -- Lack of Surplus (40)
 turnin 698 |npc Tok'Kar |at 1435 81.3,81.0  -- Lack of Surplus (40)
-complete 93176  -- My Little Friends (35)
+complete 93176 |at 1417 53.9,39.7  -- My Little Friends (35)
 fly 1434 26.9,77.1 |from 1435 46.1,54.8 |npc Stranglethorn Vale (Gringer) |value mid  -- flight master Breyk
 turnin 1116 |npc Krazek |at 1434 26.9,77.2 |value mid  -- Dream Dust in the Swamp (36)
 fly 1435 46.1,54.8 |from 1434 26.9,77.1 |npc Breyk |value mid  -- flight master Gringer

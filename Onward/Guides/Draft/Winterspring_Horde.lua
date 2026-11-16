@@ -79,7 +79,7 @@ fly 1452 60.5,36.3 |from 1448 34.4,54.0 |npc Yugrek  -- flight master Brakkar
 complete 5056 |at 1452 49.8,9.8 |mobs Shy-Rotam |group elite  -- Shy-Rotam (60)
 complete 97404 |at 1452 59.0,10.6 |mobs Kuroma;Kamuro  -- Too Bad to Bear (59)
 turnin 97404  -- Too Bad to Bear (59)
-complete 5086  -- Toxic Horrors (56)
+complete 5086 |at 1448 48.9,24.7  -- Toxic Horrors (56)
 turnin 977 |npc Umi Rumplesnicker |at 1452 60.9,37.6  -- Are We There, Yeti? (58)
 accept 5163 |npc Umi Rumplesnicker |at 1452 60.9,37.6  -- Are We There, Yeti? (58)
 accept 6606 |npc Harlo Wigglesworth |at 1452 61.1,38.4  -- A Little Luck (60)

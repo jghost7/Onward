@@ -22,7 +22,7 @@ fly 1445 35.6,31.9 |from 1434 26.9,77.1 |npc Dustwallow Marsh (Shardi)  -- fligh
 accept 626 |npc Musty Scroll |at 1445 31.1,66.1  -- Cortello's Riddle (51)
 fly 1425 81.7,81.8 |from 1445 35.6,31.9 |npc The Hinterlands (Gorkas)  -- flight master Shardi
 turnin 626 |npc Cortello's Treasure |at 1425 80.8,46.8  -- Cortello's Riddle (51)
-complete 580  -- Whiskey Slim's Lost Grog (50)
+complete 580 |at 1425 77.4,70.3  -- Whiskey Slim's Lost Grog (50)
 fly 1434 26.9,77.1 |from 1425 81.7,81.8 |npc Gringer  -- flight master Gorkas
 accept 3721 |npc Oglethorpe Obnoticus |at 1434 28.4,76.3  -- An OOX of Your Own (50)
 turnin 3721 |npc Oglethorpe Obnoticus |at 1434 28.4,76.3  -- An OOX of Your Own (50)

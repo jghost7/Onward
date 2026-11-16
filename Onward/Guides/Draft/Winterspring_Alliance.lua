@@ -78,7 +78,7 @@ turnin 5082 |npc Donova Snowden |at 1452 31.3,45.2 |value low  -- Threat of the 
 turnin 5085 |npc Donova Snowden |at 1452 31.3,45.2  -- Mystery Goo (56)
 accept 5086 |npc Donova Snowden |at 1452 31.3,45.2  -- Toxic Horrors (56)
 turnin 6603 |npc Donova Snowden |at 1452 31.3,45.2  -- Trouble in Winterspring! (56)
-complete 5086  -- Toxic Horrors (56)
+complete 5086 |at 1448 48.9,24.7  -- Toxic Horrors (56)
 turnin 5086 |npc Donova Snowden |at 1452 31.3,45.2  -- Toxic Horrors (56)
 accept 5087 |npc Donova Snowden |at 1452 31.3,45.2  -- Winterfall Runners (57)
 turnin 5121 |npc Donova Snowden |at 1452 31.3,45.2 |group elite  -- High Chief Winterfall (59)
