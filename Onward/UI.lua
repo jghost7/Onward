@@ -680,7 +680,7 @@ toastStripe:SetPoint("TOPLEFT", 1, -1)
 toastStripe:SetPoint("BOTTOMLEFT", 1, 1)
 toastStripe:SetWidth(2)
 S.Accent(toastStripe, "color")
-local function themeToast() toastStripe:SetShown(S.Theme() == "flat") end
+local function themeToast() toastStripe:SetShown(S.Square()) end
 themeToast()
 W:On("WF_THEME_CHANGED", themeToast)
 local toastText = fs(toast, 12, C.text)

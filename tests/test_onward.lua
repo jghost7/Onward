@@ -594,10 +594,16 @@ check("a clearly closer spot takes over", W.Waypoint:ArrowTarget().sub == "neare
 QB2.ObjectiveSpots = realSpots
 MOCK.finish(990) MOCK.turnIn(990) MOCK.fire("QUEST_TURNED_IN", 990) MOCK.fire("QUEST_LOG_UPDATE") settle()
 
--- theme: flat by default, glass on request, EllesmereUI's looks when it's installed
+-- theme: onward by default, flat and glass on request, EllesmereUI's looks in flat
 local SK = W.Skin
 local pg = W.UI.panel.glass
-check("flat theme by default", SK.Theme() == "flat" and pg.strip.shown and not pg.grain.shown)
+check("onward theme by default", SK.Theme() == "onward" and pg.strip.shown and not pg.grain.shown)
+check("onward: gold accent, teal panel, gold border", math.abs(SK.ACCENT[1] - 0.890) < 0.01 and math.abs(SK.PANEL[2] - 0.149) < 0.01
+      and SK.BORDER[1] > 0.7 and SK.AccentHex() == "ffe2c153", SK.AccentHex())
+check("onward headlines in Friz Quadrata", SK.FontPath("head") == SK.FONT_HEAD and SK.FontPath("body") == SK.FONT_BODY)
+W.db.theme = "flat" SK.Refresh()
+check("flat theme on request", SK.Theme() == "flat" and pg.strip.shown and not pg.grain.shown and SK.BORDER[1] == 0
+      and SK.FontPath("head") == SK.FONT_BODY)
 check("flat panel uses a square fill, not the rounded slices", pg.body.flat[1].shown and not pg.body.parts[1].shown)
 W.db.theme = "glass" SK.Refresh()
 check("glass theme switches live", not pg.strip.shown and pg.grain.shown and pg.body.parts[1].shown and not pg.body.flat[1].shown)

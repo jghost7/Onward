@@ -81,7 +81,7 @@ For "collect" quests, each item objective shows your own drop rate per kill and 
 
 ## Looks and feel
 
-A compact panel showing the current step, its objectives and what comes next. The default look is flat and dark with a green accent; with **EllesmereUI** installed it takes your EllesmereUI accent colour, panel colour and font. Prefer frosted glass? It's under Options > Panel > Look. Opacity, size, number of upcoming steps and more are in the options (`/ow options`, the gear on the panel, or Esc > Options > AddOns).
+A compact panel showing the current step, its objectives and what comes next. The default look matches the logo: deep teal panels with a gold border and gold highlights. Options > Panel > Look also has a plain flat dark look (with **EllesmereUI** installed it takes your EllesmereUI accent colour, panel colour and font) and frosted glass. Opacity, size, number of upcoming steps and more are in the options (`/ow options`, the gear on the panel, or Esc > Options > AddOns).
 
 ## Write your own routes
 

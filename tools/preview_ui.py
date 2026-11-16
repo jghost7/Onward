@@ -18,6 +18,8 @@ TINT = (14, 17, 23)
 ACCENT = (12, 210, 157)                  # Ellesmere green #0CD29D (flat theme default)
 PANEL = (17, 18, 20)
 THEME = "flat"
+BORDER = (0, 0, 0, 255)
+STRIP = (0, 0, 0, int(255 * 0.35))
 TEXT, SUB, DIM = (237, 240, 245), (158, 166, 179), (115, 122, 133)
 COL = {"accept": (255, 209, 64), "turnin": (102, 217, 115), "complete": (115, 179, 255), "fly": (191, 153, 255)}
 BODY = r"C:\Windows\Fonts\ARIALN.TTF"
@@ -80,15 +82,15 @@ def flatpanel(base, x, y, w, h, alpha=0.85, strip=0):
     base.alpha_composite(layer)
     if strip:
         layer = Image.new("RGBA", base.size, (0, 0, 0, 0))
-        ImageDraw.Draw(layer).rectangle([x + 1, y + 1, x + w - 1, y + int(strip * K)], fill=(0, 0, 0, int(255 * 0.35)))
+        ImageDraw.Draw(layer).rectangle([x + 1, y + 1, x + w - 1, y + int(strip * K)], fill=STRIP)
         base.alpha_composite(layer)
     layer = Image.new("RGBA", base.size, (0, 0, 0, 0))
-    ImageDraw.Draw(layer).rectangle([x, y, x + w, y + h], outline=(0, 0, 0, 255), width=max(1, int(K)))
+    ImageDraw.Draw(layer).rectangle([x, y, x + w, y + h], outline=BORDER, width=max(1, int(K)))
     base.alpha_composite(layer)
 
 
 def surface(base, x, y, w, h, alpha=0.72, corner=12, strip=0):
-    if THEME == "flat":
+    if THEME != "glass":
         flatpanel(base, x, y, w, h, 0.85 if alpha >= 0.7 else alpha + 0.2, strip)
     else:
         glass(base, x, y, w, h, alpha, corner)
@@ -132,12 +134,12 @@ def panel(base, X, Y):
     cx, cy = X + PAD, Y + 46
     inset = Image.new("RGBA", base.size, (0, 0, 0, 0))
     box = [(cx - 8) * K, (cy - 8) * K, (X + W - PAD + 8) * K, (cy + 44) * K]
-    if THEME == "flat":
+    if THEME != "glass":
         ImageDraw.Draw(inset).rectangle(box, fill=(255, 255, 255, 12), outline=(255, 255, 255, 16), width=int(K))
     else:
         ImageDraw.Draw(inset).rounded_rectangle(box, radius=10 * K, fill=(255, 255, 255, 12), outline=(255, 255, 255, 16), width=int(K))
     base.alpha_composite(inset)
-    if THEME == "flat":
+    if THEME != "glass":
         overlay(base, lambda d: d.rectangle([cx * K, (cy - 1) * K, (cx + 20) * K, (cy + 19) * K], fill=COL["accept"] + (255,)))
     else:
         icon(base, "circle", cx + 10, cy + 9, 20, COL["accept"])
@@ -179,6 +181,10 @@ def main():
     if THEME == "flat":
         global HEAD
         HEAD = BODY          # flat theme: one clean face throughout
+    if THEME == "onward":    # the logo's palette (Skin.lua S.ONWARD)
+        global ACCENT, PANEL, BORDER, STRIP
+        ACCENT, PANEL = (227, 193, 84), (10, 38, 38)
+        BORDER, STRIP = (185, 121, 18, 178), (1, 23, 23, 166)
     base = Image.open(shot).convert("RGBA")
     sx = base.width / 3840
     if sx != 1:

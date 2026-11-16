@@ -137,7 +137,7 @@ end
 local ACC = W.Skin.ACCENT       -- shared with the theme; read live on hover
 W.Skin.Accent(icon, "vertex")
 local function themeHover()   -- the button's backdrop follows the theme: circle or square
-    if W.Skin.Theme() == "flat" then hover:SetTexture("Interface\\Buttons\\WHITE8x8") else hover:SetTexture(MEDIA .. "circle") end
+    if W.Skin.Square() then hover:SetTexture("Interface\\Buttons\\WHITE8x8") else hover:SetTexture(MEDIA .. "circle") end
 end
 themeHover()
 W:On("WF_THEME_CHANGED", themeHover)

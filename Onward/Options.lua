@@ -246,6 +246,7 @@ check(1, "autoTaxi", "Pick the flight automatically", "At the flight master, tak
 
 section(2, "Panel")
 choice(2, "theme", "Look", {
+    { value = "onward", label = "Onward", tip = "The logo's look: deep teal panels, a thin gold border and gold highlights." },
     { value = "flat", label = "Flat", tip = "Ellesmere-style: solid dark panels, thin borders, square buttons. With EllesmereUI installed it uses your EllesmereUI accent colour, panel colour and font." },
     { value = "glass", label = "Glass", tip = "Frosted glass: see-through panels with rounded corners and soft light." },
 }, nil, function() S.Refresh() end)

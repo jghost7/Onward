@@ -1,3 +1,5 @@
+<p align="center"><img src="art/onward-logo-400.png" alt="Onward" width="260"></p>
+
 # Onward
 
 [![Download](https://img.shields.io/github/v/release/jghost7/Onward?label=download&style=for-the-badge)](https://github.com/jghost7/Onward/releases/latest/download/Onward.zip)
@@ -13,6 +15,8 @@ A free leveling and profession guide for **World of Warcraft: Forever** (formerl
 4. Start the game (or `/reload`) and type `/ow` to show the panel, or `/ow guides` to pick a guide.
 
 Don't use the green **Code > Download ZIP** button: that's the source with the build tools, not the addon.
+
+<p align="center"><img src="art/preview-onward.png" alt="The Onward panel" width="420"></p>
 
 Optional: [Questie](https://github.com/Questie/Questie) for more accurate quest locations, party progress and expected drop rates; TomTom for extra waypoints.
 

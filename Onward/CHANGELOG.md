@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.1
+
+- New look to match the logo, and the default for new installs: deep teal panels, a thin gold
+  border, gold highlights and Warcraft-style headings. Already using Flat or Glass? Pick
+  **Onward** under Options > Panel > Look.
+
 ## 0.3.0
 
 - **Sloppy Questing is now Onward.** Same addon, new name. The command is `/ow` (or `/onward`);

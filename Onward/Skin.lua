@@ -1,6 +1,9 @@
--- Theme: the look shared by every Onward window. Two themes, switchable live:
+-- Theme: the look shared by every Onward window. Three themes, switchable live:
+--   onward (default) the logo's look: flat geometry in deep teal (#0A2626) with a thin gold
+--         border, gold accent (#E3C154, the logo's lettering) and Friz Quadrata headlines.
+--         Its own palette, so EllesmereUI's colours and font don't apply to it.
 --
---   flat  (default) Ellesmere-style: solid dark panels, 1px borders, a darker title strip,
+--   flat  Ellesmere-style: solid dark panels, 1px borders, a darker title strip,
 --         square buttons, checkboxes and badges, one accent colour (Ellesmere green #0CD29D).
 --         With EllesmereUI installed, its public skinning API supplies the user's own accent,
 --         panel colour and font, and live changes there repaint our windows. Nothing of
@@ -35,10 +38,24 @@ S.STRIP = { 0, 0, 0, 0.35 }          -- flat title strip, over the body
 
 local panels, nines, accents, fonts, hovers, badges = {}, {}, {}, {}, {}, {}
 
+local THEMES = { onward = true, flat = true, glass = true }
 function S.Theme()
-    return (W.db and W.db.theme) == "glass" and "glass" or "flat"
+    local t = W.db and W.db.theme
+    return THEMES[t] and t or "onward"
 end
-local function flat() return S.Theme() == "flat" end
+-- square geometry (solid fills, 1px borders, square badges): every theme but glass
+local function flat() return S.Theme() ~= "glass" end
+S.Square = flat
+
+-- the Onward palette, sampled from the logo
+S.ONWARD = {
+    accent = { 0.890, 0.757, 0.329 },   -- #E3C154 gold lettering
+    panel  = { 0.039, 0.149, 0.149 },   -- #0A2626 deep teal, a step up from the logo's #012222
+    border = { 0.725, 0.475, 0.071, 0.70 }, -- #B97912 the ring's darker gold
+    strip  = { 0.004, 0.090, 0.090, 0.65 }, -- #011717 darker teal title strip
+    jade   = { 0.106, 0.584, 0.478 },   -- #1B957A mountains
+    glow   = { 0.988, 0.906, 0.592 },   -- #FCE797 the lit path
+}
 
 ---------------------------------------------------------------------------
 -- EllesmereUI (optional): accent, panel colour and font from the user's EUI theme
@@ -48,8 +65,11 @@ local DEFAULT_ACCENT = { S.ACCENT[1], S.ACCENT[2], S.ACCENT[3] }
 local DEFAULT_PANEL = { S.PANEL[1], S.PANEL[2], S.PANEL[3] }
 local function pullLooks()
     local a, p = DEFAULT_ACCENT, DEFAULT_PANEL
+    local border, strip = { 0, 0, 0, 1 }, { 0, 0, 0, 0.35 }
     S.fontOverride = nil
-    if eui and (not eui.IsEnabled or eui.IsEnabled()) then
+    if S.Theme() == "onward" then
+        a, p, border, strip = S.ONWARD.accent, S.ONWARD.panel, S.ONWARD.border, S.ONWARD.strip
+    elseif eui and (not eui.IsEnabled or eui.IsEnabled()) then
         local ok, r, g, b = pcall(eui.GetAccentColor)
         if ok and r then a = { r, g, b } end
         local ok2, pr, pg, pb = pcall(eui.GetPanelColor)
@@ -59,6 +79,7 @@ local function pullLooks()
     end
     S.ACCENT[1], S.ACCENT[2], S.ACCENT[3] = a[1], a[2], a[3]
     S.PANEL[1], S.PANEL[2], S.PANEL[3] = p[1], p[2], p[3]
+    for i = 1, 4 do S.BORDER[i], S.STRIP[i] = border[i], strip[i] end
 end
 function S.UsingEllesmere() return eui ~= nil end
 
@@ -177,7 +198,7 @@ function S.Glass(frame, opts)
         self.alpha = a
         if flat() then
             g.body:SetColor(S.PANEL[1], S.PANEL[2], S.PANEL[3], a)
-            g.rim:SetColor(S.BORDER[1], S.BORDER[2], S.BORDER[3], math.min(1, a + 0.15))
+            g.rim:SetColor(S.BORDER[1], S.BORDER[2], S.BORDER[3], S.BORDER[4] * math.min(1, a + 0.15))
         else
             local t = opts.tint or S.TINT
             g.body:SetColor(t[1], t[2], t[3], a)
@@ -255,10 +276,10 @@ function S.AccentHex()
 end
 
 -- fonts: EllesmereUI's font when it supplies one, otherwise headline / body defaults
--- (flat keeps one clean face throughout; glass sets headlines in the game's Friz Quadrata)
+-- (flat keeps one clean face throughout; glass and onward set headlines in the game's Friz Quadrata)
 function S.FontPath(kind)
     if S.fontOverride then return S.fontOverride end
-    return (kind == "head" and not flat()) and S.FONT_HEAD or S.FONT_BODY
+    return (kind == "head" and S.Theme() ~= "flat") and S.FONT_HEAD or S.FONT_BODY
 end
 function S.Font(fs, size, kind, flags)
     fonts[#fonts + 1] = { fs, size, kind or "body", flags or "" }
