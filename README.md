@@ -20,7 +20,10 @@ A leveling guide addon for WoW Forever (interface 16001). The code is written fr
 
 1. Write what changed under a new `## <version>` heading in `SloppyQuesting/CHANGELOG.md`.
 2. `python tools/package.py --bump patch` (or `minor` / `major`). It runs the tests and stops on a failure, writes the version into `SloppyQuesting.toc` (the only place it lives; the game reads it from there), and writes `dist/SloppyQuesting-<version>.zip` with one top-level `SloppyQuesting/` folder. It then reopens the zip and checks that every file the TOC and `Guides.xml` load is inside. It never overwrites a zip that already exists for that version.
-3. Upload the zip on CurseForge: release type Beta for test builds, the WoW Forever game version, and the changelog entry. Questie and TomTom go under Relations as optional dependencies.
+3. Commit, push, and attach the zip to a GitHub release (source: https://github.com/jghost7/SloppyQuesting):
+   `git commit -am "<version>"`, `git push`, then
+   `gh release create v<version> dist/SloppyQuesting-<version>.zip --title "Sloppy Questing <version>" --notes-file <that changelog entry> --prerelease`.
+4. Upload the zip on CurseForge: release type Beta for test builds, the WoW Forever game version, and the changelog entry. Questie and TomTom go under Relations as optional dependencies.
 
 License: GPL-3.0 (`SloppyQuesting/LICENSE.txt`), required because the guides are generated from Questie's GPL data; `SloppyQuesting/CREDITS.txt` says so in the shipped addon.
 
