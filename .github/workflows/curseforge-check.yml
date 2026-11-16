@@ -1,0 +1,19 @@
+name: CurseForge check
+
+# Run by hand (Actions > CurseForge check > Run workflow): checks the CF_API_KEY secret works and
+# shows which WoW Forever game version uploads will use. Uploads nothing.
+
+on:
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - env:
+          CF_API_KEY: ${{ secrets.CF_API_KEY }}
+        run: python tools/cf_upload.py --project 1808625 --dry-run
