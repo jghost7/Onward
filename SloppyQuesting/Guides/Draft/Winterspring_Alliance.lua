@@ -1,0 +1,89 @@
+-- DRAFT Winterspring (Alliance) generated 2026-11-16 by tools/draft_guide.py
+-- from Questie's Forever database (GPL-3.0). The order is computed, not played:
+-- play it with /sq rec running and fix what feels wrong. Coordinates are spawn medoids.
+SloppyQuesting:RegisterGuide{
+  id = "winterspring-a", title = "Winterspring (54-60)", faction = "Alliance", zone = "Winterspring",
+  levels = { 54, 60 },
+  steps = [[
+accept 969 |npc Witch Doctor Mau'ari |at 1452 61.9,38.3 |value mid  -- Luck Be With You (60)
+fly 1438 58.4,94.0 |from 1452 62.3,36.6 |npc Teldrassil (Vesprystus)  -- flight master Maethrya
+accept 4902 |npc Erelas Ambersky |at 1438 55.5,92.0  -- Wildkin of Elune (57)
+fly 1452 62.3,36.6 |from 1438 58.4,94.0 |npc Maethrya  -- flight master Vesprystus
+accept 4809 |npc Felnok Steelspring |at 1452 61.6,38.6 |value mid  -- Chillwind Horns (54)
+accept 6030 |npc Gregor Greystone |at 1452 61.4,39.0  -- Duke Nicholas Zverenhoff (52)
+accept 6028 |npc Gregor Greystone |at 1452 61.4,39.0  -- The Everlook Report (52)
+accept 6604 |npc Harlo Wigglesworth |at 1452 61.1,38.4  -- Enraged Wildkin (59)
+accept 3783 |npc Umi Rumplesnicker |at 1452 60.9,37.6 |value mid  -- Are We There, Yeti? (56)
+complete 3783 |at 1452 54.4,36.3 |mobs Ice Thistle Yeti;Rogue Ice Thistle |value mid  -- Are We There, Yeti? (56)
+turnin 3783 |npc Umi Rumplesnicker |at 1452 60.9,37.6 |value mid  -- Are We There, Yeti? (56)
+accept 977 |npc Umi Rumplesnicker |at 1452 60.9,37.6 |value mid  -- Are We There, Yeti? (58)
+accept 5244 |npc Wynd Nightchaser |at 1452 52.0,30.4  -- The Ruins of Kel'Theril (56)
+turnin 6604 |npc Jaron Stoneshaper |at 1452 52.1,30.4  -- Enraged Wildkin (59)
+turnin 5244 |npc Jaron Stoneshaper |at 1452 52.1,30.4  -- The Ruins of Kel'Theril (56)
+accept 5245 |npc Jaron Stoneshaper |at 1452 52.1,30.4  -- Troubled Spirits of Kel'Theril (56)
+accept 4861 |npc Jaron Stoneshaper |at 1452 52.1,30.4  -- Enraged Wildkin (59)
+accept 8471 |at 1452 42.3,42.6 |note Starts from Winterfall Ritual Totem  -- Winterfall Ritual Totem (56)
+accept 5083 |at 1452 41.6,42.6 |note Starts from Empty Firewater Flask  -- Winterfall Firewater (56)
+complete 8471  -- Winterfall Ritual Totem (56)
+turnin 5083 |npc Donova Snowden |at 1452 31.3,45.2  -- Winterfall Firewater (56)
+accept 5082 |npc Donova Snowden |at 1452 31.3,45.2 |value low  -- Threat of the Winterfall (56)
+accept 5084 |npc Donova Snowden |at 1452 31.3,45.2  -- Falling to Corruption (56)
+turnin 5087 |npc Donova Snowden |at 1452 31.3,45.2  -- Winterfall Runners (57)
+accept 5121 |npc Donova Snowden |at 1452 31.3,45.2 |group elite  -- High Chief Winterfall (59)
+complete 5082 |at 1452 39.8,42.7 |mobs Winterfall Pathfinder;Winterfall Den Watcher;Winterfall Totemic |value low  -- Threat of the Winterfall (56)
+complete 5245 |at 1452 52.4,41.5  -- Troubled Spirits of Kel'Theril (56)
+accept 5252 |npc Remorseful Highborne |at 1452 56.1,44.4  -- Remorseful Highborne (58)
+turnin 4861 |npc Damaged Crate |at 1452 59.0,59.8  -- Enraged Wildkin (59)
+accept 4863 |npc Damaged Crate |at 1452 59.0,59.8  -- Enraged Wildkin (59)
+complete 969 |at 1452 61.5,67.4 |mobs Hailspite;Frostmaul Preserver;Frostmaul Giant;Kashoch the Reaver |value mid  -- Luck Be With You (60)
+turnin 4863 |npc Jaron's Wagon |at 1452 61.4,60.7  -- Enraged Wildkin (59)
+accept 4864 |npc Jaron's Wagon |at 1452 61.4,60.7  -- Enraged Wildkin (59)
+complete 977 |at 1452 70.3,40.6 |mobs Ice Thistle Matriarch;Ice Thistle Patriarch |value mid  -- Are We There, Yeti? (58)
+accept 5123 |at 1452 69.6,38.3 |note Starts from Crudely-written Log  -- The Final Piece (59)
+complete 5121 |at 1452 69.6,38.3 |mobs High Chief Winterfall |group elite  -- High Chief Winterfall (59)
+complete 4864 |at 1452 65.2,23.6 |mobs Moontouched Owlbeast;Crazed Owlbeast;Berserk Owlbeast  -- Enraged Wildkin (59)
+complete 4809 |at 1452 58.5,25.5 |mobs Chillwind Ravager;Chillwind Chimaera;Fledgling Chillwind |value mid  -- Chillwind Horns (54)
+turnin 4864 |npc Jaron Stoneshaper |at 1452 52.1,30.4  -- Enraged Wildkin (59)
+turnin 5252 |npc Wynd Nightchaser |at 1452 52.0,30.4  -- Remorseful Highborne (58)
+accept 5253 |npc Wynd Nightchaser |at 1452 52.0,30.4  -- The Crystal of Zin-Malor (58)
+turnin 977 |npc Umi Rumplesnicker |at 1452 60.9,37.6 |value mid  -- Are We There, Yeti? (58)
+accept 5163 |npc Umi Rumplesnicker |at 1452 60.9,37.6 |value mid  -- Are We There, Yeti? (58)
+accept 6606 |npc Harlo Wigglesworth |at 1452 61.1,38.4  -- A Little Luck (60)
+complete 5163 |at 1452 61.5,38.6 |mobs Legacki;Sprinkle;Quixxil |value mid  -- Are We There, Yeti? (58)
+fly 1448 62.5,24.2 |from 1452 62.3,36.6 |npc Felwood (Mishellena)  -- flight master Maethrya
+turnin 5084 |npc Deadwood Cauldron |at 1448 60.2,5.8  -- Falling to Corruption (56)
+accept 5085 |npc Deadwood Cauldron |at 1448 60.2,5.8  -- Mystery Goo (56)
+turnin 8471 |npc Kernda |at 1448 65.5,3.5  -- Winterfall Ritual Totem (56)
+fly 1423 71.8,49.6 |from 1448 62.5,24.2 |npc Eastern Plaguelands (Khaelyn Steelwing)  -- flight master Mishellena
+turnin 5245 |npc Aurora Skycaller |at 1423 46.5,16.0  -- Troubled Spirits of Kel'Theril (56)
+turnin 6030 |npc Duke Nicholas Zverenhoff |at 1423 71.6,50.1  -- Duke Nicholas Zverenhoff (52)
+fly 1452 62.3,36.6 |from 1423 71.8,49.6 |npc Maethrya  -- flight master Khaelyn Steelwing
+turnin 4809 |npc Felnok Steelspring |at 1452 61.6,38.6 |value mid  -- Chillwind Horns (54)
+accept 4810 |npc Felnok Steelspring |at 1452 61.6,38.6 |value mid  -- Return to Tinkee (54)
+turnin 4902 |npc Arch Druid Fandral Staghelm |at 1457 34.8,9.3  -- Wildkin of Elune (57)
+turnin 5253 |npc Arch Druid Fandral Staghelm |at 1457 34.8,9.3  -- The Crystal of Zin-Malor (58)
+turnin 4810 |npc Tinkee Steamboil |at 1428 65.2,24.0 |value mid  -- Return to Tinkee (54)
+fly 1422 42.9,85.1 |from 1428 84.3,68.3 |npc Western Plaguelands (Bibilfaz Featherwhistle)  -- flight master Borgus Stoutarm
+turnin 6028 |npc Argent Officer Pureheart |at 1422 43.0,83.5  -- The Everlook Report (52)
+fly 1452 62.3,36.6 |from 1422 42.9,85.1 |npc Maethrya  -- flight master Bibilfaz Featherwhistle
+turnin 6606 |npc Witch Doctor Mau'ari |at 1452 61.9,38.3  -- A Little Luck (60)
+turnin 969 |npc Witch Doctor Mau'ari |at 1452 61.9,38.3 |value mid  -- Luck Be With You (60)
+turnin 5163 |npc Umi Rumplesnicker |at 1452 60.9,37.6 |value mid  -- Are We There, Yeti? (58)
+accept 6603 |npc Meggi Peppinrocker |at 1452 60.7,38.2  -- Trouble in Winterspring! (56)
+accept 5161 |npc Haleh |at 1452 54.5,51.2  -- Wrath of the Blue Flight (60)
+turnin 5161 |npc Haleh |at 1452 54.5,51.2  -- Wrath of the Blue Flight (60)
+turnin 5123 |npc Donova Snowden |at 1452 31.3,45.2  -- The Final Piece (59)
+accept 5128 |npc Donova Snowden |at 1452 31.3,45.2  -- Words of the High Chief (59)
+turnin 5082 |npc Donova Snowden |at 1452 31.3,45.2 |value low  -- Threat of the Winterfall (56)
+turnin 5085 |npc Donova Snowden |at 1452 31.3,45.2  -- Mystery Goo (56)
+accept 5086 |npc Donova Snowden |at 1452 31.3,45.2  -- Toxic Horrors (56)
+turnin 6603 |npc Donova Snowden |at 1452 31.3,45.2  -- Trouble in Winterspring! (56)
+complete 5086  -- Toxic Horrors (56)
+turnin 5086 |npc Donova Snowden |at 1452 31.3,45.2  -- Toxic Horrors (56)
+accept 5087 |npc Donova Snowden |at 1452 31.3,45.2  -- Winterfall Runners (57)
+turnin 5121 |npc Donova Snowden |at 1452 31.3,45.2 |group elite  -- High Chief Winterfall (59)
+fly 1448 62.5,24.2 |from 1452 62.3,36.6 |npc Felwood (Mishellena)  -- flight master Maethrya
+turnin 5128 |npc Kelek Skykeeper |at 1448 51.1,81.8  -- Words of the High Chief (59)
+fly 1452 62.3,36.6 |from 1448 62.5,24.2 |npc Maethrya  -- flight master Mishellena
+complete 5087 |at 1452 27.9,34.5 |mobs Winterfall Runner  -- Winterfall Runners (57)
+]]}

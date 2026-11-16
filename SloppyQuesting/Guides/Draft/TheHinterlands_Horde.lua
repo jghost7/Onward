@@ -1,0 +1,97 @@
+-- DRAFT The Hinterlands (Horde) generated 2026-11-16 by tools/draft_guide.py
+-- from Questie's Forever database (GPL-3.0). The order is computed, not played:
+-- play it with /sq rec running and fix what feels wrong. Coordinates are spawn medoids.
+SloppyQuesting:RegisterGuide{
+  id = "the-hinterlands-h", title = "The Hinterlands (45-55)", faction = "Horde", zone = "The Hinterlands",
+  levels = { 45, 55 },
+  steps = [[
+accept 2933 |npc Venom Bottle |at 1425 23.5,58.8  -- Venom Bottles (43)
+accept 77 |npc Gilveradin Sunchaser |at 1425 26.7,48.6 |value mid  -- A Sticky Situation (48)
+complete 7844 |at 1425 50.3,63.2 |mobs Vilebranch Scalper;Vilebranch Soothsayer |value low  -- Cannibalistic Cousins (48)
+complete 7849 |at 1425 58.6,64.8  -- Separation Anxiety (50)
+accept 98203 |npc Qujo |at 1425 78.0,77.8  -- Witch Doctor Ti'ik (49)
+turnin 7844 |npc Mystic Yayo'jin |at 1425 78.8,78.2 |value low  -- Cannibalistic Cousins (48)
+accept 7844 |npc Mystic Yayo'jin |at 1425 78.8,78.2 |value low  -- Cannibalistic Cousins (48)
+accept 7839 |npc Smith Slagtree |at 1425 77.2,80.1  -- Vilebranch Hooligans (48)
+fly 1424 60.1,18.6 |from 1425 81.7,81.8 |npc Hillsbrad Foothills (Zarise)  -- flight master Gorkas
+turnin 2933 |npc Apothecary Lydon |at 1424 61.4,19.1  -- Venom Bottles (43)
+accept 2934 |npc Apothecary Lydon |at 1424 61.4,19.1  -- Undamaged Venom Sac (45)
+fly 1458 63.2,48.6 |from 1424 60.1,18.6 |npc Undercity (Michael Garrett)  -- flight master Zarise
+turnin 2782 |npc Oran Snakewrithe |at 1458 73.1,32.9  -- Rin'ji's Secret (47)
+fly 1425 81.7,81.8 |from 1458 63.2,48.6 |npc Gorkas  -- flight master Michael Garrett
+accept 7840 |npc Lard |at 1425 78.1,81.4  -- Lard Lost His Lunch (49)
+accept 7845 |npc Primal Torntusk |at 1425 78.2,81.2  -- Kidnapped Elder Torntusk! (51)
+accept 7850 |npc Primal Torntusk |at 1425 78.2,81.2  -- Dark Vessels (50)
+accept 7816 |npc Katoom the Angler |at 1425 80.3,81.5 |group elite  -- Gammerita, Mon! (48)
+accept 7815 |npc Katoom the Angler |at 1425 80.3,81.5  -- Snapjaws, Mon! (50)
+accept 7829 |npc Huntsman Markhor |at 1425 79.2,79.5  -- Hunt the Savages (48)
+accept 7830 |npc Huntsman Markhor |at 1425 79.2,79.5  -- Avenging the Fallen (48)
+accept 7828 |npc Huntsman Markhor |at 1425 79.2,79.5 |value mid  -- Stalking the Stalkers (48)
+accept 7849 |npc Huntsman Markhor |at 1425 79.2,79.5  -- Separation Anxiety (50)
+accept 7841 |npc Otho Moji'ko |at 1425 79.4,79.1 |value mid  -- Message to the Wildhammer (48)
+accept 2937 |npc Master Gadrin |at 1411 56.0,74.7  -- Summoning Shadra (55)
+accept 7862 |npc Call to Arms! |at 1425 79.1,79.0 |value mid |group elite  -- Job Opening: Guard Captain of Revantusk Village (51)
+accept 7861 |npc Call to Arms! |at 1425 79.1,79.0 |group elite  -- Wanted: Vile Priestess Hexx and Her Minions (51)
+complete 7815 |at 1425 81.5,60.5 |mobs Saltwater Snapjaw  -- Snapjaws, Mon! (50)
+complete 7816 |at 1425 80.4,58.2 |mobs Gammerita |group elite  -- Gammerita, Mon! (48)
+accept 2782 |npc Rin'ji's Secret |at 1425 86.3,59.0  -- Rin'ji's Secret (47)
+complete 7840 |at 1425 84.6,41.2 |mobs Vilebranch Kidnapper  -- Lard Lost His Lunch (49)
+complete 7828 |at 1425 63.1,52.4 |mobs Silvermane Stalker;Silvermane Howler |value mid  -- Stalking the Stalkers (48)
+complete 7829 |at 1425 58.4,50.6 |mobs Savage Owlbeast  -- Hunt the Savages (48)
+complete 7830 |at 1425 58.0,50.4 |mobs Razorbeak Skylord  -- Avenging the Fallen (48)
+accept 485 |at 1425 53.0,53.6 |note Starts from OOX-09/HL Distress Beacon  -- Find OOX-09/HL! (48)
+complete 7842 |at 1425 51.4,50.8 |mobs Razorbeak Skylord;Trained Razorbeak;Witherbark Hideskinner;Razorbeak Gryphon |value mid  -- Another Message to the Wildhammer (48)
+complete 7839 |at 1425 57.5,42.6  -- Vilebranch Hooligans (48)
+complete 77 |at 1425 57.3,41.1 |value mid  -- A Sticky Situation (48)
+turnin 485 |npc Homing Robot OOX-09/HL |at 1425 49.4,37.7  -- Find OOX-09/HL! (48)
+complete 7841 |at 1425 31.1,47.9 |mobs Highvale Scout;Highvale Outrunner;Highvale Ranger;Highvale Marksman |value mid  -- Message to the Wildhammer (48)
+turnin 77 |npc Gilveradin Sunchaser |at 1425 26.7,48.6 |value mid  -- A Sticky Situation (48)
+complete 98203 |at 1425 25.8,65.8 |mobs Witch Doctor Ti'ik  -- Witch Doctor Ti'ik (49)
+complete 2934 |at 1425 33.3,69.3 |mobs Witherbark Broodguard  -- Undamaged Venom Sac (45)
+complete 2937 |at 1425 33.8,73.0 |mobs Shadra  -- Summoning Shadra (55)
+fly 1424 60.1,18.6 |from 1425 81.7,81.8 |npc Hillsbrad Foothills (Zarise)  -- flight master Gorkas
+turnin 2937 |npc Apothecary Lydon |at 1424 61.4,19.1  -- Summoning Shadra (55)
+accept 2938 |npc Apothecary Lydon |at 1424 61.4,19.1  -- Venom to the Undercity (55)
+turnin 2934 |npc Apothecary Lydon |at 1424 61.4,19.1  -- Undamaged Venom Sac (45)
+accept 2935 |npc Apothecary Lydon |at 1424 61.4,19.1  -- Consult Master Gadrin (45)
+fly 1446 51.6,25.4 |from 1424 60.1,18.6 |npc Tanaris (Bulkrek Ragefist)  -- flight master Zarise
+accept 4787 |npc Yeh'kinya |at 1446 67.0,22.4 |group chain  -- The Ancient Egg (50)
+fly 1458 63.2,48.6 |from 1446 51.6,25.4 |npc Undercity (Michael Garrett)  -- flight master Bulkrek Ragefist
+turnin 2938 |npc Master Apothecary Faranell |at 1458 48.8,69.3  -- Venom to the Undercity (55)
+accept 8273 |npc Oran Snakewrithe |at 1458 73.1,32.9  -- Oran's Gratitude (47)
+turnin 8273 |npc Oran Snakewrithe |at 1458 73.1,32.9  -- Oran's Gratitude (47)
+fly 1425 81.7,81.8 |from 1458 63.2,48.6 |npc Gorkas  -- flight master Michael Garrett
+accept 1444 |npc Atal'ai Exile |at 1425 33.8,75.2  -- Return to Fel'Zerul (44)
+complete 7846 |at 1425 57.3,86.6 |mobs Hitah'ya the Keeper |group elite  -- Recover the Key! (51)
+complete 4787 |at 1425 57.6,86.8 |group chain  -- The Ancient Egg (50)
+fly 1446 51.6,25.4 |from 1425 81.7,81.8 |npc Tanaris (Bulkrek Ragefist)  -- flight master Gorkas
+turnin 4787 |npc Yeh'kinya |at 1446 67.0,22.4 |group chain  -- The Ancient Egg (50)
+fly 1425 81.7,81.8 |from 1446 51.6,25.4 |npc Gorkas  -- flight master Bulkrek Ragefist
+complete 7861 |at 1425 57.7,81.5 |mobs Vile Priestess Hexx;Vilebranch Aman'zasi Guard |group elite  -- Wanted: Vile Priestess Hexx and Her Minions (51)
+turnin 7846 |npc Elder Torntusk |at 1425 59.7,77.8 |group elite  -- Recover the Key! (51)
+turnin 7845 |npc Elder Torntusk |at 1425 59.7,77.8  -- Kidnapped Elder Torntusk! (51)
+accept 7847 |npc Elder Torntusk |at 1425 59.7,77.8 |group chain  -- Return to Primal Torntusk (51)
+accept 7846 |npc Elder Torntusk |at 1425 59.7,77.8 |group elite  -- Recover the Key! (51)
+complete 7862 |at 1425 63.2,73.0 |mobs Vilebranch Berserker;Vilebranch Shadow Hunter;Vilebranch Blood Drinker;Vilebranch Soul Eater |value mid |group elite  -- Job Opening: Guard Captain of Revantusk Village (51)
+complete 7850 |at 1425 64.2,72.2  -- Dark Vessels (50)
+turnin 98203 |npc Qujo |at 1425 78.0,77.8  -- Witch Doctor Ti'ik (49)
+turnin 7841 |npc Otho Moji'ko |at 1425 79.4,79.1 |value mid  -- Message to the Wildhammer (48)
+accept 7842 |npc Otho Moji'ko |at 1425 79.4,79.1 |value mid  -- Another Message to the Wildhammer (48)
+turnin 7842 |npc Otho Moji'ko |at 1425 79.4,79.1 |value mid  -- Another Message to the Wildhammer (48)
+turnin 2935 |npc Master Gadrin |at 1411 56.0,74.7  -- Consult Master Gadrin (45)
+turnin 7828 |npc Huntsman Markhor |at 1425 79.2,79.5 |value mid  -- Stalking the Stalkers (48)
+turnin 7830 |npc Huntsman Markhor |at 1425 79.2,79.5  -- Avenging the Fallen (48)
+turnin 7849 |npc Huntsman Markhor |at 1425 79.2,79.5  -- Separation Anxiety (50)
+turnin 7829 |npc Huntsman Markhor |at 1425 79.2,79.5  -- Hunt the Savages (48)
+turnin 7839 |npc Smith Slagtree |at 1425 77.2,80.1  -- Vilebranch Hooligans (48)
+turnin 7861 |npc Primal Torntusk |at 1425 78.2,81.2 |group elite  -- Wanted: Vile Priestess Hexx and Her Minions (51)
+turnin 7850 |npc Primal Torntusk |at 1425 78.2,81.2  -- Dark Vessels (50)
+turnin 7862 |npc Primal Torntusk |at 1425 78.2,81.2 |value mid |group elite  -- Job Opening: Guard Captain of Revantusk Village (51)
+turnin 7847 |npc Primal Torntusk |at 1425 78.2,81.2 |group chain  -- Return to Primal Torntusk (51)
+turnin 7840 |npc Lard |at 1425 78.1,81.4  -- Lard Lost His Lunch (49)
+fly 1435 46.1,54.8 |from 1425 81.7,81.8 |npc Swamp of Sorrows (Breyk)  -- flight master Gorkas
+turnin 1444 |npc Fel'zerul |at 1435 47.9,54.8  -- Return to Fel'Zerul (44)
+fly 1425 81.7,81.8 |from 1435 46.1,54.8 |npc Gorkas  -- flight master Breyk
+turnin 7815 |npc Katoom the Angler |at 1425 80.3,81.5  -- Snapjaws, Mon! (50)
+turnin 7816 |npc Katoom the Angler |at 1425 80.3,81.5 |group elite  -- Gammerita, Mon! (48)
+]]}

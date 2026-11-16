@@ -1,0 +1,14 @@
+# build output: release zips go to CurseForge / GitHub Releases, not the repo
+dist/
+*.zip
+
+# Python
+__pycache__/
+*.pyc
+
+# Forever client tables from wago.tools (12 MB, Blizzard data): tools/draft_professions.py --fetch downloads them
+tools/data/
+
+# full-size UI previews (the *_detail.png crops are kept)
+preview_flat.png
+preview_glass.png

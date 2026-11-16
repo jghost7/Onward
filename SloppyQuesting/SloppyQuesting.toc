@@ -1,0 +1,32 @@
+## Interface: 16001
+## Title: Sloppy Questing
+## Notes: Leveling and profession guides for WoW Forever: step engine, waypoints, recorder, party sync.
+## Author: Josh McCann
+## Version: 0.2.6
+## Category: Quests
+## X-License: GPL-3.0
+## X-Credits: Quest data from Questie (GPL-3.0)
+## SavedVariables: SloppyQuestingDB
+## SavedVariablesPerCharacter: SloppyQuestingCharDB
+## OptionalDeps: Questie, TomTom
+
+Core.lua
+Skin.lua
+QuestState.lua
+QuestieBridge.lua
+Drops.lua
+Guide.lua
+Travel.lua
+Prof.lua
+Waypoint.lua
+Auto.lua
+Party.lua
+Recorder.lua
+UI.lua
+Target.lua
+Arrow.lua
+Route.lua
+Options.lua
+
+Guides\Guides.xml
+Guides\Professions\Professions.xml

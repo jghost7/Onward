@@ -1,0 +1,91 @@
+-- DRAFT Felwood (Horde) generated 2026-11-16 by tools/draft_guide.py
+-- from Questie's Forever database (GPL-3.0). The order is computed, not played:
+-- play it with /sq rec running and fix what feels wrong. Coordinates are spawn medoids.
+SloppyQuesting:RegisterGuide{
+  id = "felwood-h", title = "Felwood (51-60)", faction = "Horde", zone = "Felwood",
+  levels = { 51, 60 },
+  steps = [[
+accept 5155 |npc Greta Mosshoof |at 1448 51.2,82.1  -- Forces of Jaedenar (51)
+accept 5158 |npc Greta Mosshoof |at 1448 51.2,82.1  -- Seeking Spiritual Aid (52)
+fly 1413 63.1,37.2 |from 1448 34.4,54.0 |npc The Barrens (Bragok)  -- flight master Brakkar
+turnin 5158 |npc Islen Waterseer |at 1413 65.8,43.8  -- Seeking Spiritual Aid (52)
+accept 5159 |npc Islen Waterseer |at 1413 65.8,43.8  -- Cleansed Water Returns to Felwood (54)
+fly 1448 34.4,54.0 |from 1413 63.1,37.2 |npc Brakkar  -- flight master Bragok
+turnin 5159 |npc Greta Mosshoof |at 1448 51.2,82.1  -- Cleansed Water Returns to Felwood (54)
+accept 5165 |npc Greta Mosshoof |at 1448 51.2,82.1  -- Dousing the Flames of Protection (55)
+fly 1452 60.5,36.3 |from 1448 34.4,54.0 |npc Winterspring (Yugrek)  -- flight master Brakkar
+accept 8464 |npc Salfa |at 1452 27.7,34.5  -- Winterfall Activity (58)
+fly 1448 34.4,54.0 |from 1452 60.5,36.3 |npc Brakkar  -- flight master Yugrek
+accept 5204 |npc Jessir Moonbow |at 1448 51.4,82.0  -- Retribution of the Light (57)
+accept 5156 |npc Taronn Redfeather |at 1448 50.9,81.6  -- Verifying the Corruption (54)
+accept 4102 |npc Maybess Riverbreeze |at 1448 46.8,83.1 |value mid  -- Cleansing Felwood (55)
+accept 8461 |npc Nafien |at 1448 64.8,8.1  -- Deadwood of the North (55)
+accept 8470 |at 1448 62.3,9.2 |note Starts from Deadwood Ritual Totem  -- Deadwood Ritual Totem (55)
+complete 8461 |at 1448 62.3,9.2 |mobs Deadwood Den Watcher;Deadwood Avenger;Deadwood Shaman  -- Deadwood of the North (55)
+accept 8481 |npc Gorn One Eye |at 1448 65.2,2.7  -- The Root of All Evil (60)
+complete 8470  -- Deadwood Ritual Totem (55)
+accept 6031 |npc Meilosh |at 1448 65.7,2.8 |value low  -- Runecloth (55)
+turnin 8461 |npc Nafien |at 1448 64.8,8.1  -- Deadwood of the North (55)
+accept 8465 |npc Nafien |at 1448 64.8,8.1  -- Speak to Salfa (55)
+fly 1452 60.5,36.3 |from 1448 34.4,54.0 |npc Winterspring (Yugrek)  -- flight master Brakkar
+turnin 8465 |npc Salfa |at 1452 27.7,34.5  -- Speak to Salfa (55)
+fly 1448 34.4,54.0 |from 1452 60.5,36.3 |npc Brakkar  -- flight master Yugrek
+complete 4102 |at 1448 57.9,19.1 |mobs Warpwood Moss Flayer;Warpwood Shredder;Dessecus |value mid  -- Cleansing Felwood (55)
+complete 5156 |at 1448 42.5,41.2 |mobs Entropic Beast;Entropic Horror  -- Verifying the Corruption (54)
+accept 86612 |npc Statue of Malorne |at 1448 42.0,47.4  -- Stag Lord's Bauble (55)
+accept 5202 |at 1448 38.4,50.3 |note Starts from Blood Red Key  -- A Strange Red Key (55)
+complete 5204 |at 1448 38.3,50.5 |mobs Rakaiah  -- Retribution of the Light (57)
+turnin 5204 |npc Remains of Trey Lightforge |at 1448 38.5,50.4  -- Retribution of the Light (57)
+accept 5385 |npc Remains of Trey Lightforge |at 1448 38.5,50.4  -- The Remains of Trey Lightforge (57)
+accept 4505 |npc Winna Hazzard |at 1448 34.2,52.3  -- Well of Corruption (54)
+turnin 86612 |npc Winna Hazzard |at 1448 34.2,52.3  -- Stag Lord's Bauble (55)
+complete 6031 |value low  -- Runecloth (55)
+accept 4521 |npc Trull Failbane |at 1448 34.7,52.8 |value mid  -- Wild Guardians (56)
+accept 6162 |npc Dreka'Sur |at 1448 34.8,52.7  -- A Husband's Last Battle (51)
+complete 5165 |at 1448 36.5,55.2  -- Dousing the Flames of Protection (55)
+turnin 5202 |npc Captured Arko'narin |at 1448 36.2,55.5  -- A Strange Red Key (55)
+complete 5155 |at 1448 37.7,61.2 |mobs Jaedenar Hound;Jaedenar Guardian;Jaedenar Adept;Jaedenar Cultist  -- Forces of Jaedenar (51)
+turnin 4102 |npc Maybess Riverbreeze |at 1448 46.8,83.1 |value mid  -- Cleansing Felwood (55)
+accept 5887 |npc Maybess Riverbreeze |at 1448 46.8,83.1 |value mid  -- Salve via Hunting (55)
+complete 4521 |mobs Raging Owlbeast;Ragged Owlbeast |value mid  -- Wild Guardians (56)
+turnin 5155 |npc Greta Mosshoof |at 1448 51.2,82.1  -- Forces of Jaedenar (51)
+turnin 5165 |npc Greta Mosshoof |at 1448 51.2,82.1  -- Dousing the Flames of Protection (55)
+accept 5242 |npc Greta Mosshoof |at 1448 51.2,82.1  -- A Final Blow (58)
+accept 5157 |npc Greta Mosshoof |at 1448 51.2,82.1  -- Collection of the Corrupt Water (52)
+accept 8460 |npc Grazle |at 1448 50.9,85.0 |value mid  -- Timbermaw Ally (48)
+complete 8460 |at 1448 48.3,90.9 |mobs Deadwood Warrior;Deadwood Pathfinder;Deadwood Gardener |value mid  -- Timbermaw Ally (48)
+complete 6162 |at 1448 48.2,94.3 |mobs Overlord Ror  -- A Husband's Last Battle (51)
+complete 4505 |at 1448 32.3,66.6  -- Well of Corruption (54)
+complete 5157 |at 1448 35.2,59.8  -- Collection of the Corrupt Water (52)
+complete 5887 |at 1448 41.5,53.7 |mobs Felpaw Wolf;Felpaw Scavenger;Angerclaw Bear;Angerclaw Mauler |value mid  -- Salve via Hunting (55)
+turnin 4521 |npc Trull Failbane |at 1448 34.7,52.8 |value mid  -- Wild Guardians (56)
+accept 4741 |npc Trull Failbane |at 1448 34.7,52.8 |value mid  -- Wild Guardians (58)
+complete 4741 |mobs Moontouched Owlbeast |value mid  -- Wild Guardians (58)
+turnin 4741 |npc Trull Failbane |at 1448 34.7,52.8 |value mid  -- Wild Guardians (58)
+accept 4721 |npc Trull Failbane |at 1448 34.7,52.8 |value mid  -- Wild Guardians (59)
+complete 4721 |mobs Berserk Owlbeast |value mid  -- Wild Guardians (59)
+turnin 4721 |npc Trull Failbane |at 1448 34.7,52.8 |value mid  -- Wild Guardians (59)
+turnin 6162 |npc Dreka'Sur |at 1448 34.8,52.7  -- A Husband's Last Battle (51)
+turnin 4505 |npc Winna Hazzard |at 1448 34.2,52.3  -- Well of Corruption (54)
+complete 5242 |at 1448 38.8,46.8 |mobs Moora;Salia;Shadow Lord Fel'dan  -- A Final Blow (58)
+turnin 5156 |npc Taronn Redfeather |at 1448 50.9,81.6  -- Verifying the Corruption (54)
+turnin 5385 |npc Jessir Moonbow |at 1448 51.4,82.0  -- The Remains of Trey Lightforge (57)
+turnin 5157 |npc Greta Mosshoof |at 1448 51.2,82.1  -- Collection of the Corrupt Water (52)
+turnin 5242 |npc Greta Mosshoof |at 1448 51.2,82.1  -- A Final Blow (58)
+turnin 8460 |npc Grazle |at 1448 50.9,85.0 |value mid  -- Timbermaw Ally (48)
+accept 8462 |npc Grazle |at 1448 50.9,85.0 |value mid  -- Speak to Nafien (55)
+turnin 5887 |npc Maybess Riverbreeze |at 1448 46.8,83.1 |value mid  -- Salve via Hunting (55)
+turnin 8462 |npc Nafien |at 1448 64.8,8.1 |value mid  -- Speak to Nafien (55)
+complete 8481  -- The Root of All Evil (60)
+turnin 8470 |npc Kernda |at 1448 65.5,3.5  -- Deadwood Ritual Totem (55)
+complete 8464 |mobs Winterfall Shaman;Winterfall Den Watcher;Winterfall Ursa  -- Winterfall Activity (58)
+turnin 6031 |npc Meilosh |at 1448 65.7,2.8 |value low  -- Runecloth (55)
+fly 1452 60.5,36.3 |from 1448 34.4,54.0 |npc Winterspring (Yugrek)  -- flight master Brakkar
+turnin 8464 |npc Salfa |at 1452 27.7,34.5  -- Winterfall Activity (58)
+fly 1448 34.4,54.0 |from 1452 60.5,36.3 |npc Brakkar  -- flight master Yugrek
+turnin 8481 |npc Gorn One Eye |at 1448 65.2,2.7  -- The Root of All Evil (60)
+accept 8485 |npc Gorn One Eye |at 1448 65.2,2.7  -- The Brokering of Peace (60)
+complete 8485  -- The Brokering of Peace (60)
+fly 1454 45.1,63.9 |from 1448 34.4,54.0 |npc Orgrimmar (Doras)  -- flight master Brakkar
+turnin 8485 |npc Thrall |at 1454 31.7,37.8  -- The Brokering of Peace (60)
+]]}
