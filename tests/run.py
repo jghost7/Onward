@@ -1,4 +1,4 @@
-"""Run Sloppy Questing headless under Lua 5.1 (lupa) with the WoW API mock. Exit code = failures."""
+"""Run Onward headless under Lua 5.1 (lupa) with the WoW API mock. Exit code = failures."""
 import pathlib
 import re
 import sys
@@ -6,12 +6,12 @@ import sys
 from lupa import lua51
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-ADDON = ROOT / "SloppyQuesting"
+ADDON = ROOT / "Onward"
 
 
 def toc_files():
     xmls = []
-    for line in (ADDON / "SloppyQuesting.toc").read_text(encoding="utf-8").splitlines():
+    for line in (ADDON / "Onward.toc").read_text(encoding="utf-8").splitlines():
         line = line.strip()
         if line and not line.startswith("#") and line.endswith(".lua"):
             yield ADDON / line.replace("\\", "/")
@@ -30,19 +30,19 @@ def main():
     ns = lua.table()
     before = set(lua.globals().keys())
     for path in toc_files():
-        run(str(path), "SloppyQuesting", ns)
+        run(str(path), "Onward", ns)
     # globals the addon may create; anything else is a leaked local (a typo or a local declared
     # after the code that uses it, like the guide list's tab state in 0.2.1)
-    allowed = re.compile(r"^(SloppyQuesting\w*|SLASH_\w+|BINDING_.+)$")
+    allowed = re.compile(r"^(Onward\w*|SLASH_\w+|BINDING_.+)$")
     leaked = sorted(k for k in lua.globals().keys() if k not in before and not allowed.match(str(k)))
     try:
-        failures = run(str(ROOT / "tests" / "test_sloppyquesting.lua"))
+        failures = run(str(ROOT / "tests" / "test_onward.lua"))
     finally:
         mock = lua.globals().MOCK
         for line in (mock.fails or {}).values() if mock.fails else []:
             print(line)
         for line in mock.printed.values():
-            if line.startswith(("FAIL", "parsed")) or "passed" in line or "Sloppy Questing" in line:
+            if line.startswith(("FAIL", "parsed")) or "passed" in line or "Onward" in line:
                 print(line)
         for err in mock.errors.values():
             print("ERROR", err)

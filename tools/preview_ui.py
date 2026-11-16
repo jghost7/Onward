@@ -1,4 +1,4 @@
-"""Mock-up of Sloppy Questing's glass UI over a real game screenshot (design preview, not a game capture).
+"""Mock-up of Onward's glass UI over a real game screenshot (design preview, not a game capture).
 
     python preview_ui.py <screenshot.jpg> <out.png>
 
@@ -12,7 +12,7 @@ import pathlib
 
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
-MEDIA = pathlib.Path(__file__).resolve().parent.parent / "SloppyQuesting" / "media"
+MEDIA = pathlib.Path(__file__).resolve().parent.parent / "Onward" / "media"
 K = 2.0                                   # screen px per UI unit (4K at a typical UI scale)
 TINT = (14, 17, 23)
 ACCENT = (12, 210, 157)                  # Ellesmere green #0CD29D (flat theme default)

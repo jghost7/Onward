@@ -1,6 +1,6 @@
 ﻿"""Draft guides for every open-world zone (classic + new Forever zones) for both factions.
 
-    python draft_all.py            -> SloppyQuesting/Guides/Draft/*.lua + SloppyQuesting/Guides/Guides.xml
+    python draft_all.py            -> Onward/Guides/Draft/*.lua + Onward/Guides/Guides.xml
 
 Skips dungeons, raids and battlegrounds. Zones whose quests span more than 10 levels are split
 into level bands chained with `next`, so a band hands over to the next one when finished.
@@ -17,7 +17,7 @@ from draft_guide import Zone, area_changes, guide_id, render, route, split_outli
 from quest_value import tiers as quest_tiers
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-GUIDES = ROOT / "SloppyQuesting" / "Guides"
+GUIDES = ROOT / "Onward" / "Guides"
 DRAFT = GUIDES / "Draft"
 BATTLEGROUNDS = {1459, 1460, 1461, 2524}     # AV, WSG, AB, Darkspear Islands (PvP; givers sit in capitals)
 CAPITALS = {1453, 1454, 1455, 1456, 1457, 1458}   # city quests are class/profession/war-effort, not leveling

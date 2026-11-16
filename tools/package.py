@@ -6,9 +6,9 @@
     python tools/package.py --skip-tests    # not recommended
 
 Steps: run the headless tests (a failure stops the build), write the version into
-SloppyQuesting.toc (the only place it lives; Core.lua reads it in game), make sure CHANGELOG.md has
-an entry for it, zip the addon as dist/SloppyQuesting-<version>.zip with a single top-level
-SloppyQuesting/ folder, then reopen the zip and check every file the TOC and Guides.xml load is in it.
+Onward.toc (the only place it lives; Core.lua reads it in game), make sure CHANGELOG.md has
+an entry for it, zip the addon as dist/Onward-<version>.zip with a single top-level
+Onward/ folder, then reopen the zip and check every file the TOC and Guides.xml load is in it.
 An existing zip for the same version is never overwritten (bump the version instead).
 """
 import argparse
@@ -19,12 +19,12 @@ import sys
 import zipfile
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-ADDON = ROOT / "SloppyQuesting"
-TOC = ADDON / "SloppyQuesting.toc"
+ADDON = ROOT / "Onward"
+TOC = ADDON / "Onward.toc"
 CHANGELOG = ADDON / "CHANGELOG.md"
 DIST = ROOT / "dist"
 SHIP = {".lua", ".toc", ".xml", ".tga", ".blp", ".txt", ".md", ".ttf"}
-REQUIRED = ["SloppyQuesting.toc", "LICENSE.txt", "CREDITS.txt", "Bindings.xml"]
+REQUIRED = ["Onward.toc", "LICENSE.txt", "CREDITS.txt", "Bindings.xml"]
 
 
 def fail(msg):
@@ -35,7 +35,7 @@ def fail(msg):
 def current_version(text):
     m = re.search(r"^## Version:\s*(\S+)\s*$", text, re.M)
     if not m:
-        fail("SloppyQuesting.toc has no '## Version:' line")
+        fail("Onward.toc has no '## Version:' line")
     return m.group(1)
 
 
@@ -88,7 +88,7 @@ def main():
     new = a.version or (bumped(old, a.bump) if a.bump else old)
     if not re.fullmatch(r"\d+\.\d+\.\d+", new):
         fail(f"version '{new}' is not N.N.N")
-    out = DIST / f"SloppyQuesting-{new}.zip"
+    out = DIST / f"Onward-{new}.zip"
     if out.exists():
         fail(f"{out.name} already exists: bump the version (--bump patch) rather than replacing a shipped build")
 
@@ -97,7 +97,7 @@ def main():
 
     if new != old:
         TOC.write_text(re.sub(r"^## Version:.*$", f"## Version: {new}", toc_text, count=1, flags=re.M), encoding="utf-8")
-        print(f"version {old} -> {new} (SloppyQuesting.toc)")
+        print(f"version {old} -> {new} (Onward.toc)")
 
     log = CHANGELOG.read_text(encoding="utf-8")
     if not re.search(rf"^## {re.escape(new)}\b", log, re.M):
@@ -115,18 +115,18 @@ def main():
                    and not any(part.startswith(".") for part in p.relative_to(ADDON).parts))
     with zipfile.ZipFile(out, "w", zipfile.ZIP_DEFLATED, compresslevel=9) as z:
         for p in files:
-            z.write(p, "SloppyQuesting/" + p.relative_to(ADDON).as_posix())
+            z.write(p, "Onward/" + p.relative_to(ADDON).as_posix())
 
     # check the zip as a player would get it
     with zipfile.ZipFile(out) as z:
         names = set(z.namelist())
     tops = {n.split("/")[0] for n in names}
-    missing = [f for f in REQUIRED + loaded_files() if f"SloppyQuesting/{f}" not in names]
-    if tops != {"SloppyQuesting"} or missing:
+    missing = [f for f in REQUIRED + loaded_files() if f"Onward/{f}" not in names]
+    if tops != {"Onward"} or missing:
         out.unlink()
         fail(f"zip check: top folders {sorted(tops)}, missing {missing[:5]}")
     with zipfile.ZipFile(out) as z:
-        toc_in_zip = z.read("SloppyQuesting/SloppyQuesting.toc").decode("utf-8")
+        toc_in_zip = z.read("Onward/Onward.toc").decode("utf-8")
     if current_version(toc_in_zip) != new:
         out.unlink()
         fail("zip's TOC version does not match")
@@ -137,7 +137,7 @@ Upload on CurseForge (project > Files > Upload File):
   - File: the zip above
   - Release type: Beta for test builds, Release once it's proven
   - Game version: the WoW Forever version (interface 16001)
-  - Changelog: paste this version's entry from SloppyQuesting/CHANGELOG.md
+  - Changelog: paste this version's entry from Onward/CHANGELOG.md
   - Relations: Questie and TomTom as Optional Dependencies""")
 
 

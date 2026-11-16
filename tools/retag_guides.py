@@ -16,7 +16,7 @@ from questiedb import QuestieDB
 from draft_guide import (ALL_CLASSES, ALLIANCE, CLASS_BITS, CLASSIC_ALLIANCE, CLASSIC_HORDE, HORDE, RACE_BITS,
                          SKYBORNE_ALLIANCE, SKYBORNE_HORDE, Zone, bits_to_tokens)
 
-DRAFT = pathlib.Path(__file__).resolve().parent.parent / "SloppyQuesting" / "Guides" / "Draft"
+DRAFT = pathlib.Path(__file__).resolve().parent.parent / "Onward" / "Guides" / "Draft"
 STEP = re.compile(r"^(accept|complete|turnin) (\d+)")
 TAG = re.compile(r" \|(class|race) [^|]*?(?=  -- | \||$)")
 

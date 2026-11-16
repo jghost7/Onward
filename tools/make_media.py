@@ -1,6 +1,6 @@
-"""Draw Sloppy Questing's textures (white artwork, tinted in game with SetVertexColor) as 32-bit TGA.
+"""Draw Onward's textures (white artwork, tinted in game with SetVertexColor) as 32-bit TGA.
 
-    python make_media.py   -> SloppyQuesting/media/*.tga
+    python make_media.py   -> Onward/media/*.tga
 Shapes are drawn 4x oversize and downsampled for clean anti-aliased edges.
 """
 import math
@@ -8,7 +8,7 @@ import pathlib
 
 from PIL import Image, ImageDraw, ImageFilter
 
-OUT = pathlib.Path(__file__).resolve().parent.parent / "SloppyQuesting" / "media"
+OUT = pathlib.Path(__file__).resolve().parent.parent / "Onward" / "media"
 SS = 4
 W = (255, 255, 255, 255)
 

@@ -1,4 +1,4 @@
--- Minimal WoW API mock: enough of the client for Sloppy Questing's files to load and run headless.
+-- Minimal WoW API mock: enough of the client for Onward's files to load and run headless.
 -- State lives in MOCK; tests drive it and fire events with MOCK.fire(event, ...).
 MOCK = {
     now = 0, timers = {}, frames = {}, sent = {}, chat = {}, calls = {}, errors = {},

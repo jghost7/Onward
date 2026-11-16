@@ -1,0 +1,92 @@
+-- DRAFT Felwood (Alliance) generated 2026-11-16 by tools/draft_guide.py
+-- from Questie's Forever database (GPL-3.0). The order is computed, not played:
+-- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
+Onward:RegisterGuide{
+  id = "felwood-a", title = "Felwood (52-60)", faction = "Alliance", zone = "Felwood",
+  levels = { 52, 60 },
+  steps = [[
+accept 4101 |npc Arathandris Silversky |at 1448 54.1,86.8 |value mid  -- Cleansing Felwood (55)
+accept 8460 |npc Grazle |at 1448 50.9,85.0 |value low  -- Timbermaw Ally (48)
+accept 5155 |npc Greta Mosshoof |at 1448 51.2,82.1  -- Forces of Jaedenar (51)
+accept 5156 |npc Taronn Redfeather |at 1448 50.9,81.6  -- Verifying the Corruption (54)
+complete 5155 |at 1448 37.7,61.2 |mobs Jaedenar Hound;Jaedenar Guardian;Jaedenar Adept;Jaedenar Cultist  -- Forces of Jaedenar (51)
+accept 4421 |npc Eridan Bluewind |at 1448 51.4,81.5  -- The Corruption of the Jadefire (54)
+accept 5204 |npc Jessir Moonbow |at 1448 51.4,82.0  -- Retribution of the Light (57)
+turnin 5165 |npc Greta Mosshoof |at 1448 51.2,82.1  -- Dousing the Flames of Protection (55)
+turnin 5155 |npc Greta Mosshoof |at 1448 51.2,82.1  -- Forces of Jaedenar (51)
+accept 5242 |npc Greta Mosshoof |at 1448 51.2,82.1  -- A Final Blow (58)
+accept 5157 |npc Greta Mosshoof |at 1448 51.2,82.1  -- Collection of the Corrupt Water (52)
+complete 4421 |at 1448 37.1,69.9 |mobs Jadefire Felsworn;Jadefire Shadowstalker;Jadefire Rogue;Xavathras  -- The Corruption of the Jadefire (54)
+complete 5157 |at 1448 35.2,59.8  -- Collection of the Corrupt Water (52)
+turnin 4421 |npc Eridan Bluewind |at 1448 51.4,81.5  -- The Corruption of the Jadefire (54)
+accept 4906 |npc Eridan Bluewind |at 1448 51.4,81.5  -- Further Corruption (54)
+fly 1452 62.3,36.6 |from 1448 62.5,24.2 |npc Winterspring (Maethrya)  -- flight master Mishellena
+accept 8464 |npc Salfa |at 1452 27.7,34.5  -- Winterfall Activity (58)
+fly 1448 62.5,24.2 |from 1452 62.3,36.6 |npc Mishellena  -- flight master Maethrya
+turnin 5157 |npc Greta Mosshoof |at 1448 51.2,82.1  -- Collection of the Corrupt Water (52)
+accept 5158 |npc Greta Mosshoof |at 1448 51.2,82.1  -- Seeking Spiritual Aid (52)
+accept 5249 |npc Ivy Leafrunner |at 1448 51.0,81.6  -- To Winterspring! (56)
+accept 86611 |npc Statue of Malorne |at 1448 42.0,47.4  -- Stag Lord's Bauble (55)
+complete 5242 |at 1448 38.8,46.8 |mobs Moora;Salia;Shadow Lord Fel'dan  -- A Final Blow (58)
+complete 5156 |at 1448 42.5,41.2 |mobs Entropic Beast;Entropic Horror  -- Verifying the Corruption (54)
+turnin 86611 |npc Golhine the Hooded |at 1448 61.9,24.5  -- Stag Lord's Bauble (55)
+complete 4101 |at 1448 57.9,19.1 |mobs Warpwood Moss Flayer;Warpwood Shredder;Dessecus |value mid  -- Cleansing Felwood (55)
+accept 8461 |npc Nafien |at 1448 64.8,8.1  -- Deadwood of the North (55)
+complete 8461 |at 1448 62.3,9.2 |mobs Deadwood Den Watcher;Deadwood Avenger;Deadwood Shaman  -- Deadwood of the North (55)
+accept 8470 |at 1448 62.3,9.2 |note Starts from Deadwood Ritual Totem  -- Deadwood Ritual Totem (55)
+turnin 8461 |npc Nafien |at 1448 64.8,8.1  -- Deadwood of the North (55)
+accept 8465 |npc Nafien |at 1448 64.8,8.1  -- Speak to Salfa (55)
+complete 8470  -- Deadwood Ritual Totem (55)
+accept 6031 |npc Meilosh |at 1448 65.7,2.8 |value low  -- Runecloth (55)
+accept 8481 |npc Gorn One Eye |at 1448 65.2,2.7  -- The Root of All Evil (60)
+fly 1452 62.3,36.6 |from 1448 62.5,24.2 |npc Winterspring (Maethrya)  -- flight master Mishellena
+turnin 8465 |npc Salfa |at 1452 27.7,34.5  -- Speak to Salfa (55)
+turnin 5249 |npc Wynd Nightchaser |at 1452 52.0,30.4  -- To Winterspring! (56)
+fly 1448 62.5,24.2 |from 1452 62.3,36.6 |npc Mishellena  -- flight master Maethrya
+complete 4906 |at 1448 42.1,18.7 |mobs Jadefire Hellcaller;Jadefire Betrayer;Jadefire Trickster;Xavaric  -- Further Corruption (54)
+fly 1413 63.1,37.2 |from 1448 62.5,24.2 |npc The Barrens (Bragok)  -- flight master Mishellena
+turnin 5158 |npc Islen Waterseer |at 1413 65.8,43.8  -- Seeking Spiritual Aid (52)
+accept 5159 |npc Islen Waterseer |at 1413 65.8,43.8  -- Cleansed Water Returns to Felwood (54)
+fly 1448 62.5,24.2 |from 1413 63.1,37.2 |npc Mishellena  -- flight master Bragok
+accept 939 |at 1448 39.1,22.4 |note Starts from Flute of Xavaric  -- Flute of Xavaric (54)
+complete 939 |at 1448 37.8,69.5 |mobs Jadefire Satyr;Jadefire Felsworn;Jadefire Trickster;Jadefire Hellcaller  -- Flute of Xavaric (54)
+complete 8460 |at 1448 48.3,90.9 |mobs Deadwood Warrior;Deadwood Pathfinder;Deadwood Gardener |value low  -- Timbermaw Ally (48)
+turnin 4101 |npc Arathandris Silversky |at 1448 54.1,86.8 |value mid  -- Cleansing Felwood (55)
+accept 5882 |npc Arathandris Silversky |at 1448 54.1,86.8 |value mid  -- Salve via Hunting (55)
+turnin 8460 |npc Grazle |at 1448 50.9,85.0 |value low  -- Timbermaw Ally (48)
+accept 8462 |npc Grazle |at 1448 50.9,85.0 |value low  -- Speak to Nafien (55)
+turnin 5159 |npc Greta Mosshoof |at 1448 51.2,82.1  -- Cleansed Water Returns to Felwood (54)
+accept 5165 |npc Greta Mosshoof |at 1448 51.2,82.1  -- Dousing the Flames of Protection (55)
+turnin 5156 |npc Taronn Redfeather |at 1448 50.9,81.6  -- Verifying the Corruption (54)
+complete 5882 |at 1448 41.5,53.7 |mobs Felpaw Wolf;Felpaw Scavenger;Angerclaw Bear;Angerclaw Mauler |value mid  -- Salve via Hunting (55)
+complete 5204 |at 1448 38.3,50.5 |mobs Rakaiah  -- Retribution of the Light (57)
+accept 5202 |at 1448 38.4,50.3 |note Starts from Blood Red Key  -- A Strange Red Key (55)
+turnin 5204 |npc Remains of Trey Lightforge |at 1448 38.5,50.4  -- Retribution of the Light (57)
+accept 5385 |npc Remains of Trey Lightforge |at 1448 38.5,50.4  -- The Remains of Trey Lightforge (57)
+complete 5165 |at 1448 36.5,55.2  -- Dousing the Flames of Protection (55)
+turnin 5202 |npc Captured Arko'narin |at 1448 36.2,55.5  -- A Strange Red Key (55)
+turnin 939 |npc Eridan Bluewind |at 1448 51.4,81.5  -- Flute of Xavaric (54)
+complete 6031 |value low  -- Runecloth (55)
+accept 4441 |npc Eridan Bluewind |at 1448 51.4,81.5  -- Felbound Ancients (54)
+turnin 4906 |npc Eridan Bluewind |at 1448 51.4,81.5  -- Further Corruption (54)
+complete 4441  -- Felbound Ancients (54)
+turnin 5242 |npc Greta Mosshoof |at 1448 51.2,82.1  -- A Final Blow (58)
+turnin 5385 |npc Jessir Moonbow |at 1448 51.4,82.0  -- The Remains of Trey Lightforge (57)
+turnin 4441 |npc Eridan Bluewind |at 1448 51.4,81.5  -- Felbound Ancients (54)
+accept 4442 |npc Eridan Bluewind |at 1448 51.4,81.5  -- Purified! (54)
+turnin 4442 |npc Eridan Bluewind |at 1448 51.4,81.5  -- Purified! (54)
+turnin 5882 |npc Arathandris Silversky |at 1448 54.1,86.8 |value mid  -- Salve via Hunting (55)
+turnin 8462 |npc Nafien |at 1448 64.8,8.1 |value low  -- Speak to Nafien (55)
+complete 8481  -- The Root of All Evil (60)
+turnin 8470 |npc Kernda |at 1448 65.5,3.5  -- Deadwood Ritual Totem (55)
+complete 8464 |mobs Winterfall Shaman;Winterfall Den Watcher;Winterfall Ursa  -- Winterfall Activity (58)
+turnin 6031 |npc Meilosh |at 1448 65.7,2.8 |value low  -- Runecloth (55)
+fly 1452 62.3,36.6 |from 1448 62.5,24.2 |npc Winterspring (Maethrya)  -- flight master Mishellena
+turnin 8464 |npc Salfa |at 1452 27.7,34.5  -- Winterfall Activity (58)
+fly 1448 62.5,24.2 |from 1452 62.3,36.6 |npc Mishellena  -- flight master Maethrya
+turnin 8481 |npc Gorn One Eye |at 1448 65.2,2.7  -- The Root of All Evil (60)
+accept 8484 |npc Gorn One Eye |at 1448 65.2,2.7  -- The Brokering of Peace (60)
+complete 8484  -- The Brokering of Peace (60)
+fly 1455 55.5,47.7 |from 1448 62.5,24.2 |npc Ironforge (Gryth Thurden)  -- flight master Mishellena
+turnin 8484 |npc King Magni Bronzebeard |at 1455 39.1,56.2  -- The Brokering of Peace (60)
+]]}

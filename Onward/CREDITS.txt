@@ -1,0 +1,19 @@
+Onward - leveling guide for World of Warcraft: Forever
+Copyright (C) 2026 Josh McCann
+
+This program is free software: you can redistribute it and/or modify it under the terms of
+the GNU General Public License as published by the Free Software Foundation, either version 3
+of the License, or (at your option) any later version. It is distributed WITHOUT ANY WARRANTY;
+see LICENSE.txt for the full terms.
+
+Quest data
+  The route guides in Guides/Draft/ are generated from the quest, NPC, object and item
+  database of Questie (https://github.com/Questie/Questie), licensed under GPL-3.0.
+  Routes are computed by tools/draft_guide.py in Onward's source repository, not authored
+  by hand, and not taken from any other guide addon.
+
+Optional integrations
+  Questie and TomTom are used when installed; neither is bundled.
+
+Source
+  The addon ships as plain Lua: every file in this folder is its own source code.

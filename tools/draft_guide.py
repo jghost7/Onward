@@ -1,4 +1,4 @@
-"""Draft a Sloppy Questing guide for one zone from Questie's Forever database.
+"""Draft a Onward guide for one zone from Questie's Forever database.
 
     python draft_guide.py --zone Riverglades --map 2548 --faction Alliance
 
@@ -9,7 +9,7 @@ What it does:
   3. Simulates a player: from the first hub, repeatedly takes the cheapest next action
      (accept / do objectives / turn in) respecting prerequisites, exclusive quests, a level gate
      and a 20-quest log, and bundles everything at the same spot into one stop.
-The result is a computed route, not a played one: play it with /sq rec running and fix the order.
+The result is a computed route, not a played one: play it with /ow rec running and fix the order.
 Data: Questie/QuestieDB (GPL-3.0), so generated guides are GPL-3.0 too.
 """
 import argparse
@@ -715,8 +715,8 @@ def render(zone, steps, leftovers, levels, name, faction, gid=None, next_id=None
     out = [
         f"-- DRAFT {name} ({faction}) generated {datetime.date.today()} by tools/draft_guide.py",
         "-- from Questie's Forever database (GPL-3.0). The order is computed, not played:",
-        "-- play it with /sq rec running and fix what feels wrong. Coordinates are spawn medoids.",
-        "SloppyQuesting:RegisterGuide{",
+        "-- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.",
+        "Onward:RegisterGuide{",
         f'  id = "{gid}", title = "{name} ({levels[0]}-{levels[1]})", faction = "{faction}", zone = "{name}",',
         f"  levels = {{ {levels[0]}, {levels[1]} }},",
     ]
@@ -773,7 +773,7 @@ def main():
     zone = Zone(db, a.map, a.faction)
     steps, left, levels = route(zone)
     text = render(zone, steps, left, levels, a.zone, a.faction)
-    out = pathlib.Path(a.out or (pathlib.Path(__file__).parent.parent / "SloppyQuesting" / "Guides" / f"{a.zone.replace(' ', '')}_{a.faction}.lua"))
+    out = pathlib.Path(a.out or (pathlib.Path(__file__).parent.parent / "Onward" / "Guides" / f"{a.zone.replace(' ', '')}_{a.faction}.lua"))
     out.write_text(text, encoding="utf-8")
     nocoord = sum(1 for v, q in steps if (v == "complete" and not q["obj"]) or (v != "complete" and not (q["start"] if v == "accept" else q["finish"])))
     print(f"{a.zone} {a.faction}: {len(zone.quests)} quests, {len(steps)} steps, {len(left)} not routed, {nocoord} steps without coordinates -> {out}")
