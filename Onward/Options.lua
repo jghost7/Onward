@@ -176,8 +176,8 @@ local function choice(col, key, label, items, tip, onChange)
         b.text:SetText(it.label)
         b:SetScript("OnClick", function()
             W.db[key] = it.value
+            if onChange then onChange(it.value) end      -- first: a theme change sets the new accent
             for _, r in ipairs(controls) do r() end
-            if onChange then onChange(it.value) end
             changed()
         end)
         tooltip(b, it.tip or tip)

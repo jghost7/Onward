@@ -697,6 +697,10 @@ check("skinning turned off in EllesmereUI falls back to our own look", math.abs(
 fakeE.IsEnabled = function() return true end
 W.db.theme = "onward" SK.Refresh()
 check("EllesmereUI's colours stay out of the Onward look", SK.AccentHex() == "ffe2c153")
+check("...but its font is used in every look", SK.FontPath("head"):find("EUI.TTF", 1, true) and SK.FontPath("body"):find("EUI.TTF", 1, true))
+W.db.theme = "glass" SK.Refresh()
+check("glass with EllesmereUI: its font, our own colours", SK.FontPath("body"):find("EUI.TTF", 1, true) and math.abs(SK.ACCENT[2] - 0.824) < 0.01)
+W.db.theme = "onward"
 fakeE.IsEnabled = function() return false end
 SK.Refresh()
 

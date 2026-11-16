@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.3.3
+
+- With EllesmereUI installed, its font is used in every look again (0.3.2 limited it to the
+  Ellesmere look). Its colours still apply only to the Ellesmere look.
+- Switching the look recolours the selected option buttons right away; they kept the previous
+  look's highlight colour until the window was reopened.
+
 ## 0.3.2
 
 - **The way you came.** Heading back to a quest giver you walked away from, the arrow now follows

@@ -6,9 +6,9 @@
 --   glass     blue-slate glass, Ellesmere green accent (#0CD29D), Friz Quadrata headlines.
 --   flat      ("Ellesmere" in the options; the value is kept for saved settings) neutral dark
 --             glass, green accent, one clean body face. With EllesmereUI installed its public
---             skinning API supplies the user's own accent, panel colour and font, and live
---             changes there repaint our windows. Nothing of EllesmereUI's art or code is copied;
---             we only read those three values.
+--             skinning API supplies the user's own accent and panel colour here, and its font in
+--             every look; live changes there repaint our windows. Nothing of EllesmereUI's art
+--             or code is copied; we only read those three values.
 -- The square "flat" geometry (solid fills, 1px edges, square badges) is still in the code paths
 -- below but no theme uses it.
 --
@@ -71,15 +71,19 @@ local function pullLooks()
     local tint, rim = SLATE, WHITE_RIM
     S.fontOverride = nil
     local theme = S.Theme()
+    local euiOn = eui and (not eui.IsEnabled or eui.IsEnabled())
+    -- EllesmereUI's font is used in every look; its colours only in the Ellesmere look
+    if euiOn then
+        local ok3, path = pcall(eui.GetFont)
+        if ok3 and path then S.fontOverride = path end
+    end
     if theme == "onward" then
         a, tint, rim = S.ONWARD.accent, S.ONWARD.tint, S.ONWARD.rim
-    elseif theme == "flat" and eui and (not eui.IsEnabled or eui.IsEnabled()) then
+    elseif theme == "flat" and euiOn then
         local ok, r, g, b = pcall(eui.GetAccentColor)
         if ok and r then a = { r, g, b } end
         local ok2, pr, pg, pb = pcall(eui.GetPanelColor)
         if ok2 and pr then p = { pr, pg, pb } end
-        local ok3, path = pcall(eui.GetFont)
-        if ok3 and path then S.fontOverride = path end
     end
     S.ACCENT[1], S.ACCENT[2], S.ACCENT[3] = a[1], a[2], a[3]
     S.PANEL[1], S.PANEL[2], S.PANEL[3] = p[1], p[2], p[3]
