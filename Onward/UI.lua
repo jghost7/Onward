@@ -362,6 +362,57 @@ waitBtn:SetScript("OnClick", function(self)
     if w and w.ready[1] then G:GoToStep(w.ready[1]) end
 end)
 
+-- one clickable accent line under the card: the busy-area prompt, or quests left for later
+local function lineButton(color)
+    local bt = CreateFrame("Button", nil, f)
+    bt:SetHeight(14)
+    bt.text = fs(bt, 11, color)
+    bt.text:SetPoint("LEFT")
+    bt.text:SetPoint("RIGHT")
+    bt.text:SetJustifyH("LEFT")
+    bt.text:SetWordWrap(false)
+    bt:Hide()
+    bt:SetScript("OnLeave", function() GameTooltip:Hide() end)
+    return bt
+end
+
+local busyBtn = lineButton(C.warn)
+busyBtn:SetScript("OnEnter", function(self)
+    GameTooltip:SetOwner(self, "ANCHOR_LEFT")
+    GameTooltip:AddLine("Busy here")
+    GameTooltip:AddLine(("%d of the %d quest mobs in sight are tagged by other players."):format(self.tagged or 0, self.total or 0), 0.8, 0.8, 0.8)
+    GameTooltip:AddLine("Click: come back to this quest later. The guide moves on and brings you back to it.", S.ACCENT[1], S.ACCENT[2], S.ACCENT[3])
+    GameTooltip:Show()
+end)
+busyBtn:SetScript("OnClick", function(self) if self.quest then G:Later(self.quest) end end)
+UI.busyBtn = busyBtn
+
+local laterBtn = lineButton(C.sub)
+laterBtn:SetScript("OnEnter", function(self)
+    GameTooltip:SetOwner(self, "ANCHOR_LEFT")
+    GameTooltip:AddLine("Left for later")
+    for _, q in ipairs(self.quests or {}) do GameTooltip:AddLine(questTitle(q), 0.8, 0.8, 0.8) end
+    GameTooltip:AddLine("Click: do " .. (self.quest and questTitle(self.quest) or "it") .. " now. The guide also comes back to these before moving on.",
+        S.ACCENT[1], S.ACCENT[2], S.ACCENT[3])
+    GameTooltip:Show()
+end)
+laterBtn:SetScript("OnClick", function(self) if self.quest then G:ResumeLater(self.quest) end end)
+UI.laterBtn = laterBtn
+
+-- busy-area check every 2 s while a kill/loot step is shown; redraws only when the answer changes
+local busySig
+C_Timer.NewTicker(2, function()
+    local step = card.step
+    local sig = ""
+    if type(step) == "table" and step.verb == "complete" and W.Target and f:IsShown() then
+        local busy, tagged, total = W.Target:Busy()
+        sig = busy and (step.quest .. ":" .. tagged .. "/" .. total) or ""
+    end
+    local near = G:LaterNearby() or ""
+    sig = sig .. "|" .. near
+    if sig ~= busySig then busySig = sig UI:Render() end
+end)
+
 local divider = f:CreateTexture(nil, "ARTWORK")
 divider:SetColorTexture(rgb(C.line))
 divider:SetHeight(1)
@@ -433,6 +484,8 @@ function UI:Render()
     divider:Hide()
     missedBtn:Hide()
     suggestBtn:Hide()
+    busyBtn:Hide()
+    laterBtn:Hide()
 
     if not step then
         badge:SetVertexColor(rgb(C.accent))
@@ -540,6 +593,37 @@ function UI:Render()
         y = y + 18
     end
 
+    -- an overrun area: offer to come back to this quest later
+    if step.verb == "complete" and step.quest and W.Target and not W.db.collapsed then
+        local busy, tagged, total = W.Target:Busy()
+        if busy then
+            busyBtn.quest, busyBtn.tagged, busyBtn.total = step.quest, tagged, total
+            busyBtn.text:SetText(("Busy: %d of %d here are tagged by others  ·  |c%scome back later|r"):format(tagged, total, S.AccentHex()))
+            busyBtn:ClearAllPoints()
+            busyBtn:SetPoint("TOPLEFT", PAD, -y)
+            busyBtn:SetPoint("RIGHT", -PAD, 0)
+            busyBtn:Show()
+            y = y + 16
+        end
+    end
+
+    -- quests left for later: back near one of them, or the list
+    local later = G:LaterList()
+    if #later > 0 and not W.db.collapsed then
+        local near = G:LaterNearby()
+        laterBtn.quests, laterBtn.quest = later, near or later[1]
+        if near then
+            laterBtn.text:SetText(("|c%sBack near %s|r (left for later)  ·  click to do it now"):format(S.AccentHex(), questTitle(near)))
+        else
+            laterBtn.text:SetText(("Left for later: %s%s"):format(questTitle(later[1]), #later > 1 and (" +" .. (#later - 1)) or ""))
+        end
+        laterBtn:ClearAllPoints()
+        laterBtn:SetPoint("TOPLEFT", PAD, -y)
+        laterBtn:SetPoint("RIGHT", -PAD, 0)
+        laterBtn:Show()
+        y = y + 16
+    end
+
     -- a guide that fits you better than this one
     local sug, sugWhy = G:Suggestion()
     if sug then
@@ -625,7 +709,9 @@ card:SetScript("OnClick", function(self, button)
         if self.recommend then W.cdb.pickedSmart = nil G:StartRecommended() else UI:ShowPicker("zones") end
         return
     end
-    if button == "RightButton" or step.verb == "note" then
+    if button == "RightButton" and IsShiftKeyDown() and step.quest then
+        G:Later(step.quest)
+    elseif button == "RightButton" or step.verb == "note" then
         G:MarkDone(step)
     elseif step.quest and C_QuestLog.IsOnQuest(step.quest) and QuestMapFrame_OpenToQuestDetails then
         QuestMapFrame_OpenToQuestDetails(step.quest)
@@ -642,6 +728,7 @@ card:SetScript("OnEnter", function(self)
     end
     GameTooltip:AddLine("Left-click: open on map")
     GameTooltip:AddLine("Right-click: mark this step done", 0.7, 0.7, 0.7)
+    if self.step.quest then GameTooltip:AddLine("Shift-right-click: come back to this quest later", 0.7, 0.7, 0.7) end
     GameTooltip:Show()
 end)
 card:SetScript("OnLeave", function() GameTooltip:Hide() end)

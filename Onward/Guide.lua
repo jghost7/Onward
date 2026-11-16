@@ -320,10 +320,23 @@ function G:IsWaiting(step)
         and not QS:IsReady(step.quest) and not QS:IsDone(step.quest) or false
 end
 
+-- "Come back later": quests you set aside (an area overrun with players, say). Their steps are
+-- left out until you pick them up again from the panel, walk back into their area (offered, not
+-- forced), or reach the end of the guide, which brings you back to them before moving on.
+-- Turn-ins are never held: a set-aside quest you finished anyway can still be handed in.
+local function laterSet()
+    W.cdb.later = W.cdb.later or {}
+    return W.cdb.later
+end
+function G:IsLater(step)
+    return step.quest and step.verb ~= "turnin" and laterSet()[step.quest] ~= nil and not QS:IsDone(step.quest) or false
+end
+
 local function isOpen(step)
     if G:IsComplete(step) then return false end
     if G:IsWaiting(step) then return false end
     if forced[step] then return true end
+    if G:IsLater(step) then return false end
     if G:IsSkipped(step) then return false end
     if G:IsBehind(step) then
         if not step.quest then return false end                -- travel / notes you've moved past
@@ -415,6 +428,16 @@ local function advance(fromStart)
     end
     local changed = i ~= cursor
     cursor = i
+    -- end of the guide: first back to the quests you left for later
+    if cursor > n and active.id ~= "smart" and #G:LaterList() > 0 then
+        local names = {}
+        for _, q in ipairs(G:LaterList()) do
+            names[#names + 1] = QS:Title(q) or ("quest " .. q)
+            G:ResumeLater(q, true)
+        end
+        W.Print("before moving on, back to the quests you left for later: " .. table.concat(names, ", "))
+        return advance(true)
+    end
     if cursor > n and active.def.next and registry[active.def.next] then
         W.Print("guide complete, moving on to", registry[active.def.next].title)
         G:Activate(active.def.next)
@@ -664,6 +687,71 @@ function G:GoBackToMissed()
     cursor = target
     W:Fire("WF_STEP_CHANGED", active.steps[cursor])
     W:Fire("WF_UPDATED")
+end
+
+-- Set a quest aside for later (current step's quest when none is given).
+function G:Later(q)
+    q = q or (G:Current() and G:Current().quest)
+    if not q or not active then return end
+    laterSet()[q] = { guide = active.id, t = GetTime() }
+    for _, s in ipairs(active.steps) do if s.quest == q then forced[s] = nil end end
+    W.Print(("left %s for later: it's listed on the panel, and the guide comes back to it before moving on.")
+        :format(QS:Title(q) or ("quest " .. q)))
+    advance()
+    W:Fire("WF_UPDATED")
+end
+
+-- Quests of this guide you left for later and haven't finished, in guide order.
+function G:LaterList()
+    local out, seen = {}, {}
+    if not active then return out end
+    local set = laterSet()
+    for _, s in ipairs(active.steps) do
+        local q = s.quest
+        if q and set[q] and not seen[q] and not QS:IsDone(q) then
+            seen[q] = true
+            out[#out + 1] = q
+        end
+    end
+    return out
+end
+
+-- Pick a set-aside quest up again: its open steps come back, and (unless quiet) the guide goes
+-- to the first of them now.
+function G:ResumeLater(q, quiet)
+    if not active then return end
+    laterSet()[q] = nil
+    local first
+    for _, s in ipairs(active.steps) do
+        if s.quest == q and not G:IsComplete(s) and not G:IsWaiting(s) then
+            forced[s] = true
+            first = first or s
+        end
+    end
+    if quiet then return end
+    if first then G:GoToStep(first) else advance(true) W:Fire("WF_UPDATED") end
+end
+
+-- A set-aside quest whose area you're back in (within 250 yd of one of its objective steps),
+-- at least two minutes after you left it: offered on the panel, never switched to by itself.
+local LATER_NEAR, LATER_AFTER = 250, 120
+function G:LaterNearby()
+    local T = W.Travel
+    if not (active and T) then return end
+    local pc, px, py = T.PlayerWorld()
+    if not pc then return end
+    local now = GetTime()
+    for _, q in ipairs(G:LaterList()) do
+        local e = laterSet()[q]
+        if not e.t or e.t > now or now - e.t >= LATER_AFTER then
+            for _, s in ipairs(active.steps) do
+                if s.quest == q and s.verb == "complete" and s.at and s.at.map then
+                    local c, x, y = T.World(s.at.map, s.at.x, s.at.y)
+                    if c == pc and (x - px) ^ 2 + (y - py) ^ 2 <= LATER_NEAR ^ 2 then return q end
+                end
+            end
+        end
+    end
 end
 
 -- Click on a note step = done

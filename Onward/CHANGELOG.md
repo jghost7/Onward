@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.4.0
+
+- **Come back later.** When an area is overrun and you're fighting other players for tags, set
+  the quest aside: the guide moves on and lists it under "Left for later". It offers it again
+  when you're back in that area, and brings you back to it at the end of the guide before moving
+  to the next one. Shift-right-click the step, type `/ow later`, or click the busy prompt.
+- **Busy areas are spotted for you.** With enemy nameplates on, when most of the quest's mobs in
+  sight (3 or more) are tagged by other players, the panel says so ("Busy: 5 of 7 here are
+  tagged by others") and offers to come back later.
+- **Target button on its own.** Options > Navigation > Target button on its own: the quest-mob
+  target button leaves the step card and becomes an action-button-sized button you can put
+  anywhere, e.g. beside your action bars. Right-drag it to move it (out of combat).
+
 ## 0.3.4
 
 - No drop-rate line on items you loot from objects (chests, crates, things on the ground), like

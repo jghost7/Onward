@@ -36,7 +36,7 @@ end
 -- window
 ---------------------------------------------------------------------------
 local win = CreateFrame("Frame", "OnwardOptions", UIParent)
-win:SetSize(640, 680)
+win:SetSize(640, 720)
 win:SetPoint("CENTER")
 win:SetFrameStrata("DIALOG")
 win:SetClampedToScreen(true)
@@ -239,6 +239,7 @@ check(1, "waypoints", "Map pin on the current step", "Blizzard's own map pin and
 check(1, "tomtom", "TomTom waypoint (if installed)")
 check(1, "targetButton", "Quest mob target button", "A crosshair on kill and loot steps: click it, or bind a key under Key Bindings > AddOns > Onward, to target the nearest living quest mob.")
 check(1, "targetMark", "Mark the target with a skull", "Puts a skull over the mob the target button picks, so it stands out in a crowd.")
+check(1, "targetDetached", "Target button on its own", "Moves the target button off the step card into a bigger button you can place anywhere, e.g. beside your action bars. Right-drag it to move it.", function() W.Target:Sync() end)
 
 section(1, "Travel")
 check(1, "trailBack", "Lead back the way you came", "When you head back to a quest giver you walked away from, the arrow follows your own path (around cliffs, over bridges) instead of a straight line.")

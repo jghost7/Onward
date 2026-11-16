@@ -63,7 +63,11 @@ Install it on a character you've already been playing and Onward works out what 
 
 ## Quest-mob targeting
 
-On kill and loot steps a crosshair appears next to the step. Click it, or **bind a key** (Key Bindings > AddOns > Onward), to target the nearest living quest mob and put a skull on it. When several kill quests share an area, Onward lists them together and the button covers all of them.
+On kill and loot steps a crosshair appears next to the step. Click it, or **bind a key** (Key Bindings > AddOns > Onward), to target the nearest living quest mob and put a skull on it. When several kill quests share an area, Onward lists them together and the button covers all of them. Prefer it by your action bars? Options > Navigation > Target button on its own makes it a bigger button you can drag anywhere.
+
+## Too crowded? Come back later
+
+Fighting other players for every tag? Onward notices when most of the quest's mobs around you are tagged by someone else and offers to come back later (or shift-right-click the step, or `/ow later`). The guide moves on, reminds you when you're back in that area, and returns to it at the end of the guide.
 
 ## Drop rates: lucky or not?
 
@@ -99,6 +103,7 @@ A compact panel showing the current step, its objectives and what comes next. Fr
 | `/ow options` | Options |
 | `/ow mode all` / `efficient` / `fastest` | Which quests to include |
 | `/ow group show` / `hide` | Elite and dungeon quests in the guides |
+| `/ow later` | Come back to the current quest later |
 | `/ow next` / `/ow prev` | Skip ahead or go back a step |
 | `/ow arrow` | Show or hide the nav arrow |
 | `/ow drops` | Your quest-item drop rates vs the expected ones |

@@ -251,6 +251,66 @@ note done
     W.Guide:Activate("nav") settle()
 end
 
+-- come back later: a busy area offers it; set-aside quests are listed, offered when you're back
+-- near them, and brought back at the end of the guide
+do
+    W:RegisterGuide{ id = "later", title = "Later", faction = "", steps = [[
+accept 9970 |at 1423 50.0,50.0
+complete 9970 |at 1423 60.0,50.0 |mobs Mire Hag
+accept 9971 |at 1423 50.0,50.0
+complete 9971 |at 1423 30.0,30.0 |mobs Bog Lurker
+turnin 9971 |at 1423 50.0,50.0
+turnin 9970 |at 1423 50.0,50.0
+]] }
+    MOCK.addQuest(9970, "Hag Hunt", { { text = "Mire Hag slain: 0/6", finished = false, numFulfilled = 0, numRequired = 6 } })
+    MOCK.addQuest(9971, "Lurker Hunt") MOCK.fire("QUEST_LOG_UPDATE")
+    MOCK.pos = { map = 1423, x = 0.6, y = 0.5 }
+    W.Guide:Activate("later") settle()
+    local cur = function() return W.Guide:Current() end
+    check("later: starts on the hag step", cur() and cur().quest == 9970 and cur().verb == "complete", cur() and cur().quest)
+    for i = 1, 4 do MOCK.units["nameplate" .. i] = { name = "Mire Hag", tapDenied = i <= 3 } end
+    MOCK.units.nameplate5 = { name = "Mire Hag", dead = true, tapDenied = true }
+    local busy, tagged, total = W.Target:Busy()
+    check("busy: most living quest mobs in sight are tagged by others", busy and tagged == 3 and total == 4, tagged .. "/" .. total)
+    W.UI:Render()
+    check("busy prompt on the panel", W.UI.busyBtn:IsShown() and W.UI.busyBtn.text:GetText():find("3 of 4", 1, true), W.UI.busyBtn.text:GetText())
+    W.UI.busyBtn:GetScript("OnClick")(W.UI.busyBtn)
+    settle()
+    check("come back later: the guide moves on", cur() and cur().quest == 9971, cur() and cur().quest)
+    W.UI:Render()
+    check("left-for-later line", W.UI.laterBtn:IsShown() and W.UI.laterBtn.text:GetText():find("Left for later", 1, true), W.UI.laterBtn.text:GetText())
+    check("not offered right away while you're still there", W.Guide:LaterNearby() == nil)
+    MOCK.advance(130)
+    check("back near it later: offered", W.Guide:LaterNearby() == 9970)
+    MOCK.pos = { map = 1423, x = 0.3, y = 0.3 }
+    check("not offered from elsewhere", W.Guide:LaterNearby() == nil)
+    W.UI.laterBtn.quest = 9970
+    W.UI.laterBtn:GetScript("OnClick")(W.UI.laterBtn) settle()
+    check("click: back to it now", cur() and cur().quest == 9970 and #W.Guide:LaterList() == 0, cur() and cur().quest)
+    -- set aside again, finish the rest: the end of the guide brings it back
+    MOCK.shift = true
+    W.UI.card:GetScript("OnClick")(W.UI.card, "RightButton") settle()
+    MOCK.shift = false
+    check("shift-right-click sets the quest aside", cur() and cur().quest == 9971 and #W.Guide:LaterList() == 1)
+    MOCK.finish(9971) MOCK.fire("QUEST_LOG_UPDATE") settle()
+    MOCK.turnIn(9971) MOCK.fire("QUEST_TURNED_IN", 9971) MOCK.fire("QUEST_LOG_UPDATE") settle()
+    check("end of the guide: back to the quests left for later", cur() and cur().quest == 9970 and cur().verb == "complete", cur() and (cur().verb .. " " .. tostring(cur().quest)))
+    for i = 1, 5 do MOCK.units["nameplate" .. i] = nil end
+    -- the target button on its own
+    W.db.targetDetached = true W.Target:Sync()
+    local tb = W.Target.button
+    check("detached target button: action-button size", tb.shown and tb.w == 40, tb.w)
+    tb.GetPoint = function() return "CENTER", UIParent, "CENTER", 120, -40 end
+    tb:GetScript("OnDragStop")(tb)
+    check("dragging it saves where it goes", W.db.targetPoint and W.db.targetPoint[3] == 120, W.db.targetPoint and W.db.targetPoint[3])
+    W.db.targetDetached = false W.db.targetPoint = nil W.Target:Sync()
+    tb.GetPoint = nil
+    check("back on the step card", tb.w == 22, tb.w)
+    MOCK.turnIn(9970) MOCK.fire("QUEST_TURNED_IN", 9970) MOCK.fire("QUEST_LOG_UPDATE")
+    MOCK.pos = { map = 1423, x = 0.5, y = 0.5 }
+    W.Guide:Activate("nav") settle()
+end
+
 -- flight advice: a known flight master next to the player and one at the far target
 MOCK.taxi = {
     { name = "Here Town", nodeID = 1, slotIndex = 1, state = 0, position = { x = 0.52, y = 0.52 } },
@@ -712,7 +772,7 @@ W.db.theme = "onward"
 fakeE.IsEnabled = function() return false end
 SK.Refresh()
 
-check("options fit the window", W.Options.cursor[1] > -664 and W.Options.cursor[2] > -664, W.Options.cursor[1] .. " / " .. W.Options.cursor[2])   -- window is 680 tall
+check("options fit the window", W.Options.cursor[1] > -704 and W.Options.cursor[2] > -704, W.Options.cursor[1] .. " / " .. W.Options.cursor[2])   -- window is 720 tall
 
 -- profession guides: steps complete on your skill, the card shows mats against your bags,
 -- the trainer is found, and the game's own best recipe is offered when the route's isn't usable
@@ -801,7 +861,7 @@ MOCK.printed = {}
 check("riverglades guides registered", W.Guide:Get("riverglades-a") and W.Guide:Get("riverglades-h"))
 local nGuides, nSteps, mismatched, noQuest, ids = 0, 0, {}, 0, {}
 for _, def in ipairs(W.Guide:All()) do
-    if not ({ test = 1, riverglades = 1, nav = 1, resume = 1, resume2 = 1, modes = 1, target = 1, group = 1, groupq = 1, trail = 1, drops = 1, wait = 1, spots = 1 })[def.id] then
+    if not ({ test = 1, riverglades = 1, nav = 1, resume = 1, resume2 = 1, modes = 1, target = 1, group = 1, groupq = 1, trail = 1, later = 1, drops = 1, wait = 1, spots = 1 })[def.id] then
         check("unique guide id " .. def.id, not ids[def.id]) ids[def.id] = true
         if def.next then check(def.id .. " next exists", W.Guide:Get(def.next) ~= nil, def.next) end
         local expect = 0

@@ -24,6 +24,8 @@ local DEFAULTS = {
     routeStops = 3,          -- how many steps past the current one "next" shows
     targetButton = true,     -- crosshair on kill/loot steps that targets the nearest quest mob
     targetMark = true,       -- put a skull on the mob it targets
+    targetDetached = false,  -- target button as its own movable button instead of on the step card
+    targetPoint = nil,
     -- travel
     trailBack = true,        -- lead back to quest givers along the way you came
     travelAdvice = true,     -- suggest flights when they beat running
@@ -141,6 +143,7 @@ local HELP = {
     "/ow arrow  - show or hide the nav arrow (/ow arrow debug: what it's pointing from and to)",
     "/ow mode all | efficient | fastest  - which quests the guides include",
     "/ow group show | hide  - elite and dungeon quests in the guides",
+    "/ow later  - come back to the current quest later (or shift-right-click the step)",
     "/ow next | prev  - skip or go back one step",
     "/ow rec start | stop | show  - record a route as you play",
     "/ow auto  - toggle auto accept / turn-in",
@@ -174,6 +177,8 @@ SlashCmdList.ONWARD = function(msg)
             W:Fire("WF_SETTINGS_CHANGED")
         end
         W.Print("quest mode:", W.db.questMode, "(all | efficient | fastest)")
+    elseif cmd == "later" then
+        W.Guide:Later()
     elseif cmd == "group" or cmd == "elite" then
         local m = rest:lower()
         if m == "show" or m == "hide" then
