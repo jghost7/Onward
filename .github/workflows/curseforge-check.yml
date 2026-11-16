@@ -1,19 +1,44 @@
-name: CurseForge check
+name: CurseForge
 
-# Run by hand (Actions > CurseForge check > Run workflow): checks the CF_API_KEY secret works and
-# shows which WoW Forever game version uploads will use. Uploads nothing.
+# Run by hand (Actions > CurseForge > Run workflow).
+#   version empty:  checks the CF_API_KEY secret works and shows which WoW Forever game version
+#                   uploads use. Uploads nothing.
+#   version 0.4.0:  uploads that already-published GitHub release's zip to CurseForge (Beta), with
+#                   its CHANGELOG.md entry. For a release made before uploads were automatic.
 
 on:
   workflow_dispatch:
+    inputs:
+      version:
+        description: "Upload this released version (e.g. 0.4.0); leave empty for a dry run"
+        required: false
+        default: ""
+
+permissions:
+  contents: read
 
 jobs:
-  check:
+  curseforge:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - env:
+      - name: Dry run
+        if: inputs.version == ''
+        env:
           CF_API_KEY: ${{ secrets.CF_API_KEY }}
         run: python tools/cf_upload.py --project 1808625 --dry-run
+      - name: Upload a released version
+        if: inputs.version != ''
+        env:
+          CF_API_KEY: ${{ secrets.CF_API_KEY }}
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ inputs.version }}
+        run: |
+          gh release download "v$VERSION" --pattern "Onward-$VERSION.zip" --dir dist
+          awk -v v="$VERSION" '$0 ~ "^## "v"( |$)" {f=1; next} /^## / {if (f) exit} f' Onward/CHANGELOG.md | tr -d '\r' > cf_notes.md
+          [ -s cf_notes.md ] || { echo "no CHANGELOG entry for $VERSION"; exit 1; }
+          python tools/cf_upload.py --project 1808625 --zip "dist/Onward-$VERSION.zip" \
+            --name "Onward $VERSION" --changelog cf_notes.md --release-type beta
