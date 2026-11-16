@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.4
+
+- No drop-rate line on items you loot from objects (chests, crates, things on the ground), like
+  the charts and logs in Deep Sea Salvage: a rate per kill means nothing there. Uses Questie's
+  item sources, so without Questie the line still shows.
+
 ## 0.3.3
 
 - With EllesmereUI installed, its font is used in every look again (0.3.2 limited it to the

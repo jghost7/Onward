@@ -355,6 +355,8 @@ function D:Line(o, q)
     local name, qid = D.ItemObjective(o, q)
     if not name then return end
     local itemId = D:ItemIdByName(name) or (qid ~= true and qid) or nil
+    -- looted from an object (a chest, a crate on the ground), never from a mob: kills mean nothing
+    if itemId and QB:ItemFromMobs(itemId) == false then return end
     local s = itemId and D:Stats(itemId)
     if not s or s.kills == 0 then
         local p, src = nil, nil

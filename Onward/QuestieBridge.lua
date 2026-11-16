@@ -201,6 +201,19 @@ function QB:ItemDropNpcs(itemId)
     end)
 end
 
+-- Does any creature drop this item? true / false (only objects or vendors have it, e.g. a chest
+-- on the sea floor), or nil when Questie isn't there or knows no source at all
+function QB:ItemFromMobs(itemId)
+    return call(function()
+        if not QDB.QueryItemSingle then return end
+        local npcs = QDB.QueryItemSingle(itemId, "npcDrops")
+        if type(npcs) == "table" and next(npcs) then return true end
+        local objs = QDB.QueryItemSingle(itemId, "objectDrops")
+        local vendors = QDB.QueryItemSingle(itemId, "vendors")
+        if (type(objs) == "table" and next(objs)) or (type(vendors) == "table" and next(vendors)) then return false end
+    end)
+end
+
 -- Questie's drop chance for an item from one NPC: percent (0-100) and its source
 -- ("wowhead", "cmangos", "mangos3" or "questie" for Questie's own corrections), or nil.
 -- On Forever, Questie loads its Classic tables, so the Forever-only zones mostly have none.

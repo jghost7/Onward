@@ -535,6 +535,14 @@ check("drop line for an untyped item objective Questie knows", untyped ~= nil, u
 -- no Questie data: still says it's counting
 local bare = D:Line({ text = "Odd Rock: 0/3", type = "item", finished = false, have = 0, need = 3 }, 999)
 check("drop line without expected rate says it's counting", bare == "drop rate: counting your kills", bare)
+-- looted from an object (a chest on the sea floor), not a mob: no kill-based line at all
+do
+    local QBr = W.QuestieBridge
+    local saved = QBr.ItemFromMobs
+    QBr.ItemFromMobs = function() return false end
+    check("no drop line for an item looted from objects", D:Line({ text = "Hag Charm: 0/8", type = "item", finished = false, have = 0, need = 8 }, 970) == nil)
+    QBr.ItemFromMobs = saved
+end
 check("no drop line on a kill objective", D:Line({ text = "Mire Hag slain: 0/8", type = "monster", finished = false }, 970) == nil)
 
 local plateN = 0
