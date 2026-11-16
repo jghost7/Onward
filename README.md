@@ -1,6 +1,25 @@
 # Sloppy Questing
 
-A leveling guide addon for WoW Forever (interface 16001). The code is written from scratch and nothing is taken from Zygor or RestedXP.
+[![Download](https://img.shields.io/github/v/release/jghost7/SloppyQuesting?label=download&style=for-the-badge)](https://github.com/jghost7/SloppyQuesting/releases/latest/download/SloppyQuesting.zip)
+[![Tests](https://github.com/jghost7/SloppyQuesting/actions/workflows/tests.yml/badge.svg)](https://github.com/jghost7/SloppyQuesting/actions/workflows/tests.yml)
+
+A free leveling and profession guide for **World of Warcraft: Forever**: every zone for both factions, 1-300 in every profession, a nav arrow, flight advice and quest-mob targeting. It's in beta: routes are generated from quest data and not all of them have been played through yet.
+
+## Install
+
+1. **[Download SloppyQuesting.zip](https://github.com/jghost7/SloppyQuesting/releases/latest/download/SloppyQuesting.zip)** (always the newest version). Older versions and what changed in each are on the [Releases page](https://github.com/jghost7/SloppyQuesting/releases).
+2. Unzip it into `World of Warcraft\_forever_\Interface\AddOns`, so you end up with `AddOns\SloppyQuesting\SloppyQuesting.toc`.
+3. Start the game (or `/reload`) and type `/sq` to show the panel, or `/sq guides` to pick a guide.
+
+Don't use the green **Code > Download ZIP** button: that's the source with the build tools, not the addon.
+
+Optional: [Questie](https://github.com/Questie/Questie) for more accurate quest locations, party progress and expected drop rates; TomTom for extra waypoints.
+
+Found a problem? [Open an issue](https://github.com/jghost7/SloppyQuesting/issues) with the guide name, the step you were on, and what happened.
+
+---
+
+*The rest of this page is for working on the addon.* The code is written from scratch and nothing is taken from Zygor or RestedXP.
 
 ## Layout
 
@@ -20,9 +39,7 @@ A leveling guide addon for WoW Forever (interface 16001). The code is written fr
 
 1. Write what changed under a new `## <version>` heading in `SloppyQuesting/CHANGELOG.md`.
 2. `python tools/package.py --bump patch` (or `minor` / `major`). It runs the tests and stops on a failure, writes the version into `SloppyQuesting.toc` (the only place it lives; the game reads it from there), and writes `dist/SloppyQuesting-<version>.zip` with one top-level `SloppyQuesting/` folder. It then reopens the zip and checks that every file the TOC and `Guides.xml` load is inside. It never overwrites a zip that already exists for that version.
-3. Commit, push, and attach the zip to a GitHub release (source: https://github.com/jghost7/SloppyQuesting):
-   `git commit -am "<version>"`, `git push`, then
-   `gh release create v<version> dist/SloppyQuesting-<version>.zip --title "Sloppy Questing <version>" --notes-file <that changelog entry> --prerelease`.
+3. Commit and push, then tag the version: `git tag v<version>` and `git push origin v<version>`. GitHub Actions (`.github/workflows/release.yml`) rebuilds the zip, runs the tests and publishes the release with the changelog entry, as `SloppyQuesting-<version>.zip` and as `SloppyQuesting.zip` (the README's download link always points at the newest one). The tag must match the TOC version or the build stops.
 4. Upload the zip on CurseForge: release type Beta for test builds, the WoW Forever game version, and the changelog entry. Questie and TomTom go under Relations as optional dependencies.
 
 License: GPL-3.0 (`SloppyQuesting/LICENSE.txt`), required because the guides are generated from Questie's GPL data; `SloppyQuesting/CREDITS.txt` says so in the shipped addon.

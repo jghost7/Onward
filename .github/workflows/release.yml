@@ -1,0 +1,41 @@
+name: Release
+
+# Push a tag like v0.2.7 (matching "## Version" in SloppyQuesting.toc) and this builds the addon zip,
+# runs the tests, and publishes a GitHub release with the changelog entry as its notes.
+# Every release carries SloppyQuesting.zip, so this link always gets the newest build:
+#   https://github.com/jghost7/SloppyQuesting/releases/latest/download/SloppyQuesting.zip
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install lupa
+      - name: Check the tag matches the TOC version
+        run: |
+          toc=$(sed -n 's/^## Version:[[:space:]]*\([^[:space:]]*\).*/\1/p' SloppyQuesting/SloppyQuesting.toc | tr -d '\r')
+          [ "v$toc" = "$GITHUB_REF_NAME" ] || { echo "tag $GITHUB_REF_NAME but the TOC says $toc"; exit 1; }
+          echo "VERSION=$toc" >> "$GITHUB_ENV"
+      - name: Build (runs the tests first)
+        run: python tools/package.py
+      - name: Release notes from CHANGELOG.md
+        run: |
+          awk -v v="$VERSION" '$0 ~ "^## "v"( |$)" {f=1; next} /^## / {if (f) exit} f' SloppyQuesting/CHANGELOG.md | tr -d '\r' > notes.md
+          printf '\n**Install:** download `SloppyQuesting.zip` below and unzip it into `World of Warcraft\_forever_\Interface\AddOns`.\n' >> notes.md
+      - name: Publish
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cp "dist/SloppyQuesting-$VERSION.zip" SloppyQuesting.zip
+          gh release create "$GITHUB_REF_NAME" "dist/SloppyQuesting-$VERSION.zip" SloppyQuesting.zip \
+            --title "Sloppy Questing $VERSION" --notes-file notes.md
