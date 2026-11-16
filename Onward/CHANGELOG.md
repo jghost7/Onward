@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.3.2
+
+- **The way you came.** Heading back to a quest giver you walked away from, the arrow now follows
+  your own path (around the cliff, over the bridge) instead of a straight line through it, and
+  the map route draws that path. The distance shown is the whole way back. It points straight
+  again once you're close, if you've left the path, or when your path was a long detour.
+  Onward keeps the last few kilometres you walked; a flight, hearthstone or teleport starts it
+  over. Options > Navigation > Lead back the way you came.
+- Every look is frosted glass now, each in its own colours: **Onward** (teal glass, gold edge,
+  gold highlights; the default), **Glass** (blue-slate, green) and **Ellesmere** (neutral dark,
+  green, plain font; takes your EllesmereUI colours and font when it's installed). Ellesmere
+  replaces the old square Flat look.
+
 ## 0.3.1
 
 - New look to match the logo, and the default for new installs: deep teal panels, a thin gold

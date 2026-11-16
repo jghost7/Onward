@@ -1,15 +1,16 @@
--- Theme: the look shared by every Onward window. Three themes, switchable live:
---   onward (default) the logo's look: flat geometry in deep teal (#0A2626) with a thin gold
---         border, gold accent (#E3C154, the logo's lettering) and Friz Quadrata headlines.
---         Its own palette, so EllesmereUI's colours and font don't apply to it.
---
---   flat  Ellesmere-style: solid dark panels, 1px borders, a darker title strip,
---         square buttons, checkboxes and badges, one accent colour (Ellesmere green #0CD29D).
---         With EllesmereUI installed, its public skinning API supplies the user's own accent,
---         panel colour and font, and live changes there repaint our windows. Nothing of
---         EllesmereUI's art or code is copied; we only read those three values.
---   glass the frosted look: drop shadow, tinted rounded body, grain, sheen, lit rim. WoW can't
---         blur the scene behind a frame, so the frost is faked with layers.
+-- Theme: the look shared by every Onward window. Every theme is frosted glass (drop shadow,
+-- tinted rounded body, grain, sheen, lit rim; WoW can't blur the scene behind a frame, so the
+-- frost is faked with layers). Themes differ only in colour and headline font, switchable live:
+--   onward    (default) the logo: deep teal glass, a gold-lit rim, gold accent (#E3C154, the
+--             lettering) and Friz Quadrata headlines.
+--   glass     blue-slate glass, Ellesmere green accent (#0CD29D), Friz Quadrata headlines.
+--   flat      ("Ellesmere" in the options; the value is kept for saved settings) neutral dark
+--             glass, green accent, one clean body face. With EllesmereUI installed its public
+--             skinning API supplies the user's own accent, panel colour and font, and live
+--             changes there repaint our windows. Nothing of EllesmereUI's art or code is copied;
+--             we only read those three values.
+-- The square "flat" geometry (solid fills, 1px edges, square badges) is still in the code paths
+-- below but no theme uses it.
 --
 -- Windows never pick colours or fonts themselves for themed parts: they call
 --   S.Glass(frame, opts)   window or pill background (name kept from the first theme)
@@ -43,16 +44,16 @@ function S.Theme()
     local t = W.db and W.db.theme
     return THEMES[t] and t or "onward"
 end
--- square geometry (solid fills, 1px borders, square badges): every theme but glass
-local function flat() return S.Theme() ~= "glass" end
+-- square geometry (solid fills, 1px borders, square badges): no theme uses it any more
+local function flat() return false end
 S.Square = flat
+S.RIM = { 1, 1, 1, 0.09 }           -- glass rim colour (lit edge), per theme
 
 -- the Onward palette, sampled from the logo
 S.ONWARD = {
     accent = { 0.890, 0.757, 0.329 },   -- #E3C154 gold lettering
-    panel  = { 0.039, 0.149, 0.149 },   -- #0A2626 deep teal, a step up from the logo's #012222
-    border = { 0.725, 0.475, 0.071, 0.70 }, -- #B97912 the ring's darker gold
-    strip  = { 0.004, 0.090, 0.090, 0.65 }, -- #011717 darker teal title strip
+    tint   = { 0.016, 0.125, 0.125 },   -- #042020 the logo's deep teal, as glass
+    rim    = { 0.890, 0.757, 0.329, 0.28 }, -- a gold-lit edge, like the ring
     jade   = { 0.106, 0.584, 0.478 },   -- #1B957A mountains
     glow   = { 0.988, 0.906, 0.592 },   -- #FCE797 the lit path
 }
@@ -63,13 +64,16 @@ S.ONWARD = {
 local eui
 local DEFAULT_ACCENT = { S.ACCENT[1], S.ACCENT[2], S.ACCENT[3] }
 local DEFAULT_PANEL = { S.PANEL[1], S.PANEL[2], S.PANEL[3] }
+local SLATE = { S.TINT[1], S.TINT[2], S.TINT[3] }
+local WHITE_RIM = { 1, 1, 1, 0.09 }
 local function pullLooks()
     local a, p = DEFAULT_ACCENT, DEFAULT_PANEL
-    local border, strip = { 0, 0, 0, 1 }, { 0, 0, 0, 0.35 }
+    local tint, rim = SLATE, WHITE_RIM
     S.fontOverride = nil
-    if S.Theme() == "onward" then
-        a, p, border, strip = S.ONWARD.accent, S.ONWARD.panel, S.ONWARD.border, S.ONWARD.strip
-    elseif eui and (not eui.IsEnabled or eui.IsEnabled()) then
+    local theme = S.Theme()
+    if theme == "onward" then
+        a, tint, rim = S.ONWARD.accent, S.ONWARD.tint, S.ONWARD.rim
+    elseif theme == "flat" and eui and (not eui.IsEnabled or eui.IsEnabled()) then
         local ok, r, g, b = pcall(eui.GetAccentColor)
         if ok and r then a = { r, g, b } end
         local ok2, pr, pg, pb = pcall(eui.GetPanelColor)
@@ -79,7 +83,9 @@ local function pullLooks()
     end
     S.ACCENT[1], S.ACCENT[2], S.ACCENT[3] = a[1], a[2], a[3]
     S.PANEL[1], S.PANEL[2], S.PANEL[3] = p[1], p[2], p[3]
-    for i = 1, 4 do S.BORDER[i], S.STRIP[i] = border[i], strip[i] end
+    if theme == "flat" then tint = p end      -- Ellesmere: neutral (or EllesmereUI's) panel colour as glass
+    S.TINT[1], S.TINT[2], S.TINT[3] = tint[1], tint[2], tint[3]
+    for i = 1, 4 do S.RIM[i] = rim[i] end
 end
 function S.UsingEllesmere() return eui ~= nil end
 
@@ -198,11 +204,11 @@ function S.Glass(frame, opts)
         self.alpha = a
         if flat() then
             g.body:SetColor(S.PANEL[1], S.PANEL[2], S.PANEL[3], a)
-            g.rim:SetColor(S.BORDER[1], S.BORDER[2], S.BORDER[3], S.BORDER[4] * math.min(1, a + 0.15))
+            g.rim:SetColor(S.BORDER[1], S.BORDER[2], S.BORDER[3], math.min(1, a + 0.15))
         else
             local t = opts.tint or S.TINT
             g.body:SetColor(t[1], t[2], t[3], a)
-            g.rim:SetColor(1, 1, 1, 0.09)
+            g.rim:SetColor(S.RIM[1], S.RIM[2], S.RIM[3], S.RIM[4])
             -- the frost and edges fade with the body so a nearly clear panel stays clean
             g.grain:SetVertexColor(1, 1, 1, 0.035 * math.min(1, a / 0.5))
             if g.shadow then g.shadow:SetColor(0, 0, 0, 0.55 * math.min(1, a / 0.6)) end
@@ -276,7 +282,7 @@ function S.AccentHex()
 end
 
 -- fonts: EllesmereUI's font when it supplies one, otherwise headline / body defaults
--- (flat keeps one clean face throughout; glass and onward set headlines in the game's Friz Quadrata)
+-- (Ellesmere keeps one clean face throughout; glass and onward set headlines in Friz Quadrata)
 function S.FontPath(kind)
     if S.fontOverride then return S.fontOverride end
     return (kind == "head" and S.Theme() ~= "flat") and S.FONT_HEAD or S.FONT_BODY

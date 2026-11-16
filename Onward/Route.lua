@@ -49,6 +49,11 @@ function R:Points()
             add(tgt.cont, tgt.via.wx, tgt.via.wy, "fly")
             stop = 1
             if tgt.final then add(tgt.final.cont, tgt.final.wx, tgt.final.wy, "walk", tgt.sub, stop) end
+        elseif tgt.trail and tgt.final then
+            -- the way you came: along the trail, then to the quest giver
+            for _, p in ipairs(tgt.path or {}) do add(tgt.cont, p.wx, p.wy, "walk") end
+            stop = 1
+            add(tgt.final.cont, tgt.final.wx, tgt.final.wy, "walk", tgt.label, stop)
         else
             stop = 1
             add(tgt.cont, tgt.wx, tgt.wy, "walk", tgt.label, stop)

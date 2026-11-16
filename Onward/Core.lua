@@ -25,6 +25,7 @@ local DEFAULTS = {
     targetButton = true,     -- crosshair on kill/loot steps that targets the nearest quest mob
     targetMark = true,       -- put a skull on the mob it targets
     -- travel
+    trailBack = true,        -- lead back to quest givers along the way you came
     travelAdvice = true,     -- suggest flights when they beat running
     autoTaxi = true,         -- pick the flight at the flight master (hold Shift to choose yourself)
     -- panel

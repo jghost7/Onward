@@ -108,9 +108,11 @@ local function update(_, dt)
     ring:Hide()
     arrow:Show()
 
+    -- following the trail: the distance shown is the whole way back, not to the next bend
+    local total = tgt.yards or yards
     local speed = GetUnitSpeed and W.Safe(GetUnitSpeed("player")) or 0
-    local eta = speed and speed > 0 and ("  ·  " .. fmtTime(yards / speed)) or ""
-    dist:SetText(("%d yd%s"):format(yards, eta))
+    local eta = speed and speed > 0 and ("  ·  " .. fmtTime(total / speed)) or ""
+    dist:SetText(("%d yd%s"):format(total, eta))
 
     local facing = W.Safe(GetPlayerFacing and GetPlayerFacing())
     if not facing then
@@ -143,8 +145,12 @@ function A:Debug()
     end
     local tgt = WP:ArrowTarget()
     if tgt then
-        W.Print(("arrow points at: %s%s  world %s %.0f, %.0f"):format(tgt.label or "?", tgt.flight and " (flight advice)" or tgt.spot and " (nearest objective spot)" or "",
+        W.Print(("arrow points at: %s%s  world %s %.0f, %.0f"):format(tgt.label or "?", tgt.flight and " (flight advice)" or tgt.spot and " (nearest objective spot)" or tgt.trail and " (the way you came)" or "",
             tostring(tgt.cont), tgt.wx or 0, tgt.wy or 0))
+    end
+    if W.Trail then
+        local pts = W.Trail:Points()
+        W.Print(("trail: %d points (%s)"):format(#pts, W.db.trailBack == false and "path back off" or "path back on"))
     end
     if A.last then
         W.Print(("distance %.0f yd, bearing %.0f deg, facing %.0f deg, arrow turned %.0f deg"):format(A.last.yards,

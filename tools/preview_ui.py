@@ -15,9 +15,11 @@ from PIL import Image, ImageDraw, ImageFilter, ImageFont
 MEDIA = pathlib.Path(__file__).resolve().parent.parent / "Onward" / "media"
 K = 2.0                                   # screen px per UI unit (4K at a typical UI scale)
 TINT = (14, 17, 23)
+RIM = (255, 255, 255, int(255 * 0.09))
 ACCENT = (12, 210, 157)                  # Ellesmere green #0CD29D (flat theme default)
 PANEL = (17, 18, 20)
 THEME = "flat"
+SQUARE = False      # every theme is glass now; the square drawing is kept for reference
 BORDER = (0, 0, 0, 255)
 STRIP = (0, 0, 0, int(255 * 0.35))
 TEXT, SUB, DIM = (237, 240, 245), (158, 166, 179), (115, 122, 133)
@@ -61,7 +63,7 @@ def glass(base, x, y, w, h, alpha=0.72, corner=12):
     # rim + lit top edge
     rim = Image.new("RGBA", base.size, (0, 0, 0, 0))
     rd = ImageDraw.Draw(rim)
-    rd.rounded_rectangle([x, y, x + w, y + h], radius=r, outline=(255, 255, 255, int(255 * 0.09)), width=max(1, int(K)))
+    rd.rounded_rectangle([x, y, x + w, y + h], radius=r, outline=RIM, width=max(1, int(K)))
     top = Image.new("RGBA", base.size, (0, 0, 0, 0))
     ImageDraw.Draw(top).rounded_rectangle([x, y, x + w, y + h], radius=r, outline=(255, 255, 255, int(255 * 0.22)), width=max(1, int(K)))
     fade = Image.new("L", base.size, 0)
@@ -90,7 +92,7 @@ def flatpanel(base, x, y, w, h, alpha=0.85, strip=0):
 
 
 def surface(base, x, y, w, h, alpha=0.72, corner=12, strip=0):
-    if THEME != "glass":
+    if SQUARE:
         flatpanel(base, x, y, w, h, 0.85 if alpha >= 0.7 else alpha + 0.2, strip)
     else:
         glass(base, x, y, w, h, alpha, corner)
@@ -134,12 +136,12 @@ def panel(base, X, Y):
     cx, cy = X + PAD, Y + 46
     inset = Image.new("RGBA", base.size, (0, 0, 0, 0))
     box = [(cx - 8) * K, (cy - 8) * K, (X + W - PAD + 8) * K, (cy + 44) * K]
-    if THEME != "glass":
+    if SQUARE:
         ImageDraw.Draw(inset).rectangle(box, fill=(255, 255, 255, 12), outline=(255, 255, 255, 16), width=int(K))
     else:
         ImageDraw.Draw(inset).rounded_rectangle(box, radius=10 * K, fill=(255, 255, 255, 12), outline=(255, 255, 255, 16), width=int(K))
     base.alpha_composite(inset)
-    if THEME != "glass":
+    if SQUARE:
         overlay(base, lambda d: d.rectangle([cx * K, (cy - 1) * K, (cx + 20) * K, (cy + 19) * K], fill=COL["accept"] + (255,)))
     else:
         icon(base, "circle", cx + 10, cy + 9, 20, COL["accept"])
@@ -181,10 +183,11 @@ def main():
     if THEME == "flat":
         global HEAD
         HEAD = BODY          # flat theme: one clean face throughout
+    global ACCENT, TINT, RIM
     if THEME == "onward":    # the logo's palette (Skin.lua S.ONWARD)
-        global ACCENT, PANEL, BORDER, STRIP
-        ACCENT, PANEL = (227, 193, 84), (10, 38, 38)
-        BORDER, STRIP = (185, 121, 18, 178), (1, 23, 23, 166)
+        ACCENT, TINT, RIM = (227, 193, 84), (4, 32, 32), (227, 193, 84, 71)
+    elif THEME == "flat":    # "Ellesmere": neutral glass
+        TINT = PANEL
     base = Image.open(shot).convert("RGBA")
     sx = base.width / 3840
     if sx != 1:

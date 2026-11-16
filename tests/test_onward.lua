@@ -190,6 +190,67 @@ W.db.arrow = false W.Arrow:Sync()
 check("arrow can be turned off", not AF.shown)
 W.db.arrow = true W.Arrow:Sync()
 
+-- the way you came: the arrow leads back to a quest giver along your own trail
+do
+    local Tr, T = W.Trail, W.Travel
+    local function walk(x1, y1, x2, y2)          -- map units on 1423 (1 unit = 10 yd), 5 yd per sample
+        local n = math.max(1, math.floor(math.sqrt((x2 - x1) ^ 2 + (y2 - y1) ^ 2) * 2))
+        for i = 0, n do Tr:Sample(T.World(1423, x1 + (x2 - x1) * i / n, y1 + (y2 - y1) * i / n)) end
+        MOCK.pos = { map = 1423, x = x2 / 100, y = y2 / 100 }
+    end
+    W:RegisterGuide{ id = "trail", title = "Trail", faction = "", steps = [[
+turnin 9960 |npc Giver |at 1423 40.0,50.0
+note done
+]] }
+    MOCK.addQuest(9960, "Back to the giver") MOCK.finish(9960) MOCK.fire("QUEST_LOG_UPDATE")
+    W.Guide:Activate("trail") settle()
+    Tr:Clear()
+    -- out: east 200 yd, then north 200 yd (straight back would be a 283 yd diagonal)
+    walk(40, 50, 60, 50) walk(60, 50, 60, 30)
+    check("trail records the walk every ~15 yd", Tr:Count() >= 25 and Tr:Count() <= 30, Tr:Count())
+    local tgt = W.Waypoint:ArrowTarget()
+    local _, bx, by = T.World(1423, 60, 33)
+    check("turn-in: the arrow follows the way you came", tgt and tgt.trail and math.abs(tgt.wx - bx) < 16 and math.abs(tgt.wy - by) < 16,
+          tgt and ("%s %.0f,%.0f want %.0f,%.0f"):format(tostring(tgt.trail), tgt.wx, tgt.wy, bx, by))
+    check("distance shown is the whole way back", tgt and tgt.yards and tgt.yards > 380 and tgt.yards < 420, tgt and tgt.yards)
+    check("pill says why", tgt and tgt.sub:find("the way you came", 1, true) and tgt.sub:find("Giver", 1, true), tgt and tgt.sub)
+    AF.scripts.OnUpdate(AF, 0.05)
+    check("arrow shows the trail distance", W.Arrow.dist.text:find("^%d+ yd") and tonumber(W.Arrow.dist.text:match("^(%d+)")) > 380, W.Arrow.dist.text)
+    local route = W.Route and W.Route.Points and W.Route:Points()
+    if route then check("map route follows the trail back", #route > 5, #route) end
+    -- walking back along it shrinks the trail; round the corner the arrow points down the first leg
+    walk(60, 30, 60, 50)
+    tgt = W.Waypoint:ArrowTarget()
+    _, bx, by = T.World(1423, 57, 50)
+    check("walking back shrinks the trail", Tr:Count() <= 16, Tr:Count())
+    check("after the corner it leads along the first leg", tgt and tgt.trail and math.abs(tgt.wx - bx) < 16 and math.abs(tgt.wy - by) < 16,
+          tgt and ("%.0f,%.0f want %.0f,%.0f"):format(tgt.wx, tgt.wy, bx, by))
+    walk(60, 50, 44, 50)
+    tgt = W.Waypoint:ArrowTarget()
+    check("close to the giver: straight at them", tgt and not tgt.trail and tgt.radius == 10)
+    -- a loop around a camp leaves no loop behind
+    Tr:Clear() walk(40, 50, 60, 50) local before = Tr:Count()
+    walk(60, 50, 65, 45) walk(65, 45, 70, 50) walk(70, 50, 65, 55) walk(65, 55, 60, 50)
+    check("closing a loop cuts it out", Tr:Count() <= before + 1, Tr:Count() .. " vs " .. before)
+    -- a teleport starts over; no trail near the giver = straight line
+    Tr:Sample(T.World(1423, 90, 90))
+    check("a jump starts the trail over", Tr:Count() <= 1, Tr:Count())
+    walk(90, 90, 90, 70)
+    tgt = W.Waypoint:ArrowTarget()
+    check("trail nowhere near the giver: straight line", tgt and not tgt.trail)
+    -- option off
+    Tr:Clear() walk(40, 50, 60, 50) walk(60, 50, 60, 30)
+    W.db.trailBack = false
+    check("path back can be turned off", not W.Waypoint:ArrowTarget().trail)
+    W.db.trailBack = true
+    MOCK.onTaxi = true MOCK.advance(1) MOCK.onTaxi = false
+    check("a flight clears the trail", Tr:Count() == 0, Tr:Count())
+    MOCK.turnIn(9960) MOCK.fire("QUEST_TURNED_IN", 9960) MOCK.fire("QUEST_LOG_UPDATE") settle()
+    MOCK.pos = { map = 1423, x = 0.5, y = 0.5 }
+    Tr:Clear()
+    W.Guide:Activate("nav") settle()
+end
+
 -- flight advice: a known flight master next to the player and one at the far target
 MOCK.taxi = {
     { name = "Here Town", nodeID = 1, slotIndex = 1, state = 0, position = { x = 0.52, y = 0.52 } },
@@ -594,20 +655,19 @@ check("a clearly closer spot takes over", W.Waypoint:ArrowTarget().sub == "neare
 QB2.ObjectiveSpots = realSpots
 MOCK.finish(990) MOCK.turnIn(990) MOCK.fire("QUEST_TURNED_IN", 990) MOCK.fire("QUEST_LOG_UPDATE") settle()
 
--- theme: onward by default, flat and glass on request, EllesmereUI's looks in flat
+-- theme: every look is glass, in its own colours; onward by default, EllesmereUI's looks in "flat"
 local SK = W.Skin
 local pg = W.UI.panel.glass
-check("onward theme by default", SK.Theme() == "onward" and pg.strip.shown and not pg.grain.shown)
-check("onward: gold accent, teal panel, gold border", math.abs(SK.ACCENT[1] - 0.890) < 0.01 and math.abs(SK.PANEL[2] - 0.149) < 0.01
-      and SK.BORDER[1] > 0.7 and SK.AccentHex() == "ffe2c153", SK.AccentHex())
+check("onward theme by default, as glass", SK.Theme() == "onward" and pg.grain.shown and pg.body.parts[1].shown and not pg.body.flat[1].shown)
+check("onward: gold accent, teal glass, gold rim", SK.AccentHex() == "ffe2c153" and SK.TINT[2] > 0.1 and SK.TINT[1] < 0.05
+      and SK.RIM[1] > 0.8 and pg.rim.color[1] > 0.8, SK.AccentHex())
 check("onward headlines in Friz Quadrata", SK.FontPath("head") == SK.FONT_HEAD and SK.FontPath("body") == SK.FONT_BODY)
-W.db.theme = "flat" SK.Refresh()
-check("flat theme on request", SK.Theme() == "flat" and pg.strip.shown and not pg.grain.shown and SK.BORDER[1] == 0
-      and SK.FontPath("head") == SK.FONT_BODY)
-check("flat panel uses a square fill, not the rounded slices", pg.body.flat[1].shown and not pg.body.parts[1].shown)
 W.db.theme = "glass" SK.Refresh()
-check("glass theme switches live", not pg.strip.shown and pg.grain.shown and pg.body.parts[1].shown and not pg.body.flat[1].shown)
+check("glass: slate tint, white rim, green accent", math.abs(SK.TINT[3] - 0.092) < 0.01 and SK.RIM[1] == 1 and pg.grain.shown
+      and math.abs(SK.ACCENT[2] - 0.824) < 0.01)
 W.db.theme = "flat" SK.Refresh()
+check("Ellesmere: glass too, neutral tint, plain font", pg.grain.shown and pg.body.parts[1].shown and math.abs(SK.TINT[1] - 0.067) < 0.01
+      and SK.FontPath("head") == SK.FONT_BODY)
 check("accent defaults to Ellesmere green", math.abs(SK.ACCENT[1] - 0.047) < 0.01 and math.abs(SK.ACCENT[2] - 0.824) < 0.01)
 check("Onward registers with EllesmereUI's skinning API", MOCK.euiSkin and MOCK.euiSkin.name == "Onward")
 local looksChanged
@@ -620,6 +680,7 @@ local fakeE = {
 }
 MOCK.euiSkin.fn(fakeE)
 check("EllesmereUI accent is used", SK.ACCENT[1] == 0.9 and SK.ACCENT[2] == 0.2, SK.ACCENT[1])
+check("EllesmereUI panel colour tints the glass", SK.TINT[1] == 0.1 and SK.TINT[3] == 0.12)
 local accentText, euiFont = false, false
 for _, s in ipairs(MOCK.strings) do
     if s.textColor and s.textColor[1] == 0.9 and s.textColor[2] == 0.2 then accentText = true end
@@ -633,6 +694,11 @@ check("EllesmereUI look changes repaint", SK.ACCENT[3] == 0.9)
 fakeE.IsEnabled = function() return false end
 SK.Refresh()
 check("skinning turned off in EllesmereUI falls back to our own look", math.abs(SK.ACCENT[2] - 0.824) < 0.01)
+fakeE.IsEnabled = function() return true end
+W.db.theme = "onward" SK.Refresh()
+check("EllesmereUI's colours stay out of the Onward look", SK.AccentHex() == "ffe2c153")
+fakeE.IsEnabled = function() return false end
+SK.Refresh()
 
 check("options fit the window", W.Options.cursor[1] > -664 and W.Options.cursor[2] > -664, W.Options.cursor[1] .. " / " .. W.Options.cursor[2])   -- window is 680 tall
 
@@ -723,7 +789,7 @@ MOCK.printed = {}
 check("riverglades guides registered", W.Guide:Get("riverglades-a") and W.Guide:Get("riverglades-h"))
 local nGuides, nSteps, mismatched, noQuest, ids = 0, 0, {}, 0, {}
 for _, def in ipairs(W.Guide:All()) do
-    if not ({ test = 1, riverglades = 1, nav = 1, resume = 1, resume2 = 1, modes = 1, target = 1, group = 1, groupq = 1, drops = 1, wait = 1, spots = 1 })[def.id] then
+    if not ({ test = 1, riverglades = 1, nav = 1, resume = 1, resume2 = 1, modes = 1, target = 1, group = 1, groupq = 1, trail = 1, drops = 1, wait = 1, spots = 1 })[def.id] then
         check("unique guide id " .. def.id, not ids[def.id]) ids[def.id] = true
         if def.next then check(def.id .. " next exists", W.Guide:Get(def.next) ~= nil, def.next) end
         local expect = 0

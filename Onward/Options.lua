@@ -241,14 +241,15 @@ check(1, "targetButton", "Quest mob target button", "A crosshair on kill and loo
 check(1, "targetMark", "Mark the target with a skull", "Puts a skull over the mob the target button picks, so it stands out in a crowd.")
 
 section(1, "Travel")
+check(1, "trailBack", "Lead back the way you came", "When you head back to a quest giver you walked away from, the arrow follows your own path (around cliffs, over bridges) instead of a straight line.")
 check(1, "travelAdvice", "Suggest flights", "When a learned flight path beats running, the arrow points to the flight master.")
 check(1, "autoTaxi", "Pick the flight automatically", "At the flight master, take the flight the guide or suggestion wants. Hold Shift when you talk to the flight master to pick your own destination.")
 
 section(2, "Panel")
 choice(2, "theme", "Look", {
-    { value = "onward", label = "Onward", tip = "The logo's look: deep teal panels, a thin gold border and gold highlights." },
-    { value = "flat", label = "Flat", tip = "Ellesmere-style: solid dark panels, thin borders, square buttons. With EllesmereUI installed it uses your EllesmereUI accent colour, panel colour and font." },
-    { value = "glass", label = "Glass", tip = "Frosted glass: see-through panels with rounded corners and soft light." },
+    { value = "onward", label = "Onward", tip = "The logo's colours: deep teal glass with a gold edge and gold highlights." },
+    { value = "glass", label = "Glass", tip = "Blue-slate glass with green highlights." },
+    { value = "flat", label = "Ellesmere", tip = "Neutral dark glass with green highlights and a plain font. With EllesmereUI installed it uses your EllesmereUI accent colour, panel colour and font." },
 }, nil, function() S.Refresh() end)
 slider(2, "showNext", "Upcoming steps shown", 0, 8, 1, "%d")
 slider(2, "scale", "Panel size", 0.7, 1.5, 0.05, "%.2f")

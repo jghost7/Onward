@@ -196,7 +196,7 @@ barGlow:SetPoint("TOPLEFT", bar, "TOPLEFT", -6, 6)
 barGlow:SetPoint("BOTTOMRIGHT", bar, "BOTTOMRIGHT", 6, -6)
 S.Accent(barGlow, "vertex", 0.35)
 if barGlow.SetBlendMode then barGlow:SetBlendMode("ADD") end
-local function themeBar() barGlow:SetShown(S.Theme() == "glass") end
+local function themeBar() barGlow:SetShown(not S.Square()) end
 themeBar()
 W:On("WF_THEME_CHANGED", themeBar)
 

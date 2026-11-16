@@ -58,6 +58,7 @@ Install it on a character you've already been playing and Onward works out what 
 - **Flight advice:** when a flight path you know beats running, the arrow points you to the flight master and Onward picks the flight for you. Hold Shift to choose yourself.
 - **Route on the world map:** a dotted line to the current step and on through the next three stops, numbered, with flight legs marked.
 - On kill and loot steps the arrow points at the nearest mobs, not the middle of the area.
+- **The way you came:** heading back to a quest giver, the arrow follows the path you walked out on (around cliffs, over bridges) instead of a straight line.
 - Map pin on the current step, and TomTom support if you use it.
 
 ## Quest-mob targeting
@@ -81,7 +82,7 @@ For "collect" quests, each item objective shows your own drop rate per kill and 
 
 ## Looks and feel
 
-A compact panel showing the current step, its objectives and what comes next. The default look matches the logo: deep teal panels with a gold border and gold highlights. Options > Panel > Look also has a plain flat dark look (with **EllesmereUI** installed it takes your EllesmereUI accent colour, panel colour and font) and frosted glass. Opacity, size, number of upcoming steps and more are in the options (`/ow options`, the gear on the panel, or Esc > Options > AddOns).
+A compact panel showing the current step, its objectives and what comes next. Frosted-glass panels in three colourways: **Onward** (the logo's teal and gold, the default), **Glass** (blue-slate) and **Ellesmere** (neutral dark; with **EllesmereUI** installed it takes your EllesmereUI accent colour, panel colour and font). Switch under Options > Panel > Look. Opacity, size, number of upcoming steps and more are in the options (`/ow options`, the gear on the panel, or Esc > Options > AddOns).
 
 ## Write your own routes
 

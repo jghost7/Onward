@@ -205,6 +205,15 @@ function WP:ArrowTarget()
     local sub = current.name
     if step.verb == "fly" then
         sub = UnitOnTaxi("player") and "in flight" or (current.name and ("flight master, then " .. current.name) or "flight master")
+    elseif W.Trail then
+        -- back to a quest giver (or any place you walked from): lead along the way you came
+        local pc, px, py = T.PlayerWorld()
+        local ax, ay, along, path = W.Trail:Guide(cont, wx, wy, pc, px, py)
+        if ax then
+            return { label = label, sub = "the way you came" .. (current.name and (", to " .. current.name) or ""),
+                     cont = cont, wx = ax, wy = ay, radius = 0, trail = true, yards = along, path = path,
+                     final = { cont = cont, wx = wx, wy = wy } }
+        end
     end
     return { label = label, sub = sub, cont = cont, wx = wx, wy = wy, radius = radius }
 end
