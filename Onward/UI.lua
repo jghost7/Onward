@@ -489,14 +489,21 @@ end
 local function lineButton(color)
     local bt = CreateFrame("Button", nil, f)
     bt:SetHeight(14)
-    -- the notice look: a thin rounded accent outline with a faint accent wash inside, so the text
-    -- stays light-on-dark like the rest of the panel (a solid accent fill washed white text out).
+    -- the notice look: a soft accent glow around a faint accent wash, so the text stays
+    -- light-on-dark like the rest of the panel (a solid fill washed white text out, and a 1px
+    -- outline lost its top edge when the rim texture was shrunk to fit).
     -- Parented to the panel, under the button, so it never draws over the text.
     bt.bg = CreateFrame("Frame", nil, f)
     bt.bg:SetPoint("TOPLEFT", bt, "TOPLEFT", -8, 5)
     bt.bg:SetPoint("BOTTOMRIGHT", bt, "BOTTOMRIGHT", 8, -5)
-    S.Accent(S.Nine(bt.bg, "BACKGROUND", 0, MEDIA .. "glass_body", 64, 16, 6, 0), "nine", 0.10)
-    S.Accent(S.Nine(bt.bg, "BORDER", 0, MEDIA .. "glass_rim", 64, 16, 6, 0), "nine", 0.85)
+    S.Accent(S.Nine(bt.bg, "BACKGROUND", 0, MEDIA .. "glass_body", 64, 16, 6, 0), "nine", 0.12)
+    -- the glow: the shadow texture's ramp sits wholly outside the box (corner = outset), and its
+    -- solid centre is dropped so nothing brightens behind the text
+    local glow = S.Nine(bt.bg, "BACKGROUND", -1, MEDIA .. "glass_shadow", 128, 44, 12, 12)
+    glow.parts[5]:SetTexture(nil)
+    for _, p in ipairs(glow.parts) do if p.SetBlendMode then p:SetBlendMode("ADD") end end
+    S.Accent(glow, "nine", 0.55)
+    bt.glow = glow
     bt.bg:Hide()
     bt:SetFrameLevel(bt.bg:GetFrameLevel() + 2)   -- the text above its outline
     bt.text = fs(bt, 11, color)

@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.6.14
+
+- The notice under the step card (turn-ins waiting, left for later) has a soft glow in Onward's
+  colour instead of an outline. The outline's top edge had been disappearing.
+- The flight point marked on the flight map gets a soft round glow behind it instead of a square
+  border.
+
 ## 0.6.13
 
 - The flight master now picks the flight the arrow suggested. Talking to the flight master
