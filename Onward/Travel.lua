@@ -88,6 +88,21 @@ function T:Refresh(force)
     end
 end
 
+-- The named area a map spot is in ("Powderfuse Port"), from the world map's own named areas
+-- (Places.lua): the smallest one that holds the spot, or nil (open country, or a map without them).
+function T.PlaceName(map, x, y)
+    local list = W.PlaceData and map and W.PlaceData[map]
+    if not (list and x and y) then return end
+    local best, size
+    for _, r in ipairs(list) do
+        if x >= r[1] and x <= r[3] and y >= r[2] and y <= r[4] then
+            local s = (r[3] - r[1]) * (r[4] - r[2])
+            if not size or s < size then best, size = r[5], s end
+        end
+    end
+    return best
+end
+
 -- The flight point at (or next to) a map spot, by its in-game name ("Tarren Mill, Hillsbrad"),
 -- known or not; nil when there's none within 300 yd or the taxi map hasn't been read yet.
 function T:PlaceAt(map, x, y)

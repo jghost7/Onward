@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.5.1
+
+- A step for a quest you haven't picked up (you skipped past its giver) now sends you there:
+  "Pick up WANTED: Trapclaw first", with the giver's name, where they are and the arrow on them,
+  instead of just "not in quest log". Once you have the quest it goes back to the step.
+- Locations are named where the map names them: "Powderfuse Port · 83.0, 52.0", or
+  "Tarren Mill, Hillsbrad Foothills 62, 21" for another zone. Uses the world map's own named
+  areas from Forever's client data (`tools/make_places.py`).
+
 ## 0.5.0
 
 - **Hearthstone advice.** When your hearthstone is ready and hearthing beats running or the best

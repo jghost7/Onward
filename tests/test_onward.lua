@@ -363,6 +363,31 @@ note done
     W.Guide:Activate("nav") settle()
 end
 
+-- place names from the world map's named areas; a step for a quest you haven't picked up sends
+-- you to its giver first
+do
+    local T = W.Travel
+    check("place name: Riverglades 83,52 is Powderfuse Port", T.PlaceName(2548, 83, 52) == "Powderfuse Port", T.PlaceName(2548, 83, 52))
+    check("place name: Tarren Mill", T.PlaceName(1424, 61.5, 20.9) == "Tarren Mill", T.PlaceName(1424, 61.5, 20.9))
+    check("open country has no name", T.PlaceName(9999, 50, 50) == nil)
+    W:RegisterGuide{ id = "pickup", title = "Pickup", faction = "", steps = [[
+accept 9990 |npc Trap Hunter |at 1423 40.0,40.0
+complete 9990 |at 1423 60.0,60.0
+turnin 9990 |npc Trap Hunter |at 1423 40.0,40.0
+]] }
+    MOCK.pos = { map = 1423, x = 0.5, y = 0.5 }
+    W.Guide:Activate("pickup") settle()
+    W.Guide:Skip(1) settle()
+    local c = W.Waypoint:Current()
+    check("not picked up: points at the quest giver", c and c.pickup and c.x == 40 and c.name == "Trap Hunter", c and (tostring(c.pickup) .. " " .. c.x))
+    check("...and says so", c and c.title:find("^Pick up") and c.title:find("first", 1, true), c and c.title)
+    MOCK.addQuest(9990, "WANTED: Trapclaw") MOCK.fire("QUEST_LOG_UPDATE") MOCK.fire("QUEST_ACCEPTED", 9990) MOCK.advance(1) settle()
+    c = W.Waypoint:Current()
+    check("picked up: back to the objective", c and not c.pickup and c.x == 60, c and c.x)
+    MOCK.turnIn(9990) MOCK.fire("QUEST_TURNED_IN", 9990) MOCK.fire("QUEST_LOG_UPDATE")
+    W.Guide:Activate("nav") settle()
+end
+
 -- come back later: a busy area offers it; set-aside quests are listed, offered when you're back
 -- near them, and brought back at the end of the guide
 do
@@ -982,7 +1007,7 @@ MOCK.printed = {}
 check("riverglades guides registered", W.Guide:Get("riverglades-a") and W.Guide:Get("riverglades-h"))
 local nGuides, nSteps, mismatched, noQuest, ids = 0, 0, {}, 0, {}
 for _, def in ipairs(W.Guide:All()) do
-    if not ({ test = 1, riverglades = 1, nav = 1, resume = 1, resume2 = 1, modes = 1, target = 1, group = 1, groupq = 1, trail = 1, later = 1, nopin = 1, hints = 1, hearth = 1, drops = 1, wait = 1, spots = 1 })[def.id] then
+    if not ({ test = 1, riverglades = 1, nav = 1, resume = 1, resume2 = 1, modes = 1, target = 1, group = 1, groupq = 1, trail = 1, later = 1, nopin = 1, hints = 1, hearth = 1, pickup = 1, drops = 1, wait = 1, spots = 1 })[def.id] then
         check("unique guide id " .. def.id, not ids[def.id]) ids[def.id] = true
         if def.next then check(def.id .. " next exists", W.Guide:Get(def.next) ~= nil, def.next) end
         local expect = 0

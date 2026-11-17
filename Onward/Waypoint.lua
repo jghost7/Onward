@@ -56,6 +56,18 @@ function WP:Resolve(step)
     if (step.verb == "train" or step.verb == "craft") and W.Prof then
         return W.Prof:Location(step)        -- trainer, book / recipe vendor or quest giver
     end
+    -- working on (or handing in) a quest you haven't picked up: go to its giver first. The
+    -- guide's own accept step knows who and where; else Questie does. The 5th value marks it.
+    local G = W.Guide
+    if (step.verb == "complete" or step.verb == "turnin") and step.quest and G and G:IsMissing(step) then
+        for _, s in ipairs(G:Active() and G:Active().steps or {}) do
+            if s.verb == "accept" and s.quest == step.quest and s.at then
+                return s.at.map or C_Map.GetBestMapForUnit("player"), s.at.x, s.at.y, s.npc, true
+            end
+        end
+        local loc = QB:StartLocation(step.quest)
+        if loc then return loc.map, loc.x, loc.y, loc.name, true end
+    end
     if step.at then
         return step.at.map or C_Map.GetBestMapForUnit("player"), step.at.x, step.at.y, step.npc
     end
@@ -101,19 +113,20 @@ function WP:Update()
     if not step then clearPin() T:SetWantedDestination(nil) return end
 
     local title = W.UI and W.UI.StepText and W.UI.StepText(step) or step.verb
-    local map, x, y, name, legKind
+    local map, x, y, name, legKind, pickup
     if step.verb == "fly" then
         local leg
         leg, legKind = flyLeg(step)
         map, x, y, name = leg.map or step.at.map, leg.x, leg.y, step.npc
         T:SetWantedDestination(T.World(step.at.map, step.at.x, step.at.y))
     else
-        map, x, y, name = WP:Resolve(step)
+        map, x, y, name, pickup = WP:Resolve(step)
         T:SetWantedDestination(nil)
+        if pickup then title = "Pick up " .. (W.QuestState:Title(step.quest) or "the quest") .. " first" end
     end
 
     if map and x then
-        current = { step = step, map = map, x = x, y = y, name = name, title = title, leg = legKind }
+        current = { step = step, map = map, x = x, y = y, name = name, title = title, leg = legKind, pickup = pickup }
         if old and old.step == step then   -- same step re-resolved (settings, delayed refresh): keep the chosen spot
             current.spots, current.spot, current.spotSig = old.spots, old.spot, old.spotSig
         end
@@ -146,7 +159,7 @@ end
 
 local function nearestSpot(c)
     local step = c.step
-    if step.verb ~= "complete" or not step.quest then return end
+    if step.verb ~= "complete" or not step.quest or c.pickup then return end
     local now = GetTime()
     if c.spotsAt and now - c.spotsAt < 1 then return c.spot end
     c.spotsAt = now
@@ -259,6 +272,10 @@ function WP:ArrowTarget()
 end
 
 W:On("WF_STEP_CHANGED", function() WP:Update() end)
+-- picked up the quest the current step was waiting on: back from its giver to the step itself
+W:On("QUEST_ACCEPTED", function()
+    C_Timer.After(0.5, function() if current and current.pickup then WP:Update() end end)
+end)
 W:On("WF_GUIDE_CHANGED", function() C_Timer.After(2, function() WP:Update() end) end)
 W:On("WF_LANDED", function() local s = W.Guide:Current() if s and s.verb == "fly" then WP:Update() end end)
 -- take-off: switch the pin from the departure flight master to the destination

@@ -442,11 +442,15 @@ local function locationLine(step)
         elseif cur.name then
             parts[#parts + 1] = cur.name
         end
+        -- the place by name when the map has one for it ("Powderfuse Port"), then the coordinates
         local here = C_Map.GetBestMapForUnit("player")
+        local place = W.Travel.PlaceName(cur.map, cur.x, cur.y)
         if cur.map ~= here then
             local info = C_Map.GetMapInfo and C_Map.GetMapInfo(cur.map)
-            parts[#parts + 1] = (info and info.name or "another zone") .. (" %.0f, %.0f"):format(cur.x, cur.y)
+            local zone = info and info.name or "another zone"
+            parts[#parts + 1] = (place and place ~= zone and (place .. ", ") or "") .. zone .. (" %.0f, %.0f"):format(cur.x, cur.y)
         else
+            if place then parts[#parts + 1] = place end
             parts[#parts + 1] = ("%.1f, %.1f"):format(cur.x, cur.y)
         end
         local d = W.Travel.Distance(cur.map, cur.x, cur.y)
@@ -520,7 +524,13 @@ function UI:Render()
     -- current step
     setBadge(step)
     local text = UI.StepText(step)
-    if G:IsMissing(step) then text = text .. "  |cffff7366(not in quest log)|r" end
+    -- a kill/loot step or turn-in for a quest you haven't picked up: send you to the quest giver
+    local pickup = G:IsMissing(step) and WP:Current() and WP:Current().step == step and WP:Current().pickup
+    if pickup then
+        text = "Pick up " .. questTitle(step.quest) .. " first"
+    elseif G:IsMissing(step) then
+        text = text .. "  |cffff7366(not in quest log)|r"
+    end
     mainText:SetText(text)
     local sub = locationLine(step)
     if step.verb == "note" then sub = (sub ~= "" and (sub .. "  ·  ") or "") .. "click when done" end
