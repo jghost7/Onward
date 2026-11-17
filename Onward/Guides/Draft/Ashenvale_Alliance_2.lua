@@ -1,4 +1,4 @@
--- DRAFT Ashenvale (Alliance) generated 2026-11-16 by tools/draft_guide.py
+-- DRAFT Ashenvale (Alliance) generated 2026-11-17 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -24,7 +24,7 @@ accept 1012 |npc Kayneth Stillwind |at 1440 85.2,44.7  -- Insane Druids (32)
 complete 98418 |at 1440 78.4,45.1 |mobs Xavian Betrayer;Xavian Felsworn;Xavian Hellcaller;Xavian Rogue |value mid  -- Shared Fury (30)
 turnin 1021 |npc Anilia |at 1440 78.3,44.8  -- Vile Satyr! Dryads in Danger! (32)
 accept 1031 |npc Anilia |at 1440 78.3,44.8  -- The Branch of Cenarius (32)
-complete 1031 |at 1440 78.0,42.4 |mobs Geltharis  -- The Branch of Cenarius (32)
+complete 1031 |at 1440 78.0,42.4 |mobs Geltharis@Branch of Cenarius  -- The Branch of Cenarius (32)
 turnin 1027 |npc Shael'dryn |at 1440 53.5,46.2  -- Raene's Cleansing (28)
 accept 1028 |npc Shael'dryn |at 1440 53.5,46.2  -- Raene's Cleansing (28)
 turnin 1028 |npc Hidden Shrine |at 1440 56.4,49.2  -- Raene's Cleansing (28)
@@ -46,14 +46,14 @@ accept 1045 |npc Krolg |at 1440 50.8,75.1  -- Raene's Cleansing (30)
 complete 1045 |at 1440 54.9,78.8 |item 5462 |mobs Ran Bloodtooth;Bloodtooth Guard  -- Raene's Cleansing (30)
 turnin 1045 |npc Krolg |at 1440 50.8,75.1  -- Raene's Cleansing (30)
 accept 1046 |npc Krolg |at 1440 50.8,75.1  -- Raene's Cleansing (30)
-complete 1046 |at 1440 54.8,79.6 |mobs Ran Bloodtooth  -- Raene's Cleansing (30)
-complete 1035 |at 1440 66.7,82.2 |mobs Shadethicket Oracle  -- Fallen Sky Lake (30)
+complete 1046 |at 1440 54.8,79.6 |mobs Ran Bloodtooth@Ran Bloodtooth's Skull  -- Raene's Cleansing (30)
+complete 1035 |at 1440 66.7,82.2 |mobs Shadethicket Oracle@Fallen Moonstone  -- Fallen Sky Lake (30)
 complete 1012 |at 1440 77.2,74.0 |mobs Taneel Darkwood;Uthil Mooncall;Mavoris Cloudsbreak  -- Insane Druids (32)
-complete 86757 |at 1440 87.0,59.4 |mobs Horde Scout;Horde Grunt |value low  -- Slowing the Orc Advance (30)
+complete 86757 |at 1440 87.0,59.4 |mobs Horde Scout@Curved Orcish Dagger;Horde Grunt@Jagged Orcish Sword |value low  -- Slowing the Orc Advance (30)
 turnin 98418 |npc Maseara Autumnmoon |at 1440 86.2,45.9 |value mid  -- Shared Fury (30)
 turnin 1012 |npc Kayneth Stillwind |at 1440 85.2,44.7  -- Insane Druids (32)
 turnin 4581 |npc Kayneth Stillwind |at 1440 85.2,44.7  -- Kayneth Stillwind (29)
-complete 1032 |at 1440 78.4,47.5 |mobs Bleakheart Shadowstalker;Xavian Felsworn;Felmusk Shadowstalker;Bleakheart Hellcaller |value mid  -- Satyr Slaying! (32)
+complete 1032 |at 1440 78.4,47.5 |mobs Bleakheart Shadowstalker@Satyr Horns;Xavian Felsworn@Satyr Horns;Felmusk Shadowstalker@Satyr Horns;Bleakheart Hellcaller@Satyr Horns |value mid  -- Satyr Slaying! (32)
 turnin 86757 |npc Shandrina |at 1440 49.5,67.1 |value low  -- Slowing the Orc Advance (30)
 turnin 1035 |npc Pelturas Whitemoon |at 1440 37.4,51.8  -- Fallen Sky Lake (30)
 turnin 1046 |npc Raene Wolfrunner |at 1440 36.6,49.6  -- Raene's Cleansing (30)

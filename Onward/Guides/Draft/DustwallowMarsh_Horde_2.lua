@@ -1,4 +1,4 @@
--- DRAFT Dustwallow Marsh (Horde) generated 2026-11-16 by tools/draft_guide.py
+-- DRAFT Dustwallow Marsh (Horde) generated 2026-11-17 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -31,7 +31,7 @@ turnin 6583 |npc Emberstrife |at 1445 56.7,87.7 |group elite  -- The Test of Sku
 accept 6585 |npc Emberstrife |at 1445 56.7,87.7 |group elite  -- The Test of Skulls, Axtroz (60)
 accept 8970 |npc Bodley |at 1415 48.9,63.9 |value mid |class WARRIOR,HUNTER,ROGUE,PRIEST,SHAMAN,MAGE,WARLOCK,DRUID |group chain  -- I See Alcaz Island In Your Future... (60)
 complete 6585 |at 1437 81.8,48.2 |group elite  -- The Test of Skulls, Axtroz (60)
-complete 8970 |at 1445 76.4,18.4 |item 21984 |mobs Strashaz Serpent Guard;Strashaz Myrmidon;Strashaz Siren;Strashaz Warrior |value mid |class WARRIOR,HUNTER,ROGUE,PRIEST,SHAMAN,MAGE,WARLOCK,DRUID |group chain  -- I See Alcaz Island In Your Future... (60)
+complete 8970 |at 1445 76.4,18.4 |item 21984 |mobs Strashaz Serpent Guard@Bloodkelp;Strashaz Myrmidon@Bloodkelp;Strashaz Siren@Bloodkelp;Strashaz Warrior@Bloodkelp |value mid |class WARRIOR,HUNTER,ROGUE,PRIEST,SHAMAN,MAGE,WARLOCK,DRUID |group chain  -- I See Alcaz Island In Your Future... (60)
 turnin 6585 |npc Emberstrife |at 1445 56.7,87.7 |group elite  -- The Test of Skulls, Axtroz (60)
 accept 6601 |npc Emberstrife |at 1445 56.7,87.7 |group chain  -- Ascension... (60)
 turnin 8970 |npc Bodley |at 1415 48.9,63.9 |value mid |class WARRIOR,HUNTER,ROGUE,PRIEST,SHAMAN,MAGE,WARLOCK,DRUID |group chain  -- I See Alcaz Island In Your Future... (60)

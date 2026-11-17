@@ -1,4 +1,4 @@
--- DRAFT Burning Steppes (Alliance) generated 2026-11-16 by tools/draft_guide.py
+-- DRAFT Burning Steppes (Alliance) generated 2026-11-17 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -8,7 +8,7 @@ Onward:RegisterGuide{
 accept 4296 |npc Maxwort Uberglint |at 1428 65.2,23.9  -- Tablet of the Seven (50)
 accept 4726 |npc Tinkee Steamboil |at 1428 65.2,24.0  -- Broodling Essence (52)
 accept 4022 |npc Cyrus Therepentous |at 1428 95.1,31.6 |group elite  -- A Taste of Flame (54)
-complete 4022 |at 1428 94.4,31.8 |mobs Cyrus Therepentous;Frenzied Black Drake |group elite  -- A Taste of Flame (54)
+complete 4022 |at 1428 94.4,31.8 |mobs Cyrus Therepentous;Frenzied Black Drake@Black Dragonflight Molt |group elite  -- A Taste of Flame (54)
 turnin 4022 |npc Cyrus Therepentous |at 1428 95.1,31.6 |group elite  -- A Taste of Flame (54)
 accept 4182 |npc Helendis Riverhorn |at 1428 85.8,69.0 |group elite  -- Dragonkin Menace (54)
 accept 3823 |npc Oralius |at 1428 84.6,68.7  -- Extinguish the Firegut (52)
@@ -20,8 +20,8 @@ turnin 3823 |npc Oralius |at 1428 84.6,68.7  -- Extinguish the Firegut (52)
 accept 4283 |npc Oralius |at 1428 84.6,68.7 |value mid  -- FIFTY! YEP! (56)
 accept 3824 |npc Oralius |at 1428 84.6,68.7  -- Gor'tesh the Brute Lord (53)
 complete 4726 |at 1428 63.8,57.3 |item 12284  -- Broodling Essence (52)
-complete 3824 |at 1428 54.2,52.6 |mobs Grubbub;Gor'tesh  -- Gor'tesh the Brute Lord (53)
-complete 4283 |at 1428 45.0,51.1 |mobs Blackrock Slayer;Blackrock Warlock;Blackrock Soldier;Blackrock Sorcerer |value mid  -- FIFTY! YEP! (56)
+complete 3824 |at 1428 54.2,52.6 |mobs Grubbub@Gor'tesh's Lopped Off Head;Gor'tesh@Gor'tesh's Lopped Off Head  -- Gor'tesh the Brute Lord (53)
+complete 4283 |at 1428 45.0,51.1 |mobs Blackrock Slayer@Blackrock Medallion;Blackrock Warlock@Blackrock Medallion;Blackrock Soldier@Blackrock Medallion;Blackrock Sorcerer@Blackrock Medallion |value mid  -- FIFTY! YEP! (56)
 complete 4296 |at 1428 54.1,40.8  -- Tablet of the Seven (50)
 turnin 3824 |npc Oralius |at 1428 84.6,68.7  -- Gor'tesh the Brute Lord (53)
 accept 3825 |npc Oralius |at 1428 84.6,68.7  -- Ogre Head On A Stick = Party (53)

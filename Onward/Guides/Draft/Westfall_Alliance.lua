@@ -1,4 +1,4 @@
--- DRAFT Westfall (Alliance) generated 2026-11-16 by tools/draft_guide.py
+-- DRAFT Westfall (Alliance) generated 2026-11-17 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -23,9 +23,9 @@ accept 92909 |npc Ozwin Ironsprocket |at 1436 51.5,32.3 |value mid  -- Harvestin
 complete 151 |at 1436 49.0,34.2  -- Poor Old Blanchy (14)
 complete 9 |at 1436 45.9,36.1 |mobs Harvest Watcher  -- The Killing Fields (15)
 complete 12 |at 1436 46.4,36.9 |mobs Defias Trapper;Defias Smuggler  -- The People's Militia (12)
-complete 38 |at 1436 41.9,38.8 |mobs Goretusk;Fleshripper;Young Goretusk;Foe Reaper 4000  -- Westfall Stew (13)
+complete 38 |at 1436 41.9,38.8 |mobs Goretusk@Goretusk Snout;Fleshripper@Stringy Vulture Meat;Young Goretusk@Goretusk Snout;Foe Reaper 4000@Okra  -- Westfall Stew (13)
 accept 136 |at 1436 32.4,26.6 |note Starts from Captain Sander's Treasure Map  -- Captain Sander's Hidden Treasure (16)
-complete 92744 |at 1436 32.4,26.6 |mobs Murloc Warrior;Murloc Hunter;Murloc Netter;Murloc Oracle |value mid  -- Murloc Gills (12)
+complete 92744 |at 1436 32.4,26.6 |mobs Murloc Warrior@Longshore Murloc Gill;Murloc Hunter@Longshore Murloc Gill;Murloc Netter@Longshore Murloc Gill;Murloc Oracle@Longshore Murloc Gill |value mid  -- Murloc Gills (12)
 complete 64 |at 1436 49.3,19.3  -- The Forgotten Heirloom (12)
 complete 92742 |at 1436 56.6,18.7 |item 254545  -- Testing the Wells (12)
 turnin 151 |npc Verna Furlbrow |at 1436 59.9,19.4  -- Poor Old Blanchy (14)
@@ -42,7 +42,7 @@ accept 138 |npc Captain's Footlocker |at 1436 25.9,47.8  -- Captain Sander's Hid
 complete 92745 |at 1436 30.4,45.4 |mobs Kobold Digger;Riverpaw Miner |value mid  -- The State of the Mines (14)
 turnin 92745 |npc Alba Fairmoon |at 1436 52.5,53.0 |value mid  -- The State of the Mines (14)
 accept 92747 |npc Alba Fairmoon |at 1436 52.5,53.0 |value mid  -- Moonbrook Espionage (15)
-complete 102 |at 1436 48.2,61.2 |mobs Riverpaw Taskmaster;Riverpaw Mongrel;Riverpaw Bandit;Riverpaw Brute  -- Patrolling Westfall (14)
+complete 102 |at 1436 48.2,61.2 |mobs Riverpaw Taskmaster@Gnoll Paw;Riverpaw Mongrel@Gnoll Paw;Riverpaw Bandit@Gnoll Paw;Riverpaw Brute@Gnoll Paw  -- Patrolling Westfall (14)
 complete 92747 |at 1436 42.5,68.7 |value mid  -- Moonbrook Espionage (15)
 turnin 92747 |npc Alba Fairmoon |at 1436 52.5,53.0 |value mid  -- Moonbrook Espionage (15)
 accept 92748 |npc Alba Fairmoon |at 1436 52.5,53.0 |value mid  -- Explosive Consultation (16)
@@ -53,7 +53,7 @@ accept 13 |npc Gryan Stoutmantle |at 1436 56.3,47.5  -- The People's Militia (14
 turnin 138 |npc Broken Barrel |at 1436 40.5,47.8  -- Captain Sander's Hidden Treasure (16)
 accept 139 |npc Broken Barrel |at 1436 40.5,47.8  -- Captain Sander's Hidden Treasure (16)
 accept 79008 |npc Burned-Out Remains |at 1436 37.4,50.7  -- ... and that note you found (22)
-complete 153 |at 1436 38.8,56.9 |mobs Defias Pillager;Defias Smuggler;Defias Looter;Defias Trapper  -- Red Leather Bandanas (15)
+complete 153 |at 1436 38.8,56.9 |mobs Defias Pillager@Red Leather Bandana;Defias Smuggler@Red Leather Bandana;Defias Looter@Red Leather Bandana;Defias Trapper@Red Leather Bandana  -- Red Leather Bandanas (15)
 complete 13 |at 1436 38.6,58.1 |mobs Defias Pillager;Defias Looter  -- The People's Militia (14)
 fly 1453 71.3,72.2 |from 1436 56.5,52.6 |npc Stormwind City (Dungar Longdrink)  -- flight master Thor
 turnin 6281 |npc Osric Strang |at 1453 77.2,61.0 |race Human  -- Continue to Stormwind (10)
@@ -72,7 +72,7 @@ fly 1436 56.5,52.6 |from 1413 63.1,37.2 |npc Thor  -- flight master Bragok
 accept 104 |npc Captain Grayson |at 1436 30.0,86.0  -- The Coastal Menace (20)
 accept 152 |npc Captain Grayson |at 1436 30.0,86.0  -- The Coast Isn't Clear (19)
 accept 103 |npc Captain Grayson |at 1436 30.0,86.0  -- Keeper of the Flame (16)
-complete 104 |at 1436 29.3,76.0 |mobs Old Murk-Eye  -- The Coastal Menace (20)
+complete 104 |at 1436 29.3,76.0 |mobs Old Murk-Eye@Scale of Old Murk-Eye  -- The Coastal Menace (20)
 accept 93928 |npc Mouse |at 1436 51.8,53.9  -- Of Mice and Milk (15)
 turnin 153 |npc Scout Galiaan |at 1436 54.0,53.0  -- Red Leather Bandanas (15)
 complete 92749 |at 1436 57.3,51.5 |mobs Stormwind Crier |value mid  -- A Dynamite Plan (16)
@@ -80,9 +80,9 @@ turnin 13 |npc Gryan Stoutmantle |at 1436 56.3,47.5  -- The People's Militia (14
 turnin 132 |npc Gryan Stoutmantle |at 1436 56.3,47.5  -- The Defias Brotherhood (18)
 accept 135 |npc Gryan Stoutmantle |at 1436 56.3,47.5  -- The Defias Brotherhood (18)
 accept 14 |npc Gryan Stoutmantle |at 1436 56.3,47.5  -- The People's Militia (17)
-complete 22 |at 1436 52.3,44.9 |mobs Goretusk;Young Goretusk;Great Goretusk  -- Goretusk Liver Pie (12)
-complete 103 |at 1436 46.9,35.5 |mobs Foe Reaper 4000;Harvest Watcher;Harvest Golem;Rusty Harvest Golem  -- Keeper of the Flame (16)
-complete 92909 |at 1436 50.3,34.0 |mobs Harvest Watcher;Harvest Golem;Rusty Harvest Golem;Harvest Reaper |value mid  -- Harvesting the Harvesters (15)
+complete 22 |at 1436 52.3,44.9 |mobs Goretusk@Goretusk Liver;Young Goretusk@Goretusk Liver;Great Goretusk@Goretusk Liver  -- Goretusk Liver Pie (12)
+complete 103 |at 1436 46.9,35.5 |mobs Foe Reaper 4000@Flask of Oil;Harvest Watcher@Flask of Oil;Harvest Golem@Flask of Oil;Rusty Harvest Golem@Flask of Oil  -- Keeper of the Flame (16)
+complete 92909 |at 1436 50.3,34.0 |mobs Harvest Watcher@Golem Isospring;Harvest Golem@Golem Isospring;Rusty Harvest Golem@Golem Isospring;Harvest Reaper@Golem Isospring |value mid  -- Harvesting the Harvesters (15)
 turnin 92909 |npc Ozwin Ironsprocket |at 1436 51.5,32.3 |value mid  -- Harvesting the Harvesters (15)
 turnin 9 |npc Farmer Saldean |at 1436 56.0,31.2  -- The Killing Fields (15)
 turnin 38 |npc Salma Saldean |at 1436 56.4,30.5  -- Westfall Stew (13)
@@ -114,7 +114,7 @@ accept 92819 |npc Alba Fairmoon |at 1436 38.7,83.7 |group chain  -- Destruction 
 complete 92819 |at 1436 38.7,83.6 |group chain  -- Destruction in Deadmines (18)
 turnin 92819 |npc Alba Fairmoon |at 1436 38.7,83.7 |group chain  -- Destruction in Deadmines (18)
 complete 14 |at 1436 46.4,78.3 |mobs Defias Highwayman;Defias Pathstalker;Defias Knuckleduster  -- The People's Militia (17)
-complete 142 |at 1436 45.1,69.3 |mobs Defias Messenger  -- The Defias Brotherhood (18)
+complete 142 |at 1436 45.1,69.3 |mobs Defias Messenger@A Mysterious Message  -- The Defias Brotherhood (18)
 turnin 142 |npc Gryan Stoutmantle |at 1436 56.3,47.5  -- The Defias Brotherhood (18)
 turnin 14 |npc Gryan Stoutmantle |at 1436 56.3,47.5  -- The People's Militia (17)
 turnin 6285 |npc Quartermaster Lewis |at 1436 57.0,47.2 |race Human  -- Return to Lewis (10)

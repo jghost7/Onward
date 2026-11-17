@@ -1,4 +1,4 @@
--- DRAFT Redridge Mountains (Alliance) generated 2026-11-16 by tools/draft_guide.py
+-- DRAFT Redridge Mountains (Alliance) generated 2026-11-17 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -43,9 +43,9 @@ complete 125 |at 1433 36.4,54.7  -- The Lost Tools (16)
 turnin 244 |npc Deputy Feldon |at 1433 25.6,60.0  -- Encroaching Gnolls (16)
 accept 246 |npc Deputy Feldon |at 1433 25.6,60.0 |value mid  -- Assessing the Threat (17)
 accept 98407 |npc Deputy Feldon |at 1433 25.6,60.0 |value mid  -- Show of Force (17)
-complete 98407 |at 1433 10.4,66.3 |mobs Redridge Thrasher |value mid  -- Show of Force (17)
+complete 98407 |at 1433 10.4,66.3 |mobs Redridge Thrasher@Spiked Collar |value mid  -- Show of Force (17)
 complete 246 |at 1433 26.2,81.1 |mobs Redridge Mongrel;Redridge Poacher |value mid  -- Assessing the Threat (17)
-complete 122 |at 1433 31.5,65.3 |mobs Black Dragon Whelp;Snarlflare  -- Underbelly Scales (18)
+complete 122 |at 1433 31.5,65.3 |mobs Black Dragon Whelp@Underbelly Whelp Scale;Snarlflare@Underbelly Whelp Scale  -- Underbelly Scales (18)
 turnin 246 |npc Deputy Feldon |at 1433 25.6,60.0 |value mid  -- Assessing the Threat (17)
 turnin 98407 |npc Deputy Feldon |at 1433 25.6,60.0 |value mid  -- Show of Force (17)
 turnin 125 |npc Foreman Oslow |at 1433 27.1,48.6  -- The Lost Tools (16)
@@ -53,9 +53,9 @@ accept 89 |npc Foreman Oslow |at 1433 27.1,48.6  -- The Everstill Bridge (20)
 accept 124 |npc Verner Osgood |at 1433 25.9,47.3  -- A Baying of Gnolls (20)
 turnin 122 |npc Verner Osgood |at 1433 25.9,47.3  -- Underbelly Scales (18)
 accept 150 |npc Dockmaster Baren |at 1433 22.6,47.4 |value mid  -- Murloc Poachers (20)
-complete 150 |at 1433 46.3,56.3 |mobs Murloc Flesheater;Murloc Minor Tidecaller;Murloc Tidecaller;Murloc Scout |value mid  -- Murloc Poachers (20)
-complete 92 |at 1433 47.5,42.1 |mobs Greater Tarantula;Great Goretusk;Tarantula;Dire Condor  -- Redridge Goulash (18)
-complete 89 |at 1433 22.4,27.4 |mobs Redridge Basher;Redridge Mystic;Redridge Brute;Redridge Drudger  -- The Everstill Bridge (20)
+complete 150 |at 1433 46.3,56.3 |mobs Murloc Flesheater@Murloc Fin;Murloc Minor Tidecaller@Murloc Fin;Murloc Tidecaller@Murloc Fin;Murloc Scout@Murloc Fin |value mid  -- Murloc Poachers (20)
+complete 92 |at 1433 47.5,42.1 |mobs Greater Tarantula@Crisp Spider Meat;Great Goretusk@Great Goretusk Snout;Tarantula@Crisp Spider Meat;Dire Condor@Tough Condor Meat  -- Redridge Goulash (18)
+complete 89 |at 1433 22.4,27.4 |mobs Redridge Basher@Iron Pike;Redridge Mystic@Iron Pike;Redridge Brute@Iron Pike;Redridge Drudger@Iron Pike  -- The Everstill Bridge (20)
 complete 124 |at 1433 23.0,28.9 |mobs Redridge Brute;Redridge Mystic  -- A Baying of Gnolls (20)
 turnin 124 |npc Verner Osgood |at 1433 25.9,47.3  -- A Baying of Gnolls (20)
 turnin 89 |npc Foreman Oslow |at 1433 27.1,48.6  -- The Everstill Bridge (20)

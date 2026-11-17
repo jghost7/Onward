@@ -1,4 +1,4 @@
--- DRAFT Felwood (Alliance) generated 2026-11-16 by tools/draft_guide.py
+-- DRAFT Felwood (Alliance) generated 2026-11-17 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -20,9 +20,9 @@ turnin 5204 |npc Remains of Trey Lightforge |at 1448 38.5,50.4  -- Retribution o
 accept 5385 |npc Remains of Trey Lightforge |at 1448 38.5,50.4  -- The Remains of Trey Lightforge (57)
 accept 86611 |npc Statue of Malorne |at 1448 42.0,47.4  -- Stag Lord's Bauble (55)
 turnin 86611 |npc Golhine the Hooded |at 1448 61.9,24.5  -- Stag Lord's Bauble (55)
-complete 4101 |at 1448 57.9,19.1 |mobs Warpwood Moss Flayer;Warpwood Shredder;Dessecus |value mid  -- Cleansing Felwood (55)
+complete 4101 |at 1448 57.9,19.1 |mobs Warpwood Moss Flayer@Blood Amber;Warpwood Shredder@Blood Amber;Dessecus@Blood Amber |value mid  -- Cleansing Felwood (55)
 accept 939 |at 1448 39.1,22.4 |note Starts from Flute of Xavaric  -- Flute of Xavaric (54)
-complete 939 |at 1448 37.8,69.5 |item 11668 |mobs Jadefire Satyr;Jadefire Felsworn;Jadefire Trickster;Jadefire Hellcaller  -- Flute of Xavaric (54)
+complete 939 |at 1448 37.8,69.5 |item 11668 |mobs Jadefire Satyr@Jadefire Felbind;Jadefire Felsworn@Jadefire Felbind;Jadefire Trickster@Jadefire Felbind;Jadefire Hellcaller@Jadefire Felbind  -- Flute of Xavaric (54)
 complete 4421 |at 1448 37.1,69.9 |mobs Jadefire Felsworn;Jadefire Shadowstalker;Jadefire Rogue;Xavathras  -- The Corruption of the Jadefire (54)
 complete 8460 |at 1448 48.3,90.9 |mobs Deadwood Warrior;Deadwood Pathfinder;Deadwood Gardener |value low  -- Timbermaw Ally (48)
 turnin 4101 |npc Arathandris Silversky |at 1448 54.1,86.8 |value mid  -- Cleansing Felwood (55)
@@ -61,8 +61,8 @@ turnin 8462 |npc Nafien |at 1448 64.8,8.1 |value low  -- Speak to Nafien (55)
 turnin 8461 |npc Nafien |at 1448 64.8,8.1  -- Deadwood of the North (55)
 accept 8465 |npc Nafien |at 1448 64.8,8.1  -- Speak to Salfa (55)
 complete 5156 |at 1448 42.5,41.2 |mobs Entropic Beast;Entropic Horror  -- Verifying the Corruption (54)
-complete 5242 |at 1448 38.8,46.8 |mobs Moora;Salia;Shadow Lord Fel'dan  -- A Final Blow (58)
-complete 5882 |at 1448 41.5,53.7 |mobs Felpaw Wolf;Felpaw Scavenger;Angerclaw Bear;Angerclaw Mauler |value mid  -- Salve via Hunting (55)
+complete 5242 |at 1448 38.8,46.8 |mobs Moora;Salia;Shadow Lord Fel'dan@Shadow Lord Fel'dan's Head  -- A Final Blow (58)
+complete 5882 |at 1448 41.5,53.7 |mobs Felpaw Wolf@Corrupted Soul Shard;Felpaw Scavenger@Corrupted Soul Shard;Angerclaw Bear@Corrupted Soul Shard;Angerclaw Mauler@Corrupted Soul Shard |value mid  -- Salve via Hunting (55)
 turnin 5202 |npc Captured Arko'narin |at 1448 36.2,55.5  -- A Strange Red Key (55)
 complete 5157 |at 1448 35.2,59.8 |item 12922  -- Collection of the Corrupt Water (52)
 turnin 5156 |npc Taronn Redfeather |at 1448 50.9,81.6  -- Verifying the Corruption (54)

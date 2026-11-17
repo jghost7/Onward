@@ -51,12 +51,35 @@ TG.mobs = {}          -- names in the live macro
 local pending = false -- a rebuild is waiting for combat to end
 
 ---------------------------------------------------------------------------
--- which mobs: the guide's list, plus "<Name> slain" objectives; finished kills drop out
+-- which mobs: the guide's list, plus "<Name> slain" objectives. A mob drops out once what it's
+-- there for is done: its kill objective, or the item it drops ("Mob@Item" in the guide). A mob
+-- the guide doesn't tie to an item drops out when a finished objective is named after it
+-- ("Sand Crawler" for "Sand Crawler Meat") and no unfinished one is.
 ---------------------------------------------------------------------------
+-- an objective's name without its count: "Sand Crawler Meat: 3/6" / "3/6 Sand Crawler Meat"
+local function objName(text)
+    if not text then return nil end
+    return text:match("^(.-):%s*%d+%s*/%s*%d+") or text:match("^%d+%s*/%s*%d+%s+(.+)$") or text
+end
+local function plain(s) return (s:gsub("%p", "%%%0")) end
 function TG.MobsFor(step)
     if not step or step.verb ~= "complete" or not step.quest then return {} end
     local out, seen, done = {}, {}, {}
     local e = QS:Get(step.quest)
+    local finished, open = {}, {}
+    for _, o in ipairs(e and e.objectives or {}) do
+        local n = objName(o.text)
+        if n then if o.finished then finished[n] = true else open[#open + 1] = n end end
+    end
+    local function stillNeeded(name)
+        local item = step.mobItem and step.mobItem[name]
+        if item then return not finished[item] end
+        local named = false
+        for n in pairs(finished) do if n:find("^" .. plain(name)) then named = true end end
+        if not named then return true end
+        for _, n in ipairs(open) do if n:find(plain(name)) then return true end end
+        return false
+    end
     local function add(name)
         if name and name ~= "" and not seen[name] and not done[name] then
             seen[name] = true
@@ -74,7 +97,9 @@ function TG.MobsFor(step)
             end
         end
     end
-    for _, name in ipairs(step.mobs or {}) do add(name) end
+    for _, name in ipairs(step.mobs or {}) do
+        if stillNeeded(name) then add(name) end
+    end
     return out
 end
 

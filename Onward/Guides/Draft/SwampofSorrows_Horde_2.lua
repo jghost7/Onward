@@ -1,4 +1,4 @@
--- DRAFT Swamp of Sorrows (Horde) generated 2026-11-16 by tools/draft_guide.py
+-- DRAFT Swamp of Sorrows (Horde) generated 2026-11-17 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -10,8 +10,8 @@ home |npc Innkeeper Karakul |at 1435 45.2,56.7  -- set your hearthstone at the i
 accept 1430 |npc Dar |at 1435 44.7,57.2  -- Fresh Meat (44)
 accept 1424 |npc Fel'zerul |at 1435 47.9,54.8  -- Pool of Tears (43)
 complete 1424 |at 1435 72.5,53.1  -- Pool of Tears (43)
-complete 699 |at 1435 79.4,26.7 |mobs Sawtooth Snapper  -- Lack of Surplus (42)
-complete 1430 |at 1435 96.2,56.8 |mobs Monstrous Crawler  -- Fresh Meat (44)
+complete 699 |at 1435 79.4,26.7 |mobs Sawtooth Snapper@Sawtooth Snapper Claw  -- Lack of Surplus (42)
+complete 1430 |at 1435 96.2,56.8 |mobs Monstrous Crawler@Monstrous Crawler Leg  -- Fresh Meat (44)
 turnin 699 |npc Tok'Kar |at 1435 81.3,81.0  -- Lack of Surplus (42)
 accept 1422 |npc Tok'Kar |at 1435 81.3,81.0  -- Threat From the Sea (45)
 turnin 1422 |npc Katar |at 1435 83.8,80.4  -- Threat From the Sea (45)
@@ -29,7 +29,7 @@ accept 2622 |npc Dispatch Commander Ruag |at 1435 47.8,54.9  -- The Missing Orde
 turnin 1430 |npc Dar |at 1435 44.7,57.2  -- Fresh Meat (44)
 turnin 2622 |npc Bengor |at 1435 45.0,57.4  -- The Missing Orders (50)
 accept 2623 |npc Bengor |at 1435 45.0,57.4  -- The Swamp Talker (55)
-complete 2623 |at 1435 63.6,86.4 |mobs Swamp Talker  -- The Swamp Talker (55)
+complete 2623 |at 1435 63.6,86.4 |mobs Swamp Talker@Warchief's Orders  -- The Swamp Talker (55)
 turnin 2623 |npc Fallen Hero of the Horde |at 1435 34.3,66.1  -- The Swamp Talker (55)
 accept 3374 |at 1435 13.7,71.7 |note Starts from Oathstone of Ysera's Dragonflight |value mid  -- The Essence of Eranikus (55)
 complete 3374 |at 1435 39.1,47.3 |item 10589 |mobs Swamp Jaguar;Swamp Talker |value mid  -- The Essence of Eranikus (55)

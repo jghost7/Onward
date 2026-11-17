@@ -1,4 +1,4 @@
--- DRAFT Wetlands (Alliance) generated 2026-11-16 by tools/draft_guide.py
+-- DRAFT Wetlands (Alliance) generated 2026-11-17 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -20,16 +20,16 @@ accept 98461 |npc Archaeologist Hollee |at 1439 37.4,41.8  -- Unrequited Love (2
 fly 1424 49.3,52.3 |from 1439 36.3,45.6 |npc Hillsbrad Foothills (Darla Harris)  -- flight master Caylais Moonfeather
 accept 98459 |npc Tom "Half-fish" Wilson |at 1424 51.2,66.5  -- A Lack of Virtue (21)
 fly 1437 9.5,59.7 |from 1424 49.3,52.3 |npc Shellei Brondir  -- flight master Darla Harris
-complete 279 |at 1437 15.3,39.8 |mobs Bluegill Murloc;Gobbler  -- Claws from the Deep (22)
+complete 279 |at 1437 15.3,39.8 |mobs Bluegill Murloc;Gobbler@Gobbler's Head  -- Claws from the Deep (22)
 accept 469 |npc Einar Stonegrip |at 1437 49.9,39.4  -- Daily Delivery (21)
 accept 276 |npc Rethiel the Greenwarden |at 1437 56.4,40.4 |value mid  -- Tramping Paws (21)
 complete 276 |at 1437 62.4,69.0 |mobs Mosshide Gnoll;Mosshide Mongrel |value mid  -- Tramping Paws (21)
 turnin 276 |npc Rethiel the Greenwarden |at 1437 56.4,40.4 |value mid  -- Tramping Paws (21)
 accept 277 |npc Rethiel the Greenwarden |at 1437 56.4,40.4 |value mid  -- Fire Taboo (23)
-complete 277 |at 1437 40.0,32.0 |mobs Mosshide Fenrunner;Mosshide Trapper;Mosshide Brute;Mosshide Mistweaver |value mid  -- Fire Taboo (23)
+complete 277 |at 1437 40.0,32.0 |mobs Mosshide Fenrunner@Crude Flint;Mosshide Trapper@Crude Flint;Mosshide Brute@Crude Flint;Mosshide Mistweaver@Crude Flint |value mid  -- Fire Taboo (23)
 turnin 277 |npc Rethiel the Greenwarden |at 1437 56.4,40.4 |value mid  -- Fire Taboo (23)
 accept 275 |npc Rethiel the Greenwarden |at 1437 56.4,40.4 |value mid  -- Blisters on The Land (26)
-complete 484 |at 1437 53.1,42.4 |mobs Young Wetlands Crocolisk  -- Young Crocolisk Skins (22)
+complete 484 |at 1437 53.1,42.4 |mobs Young Wetlands Crocolisk@Young Crocolisk Skin  -- Young Crocolisk Skins (22)
 turnin 305 |npc Merrin Rockweaver |at 1437 38.9,52.3  -- In Search of The Excavation Team (24)
 accept 306 |npc Merrin Rockweaver |at 1437 38.9,52.3  -- In Search of The Excavation Team (24)
 accept 294 |npc Ormer Ironbraid |at 1437 38.2,50.9  -- Ormer's Revenge (24)
@@ -60,14 +60,14 @@ accept 285 |npc Sealed Barrel |at 1437 13.6,38.2  -- Search More Hovels (25)
 turnin 285 |npc Half-buried Barrel |at 1437 13.9,34.8  -- Search More Hovels (25)
 accept 286 |npc Half-buried Barrel |at 1437 13.9,34.8  -- Return the Statuette (25)
 complete 288 |at 1437 13.8,30.2 |mobs First Mate Snellig  -- The Third Fleet (27)
-complete 471 |at 1437 18.4,27.0 |mobs Giant Wetlands Crocolisk  -- Apprentice's Duties (26)
+complete 471 |at 1437 18.4,27.0 |mobs Giant Wetlands Crocolisk@Giant Crocolisk Skin  -- Apprentice's Duties (26)
 complete 275 |at 1437 35.6,33.5 |mobs Fen Creeper |value mid  -- Blisters on The Land (26)
-complete 470 |at 1437 45.0,26.5 |mobs Black Ooze;Monstrous Ooze;Crimson Ooze  -- Digging Through the Ooze (24)
+complete 470 |at 1437 45.0,26.5 |mobs Black Ooze@Sida's Bag;Monstrous Ooze@Sida's Bag;Crimson Ooze@Sida's Bag  -- Digging Through the Ooze (24)
 turnin 472 |npc Longbraid the Grim |at 1437 49.8,18.3  -- Fall of Dun Modr (25)
 turnin 275 |npc Rethiel the Greenwarden |at 1437 56.4,40.4 |value mid  -- Blisters on The Land (26)
 turnin 463 |npc Rethiel the Greenwarden |at 1437 56.4,40.4  -- The Greenwarden (21)
-complete 464 |at 1437 63.9,46.1 |mobs Dragonmaw Reclaimer;Dragonmaw Infiltrator;Dragonmaw Soulbinder;Dragonmaw Raider  -- War Banners (28)
-complete 98282 |at 1437 50.8,62.1 |mobs Leech Stalker;Cave Stalker  -- Alchemical Hazards (22)
+complete 464 |at 1437 63.9,46.1 |mobs Dragonmaw Reclaimer@Dragonmaw War Banner;Dragonmaw Infiltrator@Dragonmaw War Banner;Dragonmaw Soulbinder@Dragonmaw War Banner;Dragonmaw Raider@Dragonmaw War Banner  -- War Banners (28)
+complete 98282 |at 1437 50.8,62.1 |mobs Leech Stalker@Unruptured Stalker Gland;Cave Stalker@Unruptured Stalker Gland  -- Alchemical Hazards (22)
 accept 299 |npc Prospector Whelgar |at 1437 38.8,52.4  -- Uncovering the Past (27)
 turnin 294 |npc Ormer Ironbraid |at 1437 38.2,50.9  -- Ormer's Revenge (24)
 accept 295 |npc Ormer Ironbraid |at 1437 38.2,50.9  -- Ormer's Revenge (27)

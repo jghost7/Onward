@@ -1,4 +1,4 @@
--- DRAFT Thousand Needles (Horde) generated 2026-11-16 by tools/draft_guide.py
+-- DRAFT Thousand Needles (Horde) generated 2026-11-17 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -15,15 +15,15 @@ accept 4841 |npc Cliffwatcher Longhorn |at 1441 45.7,50.7 |value mid  -- Pacify 
 accept 5147 |npc Wanted Poster - Arnak Grimtotem |at 1441 46.0,50.9  -- WANTED: Arnak Grimtotem (29)
 complete 4841 |at 1441 43.6,39.3 |mobs Galak Scout;Galak Wrangler;Galak Windchaser |value mid  -- Pacify the Centaur (25)
 accept 4881 |at 1441 39.4,33.1 |note Starts from Assassination Note  -- Assassination Plot (28)
-complete 1151 |at 1441 17.1,38.1 |mobs Rok'Alim the Pounder |group elite  -- Test of Strength (30)
+complete 1151 |at 1441 17.1,38.1 |mobs Rok'Alim the Pounder@Fragments of Rok'Alim |group elite  -- Test of Strength (30)
 complete 4767 |at 1441 12.2,36.1 |value low  -- Wind Rider (29)
 accept 5151 |npc Wizlo Bearingshiner |at 1441 21.4,32.5 |group elite  -- Hypercapacitor Gizmo (30)
 turnin 4865 |npc Motega Firemane |at 1441 21.5,32.4  -- Serpent Wild (26)
 accept 5062 |npc Motega Firemane |at 1441 21.5,32.4 |value low  -- Sacred Fire (27)
 turnin 4881 |npc Kanati Greycloud |at 1441 21.2,32.1  -- Assassination Plot (28)
-complete 5151 |at 1441 22.8,24.6 |item 12942 |mobs Enraged Panther |group elite  -- Hypercapacitor Gizmo (30)
+complete 5151 |at 1441 22.8,24.6 |item 12942 |mobs Enraged Panther@Hypercapacitor Gizmo |group elite  -- Hypercapacitor Gizmo (30)
 accept 4542 |npc Brave Moonhorn |at 1441 32.2,22.2  -- Message to Freewind Post (25)
-complete 5147 |at 1441 38.1,26.9 |mobs Arnak Grimtotem  -- WANTED: Arnak Grimtotem (29)
+complete 5147 |at 1441 38.1,26.9 |mobs Arnak Grimtotem@Arnak's Hoof  -- WANTED: Arnak Grimtotem (29)
 accept 1150 |npc Dorn Plainstalker |at 1441 54.0,41.5  -- Test of Endurance (30)
 turnin 1151 |npc Dorn Plainstalker |at 1441 54.0,41.5 |group elite  -- Test of Strength (30)
 accept 1152 |npc Dorn Plainstalker |at 1441 54.0,41.5 |group chain  -- Test of Lore (30)
@@ -43,9 +43,9 @@ accept 1105 |npc Wizzle Brassbolts |at 1441 78.1,77.1  -- Hardened Shells (30)
 accept 1104 |npc Fizzle Brassbolts |at 1441 78.1,77.1  -- Salt Flat Venom (30)
 accept 1175 |npc Trackmaster Zherin |at 1441 81.6,78.0 |value mid  -- A Bump in the Road (33)
 accept 1176 |npc Pozzik |at 1441 80.2,75.9 |value low  -- Load Lightening (30)
-complete 1176 |at 1441 83.0,70.7 |mobs Salt Flats Scavenger;Salt Flats Vulture |value low  -- Load Lightening (30)
-complete 1105 |at 1441 79.9,66.3 |mobs Sparkleshell Snapper;Sparkleshell Tortoise;Sparkleshell Borer  -- Hardened Shells (30)
-complete 1104 |at 1441 77.0,67.7 |mobs Scorpid Reaver;Scorpid Terror;Vile Sting  -- Salt Flat Venom (30)
+complete 1176 |at 1441 83.0,70.7 |mobs Salt Flats Scavenger@Hollow Vulture Bone;Salt Flats Vulture@Hollow Vulture Bone |value low  -- Load Lightening (30)
+complete 1105 |at 1441 79.9,66.3 |mobs Sparkleshell Snapper@Hardened Tortoise Shell;Sparkleshell Tortoise@Hardened Tortoise Shell;Sparkleshell Borer@Hardened Tortoise Shell  -- Hardened Shells (30)
+complete 1104 |at 1441 77.0,67.7 |mobs Scorpid Reaver@Salty Scorpid Venom;Scorpid Terror@Salty Scorpid Venom;Vile Sting@Salty Scorpid Venom  -- Salt Flat Venom (30)
 complete 1110 |at 1441 73.2,68.7 |value low  -- Rocket Car Parts (31)
 complete 1175 |at 1441 79.1,70.1 |mobs Saltstone Basilisk;Saltstone Crystalhide;Saltstone Gazer |value mid  -- A Bump in the Road (33)
 turnin 1176 |npc Pozzik |at 1441 80.2,75.9 |value low  -- Load Lightening (30)
@@ -57,8 +57,8 @@ accept 1111 |npc Kravel Koalbeard |at 1441 77.8,77.3  -- Wharfmaster Dizzywig (3
 turnin 1110 |npc Kravel Koalbeard |at 1441 77.8,77.3 |value low  -- Rocket Car Parts (31)
 complete 1147 |at 1441 68.1,86.0 |mobs Silithid Searcher;Silithid Hive Drone;Silithid Invader  -- The Swarm Grows (35)
 accept 1148 |at 1441 68.1,86.0 |note Starts from Cracked Silithid Carapace  -- Parts of the Swarm (35)
-complete 1148 |at 1441 68.1,86.0 |item 5877 |mobs Silithid Hive Drone;Silithid Invader;Silithid Searcher;Silithid Ravager  -- Parts of the Swarm (35)
-complete 1150 |at 1441 26.0,55.6 |mobs Grenka Bloodscreech  -- Test of Endurance (30)
+complete 1148 |at 1441 68.1,86.0 |item 5877 |mobs Silithid Hive Drone@Silithid Heart;Silithid Invader@Silithid Heart;Silithid Searcher@Silithid Heart;Silithid Ravager@Silithid Heart  -- Parts of the Swarm (35)
+complete 1150 |at 1441 26.0,55.6 |mobs Grenka Bloodscreech@Grenka's Claw  -- Test of Endurance (30)
 complete 98070 |at 1441 26.7,52.1 |mobs Screeching Harpy;Screeching Roguefeather;Screeching Windcaller  -- Stop the Screeching (30)
 fly 1442 45.1,59.8 |from 1441 45.1,49.1 |npc Stonetalon Mountains (Tharm)  -- flight master Nyse
 turnin 1152 |npc Braug Dimspirit |at 1442 78.8,45.7 |group chain  -- Test of Lore (30)

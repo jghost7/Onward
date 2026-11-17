@@ -1,4 +1,4 @@
--- DRAFT Desolace (Horde) generated 2026-11-16 by tools/draft_guide.py
+-- DRAFT Desolace (Horde) generated 2026-11-17 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -8,9 +8,9 @@ Onward:RegisterGuide{
 accept 1381 |npc Warug |at 1443 75.0,68.2 |value mid |group elite  -- Khan Hratha (42)
 accept 96222 |npc Umarak |at 1443 43.5,79.0 |group elite  -- Khan Hratha (42)
 accept 1380 |npc Uthek the Wise |at 1443 36.2,79.2 |group elite  -- Khan Hratha (42)
-complete 96222 |at 1443 29.6,52.0 |mobs Khan Hratha |group elite  -- Khan Hratha (42)
-complete 1381 |at 1443 29.6,52.0 |mobs Khan Hratha |value mid |group elite  -- Khan Hratha (42)
-complete 1380 |at 1443 29.6,52.0 |mobs Khan Hratha |group elite  -- Khan Hratha (42)
+complete 96222 |at 1443 29.6,52.0 |mobs Khan Hratha@Maraudine Key Fragment |group elite  -- Khan Hratha (42)
+complete 1381 |at 1443 29.6,52.0 |mobs Khan Hratha@Maraudine Key Fragment |value mid |group elite  -- Khan Hratha (42)
+complete 1380 |at 1443 29.6,52.0 |mobs Khan Hratha@Maraudine Key Fragment |group elite  -- Khan Hratha (42)
 accept 93465 |npc Azore Aldamort |at 1443 38.9,27.2 |value mid  -- Notes on Draenethyst (40)
 accept 79229 |npc Extinguished Campfire |at 1443 47.5,54.6  -- Highway Robbery (40)
 accept 1488 |npc Takata Steelblade |at 1443 52.6,54.4 |group elite  -- The Corrupter (40)
@@ -19,9 +19,9 @@ accept 94872 |npc Gurda Wildmane |at 1443 56.3,59.7 |value low  -- Buying Friend
 accept 92743 |npc Warug |at 1443 75.0,68.2  -- A Conqueror's Crown (40)
 turnin 92743 |npc Warug |at 1443 75.0,68.2  -- A Conqueror's Crown (40)
 turnin 1381 |npc Warug |at 1443 75.0,68.2 |value mid |group elite  -- Khan Hratha (42)
-complete 93465 |at 1443 80.9,76.5 |mobs Gimashi |value mid  -- Notes on Draenethyst (40)
+complete 93465 |at 1443 80.9,76.5 |mobs Gimashi@Gimashi's Findings |value mid  -- Notes on Draenethyst (40)
 turnin 94872 |npc Gorhak |at 1443 66.2,79.4 |value low  -- Buying Friendship: Magram (45)
-complete 93225 |at 1443 65.1,75.9 |mobs Magram Guardian;Gelkis Windchaser;Gelkis Stamper;Magram Wrangler |value low  -- Carved Centaur Totems (40)
+complete 93225 |at 1443 65.1,75.9 |mobs Magram Guardian@Carved Centaur Totem;Gelkis Windchaser@Carved Centaur Totem;Gelkis Stamper@Carved Centaur Totem;Magram Wrangler@Carved Centaur Totem |value low  -- Carved Centaur Totems (40)
 complete 1488 |at 1443 57.0,75.7 |mobs Lord Azrethoc;Jugkar Grim'rod |group elite  -- The Corrupter (40)
 turnin 93225 |npc Gurda Wildmane |at 1443 56.3,59.7 |value low  -- Carved Centaur Totems (40)
 turnin 1488 |npc Takata Steelblade |at 1443 52.6,54.4 |group elite  -- The Corrupter (40)

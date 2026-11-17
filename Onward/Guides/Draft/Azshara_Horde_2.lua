@@ -1,4 +1,4 @@
--- DRAFT Azshara (Horde) generated 2026-11-16 by tools/draft_guide.py
+-- DRAFT Azshara (Horde) generated 2026-11-17 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -7,7 +7,7 @@ Onward:RegisterGuide{
   steps = [[
 accept 91500 |npc Sin'dorei Tome of Summoning |at 1447 59.5,31.3  -- An Explosive Gambit (55)
 accept 91538 |npc Sin'dorei Tome of Summoning |at 1447 59.5,31.3  -- Sin'dorei Tome of Summoning (55)
-complete 91500 |at 1447 59.5,31.4 |item 249390 |mobs Magus Rimtori  -- An Explosive Gambit (55)
+complete 91500 |at 1447 59.5,31.4 |item 249390 |mobs Magus Rimtori@Head of Magus Rimtori  -- An Explosive Gambit (55)
 accept 6805 |npc Duke Hydraxis |at 1447 79.3,73.7  -- Stormers and Rumblers (57)
 accept 6804 |npc Duke Hydraxis |at 1447 79.3,73.7  -- Poisoned Water (56)
 accept 3509 |npc Loramus Thalipedes |at 1447 60.8,66.3  -- The Name of the Beast (58)
@@ -20,7 +20,7 @@ accept 91547 |npc Jediga |at 1447 22.6,51.4  -- Sin'dorei Tome of Summoning (55)
 accept 92346 |npc Jediga |at 1447 22.6,51.4  -- Beneath Nordrassil (55)
 turnin 3509 |npc Lord Arkkoroc |at 1447 77.1,42.8  -- The Name of the Beast (58)
 accept 3510 |npc Lord Arkkoroc |at 1447 77.1,42.8 |group elite  -- The Name of the Beast (58)
-complete 3510 |at 1447 56.7,44.8 |mobs Hetaera |group elite  -- The Name of the Beast (58)
+complete 3510 |at 1447 56.7,44.8 |mobs Hetaera@Hetaera's Beaten Head |group elite  -- The Name of the Beast (58)
 turnin 3510 |npc Lord Arkkoroc |at 1447 77.1,42.8 |group elite  -- The Name of the Beast (58)
 accept 3511 |npc Lord Arkkoroc |at 1447 77.1,42.8 |group chain  -- The Name of the Beast (58)
 turnin 6804 |npc Duke Hydraxis |at 1447 79.3,73.7  -- Poisoned Water (56)
@@ -30,7 +30,7 @@ turnin 3511 |npc Loramus Thalipedes |at 1447 60.8,66.3 |group chain  -- The Name
 accept 3602 |npc Loramus Thalipedes |at 1447 60.8,66.3 |group chain  -- Azsharite (58)
 complete 6821 |at 1447 11.9,78.1 |mobs Azshara Sentinel |group dungeon  -- Eye of the Emberseer (60)
 complete 3602 |at 1447 54.6,82.0 |item 10834 |group chain  -- Azsharite (58)
-complete 91611 |at 1447 76.3,74.9 |mobs Mammoth Shark |group elite  -- Deadliest Catch (56)
+complete 91611 |at 1447 76.3,74.9 |mobs Mammoth Shark@Mammoth Shark Steak |group elite  -- Deadliest Catch (56)
 turnin 6821 |npc Duke Hydraxis |at 1447 79.3,73.7 |group dungeon  -- Eye of the Emberseer (60)
 accept 6822 |npc Duke Hydraxis |at 1447 79.3,73.7 |group dungeon  -- The Molten Core (60)
 turnin 3602 |npc Loramus Thalipedes |at 1447 60.8,66.3 |group chain  -- Azsharite (58)

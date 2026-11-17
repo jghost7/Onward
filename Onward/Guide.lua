@@ -175,9 +175,17 @@ local function parseLine(line, lineNo, guideId)
     step.item = tonumber(opts.item)
     if opts.mobs and opts.mobs ~= "" then
         step.mobs = {}
-        for name in opts.mobs:gmatch("[^;]+") do
-            name = name:match("^%s*(.-)%s*$")
-            if name ~= "" then step.mobs[#step.mobs + 1] = name end
+        -- "Mob@Item": the mob is there for that item (Target drops it once the item is collected)
+        for entry in opts.mobs:gmatch("[^;]+") do
+            local name, item = entry:match("^%s*(.-)%s*@%s*(.-)%s*$")
+            name = name or entry:match("^%s*(.-)%s*$")
+            if name ~= "" then
+                step.mobs[#step.mobs + 1] = name
+                if item and item ~= "" then
+                    step.mobItem = step.mobItem or {}
+                    step.mobItem[name] = item
+                end
+            end
         end
     end
     step.optional = opts.optional ~= nil
@@ -200,6 +208,7 @@ local function parseLine(line, lineNo, guideId)
     end
     return step
 end
+G.ParseStep = function(line) return parseLine(line, 1, "test") end   -- one guide line -> step (tests)
 
 local function parse(def)
     local g = { def = def, id = def.id, title = def.title, steps = {} }

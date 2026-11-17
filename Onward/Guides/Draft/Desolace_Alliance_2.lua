@@ -1,4 +1,4 @@
--- DRAFT Desolace (Alliance) generated 2026-11-16 by tools/draft_guide.py
+-- DRAFT Desolace (Alliance) generated 2026-11-17 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -13,18 +13,18 @@ accept 93226 |npc Captain Pentigast |at 1443 66.7,10.9 |value mid  -- Buying Fri
 accept 92743 |npc Warug |at 1443 75.0,68.2  -- A Conqueror's Crown (40)
 turnin 92743 |npc Warug |at 1443 75.0,68.2  -- A Conqueror's Crown (40)
 accept 1381 |npc Warug |at 1443 75.0,68.2 |group elite  -- Khan Hratha (42)
-complete 1466 |at 1443 54.1,78.2 |mobs Nether Maiden;Mage Hunter;Ley Hunter;Doomwarder Captain |value mid  -- Reagents for Reclaimers Inc. (40)
+complete 1466 |at 1443 54.1,78.2 |mobs Nether Maiden@Nether Wing;Mage Hunter@Felhound Brain;Ley Hunter@Felhound Brain;Doomwarder Captain@Doomwarder Blood |value mid  -- Reagents for Reclaimers Inc. (40)
 accept 96222 |npc Umarak |at 1443 43.5,79.0 |group elite  -- Khan Hratha (42)
 accept 1380 |npc Uthek the Wise |at 1443 36.2,79.2 |group elite  -- Khan Hratha (42)
-complete 96222 |at 1443 29.6,52.0 |mobs Khan Hratha |group elite  -- Khan Hratha (42)
-complete 1380 |at 1443 29.6,52.0 |mobs Khan Hratha |group elite  -- Khan Hratha (42)
-complete 1381 |at 1443 29.6,52.0 |mobs Khan Hratha |group elite  -- Khan Hratha (42)
+complete 96222 |at 1443 29.6,52.0 |mobs Khan Hratha@Maraudine Key Fragment |group elite  -- Khan Hratha (42)
+complete 1380 |at 1443 29.6,52.0 |mobs Khan Hratha@Maraudine Key Fragment |group elite  -- Khan Hratha (42)
+complete 1381 |at 1443 29.6,52.0 |mobs Khan Hratha@Maraudine Key Fragment |group elite  -- Khan Hratha (42)
 accept 79229 |npc Extinguished Campfire |at 1443 47.5,54.6  -- Highway Robbery (40)
 turnin 1380 |npc Uthek the Wise |at 1443 36.2,79.2 |group elite  -- Khan Hratha (42)
 turnin 96222 |npc Umarak |at 1443 43.5,79.0 |group elite  -- Khan Hratha (42)
 accept 93196 |npc Orgrul |at 1443 65.4,84.2  -- Khan Jehn (42)
 turnin 93226 |npc Gorhak |at 1443 66.2,79.4 |value mid  -- Buying Friendship: Magram (45)
-complete 93224 |at 1443 65.1,75.9 |mobs Magram Guardian;Gelkis Windchaser;Gelkis Stamper;Magram Wrangler |value mid  -- Carved Centaur Totems (40)
+complete 93224 |at 1443 65.1,75.9 |mobs Magram Guardian@Carved Centaur Totem;Gelkis Windchaser@Carved Centaur Totem;Gelkis Stamper@Carved Centaur Totem;Magram Wrangler@Carved Centaur Totem |value mid  -- Carved Centaur Totems (40)
 turnin 93196 |npc Khan Jehn |at 1443 73.8,73.9  -- Khan Jehn (42)
 turnin 1381 |npc Warug |at 1443 75.0,68.2 |group elite  -- Khan Hratha (42)
 turnin 79229 |npc Bibbly F'utzbuckle |at 1443 62.3,39.0  -- Highway Robbery (40)

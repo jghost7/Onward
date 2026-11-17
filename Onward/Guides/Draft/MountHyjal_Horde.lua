@@ -1,4 +1,4 @@
--- DRAFT Mount Hyjal (Horde) generated 2026-11-16 by tools/draft_guide.py
+-- DRAFT Mount Hyjal (Horde) generated 2026-11-17 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -11,19 +11,19 @@ accept 92592 |npc Zet'gan |at 2482 13.8,54.8  -- Final Death (59)
 accept 95026 |npc Zet'gan |at 2482 13.8,54.8 |value mid  -- Blight No More (58)
 accept 92609 |npc Zet'gan |at 2482 13.8,54.8 |value mid  -- Feathers in Flight (57)
 complete 95026 |at 2482 24.2,54.1 |mobs Forgotten Soldier;Fleshflay Ravener |value mid  -- Blight No More (58)
-complete 92592 |at 2482 27.4,57.8 |item 274411 |mobs Scourge Reanimator  -- Final Death (59)
+complete 92592 |at 2482 27.4,57.8 |item 274411 |mobs Scourge Reanimator@Reanimator's Amulet  -- Final Death (59)
 accept 94782 |npc Curious Crow |at 2482 48.3,85.7 |value low  -- The Western Post (57)
-complete 92609 |at 2482 36.6,73.9 |mobs Hyjal Owl;Tainted Hyjal Owl |value mid  -- Feathers in Flight (57)
+complete 92609 |at 2482 36.6,73.9 |mobs Hyjal Owl@Hyjal Owl Feather;Tainted Hyjal Owl@Hyjal Owl Feather |value mid  -- Feathers in Flight (57)
 turnin 92609 |npc Zet'gan |at 2482 13.8,54.8 |value mid  -- Feathers in Flight (57)
 turnin 92592 |npc Zet'gan |at 2482 13.8,54.8  -- Final Death (59)
 turnin 95026 |npc Zet'gan |at 2482 13.8,54.8 |value mid  -- Blight No More (58)
 turnin 94782 |npc Zet'gan |at 2482 13.8,54.8 |value low  -- The Western Post (57)
 accept 95248 |npc Zet'gan |at 2482 13.8,54.8 |value low  -- To the Summit of Eternity (59)
 accept 92446 |npc Zet'gan |at 2482 13.8,54.8 |value mid |group elite  -- Head Scratcher (60)
-complete 92446 |at 2482 35.3,71.3 |item 251780 |mobs Head Scratcher |value mid |group elite  -- Head Scratcher (60)
+complete 92446 |at 2482 35.3,71.3 |item 251780 |mobs Head Scratcher@Head Scratcher's Scratchers |value mid |group elite  -- Head Scratcher (60)
 turnin 95248 |npc Thisalee Crow |at 2482 69.0,50.0 |value low  -- To the Summit of Eternity (59)
 accept 96998 |npc Troll Remains |at 2482 61.6,41.5  -- Tribal Colors (58)
-complete 91794 |at 2482 54.4,36.1 |mobs Felguard Sentinel;Doomguard;Doomguard Xarkul;Bethra'zel the Feeble  -- Flags of Our Forebears (59)
+complete 91794 |at 2482 54.4,36.1 |mobs Felguard Sentinel@Scrap of Horde Heraldry;Doomguard@Scrap of Horde Heraldry;Doomguard Xarkul@Scrap of Horde Heraldry;Bethra'zel the Feeble@Scrap of Horde Heraldry  -- Flags of Our Forebears (59)
 turnin 92446 |npc Zet'gan |at 2482 13.8,54.8 |value mid |group elite  -- Head Scratcher (60)
 turnin 96998 |npc Zet'gan |at 2482 13.8,54.8  -- Tribal Colors (58)
 accept 96999 |npc Zet'gan |at 2482 13.8,54.8  -- Wrap Return (58)

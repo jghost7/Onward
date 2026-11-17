@@ -1,4 +1,4 @@
--- DRAFT Searing Gorge (Horde) generated 2026-11-16 by tools/draft_guide.py
+-- DRAFT Searing Gorge (Horde) generated 2026-11-17 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -26,27 +26,27 @@ complete 3463 |at 1427 44.0,60.9 |item 10515 |group chain  -- Set Them Ablaze! (
 turnin 4449 |npc Wooden Outhouse |at 1427 65.6,62.2 |value mid  -- Caught! (45)
 accept 4450 |npc Wooden Outhouse |at 1427 65.6,62.2 |value mid  -- Ledger from Tanaris (46)
 turnin 4451 |npc Wooden Outhouse |at 1427 65.6,62.2  -- The Key to Freedom (47)
-complete 4450 |at 1427 63.5,50.8 |mobs Glassweb Spider |value mid  -- Ledger from Tanaris (46)
-complete 3442 |at 1427 48.0,49.4 |mobs Magma Elemental;Heavy War Golem;Blazing Elemental;Tempered War Golem  -- The Flawless Flame (48)
+complete 4450 |at 1427 63.5,50.8 |mobs Glassweb Spider@Solid Crystal Leg Shaft |value mid  -- Ledger from Tanaris (46)
+complete 3442 |at 1427 48.0,49.4 |mobs Magma Elemental@Heart of Flame;Heavy War Golem@Golem Oil;Blazing Elemental@Heart of Flame;Tempered War Golem@Golem Oil  -- The Flawless Flame (48)
 complete 7729 |at 1427 42.8,40.5 |mobs Dark Iron Taskmaster;Dark Iron Slaver |value mid  -- JOB OPPORTUNITY: Culling the Competition (48)
 turnin 3463 |npc Squire Maltrake |at 1427 39.2,39.0 |group chain  -- Set Them Ablaze! (52)
 turnin 3442 |npc Kalaran Windblade |at 1427 39.1,39.0  -- The Flawless Flame (48)
 accept 3443 |npc Kalaran Windblade |at 1427 39.1,39.0  -- Forging the Shaft (48)
-complete 3443 |at 1427 42.2,43.7 |mobs Slave Worker;Dark Iron Taskmaster;Dark Iron Slaver;Dark Iron Lookout  -- Forging the Shaft (48)
+complete 3443 |at 1427 42.2,43.7 |mobs Slave Worker@Thorium Plated Dagger;Dark Iron Taskmaster@Thorium Plated Dagger;Dark Iron Slaver@Thorium Plated Dagger;Dark Iron Lookout@Thorium Plated Dagger  -- Forging the Shaft (48)
 turnin 3443 |npc Kalaran Windblade |at 1427 39.1,39.0  -- Forging the Shaft (48)
 accept 3452 |npc Kalaran Windblade |at 1427 39.1,39.0 |group elite  -- The Flame's Casing (50)
 complete 7723 |at 1427 38.3,48.0 |mobs Heavy War Golem  -- Curse These Fat Fingers (49)
-complete 7728 |at 1427 38.1,51.4 |mobs Dark Iron Lookout;Dark Iron Steamsmith  -- STOLEN: Smithing Tuyere and Lookout's Spyglass (48)
+complete 7728 |at 1427 38.1,51.4 |mobs Dark Iron Lookout@Lookout's Spyglass;Dark Iron Steamsmith@Smithing Tuyere  -- STOLEN: Smithing Tuyere and Lookout's Spyglass (48)
 complete 7724 |at 1427 29.3,62.4 |mobs Greater Lava Spider  -- Fiery Menace! (49)
 accept 7704 |note Starts from Chambermaid Pillaclencher's Pillow  -- Look at the Size of It! (50)
 fly 1446 51.6,25.4 |from 1427 34.8,30.9 |npc Tanaris (Bulkrek Ragefist) |value mid  -- flight master Grisha
 turnin 4450 |npc Krinkle Goodsteel |at 1446 51.5,28.8 |value mid  -- Ledger from Tanaris (46)
 fly 1427 34.8,30.9 |from 1446 51.6,25.4 |npc Grisha |value mid  -- flight master Bulkrek Ragefist
-complete 3452 |at 1427 20.8,35.9 |mobs Twilight Fire Guard;Twilight Geomancer;Twilight Dark Shaman;Twilight Idolater |group elite  -- The Flame's Casing (50)
+complete 3452 |at 1427 20.8,35.9 |mobs Twilight Fire Guard@Symbol of Ragnaros;Twilight Geomancer@Symbol of Ragnaros;Twilight Dark Shaman@Symbol of Ragnaros;Twilight Idolater@Symbol of Ragnaros |group elite  -- The Flame's Casing (50)
 accept 3481 |npc Hoard of the Black Dragonflight |at 1427 38.9,39.0 |group chain  -- Trinkets... (50)
 turnin 3481 |npc Hoard of the Black Dragonflight |at 1427 38.9,39.0 |group chain  -- Trinkets... (50)
 turnin 3452 |npc Kalaran Windblade |at 1427 39.1,39.0 |group elite  -- The Flame's Casing (50)
-complete 7701 |at 1427 40.8,35.9 |mobs Overseer Maltorius |group elite  -- WANTED: Overseer Maltorius (50)
+complete 7701 |at 1427 40.8,35.9 |mobs Overseer Maltorius@Head of Overseer Maltorius |group elite  -- WANTED: Overseer Maltorius (50)
 complete 7722 |at 1427 40.5,35.7  -- What the Flux? (50)
 turnin 7722 |npc Master Smith Burninate |at 1427 38.8,28.5  -- What the Flux? (50)
 turnin 7729 |npc Taskmaster Scrange |at 1427 39.0,27.5 |value mid  -- JOB OPPORTUNITY: Culling the Competition (48)

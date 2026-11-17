@@ -1,4 +1,4 @@
--- DRAFT Stonetalon Mountains (Horde) generated 2026-11-16 by tools/draft_guide.py
+-- DRAFT Stonetalon Mountains (Horde) generated 2026-11-17 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -9,7 +9,7 @@ Onward:RegisterGuide{
 accept 6461 |npc Xen'Zilla |at 1442 71.2,95.0 |value mid  -- Blood Feeders (19)
 accept 6284 |npc Wanted Poster: Besseleth |at 1442 59.1,75.7 |group elite  -- Arachnophobia (21)
 complete 6461 |at 1442 54.7,72.8 |mobs Deepmoss Creeper;Deepmoss Venomspitter |value mid  -- Blood Feeders (19)
-complete 6284 |at 1442 53.6,72.6 |mobs Besseleth |group elite  -- Arachnophobia (21)
+complete 6284 |at 1442 53.6,72.6 |mobs Besseleth@Besseleth's Fang |group elite  -- Arachnophobia (21)
 home |npc Innkeeper Jayka |at 1442 47.5,62.1  -- set your hearthstone at the inn
 accept 6481 |npc Mor'rogal |at 1442 47.2,64.0 |group elite  -- Earthen Arise (20)
 turnin 6284 |npc Maggran Earthbinder |at 1442 47.2,61.2 |group elite  -- Arachnophobia (21)
@@ -28,7 +28,7 @@ accept 6542 |npc Darn Talongrip |at 1442 73.2,94.9  -- Report to Kadrak (19)
 complete 6548 |at 1442 82.3,86.9 |mobs Grimtotem Ruffian;Grimtotem Mercenary  -- Avenge My Village (18)
 complete 6629 |at 1442 77.7,85.9 |mobs Grundig Darkcloud;Grimtotem Brute  -- Kill Grundig Darkcloud (18)
 accept 1092 |npc Piznik |at 1442 71.9,60.0  -- Gerenzo's Orders (22)
-complete 1093 |at 1442 67.1,52.4 |mobs Venture Co. Operator  -- Super Reaper 6000 (21)
+complete 1093 |at 1442 67.1,52.4 |mobs Venture Co. Operator@Super Reaper 6000 Blueprints  -- Super Reaper 6000 (21)
 complete 1062 |at 1442 66.3,51.8 |mobs Venture Co. Logger  -- Goblin Invaders (19)
 turnin 1093 |npc Ziz Fizziks |at 1442 59.0,62.6  -- Super Reaper 6000 (21)
 accept 1094 |npc Ziz Fizziks |at 1442 59.0,62.6  -- Further Instructions (21)
@@ -38,7 +38,7 @@ accept 6381 |npc Tammra Windfield |at 1442 47.5,58.4 |value mid  -- New Life (25
 accept 1087 |npc Braelyn Firehand |at 1442 45.9,60.4 |value low  -- Cenarius' Legacy (25)
 turnin 6481 |npc Mor'rogal |at 1442 47.2,64.0 |group elite  -- Earthen Arise (20)
 accept 6393 |npc Tsunaman |at 1442 47.4,64.2  -- Elemental War (25)
-complete 6393 |at 1442 34.1,63.7 |mobs Rogue Flame Spirit;Burning Destroyer;Burning Ravager  -- Elemental War (25)
+complete 6393 |at 1442 34.1,63.7 |mobs Rogue Flame Spirit@Incendrites;Burning Destroyer@Incendrites;Burning Ravager@Incendrites  -- Elemental War (25)
 complete 6381 |at 1442 32.2,68.2 |item 16208 |value mid  -- New Life (25)
 fly 1413 51.5,30.3 |from 1442 45.1,59.8 |npc The Barrens (Devrak)  -- flight master Tharm
 turnin 1062 |npc Seereth Stonebreak |at 1413 35.3,27.9  -- Goblin Invaders (19)

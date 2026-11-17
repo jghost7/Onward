@@ -1,4 +1,4 @@
--- DRAFT Swamp of Sorrows (Alliance) generated 2026-11-16 by tools/draft_guide.py
+-- DRAFT Swamp of Sorrows (Alliance) generated 2026-11-17 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -14,7 +14,7 @@ accept 93176 |npc Amaryllis Webb |at 1435 25.2,54.0  -- My Little Friends (35)
 accept 1389 |npc Magtoor |at 1435 26.0,31.4  -- Draenethyst Crystals (35)
 accept 93430 |npc Pelluk |at 1435 26.5,30.4  -- Taking the Bait Back (35)
 accept 1392 |at 1435 54.9,34.1 |note Starts from Noboru's Cudgel  -- Noboru the Cudgel (39)
-complete 93430 |at 1435 53.7,30.6 |mobs Lost One Fisherman  -- Taking the Bait Back (35)
+complete 93430 |at 1435 53.7,30.6 |mobs Lost One Fisherman@Lucky Lure  -- Taking the Bait Back (35)
 complete 1389 |at 1435 62.3,23.6  -- Draenethyst Crystals (35)
 complete 1421 |at 1435 64.5,18.3 |value mid  -- The Lost Caravan (35)
 turnin 93430 |npc Pelluk |at 1435 26.5,30.4  -- Taking the Bait Back (35)
@@ -27,7 +27,7 @@ turnin 93429 |npc Karana |at 1435 24.7,32.6  -- Blood of My Blood (35)
 accept 1116 |npc Krazek |at 1434 26.9,77.2  -- Dream Dust in the Swamp (36)
 turnin 1421 |npc Watcher Biggs |at 1435 26.7,59.8 |value mid  -- The Lost Caravan (35)
 accept 1398 |npc Watcher Biggs |at 1435 26.7,59.8 |value mid  -- Driftwood (42)
-complete 1116 |at 1435 60.5,53.1 |mobs Scalebane Captain;Green Scalebane;Adolescent Whelp;Wyrmkin Dreamwalker  -- Dream Dust in the Swamp (36)
+complete 1116 |at 1435 60.5,53.1 |mobs Scalebane Captain@Speck of Dream Dust;Green Scalebane@Speck of Dream Dust;Adolescent Whelp@Speck of Dream Dust;Wyrmkin Dreamwalker@Speck of Dream Dust  -- Dream Dust in the Swamp (36)
 complete 1398 |at 1435 94.0,57.1 |value mid  -- Driftwood (42)
 complete 93176 |at 1435 62.9,67.6 |item 213565 |mobs Deathstrike Tarantula;Weevil K. Neevil  -- My Little Friends (35)
 turnin 1398 |npc Watcher Biggs |at 1435 26.7,59.8 |value mid  -- Driftwood (42)

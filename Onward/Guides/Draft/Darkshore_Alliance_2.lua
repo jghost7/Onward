@@ -1,4 +1,4 @@
--- DRAFT Darkshore (Alliance) generated 2026-11-16 by tools/draft_guide.py
+-- DRAFT Darkshore (Alliance) generated 2026-11-17 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -17,7 +17,7 @@ accept 986 |npc Terenthis |at 1439 39.4,43.5 |value mid  -- A Lost Master (20)
 accept 729 |npc Archaeologist Hollee |at 1439 37.4,41.8  -- The Absent Minded Prospector (20)
 accept 741 |npc Archaeologist Hollee |at 1439 37.4,41.8  -- The Absent Minded Prospector (20)
 accept 2098 |npc Gelkak Gyromast |at 1439 56.7,13.5 |value mid  -- Gyromast's Retrieval (20)
-complete 87760 |at 1439 49.4,12.9 |mobs Stormscale Beastmistress  -- Holy Diver (20)
+complete 87760 |at 1439 49.4,12.9 |mobs Stormscale Beastmistress@Rod of Deep Dominion  -- Holy Diver (20)
 fly 1440 34.4,48.0 |from 1439 36.3,45.6 |npc Ashenvale (Daelyshia)  -- flight master Caylais Moonfeather
 accept 970 |npc Delgren the Purifier |at 1440 26.2,38.7  -- The Tower of Althalaxx (21)
 complete 970 |at 1440 31.3,31.0  -- The Tower of Althalaxx (21)
@@ -32,10 +32,10 @@ accept 943 |npc Archaeologist Flagongut |at 1437 10.8,60.4  -- The Absent Minded
 fly 1439 36.3,45.6 |from 1437 9.5,59.7 |npc Caylais Moonfeather  -- flight master Shellei Brondir
 turnin 729 |npc Prospector Remtravel |at 1439 35.7,83.7  -- The Absent Minded Prospector (20)
 complete 943 |at 1439 36.2,85.9 |mobs Stone Behemoth  -- The Absent Minded Prospector (24)
-complete 986 |at 1439 41.7,83.3 |mobs Moonstalker Sire;Moonstalker Matriarch |value mid  -- A Lost Master (20)
+complete 986 |at 1439 41.7,83.3 |mobs Moonstalker Sire@Fine Moonstalker Pelt;Moonstalker Matriarch@Fine Moonstalker Pelt |value mid  -- A Lost Master (20)
 accept 98013 |npc Arbal |at 1439 43.6,76.4 |value low  -- Swelling Forces (20)
 accept 951 |npc Onu |at 1439 43.5,76.3  -- Mathystra Relics (20)
-complete 2098 |at 1439 36.2,71.0 |mobs Giant Foreststrider;Greymist Coastrunner;Raging Reef Crawler;Greymist Seer |value mid  -- Gyromast's Retrieval (20)
+complete 2098 |at 1439 36.2,71.0 |mobs Giant Foreststrider@Top of Gelkak's Key;Greymist Coastrunner@Middle of Gelkak's Key;Raging Reef Crawler@Bottom of Gelkak's Key;Greymist Seer@Middle of Gelkak's Key |value mid  -- Gyromast's Retrieval (20)
 turnin 87760 |npc Gwennyth Bly'Leggonde |at 1439 36.6,45.6  -- Holy Diver (20)
 turnin 986 |npc Terenthis |at 1439 39.4,43.5 |value mid  -- A Lost Master (20)
 accept 993 |npc Terenthis |at 1439 39.4,43.5 |value mid  -- A Lost Master (20)

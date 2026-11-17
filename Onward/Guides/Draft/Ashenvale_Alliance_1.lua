@@ -1,4 +1,4 @@
--- DRAFT Ashenvale (Alliance) generated 2026-11-16 by tools/draft_guide.py
+-- DRAFT Ashenvale (Alliance) generated 2026-11-17 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -16,7 +16,7 @@ turnin 1008 |npc Shindrell Swiftfire |at 1440 34.7,48.8 |value mid  -- The Zoram
 accept 1134 |npc Shindrell Swiftfire |at 1440 34.7,48.8 |value mid  -- Pridewings of Stonetalon (21)
 turnin 991 |npc Teronis' Corpse |at 1440 20.3,42.3  -- Raene's Cleansing (19)
 accept 1023 |npc Teronis' Corpse |at 1440 20.3,42.3  -- Raene's Cleansing (21)
-complete 1023 |at 1440 20.5,43.2 |item 5505 |mobs Saltspittle Puddlejumper;Saltspittle Warrior;Saltspittle Oracle;Saltspittle Muckdweller  -- Raene's Cleansing (21)
+complete 1023 |at 1440 20.5,43.2 |item 5505 |mobs Saltspittle Puddlejumper@Glowing Gem;Saltspittle Warrior@Glowing Gem;Saltspittle Oracle@Glowing Gem;Saltspittle Muckdweller@Glowing Gem  -- Raene's Cleansing (21)
 turnin 1007 |npc Talen |at 1440 14.8,31.3  -- The Ancient Statuette (20)
 accept 1009 |npc Talen |at 1440 14.8,31.3  -- Ruuzel (25)
 accept 1007 |npc Talen |at 1440 14.8,31.3  -- The Ancient Statuette (20)
@@ -29,12 +29,12 @@ turnin 1085 |npc Gaxim Rustfizzle |at 1442 59.5,67.2  -- On Guard in Stonetalon 
 fly 1439 36.3,45.6 |from 1442 36.4,7.2 |npc Darkshore (Caylais Moonfeather)  -- flight master Teloren
 accept 990 |npc Sentinel Selarin |at 1439 39.3,43.5  -- Trek to Ashenvale (19)
 fly 1440 34.4,48.0 |from 1439 36.3,45.6 |npc Daelyshia  -- flight master Caylais Moonfeather
-complete 1009 |at 1440 7.2,13.1 |mobs Ruuzel  -- Ruuzel (25)
+complete 1009 |at 1440 7.2,13.1 |mobs Ruuzel@Ring of Zoram  -- Ruuzel (25)
 complete 1007 |at 1440 14.2,20.6  -- The Ancient Statuette (20)
-complete 1008 |at 1440 10.7,24.2 |mobs Wrathtail Sorceress;Wrathtail Priestess;Wrathtail Myrmidon;Wrathtail Razortail |value mid  -- The Zoram Strand (19)
+complete 1008 |at 1440 10.7,24.2 |mobs Wrathtail Sorceress@Wrathtail Head;Wrathtail Priestess@Wrathtail Head;Wrathtail Myrmidon@Wrathtail Head;Wrathtail Razortail@Wrathtail Head |value mid  -- The Zoram Strand (19)
 turnin 1009 |npc Talen |at 1440 14.8,31.3  -- Ruuzel (25)
 accept 1010 |npc Orendil Broadleaf |at 1440 26.4,38.6  -- Bathran's Hair (20)
-complete 1054 |at 1440 39.6,36.3 |mobs Dal Bloodclaw  -- Culling the Threat (25)
+complete 1054 |at 1440 39.6,36.3 |mobs Dal Bloodclaw@Dal Bloodclaw's Skull  -- Culling the Threat (25)
 complete 1010 |at 1440 31.9,22.9  -- Bathran's Hair (20)
 turnin 1010 |npc Orendil Broadleaf |at 1440 26.4,38.6  -- Bathran's Hair (20)
 accept 1020 |npc Orendil Broadleaf |at 1440 26.4,38.6  -- Orendil's Cure (20)

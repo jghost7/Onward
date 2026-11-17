@@ -1,4 +1,4 @@
--- DRAFT Feralas (Alliance) generated 2026-11-16 by tools/draft_guide.py
+-- DRAFT Feralas (Alliance) generated 2026-11-17 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -27,10 +27,10 @@ accept 2972 |npc Jer'kai Moonweaver |at 1444 66.0,45.6  -- Doling Justice (47)
 accept 2766 |at 1444 59.0,51.4 |note Starts from OOX-22/FE Distress Beacon  -- Find OOX-22/FE! (45)
 complete 2982 |at 1444 60.6,57.6 |mobs Gordunni Warlock;Gordunni Shaman;Gordunni Brute |value mid  -- The High Wilderness (44)
 turnin 2766 |npc Homing Robot OOX-22/FE |at 1444 53.4,55.7  -- Find OOX-22/FE! (45)
-complete 2821 |at 1444 52.3,58.5 |mobs Feral Scar Yeti;Hulking Feral Scar;Enraged Feral Scar;Bloodroar the Stalker |value mid  -- The Mark of Quality (46)
+complete 2821 |at 1444 52.3,58.5 |mobs Feral Scar Yeti@Thick Yeti Hide;Hulking Feral Scar@Thick Yeti Hide;Enraged Feral Scar@Thick Yeti Hide;Bloodroar the Stalker@Thick Yeti Hide |value mid  -- The Mark of Quality (46)
 turnin 4125 |npc Wrecked Row Boat |at 1444 45.4,65.0  -- The Missing Courier (43)
 accept 4127 |npc Wrecked Row Boat |at 1444 45.4,65.0  -- Boat Wreckage (44)
-complete 2869 |at 1444 26.7,63.7 |mobs Hatecrest Sorceress;Hatecrest Serpent Guard;Hatecrest Screamer;Hatecrest Warrior  -- Against the Hatecrest (43)
+complete 2869 |at 1444 26.7,63.7 |mobs Hatecrest Sorceress@Hatecrest Naga Scale;Hatecrest Serpent Guard@Hatecrest Naga Scale;Hatecrest Screamer@Hatecrest Naga Scale;Hatecrest Warrior@Hatecrest Naga Scale  -- Against the Hatecrest (43)
 fly 1438 58.4,94.0 |from 1444 30.2,43.2 |npc Teldrassil (Vesprystus)  -- flight master Fyldren Moonfeather
 turnin 2939 |npc Daryn Lightwind |at 1438 55.4,92.2  -- In Search of Knowledge (47)
 accept 2940 |npc Feralas: A History |at 1438 55.2,91.5  -- Feralas: A History (47)
@@ -73,9 +73,9 @@ accept 4135 |npc Large Leather Backpacks |at 1444 73.3,56.3  -- The Writhing Dee
 accept 4281 |at 1444 73.3,56.3 |note Starts from Undelivered Parcel  -- Thalanaar Delivery (44)
 turnin 4135 |npc Zukk'ash Pod |at 1444 72.1,63.7  -- The Writhing Deep (46)
 turnin 4281 |npc Falfindel Waywarder |at 1444 89.6,46.6  -- Thalanaar Delivery (44)
-complete 92858 |at 1444 74.8,27.6 |mobs Ohk'zi |group elite  -- WANTED: Ohk'zi (43)
-complete 7733 |at 1444 54.0,32.5 |mobs Rage Scar Yeti;Elder Rage Scar;Ferocious Rage Scar;Lurking Feral Scar |value mid  -- Improved Quality (48)
-complete 7003 |at 1444 40.3,24.6 |item 18904 |mobs Land Walker;Cliff Giant;Zapped Cliff Giant;Shore Strider |value mid  -- Zapped Giants (48)
+complete 92858 |at 1444 74.8,27.6 |mobs Ohk'zi@Staff of Ohk'zi |group elite  -- WANTED: Ohk'zi (43)
+complete 7733 |at 1444 54.0,32.5 |mobs Rage Scar Yeti@Rage Scar Yeti Hide;Elder Rage Scar@Rage Scar Yeti Hide;Ferocious Rage Scar@Rage Scar Yeti Hide;Lurking Feral Scar@Rage Scar Yeti Hide |value mid  -- Improved Quality (48)
+complete 7003 |at 1444 40.3,24.6 |item 18904 |mobs Land Walker@Miniaturization Residue;Cliff Giant@Miniaturization Residue;Zapped Cliff Giant@Miniaturization Residue;Shore Strider@Miniaturization Residue |value mid  -- Zapped Giants (48)
 accept 2844 |npc Rockbiter |at 1444 42.4,22.0  -- The Giant Guardian (49)
 complete 2879 |at 1444 38.8,13.2 |item 9263 |group chain  -- The Stave of Equinex (50)
 turnin 2879 |npc Equinex Monolith |at 1444 38.8,13.2 |group chain  -- The Stave of Equinex (50)
@@ -90,9 +90,9 @@ accept 3843 |npc Quentin |at 1441 78.3,74.7  -- The Newest Member of the Family 
 turnin 3843 |npc Agnar Beastamer |at 1425 14.2,43.6  -- The Newest Member of the Family (47)
 accept 4297 |npc Agnar Beastamer |at 1425 14.2,43.6  -- Food for Baby (47)
 fly 1444 30.2,43.2 |from 1425 11.1,46.1 |npc Fyldren Moonfeather  -- flight master Guthrum Thunderfist
-complete 2870 |at 1444 28.5,70.5 |mobs Lord Shalzaru  -- Against Lord Shalzaru (45)
+complete 2870 |at 1444 28.5,70.5 |mobs Lord Shalzaru@Mysterious Relic  -- Against Lord Shalzaru (45)
 complete 4297 |at 1444 52.0,60.9 |mobs Bloodroar the Stalker  -- Food for Baby (47)
-complete 7721 |at 1444 45.9,51.7 |mobs Sea Spray;Sea Elemental |value mid  -- Fuel for the Zapping (48)
+complete 7721 |at 1444 45.9,51.7 |mobs Sea Spray@Water Elemental Core;Sea Elemental@Water Elemental Core |value mid  -- Fuel for the Zapping (48)
 turnin 7003 |npc Zorbin Fandazzle |at 1444 44.8,43.4 |value mid  -- Zapped Giants (48)
 turnin 7721 |npc Zorbin Fandazzle |at 1444 44.8,43.4 |value mid  -- Fuel for the Zapping (48)
 turnin 3791 |npc Quintis Jonespyre |at 1444 32.5,43.8  -- The Mystery of Morrowgrain (50)

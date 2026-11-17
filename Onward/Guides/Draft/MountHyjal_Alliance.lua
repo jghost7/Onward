@@ -1,4 +1,4 @@
--- DRAFT Mount Hyjal (Alliance) generated 2026-11-16 by tools/draft_guide.py
+-- DRAFT Mount Hyjal (Alliance) generated 2026-11-17 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -12,7 +12,7 @@ accept 96077 |npc Daythor Brellan |at 2482 15.6,52.1  -- Belle's Ring (58)
 accept 95218 |npc Daythor Brellan |at 2482 15.6,52.1  -- More of the Same (56)
 complete 96674 |at 2482 13.0,50.4 |mobs Escaped Sheep |value mid  -- Ewe Wandered Off (56)
 accept 95027 |npc Hnaz Blunderflame |at 2482 15.6,50.0  -- Feathers in Flight (57)
-complete 95027 |at 2482 36.6,73.9 |mobs Hyjal Owl;Tainted Hyjal Owl  -- Feathers in Flight (57)
+complete 95027 |at 2482 36.6,73.9 |mobs Hyjal Owl@Hyjal Owl Feather;Tainted Hyjal Owl@Hyjal Owl Feather  -- Feathers in Flight (57)
 accept 91881 |npc Curious Crow |at 2482 48.3,85.7  -- The Western Post (57)
 accept 92702 |npc Fenwick Togglespring |at 2482 25.3,75.9  -- Branch Out (56)
 complete 92702 |at 2482 25.3,76.3 |mobs Tree Branch  -- Branch Out (56)
@@ -27,9 +27,9 @@ turnin 93383 |npc Personal Survival Pack |at 2482 25.5,74.6  -- Contents Under P
 turnin 91881 |npc Sefira Everbright |at 2482 15.7,54.7  -- The Western Post (57)
 accept 92591 |npc Sefira Everbright |at 2482 15.7,54.7  -- Final Death (59)
 accept 90702 |npc Unmarked Grave |at 2482 22.5,48.7  -- Disturbed Grave (58)
-complete 90702 |at 2482 24.2,54.1 |mobs Fleshflay Ravener;Fleshflayer Ravener  -- Disturbed Grave (58)
+complete 90702 |at 2482 24.2,54.1 |mobs Fleshflay Ravener@Ring of the Fallen Soldier;Fleshflayer Ravener@Ring of the Fallen Soldier  -- Disturbed Grave (58)
 complete 92449 |at 2482 24.2,54.1 |mobs Forgotten Soldier;Fleshflay Ravener  -- Blight No More (58)
-complete 92591 |at 2482 27.4,57.8 |item 274411 |mobs Scourge Reanimator  -- Final Death (59)
+complete 92591 |at 2482 27.4,57.8 |item 274411 |mobs Scourge Reanimator@Reanimator's Amulet  -- Final Death (59)
 turnin 95218 |npc Sefira Everbright |at 2482 15.7,54.7  -- More of the Same (56)
 turnin 92449 |npc Sefira Everbright |at 2482 15.7,54.7  -- Blight No More (58)
 turnin 92591 |npc Sefira Everbright |at 2482 15.7,54.7  -- Final Death (59)
@@ -46,7 +46,7 @@ complete 92593 |at 2482 53.7,33.5 |value low  -- Avalanche of Corruption (59)
 accept 92014 |npc Johun "Punchy" Dillas |at 2482 43.9,37.8 |value mid  -- Fox Hole (57)
 turnin 92593 |npc Johun "Punchy" Dillas |at 2482 43.9,37.8 |value low  -- Avalanche of Corruption (59)
 accept 96494 |npc Johun "Punchy" Dillas |at 2482 43.9,37.8 |value low  -- Gathering Storm (59)
-complete 92014 |at 2482 42.1,47.3 |mobs Rustleaf Fox |value mid  -- Fox Hole (57)
+complete 92014 |at 2482 42.1,47.3 |mobs Rustleaf Fox@Rustleaf Fox Tail |value mid  -- Fox Hole (57)
 turnin 91688 |npc Thisalee Crow |at 2482 69.0,50.0  -- To the Summit of Eternity (59)
 complete 96494 |at 2482 84.4,35.0 |value low  -- Gathering Storm (59)
 turnin 92014 |npc Johun "Punchy" Dillas |at 2482 43.9,37.8 |value mid  -- Fox Hole (57)

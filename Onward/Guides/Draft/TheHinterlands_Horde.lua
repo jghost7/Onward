@@ -1,4 +1,4 @@
--- DRAFT The Hinterlands (Horde) generated 2026-11-16 by tools/draft_guide.py
+-- DRAFT The Hinterlands (Horde) generated 2026-11-17 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -36,13 +36,13 @@ accept 7861 |npc Call to Arms! |at 1425 79.1,79.0 |group elite  -- Wanted: Vile 
 accept 7862 |npc Call to Arms! |at 1425 79.1,79.0 |value mid |group elite  -- Job Opening: Guard Captain of Revantusk Village (51)
 accept 7844 |npc Mystic Yayo'jin |at 1425 78.8,78.2 |value low  -- Cannibalistic Cousins (48)
 complete 7815 |at 1425 81.5,60.5 |mobs Saltwater Snapjaw  -- Snapjaws, Mon! (50)
-complete 7816 |at 1425 80.4,58.2 |mobs Gammerita |group elite  -- Gammerita, Mon! (48)
+complete 7816 |at 1425 80.4,58.2 |mobs Gammerita@Katoom's Best Lure |group elite  -- Gammerita, Mon! (48)
 accept 2782 |npc Rin'ji's Secret |at 1425 86.3,59.0  -- Rin'ji's Secret (47)
-complete 7840 |at 1425 84.6,41.2 |mobs Vilebranch Kidnapper  -- Lard Lost His Lunch (49)
+complete 7840 |at 1425 84.6,41.2 |mobs Vilebranch Kidnapper@Lard's Lunch  -- Lard Lost His Lunch (49)
 complete 7828 |at 1425 63.1,52.4 |mobs Silvermane Stalker;Silvermane Howler |value mid  -- Stalking the Stalkers (48)
 complete 7829 |at 1425 58.4,50.6 |mobs Savage Owlbeast |value mid  -- Hunt the Savages (48)
-complete 7830 |at 1425 58.0,50.4 |mobs Razorbeak Skylord  -- Avenging the Fallen (48)
-complete 7842 |at 1425 51.4,50.8 |mobs Razorbeak Skylord;Trained Razorbeak;Witherbark Hideskinner;Razorbeak Gryphon |value mid  -- Another Message to the Wildhammer (48)
+complete 7830 |at 1425 58.0,50.4 |mobs Razorbeak Skylord@Skylord Plume  -- Avenging the Fallen (48)
+complete 7842 |at 1425 51.4,50.8 |mobs Razorbeak Skylord@Long Elegant Feather;Trained Razorbeak@Long Elegant Feather;Witherbark Hideskinner@Long Elegant Feather;Razorbeak Gryphon@Long Elegant Feather |value mid  -- Another Message to the Wildhammer (48)
 accept 485 |at 1425 53.0,53.6 |note Starts from OOX-09/HL Distress Beacon  -- Find OOX-09/HL! (48)
 complete 7844 |at 1425 50.3,63.2 |mobs Vilebranch Scalper;Vilebranch Soothsayer |value low  -- Cannibalistic Cousins (48)
 complete 7849 |at 1425 58.6,64.8  -- Separation Anxiety (50)
@@ -51,7 +51,7 @@ complete 7862 |at 1425 63.2,73.0 |mobs Vilebranch Berserker;Vilebranch Shadow Hu
 turnin 7845 |npc Elder Torntusk |at 1425 59.7,77.8  -- Kidnapped Elder Torntusk! (51)
 accept 7846 |npc Elder Torntusk |at 1425 59.7,77.8 |group elite  -- Recover the Key! (51)
 complete 7861 |at 1425 57.7,81.5 |mobs Vile Priestess Hexx;Vilebranch Aman'zasi Guard |group elite  -- Wanted: Vile Priestess Hexx and Her Minions (51)
-complete 7846 |at 1425 57.3,86.6 |mobs Hitah'ya the Keeper |group elite  -- Recover the Key! (51)
+complete 7846 |at 1425 57.3,86.6 |mobs Hitah'ya the Keeper@Shackle Key |group elite  -- Recover the Key! (51)
 complete 4787 |at 1425 57.6,86.8 |group chain  -- The Ancient Egg (50)
 turnin 7846 |npc Elder Torntusk |at 1425 59.7,77.8 |group elite  -- Recover the Key! (51)
 accept 7847 |npc Elder Torntusk |at 1425 59.7,77.8 |group chain  -- Return to Primal Torntusk (51)
@@ -72,9 +72,9 @@ turnin 7844 |npc Mystic Yayo'jin |at 1425 78.8,78.2 |value low  -- Cannibalistic
 turnin 98203 |npc Qujo |at 1425 78.0,77.8  -- Witch Doctor Ti'ik (49)
 accept 98203 |npc Qujo |at 1425 78.0,77.8  -- Witch Doctor Ti'ik (49)
 accept 1444 |npc Atal'ai Exile |at 1425 33.8,75.2  -- Return to Fel'Zerul (44)
-complete 2937 |at 1425 33.8,73.0 |item 9323 |mobs Shadra  -- Summoning Shadra (55)
-complete 2934 |at 1425 33.3,69.3 |mobs Witherbark Broodguard  -- Undamaged Venom Sac (45)
-complete 98203 |at 1425 25.8,65.8 |mobs Witch Doctor Ti'ik  -- Witch Doctor Ti'ik (49)
+complete 2937 |at 1425 33.8,73.0 |item 9323 |mobs Shadra@Shadra's Venom  -- Summoning Shadra (55)
+complete 2934 |at 1425 33.3,69.3 |mobs Witherbark Broodguard@Undamaged Venom Sac  -- Undamaged Venom Sac (45)
+complete 98203 |at 1425 25.8,65.8 |mobs Witch Doctor Ti'ik@Ti'ik's Head  -- Witch Doctor Ti'ik (49)
 fly 1446 51.6,25.4 |from 1425 81.7,81.8 |npc Tanaris (Bulkrek Ragefist)  -- flight master Gorkas
 turnin 4787 |npc Yeh'kinya |at 1446 67.0,22.4 |group chain  -- The Ancient Egg (50)
 fly 1424 60.1,18.6 |from 1446 51.6,25.4 |npc Hillsbrad Foothills (Zarise)  -- flight master Bulkrek Ragefist

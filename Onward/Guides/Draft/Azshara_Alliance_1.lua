@@ -1,4 +1,4 @@
--- DRAFT Azshara (Alliance) generated 2026-11-16 by tools/draft_guide.py
+-- DRAFT Azshara (Alliance) generated 2026-11-17 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -14,7 +14,7 @@ accept 89228 |npc Berdun Cliffbrew |at 1447 12.6,77.4  -- Winter Frontier Fisher
 accept 89013 |npc Berdun Cliffbrew |at 1447 12.6,77.4  -- Gettin' Buzzed (48)
 accept 89001 |npc Berdun Cliffbrew |at 1447 12.6,77.4  -- Home on the Range (48)
 complete 88807 |at 1447 31.0,55.1 |mobs Spitelash Warrior;Spitelash Screamer  -- Slay the Spitelash (48)
-complete 89013 |at 1447 19.6,55.5 |item 238501 |mobs Honey Wasp  -- Gettin' Buzzed (48)
+complete 89013 |at 1447 19.6,55.5 |item 238501 |mobs Honey Wasp@Wild Honey  -- Gettin' Buzzed (48)
 accept 88857 |npc Sentinel Keldara Sunblade |at 1447 20.6,61.9  -- Saving a Sentinel (47)
 complete 5536 |at 1447 19.8,62.2 |mobs Haldarr Satyr;Haldarr Trickster;Haldarr Felsworn  -- A Land Filled with Hatred (47)
 complete 5535 |at 1447 16.6,69.4 |mobs Highborne Apparition;Highborne Lichling  -- Spiritual Unrest (47)
@@ -32,10 +32,10 @@ accept 90813 |group elite  -- Pay Dirt! (53)
 accept 5534 |npc Kim'jael |at 1447 53.5,21.8  -- Kim'jael's "Missing" Equipment (53)
 turnin 88821 |npc Saria Fairmoon |at 1447 50.6,42.7  -- Making Contact (51)
 accept 88917 |npc Saria Fairmoon |at 1447 50.6,42.7  -- Slithering Looters (52)
-complete 88809 |at 1447 41.1,54.2 |mobs Spitelash Siren;Spitelash Myrmidon;Spitelash Serpent Guard;Lord Sarthiss |value mid  -- Preserving Eldarath (52)
-complete 5534 |at 1447 45.5,56.1 |mobs Spitelash Siren;Spitelash Myrmidon;Spitelash Battlemaster;Spitelash Enchantress  -- Kim'jael's "Missing" Equipment (53)
-complete 90813 |at 1447 52.8,75.4 |mobs Cliff Walker;Cliff Breaker |group elite  -- Pay Dirt! (53)
-complete 89001 |at 1447 40.4,69.1 |mobs Mosshoof Courser;Mosshoof Runner;Mosshoof Stag  -- Home on the Range (48)
+complete 88809 |at 1447 41.1,54.2 |mobs Spitelash Siren@Eldarath Relic;Spitelash Myrmidon@Eldarath Relic;Spitelash Serpent Guard@Eldarath Relic;Lord Sarthiss@Lord Sarthiss' Head |value mid  -- Preserving Eldarath (52)
+complete 5534 |at 1447 45.5,56.1 |mobs Spitelash Siren@Some Rune;Spitelash Myrmidon@Some Rune;Spitelash Battlemaster@Some Rune;Spitelash Enchantress@Some Rune  -- Kim'jael's "Missing" Equipment (53)
+complete 90813 |at 1447 52.8,75.4 |mobs Cliff Walker@Humongous Crystal;Cliff Breaker@Humongous Crystal |group elite  -- Pay Dirt! (53)
+complete 89001 |at 1447 40.4,69.1 |mobs Mosshoof Courser@Mosshoof Hide;Mosshoof Runner@Mosshoof Hide;Mosshoof Stag@Mosshoof Hide  -- Home on the Range (48)
 turnin 88809 |npc Commander Truesong |at 1447 11.8,78.4 |value mid  -- Preserving Eldarath (52)
 complete 88917 |at 1447 11.9,78.1 |mobs Azshara Sentinel  -- Slithering Looters (52)
 complete 89228 |at 1447 11.9,78.1 |mobs Azshara Sentinel  -- Winter Frontier Fishery (48)
@@ -48,6 +48,6 @@ complete 88884 |at 1447 17.3,68.5 |mobs Highborne Apparition;Highborne Lichling;
 turnin 88884 |npc Saria Fairmoon |at 1447 50.6,42.7 |value mid  -- Highborne Tablets (52)
 accept 89037 |npc Saria Fairmoon |at 1447 50.6,42.7 |value mid  -- Murloc Thieves (52)
 turnin 5534 |npc Kim'jael |at 1447 53.5,21.8  -- Kim'jael's "Missing" Equipment (53)
-complete 89037 |at 1447 89.0,31.5 |mobs Razorgill |value mid  -- Murloc Thieves (52)
+complete 89037 |at 1447 89.0,31.5 |mobs Razorgill@Memory Crystal |value mid  -- Murloc Thieves (52)
 turnin 89037 |npc Saria Fairmoon |at 1447 50.6,42.7 |value mid  -- Murloc Thieves (52)
 ]]}

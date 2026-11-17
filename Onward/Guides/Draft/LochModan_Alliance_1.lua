@@ -1,4 +1,4 @@
--- DRAFT Loch Modan (Alliance) generated 2026-11-16 by tools/draft_guide.py
+-- DRAFT Loch Modan (Alliance) generated 2026-11-17 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -23,7 +23,7 @@ complete 237 |at 1432 34.8,82.4 |mobs Stonesplinter Skullthumper;Stonesplinter S
 turnin 237 |npc Mountaineer Gravelgaw |at 1432 23.5,76.4  -- In Defense of the King's Lands (15)
 accept 263 |npc Mountaineer Wallbang |at 1432 23.5,74.5  -- In Defense of the King's Lands (15)
 complete 263 |at 1432 38.1,87.7 |mobs Stonesplinter Shaman;Stonesplinter Bonesnapper  -- In Defense of the King's Lands (15)
-complete 267 |at 1432 35.0,76.3 |mobs Stonesplinter Seer;Stonesplinter Trogg;Stonesplinter Scout;Stonesplinter Skullthumper  -- The Trogg Threat (12)
+complete 267 |at 1432 35.0,76.3 |mobs Stonesplinter Seer@Trogg Stone Tooth;Stonesplinter Trogg@Trogg Stone Tooth;Stonesplinter Scout@Trogg Stone Tooth;Stonesplinter Skullthumper@Trogg Stone Tooth  -- The Trogg Threat (12)
 turnin 263 |npc Mountaineer Wallbang |at 1432 23.5,74.5  -- In Defense of the King's Lands (15)
 turnin 267 |npc Captain Rugelfuss |at 1432 23.2,73.7  -- The Trogg Threat (12)
 accept 454 |npc Huldar |at 1432 52.2,69.3  -- After the Ambush (15)
@@ -34,16 +34,16 @@ accept 385 |npc Marek Ironheart |at 1432 81.8,61.7  -- Crocolisk Hunting (15)
 accept 257 |npc Daryl the Youngling |at 1432 83.5,65.5  -- A Hunter's Boast (16)
 complete 257 |at 1432 75.8,70.5 |mobs Mountain Buzzard  -- A Hunter's Boast (16)
 accept 2038 |npc Bingles Blastenheimer |at 1432 63.6,47.9  -- Bingles' Missing Supplies (15)
-complete 385 |at 1432 62.0,44.7 |mobs Daggerfang;Loch Crocolisk;Large Loch Crocolisk  -- Crocolisk Hunting (15)
-complete 418 |at 1432 62.5,43.3 |mobs Forest Lurker;Mangy Mountain Boar;Mountain Boar;Elder Black Bear  -- Thelsamar Blood Sausages (11)
-complete 86758 |at 1432 61.5,43.8 |mobs Daggerfang  -- Twisting the Knife (16)
+complete 385 |at 1432 62.0,44.7 |mobs Daggerfang@Crocolisk Meat;Loch Crocolisk@Crocolisk Meat;Large Loch Crocolisk@Crocolisk Meat  -- Crocolisk Hunting (15)
+complete 418 |at 1432 62.5,43.3 |mobs Forest Lurker@Spider Ichor;Mangy Mountain Boar@Boar Intestines;Mountain Boar@Boar Intestines;Elder Black Bear@Bear Meat  -- Thelsamar Blood Sausages (11)
+complete 86758 |at 1432 61.5,43.8 |mobs Daggerfang@Marek's Croc-Hunting Knife  -- Twisting the Knife (16)
 turnin 298 |npc Jern Hornhelm |at 1432 37.2,47.4  -- Excavation Progress Report (15)
 accept 301 |npc Jern Hornhelm |at 1432 37.2,47.4  -- Report to Ironforge (15)
 complete 2038 |at 1432 51.8,24.1  -- Bingles' Missing Supplies (15)
 complete 86667 |item 279380  -- Snowbound (10)
 turnin 86667 |npc Norric Lochthane |at 1432 41.8,19.1  -- Snowbound (10)
 accept 307 |npc Mountaineer Stormpike |at 1432 24.8,18.4  -- Filthy Paws (15)
-complete 416 |at 1432 35.5,23.9 |mobs Tunnel Rat Vermin;Tunnel Rat Kobold;Tunnel Rat Digger;Tunnel Rat Forager  -- Rat Catching (11)
+complete 416 |at 1432 35.5,23.9 |mobs Tunnel Rat Vermin@Tunnel Rat Ear;Tunnel Rat Kobold@Tunnel Rat Ear;Tunnel Rat Digger@Tunnel Rat Ear;Tunnel Rat Forager@Tunnel Rat Ear  -- Rat Catching (11)
 complete 307 |at 1432 35.3,24.4  -- Filthy Paws (15)
 accept 1338 |npc Mountaineer Stormpike |at 1432 24.8,18.4  -- Stormpike's Order (14)
 turnin 307 |npc Mountaineer Stormpike |at 1432 24.8,18.4  -- Filthy Paws (15)

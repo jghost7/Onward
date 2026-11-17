@@ -1,4 +1,4 @@
--- DRAFT Winterspring (Alliance) generated 2026-11-16 by tools/draft_guide.py
+-- DRAFT Winterspring (Alliance) generated 2026-11-17 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -12,7 +12,7 @@ accept 6030 |npc Gregor Greystone |at 1452 61.4,39.0  -- Duke Nicholas Zverenhof
 accept 6028 |npc Gregor Greystone |at 1452 61.4,39.0  -- The Everlook Report (52)
 accept 6604 |npc Harlo Wigglesworth |at 1452 61.1,38.4  -- Enraged Wildkin (59)
 accept 3783 |npc Umi Rumplesnicker |at 1452 60.9,37.6 |value mid  -- Are We There, Yeti? (56)
-complete 3783 |at 1452 54.4,36.3 |mobs Ice Thistle Yeti;Rogue Ice Thistle |value mid  -- Are We There, Yeti? (56)
+complete 3783 |at 1452 54.4,36.3 |mobs Ice Thistle Yeti@Thick Yeti Fur;Rogue Ice Thistle@Thick Yeti Fur |value mid  -- Are We There, Yeti? (56)
 accept 5082 |npc Donova Snowden |at 1452 31.3,45.2 |value low  -- Threat of the Winterfall (56)
 turnin 5085 |npc Donova Snowden |at 1452 31.3,45.2  -- Mystery Goo (56)
 accept 5086 |npc Donova Snowden |at 1452 31.3,45.2  -- Toxic Horrors (56)
@@ -30,19 +30,19 @@ accept 5244 |npc Wynd Nightchaser |at 1452 52.0,30.4  -- The Ruins of Kel'Theril
 accept 5253 |npc Wynd Nightchaser |at 1452 52.0,30.4  -- The Crystal of Zin-Malor (58)
 turnin 5086 |npc Donova Snowden |at 1452 31.3,45.2  -- Toxic Horrors (56)
 accept 5087 |npc Donova Snowden |at 1452 31.3,45.2  -- Winterfall Runners (57)
-complete 5087 |at 1452 27.9,34.5 |mobs Winterfall Runner  -- Winterfall Runners (57)
+complete 5087 |at 1452 27.9,34.5 |mobs Winterfall Runner@Winterfall Crate  -- Winterfall Runners (57)
 turnin 5087 |npc Donova Snowden |at 1452 31.3,45.2  -- Winterfall Runners (57)
 accept 5121 |npc Donova Snowden |at 1452 31.3,45.2 |group elite  -- High Chief Winterfall (59)
 turnin 4861 |npc Damaged Crate |at 1452 59.0,59.8  -- Enraged Wildkin (59)
 accept 4863 |npc Damaged Crate |at 1452 59.0,59.8  -- Enraged Wildkin (59)
-complete 969 |at 1452 61.5,67.4 |mobs Hailspite;Frostmaul Preserver;Frostmaul Giant;Kashoch the Reaver |value mid  -- Luck Be With You (60)
+complete 969 |at 1452 61.5,67.4 |mobs Hailspite@Frostmaul Shards;Frostmaul Preserver@Frostmaul Shards;Frostmaul Giant@Frostmaul Shards;Kashoch the Reaver@Frostmaul Shards |value mid  -- Luck Be With You (60)
 turnin 4863 |npc Jaron's Wagon |at 1452 61.4,60.7  -- Enraged Wildkin (59)
 accept 4864 |npc Jaron's Wagon |at 1452 61.4,60.7  -- Enraged Wildkin (59)
-complete 977 |at 1452 70.3,40.6 |mobs Ice Thistle Matriarch;Ice Thistle Patriarch |value mid  -- Are We There, Yeti? (58)
+complete 977 |at 1452 70.3,40.6 |mobs Ice Thistle Matriarch@Pristine Yeti Horn;Ice Thistle Patriarch@Pristine Yeti Horn |value mid  -- Are We There, Yeti? (58)
 complete 5121 |at 1452 69.6,38.3 |mobs High Chief Winterfall |group elite  -- High Chief Winterfall (59)
 accept 5123 |at 1452 69.6,38.3 |note Starts from Crudely-written Log  -- The Final Piece (59)
-complete 4864 |at 1452 65.2,23.6 |mobs Moontouched Owlbeast;Crazed Owlbeast;Berserk Owlbeast  -- Enraged Wildkin (59)
-complete 4809 |at 1452 58.5,25.5 |mobs Chillwind Ravager;Chillwind Chimaera;Fledgling Chillwind |value mid  -- Chillwind Horns (54)
+complete 4864 |at 1452 65.2,23.6 |mobs Moontouched Owlbeast@Blue-feathered Amulet;Crazed Owlbeast@Blue-feathered Amulet;Berserk Owlbeast@Blue-feathered Amulet  -- Enraged Wildkin (59)
+complete 4809 |at 1452 58.5,25.5 |mobs Chillwind Ravager@Uncracked Chillwind Horn;Chillwind Chimaera@Uncracked Chillwind Horn;Fledgling Chillwind@Uncracked Chillwind Horn |value mid  -- Chillwind Horns (54)
 turnin 5244 |npc Jaron Stoneshaper |at 1452 52.1,30.4  -- The Ruins of Kel'Theril (56)
 accept 5245 |npc Jaron Stoneshaper |at 1452 52.1,30.4  -- Troubled Spirits of Kel'Theril (56)
 turnin 4864 |npc Jaron Stoneshaper |at 1452 52.1,30.4  -- Enraged Wildkin (59)

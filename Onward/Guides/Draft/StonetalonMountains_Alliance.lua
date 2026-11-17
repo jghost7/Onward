@@ -1,4 +1,4 @@
--- DRAFT Stonetalon Mountains (Alliance) generated 2026-11-16 by tools/draft_guide.py
+-- DRAFT Stonetalon Mountains (Alliance) generated 2026-11-17 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -8,7 +8,7 @@ Onward:RegisterGuide{
 accept 1071 |npc Gaxim Rustfizzle |at 1442 59.5,67.2  -- A Gnome's Respite (21)
 accept 1093 |npc Ziz Fizziks |at 1442 59.0,62.6  -- Super Reaper 6000 (21)
 complete 1071 |at 1442 66.4,52.3 |mobs Venture Co. Logger;Venture Co. Deforester  -- A Gnome's Respite (21)
-complete 1093 |at 1442 67.1,52.4 |mobs Venture Co. Operator  -- Super Reaper 6000 (21)
+complete 1093 |at 1442 67.1,52.4 |mobs Venture Co. Operator@Super Reaper 6000 Blueprints  -- Super Reaper 6000 (21)
 turnin 1093 |npc Ziz Fizziks |at 1442 59.0,62.6  -- Super Reaper 6000 (21)
 accept 1094 |npc Ziz Fizziks |at 1442 59.0,62.6  -- Further Instructions (21)
 turnin 1071 |npc Gaxim Rustfizzle |at 1442 59.5,67.2  -- A Gnome's Respite (21)
@@ -32,8 +32,8 @@ accept 1077 |npc Collin Mauren |at 1453 53.0,86.6  -- Special Delivery for Gaxim
 fly 1442 36.4,7.2 |from 1453 71.3,72.2 |npc Teloren  -- flight master Dungar Longdrink
 accept 1057 |npc Keeper Albagorm |at 1442 37.1,8.1 |value low  -- Reclaiming the Charred Vale (27)
 accept 86574 |npc Night Elf Courier |at 1442 48.7,39.9 |value mid  -- Stonetalon Supply Run (24)
-complete 86574 |at 1442 51.8,43.2 |item 277915 |mobs Pridewing Wyvern;Pridewing Consort;Pridewing Skyhunter;Young Pridewing |value mid  -- Stonetalon Supply Run (24)
-complete 1073 |at 1442 62.7,55.3 |mobs Venture Co. Logger;Windshear Digger;Venture Co. Deforester;Grimtotem Mercenary  -- Ineptitude + Chemicals = Fun (21)
+complete 86574 |at 1442 51.8,43.2 |item 277915 |mobs Pridewing Wyvern@Stonetalon Supply Bundle;Pridewing Consort@Stonetalon Supply Bundle;Pridewing Skyhunter@Stonetalon Supply Bundle;Young Pridewing@Stonetalon Supply Bundle |value mid  -- Stonetalon Supply Run (24)
+complete 1073 |at 1442 62.7,55.3 |mobs Venture Co. Logger@Minor Mana Potion;Windshear Digger@Minor Mana Potion;Venture Co. Deforester@Minor Mana Potion;Grimtotem Mercenary@Minor Mana Potion  -- Ineptitude + Chemicals = Fun (21)
 accept 79980 |npc Pocket Litter |at 1442 40.8,52.6  -- Scramble (24)
 turnin 79980 |npc Mound of Dirt |at 1442 39.6,49.8  -- Scramble (24)
 accept 79974 |npc Mound of Dirt |at 1442 39.6,49.8  -- Wet Job (32)
@@ -47,7 +47,7 @@ accept 1079 |npc Gaxim Rustfizzle |at 1442 59.5,67.2  -- Covert Ops - Alpha (22)
 accept 1080 |npc Gaxim Rustfizzle |at 1442 59.5,67.2  -- Covert Ops - Beta (22)
 turnin 1095 |npc Ziz Fizziks |at 1442 59.0,62.6  -- Further Instructions (27)
 accept 1096 |npc Ziz Fizziks |at 1442 59.0,62.6 |value mid  -- Gerenzo Wrenchwhistle (27)
-complete 1096 |at 1442 64.5,40.2 |mobs Gerenzo Wrenchwhistle |value mid  -- Gerenzo Wrenchwhistle (27)
+complete 1096 |at 1442 64.5,40.2 |mobs Gerenzo Wrenchwhistle@Gerenzo's Mechanical Arm |value mid  -- Gerenzo Wrenchwhistle (27)
 complete 1079 |at 1442 66.1,51.3 |item 5738  -- Covert Ops - Alpha (22)
 complete 1080 |at 1442 74.5,59.3 |item 5738  -- Covert Ops - Beta (22)
 accept 1092 |npc Piznik |at 1442 71.9,60.0  -- Gerenzo's Orders (22)
@@ -57,10 +57,10 @@ accept 1091 |npc Gaxim Rustfizzle |at 1442 59.5,67.2  -- Kaela's Update (22)
 turnin 1091 |npc Kaela Shadowspear |at 1442 59.9,66.8  -- Kaela's Update (22)
 accept 1083 |npc Kaela Shadowspear |at 1442 59.9,66.8  -- Enraged Spirits (26)
 accept 1084 |npc Kaela Shadowspear |at 1442 59.9,66.8  -- Wounded Ancients (28)
-complete 1078 |at 1442 32.7,67.4 |mobs Scorched Basilisk;Blackened Basilisk;Singed Basilisk |value mid  -- Retrieval for Mauren (26)
+complete 1078 |at 1442 32.7,67.4 |mobs Scorched Basilisk@Crystalized Scales;Blackened Basilisk@Crystalized Scales;Singed Basilisk@Crystalized Scales |value mid  -- Retrieval for Mauren (26)
 complete 1057 |at 1442 31.9,66.5 |mobs Bloodfury Harpy;Bloodfury Ambusher;Bloodfury Slayer;Bloodfury Roguefeather |value low  -- Reclaiming the Charred Vale (27)
-complete 1084 |at 1442 30.9,64.7 |mobs Charred Ancient;Blackened Ancient;Vengeful Ancient  -- Wounded Ancients (28)
-complete 1083 |at 1442 34.1,63.7 |mobs Rogue Flame Spirit;Burning Destroyer;Burning Ravager  -- Enraged Spirits (26)
+complete 1084 |at 1442 30.9,64.7 |mobs Charred Ancient@Corroded Shrapnel;Blackened Ancient@Corroded Shrapnel;Vengeful Ancient@Corroded Shrapnel  -- Wounded Ancients (28)
+complete 1083 |at 1442 34.1,63.7 |mobs Rogue Flame Spirit@Smoldering Embers;Burning Destroyer@Smoldering Embers;Burning Ravager@Smoldering Embers  -- Enraged Spirits (26)
 turnin 1083 |npc Kaela Shadowspear |at 1442 59.9,66.8  -- Enraged Spirits (26)
 turnin 1084 |npc Kaela Shadowspear |at 1442 59.9,66.8  -- Wounded Ancients (28)
 accept 1082 |npc Kaela Shadowspear |at 1442 59.9,66.8  -- Update for Sentinel Thenysil (22)

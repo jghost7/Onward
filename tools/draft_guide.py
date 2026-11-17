@@ -366,7 +366,9 @@ class Zone:
 
     def mob_names(self, q, limit=4):
         """Names to /target for a quest: kill targets and kill credit first, then the mobs that
-        drop its items, most common in this zone first (a drop list can run to dozens)."""
+        drop its items, most common in this zone first (a drop list can run to dozens). A dropper
+        is written "Mob@Item", so the addon drops it from the target button once that item's
+        objective is done."""
         obj = self.db.quest(q, "objectives")
         groups = obj if isinstance(obj, dict) else dict(enumerate(lua_list(obj), 1))
         kill, drop = [], []
@@ -374,18 +376,23 @@ class Zone:
             kill.append(lua_list(e)[0])
         for e in lua_list(groups.get(5)):
             kill += lua_list(lua_list(e)[0])
+        item_of = {}
         for e in lua_list(groups.get(3)):
-            for n in lua_list(self.db.field("Item-", lua_list(e)[0], 2)):
+            item = lua_list(e)[0]
+            for n in lua_list(self.db.field("Item-", item, 2)):
                 k = len(self.zone_points(self.db.npc(n, "spawns")))
                 if k:
                     drop.append((-k, n))
+                    item_of.setdefault(n, s(self.db.field("Item-", item, 1)))
         ids = kill + [n for _, n in sorted(drop)]
-        names = []
+        names, out = [], []
         for n in ids:
             name = s(self.db.npc(n, "name"))
-            if name and name not in names and ";" not in name and "|" not in name:
+            if name and name not in names and not any(c in name for c in ";|@"):
                 names.append(name)
-        return names[:limit]
+                item = item_of.get(n) if n not in kill else None
+                out.append(f"{name}@{item}" if item and not any(c in item for c in ";|@") else name)
+        return out[:limit]
 
     def describe(self, q):
         db = self.db

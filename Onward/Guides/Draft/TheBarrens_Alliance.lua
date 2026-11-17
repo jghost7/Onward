@@ -1,4 +1,4 @@
--- DRAFT The Barrens (Alliance) generated 2026-11-16 by tools/draft_guide.py
+-- DRAFT The Barrens (Alliance) generated 2026-11-17 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -19,23 +19,23 @@ accept 97253 |npc Wrenix the Wretched |at 1413 63.1,36.3  -- Parts and Pieces (1
 turnin 892 |npc Gazlowe |at 1413 62.7,36.2 |value mid  -- The Missing Shipment (14)
 accept 888 |npc Gazlowe |at 1413 62.7,36.2 |value mid  -- Stolen Booty (16)
 accept 887 |npc Gazlowe |at 1413 62.7,36.2 |value mid  -- Southsea Freebooters (14)
-complete 97005 |at 1413 57.5,27.1 |mobs Chol'aruk |group elite  -- Chol'aruk the Ravener (21)
-complete 896 |at 1413 60.5,3.8 |mobs Venture Co. Enforcer;Venture Co. Overseer;Boss Copperplug  -- Miner's Fortune (18)
+complete 97005 |at 1413 57.5,27.1 |mobs Chol'aruk@Chol'aruk's Head |group elite  -- Chol'aruk the Ravener (21)
+complete 896 |at 1413 60.5,3.8 |mobs Venture Co. Enforcer@Cats Eye Emerald;Venture Co. Overseer@Cats Eye Emerald;Boss Copperplug@Cats Eye Emerald  -- Miner's Fortune (18)
 accept 858 |npc Wizzlecrank's Shredder |at 1413 56.5,7.5  -- Ignition (18)
-complete 858 |at 1413 56.3,8.6 |mobs Supervisor Lugwizzle  -- Ignition (18)
+complete 858 |at 1413 56.3,8.6 |mobs Supervisor Lugwizzle@Ignition Key  -- Ignition (18)
 turnin 858 |npc Wizzlecrank's Shredder |at 1413 56.5,7.5  -- Ignition (18)
 turnin 894 |npc Control Console |at 1413 52.4,11.7  -- Samophlange (14)
 accept 900 |npc Control Console |at 1413 52.4,11.7  -- Samophlange (14)
 complete 900 |at 1413 52.3,11.4  -- Samophlange (14)
 turnin 900 |npc Control Console |at 1413 52.4,11.7  -- Samophlange (14)
 accept 901 |npc Control Console |at 1413 52.4,11.7  -- Samophlange (14)
-complete 901 |at 1413 52.8,10.4 |mobs Tinkerer Sniggles  -- Samophlange (14)
+complete 901 |at 1413 52.8,10.4 |mobs Tinkerer Sniggles@Console Key  -- Samophlange (14)
 turnin 901 |npc Control Console |at 1413 52.4,11.7  -- Samophlange (14)
 accept 902 |npc Control Console |at 1413 52.4,11.7  -- Samophlange (16)
 accept 3370 |npc Falla Sagewind |at 1413 48.2,32.8  -- In Nightmares (25)
-complete 865 |at 1413 52.6,46.0 |mobs Sunscale Scytheclaw;Ishamuhale;Takk the Leaper |value mid  -- Raptor Horns (18)
+complete 865 |at 1413 52.6,46.0 |mobs Sunscale Scytheclaw@Intact Raptor Horn;Ishamuhale@Intact Raptor Horn;Takk the Leaper@Intact Raptor Horn |value mid  -- Raptor Horns (18)
 complete 888 |at 1413 62.6,49.6 |value mid  -- Stolen Booty (16)
-complete 895 |at 1413 63.3,49.0 |mobs Baron Longshore  -- WANTED: Baron Longshore (16)
+complete 895 |at 1413 63.3,49.0 |mobs Baron Longshore@Baron Longshore's Head  -- WANTED: Baron Longshore (16)
 complete 887 |at 1413 63.8,46.9 |mobs Southsea Brigand;Southsea Cannoneer |value mid  -- Southsea Freebooters (14)
 complete 97253 |at 1413 62.0,45.9  -- Parts and Pieces (15)
 turnin 896 |npc Wharfmaster Dizzywig |at 1413 63.4,38.5  -- Miner's Fortune (18)

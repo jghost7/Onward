@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.9
+
+- The quest mob target button lets go of a mob once you have what it's there for: the guides now say
+  which item each mob drops, so when "Sand Crawler Meat" is done the button stops targeting Sand and
+  Shore Crawlers and sticks to the murlocs. Kill objectives already dropped out when finished.
+
 ## 0.6.8
 
 - The notice under the step card (left for later, ready to turn in, a better guide) is no longer a solid

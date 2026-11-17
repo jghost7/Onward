@@ -1,4 +1,4 @@
--- DRAFT Azshara (Alliance) generated 2026-11-16 by tools/draft_guide.py
+-- DRAFT Azshara (Alliance) generated 2026-11-17 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -14,9 +14,9 @@ accept 6804 |npc Duke Hydraxis |at 1447 79.3,73.7  -- Poisoned Water (56)
 accept 6805 |npc Duke Hydraxis |at 1447 79.3,73.7  -- Stormers and Rumblers (57)
 turnin 3509 |npc Lord Arkkoroc |at 1447 77.1,42.8  -- The Name of the Beast (58)
 accept 3510 |npc Lord Arkkoroc |at 1447 77.1,42.8 |group elite  -- The Name of the Beast (58)
-complete 3510 |at 1447 56.7,44.8 |mobs Hetaera |group elite  -- The Name of the Beast (58)
+complete 3510 |at 1447 56.7,44.8 |mobs Hetaera@Hetaera's Beaten Head |group elite  -- The Name of the Beast (58)
 accept 89038 |npc Saria Fairmoon |at 1447 50.6,42.7  -- A Monumental Task (55)
-complete 88813 |at 1447 41.0,53.0 |mobs Warlord Krellian  -- The Head of the Serpent (55)
+complete 88813 |at 1447 41.0,53.0 |mobs Warlord Krellian@Krellian's Head  -- The Head of the Serpent (55)
 accept 89015 |npc Berdun Cliffbrew |at 1447 12.6,77.4 |group elite  -- Deadliest Catch (56)
 complete 6805 |at 1447 11.9,78.1 |mobs Dust Stormer;Desert Rumbler  -- Stormers and Rumblers (57)
 complete 89038 |at 1447 11.9,78.1 |mobs Azshara Sentinel  -- A Monumental Task (55)
@@ -30,7 +30,7 @@ accept 3511 |npc Lord Arkkoroc |at 1447 77.1,42.8 |group chain  -- The Name of t
 turnin 6804 |npc Duke Hydraxis |at 1447 79.3,73.7  -- Poisoned Water (56)
 turnin 6805 |npc Duke Hydraxis |at 1447 79.3,73.7  -- Stormers and Rumblers (57)
 accept 6821 |npc Duke Hydraxis |at 1447 79.3,73.7 |group dungeon  -- Eye of the Emberseer (60)
-complete 89015 |at 1447 76.3,74.9 |mobs Mammoth Shark |group elite  -- Deadliest Catch (56)
+complete 89015 |at 1447 76.3,74.9 |mobs Mammoth Shark@Mammoth Shark Steak |group elite  -- Deadliest Catch (56)
 turnin 3511 |npc Loramus Thalipedes |at 1447 60.8,66.3 |group chain  -- The Name of the Beast (58)
 accept 3602 |npc Loramus Thalipedes |at 1447 60.8,66.3 |group chain  -- Azsharite (58)
 turnin 89015 |npc Berdun Cliffbrew |at 1447 12.6,77.4 |group elite  -- Deadliest Catch (56)

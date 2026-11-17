@@ -1,4 +1,4 @@
--- DRAFT Duskwood (Horde) generated 2026-11-16 by tools/draft_guide.py
+-- DRAFT Duskwood (Horde) generated 2026-11-17 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -25,13 +25,13 @@ accept 81743 |npc Field Captain Palandar |at 1431 45.6,51.2  -- Duskwood Mission
 accept 81745 |npc Field Captain Palandar |at 1431 45.6,51.2  -- Duskwood Mission XVI: Rescue Kroll Mountainshade (27)
 accept 79363 |npc Bath'rah the Windwatcher |at 1416 80.5,66.9 |value mid |class SHAMAN |race Orc,Tauren,Troll  -- Silvia's Sword (27)
 accept 79362 |npc Bath'rah the Windwatcher |at 1416 80.5,66.9 |value mid |class SHAMAN |race Orc,Tauren,Troll  -- Grant's Shield (25)
-complete 79362 |at 1431 21.3,42.9 |item 281147 |mobs Skeletal Horror;Skeletal Fiend;Skeletal Healer |value mid |class SHAMAN |race Orc,Tauren,Troll  -- Grant's Shield (25)
+complete 79362 |at 1431 21.3,42.9 |item 281147 |mobs Skeletal Horror@Grant's Mace;Skeletal Fiend@Grant's Mace;Skeletal Healer@Grant's Mace |value mid |class SHAMAN |race Orc,Tauren,Troll  -- Grant's Shield (25)
 complete 79363 |at 1431 24.0,72.1 |item 281145 |mobs Defias Night Blade;Defias Enchanter |value mid |class SHAMAN |race Orc,Tauren,Troll  -- Silvia's Sword (27)
 complete 81731 |at 1431 34.6,75.6 |mobs Deranged Ogre;Demented Fire Weaver  -- Duskwood Mission II: Defeat Ogres (27)
 complete 81737 |at 1431 35.7,80.1  -- Duskwood Mission VIII: Recover Ogre Magi text (27)
 complete 81743 |at 1431 37.4,84.2 |mobs Vvarc' Zul  -- Duskwood Mission XIV: Defeat Vvarc'zul (27)
 complete 81732 |at 1431 49.6,74.4 |mobs Wyrmkin Terrorwalker;Nightterror Whelp  -- Duskwood Mission III: Defeat Dragonkin (27)
-complete 81741 |at 1431 48.8,73.4 |mobs Ylanthrius;Nightterror Whelp;Wyrmkin Terrorwalker |value mid  -- Duskwood Mission XII: Dream-Touched Dragonscale (27)
+complete 81741 |at 1431 48.8,73.4 |mobs Ylanthrius@Dream-Touched Dragonscale;Nightterror Whelp@Dream-Touched Dragonscale;Wyrmkin Terrorwalker@Dream-Touched Dragonscale |value mid  -- Duskwood Mission XII: Dream-Touched Dragonscale (27)
 complete 81742 |at 1431 48.8,73.4 |mobs Ylanthrius  -- Duskwood Mission XIII: Defeat Ylanthrius (27)
 complete 81738 |at 1431 49.5,72.5  -- Duskwood Mission IX: Recover Dragon Egg (27)
 complete 81744 |at 1431 65.6,75.2 |mobs Amokarok  -- Duskwood Mission XV: Defeat Amokarok (27)

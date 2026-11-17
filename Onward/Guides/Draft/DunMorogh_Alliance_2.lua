@@ -1,4 +1,4 @@
--- DRAFT Dun Morogh (Alliance) generated 2026-11-16 by tools/draft_guide.py
+-- DRAFT Dun Morogh (Alliance) generated 2026-11-17 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -19,8 +19,8 @@ complete 2930 |at 1426 48.0,53.6 |mobs Ironforge Protector |group dungeon  -- Da
 complete 2962 |at 1426 49.1,48.2 |item 9364 |mobs Green Mechanostrider;Swift Green Mechanostrider |group dungeon  -- The Only Cure is More Green Glow (30)
 turnin 2962 |npc Ozzie Togglevolt |at 1426 45.9,49.4 |group dungeon  -- The Only Cure is More Green Glow (30)
 complete 2929 |at 1426 24.2,38.2 |mobs Mekgineer Thermaplugg |group dungeon  -- The Grand Betrayal (35)
-complete 2928 |at 1426 21.7,34.0 |mobs Irradiated Invader;Caverndeep Invader;Techbot  -- Gyrodrillmatic Excavationators (30)
-complete 2951 |at 1426 20.9,36.0 |mobs Irradiated Invader;Caverndeep Looter;Caverndeep Invader;Caverndeep Pillager  -- The Sparklematic 5200! (30)
+complete 2928 |at 1426 21.7,34.0 |mobs Irradiated Invader@Robo-mechanical Guts;Caverndeep Invader@Robo-mechanical Guts;Techbot@Robo-mechanical Guts  -- Gyrodrillmatic Excavationators (30)
+complete 2951 |at 1426 20.9,36.0 |mobs Irradiated Invader@Grime-Encrusted Object;Caverndeep Looter@Grime-Encrusted Object;Caverndeep Invader@Grime-Encrusted Object;Caverndeep Pillager@Grime-Encrusted Object  -- The Sparklematic 5200! (30)
 accept 2952  -- The Sparklematic 5200! (30)
 turnin 2951  -- The Sparklematic 5200! (30)
 turnin 2952  -- The Sparklematic 5200! (30)

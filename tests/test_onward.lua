@@ -682,6 +682,28 @@ MOCK.fire("QUEST_LOG_UPDATE") settle()
 check("no macro change in combat", not (TB:GetAttribute("macrotext") or ""):find("Bog Lurker", 1, true))
 MOCK.combat = false MOCK.fire("PLAYER_REGEN_ENABLED") settle()
 check("macro catches up after combat", (TB:GetAttribute("macrotext") or ""):find("Bog Lurker", 1, true))
+-- droppers leave the button once their item is collected: tied by the guide ("Mob@Item"), or by
+-- name when the guide doesn't say ("Sand Crawler" -> "Sand Crawler Meat")
+do
+    MOCK.addQuest(9955, "A Taste", {
+        { text = "Saltwater Murloc Eye: 0/12", finished = false, numFulfilled = 0, numRequired = 12 },
+        { text = "Sand Crawler Meat: 6/6", finished = true, numFulfilled = 6, numRequired = 6 },
+        { text = "0/4 Crab Claw", finished = false, numFulfilled = 0, numRequired = 4 },
+    })
+    MOCK.fire("QUEST_ACCEPTED", 9955) MOCK.fire("QUEST_LOG_UPDATE") settle()
+    local function names(mobs)
+        local st = W.Guide.ParseStep and W.Guide.ParseStep("complete 9955 |mobs " .. mobs)
+        return table.concat(W.Target.MobsFor(st), ",")
+    end
+    if W.Guide.ParseStep then
+        check("dropper of a collected item drops out", names("Saltwater Oracle@Saltwater Murloc Eye;Shore Crawler@Sand Crawler Meat") == "Saltwater Oracle",
+              names("Saltwater Oracle@Saltwater Murloc Eye;Shore Crawler@Sand Crawler Meat"))
+        check("untied mob named like a finished item drops out", names("Sand Crawler;Saltwater Murloc") == "Saltwater Murloc", names("Sand Crawler;Saltwater Murloc"))
+        check("untied mob stays while an open objective names it", names("Crab;Sand Crawler") == "Crab", names("Crab;Sand Crawler"))
+    else
+        check("Guide.ParseStep exists for the dropper tests", false)
+    end
+end
 local long = {}
 for i = 1, 12 do long[i] = "Very Long Named Quest Creature " .. i end
 check("long mob lists are cut, not overflowed", #W.Target.BuildMacro(long, true) <= 255)

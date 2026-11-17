@@ -1,4 +1,4 @@
--- DRAFT Stranglethorn Vale (Horde) generated 2026-11-16 by tools/draft_guide.py
+-- DRAFT Stranglethorn Vale (Horde) generated 2026-11-17 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -23,10 +23,10 @@ fly 1434 26.9,77.1 |from 1425 81.7,81.8 |npc Gringer  -- flight master Gorkas
 turnin 580 |npc Whiskey Slim |at 1434 27.1,77.5  -- Whiskey Slim's Lost Grog (50)
 accept 3721 |npc Oglethorpe Obnoticus |at 1434 28.4,76.3  -- An OOX of Your Own (50)
 turnin 3721 |npc Oglethorpe Obnoticus |at 1434 28.4,76.3  -- An OOX of Your Own (50)
-complete 618 |at 1434 32.5,81.6 |mobs Negolash |value mid |group elite  -- Facing Negolash (50)
+complete 618 |at 1434 32.5,81.6 |mobs Negolash@Smotts' Cutlass |value mid |group elite  -- Facing Negolash (50)
 turnin 618 |value mid |group elite  -- Facing Negolash (50)
 accept 630 |npc Princess Poobah |at 1434 38.5,80.6 |group elite  -- Message in a Bottle (51)
-complete 630 |at 1434 41.0,83.9 |mobs King Mukla |group elite  -- Message in a Bottle (51)
+complete 630 |at 1434 41.0,83.9 |mobs King Mukla@Shackle Key |group elite  -- Message in a Bottle (51)
 turnin 630 |npc Princess Poobah |at 1434 38.5,80.6 |group elite  -- Message in a Bottle (51)
 accept 9272 |npc Fleet Master Firallon |at 1434 30.6,90.6  -- Dressing the Part (55)
 turnin 9272 |npc Fleet Master Firallon |at 1434 30.6,90.6  -- Dressing the Part (55)

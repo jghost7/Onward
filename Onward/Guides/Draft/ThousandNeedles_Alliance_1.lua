@@ -1,4 +1,4 @@
--- DRAFT Thousand Needles (Alliance) generated 2026-11-16 by tools/draft_guide.py
+-- DRAFT Thousand Needles (Alliance) generated 2026-11-17 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -13,7 +13,7 @@ accept 1111 |npc Kravel Koalbeard |at 1441 77.8,77.3  -- Wharfmaster Dizzywig (3
 accept 1110 |npc Kravel Koalbeard |at 1441 77.8,77.3 |value low  -- Rocket Car Parts (31)
 accept 1175 |npc Trackmaster Zherin |at 1441 81.6,78.0 |value mid  -- A Bump in the Road (33)
 accept 1176 |npc Pozzik |at 1441 80.2,75.9  -- Load Lightening (30)
-complete 1176 |at 1441 83.0,70.7 |mobs Salt Flats Scavenger;Salt Flats Vulture  -- Load Lightening (30)
+complete 1176 |at 1441 83.0,70.7 |mobs Salt Flats Scavenger@Hollow Vulture Bone;Salt Flats Vulture@Hollow Vulture Bone  -- Load Lightening (30)
 turnin 1176 |npc Pozzik |at 1441 80.2,75.9  -- Load Lightening (30)
 accept 1178 |npc Pozzik |at 1441 80.2,75.9  -- Goblin Sponsorship (37)
 accept 1179 |npc Pilot Longbeard |at 1455 72.7,94.0  -- The Brassbolts Brothers (30)
@@ -33,10 +33,10 @@ fly 1444 89.5,45.9 |from 1434 27.5,77.8 |npc Feralas (Thyssiana)  -- flight mast
 accept 98155 |npc Kristy Grant |at 1444 89.4,46.0  -- Pristine Pesterhide Pelts (29)
 accept 1137 |npc Martek the Exiled |at 1418 42.2,52.7  -- News for Fizzle (38)
 accept 1100 |at 1441 30.7,24.4 |note Starts from Henrig Lonebrow's Journal |value low  -- Lonebrow's Journal (34)
-complete 98155 |at 1441 58.7,49.2 |mobs Pesterhide Snarler  -- Pristine Pesterhide Pelts (29)
+complete 98155 |at 1441 58.7,49.2 |mobs Pesterhide Snarler@Pristine Pesterhide Pelt  -- Pristine Pesterhide Pelts (29)
 complete 1110 |at 1441 73.2,68.7 |value low  -- Rocket Car Parts (31)
-complete 1104 |at 1441 77.0,67.7 |mobs Scorpid Reaver;Scorpid Terror;Vile Sting  -- Salt Flat Venom (30)
-complete 1105 |at 1441 79.9,66.3 |mobs Sparkleshell Snapper;Sparkleshell Tortoise;Sparkleshell Borer  -- Hardened Shells (30)
+complete 1104 |at 1441 77.0,67.7 |mobs Scorpid Reaver@Salty Scorpid Venom;Scorpid Terror@Salty Scorpid Venom;Vile Sting@Salty Scorpid Venom  -- Salt Flat Venom (30)
+complete 1105 |at 1441 79.9,66.3 |mobs Sparkleshell Snapper@Hardened Tortoise Shell;Sparkleshell Tortoise@Hardened Tortoise Shell;Sparkleshell Borer@Hardened Tortoise Shell  -- Hardened Shells (30)
 complete 1175 |at 1441 79.1,70.1 |mobs Saltstone Basilisk;Saltstone Crystalhide;Saltstone Gazer |value mid  -- A Bump in the Road (33)
 complete 1182 |at 1441 79.7,77.0 |mobs Goblin Racer;Goblin Drag Car  -- Goblin Sponsorship (37)
 turnin 1112 |npc Kravel Koalbeard |at 1441 77.8,77.3  -- Parts for Kravel (36)

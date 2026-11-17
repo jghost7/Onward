@@ -1,4 +1,4 @@
--- DRAFT Mulgore (Horde) generated 2026-11-16 by tools/draft_guide.py
+-- DRAFT Mulgore (Horde) generated 2026-11-17 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -11,7 +11,7 @@ accept 99080 |npc Baine Bloodhoof |at 1412 46.7,63.4 |race Scourge,Tauren  -- Dr
 accept 861 |npc Skorn Whitecloud |at 1412 46.0,63.4  -- The Hunter's Way (10)
 accept 76156 |npc Boarton Shadetotem |at 1456 39.4,65.8 |race Orc,Tauren,Troll  -- Stalk With The Earthmother (10)
 accept 773 |npc Seer Wiserunner |at 1412 34.3,43.3  -- Rite of Wisdom (10)
-complete 759 |at 1412 51.5,37.7 |mobs Prairie Wolf Alpha |race Tauren  -- Wildmane Totem (10)
+complete 759 |at 1412 51.5,37.7 |mobs Prairie Wolf Alpha@Prairie Alpha Tooth |race Tauren  -- Wildmane Totem (10)
 accept 833 |npc Lorekeeper Raintotem |at 1412 57.0,34.5  -- A Sacred Burial (10)
 complete 833 |at 1412 58.0,30.9 |mobs Bristleback Interloper  -- A Sacred Burial (10)
 turnin 773 |npc Ancestral Spirit |at 1412 58.3,30.7  -- Rite of Wisdom (10)
@@ -33,12 +33,12 @@ accept 854 |npc Kirge Sternhorn |at 1413 44.9,58.6 |race Tauren  -- Journey to t
 turnin 854 |npc Thork |at 1413 51.5,30.9 |race Tauren  -- Journey to the Crossroads (12)
 accept 770 |at 1412 34.7,34.2 |note Starts from Demon Scarred Cloak  -- The Demon Scarred Cloak (12)
 complete 76160 |at 1412 39.4,36.2 |item 206176 |race Orc,Tauren,Troll  -- Stalk With The Earthmother (11)
-complete 861 |at 1412 48.6,28.2 |mobs Flatland Prowler  -- The Hunter's Way (10)
-complete 776 |at 1412 51.2,24.8 |mobs Arra'chea  -- Rites of the Earthmother (14)
-complete 98427 |at 1412 56.8,42.8 |mobs Venture Co. Clearclutter |group elite  -- Ceasing Operations (12)
+complete 861 |at 1412 48.6,28.2 |mobs Flatland Prowler@Flatland Prowler Claw  -- The Hunter's Way (10)
+complete 776 |at 1412 51.2,24.8 |mobs Arra'chea@Horn of Arra'chea  -- Rites of the Earthmother (14)
+complete 98427 |at 1412 56.8,42.8 |mobs Venture Co. Clearclutter@Clearcutter Key |group elite  -- Ceasing Operations (12)
 complete 764 |at 1412 59.3,47.1 |mobs Venture Co. Worker;Venture Co. Supervisor |value mid  -- The Venture Co. (10)
-complete 765 |at 1412 61.2,49.3 |mobs Supervisor Fizsprocket  -- Supervisor Fizsprocket (12)
-complete 99080 |at 1412 61.6,61.5 |mobs Galak Centaur;Galak Outrunner;Herak the Pillager |race Scourge,Tauren  -- Drive Them Out (11)
+complete 765 |at 1412 61.2,49.3 |mobs Supervisor Fizsprocket@Fizsprocket's Clipboard  -- Supervisor Fizsprocket (12)
+complete 99080 |at 1412 61.6,61.5 |mobs Galak Centaur;Galak Outrunner;Herak the Pillager@Herak's Head |race Scourge,Tauren  -- Drive Them Out (11)
 turnin 98427 |npc Morin Cloudstalker |at 1412 54.8,64.3 |group elite  -- Ceasing Operations (12)
 turnin 765 |npc Morin Cloudstalker |at 1412 54.8,64.3  -- Supervisor Fizsprocket (12)
 turnin 764 |npc Morin Cloudstalker |at 1412 54.8,64.3 |value mid  -- The Venture Co. (10)

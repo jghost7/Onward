@@ -1,4 +1,4 @@
--- DRAFT The Hinterlands (Alliance) generated 2026-11-16 by tools/draft_guide.py
+-- DRAFT The Hinterlands (Alliance) generated 2026-11-17 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -28,9 +28,9 @@ accept 2877 |npc Fraggar Thundermantle |at 1425 14.8,44.6 |value mid  -- Skulk R
 accept 2880 |npc Fraggar Thundermantle |at 1425 14.8,44.6  -- Troll Necklace Bounty (45)
 complete 2988 |at 1425 23.3,58.8  -- Witherbark Cages (45)
 complete 4787 |at 1425 57.6,86.8 |group chain  -- The Ancient Egg (50)
-complete 2880 |at 1425 57.1,68.8 |mobs Vilebranch Blood Drinker;Vilebranch Aman'zasi Guard;Vilebranch Scalper;Vilebranch Soothsayer  -- Troll Necklace Bounty (45)
+complete 2880 |at 1425 57.1,68.8 |mobs Vilebranch Blood Drinker@Troll Tribal Necklace;Vilebranch Aman'zasi Guard@Troll Tribal Necklace;Vilebranch Scalper@Troll Tribal Necklace;Vilebranch Soothsayer@Troll Tribal Necklace  -- Troll Necklace Bounty (45)
 complete 2994 |at 1425 53.4,67.1 |group chain  -- Saving Sharpbeak (51)
-complete 86616 |at 1425 48.0,65.6 |mobs Vilebranch Soothsayer |value mid  -- Repurposed Totems (48)
+complete 86616 |at 1425 48.0,65.6 |mobs Vilebranch Soothsayer@Vilebranch Totem |value mid  -- Repurposed Totems (48)
 accept 485 |at 1425 53.0,53.6 |note Starts from OOX-09/HL Distress Beacon  -- Find OOX-09/HL! (48)
 complete 2877 |at 1425 56.0,42.7 |mobs Green Sludge;Jade Ooze |value mid  -- Skulk Rock Clean-up (48)
 turnin 485 |npc Homing Robot OOX-09/HL |at 1425 49.4,37.7  -- Find OOX-09/HL! (48)

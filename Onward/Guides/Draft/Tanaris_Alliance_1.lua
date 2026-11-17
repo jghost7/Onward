@@ -1,4 +1,4 @@
--- DRAFT Tanaris (Alliance) generated 2026-11-16 by tools/draft_guide.py
+-- DRAFT Tanaris (Alliance) generated 2026-11-17 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -21,8 +21,8 @@ accept 2876 |note Starts from Ship Schedule  -- Ship Schedules (45)
 accept 2873 |npc Stoley |at 1446 67.1,24.0  -- Stoley's Shipment (45)
 complete 1690 |at 1446 63.6,31.0 |mobs Wastewander Bandit;Wastewander Thief |value mid  -- Wastewander Justice (43)
 complete 2873 |at 1446 72.2,46.8  -- Stoley's Shipment (45)
-complete 2875 |at 1446 73.4,47.1 |mobs Andre Firebeard  -- WANTED: Andre Firebeard (45)
-complete 8365 |at 1446 74.0,46.6 |mobs Southsea Swashbuckler;Southsea Dock Worker;Southsea Freebooter;Southsea Pirate |value mid  -- Pirate Hats Ahoy! (45)
+complete 2875 |at 1446 73.4,47.1 |mobs Andre Firebeard@Firebeard's Head  -- WANTED: Andre Firebeard (45)
+complete 8365 |at 1446 74.0,46.6 |mobs Southsea Swashbuckler@Southsea Pirate Hat;Southsea Dock Worker@Southsea Pirate Hat;Southsea Freebooter@Southsea Pirate Hat;Southsea Pirate@Southsea Pirate Hat |value mid  -- Pirate Hats Ahoy! (45)
 complete 8366 |at 1446 74.0,46.6 |mobs Southsea Pirate;Southsea Freebooter;Southsea Dock Worker;Southsea Swashbuckler |value mid  -- Southsea Shakedown (45)
 turnin 2873 |npc Stoley |at 1446 67.1,24.0  -- Stoley's Shipment (45)
 accept 2874 |npc Stoley |at 1446 67.1,24.0  -- Deliver to MacKinley (45)
@@ -37,7 +37,7 @@ accept 3362 |npc Tran'rek |at 1446 51.6,26.8 |value mid  -- Thistleshrub Valley 
 turnin 110 |npc Alchemist Pestlezugg |at 1446 50.9,27.0  -- Insect Part Analysis (48)
 accept 113 |npc Alchemist Pestlezugg |at 1446 50.9,27.0  -- Insect Part Analysis (48)
 complete 992 |at 1446 39.0,29.0 |item 8584  -- Gadgetzan Water Survey (46)
-complete 2605 |at 1446 29.4,66.3 |mobs Thistleshrub Dew Collector  -- The Thirsty Goblin (49)
+complete 2605 |at 1446 29.4,66.3 |mobs Thistleshrub Dew Collector@Laden Dew Gland  -- The Thirsty Goblin (49)
 complete 3362 |at 1446 29.7,66.3 |mobs Gnarled Thistleshrub;Thistleshrub Rootshaper |value mid  -- Thistleshrub Valley (50)
 turnin 2605 |npc Marin Noggenfogger |at 1446 51.8,28.7  -- The Thirsty Goblin (49)
 accept 2606 |npc Marin Noggenfogger |at 1446 51.8,28.7  -- In Good Taste (49)
@@ -53,7 +53,7 @@ turnin 1690 |npc Chief Engineer Bilgewhizzle |at 1446 52.5,28.5 |value mid  -- W
 accept 1691 |npc Chief Engineer Bilgewhizzle |at 1446 52.5,28.5 |value mid  -- More Wastewander Justice (44)
 accept 3161 |npc Marvon Rivetseeker |at 1446 52.7,45.9 |value low  -- Gahz'ridian (48)
 accept 3444 |npc Marvon Rivetseeker |at 1446 52.7,45.9  -- The Stone Circle (51)
-complete 82 |at 1446 33.3,44.4 |mobs Centipaar Stinger;Centipaar Wasp;Centipaar Swarmer;Centipaar Worker  -- Noxious Lair Investigation (47)
+complete 82 |at 1446 33.3,44.4 |mobs Centipaar Stinger@Centipaar Insect Parts;Centipaar Wasp@Centipaar Insect Parts;Centipaar Swarmer@Centipaar Insect Parts;Centipaar Worker@Centipaar Insect Parts  -- Noxious Lair Investigation (47)
 fly 1445 67.5,51.3 |from 1446 51.0,29.3 |npc Dustwallow Marsh (Baldruc)  -- flight master Bera Stonehammer
 accept 2846 |npc Tabetha |at 1445 46.1,57.1 |group dungeon  -- Tiara of the Deep (46)
 accept 2861 |npc Anastasia Hartwell |at 1458 85.1,10.0  -- Tabetha's Task (46)
@@ -82,14 +82,14 @@ turnin 2770 |npc Wizzle Brassbolts |at 1441 78.1,77.1 |group dungeon  -- Gahz'ri
 complete 2641 |at 1425 41.0,59.8  -- Sprinkle's Secret Ingredient (49)
 fly 1446 51.0,29.3 |from 1425 11.1,46.1 |npc Bera Stonehammer  -- flight master Guthrum Thunderfist
 complete 5863 |at 1446 40.7,56.9 |mobs Dunemaul Brute;Dunemaul Enforcer;Gor'marok the Ravager |value mid  -- The Dunemaul Compound (49)
-complete 97530 |at 1446 40.7,56.9 |mobs Dunemaul Brute;Dunemaul Enforcer;Dunemaul Warlock;Dunemaul Ogre  -- Dunemaul Dues (47)
+complete 97530 |at 1446 40.7,56.9 |mobs Dunemaul Brute@Brilliantly Polished Bangle;Dunemaul Enforcer@Brilliantly Polished Bangle;Dunemaul Warlock@Brilliantly Polished Bangle;Dunemaul Ogre@Brilliantly Polished Bangle  -- Dunemaul Dues (47)
 complete 3161 |at 1446 47.6,57.2 |item 9978 |value low  -- Gahz'ridian (48)
 accept 351 |at 1446 48.3,50.4 |note Starts from OOX-17/TN Distress Beacon  -- Find OOX-17/TN! (48)
 turnin 3444 |npc Marvon Rivetseeker |at 1446 52.7,45.9  -- The Stone Circle (51)
 turnin 3161 |npc Marvon Rivetseeker |at 1446 52.7,45.9 |value low  -- Gahz'ridian (48)
 complete 1691 |at 1446 61.7,38.2 |mobs Wastewander Rogue;Wastewander Assassin;Wastewander Shadow Mage |value mid  -- More Wastewander Justice (44)
-complete 2781 |at 1446 61.8,38.2 |mobs Caliph Scorpidsting  -- WANTED: Caliph Scorpidsting (46)
-complete 1707 |at 1446 62.2,35.0 |mobs Wastewander Thief;Wastewander Shadow Mage;Wastewander Rogue;Wastewander Bandit |value mid  -- Water Pouch Bounty (44)
+complete 2781 |at 1446 61.8,38.2 |mobs Caliph Scorpidsting@Caliph Scorpidsting's Head  -- WANTED: Caliph Scorpidsting (46)
+complete 1707 |at 1446 62.2,35.0 |mobs Wastewander Thief@Wastewander Water Pouch;Wastewander Shadow Mage@Wastewander Water Pouch;Wastewander Rogue@Wastewander Water Pouch;Wastewander Bandit@Wastewander Water Pouch |value mid  -- Water Pouch Bounty (44)
 turnin 2872 |npc Stoley |at 1446 67.1,24.0  -- Stoley's Debt (45)
 turnin 97530 |npc Security Chief Bilgewhizzle |at 1446 67.1,23.9  -- Dunemaul Dues (47)
 turnin 2876 |npc Security Chief Bilgewhizzle |at 1446 67.1,23.9  -- Ship Schedules (45)

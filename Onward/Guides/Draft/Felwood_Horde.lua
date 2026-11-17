@@ -1,4 +1,4 @@
--- DRAFT Felwood (Horde) generated 2026-11-16 by tools/draft_guide.py
+-- DRAFT Felwood (Horde) generated 2026-11-17 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -24,7 +24,7 @@ accept 4721 |npc Trull Failbane |at 1448 34.7,52.8 |value mid  -- Wild Guardians
 accept 4521 |npc Trull Failbane |at 1448 34.7,52.8 |value mid  -- Wild Guardians (56)
 turnin 5157 |npc Greta Mosshoof |at 1448 51.2,82.1  -- Collection of the Corrupt Water (52)
 accept 5158 |npc Greta Mosshoof |at 1448 51.2,82.1  -- Seeking Spiritual Aid (52)
-complete 6162 |at 1448 48.2,94.3 |mobs Overlord Ror  -- A Husband's Last Battle (51)
+complete 6162 |at 1448 48.2,94.3 |mobs Overlord Ror@Overlord Ror's Claw  -- A Husband's Last Battle (51)
 fly 1452 60.5,36.3 |from 1448 34.4,54.0 |npc Winterspring (Yugrek)  -- flight master Brakkar
 complete 4521 |at 1452 49.4,35.1 |mobs Raging Owlbeast;Ragged Owlbeast |value mid  -- Wild Guardians (56)
 accept 8464 |npc Salfa |at 1452 27.7,34.5  -- Winterfall Activity (58)
@@ -43,7 +43,7 @@ turnin 5204 |npc Remains of Trey Lightforge |at 1448 38.5,50.4  -- Retribution o
 accept 5385 |npc Remains of Trey Lightforge |at 1448 38.5,50.4  -- The Remains of Trey Lightforge (57)
 accept 86612 |npc Statue of Malorne |at 1448 42.0,47.4  -- Stag Lord's Bauble (55)
 complete 5156 |at 1448 42.5,41.2 |mobs Entropic Beast;Entropic Horror  -- Verifying the Corruption (54)
-complete 4102 |at 1448 57.9,19.1 |mobs Warpwood Moss Flayer;Warpwood Shredder;Dessecus |value mid  -- Cleansing Felwood (55)
+complete 4102 |at 1448 57.9,19.1 |mobs Warpwood Moss Flayer@Blood Amber;Warpwood Shredder@Blood Amber;Dessecus@Blood Amber |value mid  -- Cleansing Felwood (55)
 accept 8461 |npc Nafien |at 1448 64.8,8.1  -- Deadwood of the North (55)
 complete 8461 |at 1448 62.3,9.2 |mobs Deadwood Den Watcher;Deadwood Avenger;Deadwood Shaman  -- Deadwood of the North (55)
 accept 8470 |at 1448 62.3,9.2 |note Starts from Deadwood Ritual Totem  -- Deadwood Ritual Totem (55)
@@ -66,7 +66,7 @@ turnin 5165 |npc Greta Mosshoof |at 1448 51.2,82.1  -- Dousing the Flames of Pro
 accept 5242 |npc Greta Mosshoof |at 1448 51.2,82.1  -- A Final Blow (58)
 turnin 4102 |npc Maybess Riverbreeze |at 1448 46.8,83.1 |value mid  -- Cleansing Felwood (55)
 accept 5887 |npc Maybess Riverbreeze |at 1448 46.8,83.1 |value mid  -- Salve via Hunting (55)
-complete 5242 |at 1448 38.8,46.8 |mobs Moora;Salia;Shadow Lord Fel'dan  -- A Final Blow (58)
+complete 5242 |at 1448 38.8,46.8 |mobs Moora;Salia;Shadow Lord Fel'dan@Shadow Lord Fel'dan's Head  -- A Final Blow (58)
 turnin 4505 |npc Winna Hazzard |at 1448 34.2,52.3  -- Well of Corruption (54)
 turnin 86612 |npc Winna Hazzard |at 1448 34.2,52.3  -- Stag Lord's Bauble (55)
 turnin 6162 |npc Dreka'Sur |at 1448 34.8,52.7  -- A Husband's Last Battle (51)
@@ -74,7 +74,7 @@ turnin 4521 |npc Trull Failbane |at 1448 34.7,52.8 |value mid  -- Wild Guardians
 turnin 4721 |npc Trull Failbane |at 1448 34.7,52.8 |value mid  -- Wild Guardians (59)
 accept 4741 |npc Trull Failbane |at 1448 34.7,52.8 |value mid  -- Wild Guardians (58)
 turnin 5202 |npc Captured Arko'narin |at 1448 36.2,55.5  -- A Strange Red Key (55)
-complete 5887 |at 1448 41.5,53.7 |mobs Felpaw Wolf;Felpaw Scavenger;Angerclaw Bear;Angerclaw Mauler |value mid  -- Salve via Hunting (55)
+complete 5887 |at 1448 41.5,53.7 |mobs Felpaw Wolf@Corrupted Soul Shard;Felpaw Scavenger@Corrupted Soul Shard;Angerclaw Bear@Corrupted Soul Shard;Angerclaw Mauler@Corrupted Soul Shard |value mid  -- Salve via Hunting (55)
 turnin 5156 |npc Taronn Redfeather |at 1448 50.9,81.6  -- Verifying the Corruption (54)
 turnin 5242 |npc Greta Mosshoof |at 1448 51.2,82.1  -- A Final Blow (58)
 turnin 5887 |npc Maybess Riverbreeze |at 1448 46.8,83.1 |value mid  -- Salve via Hunting (55)

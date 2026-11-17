@@ -1,4 +1,4 @@
--- DRAFT Tanaris (Horde) generated 2026-11-16 by tools/draft_guide.py
+-- DRAFT Tanaris (Horde) generated 2026-11-17 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -30,8 +30,8 @@ turnin 8748 |npc Anachronos |at 1446 65.3,50.0  -- The Path of the Protector (60
 complete 8758  -- The Path of the Invoker (60)
 turnin 8758 |npc Anachronos |at 1446 65.3,50.0  -- The Path of the Invoker (60)
 turnin 8747 |npc Anachronos |at 1446 65.3,50.0  -- The Path of the Protector (60)
-complete 8728 |at 1446 62.7,48.5 |mobs Southsea Pirate;Dunemaul Enforcer;Wastewander Shadow Mage;Gor'marok the Ravager |value low |group dungeon  -- The Good News and The Bad News (60)
-complete 8586 |at 1446 44.5,58.7 |mobs Dune Smasher;Land Rager;Ground Pounder |value mid |group chain  -- Dirge's Kickin' Chimaerok Chops (60)
+complete 8728 |at 1446 62.7,48.5 |mobs Southsea Pirate@Blue Sapphire;Dunemaul Enforcer@Blue Sapphire;Wastewander Shadow Mage@Blue Sapphire;Gor'marok the Ravager@Blue Sapphire |value low |group dungeon  -- The Good News and The Bad News (60)
+complete 8586 |at 1446 44.5,58.7 |mobs Dune Smasher@Deeprock Salt;Land Rager@Deeprock Salt;Ground Pounder@Deeprock Salt |value mid |group chain  -- Dirge's Kickin' Chimaerok Chops (60)
 fly 1444 75.5,44.4 |from 1446 51.6,25.4 |npc Feralas (Shyn)  -- flight master Bulkrek Ragefist
 complete 2741 |at 1444 58.0,76.3  -- The Super Egg-O-Matic (60)
 complete 8585 |at 1444 29.2,78.1 |value mid |group elite  -- The Isle of Dread! (60)

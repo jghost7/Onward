@@ -1,4 +1,4 @@
--- DRAFT Hillsbrad Foothills (Horde) generated 2026-11-16 by tools/draft_guide.py
+-- DRAFT Hillsbrad Foothills (Horde) generated 2026-11-17 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -14,7 +14,7 @@ turnin 527 |npc High Executor Darthalia |at 1424 62.3,20.4  -- Battle of Hillsbr
 accept 528 |npc High Executor Darthalia |at 1424 62.3,20.4  -- Battle of Hillsbrad (25)
 accept 546 |npc Deathguard Samsa |at 1424 62.1,19.7 |value mid  -- Souvenirs of Death (25)
 complete 528 |at 1424 34.1,45.7 |mobs Hillsbrad Peasant  -- Battle of Hillsbrad (25)
-complete 546 |at 1424 36.8,44.5 |mobs Syndicate Watchman;Hillsbrad Miner;Syndicate Shadow Mage;Hillsbrad Farmer |value mid  -- Souvenirs of Death (25)
+complete 546 |at 1424 36.8,44.5 |mobs Syndicate Watchman@Hillsbrad Human Skull;Hillsbrad Miner@Hillsbrad Human Skull;Syndicate Shadow Mage@Hillsbrad Human Skull;Hillsbrad Farmer@Hillsbrad Human Skull |value mid  -- Souvenirs of Death (25)
 turnin 494 |npc High Executor Darthalia |at 1424 62.3,20.4 |value low  -- Time To Strike (20)
 turnin 528 |npc High Executor Darthalia |at 1424 62.3,20.4  -- Battle of Hillsbrad (25)
 accept 98094 |npc High Executor Darthalia |at 1424 62.3,20.4  -- Scout Support (25)
@@ -40,8 +40,8 @@ accept 98095 |npc Deathstalker Masoj |at 1424 63.6,53.1  -- Valuable Vantages (2
 turnin 98095 |npc Deathstalker Masoj |at 1424 63.6,53.1  -- Valuable Vantages (25)
 complete 509 |at 1424 64.6,61.2  -- Elixir of Agony (28)
 complete 539 |at 1424 30.4,55.6 |mobs Foreman Bonds;Hillsbrad Miner |value mid  -- Battle of Hillsbrad (28)
-complete 496 |at 1424 52.3,46.0 |mobs Giant Moss Creeper;Elder Gray Bear;Gray Bear;Vicious Gray Bear  -- Elixir of Suffering (22)
-complete 501 |at 1424 51.6,41.7 |mobs Starving Mountain Lion;Feral Mountain Lion;Mountain Lion  -- Elixir of Pain (24)
+complete 496 |at 1424 52.3,46.0 |mobs Giant Moss Creeper@Creeper Ichor;Elder Gray Bear@Gray Bear Tongue;Gray Bear@Gray Bear Tongue;Vicious Gray Bear@Gray Bear Tongue  -- Elixir of Suffering (22)
+complete 501 |at 1424 51.6,41.7 |mobs Starving Mountain Lion@Mountain Lion Blood;Feral Mountain Lion@Mountain Lion Blood;Mountain Lion@Mountain Lion Blood  -- Elixir of Pain (24)
 turnin 498 |npc Krusk |at 1424 63.2,20.7  -- The Rescue (22)
 turnin 539 |npc High Executor Darthalia |at 1424 62.3,20.4 |value mid  -- Battle of Hillsbrad (28)
 turnin 567 |npc High Executor Darthalia |at 1424 62.3,20.4  -- Dangerous! (28)

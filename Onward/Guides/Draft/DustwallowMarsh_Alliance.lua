@@ -1,4 +1,4 @@
--- DRAFT Dustwallow Marsh (Alliance) generated 2026-11-16 by tools/draft_guide.py
+-- DRAFT Dustwallow Marsh (Alliance) generated 2026-11-17 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -9,13 +9,13 @@ home |npc Innkeeper Janene |at 1445 66.6,45.2  -- set your hearthstone at the in
 accept 1133 |npc Fiora Longears |at 1445 66.5,45.1  -- Journey to Astranaar (20)
 accept 1135 |npc Fiora Longears |at 1445 66.5,45.1  -- Highperch Venom (30)
 accept 1204 |npc Morgan Stern |at 1445 66.3,45.5  -- Mudrock Soup and Bugs (38)
-complete 1204 |at 1445 56.2,44.2 |mobs Mudrock Burrower;Mudrock Tortoise;Mudrock Borer;Mudrock Snapjaw  -- Mudrock Soup and Bugs (38)
+complete 1204 |at 1445 56.2,44.2 |mobs Mudrock Burrower@Forked Mudrock Tongue;Mudrock Tortoise@Forked Mudrock Tongue;Mudrock Borer@Forked Mudrock Tongue;Mudrock Snapjaw@Forked Mudrock Tongue  -- Mudrock Soup and Bugs (38)
 accept 1253 |npc Black Shield |at 1445 29.6,48.6  -- The Black Shield (35)
 accept 1252 |npc Theramore Guard Badge |at 1445 29.8,48.2  -- Lieutenant Paval Reethe (40)
 accept 1284 |npc Hoofprints |at 1445 29.7,47.6  -- Suspicious Hoofprints (35)
 accept 1177 |npc Mudcrush Durtfeet |at 1445 35.1,38.3 |value mid  -- Hungry! (36)
-complete 1206 |at 1445 32.2,22.2 |mobs Darkmist Silkspinner;Darkmist Spider;Darkmist Lurker;Darkmist Recluse |value mid  -- Jarl Needs Eyes (35)
-complete 1177 |at 1445 58.4,15.3 |mobs Mirefin Warrior;Mirefin Murloc;Mirefin Muckdweller;Mirefin Coastrunner |value mid  -- Hungry! (36)
+complete 1206 |at 1445 32.2,22.2 |mobs Darkmist Silkspinner@Unpopped Darkmist Eye;Darkmist Spider@Unpopped Darkmist Eye;Darkmist Lurker@Unpopped Darkmist Eye;Darkmist Recluse@Unpopped Darkmist Eye |value mid  -- Jarl Needs Eyes (35)
+complete 1177 |at 1445 58.4,15.3 |mobs Mirefin Warrior@Mirefin Head;Mirefin Murloc@Mirefin Head;Mirefin Muckdweller@Mirefin Head;Mirefin Coastrunner@Mirefin Head |value mid  -- Hungry! (36)
 accept 1219 |npc Loose Dirt |at 1445 55.4,25.9  -- The Orc Report (35)
 turnin 1206 |npc "Swamp Eye" Jarl |at 1445 55.4,26.3 |value mid  -- Jarl Needs Eyes (35)
 accept 1218 |npc "Swamp Eye" Jarl |at 1445 55.4,26.3  -- Soothing Spices (35)
@@ -42,7 +42,7 @@ accept 1286 |npc Captain Garran Vimes |at 1445 68.2,48.6  -- The Deserters (38)
 turnin 1319 |npc Caz Twosprocket |at 1445 64.8,50.4  -- The Black Shield (35)
 accept 1320 |npc Caz Twosprocket |at 1445 64.8,50.4  -- The Black Shield (35)
 complete 1218 |at 1445 52.0,54.6 |mobs Acidic Swamp Ooze;Bubbling Swamp Ooze;Corrosive Swamp Ooze;Swamp Ooze  -- Soothing Spices (35)
-complete 98233 |at 1445 49.3,55.7 |mobs Corrosive Swamp Ooze  -- Sword in the Slime (42)
+complete 98233 |at 1445 49.3,55.7 |mobs Corrosive Swamp Ooze@Jameson's Training Sword  -- Sword in the Slime (42)
 turnin 1286 |npc Balos Jacken |at 1445 36.1,54.3  -- The Deserters (38)
 accept 1287 |npc Balos Jacken |at 1445 36.1,54.3  -- The Deserters (38)
 complete 1258 |at 1435 96.0,57.6  -- ... and Bugs (40)
