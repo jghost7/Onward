@@ -466,7 +466,7 @@ turnin 9970 |at 1423 50.0,50.0
     check("dragging it saves where it goes", W.db.targetPoint and W.db.targetPoint[3] == 120, W.db.targetPoint and W.db.targetPoint[3])
     W.db.targetDetached = false W.db.targetPoint = nil W.Target:Sync()
     tb.GetPoint = nil
-    check("back on the step card", tb.w == 22, tb.w)
+    check("back on the step card", tb.w == 26, tb.w)
     MOCK.turnIn(9970) MOCK.fire("QUEST_TURNED_IN", 9970) MOCK.fire("QUEST_LOG_UPDATE")
     MOCK.pos = { map = 1423, x = 0.5, y = 0.5 }
     W.Guide:Activate("nav") settle()
@@ -653,6 +653,21 @@ local macro = TB:GetAttribute("macrotext") or ""
 check("target button shows on a kill step", TB:IsShown() and cur().verb == "complete", cur().verb)
 check("macro targets the guide's mobs", macro:find("/targetexact Bog Lurker", 1, true) and macro:find("/targetexact [noexists][dead] Mire Hag", 1, true), macro)
 check("macro skips corpses", macro:find("/cleartarget [dead]", 1, true))
+-- the refreshed card: verb label, action strip, dock
+check("card labels a kill step KILL", W.UI.VerbLabel(cur()) == "KILL" and W.UI.verbText:GetText() == "KILL", W.UI.verbText:GetText())
+check("kill step gets the action strip with Later", W.UI.strip:IsShown() and W.UI.laterStripBtn:IsShown())
+do
+    local n, h, need = W.UI.SplitObjective({ text = "Makeshift Stickin' Spear: 3/20" })
+    check("objective split into name and count", n == "Makeshift Stickin' Spear" and h == 3 and need == 20, n)
+end
+GetBindingKey = function(cmd) if cmd == "CLICK OnwardTargetButton:LeftButton" then return "SHIFT-T" end end
+W.db.targetDetached = true W.UI:Render()
+check("dock: no strip on the card", not W.UI.strip:IsShown())
+check("dock shows behind the detached buttons, with Later", W.Item.dock:IsShown() and W.Item.dockLater:IsShown())
+check("dock shows key bindings, shortened", W.Item.KeyLabel(TB) == "sT", W.Item.KeyLabel(TB))
+W.db.targetDetached = false W.UI:Render()
+check("back in the strip: dock hidden", W.UI.strip:IsShown() and not W.Item.dock:IsShown())
+GetBindingKey = nil
 check("macro marks with a skull via secure /tm", macro:find("/tm [exists,nodead] 8", 1, true))
 check("macro runs no Lua (force-tainted on Forever)", not macro:find("/run", 1, true) and not macro:find("/script", 1, true))
 check("macro fits Blizzard's 255 limit", #macro <= 255, #macro)
@@ -694,15 +709,13 @@ local gm = TB:GetAttribute("macrotext") or ""
 check("each grouped quest gets its first mob before seconds", gm:find("Fen Crawler\n/targetexact [noexists][dead] Reed Stalker\n/targetexact [noexists][dead] Fen Hulk", 1, true), gm)
 check("far quest stays out of the group", not gm:find("Far Beast", 1, true))
 W.UI.panel:Show() W.UI:Render()
-local alsoHere, repeated = false, false
+local alsoLabel, q961 = false, 0
 for _, s in ipairs(MOCK.strings) do
-    if s.shown and s.text:find("Also here:", 1, true) and s.text:find("Q961", 1, true) then alsoHere = true end
+    if s.shown and s.text:find("ALSO HERE", 1, true) then alsoLabel = true end
+    if s.shown and s.text == "Q961" then q961 = q961 + 1 end
 end
-for _, s in ipairs(MOCK.strings) do
-    if s.shown and s.text == "Q961" then repeated = true end
-end
-check("card lists the grouped quest as 'also here'", alsoHere)
-check("grouped quest is not repeated as an upcoming step", not repeated)
+check("card lists the grouped quest as 'also here'", alsoLabel and q961 >= 1)
+check("grouped quest is not repeated as an upcoming step", q961 == 1, q961)
 MOCK.finish(960) MOCK.fire("QUEST_LOG_UPDATE") settle()
 check("group moves on when the first quest is done", W.Guide:Group()[1].quest == 961)
 -- a step without coordinates doesn't pull in a placed quest across the zone as "also here"
@@ -718,6 +731,27 @@ MOCK.fire("QUEST_LOG_UPDATE") settle()
 W.Guide:Activate("group") settle()
 for _, q in ipairs({ 960, 961, 962 }) do MOCK.finish(q) MOCK.turnIn(q) MOCK.fire("QUEST_TURNED_IN", q) end
 MOCK.fire("QUEST_LOG_UPDATE") settle()
+-- zone art: two tiles from the middle of the guide's map, faded behind the header
+do
+    local savedL, savedT = C_Map.GetMapArtLayers, C_Map.GetMapArtLayerTextures
+    C_Map.GetMapArtLayers = function(m) return { { layerWidth = 1002, layerHeight = 668, tileWidth = 256, tileHeight = 256 } } end
+    C_Map.GetMapArtLayerTextures = function(m) local t = {} for i = 1, 12 do t[i] = m * 100 + i end return t end
+    local tiles = W.UI.ZoneArt(1423)
+    check("zone art picks the middle tiles of the map", tiles and tiles[1] == 142306 and tiles[2] == 142307, tiles and tiles[1])
+    W:RegisterGuide{ id = "artq", title = "Art", faction = "", levels = { 1, 60 }, steps = [[
+goto 1423 40.0,40.0 |note somewhere
+goto 1423 50.0,50.0 |note elsewhere
+]]}
+    W.Guide:Activate("artq") settle()
+    local art = W.UI.artTiles
+    check("zone art shows behind the header", art[1]:IsShown() and art[1].texture == 142306 and art[2].texture == 142307, art[1].texture)
+    W.db.zoneArt = false W.UI:Render()
+    check("zone art can be turned off", not art[1]:IsShown())
+    W.db.zoneArt = true
+    C_Map.GetMapArtLayers, C_Map.GetMapArtLayerTextures = savedL, savedT
+    W.Guide:Activate("group") settle()
+end
+
 -- quest item button: the guide's |item, or a usable quest item in your bags the quest text names
 do
     local saved = { GetItemSpell = GetItemSpell, GetItemInfoInstant = GetItemInfoInstant, C_Container = C_Container, name = C_Item.GetItemNameByID }
@@ -811,13 +845,13 @@ MOCK.addQuest(970, "Charms", { { text = "Hag Charm: 0/8", type = "item", finishe
 MOCK.fire("QUEST_ACCEPTED", 970) settle()
 -- before any kill the line already shows, with Questie's rate and a kill estimate
 local pre = D:Line({ text = "Hag Charm: 0/8", type = "item", finished = false, have = 0, need = 8 }, 970)
-check("drop line shows before the first kill", pre and pre:find("Wowhead 50%%") and pre:find("~16 kills") and pre:find("counting"), pre)
+check("drop line shows before the first kill", pre and pre:find("Wowhead 50%%") and pre:find("~16 kills"), pre)
 -- objective type missing on the client, but Questie knows it's an item
 local untyped = D:Line({ text = "Hag Charm: 0/8", finished = false, have = 0, need = 8 }, 970)
 check("drop line for an untyped item objective Questie knows", untyped ~= nil, untyped)
 -- no Questie data: still says it's counting
 local bare = D:Line({ text = "Odd Rock: 0/3", type = "item", finished = false, have = 0, need = 3 }, 999)
-check("drop line without expected rate says it's counting", bare == "drop rate: counting your kills", bare)
+check("no drop line before any kill or expected rate", bare == nil, bare)
 -- looted from an object (a chest on the sea floor), not a mob: no kill-based line at all
 do
     local QBr = W.QuestieBridge
@@ -1084,7 +1118,7 @@ MOCK.printed = {}
 check("riverglades guides registered", W.Guide:Get("riverglades-a") and W.Guide:Get("riverglades-h"))
 local nGuides, nSteps, mismatched, noQuest, ids = 0, 0, {}, 0, {}
 for _, def in ipairs(W.Guide:All()) do
-    if not ({ test = 1, riverglades = 1, nav = 1, resume = 1, resume2 = 1, modes = 1, target = 1, group = 1, group2 = 1, itemq = 1, groupq = 1, trail = 1, later = 1, nopin = 1, ownspots = 1, hints = 1, hearth = 1, pickup = 1, drops = 1, wait = 1, spots = 1 })[def.id] then
+    if not ({ test = 1, riverglades = 1, nav = 1, resume = 1, resume2 = 1, modes = 1, target = 1, group = 1, group2 = 1, itemq = 1, artq = 1, groupq = 1, trail = 1, later = 1, nopin = 1, ownspots = 1, hints = 1, hearth = 1, pickup = 1, drops = 1, wait = 1, spots = 1 })[def.id] then
         check("unique guide id " .. def.id, not ids[def.id]) ids[def.id] = true
         if def.next then check(def.id .. " next exists", W.Guide:Get(def.next) ~= nil, def.next) end
         local expect = 0

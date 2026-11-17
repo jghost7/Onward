@@ -64,7 +64,7 @@ Install it on a character you've already been playing and Onward works out what 
 
 ## Quest-mob targeting and quest items
 
-On kill and loot steps a crosshair appears next to the step. Click it, or **bind a key** (Key Bindings > AddOns > Onward), to target the nearest living quest mob and put a skull on it. When several kill quests share an area, Onward lists them together and the button covers all of them. Prefer it by your action bars? Options > Navigation > Target button on its own makes it a bigger button you can drag anywhere.
+On kill and loot steps a crosshair appears next to the step. Click it, or **bind a key** (Key Bindings > AddOns > Onward), to target the nearest living quest mob and put a skull on it. When several kill quests share an area, Onward lists them together and the button covers all of them. Prefer them by your action bars? Options > Navigation > Buttons in a dock puts the target, quest item and Later buttons in a dock of action-button-sized buttons, with your key bindings on them, that you can drag anywhere.
 
 When the quest has you use an item (fletch the bundles, throw the spear), a **quest item button** appears beside it with the item's icon, count and cooldown: one per item (up to four) when the quests you're doing together each need one. They have their own key bindings too.
 
@@ -93,7 +93,7 @@ For "collect" quests, each item objective shows your own drop rate per kill and 
 
 ## Looks and feel
 
-A compact panel showing the current step, its objectives and what comes next. Frosted-glass panels in three colourways: **Onward** (the logo's teal and gold, the default), **Glass** (blue-slate) and **Ellesmere** (neutral dark; with **EllesmereUI** installed it takes your EllesmereUI accent colour, panel colour and font). Switch under Options > Panel > Look. Opacity, size, number of upcoming steps and more are in the options (`/ow options`, the gear on the panel, or Esc > Options > AddOns).
+A compact panel built around the current step: what kind of step it is, where, its objectives with progress bars, the quests you can do in the same area, one notice at a time, and what comes next. A faded strip of the zone's own map sits behind each guide's header. Frosted-glass panels in three colourways: **Onward** (the logo's teal and gold, the default), **Glass** (blue-slate) and **Ellesmere** (neutral dark; with **EllesmereUI** installed it takes your EllesmereUI accent colour, panel colour and font). Switch under Options > Panel > Look. Opacity, size, number of upcoming steps and more are in the options (`/ow options`, the gear on the panel, or Esc > Options > AddOns).
 
 ## Write your own routes
 

@@ -365,9 +365,9 @@ function D:Line(o, q)
         if p and p > 0 then
             local line = ("drop rate: %s %d%%"):format(SOURCE[src] or "expected", math.floor(100 * p + 0.5))
             if left > 0 then line = line .. ("  ·  ~%d kills"):format(math.ceil(left / p)) end
-            return line .. "  ·  counting your kills"
+            return line
         end
-        return "drop rate: counting your kills"
+        return nil   -- nothing to say until you've killed something (the panel shows no placeholder)
     end
     local unit = s.basis == "kill" and "kills" or "looted"
     local parts = { ("%d in %d %s (%d%%)"):format(s.drops, s.kills, unit, math.floor(100 * s.drops / s.kills + 0.5)) }

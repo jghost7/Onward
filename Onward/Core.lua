@@ -25,7 +25,8 @@ local DEFAULTS = {
     targetButton = true,     -- crosshair on kill/loot steps that targets the nearest quest mob
     targetMark = true,       -- put a skull on the mob it targets
     itemButton = true,       -- button that uses the quest's item (fletch the bundles, throw the spear)
-    targetDetached = false,  -- target button as its own movable button instead of on the step card
+    targetDetached = false,  -- target, item and Later buttons in a movable dock instead of the card's action strip
+    zoneArt = true,          -- faded strip of the guide's zone map behind the panel header
     targetPoint = nil,
     -- travel
     trailBack = true,

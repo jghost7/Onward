@@ -207,6 +207,88 @@ local function themeBar() barGlow:SetShown(not S.Square()) end
 themeBar()
 W:On("WF_THEME_CHANGED", themeBar)
 
+-- zone art: a faded strip of the guide's own zone map behind the header (Options > Panel), masked
+-- so it fades out under the title and toward the card; a little variety per guide
+local artTiles = {}
+local artMask = f.CreateMaskTexture and f:CreateMaskTexture()
+for i = 1, 2 do
+    local t = f:CreateTexture(nil, "BACKGROUND", nil, -3)
+    t:SetHeight(44)
+    if t.SetDesaturation then t:SetDesaturation(0.45) end
+    t:Hide()
+    artTiles[i] = t
+end
+artTiles[1]:SetPoint("TOPLEFT", 1, -1)
+artTiles[1]:SetPoint("RIGHT", f, "TOP", 0, 0)
+artTiles[2]:SetPoint("TOPLEFT", artTiles[1], "TOPRIGHT")
+artTiles[2]:SetPoint("RIGHT", f, "RIGHT", -1, 0)
+if artMask then
+    artMask:SetTexture(MEDIA .. "zone_mask", "CLAMPTOBLACKADDITIONAL", "CLAMPTOBLACKADDITIONAL")
+    artMask:SetPoint("TOPLEFT", artTiles[1])
+    artMask:SetPoint("BOTTOMRIGHT", artTiles[2])
+    for _, t in ipairs(artTiles) do if t.AddMaskTexture then t:AddMaskTexture(artMask) end end
+end
+local ART_ALPHA = artMask and 0.30 or 0.12   -- without a mask the edges are hard, so fainter
+
+-- the guide's own map: the one most of its steps are on (the smart guide: where you are)
+local guideMap = {}
+local function mapFor(g)
+    if not g then return end
+    if g.id == "smart" or g.kind == "profession" then return C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit("player") end
+    if guideMap[g.id] == nil then
+        local n, best, bestN = {}, false, 0
+        for _, s in ipairs(g.steps or {}) do
+            local m = s.at and s.at.map
+            if m then
+                n[m] = (n[m] or 0) + 1
+                if n[m] > bestN then best, bestN = m, n[m] end
+            end
+        end
+        guideMap[g.id] = best
+    end
+    return guideMap[g.id] or nil
+end
+
+-- two map tiles from the middle of the zone, the middle band of each
+local artFor = {}
+function UI.ZoneArt(map)
+    if not map then return end
+    if not artFor[map] then   -- only found art is cached: map data can arrive late
+        local ok, layers = pcall(C_Map.GetMapArtLayers or function() end, map)
+        local ok2, tex = pcall(C_Map.GetMapArtLayerTextures or function() end, map, 1)
+        local L = ok and type(layers) == "table" and layers[1]
+        if L and ok2 and type(tex) == "table" and #tex > 1 and (L.tileWidth or 0) > 0 then
+            local cols = math.ceil(L.layerWidth / L.tileWidth)
+            local rows = math.ceil(L.layerHeight / L.tileHeight)
+            local r = math.floor((rows - 1) / 2)
+            local c = math.max(0, math.floor(cols / 2) - 1)
+            local a, b = tex[r * cols + c + 1], tex[r * cols + c + 2]
+            if a and b then artFor[map] = { a, b } end
+        end
+    end
+    return artFor[map]
+end
+
+local artShown
+local function renderArt(g)
+    local map = W.db.zoneArt ~= false and mapFor(g) or nil
+    local tiles = UI.ZoneArt(map)
+    local key = tiles and (tiles[1] .. ":" .. tiles[2]) or ""
+    if key == artShown then return end
+    artShown = key
+    for i, t in ipairs(artTiles) do
+        if tiles then
+            t:SetTexture(tiles[i])
+            t:SetTexCoord(0, 1, 0.36, 0.64)
+            t:SetVertexColor(1, 1, 1, ART_ALPHA)
+            t:Show()
+        else
+            t:Hide()
+        end
+    end
+end
+UI.artTiles = artTiles
+
 -- current step card (clickable: notes complete on click, others open the map);
 -- sits on a slightly brighter inset so the current step reads first
 local card = CreateFrame("Button", nil, f)
@@ -219,44 +301,126 @@ do
     rim:SetColor(1, 1, 1, 0.06)
 end
 card:RegisterForClicks("LeftButtonUp", "RightButtonUp")
-local badge = card:CreateTexture(nil, "ARTWORK")
-badge:SetSize(20, 20)
-badge:SetPoint("TOPLEFT", 0, 1)
-S.Badge(badge)
-local badgeIcon = card:CreateTexture(nil, "OVERLAY")
-badgeIcon:SetSize(12, 12)
-badgeIcon:SetPoint("CENTER", badge)
-badgeIcon:SetVertexColor(rgb(C.bg, 1))
-local mainText = fs(card, 14, C.text, nil, HEAD)
-mainText:SetPoint("TOPLEFT", badge, "TOPRIGHT", 8, 0)
+-- what kind of step, in small capitals above the title (KILL, LOOT, TURN IN ...)
+local verbText = fs(card, 10, C.accent)
+verbText:SetPoint("TOPLEFT", 0, 0)
+verbText:SetPoint("RIGHT")
+verbText:SetWordWrap(false)
+local mainText = fs(card, 15, C.text, nil, HEAD)
+mainText:SetPoint("TOPLEFT", verbText, "BOTTOMLEFT", 0, -2)
 mainText:SetPoint("RIGHT")
-local subText = fs(card, 12, C.sub)
+local subText = fs(card, 11, C.sub)
 subText:SetPoint("TOPLEFT", mainText, "BOTTOMLEFT", 0, -3)
 subText:SetPoint("RIGHT")
-UI.card = card
--- room for the target and quest item buttons (Target.lua, Item.lua) in the card's top-right corner
-local cardInset, insets = 0, {}
-function UI.SetCardInset(px, who)
-    insets[who or "target"] = px
-    px = 0
-    for _, v in pairs(insets) do px = px + v end
-    if px == cardInset then return end
-    cardInset = px
-    mainText:SetPoint("RIGHT", card, "RIGHT", -px, 0)
-    UI:Render()
-end
+UI.card, UI.mainText, UI.verbText = card, mainText, verbText
+-- kept for older callers: the buttons now sit in the action strip, not over the title
+function UI.SetCardInset() end
 
--- pools for objective lines, party chips and upcoming rows
-local objLines, partyChips, rows = {}, {}, {}
+-- action strip under the title: the target and quest item buttons (secure, placed over it by
+-- Target.lua / Item.lua) on the left, "Later" on the right
+local STRIP_H = 28
+local strip = CreateFrame("Frame", nil, card)
+strip:SetHeight(STRIP_H)
+strip:Hide()
+UI.strip = strip
+local function outlineButton(parent, label, tip, onClick)
+    local b = CreateFrame("Button", nil, parent)
+    b:SetHeight(24)
+    local bg = S.Nine(b, "BACKGROUND", 0, MEDIA .. "glass_rim", 64, 16, 6, 0)
+    bg:SetColor(1, 1, 1, 0.16)
+    b.text = fs(b, 11, C.sub)
+    b.text:SetPoint("CENTER")
+    b.text:SetText(label)
+    b:SetWidth(math.max(48, (b.text:GetStringWidth() or 0) + 20))
+    S.Hover(b, 24)
+    b:SetScript("OnEnter", function(self)
+        self.text:SetTextColor(rgb(C.text))
+        if tip then GameTooltip:SetOwner(self, "ANCHOR_TOP") GameTooltip:AddLine(tip, 1, 1, 1, true) GameTooltip:Show() end
+    end)
+    b:SetScript("OnLeave", function(self) self.text:SetTextColor(rgb(C.sub)) GameTooltip:Hide() end)
+    b:SetScript("OnClick", onClick)
+    return b
+end
+local laterStripBtn = outlineButton(strip, "Later", "Come back to this quest later: the guide moves on, reminds you when you're back here, and returns to it at the end.",
+    function() local s = card.step if s and s.quest then G:Later(s.quest) end end)
+laterStripBtn:SetPoint("RIGHT", strip, "RIGHT", 0, 0)
+UI.laterStripBtn = laterStripBtn
+
+-- pools: objective rows (name, count, bar), extra lines (hints, drop rates, notes), also-here
+-- rows, party chips, upcoming rows
+local objLines, objRows, groupRows, partyChips, rows = {}, {}, {}, {}, {}
 
 local function objLine(i)
     if not objLines[i] then
-        local l = fs(card, 12, C.sub)
+        local l = fs(card, 11, C.sub)
         l:SetPoint("RIGHT")
         objLines[i] = l
     end
     return objLines[i]
 end
+
+local function objRow(i)
+    if not objRows[i] then
+        local r = CreateFrame("Frame", nil, card)
+        r:SetHeight(20)
+        r.count = fs(r, 11, C.sub)
+        r.count:SetPoint("TOPRIGHT", 0, 0)
+        r.count:SetJustifyH("RIGHT")
+        r.count:SetWordWrap(false)
+        r.name = fs(r, 12, C.text)
+        r.name:SetPoint("TOPLEFT", 0, 0)
+        r.name:SetPoint("RIGHT", r.count, "LEFT", -6, 0)
+        r.name:SetWordWrap(false)
+        r.track = r:CreateTexture(nil, "ARTWORK")
+        r.track:SetColorTexture(1, 1, 1, 0.08)
+        r.track:SetPoint("BOTTOMLEFT", 0, 1)
+        r.track:SetPoint("BOTTOMRIGHT", 0, 1)
+        r.track:SetHeight(3)
+        r.fill = r:CreateTexture(nil, "ARTWORK", nil, 1)
+        S.Accent(r.fill, "color")
+        r.fill:SetPoint("TOPLEFT", r.track)
+        r.fill:SetHeight(3)
+        objRows[i] = r
+    end
+    return objRows[i]
+end
+
+local function groupRow(i)
+    if not groupRows[i] then
+        local r = CreateFrame("Button", nil, card)
+        r:SetHeight(16)
+        r.count = fs(r, 11, C.sub)
+        r.count:SetPoint("RIGHT")
+        r.count:SetJustifyH("RIGHT")
+        r.count:SetWordWrap(false)
+        r.name = fs(r, 12, C.text)
+        r.name:SetPoint("LEFT")
+        r.name:SetPoint("RIGHT", r.count, "LEFT", -6, 0)
+        r.name:SetWordWrap(false)
+        r:SetScript("OnEnter", function(self)
+            local s = self.step
+            if not s then return end
+            GameTooltip:SetOwner(self, "ANCHOR_LEFT")
+            GameTooltip:AddLine(questTitle(s.quest))
+            local e = QS:Get(s.quest)
+            for _, o in ipairs(e and e.objectives or {}) do
+                GameTooltip:AddLine((o.finished and "+ " or "- ") .. (o.text or ""), o.finished and 0.45 or 0.8, o.finished and 0.85 or 0.8, o.finished and 0.45 or 0.8)
+            end
+            local h = G:QuestHint(s.quest)
+            if h then GameTooltip:AddLine(h, C.hint[1], C.hint[2], C.hint[3], true) end
+            GameTooltip:Show()
+        end)
+        r:SetScript("OnLeave", function() GameTooltip:Hide() end)
+        groupRows[i] = r
+    end
+    return groupRows[i]
+end
+
+local alsoLabel = fs(card, 10, C.dim)
+alsoLabel:SetWordWrap(false)
+local nextLabel = fs(f, 10, C.dim)
+nextLabel:SetWordWrap(false)
+nextLabel:SetText("NEXT")
 
 local function partyChip(i)
     if not partyChips[i] then
@@ -273,22 +437,38 @@ local function row(i)
         r:SetHeight(16)
         r.dot = r:CreateTexture(nil, "ARTWORK")
         r.dot:SetSize(11, 11)
-        r.dot:SetPoint("LEFT", 6, 0)
-        r.text = fs(r, 12, C.dim)
+        r.dot:SetPoint("LEFT", 2, 0)
+        r.text = fs(r, 12, C.sub)
         r.text:SetWordWrap(false)
-        r.text:SetPoint("LEFT", 20, 0)
+        r.text:SetPoint("LEFT", 18, 0)
         r.text:SetPoint("RIGHT")
         rows[i] = r
     end
     return rows[i]
 end
 
-local missedBtn = CreateFrame("Button", nil, f)
-missedBtn:SetHeight(14)
-missedBtn.text = fs(missedBtn, 11, C.dim)
-missedBtn.text:SetPoint("LEFT")
-missedBtn.text:SetWordWrap(false)
-missedBtn:Hide()
+-- the lines under the card: ONE of them is the notice (the most pressing, full text, tinted), the
+-- others sit as short links in the footer row
+local function lineButton(color)
+    local bt = CreateFrame("Button", nil, f)
+    bt:SetHeight(14)
+    bt.bg = bt:CreateTexture(nil, "BACKGROUND")
+    bt.bg:SetPoint("TOPLEFT", -8, 5)
+    bt.bg:SetPoint("BOTTOMRIGHT", 8, -5)
+    S.Accent(bt.bg, "color")
+    bt.bg:Hide()
+    bt.text = fs(bt, 11, color)
+    bt.text:SetPoint("LEFT")
+    bt.text:SetPoint("RIGHT")
+    bt.text:SetJustifyH("LEFT")
+    bt.text:SetWordWrap(false)
+    bt.color = color
+    bt:Hide()
+    bt:SetScript("OnLeave", function() GameTooltip:Hide() end)
+    return bt
+end
+
+local missedBtn = lineButton(C.dim)
 missedBtn:SetScript("OnEnter", function(self)
     GameTooltip:SetOwner(self, "ANCHOR_LEFT")
     GameTooltip:AddLine("Missed earlier in this guide")
@@ -299,27 +479,19 @@ missedBtn:SetScript("OnEnter", function(self)
     GameTooltip:AddLine("Click (or the back button) to go back for them.", S.ACCENT[1], S.ACCENT[2], S.ACCENT[3])
     GameTooltip:Show()
 end)
-missedBtn:SetScript("OnLeave", function() GameTooltip:Hide() end)
 missedBtn:SetScript("OnClick", function() G:GoBackToMissed() end)
+UI.missedBtn = missedBtn
 
 -- a better-fitting guide than the one you're on (G:Suggestion): click to switch, right-click to hide
-local suggestBtn = CreateFrame("Button", nil, f)
-suggestBtn:SetHeight(14)
+local suggestBtn = lineButton(C.accent)
 suggestBtn:RegisterForClicks("LeftButtonUp", "RightButtonUp")
-suggestBtn.text = fs(suggestBtn, 11, C.accent)
-suggestBtn.text:SetPoint("LEFT")
-suggestBtn.text:SetPoint("RIGHT")
-suggestBtn.text:SetJustifyH("LEFT")
-suggestBtn.text:SetWordWrap(false)
-suggestBtn:Hide()
 suggestBtn:SetScript("OnEnter", function(self)
     GameTooltip:SetOwner(self, "ANCHOR_LEFT")
-    GameTooltip:AddLine("Suggested guide")
+    GameTooltip:AddLine("Suggested guide: " .. (self.title or ""))
     GameTooltip:AddLine(self.why or "", 0.8, 0.8, 0.8)
     GameTooltip:AddLine("Click: switch to it.  Right-click: hide this suggestion.", S.ACCENT[1], S.ACCENT[2], S.ACCENT[3])
     GameTooltip:Show()
 end)
-suggestBtn:SetScript("OnLeave", function() GameTooltip:Hide() end)
 suggestBtn:SetScript("OnClick", function(self, button)
     if button == "RightButton" then
         W.cdb.hiddenSuggestion = self.id
@@ -332,21 +504,14 @@ suggestBtn:SetScript("OnClick", function(self, button)
 end)
 UI.suggestBtn = suggestBtn
 
--- turn-ins the guide moved past because the quest isn't finished (G:Waiting): a dim line while
--- they wait, a green clickable one once a quest is ready to hand in
+-- turn-ins the guide moved past because the quest isn't finished (G:Waiting)
 local function unfinished(q)
     local e = QS:Get(q)
     for _, o in ipairs(e and e.objectives or {}) do
         if not o.finished and o.text and o.text ~= "" then return o.text end
     end
 end
-local waitBtn = CreateFrame("Button", nil, f)
-waitBtn:SetHeight(14)
-waitBtn.text = fs(waitBtn, 11, C.dim)
-waitBtn.text:SetPoint("LEFT")
-waitBtn.text:SetPoint("RIGHT")
-waitBtn.text:SetWordWrap(false)
-waitBtn:Hide()
+local waitBtn = lineButton(C.dim)
 waitBtn:SetScript("OnEnter", function(self)
     local w = self.data
     if not w then return end
@@ -366,25 +531,10 @@ waitBtn:SetScript("OnEnter", function(self)
     end
     GameTooltip:Show()
 end)
-waitBtn:SetScript("OnLeave", function() GameTooltip:Hide() end)
 waitBtn:SetScript("OnClick", function(self)
     local w = self.data
     if w and w.ready[1] then G:GoToStep(w.ready[1]) end
 end)
-
--- one clickable accent line under the card: the busy-area prompt, or quests left for later
-local function lineButton(color)
-    local bt = CreateFrame("Button", nil, f)
-    bt:SetHeight(14)
-    bt.text = fs(bt, 11, color)
-    bt.text:SetPoint("LEFT")
-    bt.text:SetPoint("RIGHT")
-    bt.text:SetJustifyH("LEFT")
-    bt.text:SetWordWrap(false)
-    bt:Hide()
-    bt:SetScript("OnLeave", function() GameTooltip:Hide() end)
-    return bt
-end
 
 local busyBtn = lineButton(C.warn)
 busyBtn:SetScript("OnEnter", function(self)
@@ -427,11 +577,31 @@ local divider = f:CreateTexture(nil, "ARTWORK")
 divider:SetColorTexture(rgb(C.line))
 divider:SetHeight(1)
 
-local function setBadge(step)
+-- KILL / LOOT / USE / EXPLORE from what the objectives are; the verb otherwise
+local VERB_LABEL = {
+    accept = "ACCEPT", turnin = "TURN IN", ["goto"] = "GO TO", fly = "FLY", level = "LEVEL UP",
+    note = "NOTE", home = "HEARTHSTONE", train = "TRAIN", craft = "CRAFT", gather = "GATHER",
+}
+local OBJ_LABEL = { monster = "KILL", item = "LOOT", object = "USE", event = "EXPLORE" }
+local function verbLabel(step)
+    if step.verb ~= "complete" then return VERB_LABEL[step.verb] or step.verb:upper() end
+    local e = step.quest and QS:Get(step.quest)
+    local kinds, first = {}, nil
+    for i, o in ipairs(e and e.objectives or {}) do
+        if not step.obj or step.obj == i then
+            local k = OBJ_LABEL[o.type or ""] or ((o.text or ""):find(" slain", 1, true) and "KILL") or nil
+            if k and not kinds[k] then kinds[k] = true first = first or k end
+        end
+    end
+    if kinds.KILL and kinds.LOOT then return "KILL AND LOOT" end
+    return first or "QUEST"
+end
+UI.VerbLabel = verbLabel
+
+local function setVerb(step)
     local st = VERB_STYLE[step.verb] or VERB_STYLE.note
-    badge:SetVertexColor(rgb(st.color))
-    badgeIcon:SetTexture(MEDIA .. st.icon)
-    badgeIcon:Show()
+    verbText:SetText(verbLabel(step))
+    if st.color == C.accent then S.Accent(verbText, "text") else verbText:SetTextColor(rgb(st.color)) end
 end
 
 local function locationLine(step)
@@ -478,38 +648,78 @@ local STATE_TEXT = {
     unknown  = { "", C.dim },
 }
 
+-- "Makeshift Stickin' Spear: 3/20" -> name, have, need (have/need from the log when it has them)
+local function splitObjective(o)
+    local name, a, b = (o.text or ""):match("^(.-):%s*(%d+)%s*/%s*(%d+)%s*$")
+    local have, need = o.have or tonumber(a), o.need or tonumber(b)
+    if not name then name = (o.text or ""):gsub(":%s*$", "") end
+    return name, have, need
+end
+UI.SplitObjective = splitObjective
+
+-- a quest's progress summed over its objectives ("4/20"), or "done"
+local function questProgress(q)
+    local e = QS:Get(q)
+    if not e then return "" end
+    local have, need, all = 0, 0, true
+    for _, o in ipairs(e.objectives or {}) do
+        local _, h, n = splitObjective(o)
+        if n and n > 0 then have, need = have + math.min(h or 0, n), need + n end
+        if not o.finished then all = false end
+    end
+    if all and #(e.objectives or {}) > 0 then return "|cff66d973done|r" end
+    return need > 0 and (have .. "/" .. need) or ""
+end
+
+-- the action strip shows on kill/loot steps (Later, target) and whenever there's an item to use,
+-- unless the buttons live in the dock (Options > Navigation)
+local function wantsStrip(step)
+    if not step or W.db.collapsed or W.db.targetDetached then return false end
+    if step.verb == "complete" and step.quest then return true end
+    return W.Item and #W.Item.ForGroup() > 0 or false
+end
+
 ---------------------------------------------------------------------------
 -- Render
 ---------------------------------------------------------------------------
 local shownTogether = {}   -- steps listed on the card as "also here" (left out of upcoming)
+local NOTICE_H = 22
 function UI:Render()
     if not f:IsShown() then return end
     shownTogether = {}
     local g = G:Active()
     local done, total = G:Progress()
-    title:SetText(g and g.title or "Onward")
-    count:SetText(total > 0 and (done .. "/" .. total) or "")
+    if g and g.levels and g.kind ~= "profession" and not g.smart then
+        title:SetText(g.zone or g.title)
+        count:SetText(("%d-%d  ·  %s"):format(g.levels[1], g.levels[2], total > 0 and (done .. "/" .. total) or ""))
+    else
+        title:SetText(g and g.title or "Onward")
+        count:SetText(total > 0 and (done .. "/" .. total) or "")
+    end
     bar:SetWidth(math.max(1, BAR_W * (total > 0 and done / total or 0)))
     btnCollapse.icon:SetTexture(MEDIA .. (W.db.collapsed and "expand" or "collapse"))
     btnArrow:SetTint(W.db.arrow and C.accent or C.sub)
     f.glass:SetOpacity(W.db.bgAlpha or 0.72)
+    renderArt(g)
 
     local list = G:Upcoming(W.db.showNext + 4)   -- extra so grouped steps don't shorten the list
     local step = list[1]
     local y = 46
 
     for _, l in ipairs(objLines) do l:Hide() end
+    for _, r in ipairs(objRows) do r:Hide() end
+    for _, r in ipairs(groupRows) do r:Hide() end
     for _, c in ipairs(partyChips) do c:Hide() end
     for _, r in ipairs(rows) do r:Hide() end
+    for _, b in ipairs({ missedBtn, suggestBtn, busyBtn, laterBtn, waitBtn }) do b:Hide() b.bg:Hide() end
     divider:Hide()
-    missedBtn:Hide()
-    suggestBtn:Hide()
-    busyBtn:Hide()
-    laterBtn:Hide()
+    alsoLabel:Hide()
+    nextLabel:Hide()
+    strip:Hide()
 
     if not step then
-        badge:SetVertexColor(rgb(C.accent))
-        badgeIcon:SetTexture(MEDIA .. "list")
+        verbText:SetText("NEXT GUIDE")
+        S.Accent(verbText, "text")
         -- nothing to do: offer the recommended guide (a new character's first quest is in it)
         local rec, why = G:Recommend()
         card.recommend = rec and rec.id
@@ -517,20 +727,22 @@ function UI:Render()
         subText:SetText(rec and ("Click to start %s (%s)."):format(rec.title, G:ReasonText(why))
             or "Open the guide list to pick the next one.")
         subText:Show()
-        card:SetHeight(mainText:GetStringHeight() + subText:GetStringHeight() + 4)
+        card:SetHeight(verbText:GetStringHeight() + 2 + mainText:GetStringHeight() + subText:GetStringHeight() + 6)
         f:SetHeight(y + card:GetHeight() + PAD)
         card.step = nil
+        if W.Target then W.Target:Sync() end
         return
     end
     card.step = step
 
-    -- current step
-    setBadge(step)
+    -- current step: what kind, the title, where
+    setVerb(step)
     local text = UI.StepText(step)
     -- a kill/loot step or turn-in for a quest you haven't picked up: send you to the quest giver
     local pickup = G:IsMissing(step) and WP:Current() and WP:Current().step == step and WP:Current().pickup
     if pickup then
-        text = "Pick up " .. questTitle(step.quest) .. " first"
+        verbText:SetText("PICK UP FIRST")
+        text = questTitle(step.quest)
     elseif G:IsMissing(step) then
         text = text .. "  |cffff7366(not in quest log)|r"
     end
@@ -540,72 +752,112 @@ function UI:Render()
     if step.verb == "home" then sub = (sub ~= "" and (sub .. "  ·  ") or "") .. "talk to the innkeeper: Make this inn your home" end
     subText:SetText(sub)
     subText:SetShown(sub ~= "")
-    local h = mainText:GetStringHeight() + (sub ~= "" and (subText:GetStringHeight() + 3) or 0)
+    local h = verbText:GetStringHeight() + 2 + mainText:GetStringHeight() + (sub ~= "" and (subText:GetStringHeight() + 3) or 0)
 
     if W.db.collapsed then
         card:SetHeight(math.max(18, h))
         f:SetHeight(y + card:GetHeight() + PAD)
+        if W.Target then W.Target:Sync() end
         return
     end
 
-    -- objectives for complete steps, then the other kill/loot quests worked in the same area
-    -- (G:Group): each as a "also here" title line with its objectives under it
     local anchor = sub ~= "" and subText or mainText
-    local n = 0
+    local function place(region, gap, height)
+        region:ClearAllPoints()
+        region:SetPoint("TOPLEFT", anchor, "BOTTOMLEFT", 0, -gap)
+        region:SetPoint("RIGHT", card, "RIGHT")
+        anchor = region
+        h = h + gap + height
+    end
+
+    -- the action strip
+    if wantsStrip(step) then
+        strip:Show()
+        laterStripBtn:SetShown(step.verb == "complete" and step.quest ~= nil and not G:IsLater(step))
+        place(strip, 8, STRIP_H)
+    end
+
+    -- objectives, extra lines (drop rates once there's data, hints, your notes)
+    local n, nr = 0, 0
     local function line(text, color, gap)
         n = n + 1
         local l = objLine(n)
-        l:ClearAllPoints()
-        l:SetPoint("TOPLEFT", anchor, "BOTTOMLEFT", 0, -(gap or 3))
-        l:SetPoint("RIGHT", card, "RIGHT")
         l:SetTextColor(rgb(color))
         l:SetText(text)
         l:Show()
+        l:ClearAllPoints()
+        l:SetPoint("TOPLEFT", anchor, "BOTTOMLEFT", 0, -(gap or 3))
+        l:SetPoint("RIGHT", card, "RIGHT")
         anchor = l
         h = h + l:GetStringHeight() + (gap or 3)
     end
-    -- hints: the quest's note (built-in, then yours), and one under each unfinished objective
-    local function questHints(q, builtIn)
-        local h = builtIn and G:QuestHint(q)
-        if h then line(h, C.hint) end
-        local mine = G:MyHint(q)
-        if mine then line("Your note: " .. mine, C.hint) end
+    local function objective(o, s)
+        nr = nr + 1
+        local r = objRow(nr)
+        local name, have, need = splitObjective(o)
+        r.name:SetText(name)
+        r.name:SetTextColor(rgb(o.finished and C.dim or C.text))
+        if o.finished then
+            r.count:SetText("|cff66d973done|r")
+        else
+            r.count:SetText(need and need > 0 and ((have or 0) .. "/" .. need) or "")
+        end
+        local frac = need and need > 0 and math.min(1, (have or 0) / need) or (o.finished and 1 or 0)
+        r.track:SetShown(need ~= nil and need > 1)
+        r.fill:SetShown(need ~= nil and need > 1 and frac > 0)
+        r.fill:SetWidth(math.max(1, BAR_W * frac))   -- the card spans the panel inside its padding
+        r:SetHeight((need and need > 1) and 20 or 16)
+        r:Show()
+        place(r, nr == 1 and 8 or 4, r:GetHeight())
+        local drop = W.Drops and W.Drops:Line(o, s.quest)
+        if drop then line(drop, C.dim, 1) end
     end
-    local function objectives(s)
-        local e = W.db.showObjectives and QS:Get(s.quest)
-        if not e then return end
-        for i, o in ipairs(e.objectives) do
-            if not s.obj or s.obj == i then
-                line((o.finished and "|cff66d973+|r " or "- ") .. (o.text or ""), o.finished and C.dim or C.sub)
-                local drop = W.Drops and W.Drops:Line(o, s.quest)
-                if drop then line("    " .. drop, C.dim, 1) end
-                local hint = not o.finished and G:ObjectiveHint(s.quest, o.text)
-                if hint then line("    " .. hint, C.hint, 1) end
+    local function hints(q, builtIn, s)
+        local hh = builtIn and G:QuestHint(q)
+        if hh then line(hh, C.hint, 6) end
+        local mine = G:MyHint(q)
+        if mine then line("Your note: " .. mine, C.hint, 4) end
+        -- the objective hints of the unfinished objectives
+        local e = s and QS:Get(q)
+        for i, o in ipairs(e and e.objectives or {}) do
+            if (not s.obj or s.obj == i) and not o.finished then
+                local oh = G:ObjectiveHint(q, o.text)
+                if oh then line(splitObjective(o) .. ": " .. oh, C.hint, 4) end
             end
         end
     end
     if step.verb == "complete" and step.quest then
-        questHints(step.quest, true)
-        objectives(step)
+        local e = W.db.showObjectives and QS:Get(step.quest)
+        for i, o in ipairs(e and e.objectives or {}) do
+            if not step.obj or step.obj == i then objective(o, step) end
+        end
+        hints(step.quest, true, step)
+        -- the other kill/loot quests worked in the same area: one row each, objectives on hover
         local group = G:Group()
-        shownTogether = {}
-        for i = 2, #group do
-            local s = group[i]
-            shownTogether[s] = true
-            line("|cff73b3ffAlso here:|r " .. questTitle(s.quest), C.text, 7)
-            questHints(s.quest, true)
-            objectives(s)
+        if #group > 1 then
+            alsoLabel:SetText(("ALSO HERE  ·  %d"):format(#group - 1))
+            alsoLabel:Show()
+            place(alsoLabel, 10, alsoLabel:GetStringHeight())
+            for i = 2, #group do
+                local s = group[i]
+                shownTogether[s] = true
+                local r = groupRow(i - 1)
+                r.step = s
+                r.name:SetText(questTitle(s.quest))
+                r.count:SetText(questProgress(s.quest))
+                r:Show()
+                place(r, 4, 16)
+            end
         end
     else
-        shownTogether = {}
-        if step.quest then questHints(step.quest, false) end   -- your own note on accept / turn-in too
+        if step.quest then hints(step.quest, false) end   -- your own note on accept / turn-in too
         if G.PROF_VERB[step.verb] and W.Prof then
             -- skill, crafts left, recipe to learn, mats against your bags, the game's best pick now
             for _, l in ipairs(W.Prof:CardLines(step)) do line(l[1], C[l[2] or "sub"] or C.sub) end
         end
     end
     card:SetHeight(math.max(18, h))
-    y = y + card:GetHeight() + 16
+    y = y + card:GetHeight() + 14
 
     -- party status for this step's quest
     local party = W.db.showParty and step.quest and P:StatusFor(step.quest) or {}
@@ -632,86 +884,97 @@ function UI:Render()
         y = y + 18
     end
 
-    -- an overrun area: offer to come back to this quest later
-    if step.verb == "complete" and step.quest and W.Target and not W.db.collapsed then
+    -- notices: work out every line that applies, most pressing first
+    local notices = {}
+    if step.verb == "complete" and step.quest and W.Target then
         local busy, tagged, total = W.Target:Busy()
         if busy then
             busyBtn.quest, busyBtn.tagged, busyBtn.total = step.quest, tagged, total
-            busyBtn.text:SetText(("Busy: %d of %d here are tagged by others  ·  |c%scome back later|r"):format(tagged, total, S.AccentHex()))
-            busyBtn:ClearAllPoints()
-            busyBtn:SetPoint("TOPLEFT", PAD, -y)
-            busyBtn:SetPoint("RIGHT", -PAD, 0)
-            busyBtn:Show()
-            y = y + 16
+            busyBtn.full = ("Busy: %d of %d here are tagged by others  ·  |c%scome back later|r"):format(tagged, total, S.AccentHex())
+            busyBtn.short = "Busy here"
+            notices[#notices + 1] = busyBtn
         end
     end
-
-    -- quests left for later: back near one of them, or the list
-    local later = G:LaterList()
-    if #later > 0 and not W.db.collapsed then
-        local near = G:LaterNearby()
-        laterBtn.quests, laterBtn.quest = later, near or later[1]
-        if near then
-            laterBtn.text:SetText(("|c%sBack near %s|r (left for later)  ·  click to do it now"):format(S.AccentHex(), questTitle(near)))
-        else
-            laterBtn.text:SetText(("Left for later: %s%s"):format(questTitle(later[1]), #later > 1 and (" +" .. (#later - 1)) or ""))
-        end
-        laterBtn:ClearAllPoints()
-        laterBtn:SetPoint("TOPLEFT", PAD, -y)
-        laterBtn:SetPoint("RIGHT", -PAD, 0)
-        laterBtn:Show()
-        y = y + 16
-    end
-
-    -- a guide that fits you better than this one
-    local sug, sugWhy = G:Suggestion()
-    if sug then
-        suggestBtn.id, suggestBtn.why = sug.id, "Fits better: " .. G:ReasonText(sugWhy) .. "."
-        suggestBtn.text:SetText("Suggested: " .. sug.title .. "  ·  click to switch")
-        suggestBtn:ClearAllPoints()
-        suggestBtn:SetPoint("TOPLEFT", PAD, -y)
-        suggestBtn:SetPoint("RIGHT", -PAD, 0)
-        suggestBtn:Show()
-        y = y + 16
-    end
-
-    -- quests skipped past earlier in this guide (never accepted, not forced on you)
-    local missed = G:Missed()
-    if #missed > 0 and not W.db.collapsed then
-        missedBtn.quests = missed
-        missedBtn.text:SetText(("%d earlier quest%s missed"):format(#missed, #missed == 1 and "" or "s"))
-        missedBtn:ClearAllPoints()
-        missedBtn:SetPoint("TOPLEFT", PAD, -y)
-        missedBtn:SetPoint("RIGHT", -PAD, 0)
-        missedBtn:Show()
-        y = y + 16
-    else
-        missedBtn:Hide()
-    end
-
-    -- turn-ins held back because their quest isn't finished, or now ready to hand in
     local w = G:Waiting()
-    if (#w.ready > 0 or #w.waiting > 0) and not W.db.collapsed then
+    if #w.ready > 0 or #w.waiting > 0 then
         waitBtn.data = w
-        local text
         if #w.ready > 0 then
-            text = ("|cff66d973Ready to turn in:|r %s%s  |c" .. S.AccentHex() .. "(click)|r"):format(questTitle(w.ready[1].quest),
+            waitBtn.full = ("|cff66d973Ready to turn in:|r %s%s  |c" .. S.AccentHex() .. "(click)|r"):format(questTitle(w.ready[1].quest),
                 #w.ready > 1 and (" +" .. (#w.ready - 1)) or "")
+            waitBtn.short = ("|cff66d973%d ready|r"):format(#w.ready)
+            waitBtn.rank = 2
         elseif #w.waiting == 1 then
             local left = unfinished(w.waiting[1].quest)
-            text = ("Turn-in waiting: %s%s"):format(questTitle(w.waiting[1].quest), left and ("  |cffff7366(" .. left .. ")|r") or "")
+            waitBtn.full = ("Turn-in waiting: %s%s"):format(questTitle(w.waiting[1].quest), left and ("  |cffff7366(" .. left .. ")|r") or "")
+            waitBtn.short = "1 waiting"
+            waitBtn.rank = 4
         else
-            text = ("%d turn-ins waiting on unfinished quests"):format(#w.waiting)
+            waitBtn.full = ("%d turn-ins waiting on unfinished quests"):format(#w.waiting)
+            waitBtn.short = ("%d waiting"):format(#w.waiting)
+            waitBtn.rank = 4
         end
-        waitBtn.text:SetText(text)
-        waitBtn:ClearAllPoints()
-        waitBtn:SetPoint("TOPLEFT", PAD, -y)
-        waitBtn:SetPoint("RIGHT", -PAD, 0)
-        waitBtn:Show()
-        y = y + 16
-    else
-        waitBtn:Hide()
     end
+    local later = G:LaterList()
+    local near = #later > 0 and G:LaterNearby() or nil
+    if #later > 0 then
+        laterBtn.quests, laterBtn.quest = later, near or later[1]
+        if near then
+            laterBtn.full = ("|c%sBack near %s|r (left for later)  ·  click to do it now"):format(S.AccentHex(), questTitle(near))
+        else
+            laterBtn.full = ("Left for later: %s%s"):format(questTitle(later[1]), #later > 1 and (" +" .. (#later - 1)) or "")
+        end
+        laterBtn.short = ("Left for later · %d"):format(#later)
+    end
+    local sug, sugWhy = G:Suggestion()
+    if sug then
+        suggestBtn.id, suggestBtn.title, suggestBtn.why = sug.id, sug.title, "Fits better: " .. G:ReasonText(sugWhy) .. "."
+        suggestBtn.full = "Suggested: " .. sug.title .. "  ·  click to switch"
+        suggestBtn.short = "Better guide"
+    end
+    local missed = G:Missed()
+    if #missed > 0 then
+        missedBtn.quests = missed
+        missedBtn.full = ("%d earlier quest%s missed"):format(#missed, #missed == 1 and "" or "s")
+        missedBtn.short = ("%d missed"):format(#missed)
+    end
+    -- order: busy, ready to hand in, back near a later quest, a waiting turn-in, a better guide,
+    -- the later list; missed quests are never the notice, only a footer link
+    if (w.ready and #w.ready > 0) then notices[#notices + 1] = waitBtn end
+    if near then notices[#notices + 1] = laterBtn end
+    if #w.ready == 0 and #w.waiting > 0 then notices[#notices + 1] = waitBtn end
+    if sug then notices[#notices + 1] = suggestBtn end
+    if #later > 0 and not near then notices[#notices + 1] = laterBtn end
+    local top = notices[1]
+    if top then
+        top.text:SetText(top.full)
+        top.text:SetTextColor(rgb(top == busyBtn and C.warn or C.text))
+        if top == suggestBtn then S.Accent(top.text, "text") end
+        top.bg:SetAlpha(1)
+        top.bg:Show()
+        top:ClearAllPoints()
+        top:SetPoint("TOPLEFT", PAD + 8, -(y + 5))
+        top:SetPoint("RIGHT", -PAD - 8, 0)
+        top:Show()
+        y = y + NOTICE_H + 8
+    end
+    -- the footer: short links for everything else
+    local footer = {}
+    for _, b in ipairs(notices) do if b ~= top then footer[#footer + 1] = b end end
+    if #missed > 0 then footer[#footer + 1] = missedBtn end
+    local fx = PAD
+    if #footer > 0 then y = y + 2 end
+    for _, b in ipairs(footer) do
+        b.text:SetText(b.short .. " ›")
+        b.text:SetTextColor(rgb(C.sub))
+        local wdt = (b.text:GetStringWidth() or 40) + 2
+        if fx + wdt > WIDTH - PAD and fx > PAD then fx = PAD y = y + 16 end
+        b:ClearAllPoints()
+        b:SetPoint("TOPLEFT", fx, -y)
+        b:SetWidth(wdt)
+        b:Show()
+        fx = fx + wdt + 14
+    end
+    if #footer > 0 then y = y + 18 end
 
     -- upcoming (steps already shown on the card as "also here" are left out)
     local rest = {}
@@ -724,7 +987,11 @@ function UI:Render()
         divider:SetPoint("TOPLEFT", PAD, -y)
         divider:SetPoint("TOPRIGHT", -PAD, -y)
         divider:Show()
-        y = y + 6
+        y = y + 8
+        nextLabel:ClearAllPoints()
+        nextLabel:SetPoint("TOPLEFT", PAD, -y)
+        nextLabel:Show()
+        y = y + 14
         for i = 1, #rest do
             local s = rest[i]
             local r = row(i)
@@ -740,6 +1007,8 @@ function UI:Render()
         end
     end
     f:SetHeight(y + PAD)
+    -- the secure buttons follow the strip (or the dock); they move only out of combat
+    if W.Target then W.Target:Sync() end
 end
 
 card:SetScript("OnClick", function(self, button)

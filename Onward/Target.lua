@@ -16,7 +16,7 @@ W.Target = TG
 
 local G, QS = W.Guide, W.QuestState
 local MEDIA = "Interface\\AddOns\\Onward\\media\\"
-local SIZE = 22
+local SIZE = 26           -- in the card's action strip
 local BIG = 40           -- detached: about an action button
 local MACRO_MAX = 255
 
@@ -132,15 +132,16 @@ end
 local function place()
     if detached() then return placeDetached() end
     b:SetSize(SIZE, SIZE)
-    icon:SetSize(14, 14)
-    tile:Hide()
-    local card = W.UI and W.UI.card
+    icon:SetSize(16, 16)
+    tile:Show()
+    local strip = W.UI and W.UI.strip
     local panel = W.UI and W.UI.panel
-    if not (card and panel and panel:IsShown() and card:GetRight()) then return false end
+    if not (strip and panel and panel:IsShown() and strip:IsVisible() and strip:GetLeft()) then return false end
     b:SetScale(panel:GetEffectiveScale() / UIParent:GetEffectiveScale())
     b:ClearAllPoints()
-    -- card and button now share a coordinate scale, so the card's edges can be used directly
-    b:SetPoint("TOPRIGHT", UIParent, "BOTTOMLEFT", card:GetRight() + 4, card:GetTop() + 3)
+    -- strip and button share a coordinate scale, so the strip's edges can be used directly:
+    -- the first slot of the action strip under the step title
+    b:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", strip:GetLeft(), strip:GetTop() - 1)
     return true
 end
 

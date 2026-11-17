@@ -1,5 +1,26 @@
 # Changelog
 
+## 0.6.0
+
+The panel, redesigned around the current step (direction A from the mock-ups):
+
+- **The step card reads top to bottom:** what kind of step in small capitals (KILL, LOOT, TURN IN,
+  FLY ...), the quest title at full width, then one location line.
+- **Action strip** under the title: the target button, the quest item buttons and a **Later**
+  button in one row, instead of squeezed into the corner over the title.
+- **Objectives** get their count on the right and a thin progress bar. Drop-rate lines appear only
+  once there is something to say (no more "counting your kills" before your first kill).
+- **Also here** is a compact list: one row per grouped quest with its total progress; hover for its
+  objectives and hint.
+- **One notice at a time** (busy area, ready to turn in, back near a quest left for later, a waiting
+  turn-in, a better guide). The rest, and missed quests, are short links in a footer row.
+- **Next** steps under their own label.
+- **Zone art:** a faded strip of the guide's own zone map behind the header, so each guide looks a
+  little different. Options > Panel > Zone art in the header.
+- **Dock:** Options > Navigation > Buttons in a dock moves the target, quest item and Later buttons
+  into a glass dock of action-button-sized buttons with your key bindings on them; place it above
+  your action bars (right-drag the target button).
+
 ## 0.5.4
 
 - Several quest item buttons when you need them: when the quests you're working on together each

@@ -49,6 +49,9 @@ function Obj:SetScript(k, fn) self.scripts[k] = fn end
 function Obj:SetAttribute(k, v) local a = rawget(self, "attrs") or {} rawset(self, "attrs", a) a[k] = v end
 function Obj:GetAttribute(k) local a = rawget(self, "attrs") return a and a[k] end
 function Obj:GetRight() return 300 end
+function Obj:GetLeft() return 20 end
+function Obj:GetName() return rawget(self, "name") end
+function Obj:IsVisible() return self.shown end   -- no parent chain in the mock
 function Obj:GetTop() return 500 end
 function Obj:GetEffectiveScale() return 1 end
 function Obj:GetValue() return self.value or 0 end
@@ -56,7 +59,7 @@ function Obj:SetValue(v) self.value = v if self.scripts.OnValueChanged then self
 
 function CreateFrame(kind, name)
     local o = Obj.new(kind)
-    if name then _G[name] = o end
+    if name then _G[name] = o rawset(o, "name", name) end
     table.insert(MOCK.frames, o)
     return o
 end

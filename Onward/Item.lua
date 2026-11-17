@@ -14,7 +14,7 @@ local IT = {}
 W.Item = IT
 
 local G, QS = W.Guide, W.QuestState
-local SIZE, BIG, GAP = 22, 40, 2
+local SIZE, BIG, GAP = 26, 40, 4
 local MAX = 4
 
 local buttons = {}
@@ -148,7 +148,7 @@ function IT.Has(id)
 end
 
 ---------------------------------------------------------------------------
--- placement: a row beside the target button (leftwards on the card, rightwards when detached)
+-- placement: a row after the target button, in the card's action strip or in the dock
 ---------------------------------------------------------------------------
 local function place(b, k)
     local TG = W.Target
@@ -164,12 +164,13 @@ local function place(b, k)
         return true
     end
     b:SetSize(SIZE, SIZE)
-    local card = W.UI and W.UI.card
+    local strip = W.UI and W.UI.strip
     local panel = W.UI and W.UI.panel
-    if not (card and panel and panel:IsShown() and card:GetRight()) then return false end
+    if not (strip and panel and panel:IsShown() and strip:IsVisible() and strip:GetLeft()) then return false end
     b:SetScale(panel:GetEffectiveScale() / UIParent:GetEffectiveScale())
     b:ClearAllPoints()
-    b:SetPoint("TOPRIGHT", UIParent, "BOTTOMLEFT", card:GetRight() + 4 - slot * (SIZE + GAP), card:GetTop() + 3)
+    -- the next slots of the action strip, after the target button
+    b:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", strip:GetLeft() + slot * (SIZE + GAP), strip:GetTop() - 1)
     return true
 end
 
@@ -205,8 +206,80 @@ function IT:Sync()
         if show then shown = shown + 1 end
     end
     refreshLook()
-    local detached = W.Target and W.Target.Detached()
-    if W.UI and W.UI.SetCardInset then W.UI.SetCardInset(detached and 0 or shown * (SIZE + GAP), "item") end
+    IT.UpdateDock(shown)
+end
+
+---------------------------------------------------------------------------
+-- the dock (Options > Navigation > Buttons in a dock): a glass bar behind the detached target and
+-- item buttons, with your key bindings on them and a "Later" button at the end
+---------------------------------------------------------------------------
+local dock = CreateFrame("Frame", "OnwardDock", UIParent)
+dock:SetFrameStrata("HIGH")
+dock:SetFrameLevel(1)
+dock:Hide()
+W.Skin.Glass(dock, { alpha = 0.78, corner = 10, shadow = true })
+local dockLater = CreateFrame("Button", nil, dock)
+dockLater:SetSize(BIG, BIG)
+dockLater:SetPoint("RIGHT", -6, 0)
+do
+    local t = dockLater:CreateFontString(nil, "OVERLAY")
+    W.Skin.Font(t, 11, "body")
+    t:SetPoint("CENTER")
+    t:SetText("Later")
+    W.Skin.Accent(t, "text")
+    W.Skin.Hover(dockLater, BIG)
+end
+dockLater:SetScript("OnEnter", function(self)
+    GameTooltip:SetOwner(self, "ANCHOR_TOP")
+    GameTooltip:AddLine("Come back later")
+    GameTooltip:AddLine("The guide moves on, reminds you when you're back here, and returns to this quest at the end.", 0.8, 0.8, 0.8, true)
+    GameTooltip:Show()
+end)
+dockLater:SetScript("OnLeave", function() GameTooltip:Hide() end)
+dockLater:SetScript("OnClick", function()
+    local s = G:Current()
+    if s and s.quest then G:Later(s.quest) end
+end)
+IT.dock, IT.dockLater = dock, dockLater
+
+-- "SHIFT-1" -> "s1": short enough for a corner of an action-button-sized tile
+local function keyLabel(button)
+    local name = button and button:GetName()
+    local key = name and GetBindingKey and GetBindingKey("CLICK " .. name .. ":LeftButton")
+    if not key then return "" end
+    return (key:gsub("SHIFT%-", "s"):gsub("CTRL%-", "c"):gsub("ALT%-", "a"):gsub("BUTTON", "M"))
+end
+IT.KeyLabel = keyLabel
+local keyTexts = {}
+local function setKey(button, show)
+    if not button then return end
+    local t = keyTexts[button]
+    if not t then
+        t = button:CreateFontString(nil, "OVERLAY", "NumberFontNormalSmall")
+        t:SetPoint("TOPLEFT", 3, -2)
+        t:SetTextColor(0.85, 0.87, 0.9)
+        keyTexts[button] = t
+    end
+    t:SetText(show and keyLabel(button) or "")
+end
+
+function IT.UpdateDock(shownItems)
+    local TG = W.Target
+    local docked = TG and TG.Detached()
+    local tb = TG and TG.button
+    local targetShown = tb and tb:IsShown()
+    setKey(tb, docked)
+    for _, b in ipairs(buttons) do setKey(b, docked) end
+    local first = (targetShown and tb) or (shownItems > 0 and buttons[1]) or nil
+    if not (docked and first) then dock:Hide() return end
+    local n = (targetShown and 1 or 0) + shownItems
+    local s = G:Current()
+    local later = s and s.verb == "complete" and s.quest and not G:IsLater(s)
+    dockLater:SetShown(later and true or false)
+    dock:ClearAllPoints()
+    dock:SetPoint("TOPLEFT", first, "TOPLEFT", -6, 6)
+    dock:SetSize(n * (BIG + 6) + 6 + (later and (BIG + 6) or 0), BIG + 12)
+    dock:Show()
 end
 
 local function registerClicks()
