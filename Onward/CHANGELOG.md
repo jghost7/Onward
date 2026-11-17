@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.15
+
+- The notice under the step card is back to its thin outline, now with all four edges: the top and
+  left edges had been disappearing when the outline was scaled down. (0.6.14's glow there is gone;
+  the glow belongs on the flight map only.)
+
 ## 0.6.14
 
 - The notice under the step card (turn-ins waiting, left for later) has a soft glow in Onward's
