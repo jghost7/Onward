@@ -5,7 +5,7 @@
 [![Download](https://img.shields.io/github/v/release/jghost7/Onward?label=download&style=for-the-badge)](https://github.com/jghost7/Onward/releases/latest/download/Onward.zip)
 [![Tests](https://github.com/jghost7/Onward/actions/workflows/tests.yml/badge.svg)](https://github.com/jghost7/Onward/actions/workflows/tests.yml)
 
-A free leveling and profession guide for **World of Warcraft: Forever** (formerly *Sloppy Questing*): every zone for both factions, 1-300 in every profession, a nav arrow, flight advice and quest-mob targeting. It's in beta: routes are generated from quest data and not all of them have been played through yet.
+A free leveling and profession guide for **World of Warcraft: Forever**: every zone for both factions, 1-300 in every profession, a nav arrow, flight advice and quest-mob targeting. It's in beta: routes are generated from quest data and not all of them have been played through yet.
 
 ## Install
 
