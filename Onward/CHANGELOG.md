@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.8
+
+- The notice under the step card (left for later, ready to turn in, a better guide) is no longer a solid
+  block of the accent colour, which washed out its text: it's a thin rounded accent outline with a faint
+  tint, and the text reads like the rest of the panel.
+
 ## 0.6.7
 
 - **Font picker** (Options > Panel > Font): choose the font for all of Onward's text (panel, arrow, options). Lists the game's fonts plus every font your other addons share through SharedMedia, each drawn in its own font. Automatic (the default) keeps EllesmereUI's font, or each look's own. A font whose addon you remove falls back to Automatic.

@@ -489,11 +489,16 @@ end
 local function lineButton(color)
     local bt = CreateFrame("Button", nil, f)
     bt:SetHeight(14)
-    bt.bg = bt:CreateTexture(nil, "BACKGROUND")
-    bt.bg:SetPoint("TOPLEFT", -8, 5)
-    bt.bg:SetPoint("BOTTOMRIGHT", 8, -5)
-    S.Accent(bt.bg, "color")
+    -- the notice look: a thin rounded accent outline with a faint accent wash inside, so the text
+    -- stays light-on-dark like the rest of the panel (a solid accent fill washed white text out).
+    -- Parented to the panel, under the button, so it never draws over the text.
+    bt.bg = CreateFrame("Frame", nil, f)
+    bt.bg:SetPoint("TOPLEFT", bt, "TOPLEFT", -8, 5)
+    bt.bg:SetPoint("BOTTOMRIGHT", bt, "BOTTOMRIGHT", 8, -5)
+    S.Accent(S.Nine(bt.bg, "BACKGROUND", 0, MEDIA .. "glass_body", 64, 16, 6, 0), "nine", 0.10)
+    S.Accent(S.Nine(bt.bg, "BORDER", 0, MEDIA .. "glass_rim", 64, 16, 6, 0), "nine", 0.85)
     bt.bg:Hide()
+    bt:SetFrameLevel(bt.bg:GetFrameLevel() + 2)   -- the text above its outline
     bt.text = fs(bt, 11, color)
     bt.text:SetPoint("LEFT")
     bt.text:SetPoint("RIGHT")
