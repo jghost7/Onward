@@ -268,6 +268,15 @@ local function markNode(slot)
     mark.text:SetText("Onward")
     mark:Show()
     T.marked = slot
+    -- a slow breath while the flight map is open, so the eye finds it without any blinking
+    W.Anim.Loop("taxi", 1.8, function(t)
+        local b = 0.5 - 0.5 * math.cos(2 * math.pi * t)
+        mark.ring:SetAlpha(0.5 + 0.5 * b)
+        mark.ring:ClearAllPoints()
+        local grow = w * 0.25 * b
+        mark.ring:SetPoint("TOPLEFT", mark, "TOPLEFT", -grow, grow)
+        mark.ring:SetPoint("BOTTOMRIGHT", mark, "BOTTOMRIGHT", grow, -grow)
+    end)
 end
 
 local function takeFlight()
@@ -292,7 +301,7 @@ local function takeFlight()
 end
 
 W:On("TAXIMAP_OPENED", function() C_Timer.After(0.1, takeFlight) end)
-W:On("TAXIMAP_CLOSED", function() if mark then mark:Hide() end end)
+W:On("TAXIMAP_CLOSED", function() W.Anim.Stop("taxi") if mark then mark:Hide() end end)
 W:On("PLAYER_ENTERING_WORLD", function() C_Timer.After(3, function() T:Refresh(true) end) end)
 -- learning a new flight path: re-read known nodes shortly after
 W:On("UI_INFO_MESSAGE", function(_, _, msg)

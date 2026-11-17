@@ -32,6 +32,23 @@ ring:SetPoint("CENTER", arrow)
 ring:SetVertexColor(0.40, 0.85, 0.45)
 ring:Hide()
 
+-- arrival: one soft ring pulses out from the check as it appears (Anim)
+local pulse = f:CreateTexture(nil, "ARTWORK", nil, -1)
+pulse:SetTexture(MEDIA .. "ring")
+if pulse.SetBlendMode then pulse:SetBlendMode("ADD") end
+pulse:SetPoint("CENTER", arrow)
+pulse:Hide()
+local arrivedKey, wasArrived
+function A.PlayArrive()
+    return W.Anim.Play("arrive", 0.7, function(t)
+        local e = W.Anim.EaseOut(t)
+        pulse:SetSize(44 + 70 * e, 44 + 70 * e)
+        pulse:SetVertexColor(0.40, 0.85, 0.45, 0.7 * (1 - e))
+        pulse:SetShown(t < 1)
+    end)
+end
+A.pulse = pulse
+
 -- the readout under the arrow: no box, just text with a firm shadow over a soft dark fade that
 -- keeps it readable on bright ground. Its size is its own setting (Options > Navigation).
 local pill = CreateFrame("Frame", nil, f)
@@ -118,7 +135,12 @@ local function update(_, dt)
     local north, west = tgt.wx - px, tgt.wy - py
     local yards = math.sqrt(north * north + west * west)
 
-    if yards <= (tgt.radius or 10) then
+    -- the same target as last time, and you just reached it: the pulse
+    local key = (tgt.label or "") .. ":" .. math.floor(tgt.wx or 0) .. ":" .. math.floor(tgt.wy or 0)
+    local here = yards <= (tgt.radius or 10)
+    if here and key == arrivedKey and wasArrived == false then A.PlayArrive() end
+    arrivedKey, wasArrived = key, here
+    if here then
         arrow:Hide()
         ring:Show()
         dist:SetText("arrived")

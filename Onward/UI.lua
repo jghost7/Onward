@@ -7,6 +7,7 @@ W.UI = UI
 local G, QS, P, WP = W.Guide, W.QuestState, W.Party, W.Waypoint
 
 local S = W.Skin
+local A = W.Anim
 local WIDTH = 310
 local PAD = 14
 local FONT = S.FONT_BODY          -- body text: clean, slightly condensed
@@ -206,6 +207,12 @@ if barGlow.SetBlendMode then barGlow:SetBlendMode("ADD") end
 local function themeBar() barGlow:SetShown(not S.Square()) end
 themeBar()
 W:On("WF_THEME_CHANGED", themeBar)
+-- the glint that runs along the bar as it grows (Anim)
+local barGlint = f:CreateTexture(nil, "ARTWORK", nil, 2)
+barGlint:SetTexture(MEDIA .. "glow")
+if barGlint.SetBlendMode then barGlint:SetBlendMode("ADD") end
+barGlint:SetSize(26, 12)
+barGlint:Hide()
 
 -- header art (Options > Panel): a picture of the guide's zone, or a faded strip of its map, masked
 -- so it fades out under the title and toward the card; a little variety per guide
@@ -301,7 +308,8 @@ local function renderArt(g)
     if shot then
         shotTex:SetTexture(shot)
         if shotTex.SetBlendMode then shotTex:SetBlendMode(kind == "ink" and "ADD" or "BLEND") end
-        shotTex:SetVertexColor(1, 1, 1, kind == "ink" and INK_ALPHA or SHOT_ALPHA)
+        shotTex.baseA = kind == "ink" and INK_ALPHA or SHOT_ALPHA
+        shotTex:SetVertexColor(1, 1, 1, shotTex.baseA)
         shotTex:Show()
     else
         shotTex:Hide()
@@ -310,6 +318,7 @@ local function renderArt(g)
         if tiles then
             t:SetTexture(tiles[i])
             t:SetTexCoord(0, 1, 0.36, 0.64)
+            t.baseA = ART_ALPHA
             t:SetVertexColor(1, 1, 1, ART_ALPHA)
             t:Show()
         else
@@ -344,6 +353,43 @@ local subText = fs(card, 11, C.sub)
 subText:SetPoint("TOPLEFT", mainText, "BOTTOMLEFT", 0, -3)
 subText:SetPoint("RIGHT")
 UI.card, UI.mainText, UI.verbText = card, mainText, verbText
+
+-- the "ready to turn in" sheen: one soft band sweeps across the card (clipped to it) while the
+-- step-kind label glows and settles (Anim)
+local cardFx = CreateFrame("Frame", nil, card)
+cardFx:SetPoint("TOPLEFT", -6, 6)
+cardFx:SetPoint("BOTTOMRIGHT", 6, -6)
+if cardFx.SetClipsChildren then cardFx:SetClipsChildren(true) end
+cardFx:SetFrameLevel(card:GetFrameLevel() + 6)
+local sweep = cardFx:CreateTexture(nil, "OVERLAY")
+sweep:SetTexture(MEDIA .. "sweep")
+if sweep.SetBlendMode then sweep:SetBlendMode("ADD") end
+if sweep.SetRotation then sweep:SetRotation(math.rad(-18)) end
+sweep:Hide()
+local verbGlow = card:CreateTexture(nil, "BACKGROUND", nil, -2)
+verbGlow:SetTexture(MEDIA .. "glass_shadow")
+if verbGlow.SetBlendMode then verbGlow:SetBlendMode("ADD") end
+verbGlow:SetPoint("TOPLEFT", verbText, "TOPLEFT", -12, 9)
+verbGlow:SetPoint("BOTTOMRIGHT", verbText, "BOTTOMRIGHT", 12, -9)
+verbGlow:Hide()
+UI.sweep = sweep
+function UI.PlayReady()
+    local w, h = tonumber(cardFx:GetWidth()) or 280, tonumber(cardFx:GetHeight()) or 80
+    local Ac = S.ACCENT
+    sweep:SetSize(64, h * 1.8)
+    sweep:SetVertexColor(Ac[1], Ac[2], Ac[3], 1)
+    verbGlow:SetVertexColor(Ac[1], Ac[2], Ac[3], 1)
+    return A.Play("ready", 1.2, function(t)
+        local st = math.min(1, t / 0.75)                       -- the sweep takes the first 0.9s
+        local e = st < 0.5 and 2 * st * st or 1 - (-2 * st + 2) ^ 2 / 2   -- ease in-out
+        sweep:ClearAllPoints()
+        sweep:SetPoint("CENTER", cardFx, "LEFT", -40 + (w + 80) * e, 0)
+        sweep:SetAlpha(0.32 * A.Bump(st))
+        sweep:SetShown(t < 1)
+        verbGlow:SetAlpha(0.55 * A.Bump(t))
+        verbGlow:SetShown(t < 1)
+    end)
+end
 -- kept for older callers: the buttons now sit in the action strip, not over the title
 function UI.SetCardInset() end
 
@@ -733,6 +779,71 @@ end
 -- Render
 ---------------------------------------------------------------------------
 local shownTogether = {}   -- steps listed on the card as "also here" (left out of upcoming)
+
+-- what the last render showed, so changes since then can animate (Anim)
+local objSeen = {}         -- ["quest:objective"] = finished
+local last = {}            -- guide, step, done, quest, questReady, barW
+UI.lastShown = last
+
+-- an objective just finished: its "done" pops and the line eases to the dimmed colour
+function UI.PlayTick(r, i)
+    local path = S.FontPath("body")
+    return A.Play("obj" .. i, 0.5, function(t)
+        local e = A.EaseOut(t)
+        r.name:SetTextColor(C.text[1] + (C.dim[1] - C.text[1]) * e, C.text[2] + (C.dim[2] - C.text[2]) * e,
+            C.text[3] + (C.dim[3] - C.text[3]) * e)
+        r.count:SetFont(path, 11 + 3 * A.Bump(math.min(1, t * 1.4)), "")
+    end)
+end
+
+-- the progress bar slides to its new length with a glint at the leading edge
+local function setBar(target, animate)
+    if not animate then
+        if not A.Running("bar") then
+            barGlint:Hide()
+            bar:SetWidth(target)
+            last.barW = target
+        end
+        return
+    end
+    if A.Running("bar") and last.barTarget == target then return end
+    local from = last.barW or target
+    last.barTarget = target
+    A.Play("bar", 0.6, function(t)
+        local wv = from + (target - from) * A.EaseOut(t)
+        bar:SetWidth(wv)
+        last.barW = wv
+        barGlint:ClearAllPoints()
+        barGlint:SetPoint("CENTER", bar, "RIGHT", 0, 0)
+        barGlint:SetVertexColor(S.ACCENT[1], S.ACCENT[2], S.ACCENT[3], 0.9 * A.Bump(t))
+        barGlint:SetShown(t < 1)
+    end)
+end
+
+-- the next step: the card fades up a few pixels into place, like turning a page
+local function playTurn(y)
+    A.Play("turn", 0.28, function(t)
+        local e = A.EaseOut(t)
+        card:ClearAllPoints()
+        card:SetPoint("TOPLEFT", PAD, -(y + 5 * (1 - e)))
+        card:SetPoint("RIGHT", -PAD, 0)
+        card:SetAlpha(0.35 + 0.65 * e)
+    end)
+end
+
+-- the guide is finished: the header art warms to full colour and back, the bar glows once
+function UI.PlayFinished()
+    return A.Play("finished", 2.4, function(t)
+        local b = A.Bump(t)
+        for _, tex in ipairs(artTiles) do
+            if tex.SetDesaturation then tex:SetDesaturation(1 - 0.85 * b) end
+            tex:SetVertexColor(1, 1, 1, math.min(1, (tonumber(tex.baseA) or ART_ALPHA) * (1 + 2.5 * b)))
+        end
+        if shotTex.SetDesaturation then shotTex:SetDesaturation(1 - 0.85 * b) end
+        shotTex:SetVertexColor(1, 1, 1, math.min(1, (tonumber(shotTex.baseA) or SHOT_ALPHA) * (1 + 2.5 * b)))
+        barGlow:SetVertexColor(S.ACCENT[1], S.ACCENT[2], S.ACCENT[3], 0.35 + 0.65 * b)
+    end)
+end
 local NOTICE_H = 22
 function UI:Render()
     if not f:IsShown() then return end
@@ -746,7 +857,9 @@ function UI:Render()
         title:SetText(g and g.title or "Onward")
         count:SetText(total > 0 and (done .. "/" .. total) or "")
     end
-    bar:SetWidth(math.max(1, BAR_W * (total > 0 and done / total or 0)))
+    local barTarget = math.max(1, BAR_W * (total > 0 and done / total or 0))
+    local sameGuide = g ~= nil and last.guide == g.id
+    setBar(barTarget, sameGuide and last.done ~= nil and done > last.done)
     btnCollapse.icon:SetTexture(MEDIA .. (W.db.collapsed and "expand" or "collapse"))
     btnArrow:SetTint(W.db.arrow and C.accent or C.sub)
     f.glass:SetOpacity(W.db.bgAlpha or 0.72)
@@ -769,6 +882,16 @@ function UI:Render()
     alsoLabel:Hide()
     nextLabel:Hide()
     strip:Hide()
+
+    -- the quest last shown on the card just became ready to turn in: the sheen
+    if sameGuide and last.quest and last.questReady == false and QS:IsReady(last.quest) then UI.PlayReady() end
+    local turned = sameGuide and last.step ~= nil and step ~= last.step
+    local finished = sameGuide and last.step ~= nil and not step
+    last.guide, last.done, last.step = g and g.id, done, step
+    last.quest = step and step.quest
+    last.questReady = (step and step.quest and QS:IsReady(step.quest)) and true or false
+    if finished then UI.PlayFinished() end
+    if turned and step and not W.db.collapsed then playTurn(y) elseif not A.Running("turn") then card:SetAlpha(1) end
 
     if not step then
         laterStripBtn:Hide()
@@ -850,7 +973,14 @@ function UI:Render()
         local r = objRow(nr)
         local name, have, need = splitObjective(o)
         r.name:SetText(name)
-        r.name:SetTextColor(rgb(o.finished and C.dim or C.text))
+        local okey = (s.quest or 0) .. ":" .. (name or nr)
+        local was = objSeen[okey]
+        objSeen[okey] = o.finished and true or false
+        if was == false and o.finished then
+            UI.PlayTick(r, nr)
+        elseif not A.Running("obj" .. nr) then
+            r.name:SetTextColor(rgb(o.finished and C.dim or C.text))
+        end
         if o.finished then
             r.count:SetText("|cff66d973done|r")
         else

@@ -38,6 +38,7 @@ local DEFAULTS = {
     -- panel
     showNext = 3,            -- upcoming steps shown under the current one
     showObjectives = true,
+    animations = true,       -- small one-shot touches (Anim.lua); never in combat
     showParty = true,
     dropStats = true,        -- your drop rate vs the expected one under item objectives
     theme = "onward",        -- onward (logo colours) | flat (Ellesmere-style) | glass

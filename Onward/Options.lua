@@ -395,6 +395,7 @@ check(2, "showParty", "Show party progress")
 check(2, "dropStats", "Show drop rates", "Under \"collect\" objectives: how many of your kills dropped the item, the expected rate (Wowhead's, through Questie) and whether you're luckier or unluckier than that.")
 check(2, "locked", "Lock panel")
 check(2, "fadeInCombat", "Fade panel in combat")
+check(2, "animations", "Animations", "Small touches that play once: a sheen when a quest is ready to turn in, objectives ticking off, the progress bar sliding, the step card turning, a pulse when you arrive, a glow when a guide is finished, and the flight point breathing on the flight map. Never in combat.", function() if not W.db.animations then W.Anim.StopAll() end end)
 
 section(2, "Party")
 check(2, "partySync", "Share progress with party", "Sends your current step and quest state to party members running Onward. Questie users show up either way.")

@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.6.16
+
+- Animations, each small and played once:
+  - Quest ready to turn in: a soft sheen sweeps across the step card and the step label glows.
+  - An objective finishes: its "done" pops and the line eases to the dimmed colour.
+  - The progress bar slides to its new length with a glint at the front.
+  - A new step: the card fades up a few pixels into place.
+  - Arriving: one soft ring pulses out from the arrow's check mark.
+  - Guide finished: the header art warms to full colour and back, and the bar glows.
+  - The flight point marked on the flight map breathes slowly while the map is open.
+- Nothing animates in combat (anything running finishes at once when a fight starts), and
+  Options > Panel > Animations turns them all off.
+
 ## 0.6.15
 
 - The notice under the step card is back to its thin outline, now with all four edges: the top and

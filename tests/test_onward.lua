@@ -501,8 +501,10 @@ do  -- talking to the flight master refreshes the guide and clears the wanted fl
     local hinted = false
     for _, p in ipairs(MOCK.printed) do if p:find("Fly to Eastwatch") then hinted = true end end
     check("auto flight off: marked and named, not taken", hinted and W.Travel.marked == 2 and not called("TakeTaxiNode"))
+    check("the marked flight point breathes while the map is open", W.Anim.Running("taxi"))
     W.db.autoTaxi = true
     MOCK.fire("TAXIMAP_CLOSED")
+    check("closing the flight map stops it", not W.Anim.Running("taxi"))
     _G.TaxiButton2 = nil
 end
 -- fly steps are named by place (the flight point), with the flight master as the detail
@@ -1384,6 +1386,66 @@ do
     check("nothing to recommend above every guide's range", G:Recommend() == nil)
     MOCK.log, MOCK.logOrder, MOCK.level = savedLog, savedOrder, savedLevel
     MOCK.fire("QUEST_LOG_UPDATE") settle()
+end
+
+do  -- animations: each plays on its own change, never in combat, and the option turns them off
+    local AN = W.Anim
+    local played = {}
+    local realPlay = AN.Play
+    AN.Play = function(key, ...) played[key] = true return realPlay(key, ...) end
+    local savedPos = MOCK.pos
+    MOCK.pos = { map = 1423, x = 0.5, y = 0.5 }
+    W.db.collapsed = false
+    MOCK.addQuest(9601, "Shiny Things", {
+        { text = "Shard: 0/2", finished = false, numFulfilled = 0, numRequired = 2 },
+        { text = "Gem: 0/1", finished = false, numFulfilled = 0, numRequired = 1 },
+    })
+    W:RegisterGuide{ id = "anim", title = "Anim (35-36)", levels = { 35, 36 }, faction = "", steps = [[
+complete 9601 |at 1423 50.0,50.0
+turnin 9601 |npc Vell |at 1423 50.0,50.0
+note After
+]]}
+    MOCK.fire("QUEST_LOG_UPDATE") W.Guide:Activate("anim") settle() W.UI:Render()
+    played = {}
+    local gem = MOCK.log[9601].objectives[2]
+    gem.finished, gem.numFulfilled, gem.text = true, 1, "Gem: 1/1"
+    MOCK.fire("QUEST_LOG_UPDATE") settle() W.UI:Render()
+    check("an objective done ticks off", played.obj2, next(played))
+    check("nothing else moves for it", not played.ready and not played.turn)
+    played = {}
+    MOCK.finish(9601) MOCK.fire("QUEST_LOG_UPDATE") settle() W.UI:Render()
+    check("quest ready to turn in: the sheen", played.ready)
+    check("on to the turn-in: the card turns", played.turn and cur() and cur().verb == "turnin")
+    MOCK.advance(3)
+    check("all settled afterwards", not AN.Running("ready") and not AN.Running("turn") and not W.UI.sweep.shown)
+    -- arrival: walk up to the turn-in
+    local AFr = W.Arrow.frame
+    played = {}
+    MOCK.pos = { map = 1423, x = 0.45, y = 0.45 } AFr.scripts.OnUpdate(AFr, 0.05)
+    MOCK.pos = { map = 1423, x = 0.5, y = 0.5 } AFr.scripts.OnUpdate(AFr, 0.05)
+    check("arriving pulses once", played.arrive)
+    played = {}
+    AFr.scripts.OnUpdate(AFr, 0.05)
+    check("standing there: no second pulse", not played.arrive)
+    -- the end of the guide
+    played = {}
+    MOCK.turnIn(9601) MOCK.fire("QUEST_TURNED_IN", 9601) MOCK.fire("QUEST_LOG_UPDATE") settle()
+    check("progress: the bar slides", played.bar)
+    played = {}
+    W.UI.card:GetScript("OnClick")(W.UI.card, "LeftButton") settle() W.UI:Render()
+    check("guide finished: the header glows", played.finished, cur() and cur().verb)
+    -- combat settles everything at once; nothing starts in combat
+    W.UI.PlayReady()
+    MOCK.fire("PLAYER_REGEN_DISABLED")
+    check("combat finishes a running animation", not AN.Running("ready") and not W.UI.sweep.shown)
+    MOCK.combat = true
+    check("nothing starts in combat", W.UI.PlayReady() == false)
+    MOCK.combat = false
+    W.db.animations = false
+    check("option off: nothing animates", W.UI.PlayReady() == false and not W.UI.sweep.shown)
+    W.db.animations = true
+    AN.Play = realPlay
+    MOCK.pos = savedPos
 end
 
 check("no runtime errors", #MOCK.errors == 0, MOCK.errors[1])
