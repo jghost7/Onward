@@ -22,7 +22,7 @@ Free leveling and profession guide for WoW Forever: every zone, 1-300 in every p
 - Guides for all open-world zones from 1 to 60, Alliance and Horde.
 - Includes the Forever zones: **Riverglades, Zephras Isle, Mount Hyjal and Shen'dralas**.
 - Zones that span a wide level range are split into bands, and each guide hands you on to the next.
-- Routes finish one area before moving to the next and keep running back and forth to a minimum. They take flight paths where flying is faster.
+- Routes finish one area before moving to the next and keep running back and forth to a minimum: quests in the same spot are done together, not one hand-in at a time. They take flight paths where flying is faster.
 
 ## Profession guides, 1 to 300
 
@@ -58,7 +58,8 @@ Install it on a character you've already been playing and Onward works out what 
 - **Flight advice:** when a flight path you know beats running, the arrow points you to the flight master and Onward picks the flight for you. Hold Shift to choose yourself.
 - **Hearthstone advice:** each guide tells you which inn to set your hearthstone at, and when hearthing beats running or flying, the arrow says "Hearth to <town>".
 - **Route on the world map:** a dotted line to the current step and on through the next three stops, numbered, with flight legs marked.
-- On kill and loot steps the arrow points at the nearest mobs, not the middle of the area.
+- On kill and loot steps the arrow points at the nearest mobs, not the middle of the area. Objectives the quest database doesn't place (things to gather, objects to use) have their own looked-up spots, so the arrow still has somewhere to go.
+- The text under the arrow sits on a soft shadow instead of a box, and its size is adjustable (Options > Navigation > Arrow text size).
 - **The way you came:** heading back to a quest giver, the arrow follows the path you walked out on (around cliffs, over bridges) instead of a straight line.
 - Map pin on the current step, and TomTom support if you use it.
 
@@ -93,7 +94,7 @@ For "collect" quests, each item objective shows your own drop rate per kill and 
 
 ## Looks and feel
 
-A compact panel built around the current step: what kind of step it is, where, its objectives with progress bars, the quests you can do in the same area, one notice at a time, and what comes next. A faded strip of the zone's own map sits behind each guide's header. Frosted-glass panels in three colourways: **Onward** (the logo's teal and gold, the default), **Glass** (blue-slate) and **Ellesmere** (neutral dark; with **EllesmereUI** installed it takes your EllesmereUI accent colour, panel colour and font). Switch under Options > Panel > Look. Pick any font for Onward's text under Options > Panel > Font: the game's own, or any your other addons share through SharedMedia. Opacity, size, number of upcoming steps and more are in the options (`/ow options`, the gear on the panel, or Esc > Options > AddOns).
+A compact panel built around the current step: what kind of step it is, where, its objectives with progress bars, the quests you can do in the same area, one notice at a time, and what comes next. Behind each guide's header sits a faint, colourless picture of the zone: an ink-wash landscape painting for many zones, a strip of the zone's own map for the rest. Choose a picture, the map, or nothing under Options > Panel > Header art. Frosted-glass panels in three colourways: **Onward** (the logo's teal and gold, the default), **Glass** (blue-slate) and **Ellesmere** (neutral dark; with **EllesmereUI** installed it takes your EllesmereUI accent colour, panel colour and font). Switch under Options > Panel > Look. Pick any font for Onward's text under Options > Panel > Font: the game's own, or any your other addons share through SharedMedia. Opacity, size, number of upcoming steps and more are in the options (`/ow options`, the gear on the panel, or Esc > Options > AddOns).
 
 ## Write your own routes
 
@@ -122,6 +123,7 @@ A compact panel built around the current step: what kind of step it is, where, i
 - **Questie:** more accurate quest locations, party progress and expected drop rates.
 - **TomTom:** adds TomTom waypoints alongside Onward's own.
 - **EllesmereUI:** the panel matches your EllesmereUI colours and font.
+- **SharedMedia** (or any addon that shares fonts through it): more fonts to pick from under Options > Panel > Font.
 
 None of them is required.
 
