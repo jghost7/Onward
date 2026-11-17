@@ -11,8 +11,7 @@ A free leveling and profession guide for **World of Warcraft: Forever** (formerl
 
 1. **[Download Onward.zip](https://github.com/jghost7/Onward/releases/latest/download/Onward.zip)** (always the newest version). Older versions and what changed in each are on the [Releases page](https://github.com/jghost7/Onward/releases).
 2. Unzip it into `World of Warcraft\_forever_\Interface\AddOns`, so you end up with `AddOns\Onward\Onward.toc`.
-3. Upgrading from Sloppy Questing? Delete the old `AddOns\SloppyQuesting` folder, or both copies will load.
-4. Start the game (or `/reload`) and type `/ow` to show the panel, or `/ow guides` to pick a guide.
+3. Start the game (or `/reload`) and type `/ow` to show the panel, or `/ow guides` to pick a guide.
 
 Don't use the green **Code > Download ZIP** button: that's the source with the build tools, not the addon.
 
