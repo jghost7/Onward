@@ -257,7 +257,11 @@ choice(2, "theme", "Look", {
 slider(2, "showNext", "Upcoming steps shown", 0, 8, 1, "%d")
 slider(2, "scale", "Panel size", 0.7, 1.5, 0.05, "%.2f")
 slider(2, "bgAlpha", "Background opacity", 0, 1, 0.05, "%.2f")
-check(2, "zoneArt", "Zone art in the header", "A faded strip of the guide's own zone map behind the title, so each guide looks a little different.", function() W.UI:Render() end)
+choice(2, "headerArt", "Header art", {
+    { value = "shot", label = "Zone shot", tip = "A faded picture of the guide's zone behind the title. Zones without one show the map." },
+    { value = "map", label = "Map", tip = "A faded strip of the guide's zone map behind the title." },
+    { value = "off", label = "Off" },
+}, nil, function() W.UI:Render() end)
 check(2, "showObjectives", "Show quest objectives")
 check(2, "showParty", "Show party progress")
 check(2, "dropStats", "Show drop rates", "Under \"collect\" objectives: how many of your kills dropped the item, the expected rate (Wowhead's, through Questie) and whether you're luckier or unluckier than that.")

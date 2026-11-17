@@ -207,7 +207,7 @@ local function themeBar() barGlow:SetShown(not S.Square()) end
 themeBar()
 W:On("WF_THEME_CHANGED", themeBar)
 
--- zone art: a faded strip of the guide's own zone map behind the header (Options > Panel), masked
+-- header art (Options > Panel): a picture of the guide's zone, or a faded strip of its map, masked
 -- so it fades out under the title and toward the card; a little variety per guide
 local artTiles = {}
 local artMask = f.CreateMaskTexture and f:CreateMaskTexture()
@@ -269,13 +269,32 @@ function UI.ZoneArt(map)
     return artFor[map]
 end
 
+-- a picture of the zone itself (Onward/ZoneShots.lua, made from your own screenshots by
+-- tools/make_zone_art.py): one 512x64 strip over the whole header, in colour but faded
+local shotTex = f:CreateTexture(nil, "BACKGROUND", nil, -3)
+shotTex:SetPoint("TOPLEFT", artTiles[1])
+shotTex:SetPoint("BOTTOMRIGHT", artTiles[2])
+if shotTex.SetDesaturation then shotTex:SetDesaturation(0.15) end
+if artMask and shotTex.AddMaskTexture then shotTex:AddMaskTexture(artMask) end
+shotTex:Hide()
+local SHOT_ALPHA = artMask and 0.42 or 0.16
+
 local artShown
 local function renderArt(g)
-    local map = W.db.zoneArt ~= false and mapFor(g) or nil
-    local tiles = UI.ZoneArt(map)
-    local key = tiles and (tiles[1] .. ":" .. tiles[2]) or ""
+    local mode = W.db.headerArt or "shot"
+    local map = mode ~= "off" and mapFor(g) or nil
+    local shot = mode == "shot" and map and W.ZoneShots and W.ZoneShots[map] and (MEDIA .. "zones\\" .. map) or nil
+    local tiles = not shot and UI.ZoneArt(map) or nil
+    local key = shot or (tiles and (tiles[1] .. ":" .. tiles[2])) or ""
     if key == artShown then return end
     artShown = key
+    if shot then
+        shotTex:SetTexture(shot)
+        shotTex:SetVertexColor(1, 1, 1, SHOT_ALPHA)
+        shotTex:Show()
+    else
+        shotTex:Hide()
+    end
     for i, t in ipairs(artTiles) do
         if tiles then
             t:SetTexture(tiles[i])
@@ -287,7 +306,7 @@ local function renderArt(g)
         end
     end
 end
-UI.artTiles = artTiles
+UI.artTiles, UI.shotTex = artTiles, shotTex
 
 -- current step card (clickable: notes complete on click, others open the map);
 -- sits on a slightly brighter inset so the current step reads first

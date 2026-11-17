@@ -747,9 +747,15 @@ goto 1423 50.0,50.0 |note elsewhere
     W.Guide:Activate("artq") settle()
     local art = W.UI.artTiles
     check("zone art shows behind the header", art[1]:IsShown() and art[1].texture == 142306 and art[2].texture == 142307, art[1].texture)
-    W.db.zoneArt = false W.UI:Render()
-    check("zone art can be turned off", not art[1]:IsShown())
-    W.db.zoneArt = true
+    W.db.headerArt = "map" W.UI:Render()
+    check("header art 'map' shows the map tiles", art[1]:IsShown() and not W.UI.shotTex:IsShown())
+    W.db.headerArt = "shot" W.UI:Render()
+    check("no zone shot yet: the map stands in", art[1]:IsShown() and not W.UI.shotTex:IsShown())
+    W.ZoneShots[1423] = true W.UI:Render()
+    check("zone shot shows instead of the map", W.UI.shotTex:IsShown() and W.UI.shotTex.texture == "Interface\\AddOns\\Onward\\media\\zones\\1423" and not art[1]:IsShown(), W.UI.shotTex.texture)
+    W.db.headerArt = "off" W.UI:Render()
+    check("header art can be turned off", not art[1]:IsShown() and not W.UI.shotTex:IsShown())
+    W.db.headerArt = "shot" W.ZoneShots[1423] = nil
     C_Map.GetMapArtLayers, C_Map.GetMapArtLayerTextures = savedL, savedT
     W.Guide:Activate("group") settle()
 end

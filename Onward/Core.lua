@@ -26,7 +26,7 @@ local DEFAULTS = {
     targetMark = true,       -- put a skull on the mob it targets
     itemButton = true,       -- button that uses the quest's item (fletch the bundles, throw the spear)
     targetDetached = false,  -- target, item and Later buttons in a movable dock instead of the card's action strip
-    zoneArt = true,          -- faded strip of the guide's zone map behind the panel header
+    headerArt = "shot",      -- behind the panel header: "shot" (a picture of the zone, the map when there's none), "map", "off"
     targetPoint = nil,
     -- travel
     trailBack = true,
@@ -126,12 +126,25 @@ W:On("ADDON_LOADED", function(_, name)
     if name ~= ADDON then return end
     OnwardDB = applyDefaults(OnwardDB or {}, DEFAULTS)
     OnwardCharDB = applyDefaults(OnwardCharDB or {}, CHAR_DEFAULTS)
+    if OnwardDB.zoneArt == false then OnwardDB.headerArt = "off" end   -- 0.6.x on/off switch
+    OnwardDB.zoneArt = nil
     W.db, W.cdb = OnwardDB, OnwardCharDB
     W:Fire("WF_INIT")
 end)
 
 W:On("PLAYER_ENTERING_WORLD", function()
     W:RequestRefresh(0.5)
+end)
+
+-- Zone shots: each screenshot you take is noted with when and where (tools/make_zone_art.py
+-- matches the note to the file by its time and turns it into that zone's header picture)
+W:On("SCREENSHOT_SUCCEEDED", function()
+    local map = C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit("player")
+    if not map then return end
+    W.db.shots = W.db.shots or {}
+    local shots = W.db.shots
+    shots[#shots + 1] = { t = time(), map = map, zone = W.Safe(GetZoneText and GetZoneText()), sub = W.Safe(GetSubZoneText and GetSubZoneText()) }
+    while #shots > 300 do table.remove(shots, 1) end
 end)
 
 ---------------------------------------------------------------------------

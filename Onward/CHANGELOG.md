@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.6.2
+
+- **Header art: Zone shot / Map / Off** (Options > Panel). "Zone shot" shows a faded picture of the
+  guide's zone behind the title, made from real screenshots; zones that don't have one yet show
+  the map strip. Pictures come from screenshots: Onward now notes the zone of every screenshot you
+  take, and `tools/make_zone_art.py` turns them into header pictures (hide the UI with Alt+Z first).
+  No zone has one yet.
+
 ## 0.6.1
 
 - **Later** moved to the top-right corner of the step card, in both layouts: no longer next to the
