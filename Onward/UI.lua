@@ -698,7 +698,9 @@ local function locationLine(step)
     local parts = {}
     local cur = WP:Current()
     if cur and cur.step == step then
-        if step.verb == "fly" then
+        if cur.leg == "cross" and cur.cross then
+            parts[#parts + 1] = "first the " .. cur.cross.kind .. " from " .. cur.cross.from.name .. " to " .. cur.cross.to.name
+        elseif step.verb == "fly" then
             -- the place is the step's title; here, who you land by
             local _, who = W.Travel.SplitFlightNpc(step.npc)
             if who then parts[#parts + 1] = "flight master " .. who end

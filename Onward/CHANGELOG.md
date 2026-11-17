@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased
+
+- A step on the other continent (a flight to Feralas from Booty Bay, say) now sends you to the boat
+  or zeppelin first: "Take the boat to Ratchet", picking the crossing that makes the whole trip
+  shortest for your faction (Booty Bay - Ratchet; Grom'gol and Undercity - Orgrimmar zeppelins;
+  Menethil - Theramore and Auberdine boats). Across, a fly step starts from the learned flight
+  point nearest you instead of the guide's departure on the far side.
+
 ## 0.6.17
 
 - Fly steps to a flight point you haven't discovered yet: the flight master now flies you to the

@@ -1432,6 +1432,35 @@ note After
     TR:Refresh(true)
 end
 
+do  -- a fly step to the other continent: first the boat, then fly from the near side
+    local savedPos = MOCK.pos
+    MOCK.mapOffset[1434], MOCK.mapOffset[1413], MOCK.mapOffset[1444], MOCK.mapOffset[1414] = 0, 0, 3000, 0
+    MOCK.mapCont = { [1434] = 0 }                       -- Stranglethorn on the other continent
+    W.Travel:Refresh(true)
+    MOCK.pos = { map = 1434, x = 0.27, y = 0.77 }        -- in Booty Bay
+    W:RegisterGuide{ id = "cross", title = "Cross (35-36)", levels = { 35, 36 }, faction = "", steps = [[
+fly 1444 75.5,44.4 |from 1434 26.9,77.1 |npc Feralas (Shyn)
+note After
+]]}
+    W.Guide:Activate("cross") settle()
+    local c = W.Waypoint:Current()
+    check("other continent: first to the boat", c and c.leg == "cross" and c.cross.to.name == "Ratchet", c and c.leg)
+    local tgt = W.Waypoint:ArrowTarget()
+    check("arrow: take the boat to Ratchet", tgt and tgt.label == "Take the boat to Ratchet", tgt and tgt.label)
+    MOCK.calls = {} MOCK.fire("TAXIMAP_OPENED") settle()
+    check("no flight taken toward the other continent", not called("TakeTaxiNode"))
+    -- off the boat in Ratchet: fly from the nearest flight point on this side
+    MOCK.pos = { map = 1413, x = 0.637, y = 0.386 }
+    MOCK.fire("PLAYER_ENTERING_WORLD") MOCK.advance(3)
+    c = W.Waypoint:Current()
+    check("across: on to a flight master on this side", c and c.leg == "depart" and not c.cross, c and (tostring(c.leg) .. " " .. tostring(c.map) .. " " .. tostring(c.x)) or "no current")
+    tgt = W.Waypoint:ArrowTarget()
+    check("arrow no longer says boat", tgt and not tgt.label:find("boat", 1, true), tgt and tgt.label)
+    MOCK.mapCont, MOCK.pos = nil, savedPos
+    MOCK.mapOffset[1434], MOCK.mapOffset[1413], MOCK.mapOffset[1444], MOCK.mapOffset[1414] = nil, nil, nil, nil
+    W.Travel:Refresh(true)
+end
+
 do  -- animations: each plays on its own change, never in combat, and the option turns them off
     local AN = W.Anim
     local played = {}

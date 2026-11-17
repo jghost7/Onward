@@ -148,12 +148,60 @@ function T:FlightPlan(step)
     -- where the flight would start: the departure flight master, else where you stand
     local sc, sx, sy
     if step.from then sc, sx, sy = T.World(step.from.map or step.at.map, step.from.x, step.from.y) end
-    if not sc then sc, sx, sy = T.PlayerWorld() end
+    local pc, px, py = T.PlayerWorld()
+    if not sc or (pc and sc ~= pc and pc == dc) then sc, sx, sy = pc, px, py end
     local startD = sc == dc and d2(sx, sy, dx, dy) or math.huge
     if via and viaD < startD * 0.8 and d2(via.wx, via.wy, sx or 0, sy or 0) > 300 then
         return { via = via, viaD = viaD }
     end
     return { walk = true }
+end
+
+---------------------------------------------------------------------------
+-- Between continents: boats and zeppelins. A target on the other continent can't be flown or
+-- walked to, so the arrow leads to the dock or tower whose crossing lands nearest it.
+-- Positions are the classic docks (map x,y in 0-100); faction nil = anyone can ride.
+---------------------------------------------------------------------------
+local CROSSINGS = {
+    { kind = "boat", faction = nil,
+      a = { map = 1434, x = 25.8, y = 73.1, name = "Booty Bay" }, b = { map = 1413, x = 63.7, y = 38.6, name = "Ratchet" } },
+    { kind = "zeppelin", faction = "Horde",
+      a = { map = 1434, x = 31.3, y = 29.2, name = "Grom'gol" }, b = { map = 1411, x = 50.8, y = 13.6, name = "Orgrimmar" } },
+    { kind = "zeppelin", faction = "Horde",
+      a = { map = 1420, x = 60.8, y = 58.8, name = "Undercity" }, b = { map = 1411, x = 50.6, y = 12.6, name = "Orgrimmar" } },
+    { kind = "boat", faction = "Alliance",
+      a = { map = 1437, x = 4.6, y = 57.1, name = "Menethil Harbor" }, b = { map = 1445, x = 71.6, y = 56.4, name = "Theramore" } },
+    { kind = "boat", faction = "Alliance",
+      a = { map = 1437, x = 4.8, y = 63.6, name = "Menethil Harbor" }, b = { map = 1439, x = 32.4, y = 43.8, name = "Auberdine" } },
+}
+T.CROSSINGS = CROSSINGS
+
+-- From where you stand to a target on another continent: the crossing that makes the whole trip
+-- shortest. Returns { kind, from = {cont, wx, wy, map, x, y, name}, to = {...} } or nil.
+function T:Crossing(tc, tx, ty)
+    local pc, px, py = T.PlayerWorld()
+    if not (pc and tc) or pc == tc then return end
+    local faction = UnitFactionGroup and UnitFactionGroup("player")
+    local best, bestCost
+    for _, c in ipairs(CROSSINGS) do
+        if not c.faction or c.faction == faction then
+            for _, ends in ipairs({ { c.a, c.b }, { c.b, c.a } }) do
+                local A, B = ends[1], ends[2]
+                local ac, ax, ay = T.World(A.map, A.x, A.y)
+                local bc, bx, by = T.World(B.map, B.x, B.y)
+                if ac == pc and bc == tc then
+                    local cost = d2(px, py, ax, ay) + d2(bx, by, tx, ty)
+                    if not bestCost or cost < bestCost then
+                        bestCost = cost
+                        best = { kind = c.kind,
+                                 from = { cont = ac, wx = ax, wy = ay, map = A.map, x = A.x, y = A.y, name = A.name },
+                                 to = { cont = bc, wx = bx, wy = by, map = B.map, x = B.x, y = B.y, name = B.name } }
+                    end
+                end
+            end
+        end
+    end
+    return best
 end
 
 function T:KnownNodes(cont)

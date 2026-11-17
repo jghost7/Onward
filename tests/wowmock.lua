@@ -159,7 +159,7 @@ MOCK.mapOffset = { [1423] = 0, [1424] = 1000, [1415] = 0 }
 C_Map.GetWorldPosFromMapPos = function(map, v)
     local off = MOCK.mapOffset[map]
     if not off then return nil end
-    return 1, { x = (1 - v.y) * 1000, y = (1 - v.x) * 1000 - off }
+    return (MOCK.mapCont or {})[map] or 1, { x = (1 - v.y) * 1000, y = (1 - v.x) * 1000 - off }
 end
 C_Map.GetMapInfo = function(m) return { name = "Map" .. m, parentMapID = (MOCK.parents or {})[m] } end
 -- inverse of GetWorldPosFromMapPos; overrideMap picks the map to express it on

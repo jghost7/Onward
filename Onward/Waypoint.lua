@@ -138,22 +138,24 @@ end
 local function flyLeg(step)
     local plan = T:FlightPlan(step)
     step.plan = plan
-    if plan and (plan.walk or step.landed) and not UnitOnTaxi("player") then return step.at, "walk" end
-    if plan and plan.via and not step.from and not UnitOnTaxi("player") then
-        -- no departure in the guide: the learned flight point nearest you
-        local pc, px, py = T.PlayerWorld()
-        local best, bestD
-        for _, n in ipairs(pc and T:KnownNodes(pc) or {}) do
-            local d = (n.wx - px) ^ 2 + (n.wy - py) ^ 2
-            if n ~= plan.via and (not bestD or d < bestD) then best, bestD = n, d end
-        end
-        if best then return { world = best }, "depart" end
+    if UnitOnTaxi("player") then return step.at, "arrive" end
+    if plan and (plan.walk or step.landed) then return step.at, "walk" end
+    local d = T.Distance(step.at.map, step.at.x, step.at.y)
+    if d and d <= (step.radius or 150) then return step.at, "arrive" end
+    local pc, px, py = T.PlayerWorld()
+    local fc = step.from and T.World(step.from.map or step.at.map, step.from.x, step.from.y)
+    if step.from and (fc == pc or not pc) then return step.from, "depart" end
+    -- no departure in the guide, or it's on the other continent (you came over by boat or
+    -- zeppelin): the learned flight point nearest you, other than the one you're flying to
+    local dc, dx, dy = T.World(step.at.map, step.at.x, step.at.y)
+    local best, bestD
+    for _, n in ipairs(pc and T:KnownNodes(pc) or {}) do
+        local dd = (n.wx - px) ^ 2 + (n.wy - py) ^ 2
+        local isDest = dc == pc and (n.wx - dx) ^ 2 + (n.wy - dy) ^ 2 <= 300 ^ 2
+        if n ~= (plan and plan.via) and not isDest and (not bestD or dd < bestD) then best, bestD = n, dd end
     end
-    if step.from and not UnitOnTaxi("player") then
-        local d = T.Distance(step.at.map, step.at.x, step.at.y)
-        if not d or d > (step.radius or 150) then return step.from, "depart" end
-    end
-    return step.at, "arrive"
+    if best then return { world = best }, "depart" end
+    return step.from or step.at, step.from and "depart" or "arrive"
 end
 
 function WP:Update()
@@ -194,8 +196,21 @@ function WP:Update()
         if pickup then title = "Pick up " .. (W.QuestState:Title(step.quest) or "the quest") .. " first" end
     end
 
+    -- the target is on the other continent: first to the boat or zeppelin that crosses nearest it
+    local cross
     if map and x then
-        current = { step = step, map = map, x = x, y = y, name = name, title = title, leg = legKind, pickup = pickup }
+        local tm, tx, ty = map, x, y
+        if step.verb == "fly" then tm, tx, ty = step.at.map, step.at.x, step.at.y end
+        local tc, wx, wy = T.World(tm, tx, ty)
+        cross = tc and T:Crossing(tc, wx, wy)
+        if cross then
+            map, x, y, name, legKind = cross.from.map, cross.from.x, cross.from.y, cross.from.name, "cross"
+            T:SetWantedDestination(nil)
+        end
+    end
+
+    if map and x then
+        current = { step = step, map = map, x = x, y = y, name = name, title = title, leg = legKind, pickup = pickup, cross = cross }
         if old and old.step == step then   -- same step re-resolved (settings, delayed refresh): keep the chosen spot
             current.spots, current.spot, current.spotSig = old.spots, old.spot, old.spotSig
         end
@@ -288,6 +303,12 @@ function WP:ArrowTarget()
     if not current then return end
     local step = current.step
     local label = current.title
+    if current.cross then
+        local c = current.cross
+        return { label = "Take the " .. c.kind .. " to " .. c.to.name,
+                 sub = "from " .. c.from.name .. ", then " .. label,
+                 cont = c.from.cont, wx = c.from.wx, wy = c.from.wy, radius = 15, crossing = true }
+    end
     local spot = nearestSpot(current)
     if spot then
         -- far from every spot, flight advice still applies (to the spot itself)
@@ -369,3 +390,5 @@ W:On("PLAYER_CONTROL_LOST", function()
     C_Timer.After(1, function() local s = W.Guide:Current() if s and s.verb == "fly" then WP:Update() end end)
 end)
 W:On("WF_SETTINGS_CHANGED", function() WP:Update() end)
+-- a boat or zeppelin crossing ends in a loading screen: re-plan from the new continent
+W:On("PLAYER_ENTERING_WORLD", function() C_Timer.After(2, function() WP:Update() end) end)
