@@ -742,6 +742,9 @@ complete 8962
     check("no item button while the guide's item isn't in your bags", W.Item.For(W.Guide:Current()) == nil)
     MOCK.bags[5001] = 1 W.Item:Sync()
     check("item button uses the guide's item", IB:IsShown() and IB:GetAttribute("item") == "item:5001", IB:GetAttribute("item"))
+    local IB2 = W.Item.buttons[2]
+    check("a grouped quest's item gets a second button", IB2:IsShown() and IB2:GetAttribute("item") == "item:5002", IB2:GetAttribute("item"))
+    check("no third button without a third item", not W.Item.buttons[3]:IsShown())
     MOCK.finish(8960) MOCK.fire("QUEST_LOG_UPDATE") settle()
     MOCK.bags[5002] = 3 W.Item:Sync()
     check("item button finds a bag quest item the quest names", IB:GetAttribute("item") == "item:5002", IB:GetAttribute("item"))

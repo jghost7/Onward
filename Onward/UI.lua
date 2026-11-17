@@ -463,7 +463,7 @@ local function locationLine(step)
     end
     if step.note and step.verb ~= "goto" then parts[#parts + 1] = step.note end
     if step.group then parts[#parts + 1] = UI.GroupText(step.group) end
-    if step.item and W.Item and W.Item.item == step.item then   -- only when you have it to use
+    if step.item and W.Item and W.Item.Has(step.item) then   -- only when you have it to use
         local name = C_Item and C_Item.GetItemNameByID and C_Item.GetItemNameByID(step.item)
         parts[#parts + 1] = "use " .. (name or ("item " .. step.item))
     end

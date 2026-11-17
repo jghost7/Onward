@@ -1,44 +1,61 @@
--- Quest item button: on a step whose quest has you use an item (fletch the Wood Bundles, throw
+-- Quest item buttons: on a step whose quest has you use an item (fletch the Wood Bundles, throw
 -- the spear at a crocolisk, read the satchel), a button that uses it, next to the target button.
--- Bind a key under Key Bindings > AddOns > Onward.
+-- When the quests you're working on together need several items, one button each (up to four),
+-- the current step's first. Bind keys under Key Bindings > AddOns > Onward.
 --
--- Which item: the one the guide names (|item <id>, the item the quest gives you), else a usable
--- quest item in your bags that the quest's own text names ("Collect Wood Bundles ..."). Only items
--- you have and that have a Use: effect count.
+-- Which items: the one the guide names (|item <id>, the item the quest gives you), and usable
+-- quest items in your bags that the quest's own text names ("Collect Wood Bundles ..."). Only
+-- items you have and that have a Use: effect count.
 --
--- Like the target button it is a SecureActionButton: its item and position change only out of
--- combat, and a change in combat waits for combat to end.
+-- Like the target button these are SecureActionButtons: their items and positions change only out
+-- of combat, and a change in combat waits for combat to end.
 local _, W = ...
 local IT = {}
 W.Item = IT
 
 local G, QS = W.Guide, W.QuestState
 local SIZE, BIG, GAP = 22, 40, 2
+local MAX = 4
 
-_G["BINDING_NAME_CLICK OnwardItemButton:LeftButton"] = "Use quest item"
-
-local b = CreateFrame("Button", "OnwardItemButton", UIParent, "SecureActionButtonTemplate")
-b:SetSize(SIZE, SIZE)
-b:SetFrameStrata("HIGH")
-b:SetAttribute("type", "item")
-b:Hide()
-local tile = CreateFrame("Frame", nil, b)
-tile:SetAllPoints()
-tile:SetFrameLevel(math.max(0, b:GetFrameLevel() - 1))
-W.Skin.Glass(tile, { alpha = 0.85, corner = 8, shadow = true })
-local icon = b:CreateTexture(nil, "ARTWORK")
-icon:SetPoint("TOPLEFT", 2, -2)
-icon:SetPoint("BOTTOMRIGHT", -2, 2)
-icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
-local count = b:CreateFontString(nil, "OVERLAY", "NumberFontNormalSmall")
-count:SetPoint("BOTTOMRIGHT", -1, 1)
-count:SetTextColor(1, 1, 1)
-local cd = CreateFrame("Cooldown", nil, b, "CooldownFrameTemplate")
-cd:SetAllPoints(icon)
-IT.button, IT.icon = b, icon
-
-IT.item = nil         -- item id on the button
+local buttons = {}
 local pending = false
+IT.items = {}         -- item ids on the buttons, in order
+IT.item = nil         -- the first of them
+
+local function makeButton(k)
+    local name = k == 1 and "OnwardItemButton" or ("OnwardItemButton" .. k)
+    _G["BINDING_NAME_CLICK " .. name .. ":LeftButton"] = k == 1 and "Use quest item" or ("Use quest item " .. k)
+    local b = CreateFrame("Button", name, UIParent, "SecureActionButtonTemplate")
+    b:SetSize(SIZE, SIZE)
+    b:SetFrameStrata("HIGH")
+    b:SetAttribute("type", "item")
+    b:Hide()
+    local tile = CreateFrame("Frame", nil, b)
+    tile:SetAllPoints()
+    tile:SetFrameLevel(math.max(0, b:GetFrameLevel() - 1))
+    W.Skin.Glass(tile, { alpha = 0.85, corner = 8, shadow = true })
+    b.icon = b:CreateTexture(nil, "ARTWORK")
+    b.icon:SetPoint("TOPLEFT", 2, -2)
+    b.icon:SetPoint("BOTTOMRIGHT", -2, 2)
+    b.icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+    b.count = b:CreateFontString(nil, "OVERLAY", "NumberFontNormalSmall")
+    b.count:SetPoint("BOTTOMRIGHT", -1, 1)
+    b.count:SetTextColor(1, 1, 1)
+    b.cd = CreateFrame("Cooldown", nil, b, "CooldownFrameTemplate")
+    b.cd:SetAllPoints(b.icon)
+    b:SetScript("OnEnter", function(self)
+        GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+        if self.itemId and GameTooltip.SetItemByID then GameTooltip:SetItemByID(self.itemId) else GameTooltip:AddLine("Use quest item") end
+        GameTooltip:AddLine("Bind a key: Key Bindings > AddOns > Onward", 0.6, 0.6, 0.6)
+        if pending then GameTooltip:AddLine("Updates when combat ends", 1, 0.6, 0.4) end
+        GameTooltip:Show()
+    end)
+    b:SetScript("OnLeave", function() GameTooltip:Hide() end)
+    return b
+end
+for k = 1, MAX do buttons[k] = makeButton(k) end
+IT.buttons = buttons
+IT.button = buttons[1]
 
 ---------------------------------------------------------------------------
 -- finding the item
@@ -94,45 +111,55 @@ local function names(text, name)
 end
 IT.Names = names
 
--- the item for a step: the guide's, then a bag quest item the quest's text names
-function IT.For(step)
-    if not step or not step.quest then return nil end
-    if step.item and itemCount(step.item) > 0 and usable(step.item) then return step.item end
-    if step.verb ~= "complete" then return nil end
+-- the items for a step: the guide's, then the bag quest items the quest's text names
+function IT.ItemsFor(step)
+    local out = {}
+    if not step or not step.quest then return out end
+    if step.item and itemCount(step.item) > 0 and usable(step.item) then out[1] = step.item end
+    if step.verb ~= "complete" then return out end
     local e = QS:Get(step.quest)
-    if not e then return nil end
+    if not e then return out end
     local text = { QS:ObjectiveText(step.quest) or "", QS:Description(step.quest) or "" }
     for _, o in ipairs(e.objectives or {}) do text[#text + 1] = o.text or "" end
     text = table.concat(text, " ")
     for _, id in ipairs(IT.BagQuestItems()) do
-        if names(text, itemName(id)) then return id end
+        if id ~= step.item and names(text, itemName(id)) then out[#out + 1] = id end
     end
+    return out
 end
+function IT.For(step) return IT.ItemsFor(step)[1] end
 
--- first item across the steps the card shows (the current step and those worked with it)
+-- items across the steps the card shows (the current step and those worked with it), no repeats
 function IT.ForGroup()
-    local group = G:Group()
-    for _, s in ipairs(group) do
-        local id = IT.For(s)
-        if id then return id end
+    local out, seen = {}, {}
+    local steps = G:Group()
+    if #steps == 0 then steps = { G:Current() } end
+    for _, s in ipairs(steps) do
+        for _, id in ipairs(IT.ItemsFor(s)) do
+            if not seen[id] and #out < MAX then seen[id] = true out[#out + 1] = id end
+        end
     end
-    local cur = G:Current()
-    return cur and IT.For(cur)
+    return out
+end
+
+function IT.Has(id)
+    for _, v in ipairs(IT.items) do if v == id then return true end end
+    return false
 end
 
 ---------------------------------------------------------------------------
--- placement: beside the target button (left of it on the card, right of it when detached)
+-- placement: a row beside the target button (leftwards on the card, rightwards when detached)
 ---------------------------------------------------------------------------
-local function place()
+local function place(b, k)
     local TG = W.Target
     local tb = TG and TG.button
-    local targetShown = tb and tb:IsShown()
+    local slot = k - 1 + ((tb and tb:IsShown()) and 1 or 0)
     if TG and TG.Detached() then
         b:SetScale(1)
         b:SetSize(BIG, BIG)
         b:ClearAllPoints()
         local p = W.db.targetPoint
-        local dx = targetShown and (BIG + 6) or 0
+        local dx = slot * (BIG + 6)
         if p then b:SetPoint(p[1], UIParent, p[2], p[3] + dx, p[4]) else b:SetPoint("BOTTOM", UIParent, "BOTTOM", dx, 190) end
         return true
     end
@@ -142,50 +169,49 @@ local function place()
     if not (card and panel and panel:IsShown() and card:GetRight()) then return false end
     b:SetScale(panel:GetEffectiveScale() / UIParent:GetEffectiveScale())
     b:ClearAllPoints()
-    local dx = targetShown and (SIZE + GAP) or 0
-    b:SetPoint("TOPRIGHT", UIParent, "BOTTOMLEFT", card:GetRight() + 4 - dx, card:GetTop() + 3)
+    b:SetPoint("TOPRIGHT", UIParent, "BOTTOMLEFT", card:GetRight() + 4 - slot * (SIZE + GAP), card:GetTop() + 3)
     return true
 end
 
 local function refreshLook()
-    local id = IT.item
-    if not id then return end
-    local tex = (C_Item and C_Item.GetItemIconByID and C_Item.GetItemIconByID(id)) or (GetItemIcon and GetItemIcon(id))
-    icon:SetTexture(W.Safe(tex) or 134400)
-    local n = itemCount(id)
-    count:SetText(n > 1 and tostring(n) or "")
-    local f = (C_Container and C_Container.GetItemCooldown) or GetItemCooldown
-    if f then
-        local start, dur = f(id)
-        cd:SetCooldown(W.Safe(start) or 0, W.Safe(dur) or 0)
+    for _, b in ipairs(buttons) do
+        local id = b.itemId
+        if id and b:IsShown() then
+            local tex = (C_Item and C_Item.GetItemIconByID and C_Item.GetItemIconByID(id)) or (GetItemIcon and GetItemIcon(id))
+            b.icon:SetTexture(W.Safe(tex) or 134400)
+            local n = itemCount(id)
+            b.count:SetText(n > 1 and tostring(n) or "")
+            local f = (C_Container and C_Container.GetItemCooldown) or GetItemCooldown
+            if f then
+                local start, dur = f(id)
+                b.cd:SetCooldown(W.Safe(start) or 0, W.Safe(dur) or 0)
+            end
+        end
     end
 end
 
 function IT:Sync()
     if InCombatLockdown and InCombatLockdown() then pending = true return end
     pending = false
-    local id = W.db.itemButton ~= false and IT.ForGroup() or nil
-    IT.item = id
-    b:SetAttribute("item", id and ("item:" .. id) or nil)
-    local show = id and place()
-    b:SetShown(show and true or false)
-    if show then refreshLook() end
+    local items = W.db.itemButton ~= false and IT.ForGroup() or {}
+    IT.items, IT.item = items, items[1]
+    local shown = 0
+    for k, b in ipairs(buttons) do
+        local id = items[k]
+        b.itemId = id
+        b:SetAttribute("item", id and ("item:" .. id) or nil)
+        local show = id and place(b, k)
+        b:SetShown(show and true or false)
+        if show then shown = shown + 1 end
+    end
+    refreshLook()
     local detached = W.Target and W.Target.Detached()
-    if W.UI and W.UI.SetCardInset then W.UI.SetCardInset((show and not detached) and (SIZE + GAP) or 0, "item") end
+    if W.UI and W.UI.SetCardInset then W.UI.SetCardInset(detached and 0 or shown * (SIZE + GAP), "item") end
 end
-
-b:SetScript("OnEnter", function(self)
-    GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-    if IT.item and GameTooltip.SetItemByID then GameTooltip:SetItemByID(IT.item) else GameTooltip:AddLine("Use quest item") end
-    GameTooltip:AddLine("Bind a key: Key Bindings > AddOns > Onward", 0.6, 0.6, 0.6)
-    if pending then GameTooltip:AddLine("Updates when combat ends", 1, 0.6, 0.4) end
-    GameTooltip:Show()
-end)
-b:SetScript("OnLeave", function() GameTooltip:Hide() end)
 
 local function registerClicks()
     local down = GetCVarBool and GetCVarBool("ActionButtonUseKeyDown")
-    b:RegisterForClicks(down and "LeftButtonDown" or "LeftButtonUp")
+    for _, b in ipairs(buttons) do b:RegisterForClicks(down and "LeftButtonDown" or "LeftButtonUp") end
 end
 
 local function sync() IT:Sync() end

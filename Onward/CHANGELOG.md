@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.5.4
+
+- Several quest item buttons when you need them: when the quests you're working on together each
+  have an item to use, one button per item (up to four) in a row beside the target button, the
+  current step's first. Each has its own key binding (Use quest item, 2, 3, 4).
+
 ## 0.5.3
 
 - **Quest item button.** On a step where the quest has you use an item (fletch the Wood Bundles,
