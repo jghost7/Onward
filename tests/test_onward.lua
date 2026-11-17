@@ -736,6 +736,8 @@ MOCK.fire("QUEST_LOG_UPDATE") settle()
 -- zone art: two tiles from the middle of the guide's map, faded behind the header
 do
     local savedL, savedT = C_Map.GetMapArtLayers, C_Map.GetMapArtLayerTextures
+    local savedShot = W.ZoneShots[1423]
+    W.ZoneShots[1423] = nil   -- the shipped picture for this map would stand in for the map tiles
     C_Map.GetMapArtLayers = function(m) return { { layerWidth = 1002, layerHeight = 668, tileWidth = 256, tileHeight = 256 } } end
     C_Map.GetMapArtLayerTextures = function(m) local t = {} for i = 1, 12 do t[i] = m * 100 + i end return t end
     local tiles = W.UI.ZoneArt(1423)
@@ -755,7 +757,7 @@ goto 1423 50.0,50.0 |note elsewhere
     check("zone shot shows instead of the map", W.UI.shotTex:IsShown() and W.UI.shotTex.texture == "Interface\\AddOns\\Onward\\media\\zones\\1423" and not art[1]:IsShown(), W.UI.shotTex.texture)
     W.db.headerArt = "off" W.UI:Render()
     check("header art can be turned off", not art[1]:IsShown() and not W.UI.shotTex:IsShown())
-    W.db.headerArt = "shot" W.ZoneShots[1423] = nil
+    W.db.headerArt = "shot" W.ZoneShots[1423] = savedShot
     C_Map.GetMapArtLayers, C_Map.GetMapArtLayerTextures = savedL, savedT
     W.Guide:Activate("group") settle()
 end

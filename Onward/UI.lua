@@ -281,11 +281,11 @@ end
 local shotTex = f:CreateTexture(nil, "BACKGROUND", nil, -3)
 shotTex:SetPoint("TOPLEFT", artTiles[1])
 shotTex:SetPoint("BOTTOMRIGHT", artTiles[2])
-if shotTex.SetDesaturation then shotTex:SetDesaturation(0.15) end
+if shotTex.SetDesaturation then shotTex:SetDesaturation(1) end
 if artMask and shotTex.AddMaskTexture then shotTex:AddMaskTexture(artMask) end
 shotTex:Hide()
-local SHOT_ALPHA = artMask and 0.42 or 0.16
-local INK_ALPHA = 0.55
+local SHOT_ALPHA = artMask and 0.20 or 0.08
+local INK_ALPHA = 0.22   -- added light: faint grey brushwork, about as present as the map strip
 
 local artShown
 local function renderArt(g)

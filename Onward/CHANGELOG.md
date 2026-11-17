@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.6.4
+
+- **Ink-and-wash zone art** behind the header for 22 zones (more to come): a generated painting
+  of each zone's landscape, grey, very faint and evened out so every zone sits equally quiet,
+  fading in only after the title. The window is no taller. Zones without one show the map strip.
+  Options > Panel > Header art: Zone shot / Map / Off.
+- Screenshot pictures (`tools/make_zone_art.py`) are grey and fainter too.
+
 ## 0.6.3
 
 - The map strip behind the header is now grey only and much fainter, and it stays clear of the

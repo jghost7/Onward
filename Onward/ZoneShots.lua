@@ -2,4 +2,26 @@
 -- "shot" = <map>.tga from a screenshot, "ink" = <map>_ink.tga, a generated ink painting.
 local _, W = ...
 W.ZoneShots = {
+  [1411] = "ink",
+  [1412] = "ink",
+  [1416] = "ink",
+  [1417] = "ink",
+  [1418] = "ink",
+  [1419] = "ink",
+  [1423] = "ink",
+  [1424] = "ink",
+  [1426] = "ink",
+  [1428] = "ink",
+  [1429] = "ink",
+  [1431] = "ink",
+  [1432] = "ink",
+  [1439] = "ink",
+  [1440] = "ink",
+  [1443] = "ink",
+  [1444] = "ink",
+  [1445] = "ink",
+  [1447] = "ink",
+  [1448] = "ink",
+  [2482] = "ink",
+  [2548] = "ink",
 }

@@ -29,6 +29,7 @@ SHOTS_DIR = GAME / "Screenshots"
 OUT_DIR = ROOT / "Onward" / "media" / "zones"
 LIST = ROOT / "Onward" / "ZoneShots.lua"
 W, H = 512, 64
+INK_MEAN = 48        # average brightness (0-255) of an ink strip before the panel's own fade
 MATCH_S = 4          # a screenshot file is written within a few seconds of the event
 
 
@@ -94,11 +95,16 @@ def make_ink(path, mp, y=0.5):
     """An ink-and-wash painting -> <map>_ink.tga: inverted to pale ink on black, which the panel
     draws additively, so the paper vanishes and only the brushwork shows on the dark glass."""
     from PIL import ImageOps
+    from PIL import ImageStat
     s = ImageOps.autocontrast(ImageOps.invert(band(path, y).convert("L")), cutoff=1)
-    tinted = Image.merge("RGB", [s.point(lambda v, k=k: int(v * k)) for k in (1.0, 0.95, 0.85)])
+    # even out the strips: a dark painting (ash clouds) inverts to a bright band, so scale every
+    # strip to the same average brightness and they all sit equally faint behind the header
+    mean = ImageStat.Stat(s).mean[0] or 1
+    k = min(1.0, INK_MEAN / mean)
+    s = s.point(lambda v: int(v * k))
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     out = OUT_DIR / f"{mp}_ink.tga"
-    tinted.save(out)
+    Image.merge("RGB", (s, s, s)).save(out)   # grey: the header art never adds colour behind text
     return out
 
 
