@@ -32,20 +32,27 @@ ring:SetPoint("CENTER", arrow)
 ring:SetVertexColor(0.40, 0.85, 0.45)
 ring:Hide()
 
--- glass pill under the arrow holding the readout
+-- the readout under the arrow: no box, just text with a firm shadow over a soft dark fade that
+-- keeps it readable on bright ground. Its size is its own setting (Options > Navigation).
 local pill = CreateFrame("Frame", nil, f)
 pill:SetSize(196, 54)
 pill:SetPoint("TOP", arrow, "BOTTOM", 0, -2)
-W.Skin.Glass(pill, { alpha = 0.55, corner = 10 })
+local fade = pill:CreateTexture(nil, "BACKGROUND")
+fade:SetTexture(MEDIA .. "text_fade")
+fade:SetPoint("TOPLEFT", -26, 8)
+fade:SetPoint("BOTTOMRIGHT", 26, -8)
 
+local texts = {}
 local function text(size, r, g, b, font)
     local t = pill:CreateFontString(nil, "OVERLAY")
-    W.Skin.Font(t, size, font and "head" or "body")
-    t:SetShadowColor(0, 0, 0, 0.8)
+    t.baseSize, t.kind = size, font and "head" or "body"
+    W.Skin.Font(t, size, t.kind)
+    t:SetShadowColor(0, 0, 0, 1)
     t:SetShadowOffset(1, -1)
     t:SetTextColor(r, g, b)
     t:SetWidth(184)
     t:SetWordWrap(false)
+    texts[#texts + 1] = t
     return t
 end
 local dist = text(15, 1, 1, 1, FONT)
@@ -56,7 +63,19 @@ local sub = text(11, 1, 1, 1)
 W.Skin.Accent(sub, "text")
 sub:SetPoint("TOP", label, "BOTTOM", 0, -2)
 
-A.frame, A.tex, A.dist, A.label = f, arrow, dist, label   -- for tests / skins
+-- text size: W.db.arrowTextScale (0.7 - 1.6), separate from the arrow's own size
+local textScale = 1
+local function applyTextScale()
+    textScale = (W.db and W.db.arrowTextScale) or 1
+    for _, t in ipairs(texts) do
+        W.Skin.Font(t, math.floor(t.baseSize * textScale + 0.5), t.kind)
+        t:SetWidth(184 * math.max(1, textScale))
+    end
+    pill:SetWidth(196 * math.max(1, textScale))
+end
+A.ApplyTextScale = applyTextScale
+
+A.frame, A.tex, A.dist, A.label, A.sub, A.fade = f, arrow, dist, label, sub, fade   -- for tests / skins
 
 ---------------------------------------------------------------------------
 local function lerp(a, b, t) return a + (b - a) * t end
@@ -87,7 +106,7 @@ local function update(_, dt)
     f:SetAlpha(1)
     label:SetText(tgt.label or "")
     sub:SetText(tgt.sub or "")
-    pill:SetHeight((tgt.sub and tgt.sub ~= "") and 54 or 40)
+    pill:SetHeight(((tgt.sub and tgt.sub ~= "") and 54 or 40) * textScale)
 
     local pc, px, py = T.PlayerWorld()
     if not pc or pc ~= tgt.cont then
@@ -172,6 +191,7 @@ local function place()
     local p = W.db.arrowPoint
     if p then f:SetPoint(p[1], UIParent, p[2], p[3], p[4]) else f:SetPoint("TOP", UIParent, "TOP", 0, -140) end
     f:SetScale(W.db.arrowScale or 1)
+    applyTextScale()
 end
 
 function A:Sync()

@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.5
+
+- The text under the nav arrow (distance, arrival time, where it's pointing) is no longer in a box:
+  it sits on a soft dark fade with a firm shadow, so it reads on bright ground without a panel.
+- **Arrow text size** is its own setting now (Options > Navigation), apart from the arrow's size.
+
 ## 0.6.4
 
 - **Ink-and-wash zone art** behind the header for 22 zones (more to come): a generated painting

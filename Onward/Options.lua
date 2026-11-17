@@ -36,7 +36,7 @@ end
 -- window
 ---------------------------------------------------------------------------
 local win = CreateFrame("Frame", "OnwardOptions", UIParent)
-win:SetSize(640, 740)
+win:SetSize(640, 780)
 win:SetPoint("CENTER")
 win:SetFrameStrata("DIALOG")
 win:SetClampedToScreen(true)
@@ -230,6 +230,7 @@ section(1, "Navigation")
 check(1, "arrow", "Show nav arrow", "Rotating arrow with distance and arrival time.")
 check(1, "arrowLocked", "Lock arrow", "Stops dragging and lets clicks pass through the arrow.")
 slider(1, "arrowScale", "Arrow size", 0.6, 1.8, 0.05, "%.2f")
+slider(1, "arrowTextScale", "Arrow text size", 0.7, 1.6, 0.05, "%.2f")
 choice(1, "routeMode", "Route on the world map", {
     { value = "off", label = "Off" },
     { value = "current", label = "Current", tip = "A dotted line from you to the current step, via flight masters when flying is faster." },

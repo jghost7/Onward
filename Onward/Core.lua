@@ -16,6 +16,7 @@ local DEFAULTS = {
     -- navigation
     arrow = true,            -- Onward's nav arrow
     arrowScale = 1,
+    arrowTextScale = 1,      -- size of the distance / target text under the arrow
     arrowLocked = false,
     arrowPoint = nil,
     waypoints = true,        -- Blizzard map pin on the current step

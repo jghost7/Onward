@@ -733,6 +733,15 @@ MOCK.fire("QUEST_LOG_UPDATE") settle()
 W.Guide:Activate("group") settle()
 for _, q in ipairs({ 960, 961, 962 }) do MOCK.finish(q) MOCK.turnIn(q) MOCK.fire("QUEST_TURNED_IN", q) end
 MOCK.fire("QUEST_LOG_UPDATE") settle()
+-- arrow readout: no box, a soft fade behind shadowed text, its own size setting
+do
+    check("arrow text sits on a soft fade, not a glass box", W.Arrow.fade and W.Arrow.fade.texture == "Interface\\AddOns\\Onward\\media\\text_fade")
+    W.db.arrowTextScale = 1.5 W:Fire("WF_SETTINGS_CHANGED")
+    check("arrow text size follows its setting", W.Arrow.dist.fontSize == 23 and W.Arrow.label.fontSize == 18, W.Arrow.dist.fontSize)
+    W.db.arrowTextScale = 1 W:Fire("WF_SETTINGS_CHANGED")
+    check("arrow text back to normal size", W.Arrow.dist.fontSize == 15, W.Arrow.dist.fontSize)
+end
+
 -- zone art: two tiles from the middle of the guide's map, faded behind the header
 do
     local savedL, savedT = C_Map.GetMapArtLayers, C_Map.GetMapArtLayerTextures
@@ -1039,7 +1048,7 @@ W.db.theme = "onward"
 fakeE.IsEnabled = function() return false end
 SK.Refresh()
 
-check("options fit the window", W.Options.cursor[1] > -724 and W.Options.cursor[2] > -724, W.Options.cursor[1] .. " / " .. W.Options.cursor[2])   -- window is 740 tall
+check("options fit the window", W.Options.cursor[1] > -764 and W.Options.cursor[2] > -764, W.Options.cursor[1] .. " / " .. W.Options.cursor[2])   -- window is 780 tall
 
 -- profession guides: steps complete on your skill, the card shows mats against your bags,
 -- the trainer is found, and the game's own best recipe is offered when the route's isn't usable
