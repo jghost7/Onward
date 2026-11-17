@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.6.1
+
+- **Later** moved to the top-right corner of the step card, in both layouts: no longer next to the
+  target and item buttons (or in the dock), where a hurried click could send the quest to the end.
+- Objectives written count first ("0/12 Saltwater Murloc Eye", as Forever's quest log does) now
+  split properly: the name on the left, the count once, on the right.
+- The action strip only shows when there's a mob to target or an item to use.
+
 ## 0.6.0
 
 The panel, redesigned around the current step (direction A from the mock-ups):

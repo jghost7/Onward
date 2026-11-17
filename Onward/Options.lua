@@ -240,7 +240,7 @@ check(1, "tomtom", "TomTom waypoint (if installed)")
 check(1, "targetButton", "Quest mob target button", "A crosshair on kill and loot steps: click it, or bind a key under Key Bindings > AddOns > Onward, to target the nearest living quest mob.")
 check(1, "targetMark", "Mark the target with a skull", "Puts a skull over the mob the target button picks, so it stands out in a crowd.")
 check(1, "itemButton", "Quest item button", "On steps where the quest has you use an item, a button that uses it, beside the target button. Bind a key under Key Bindings > AddOns > Onward.", function() W.Item:Sync() end)
-check(1, "targetDetached", "Buttons in a dock", "Moves the target, quest item and Later buttons off the step card into a dock of action-button-sized buttons you can place anywhere, e.g. above your action bars, with your key bindings shown. Right-drag the target button to move it.", function() W.UI:Render() W.Target:Sync() end)
+check(1, "targetDetached", "Buttons in a dock", "Moves the target and quest item buttons off the step card into a dock of action-button-sized buttons you can place anywhere, e.g. above your action bars, with your key bindings shown. Right-drag the target button to move it.", function() W.UI:Render() W.Target:Sync() end)
 
 section(1, "Travel")
 check(1, "trailBack", "Lead back the way you came", "When you head back to a quest giver you walked away from, the arrow follows your own path (around cliffs, over bridges) instead of a straight line.")

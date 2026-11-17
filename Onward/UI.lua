@@ -317,7 +317,7 @@ UI.card, UI.mainText, UI.verbText = card, mainText, verbText
 function UI.SetCardInset() end
 
 -- action strip under the title: the target and quest item buttons (secure, placed over it by
--- Target.lua / Item.lua) on the left, "Later" on the right
+-- Target.lua / Item.lua)
 local STRIP_H = 28
 local strip = CreateFrame("Frame", nil, card)
 strip:SetHeight(STRIP_H)
@@ -341,9 +341,15 @@ local function outlineButton(parent, label, tip, onClick)
     b:SetScript("OnClick", onClick)
     return b
 end
-local laterStripBtn = outlineButton(strip, "Later", "Come back to this quest later: the guide moves on, reminds you when you're back here, and returns to it at the end.",
+-- "Later" sits on the card's top-right corner, on the step-kind line: away from the target and
+-- item buttons (strip or dock), so a hurried click on those never sends the quest to the end
+local laterStripBtn = outlineButton(card, "Later", "Come back to this quest later: the guide moves on, reminds you when you're back here, and returns to it at the end.",
     function() local s = card.step if s and s.quest then G:Later(s.quest) end end)
-laterStripBtn:SetPoint("RIGHT", strip, "RIGHT", 0, 0)
+laterStripBtn:SetHeight(18)
+laterStripBtn:SetWidth(math.max(44, (laterStripBtn.text:GetStringWidth() or 0) + 16))
+laterStripBtn:SetPoint("TOPRIGHT", card, "TOPRIGHT", 0, 2)
+laterStripBtn:Hide()
+verbText:SetPoint("RIGHT", laterStripBtn, "LEFT", -6, 0)
 UI.laterStripBtn = laterStripBtn
 
 -- pools: objective rows (name, count, bar), extra lines (hints, drop rates, notes), also-here
@@ -648,11 +654,16 @@ local STATE_TEXT = {
     unknown  = { "", C.dim },
 }
 
--- "Makeshift Stickin' Spear: 3/20" -> name, have, need (have/need from the log when it has them)
+-- "Makeshift Stickin' Spear: 3/20" or (Forever's log) "3/20 Makeshift Stickin' Spear" -> name,
+-- have, need (have/need from the log when it has them)
 local function splitObjective(o)
-    local name, a, b = (o.text or ""):match("^(.-):%s*(%d+)%s*/%s*(%d+)%s*$")
+    local text = o.text or ""
+    local name, a, b = text:match("^(.-):%s*(%d+)%s*/%s*(%d+)%s*$")
+    if not name then
+        a, b, name = text:match("^(%d+)%s*/%s*(%d+)%s+(.+)$")
+    end
     local have, need = o.have or tonumber(a), o.need or tonumber(b)
-    if not name then name = (o.text or ""):gsub(":%s*$", "") end
+    if not name then name = (text:gsub(":%s*$", "")) end
     return name, have, need
 end
 UI.SplitObjective = splitObjective
@@ -671,12 +682,13 @@ local function questProgress(q)
     return need > 0 and (have .. "/" .. need) or ""
 end
 
--- the action strip shows on kill/loot steps (Later, target) and whenever there's an item to use,
--- unless the buttons live in the dock (Options > Navigation)
+-- the action strip shows when there's a mob to target or an item to use, unless the buttons live
+-- in the dock (Options > Navigation)
 local function wantsStrip(step)
     if not step or W.db.collapsed or W.db.targetDetached then return false end
-    if step.verb == "complete" and step.quest then return true end
-    return W.Item and #W.Item.ForGroup() > 0 or false
+    local TG = W.Target
+    if W.db.targetButton and TG and step.verb == "complete" and #TG.MobsForGroup(G:Group()) > 0 then return true end
+    return W.db.itemButton ~= false and W.Item and #W.Item.ForGroup() > 0 or false
 end
 
 ---------------------------------------------------------------------------
@@ -718,6 +730,7 @@ function UI:Render()
     strip:Hide()
 
     if not step then
+        laterStripBtn:Hide()
         verbText:SetText("NEXT GUIDE")
         S.Accent(verbText, "text")
         -- nothing to do: offer the recommended guide (a new character's first quest is in it)
@@ -737,6 +750,7 @@ function UI:Render()
 
     -- current step: what kind, the title, where
     setVerb(step)
+    laterStripBtn:SetShown(step.verb == "complete" and step.quest ~= nil and not G:IsLater(step) and not W.db.collapsed)
     local text = UI.StepText(step)
     -- a kill/loot step or turn-in for a quest you haven't picked up: send you to the quest giver
     local pickup = G:IsMissing(step) and WP:Current() and WP:Current().step == step and WP:Current().pickup
@@ -773,7 +787,6 @@ function UI:Render()
     -- the action strip
     if wantsStrip(step) then
         strip:Show()
-        laterStripBtn:SetShown(step.verb == "complete" and step.quest ~= nil and not G:IsLater(step))
         place(strip, 8, STRIP_H)
     end
 

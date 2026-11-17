@@ -655,15 +655,17 @@ check("macro targets the guide's mobs", macro:find("/targetexact Bog Lurker", 1,
 check("macro skips corpses", macro:find("/cleartarget [dead]", 1, true))
 -- the refreshed card: verb label, action strip, dock
 check("card labels a kill step KILL", W.UI.VerbLabel(cur()) == "KILL" and W.UI.verbText:GetText() == "KILL", W.UI.verbText:GetText())
-check("kill step gets the action strip with Later", W.UI.strip:IsShown() and W.UI.laterStripBtn:IsShown())
+check("kill step gets the action strip, Later on the card", W.UI.strip:IsShown() and W.UI.laterStripBtn:IsShown())
 do
     local n, h, need = W.UI.SplitObjective({ text = "Makeshift Stickin' Spear: 3/20" })
     check("objective split into name and count", n == "Makeshift Stickin' Spear" and h == 3 and need == 20, n)
+    local n2, h2, need2 = W.UI.SplitObjective({ text = "0/12 Saltwater Murloc Eye" })
+    check("count-first objective split too", n2 == "Saltwater Murloc Eye" and h2 == 0 and need2 == 12, n2)
 end
 GetBindingKey = function(cmd) if cmd == "CLICK OnwardTargetButton:LeftButton" then return "SHIFT-T" end end
 W.db.targetDetached = true W.UI:Render()
 check("dock: no strip on the card", not W.UI.strip:IsShown())
-check("dock shows behind the detached buttons, with Later", W.Item.dock:IsShown() and W.Item.dockLater:IsShown())
+check("dock shows behind the detached buttons; Later stays on the card", W.Item.dock:IsShown() and not W.Item.dockLater:IsShown() and W.UI.laterStripBtn:IsShown())
 check("dock shows key bindings, shortened", W.Item.KeyLabel(TB) == "sT", W.Item.KeyLabel(TB))
 W.db.targetDetached = false W.UI:Render()
 check("back in the strip: dock hidden", W.UI.strip:IsShown() and not W.Item.dock:IsShown())

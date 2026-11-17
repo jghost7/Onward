@@ -64,7 +64,7 @@ Install it on a character you've already been playing and Onward works out what 
 
 ## Quest-mob targeting and quest items
 
-On kill and loot steps a crosshair appears next to the step. Click it, or **bind a key** (Key Bindings > AddOns > Onward), to target the nearest living quest mob and put a skull on it. When several kill quests share an area, Onward lists them together and the button covers all of them. Prefer them by your action bars? Options > Navigation > Buttons in a dock puts the target, quest item and Later buttons in a dock of action-button-sized buttons, with your key bindings on them, that you can drag anywhere.
+On kill and loot steps a crosshair appears next to the step. Click it, or **bind a key** (Key Bindings > AddOns > Onward), to target the nearest living quest mob and put a skull on it. When several kill quests share an area, Onward lists them together and the button covers all of them. Prefer them by your action bars? Options > Navigation > Buttons in a dock puts the target and quest item buttons in a dock of action-button-sized buttons, with your key bindings on them, that you can drag anywhere.
 
 When the quest has you use an item (fletch the bundles, throw the spear), a **quest item button** appears beside it with the item's icon, count and cooldown: one per item (up to four) when the quests you're doing together each need one. They have their own key bindings too.
 

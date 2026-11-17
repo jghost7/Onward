@@ -273,12 +273,11 @@ function IT.UpdateDock(shownItems)
     local first = (targetShown and tb) or (shownItems > 0 and buttons[1]) or nil
     if not (docked and first) then dock:Hide() return end
     local n = (targetShown and 1 or 0) + shownItems
-    local s = G:Current()
-    local later = s and s.verb == "complete" and s.quest and not G:IsLater(s)
-    dockLater:SetShown(later and true or false)
+    -- "Later" stays on the panel's card, out of reach of a hurried click on these
+    dockLater:Hide()
     dock:ClearAllPoints()
     dock:SetPoint("TOPLEFT", first, "TOPLEFT", -6, 6)
-    dock:SetSize(n * (BIG + 6) + 6 + (later and (BIG + 6) or 0), BIG + 12)
+    dock:SetSize(n * (BIG + 6) + 6, BIG + 12)
     dock:Show()
 end
 
