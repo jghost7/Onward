@@ -826,8 +826,22 @@ W:On("WF_INIT", function()
     table.sort(ordered, function(a, b) return a.levels[1] < b.levels[1] end)
 end)
 
+-- The quest log and the completed-quest records arrive over the first seconds after login, so
+-- the step picked at login can sit on a quest you've done or already have. Normal refreshes only
+-- move forward from the current step, so for a while after login every refresh rescans the
+-- guide from the start (what choosing the guide again does), and a few timed passes catch data
+-- that lands without a quest log event.
+local SETTLE_S = 12
+local settleUntil = 0
+function G:Rescan()
+    if not active or active.id == "smart" then return end
+    advance(true)
+    W:Fire("WF_UPDATED")
+end
 W:On("PLAYER_LOGIN", function()
     G:Activate(W.cdb.guide)
+    settleUntil = GetTime() + SETTLE_S
+    for _, t in ipairs({ 1, 3, 6, SETTLE_S }) do C_Timer.After(t, function() G:Rescan() end) end
     -- A character on the quest-log guide with nothing in its log (a new character, say) gets the
     -- recommended guide instead: its first step is the first quest to pick up. Checked once, a few
     -- seconds in, when the quest log has loaded; never when you chose the quest-log guide yourself.
@@ -859,7 +873,7 @@ W:On("WF_REFRESH", function()
             W:Fire("WF_STEP_CHANGED", cur)
         end
     else
-        advance(needRescan)
+        advance(needRescan or GetTime() < settleUntil)
         needRescan = false
         local fresh = {}
         for _, s in ipairs(G:Waiting().ready) do

@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.12
+
+- Logging in no longer drops you back on quests you skipped earlier in the guide. The step was
+  picked before the game had loaded your quest records; for the first seconds after login the guide
+  now rescans from the start whenever they arrive (what re-picking the guide used to fix).
+
 ## 0.6.11
 
 - The quest mob target button skips mobs someone else has tagged: with enemy nameplates on, out of

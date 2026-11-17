@@ -1147,6 +1147,29 @@ do
     check("automatic again: the look's fonts", SK.FontPath("head") == SK.FONT_HEAD)
 end
 
+-- login: the completed-quest records land a moment after login, with no quest log event. The
+-- step picked at login must not stay on a quest you skipped earlier in the guide.
+do
+    local oldGuide = W.cdb.guide
+    W:RegisterGuide{ id = "logintest", title = "Login test", faction = "", steps = [[
+accept 9740
+accept 9741
+turnin 9741
+accept 9742
+turnin 9742
+accept 9743
+]]}
+    W.cdb.guide = "logintest"
+    MOCK.done[9741], MOCK.done[9742] = nil, nil
+    MOCK.fire("PLAYER_LOGIN") settle()
+    check("login before the records arrive: guide starts at the top", W.Guide:Current().quest == 9740, W.Guide:Current().quest)
+    MOCK.done[9741], MOCK.done[9742] = true, true          -- records arrive, no event
+    MOCK.advance(4) settle()
+    check("login: rescanned once they arrive, past the skipped quest", W.Guide:Current().quest == 9743, W.Guide:Current().quest)
+    MOCK.advance(20) settle()
+    W.Guide:Activate(oldGuide)
+end
+
 check("options fit the window", W.Options.cursor[1] > -764 and W.Options.cursor[2] > -764, W.Options.cursor[1] .. " / " .. W.Options.cursor[2])   -- window is 780 tall
 
 -- profession guides: steps complete on your skill, the card shows mats against your bags,
