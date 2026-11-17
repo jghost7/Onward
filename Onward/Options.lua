@@ -194,6 +194,119 @@ local function choice(col, key, label, items, tip, onChange)
     cursor[col] = cursor[col] - 50
 end
 
+-- font dropdown: label above, a box showing the current font in itself; click for a list of
+-- "Automatic" plus every font the game and other addons offer, each name drawn in its own font
+-- (mouse wheel scrolls when there are more than fit)
+local ROWS, ROW_H = 10, 20
+local function autoFontPath() return S.fontOverride or S.FONT_BODY end
+local function fontPicker(col, label, tip)
+    local t = fs(win, 12)
+    t:SetPoint("TOPLEFT", cols[col], cursor[col] - 2)
+    t:SetText(label)
+    local box = CreateFrame("Button", nil, win)
+    box:SetSize(284, 22)
+    box:SetPoint("TOPLEFT", cols[col], cursor[col] - 20)
+    local bg = W.Skin.Nine(box, "BACKGROUND", 0, W.Skin.MEDIA .. "glass_body", 64, 16, 7, 0)
+    bg:SetColor(1, 1, 1, 0.08)
+    local value = box:CreateFontString(nil, "OVERLAY")   -- drawn in the font it names, not via S.Font
+    value:SetPoint("LEFT", 9, 0)
+    value:SetPoint("RIGHT", -22, 0)
+    value:SetJustifyH("LEFT")
+    value:SetTextColor(0.93, 0.94, 0.96)
+    local chev = fs(box, 11, 0.62, 0.65, 0.70)
+    chev:SetPoint("RIGHT", -9, 0)
+    chev:SetText("v")
+    box:SetScript("OnEnter", function(self)
+        bg:SetColor(ACCENT[1], ACCENT[2], ACCENT[3], 0.28)
+        GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+        GameTooltip:SetText(tip, 1, 1, 1, 1, true)
+        GameTooltip:Show()
+    end)
+    box:SetScript("OnLeave", function() bg:SetColor(1, 1, 1, 0.08) GameTooltip:Hide() end)
+
+    local list = CreateFrame("Frame", nil, win)
+    list:SetFrameStrata("FULLSCREEN_DIALOG")
+    list:SetWidth(284)
+    list:SetPoint("TOPLEFT", box, "BOTTOMLEFT", 0, -2)
+    list:EnableMouse(true)
+    list:EnableMouseWheel(true)
+    list:Hide()
+    local lbg = W.Skin.Nine(list, "BACKGROUND", 0, W.Skin.MEDIA .. "glass_body", 64, 16, 7, 0)
+    lbg:SetColor(0.035, 0.04, 0.05, 0.97)
+    local entries, offset, rows = {}, 0, {}
+
+    local function current()
+        local name = W.db.font or "auto"
+        if name ~= "auto" and not S.ChosenFont() then name = "auto" end   -- its addon is gone
+        return name
+    end
+    local function paint()
+        local cur = current()
+        for i, r in ipairs(rows) do
+            local e = entries[i + offset]
+            r:SetShown(e ~= nil)
+            if e then
+                r.e = e
+                r.text:SetFont(e.path or autoFontPath(), 13, "")
+                r.text:SetText(e.label)
+                local on = e.name == cur
+                if on then r.text:SetTextColor(ACCENT[1], ACCENT[2], ACCENT[3]) else r.text:SetTextColor(0.93, 0.94, 0.96) end
+            end
+        end
+    end
+    for i = 1, ROWS do
+        local r = CreateFrame("Button", nil, list)
+        r:SetSize(276, ROW_H)
+        r:SetPoint("TOPLEFT", 4, -4 - (i - 1) * ROW_H)
+        local hl = r:CreateTexture(nil, "BACKGROUND")
+        hl:SetAllPoints()
+        hl:SetColorTexture(1, 1, 1, 0.07)
+        hl:Hide()
+        r.text = r:CreateFontString(nil, "OVERLAY")
+        r.text:SetPoint("LEFT", 6, 0)
+        r.text:SetPoint("RIGHT", -6, 0)
+        r.text:SetJustifyH("LEFT")
+        r.text:SetTextColor(0.93, 0.94, 0.96)
+        r:SetScript("OnEnter", function() hl:Show() end)
+        r:SetScript("OnLeave", function() hl:Hide() end)
+        r:SetScript("OnClick", function(self)
+            W.db.font = self.e.name
+            list:Hide()
+            S.Refresh()
+            for _, f in ipairs(controls) do f() end
+            changed()
+        end)
+        rows[i] = r
+    end
+    list:SetScript("OnMouseWheel", function(_, d)
+        offset = math.max(0, math.min(#entries - ROWS, offset - d))
+        paint()
+    end)
+    local function open()
+        entries = { { name = "auto", label = "Automatic" } }
+        for _, f in ipairs(S.FontChoices()) do entries[#entries + 1] = { name = f.name, label = f.name, path = f.path } end
+        local n = math.min(ROWS, #entries)
+        list:SetHeight(n * ROW_H + 8)
+        -- start with the current font in view
+        offset = 0
+        for i, e in ipairs(entries) do
+            if e.name == current() then offset = math.max(0, math.min(#entries - ROWS, i - 3)) end
+        end
+        paint()
+        list:Show()
+    end
+    box:SetScript("OnClick", function() if list:IsShown() then list:Hide() else open() end end)
+    win:HookScript("OnHide", function() list:Hide() end)
+
+    controls[#controls + 1] = function()
+        local name = current()
+        value:SetFont(S.ChosenFont() or autoFontPath(), 12, "")
+        value:SetText(name == "auto" and "Automatic" or name)
+    end
+    O.fontList = { open = open, list = list, rows = rows, value = value, entries = function() return entries end }
+    cursor[col] = cursor[col] - 50
+end
+
 local function button(col, label, onClick, width, xoff)
     local b = CreateFrame("Button", nil, win)
     b:SetSize(width or 284, 24)
@@ -252,6 +365,7 @@ check(1, "autoTaxi", "Pick the flight automatically", "At the flight master, tak
 
 -- what each look does with fonts: EllesmereUI's font in every look when it's installed
 local function lookTip(text)
+    if S.ChosenFont() then return text .. " Text uses the font you picked under Font." end
     if S.UsingEllesmere() then return text .. " Text uses your EllesmereUI font." end
     return text .. (text:find("plain font") and "" or " Titles in the game's headline font.")
 end
@@ -267,6 +381,7 @@ choice(2, "theme", "Look", {
         return "Neutral dark glass with green highlights and one plain font. With EllesmereUI installed it takes your EllesmereUI accent and panel colours."
     end },
 }, nil, function() S.Refresh() end)
+fontPicker(2, "Font", "The font for all of Onward's text: the panel, the arrow and this window. Automatic uses your EllesmereUI font when it's installed, otherwise each look's own fonts. The list has the game's fonts and any font your other addons share (SharedMedia and addons built on it).")
 slider(2, "showNext", "Upcoming steps shown", 0, 8, 1, "%d")
 slider(2, "scale", "Panel size", 0.7, 1.5, 0.05, "%.2f")
 slider(2, "bgAlpha", "Background opacity", 0, 1, 0.05, "%.2f")

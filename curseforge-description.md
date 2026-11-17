@@ -93,7 +93,7 @@ For "collect" quests, each item objective shows your own drop rate per kill and 
 
 ## Looks and feel
 
-A compact panel built around the current step: what kind of step it is, where, its objectives with progress bars, the quests you can do in the same area, one notice at a time, and what comes next. A faded strip of the zone's own map sits behind each guide's header. Frosted-glass panels in three colourways: **Onward** (the logo's teal and gold, the default), **Glass** (blue-slate) and **Ellesmere** (neutral dark; with **EllesmereUI** installed it takes your EllesmereUI accent colour, panel colour and font). Switch under Options > Panel > Look. Opacity, size, number of upcoming steps and more are in the options (`/ow options`, the gear on the panel, or Esc > Options > AddOns).
+A compact panel built around the current step: what kind of step it is, where, its objectives with progress bars, the quests you can do in the same area, one notice at a time, and what comes next. A faded strip of the zone's own map sits behind each guide's header. Frosted-glass panels in three colourways: **Onward** (the logo's teal and gold, the default), **Glass** (blue-slate) and **Ellesmere** (neutral dark; with **EllesmereUI** installed it takes your EllesmereUI accent colour, panel colour and font). Switch under Options > Panel > Look. Pick any font for Onward's text under Options > Panel > Font: the game's own, or any your other addons share through SharedMedia. Opacity, size, number of upcoming steps and more are in the options (`/ow options`, the gear on the panel, or Esc > Options > AddOns).
 
 ## Write your own routes
 

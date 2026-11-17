@@ -1048,6 +1048,45 @@ W.db.theme = "onward"
 fakeE.IsEnabled = function() return false end
 SK.Refresh()
 
+-- font picker: game fonts plus LibSharedMedia's, one file once; a pick applies to all text,
+-- beats EllesmereUI's font, and a pick whose addon is gone falls back to automatic
+do
+    local lsmFonts = { ["Friz Quadrata TT"] = "Fonts\\FRIZQT__.TTF", ["Expressway"] = "Interface\\AddOns\\SM\\Expressway.ttf",
+                       ["Bazooka"] = "Interface\\AddOns\\SM\\Bazooka.ttf" }
+    local lsm = {
+        List = function() local t = {} for n in pairs(lsmFonts) do t[#t + 1] = n end table.sort(t) return t end,
+        Fetch = function(_, _, n) return lsmFonts[n] end,
+    }
+    _G.LibStub = function(name) return name == "LibSharedMedia-3.0" and lsm or nil end
+    local names = {}
+    for _, f in ipairs(SK.FontChoices()) do names[#names + 1] = f.name end
+    check("font list: game fonts first, then shared ones sorted, no duplicate files",
+          table.concat(names, ",") == "Friz Quadrata,Arial Narrow,Skurri,Morpheus,Bazooka,Expressway", table.concat(names, ","))
+    fakeE.IsEnabled = function() return true end
+    SK.Refresh()
+    check("automatic: EllesmereUI's font", SK.FontPath("body"):find("EUI.TTF", 1, true))
+    local FL = W.Options.fontList
+    FL.open()
+    check("dropdown lists Automatic plus every font", #FL.entries() == 7 and FL.entries()[1].label == "Automatic")
+    local pick
+    for _, r in ipairs(FL.rows) do if type(r.e) == "table" and r.e.name == "Expressway" then pick = r end end
+    pick:GetScript("OnClick")(pick)
+    check("a picked font is used for headlines and body, over EllesmereUI's",
+          SK.FontPath("head") == lsmFonts.Expressway and SK.FontPath("body") == lsmFonts.Expressway and W.db.font == "Expressway")
+    local applied = false
+    for _, s in ipairs(MOCK.strings) do if s.font == lsmFonts.Expressway then applied = true end end
+    check("picked font repaints existing text", applied)
+    check("the box names the pick in its own font", FL.value.text == "Expressway" and FL.value.font == lsmFonts.Expressway, tostring(FL.value.text))
+    lsmFonts.Expressway = nil
+    SK.Refresh()
+    check("pick from a removed addon falls back to automatic", SK.FontPath("body"):find("EUI.TTF", 1, true))
+    W.db.font = "auto"
+    _G.LibStub = nil
+    fakeE.IsEnabled = function() return false end
+    SK.Refresh()
+    check("automatic again: the look's fonts", SK.FontPath("head") == SK.FONT_HEAD)
+end
+
 check("options fit the window", W.Options.cursor[1] > -764 and W.Options.cursor[2] > -764, W.Options.cursor[1] .. " / " .. W.Options.cursor[2])   -- window is 780 tall
 
 -- profession guides: steps complete on your skill, the card shows mats against your bags,

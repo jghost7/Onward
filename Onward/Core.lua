@@ -17,6 +17,7 @@ local DEFAULTS = {
     arrow = true,            -- Onward's nav arrow
     arrowScale = 1,
     arrowTextScale = 1,      -- size of the distance / target text under the arrow
+    font = "auto",           -- "auto" (EllesmereUI's font, else the look's) or a name from Skin.FontChoices
     arrowLocked = false,
     arrowPoint = nil,
     waypoints = true,        -- Blizzard map pin on the current step

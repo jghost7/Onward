@@ -285,9 +285,52 @@ function S.AccentHex()
     return ("ff%02x%02x%02x"):format(S.ACCENT[1] * 255, S.ACCENT[2] * 255, S.ACCENT[3] * 255)
 end
 
--- fonts: EllesmereUI's font when it supplies one, otherwise headline / body defaults
--- (Ellesmere keeps one clean face throughout; glass and onward set headlines in Friz Quadrata)
+-- fonts: the one picked in Options (W.db.font, a name from S.FontChoices) for all text; else
+-- EllesmereUI's font when it supplies one; else the look's headline / body defaults (Ellesmere
+-- keeps one clean face throughout; glass and onward set headlines in Friz Quadrata)
+S.GAME_FONTS = {
+    { name = "Friz Quadrata", path = "Fonts\\FRIZQT__.TTF" },
+    { name = "Arial Narrow", path = "Fonts\\ARIALN.TTF" },
+    { name = "Skurri", path = "Fonts\\skurri.ttf" },
+    { name = "Morpheus", path = "Fonts\\MORPHEUS.TTF" },
+}
+local function sharedMedia()
+    return LibStub and LibStub("LibSharedMedia-3.0", true)
+end
+-- [{name, path}]: the game's own fonts, then every font other addons share through
+-- LibSharedMedia (SharedMedia, ElvUI, Details...), each file once
+function S.FontChoices()
+    local out, seen = {}, {}
+    local function add(name, path)
+        local k = type(path) == "string" and path:lower():gsub("/", "\\")
+        if k and not seen[k] then seen[k] = true out[#out + 1] = { name = name, path = path } end
+    end
+    for _, f in ipairs(S.GAME_FONTS) do add(f.name, f.path) end
+    local LSM = sharedMedia()
+    if LSM then
+        local shared = {}
+        local ok, names = pcall(LSM.List, LSM, "font")
+        for _, n in ipairs(ok and names or {}) do
+            local ok2, path = pcall(LSM.Fetch, LSM, "font", n, true)
+            if ok2 and path then shared[#shared + 1] = { name = n, path = path } end
+        end
+        table.sort(shared, function(a, b) return a.name:lower() < b.name:lower() end)
+        for _, f in ipairs(shared) do add(f.name, f.path) end
+    end
+    return out
+end
+-- the picked font's file, or nil (automatic, or its addon is gone: never a missing file,
+-- which would leave text with no font at all)
+function S.ChosenFont()
+    local name = W.db and W.db.font
+    if not name or name == "auto" then return nil end
+    for _, f in ipairs(S.FontChoices()) do
+        if f.name == name then return f.path end
+    end
+end
+local chosen
 function S.FontPath(kind)
+    if chosen then return chosen end
     if S.fontOverride then return S.fontOverride end
     return (kind == "head" and S.Theme() ~= "flat") and S.FONT_HEAD or S.FONT_BODY
 end
@@ -302,6 +345,7 @@ end
 ---------------------------------------------------------------------------
 function S.Refresh()
     pullLooks()
+    chosen = S.ChosenFont()
     for _, n in ipairs(nines) do n:Apply() end
     for _, g in ipairs(panels) do g:Apply() end
     for _, h in ipairs(hovers) do S.ApplyHover(h) end
@@ -311,4 +355,19 @@ function S.Refresh()
     if W.Fire then W:Fire("WF_THEME_CHANGED") end
 end
 
-W:On("WF_INIT", function() S.Refresh() end)
+-- addons that load after us (SharedMedia, ElvUI...) register their fonts later: repaint once
+-- every addon is in, and whenever the picked font registers after that
+local listening
+local function listen()
+    local LSM = sharedMedia()
+    if listening or not (LSM and LSM.RegisterCallback) then return end
+    listening = true
+    pcall(LSM.RegisterCallback, S, "LibSharedMedia_Registered", function(_, kind, name)
+        if kind == "font" and W.db and name == W.db.font then S.Refresh() end
+    end)
+end
+W:On("WF_INIT", function() S.Refresh() listen() end)
+W:On("PLAYER_LOGIN", function()
+    listen()
+    if W.db and W.db.font ~= "auto" then S.Refresh() end
+end)
