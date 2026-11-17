@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.6.3
+
+- The map strip behind the header is now grey only and much fainter, and it stays clear of the
+  guide's title (it fades in after the title, toward the buttons), so the header reads cleanly.
+- Header art pictures can be screenshots (`tools/make_zone_art.py`) or generated ink paintings
+  (`tools/gen_zone_art.py`, not shipped for now).
+
 ## 0.6.2
 
 - **Header art: Zone shot / Map / Off** (Options > Panel). "Zone shot" shows a faded picture of the

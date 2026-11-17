@@ -209,26 +209,27 @@ W:On("WF_THEME_CHANGED", themeBar)
 
 -- header art (Options > Panel): a picture of the guide's zone, or a faded strip of its map, masked
 -- so it fades out under the title and toward the card; a little variety per guide
+local ART_TOP, ART_H = 1, 44    -- behind the title row; colourless, faint, and masked away from the title
 local artTiles = {}
 local artMask = f.CreateMaskTexture and f:CreateMaskTexture()
 for i = 1, 2 do
     local t = f:CreateTexture(nil, "BACKGROUND", nil, -3)
-    t:SetHeight(44)
-    if t.SetDesaturation then t:SetDesaturation(0.45) end
+    t:SetHeight(ART_H)
+    if t.SetDesaturation then t:SetDesaturation(1) end   -- grey only: it must never compete with the text
     t:Hide()
     artTiles[i] = t
 end
-artTiles[1]:SetPoint("TOPLEFT", 1, -1)
+artTiles[1]:SetPoint("TOPLEFT", 4, -ART_TOP)
 artTiles[1]:SetPoint("RIGHT", f, "TOP", 0, 0)
 artTiles[2]:SetPoint("TOPLEFT", artTiles[1], "TOPRIGHT")
-artTiles[2]:SetPoint("RIGHT", f, "RIGHT", -1, 0)
+artTiles[2]:SetPoint("RIGHT", f, "RIGHT", -4, 0)
 if artMask then
     artMask:SetTexture(MEDIA .. "zone_mask", "CLAMPTOBLACKADDITIONAL", "CLAMPTOBLACKADDITIONAL")
     artMask:SetPoint("TOPLEFT", artTiles[1])
     artMask:SetPoint("BOTTOMRIGHT", artTiles[2])
     for _, t in ipairs(artTiles) do if t.AddMaskTexture then t:AddMaskTexture(artMask) end end
 end
-local ART_ALPHA = artMask and 0.30 or 0.12   -- without a mask the edges are hard, so fainter
+local ART_ALPHA = artMask and 0.16 or 0.07   -- without a mask the edges are hard, so fainter still
 
 -- the guide's own map: the one most of its steps are on (the smart guide: where you are)
 local guideMap = {}
@@ -236,15 +237,20 @@ local function mapFor(g)
     if not g then return end
     if g.id == "smart" or g.kind == "profession" then return C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit("player") end
     if guideMap[g.id] == nil then
-        local n, best, bestN = {}, false, 0
+        local n, best, bestN, named = {}, false, 0, nil
         for _, s in ipairs(g.steps or {}) do
             local m = s.at and s.at.map
             if m then
                 n[m] = (n[m] or 0) + 1
                 if n[m] > bestN then best, bestN = m, n[m] end
+                -- the map named like the guide's zone wins (Alterac's steps are mostly in Hillsbrad)
+                if not named and g.zone and C_Map.GetMapInfo then
+                    local info = C_Map.GetMapInfo(m)
+                    if info and info.name == g.zone then named = m end
+                end
             end
         end
-        guideMap[g.id] = best
+        guideMap[g.id] = named or best
     end
     return guideMap[g.id] or nil
 end
@@ -269,8 +275,9 @@ function UI.ZoneArt(map)
     return artFor[map]
 end
 
--- a picture of the zone itself (Onward/ZoneShots.lua, made from your own screenshots by
--- tools/make_zone_art.py): one 512x64 strip over the whole header, in colour but faded
+-- a picture of the zone itself (Onward/ZoneShots.lua): a screenshot (tools/make_zone_art.py, shown
+-- faded) or a generated ink painting (tools/gen_zone_art.py: pale ink on black, drawn additively so
+-- the black adds nothing and only the brushwork shows); one 512x64 strip over the whole header
 local shotTex = f:CreateTexture(nil, "BACKGROUND", nil, -3)
 shotTex:SetPoint("TOPLEFT", artTiles[1])
 shotTex:SetPoint("BOTTOMRIGHT", artTiles[2])
@@ -278,19 +285,23 @@ if shotTex.SetDesaturation then shotTex:SetDesaturation(0.15) end
 if artMask and shotTex.AddMaskTexture then shotTex:AddMaskTexture(artMask) end
 shotTex:Hide()
 local SHOT_ALPHA = artMask and 0.42 or 0.16
+local INK_ALPHA = 0.55
 
 local artShown
 local function renderArt(g)
     local mode = W.db.headerArt or "shot"
     local map = mode ~= "off" and mapFor(g) or nil
-    local shot = mode == "shot" and map and W.ZoneShots and W.ZoneShots[map] and (MEDIA .. "zones\\" .. map) or nil
+    local kind = mode == "shot" and map and W.ZoneShots and W.ZoneShots[map]
+    if kind == true then kind = "shot" end
+    local shot = kind and (MEDIA .. "zones\\" .. map .. (kind == "ink" and "_ink" or "")) or nil
     local tiles = not shot and UI.ZoneArt(map) or nil
     local key = shot or (tiles and (tiles[1] .. ":" .. tiles[2])) or ""
-    if key == artShown then return end
+    if key == artShown then return key ~= "" end
     artShown = key
     if shot then
         shotTex:SetTexture(shot)
-        shotTex:SetVertexColor(1, 1, 1, SHOT_ALPHA)
+        if shotTex.SetBlendMode then shotTex:SetBlendMode(kind == "ink" and "ADD" or "BLEND") end
+        shotTex:SetVertexColor(1, 1, 1, kind == "ink" and INK_ALPHA or SHOT_ALPHA)
         shotTex:Show()
     else
         shotTex:Hide()
@@ -305,6 +316,7 @@ local function renderArt(g)
             t:Hide()
         end
     end
+    return key ~= ""
 end
 UI.artTiles, UI.shotTex = artTiles, shotTex
 
@@ -736,6 +748,9 @@ function UI:Render()
     local list = G:Upcoming(W.db.showNext + 4)   -- extra so grouped steps don't shorten the list
     local step = list[1]
     local y = 46
+    card:ClearAllPoints()
+    card:SetPoint("TOPLEFT", PAD, -y)
+    card:SetPoint("RIGHT", -PAD, 0)
 
     for _, l in ipairs(objLines) do l:Hide() end
     for _, r in ipairs(objRows) do r:Hide() end
