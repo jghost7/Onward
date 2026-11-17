@@ -126,6 +126,36 @@ function T.SplitFlightNpc(npc)
     return nil, npc
 end
 
+-- A guide fly step whose destination you haven't discovered yet can't be flown. Returns nil
+-- when it can (or the flight map hasn't been read yet), else a plan:
+--   { via = node }  fly to the learned flight point nearest the destination, then walk on
+--   { walk = true } no learned point gets you closer than you'd start: walk there
+-- Either way the last part is on foot to the destination's flight master, which learns it.
+function T:FlightPlan(step)
+    if not (step and step.verb == "fly" and step.at) then return end
+    T:Refresh()
+    local dc, dx, dy = T.World(step.at.map, step.at.x, step.at.y)
+    local list = dc and nodes[dc]
+    if not list or #list == 0 then return end
+    local via, viaD
+    for _, n in ipairs(list) do
+        if n.known then
+            local d = d2(n.wx, n.wy, dx, dy)
+            if d <= 300 then return end                    -- the destination is learned: fly it
+            if not viaD or d < viaD then via, viaD = n, d end
+        end
+    end
+    -- where the flight would start: the departure flight master, else where you stand
+    local sc, sx, sy
+    if step.from then sc, sx, sy = T.World(step.from.map or step.at.map, step.from.x, step.from.y) end
+    if not sc then sc, sx, sy = T.PlayerWorld() end
+    local startD = sc == dc and d2(sx, sy, dx, dy) or math.huge
+    if via and viaD < startD * 0.8 and d2(via.wx, via.wy, sx or 0, sy or 0) > 300 then
+        return { via = via, viaD = viaD }
+    end
+    return { walk = true }
+end
+
 function T:KnownNodes(cont)
     local out = {}
     for _, n in ipairs(nodes[cont] or {}) do if n.known then out[#out + 1] = n end end

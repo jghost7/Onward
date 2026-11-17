@@ -1388,6 +1388,50 @@ do
     MOCK.fire("QUEST_LOG_UPDATE") settle()
 end
 
+do  -- a fly step to a flight point you haven't discovered: fly to the learned one nearest it, walk on
+    local TR = W.Travel
+    local savedTaxi, savedPos = MOCK.taxi, MOCK.pos
+    MOCK.taxi = {
+        { name = "Here Town", nodeID = 1, slotIndex = 1, state = 0, position = { x = 0.52, y = 0.52 } },
+        { name = "Eastwatch", nodeID = 2, slotIndex = 2, state = 1, position = { x = 1.5, y = 0.5 } },
+        { name = "Far Post", nodeID = 4, slotIndex = 4, state = 2, position = { x = 2.0, y = 0.5 } },
+        { name = "Near Post", nodeID = 5, slotIndex = 5, state = 2, position = { x = 0.9, y = 0.5 } },
+    }
+    TR:Refresh(true)
+    local learned = TR:FlightPlan({ verb = "fly", at = { map = 1415, x = 150, y = 50 }, from = { map = 1415, x = 52, y = 52 } })
+    check("learned destination: fly it as usual", learned == nil)
+    local far = TR:FlightPlan({ verb = "fly", at = { map = 1415, x = 200, y = 50 }, from = { map = 1415, x = 52, y = 52 } })
+    check("undiscovered: via the learned point nearest it", far and far.via and far.via.name == "Eastwatch", far and far.via and far.via.name)
+    local near = TR:FlightPlan({ verb = "fly", at = { map = 1415, x = 90, y = 50 }, from = { map = 1415, x = 52, y = 52 } })
+    check("undiscovered and no flight gets you closer: walk", near and near.walk)
+
+    MOCK.pos = { map = 1423, x = 0.52, y = 0.52 }
+    W:RegisterGuide{ id = "flyplan", title = "Fly Plan (35-36)", levels = { 35, 36 }, faction = "", steps = [[
+fly 1415 200.0,50.0 |from 1415 52.0,52.0 |npc Far Zone (Bob Wings)
+note After
+]]}
+    W.Guide:Activate("flyplan") settle()
+    check("undiscovered fly step: first to the departure flight master", W.Waypoint:Current() and W.Waypoint:Current().leg == "depart")
+    local tgt = W.Waypoint:ArrowTarget()
+    check("arrow says where it really flies", tgt and tgt.sub and tgt.sub:find("fly to Eastwatch", 1, true), tgt and tgt.sub)
+    MOCK.calls = {} MOCK.fire("TAXIMAP_OPENED") settle()
+    local took = called("TakeTaxiNode")
+    check("flight master: takes the flight to the nearest learned point", took and took[2] == 2, took and took[2])
+    MOCK.onTaxi = true MOCK.fire("PLAYER_CONTROL_LOST") MOCK.advance(2)
+    MOCK.pos = { map = 1423, x = 1.5, y = 0.5 } MOCK.onTaxi = false
+    MOCK.fire("PLAYER_CONTROL_GAINED") MOCK.advance(1)
+    check("landed short of it: still the fly step", cur() and cur().verb == "fly", cur() and cur().verb)
+    check("...now on foot to the destination's flight master", W.Waypoint:Current() and W.Waypoint:Current().leg == "walk")
+    tgt = W.Waypoint:ArrowTarget()
+    check("arrow: find the flight master", tgt and tgt.label and tgt.label:find("Find the flight master", 1, true), tgt and tgt.label)
+    MOCK.pos = { map = 1423, x = 1.85, y = 0.5 } MOCK.advance(1)
+    check("150 yd short isn't there yet (the path is learned at the flight master)", cur() and cur().verb == "fly")
+    MOCK.pos = { map = 1423, x = 2.0, y = 0.5 } MOCK.advance(1)
+    check("at the flight master: step done", cur() and cur().verb == "note", cur() and cur().verb)
+    MOCK.taxi, MOCK.pos = savedTaxi, savedPos
+    TR:Refresh(true)
+end
+
 do  -- animations: each plays on its own change, never in combat, and the option turns them off
     local AN = W.Anim
     local played = {}

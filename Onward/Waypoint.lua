@@ -77,7 +77,9 @@ local function startProximity(step)
         if W.Guide:Current() ~= step then stopTicker() return end
         if step.verb == "fly" and UnitOnTaxi("player") then return end
         local d = T.Distance(step.at.map, step.at.x, step.at.y)
-        if d and d <= (step.radius or 15) then
+        local r = step.radius or 15
+        if step.verb == "fly" and step.plan and (step.plan.walk or step.landed) then r = math.min(r, 20) end
+        if d and d <= r then
             stopTicker()
             W.Guide:MarkReached(step)
         end
@@ -129,8 +131,24 @@ function WP:Resolve(step)
     end
 end
 
--- fly steps: before take-off the pin is the departure flight master, after it the destination
+-- fly steps: before take-off the pin is the departure flight master, after it the destination.
+-- A destination you haven't discovered can't be flown to (Travel:FlightPlan): then the flight goes
+-- to the learned point nearest it, and from there (or straight away, when no flight helps) the
+-- pin leads on foot to the destination's flight master, which learns it ("walk" leg).
 local function flyLeg(step)
+    local plan = T:FlightPlan(step)
+    step.plan = plan
+    if plan and (plan.walk or step.landed) and not UnitOnTaxi("player") then return step.at, "walk" end
+    if plan and plan.via and not step.from and not UnitOnTaxi("player") then
+        -- no departure in the guide: the learned flight point nearest you
+        local pc, px, py = T.PlayerWorld()
+        local best, bestD
+        for _, n in ipairs(pc and T:KnownNodes(pc) or {}) do
+            local d = (n.wx - px) ^ 2 + (n.wy - py) ^ 2
+            if n ~= plan.via and (not bestD or d < bestD) then best, bestD = n, d end
+        end
+        if best then return { world = best }, "depart" end
+    end
     if step.from and not UnitOnTaxi("player") then
         local d = T.Distance(step.at.map, step.at.x, step.at.y)
         if not d or d > (step.radius or 150) then return step.from, "depart" end
@@ -150,9 +168,26 @@ function WP:Update()
     if step.verb == "fly" then
         local leg
         leg, legKind = flyLeg(step)
-        map, x, y, name = leg.map or step.at.map, leg.x, leg.y, step.npc
-        local wc, wx, wy = T.World(step.at.map, step.at.x, step.at.y)
-        T:SetWantedDestination(wc, wx, wy, T:PlaceAt(step.at.map, step.at.x, step.at.y))
+        if leg.world then
+            -- a flight point known only in world coordinates: put it on the player's zone map
+            local pm = C_Map.GetBestMapForUnit("player")
+            local ok, _, pos = pcall(C_Map.GetMapPosFromWorldPos, T.PlayerWorld(), CreateVector2D(leg.world.wx, leg.world.wy), pm)
+            if ok and pos then map, x, y = pm, pos.x * 100, pos.y * 100 end
+            name = leg.world.name
+        else
+            map, x, y, name = leg.map or step.at.map, leg.x, leg.y, step.npc
+        end
+        local plan = step.plan
+        if plan and plan.via then
+            -- not discovered yet: the flight goes to the learned point nearest it
+            local dc = T.World(step.at.map, step.at.x, step.at.y)
+            T:SetWantedDestination(dc, plan.via.wx, plan.via.wy, plan.via.name)
+        elseif plan and plan.walk then
+            T:SetWantedDestination(nil)
+        else
+            local wc, wx, wy = T.World(step.at.map, step.at.x, step.at.y)
+            T:SetWantedDestination(wc, wx, wy, T:PlaceAt(step.at.map, step.at.x, step.at.y))
+        end
     else
         map, x, y, name, pickup = WP:Resolve(step)
         T:SetWantedDestination(nil)
@@ -269,7 +304,8 @@ function WP:ArrowTarget()
         T:SetWantedDestination(nil)
         return { label = label, sub = spot.name and ("nearest: " .. spot.name) or current.name, cont = spot.cont, wx = spot.wx, wy = spot.wy, radius = 30, spot = true }
     end
-    local radius = (step.verb == "goto" or (step.verb == "fly" and current.leg == "arrive")) and step.radius or 10
+    local radius = (step.verb == "goto" or (step.verb == "fly" and current.leg == "arrive")) and step.radius
+        or (current.leg == "walk" and 20) or 10
     local advice = step.verb ~= "fly" and T:Advice(current.map, current.x, current.y)
     if step.verb ~= "fly" and step.verb ~= "home" then
         local hc, hx, hy = T.World(current.map, current.x, current.y)
@@ -289,9 +325,20 @@ function WP:ArrowTarget()
     if not cont then return end
     local sub = current.name
     if step.verb == "fly" then
-        local _, who = T.SplitFlightNpc(current.name)
-        sub = UnitOnTaxi("player") and ("in flight" .. (who and (", landing by " .. who) or ""))
-            or "go to the flight master and take this flight"
+        local _, who = T.SplitFlightNpc(step.npc)
+        local plan = step.plan
+        local place = T:PlaceAt(step.at.map, step.at.x, step.at.y) or "there"
+        if UnitOnTaxi("player") then
+            local landing = plan and plan.via and plan.via.name or who
+            sub = "in flight" .. (landing and (", landing " .. (plan and plan.via and "at " or "by ") .. landing) or "")
+        elseif current.leg == "walk" then
+            label = "Find the flight master: " .. place
+            sub = "not discovered yet: " .. (who and ("talk to " .. who .. " to learn it") or "talk to the flight master to learn it")
+        elseif plan and plan.via then
+            sub = "fly to " .. plan.via.name .. " (" .. place .. " isn't discovered yet), then walk on"
+        else
+            sub = "go to the flight master and take this flight"
+        end
     elseif W.Trail then
         -- back to a quest giver (or any place you walked from): lead along the way you came
         local pc, px, py = T.PlayerWorld()
@@ -311,7 +358,12 @@ W:On("QUEST_ACCEPTED", function()
     C_Timer.After(0.5, function() if current and current.pickup then WP:Update() end end)
 end)
 W:On("WF_GUIDE_CHANGED", function() C_Timer.After(2, function() WP:Update() end) end)
-W:On("WF_LANDED", function() local s = W.Guide:Current() if s and s.verb == "fly" then WP:Update() end end)
+W:On("WF_LANDED", function()
+    local s = W.Guide:Current()
+    if not (s and s.verb == "fly") then return end
+    if s.plan and s.plan.via then s.landed = true end
+    WP:Update()
+end)
 -- take-off: switch the pin from the departure flight master to the destination
 W:On("PLAYER_CONTROL_LOST", function()
     C_Timer.After(1, function() local s = W.Guide:Current() if s and s.verb == "fly" then WP:Update() end end)

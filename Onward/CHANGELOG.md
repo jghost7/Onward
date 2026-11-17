@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.6.17
+
+- Fly steps to a flight point you haven't discovered yet: the flight master now flies you to the
+  learned flight point nearest it, and from there the arrow leads you on foot to the destination's
+  flight master so you learn it. When no learned point gets you closer than where you start, it
+  sends you there on foot straight away. The arrow and step card say which.
+- That step now completes at the flight master itself (20 yd), not 150 yd out, so you don't move
+  on before the flight path is learned.
+
 ## 0.6.16
 
 - Animations, each small and played once:

@@ -702,6 +702,10 @@ local function locationLine(step)
             -- the place is the step's title; here, who you land by
             local _, who = W.Travel.SplitFlightNpc(step.npc)
             if who then parts[#parts + 1] = "flight master " .. who end
+            -- not discovered yet: how you get there instead
+            local plan = step.plan
+            if cur.leg == "walk" then parts[#parts + 1] = "not discovered: walk there to learn it"
+            elseif plan and plan.via then parts[#parts + 1] = "not discovered: fly to " .. plan.via.name .. ", then walk" end
         elseif cur.name then
             parts[#parts + 1] = cur.name
         end
