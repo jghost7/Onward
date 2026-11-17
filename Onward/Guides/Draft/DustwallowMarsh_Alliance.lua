@@ -5,6 +5,7 @@ Onward:RegisterGuide{
   id = "dustwallow-marsh-a", title = "Dustwallow Marsh (35-42)", faction = "Alliance", zone = "Dustwallow Marsh",
   levels = { 35, 42 },
   steps = [[
+home |npc Innkeeper Janene |at 1445 66.6,45.2  -- set your hearthstone at the inn
 accept 1133 |npc Fiora Longears |at 1445 66.5,45.1  -- Journey to Astranaar (20)
 accept 1135 |npc Fiora Longears |at 1445 66.5,45.1  -- Highperch Venom (30)
 accept 1204 |npc Morgan Stern |at 1445 66.3,45.5  -- Mudrock Soup and Bugs (38)

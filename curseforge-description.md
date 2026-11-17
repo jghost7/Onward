@@ -56,6 +56,7 @@ Install it on a character you've already been playing and Onward works out what 
 
 - **Nav arrow** with distance and arrival time. It turns green when you face your target.
 - **Flight advice:** when a flight path you know beats running, the arrow points you to the flight master and Onward picks the flight for you. Hold Shift to choose yourself.
+- **Hearthstone advice:** each guide tells you which inn to set your hearthstone at, and when hearthing beats running or flying, the arrow says "Hearth to <town>".
 - **Route on the world map:** a dotted line to the current step and on through the next three stops, numbered, with flight legs marked.
 - On kill and loot steps the arrow points at the nearest mobs, not the middle of the area.
 - **The way you came:** heading back to a quest giver, the arrow follows the path you walked out on (around cliffs, over bridges) instead of a straight line.

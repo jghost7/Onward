@@ -243,6 +243,7 @@ check(1, "targetDetached", "Target button on its own", "Moves the target button 
 
 section(1, "Travel")
 check(1, "trailBack", "Lead back the way you came", "When you head back to a quest giver you walked away from, the arrow follows your own path (around cliffs, over bridges) instead of a straight line.")
+check(1, "hearthAdvice", "Suggest your hearthstone", "When your hearthstone is ready and hearthing beats running or flying to the next step, the arrow says so. Onward learns where you're bound when you set it, or when you're in that town.")
 check(1, "travelAdvice", "Suggest flights", "When a learned flight path beats running, the arrow points to the flight master.")
 check(1, "autoTaxi", "Pick the flight automatically", "At the flight master, take the flight the guide or suggestion wants. Hold Shift when you talk to the flight master to pick your own destination.")
 

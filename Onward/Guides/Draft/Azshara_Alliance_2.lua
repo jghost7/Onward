@@ -5,6 +5,7 @@ Onward:RegisterGuide{
   id = "azshara-a-2", title = "Azshara (55-60)", faction = "Alliance", zone = "Azshara",
   levels = { 55, 60 },
   steps = [[
+home |npc Berdun Cliffbrew |at 1447 12.6,77.4  -- set your hearthstone at the inn
 accept 88812 |npc Commander Truesong |at 1447 11.8,78.4  -- Reclaiming Ravencrest (55)
 turnin 88812 |npc Commander Truesong |at 1447 11.8,78.4  -- Reclaiming Ravencrest (55)
 accept 88813 |npc Commander Truesong |at 1447 11.8,78.4  -- The Head of the Serpent (55)

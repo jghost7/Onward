@@ -5,6 +5,7 @@ Onward:RegisterGuide{
   id = "feralas-h", title = "Feralas (43-52)", faction = "Horde", zone = "Feralas",
   levels = { 43, 52 },
   steps = [[
+home |npc Innkeeper Greul |at 1444 74.8,45.2  -- set your hearthstone at the inn
 accept 2822 |npc Jangdor Swiftstrider |at 1444 74.4,42.9  -- The Mark of Quality (46)
 accept 3121 |npc Witch Doctor Uzer'i |at 1444 74.4,43.4  -- A Strange Request (45)
 accept 2862 |npc Hadoken Swiftstrider |at 1444 74.9,42.5  -- War on the Woodpaw (42)

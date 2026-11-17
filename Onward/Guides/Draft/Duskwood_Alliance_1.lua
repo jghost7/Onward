@@ -6,6 +6,7 @@ Onward:RegisterGuide{
   levels = { 23, 29 },
   next = "duskwood-a-2",
   steps = [[
+home |npc Innkeeper Trelayne |at 1431 73.9,44.4  -- set your hearthstone at the inn
 accept 56 |npc Commander Althea Ebonlocke |at 1431 73.5,46.8 |value mid  -- The Night Watch (24)
 accept 66 |npc Madame Eva |at 1431 75.8,45.3  -- The Legend of Stalvan (28)
 accept 174 |npc Viktori Prism'Antras |at 1431 79.8,48.0  -- Look To The Stars (25)

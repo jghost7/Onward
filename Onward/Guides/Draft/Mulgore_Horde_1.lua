@@ -31,6 +31,7 @@ accept 3376 |npc Brave Windfeather |at 1412 44.2,77.0  -- Break Sharptusk! (5)
 turnin 781 |npc Chief Hawkwind |at 1412 43.9,76.7  -- Attack on Camp Narache (4)
 turnin 757 |npc Chief Hawkwind |at 1412 43.9,76.7  -- Rite of Strength (4)
 accept 763 |npc Chief Hawkwind |at 1412 43.9,76.7  -- Rites of the Earthmother (5)
+home |npc Innkeeper Kauth |at 1412 45.9,64.2  -- set your hearthstone at the inn
 accept 743 |npc Ruul Eagletalon |at 1412 46.5,64.9  -- Dangers of the Windfury (8)
 turnin 1656 |npc Innkeeper Kauth |at 1412 45.9,64.2  -- A Task Unfinished (5)
 accept 99079 |npc Brave Wildrunner |at 1412 46.7,63.8  -- Longwalker Malah (9)

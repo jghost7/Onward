@@ -5,6 +5,7 @@ Onward:RegisterGuide{
   id = "desolace-a-2", title = "Desolace (40-45)", faction = "Alliance", zone = "Desolace",
   levels = { 40, 45 },
   steps = [[
+home |npc Innkeeper Lyshaerya |at 1443 66.3,6.5  -- set your hearthstone at the inn
 accept 1052 |npc Brother Anton |at 1443 66.5,7.9  -- Down the Scarlet Path (40)
 fly 1424 49.3,52.3 |from 1443 64.7,10.5 |npc Hillsbrad Foothills (Darla Harris)  -- flight master Baritanas Skyriver
 turnin 1052 |npc Raleigh the Devout |at 1424 51.5,58.4  -- Down the Scarlet Path (40)

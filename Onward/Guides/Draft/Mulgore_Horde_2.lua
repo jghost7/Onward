@@ -5,6 +5,7 @@ Onward:RegisterGuide{
   id = "mulgore-h-2", title = "Mulgore (10-14)", faction = "Horde", zone = "Mulgore",
   levels = { 10, 14 },
   steps = [[
+home |npc Innkeeper Kauth |at 1412 45.9,64.2  -- set your hearthstone at the inn
 accept 759 |npc Mull Thunderhorn |at 1412 47.5,63.6 |race Tauren  -- Wildmane Totem (10)
 accept 99080 |npc Baine Bloodhoof |at 1412 46.7,63.4 |race Scourge,Tauren  -- Drive Them Out (11)
 accept 861 |npc Skorn Whitecloud |at 1412 46.0,63.4  -- The Hunter's Way (10)

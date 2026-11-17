@@ -42,6 +42,7 @@ accept 310 |npc Marleth Barleybrew |at 1426 30.2,45.5  -- Bitter Rivals (6)
 accept 98326 |npc Gretta Ganter |at 1426 31.5,44.6  -- Frosthowl (9)
 complete 315 |at 1426 42.0,36.0 |mobs Frostmane Seer  -- The Perfect Stout (9)
 accept 99159 |npc Father Gavin |at 1426 57.7,44.9 |value mid  -- Finding Warmth (8)
+home |npc Innkeeper Belm |at 1426 47.4,52.5  -- set your hearthstone at the inn
 accept 317 |npc Pilot Bellowfiz |at 1426 49.4,48.4  -- Stocking Jetsteam (6)
 accept 313 |npc Pilot Stonegear |at 1426 49.6,48.6 |value mid  -- The Grizzled Den (7)
 accept 5541 |npc Loslor Rudge |at 1426 50.1,49.4  -- Ammo for Rumbleshot (6)

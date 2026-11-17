@@ -6,6 +6,7 @@ Onward:RegisterGuide{
   levels = { 43, 55 },
   steps = [[
 accept 699 |npc Tok'Kar |at 1435 81.3,81.0  -- Lack of Surplus (42)
+home |npc Innkeeper Karakul |at 1435 45.2,56.7  -- set your hearthstone at the inn
 accept 1430 |npc Dar |at 1435 44.7,57.2 |value low  -- Fresh Meat (44)
 accept 1424 |npc Fel'zerul |at 1435 47.9,54.8  -- Pool of Tears (43)
 complete 699 |at 1435 79.4,26.7 |mobs Sawtooth Snapper  -- Lack of Surplus (42)

@@ -6,6 +6,7 @@ Onward:RegisterGuide{
   levels = { 12, 18 },
   next = "darkshore-a-2",
   steps = [[
+home |npc Innkeeper Shaussiy |at 1439 37.0,44.1  -- set your hearthstone at the inn
 accept 947 |npc Barithras Moonshade |at 1439 37.3,43.6  -- Cave Mushrooms (17)
 accept 983 |npc Wizbang Cranktoggle |at 1439 37.0,44.1 |value mid  -- Buzzbox 827 (10)
 accept 963 |npc Cerellean Whiteclaw |at 1439 35.7,43.7  -- For Love Eternal (16)

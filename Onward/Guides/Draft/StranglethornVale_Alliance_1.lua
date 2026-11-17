@@ -51,6 +51,7 @@ complete 342 |at 1434 37.5,31.0 |mobs Skullsplitter Warrior;Skullsplitter Axe Th
 complete 341 |at 1434 42.5,33.3 |mobs Skullsplitter Warrior;Skullsplitter Axe Thrower;Skullsplitter Mystic;Venture Co. Geologist |value mid  -- Chapter III (40)
 complete 340 |at 1434 42.5,33.3 |mobs Skullsplitter Warrior;Skullsplitter Axe Thrower;Skullsplitter Mystic;Venture Co. Geologist |value mid  -- Chapter II (40)
 complete 192 |at 1434 41.3,34.8 |mobs Shadowmaw Panther  -- Panther Mastery (38)
+home |npc Innkeeper Skindle |at 1434 27.0,77.3  -- set your hearthstone at the inn
 accept 575 |npc Drizzlik |at 1434 28.3,77.6  -- Supply and Demand (31)
 accept 605 |npc Crank Fizzlebub |at 1434 27.1,77.2  -- Singing Blue Shards (35)
 accept 213 |npc Kebok |at 1434 27.0,77.1  -- Hostile Takeover (36)

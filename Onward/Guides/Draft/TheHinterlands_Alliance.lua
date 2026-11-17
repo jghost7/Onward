@@ -5,6 +5,7 @@ Onward:RegisterGuide{
   id = "the-hinterlands-a", title = "The Hinterlands (43-51)", faction = "Alliance", zone = "The Hinterlands",
   levels = { 43, 51 },
   steps = [[
+home |npc Innkeeper Thulfram |at 1425 14.2,41.6  -- set your hearthstone at the inn
 accept 1450 |npc Falstad Wildhammer |at 1425 11.8,46.8  -- Gryphon Master Talonaxe (43)
 fly 1419 65.5,24.3 |from 1425 11.1,46.1 |npc Blasted Lands (Alexandra Constantine)  -- flight master Guthrum Thunderfist
 accept 2993 |npc Thadius Grimshade |at 1419 66.9,19.5 |group chain  -- Return to the Hinterlands (47)

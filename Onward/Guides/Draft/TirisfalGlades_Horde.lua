@@ -30,6 +30,7 @@ turnin 3902 |npc Deathguard Saltain |at 1420 31.6,65.6 |value mid  -- Scavenging
 turnin 380 |npc Executor Arren |at 1420 32.1,66.0 |value mid  -- Night Web's Hollow (4)
 accept 381 |npc Executor Arren |at 1420 32.1,66.0 |value mid  -- The Scarlet Crusade (4)
 complete 381 |at 1420 37.4,67.8 |mobs Scarlet Convert;Scarlet Initiate;Meven Korgal |value mid  -- The Scarlet Crusade (4)
+home |npc Innkeeper Renee |at 1420 61.7,52.0  -- set your hearthstone at the inn
 accept 404 |npc Deathguard Dillinger |at 1420 58.2,51.5  -- A Putrid Task (6)
 accept 86784 |npc Deathguard Bartholomew |at 1420 58.5,51.4 |race Orc,Scourge,Tauren  -- Sticks and Bones (7)
 accept 99134 |npc Executor Zygand |at 1420 60.6,51.8  -- Discipline (6)

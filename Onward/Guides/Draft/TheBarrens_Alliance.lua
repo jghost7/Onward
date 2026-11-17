@@ -5,6 +5,7 @@ Onward:RegisterGuide{
   id = "the-barrens-a", title = "The Barrens (14-34)", faction = "Alliance", zone = "The Barrens",
   levels = { 14, 34 },
   steps = [[
+home |npc Innkeeper Wiley |at 1413 62.0,39.4  -- set your hearthstone at the inn
 accept 865 |npc Mebok Mizzyrix |at 1413 62.4,37.6 |value mid  -- Raptor Horns (18)
 accept 895 |npc WANTED |at 1413 62.6,37.5  -- WANTED: Baron Longshore (16)
 accept 894 |npc Sputtervalve |at 1413 63.0,37.2  -- Samophlange (14)

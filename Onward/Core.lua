@@ -27,7 +27,8 @@ local DEFAULTS = {
     targetDetached = false,  -- target button as its own movable button instead of on the step card
     targetPoint = nil,
     -- travel
-    trailBack = true,        -- lead back to quest givers along the way you came
+    trailBack = true,
+    hearthAdvice = true,     -- say when hearthing beats running or flying        -- lead back to quest givers along the way you came
     travelAdvice = true,     -- suggest flights when they beat running
     autoTaxi = true,         -- pick the flight at the flight master (hold Shift to choose yourself)
     -- panel

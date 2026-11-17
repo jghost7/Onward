@@ -6,6 +6,7 @@ Onward:RegisterGuide{
   levels = { 33, 39 },
   next = "desolace-a-2",
   steps = [[
+home |npc Innkeeper Lyshaerya |at 1443 66.3,6.5  -- set your hearthstone at the inn
 accept 261 |npc Brother Anton |at 1443 66.5,7.9  -- Down the Scarlet Path (39)
 accept 1458 |npc Kreldig Ungor |at 1443 66.2,9.6 |value mid  -- Reagents for Reclaimers Inc. (33)
 accept 1454 |npc Kreldig Ungor |at 1443 66.2,9.6  -- The Karnitol Shipwreck (39)

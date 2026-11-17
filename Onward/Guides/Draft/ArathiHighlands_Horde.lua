@@ -5,6 +5,7 @@ Onward:RegisterGuide{
   id = "arathi-highlands-h", title = "Arathi Highlands (34-42)", faction = "Horde", zone = "Arathi Highlands",
   levels = { 34, 42 },
   steps = [[
+home |npc Innkeeper Adegwa |at 1417 73.8,32.5  -- set your hearthstone at the inn
 accept 639 |npc Zengu |at 1417 73.8,34.0 |group elite  -- Sigil of Strom (37)
 turnin 641 |npc Zengu |at 1417 73.8,34.0 |group chain  -- Sigil of Thoradin (40)
 accept 655 |npc Gor'mul |at 1417 72.6,33.9  -- Hammerfall (34)

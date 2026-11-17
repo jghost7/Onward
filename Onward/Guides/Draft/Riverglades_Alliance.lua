@@ -18,6 +18,7 @@ accept 95426 |npc Watcher Cornelius |at 2548 59.5,64.0  -- Rog'mar Supplies (39)
 accept 95064 |npc Watcher Cornelius |at 2548 59.5,64.0  -- Preventative Measures (39)
 accept 95984 |npc Watcher Cornelius |at 2548 59.5,64.0  -- Song of the Strider (39)
 complete 95426  -- Rog'mar Supplies (39)
+home |npc Barracks Master Harlan |at 2548 64.6,84.2  -- set your hearthstone at the inn
 accept 95156 |npc Ember Bladewhisper |at 2548 66.2,79.6  -- Stuff 'Em and Stick 'Em (37)
 turnin 95059 |npc Demar Brant |at 2548 66.7,81.0  -- Frazzlespark's Crate (36)
 accept 94877 |npc Demar Brant |at 2548 66.7,81.0  -- Saving Sunnyglade (40)

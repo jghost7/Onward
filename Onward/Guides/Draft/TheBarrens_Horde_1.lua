@@ -6,6 +6,7 @@ Onward:RegisterGuide{
   levels = { 10, 18 },
   next = "the-barrens-h-2",
   steps = [[
+home |npc Innkeeper Boorand Plainswind |at 1413 52.0,29.9  -- set your hearthstone at the inn
 accept 819 |at 1413 55.7,27.3 |note Starts from Chen's Empty Keg  -- Chen's Empty Keg (15)
 fly 1454 45.1,63.9 |from 1413 51.5,30.3 |npc Orgrimmar (Doras)  -- flight master Devrak
 accept 98024 |npc Thrall |at 1454 31.7,37.8 |race SkyborneHorde  -- Journey to the Crossroads (13)

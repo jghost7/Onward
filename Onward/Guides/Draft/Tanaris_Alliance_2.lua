@@ -5,6 +5,7 @@ Onward:RegisterGuide{
   id = "tanaris-a-2", title = "Tanaris (54-60)", faction = "Alliance", zone = "Tanaris",
   levels = { 54, 60 },
   steps = [[
+home |npc Innkeeper Fizzgrimble |at 1446 52.5,27.9  -- set your hearthstone at the inn
 accept 2741 |npc Egg-O-Matic |at 1446 52.4,27.0  -- The Super Egg-O-Matic (60)
 complete 4496 |at 1449 48.2,77.1  -- Bungle in the Jungle (53)
 accept 4504 |npc Tran'rek |at 1446 51.6,26.8 |value mid  -- Super Sticky (54)

@@ -5,6 +5,7 @@ Onward:RegisterGuide{
   id = "winterspring-a", title = "Winterspring (54-60)", faction = "Alliance", zone = "Winterspring",
   levels = { 54, 60 },
   steps = [[
+home |npc Innkeeper Vizzie |at 1452 61.4,38.8  -- set your hearthstone at the inn
 accept 969 |npc Witch Doctor Mau'ari |at 1452 61.9,38.3 |value mid  -- Luck Be With You (60)
 fly 1438 58.4,94.0 |from 1452 62.3,36.6 |npc Teldrassil (Vesprystus)  -- flight master Maethrya
 accept 4902 |npc Erelas Ambersky |at 1438 55.5,92.0  -- Wildkin of Elune (57)

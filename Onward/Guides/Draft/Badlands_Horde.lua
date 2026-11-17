@@ -12,6 +12,7 @@ complete 710 |at 1418 18.8,43.0 |mobs Lesser Rock Elemental  -- Study of the Ele
 accept 713 |npc Lotwil Veriatus |at 1418 25.9,44.9  -- Coolant Heads Prevail (37)
 turnin 710 |npc Lotwil Veriatus |at 1418 25.9,44.9  -- Study of the Elements: Rock (37)
 accept 711 |npc Lotwil Veriatus |at 1418 25.9,44.9  -- Study of the Elements: Rock (39)
+home |npc Innkeeper Shul'kar |at 1418 2.8,45.9  -- set your hearthstone at the inn
 accept 2258 |npc Jarkal Mossmeld |at 1418 2.4,46.1 |value mid  -- Badlands Reagent Run (39)
 complete 705 |at 1434 26.3,26.1 |value mid  -- Pearl Diving (37)
 complete 711 |at 1418 40.5,78.3 |mobs Rock Elemental  -- Study of the Elements: Rock (39)

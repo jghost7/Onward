@@ -6,6 +6,7 @@ Onward:RegisterGuide{
   levels = { 21, 28 },
   next = "wetlands-a-2",
   steps = [[
+home |npc Innkeeper Helbrek |at 1437 10.7,61.0  -- set your hearthstone at the inn
 accept 279 |npc Karl Boran |at 1437 8.3,58.6  -- Claws from the Deep (22)
 complete 279 |at 1437 15.3,39.8 |mobs Bluegill Murloc;Gobbler  -- Claws from the Deep (22)
 fly 1424 49.3,52.3 |from 1437 9.5,59.7 |npc Hillsbrad Foothills (Darla Harris)  -- flight master Shellei Brondir

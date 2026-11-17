@@ -6,6 +6,7 @@ Onward:RegisterGuide{
   levels = { 14, 20 },
   next = "redridge-mountains-a-2",
   steps = [[
+home |npc Innkeeper Brianna |at 1433 21.9,44.8  -- set your hearthstone at the inn
 accept 116 |npc Barkeep Daniels |at 1433 21.4,44.0  -- Dry Times (15)
 accept 129 |npc Darcy |at 1433 21.5,44.3  -- A Free Lunch (15)
 accept 120 |npc Magistrate Solomon |at 1433 24.9,44.5  -- Messenger to Stormwind (14)

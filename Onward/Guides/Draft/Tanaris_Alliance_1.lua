@@ -6,6 +6,7 @@ Onward:RegisterGuide{
   levels = { 44, 51 },
   next = "tanaris-a-2",
   steps = [[
+home |npc Innkeeper Fizzgrimble |at 1446 52.5,27.9  -- set your hearthstone at the inn
 accept 992 |npc Senior Surveyor Fizzledowser |at 1446 50.2,27.5  -- Gadgetzan Water Survey (46)
 fly 1434 27.5,77.8 |from 1446 51.0,29.3 |npc Stranglethorn Vale (Gyll)  -- flight master Bera Stonehammer
 accept 2864 |npc Krazek |at 1434 26.9,77.2  -- Tran'rek (45)

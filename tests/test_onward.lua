@@ -308,6 +308,61 @@ note done
     W.Guide:Activate("nav") settle()
 end
 
+-- hearthstone: Onward learns where you're bound, and says "hearth" when it clearly beats the trip
+do
+    local H = W.Hearth
+    local bind, sub, cdStart, cdDur = "Test Town", "Test Town", 0, 0
+    GetBindLocation = function() return bind end
+    GetSubZoneText = function() return sub end
+    local hadContainer = C_Container
+    C_Container = C_Container or {}
+    C_Container.GetItemCooldown = function() return cdStart, cdDur, 1 end
+    W.cdb.home = nil
+    -- standing in your bind town teaches Onward where it is
+    MOCK.pos = { map = 1424, x = 0.5, y = 0.5 }
+    MOCK.advance(6)
+    check("hearth: learns the spot when you're in your bind town", H:Home() and H:Home().name == "Test Town")
+    W:RegisterGuide{ id = "hearth", title = "Hearth", faction = "", steps = [[
+home |npc Innkeeper Test |at 1424 50.0,50.0
+goto 1424 52.0,50.0
+note done
+]] }
+    W.Guide:Activate("hearth") settle()
+    check("set-your-hearthstone step is done when you're bound there", W.Guide:IsComplete(W.Guide:Active().steps[1]))
+    -- far away, stone in the bags and ready: hearth beats the 1400 yd trip
+    sub = "Elsewhere"
+    MOCK.pos = { map = 1423, x = 0.1, y = 0.5 }
+    MOCK.bags[6948] = nil
+    local tgt = W.Waypoint:ArrowTarget()
+    check("no hearthstone in your bags: no advice", tgt and not tgt.hearth)
+    MOCK.bags[6948] = 1
+    tgt = W.Waypoint:ArrowTarget()
+    check("hearth advice when it clearly beats the trip", tgt and tgt.hearth and tgt.label == "Hearth to Test Town", tgt and tgt.label)
+    cdStart, cdDur = GetTime(), 3600
+    check("never while it's on cooldown", not W.Waypoint:ArrowTarget().hearth)
+    cdStart, cdDur = 0, 0
+    MOCK.pos = { map = 1424, x = 0.4, y = 0.5 }
+    check("close to the target already: no advice", not W.Waypoint:ArrowTarget().hearth)
+    MOCK.pos = { map = 1423, x = 0.1, y = 0.5 }
+    W.db.hearthAdvice = false
+    check("advice can be turned off", not W.Waypoint:ArrowTarget().hearth)
+    W.db.hearthAdvice = true
+    -- bound somewhere new: the old spot no longer counts until Onward learns the new one
+    bind = "Other Town"
+    check("rebinding forgets the old spot", H:Home() == nil and not W.Waypoint:ArrowTarget().hearth)
+    check("...and the set-hearthstone step is open again", not W.Guide:IsComplete(W.Guide:Active().steps[1]))
+    -- setting it at an innkeeper records the spot straight away
+    MOCK.pos = { map = 1424, x = 0.5, y = 0.5 }
+    MOCK.fire("HEARTHSTONE_BOUND") MOCK.advance(1)
+    check("binding at an inn records the spot", H:Home() and H:Home().name == "Other Town")
+    MOCK.bags[6948] = nil
+    GetBindLocation, GetSubZoneText = nil, nil
+    C_Container = hadContainer
+    W.cdb.home = nil
+    MOCK.pos = { map = 1423, x = 0.5, y = 0.5 }
+    W.Guide:Activate("nav") settle()
+end
+
 -- come back later: a busy area offers it; set-aside quests are listed, offered when you're back
 -- near them, and brought back at the end of the guide
 do
@@ -384,6 +439,15 @@ local took = called("TakeTaxiNode")
 check("auto-taxi takes the learned flight near the target", took and took[2] == 2, took and took[2])
 MOCK.calls = {} MOCK.shift = true MOCK.fire("TAXIMAP_OPENED") settle() MOCK.shift = false
 check("shift at the flight master = choose yourself", not called("TakeTaxiNode"))
+-- fly steps are named by place (the flight point), with the flight master as the detail
+do
+    local s = { verb = "fly", at = { map = 1424, x = 50, y = 50 }, npc = "East Zone (Bob Gryphonhand)" }
+    check("fly step reads as the place", W.UI.StepText(s) == "Fly to Eastwatch", W.UI.StepText(s))
+    local far = { verb = "fly", at = { map = 1424, x = 5, y = 5 }, npc = "East Zone (Bob Gryphonhand)" }
+    check("no flight point there: the zone", W.UI.StepText(far) == "Fly to East Zone", W.UI.StepText(far))
+    local zone, who = W.Travel.SplitFlightNpc("East Zone (Bob Gryphonhand)")
+    check("flight master name kept for the detail line", zone == "East Zone" and who == "Bob Gryphonhand")
+end
 -- advice is sticky: walking closer (now under the 900 yd a new suggestion needs) keeps the same
 -- flight while it still saves 10%, instead of flipping the arrow back to the quest
 MOCK.pos.x = 0.62 MOCK.advance(4)
@@ -918,7 +982,7 @@ MOCK.printed = {}
 check("riverglades guides registered", W.Guide:Get("riverglades-a") and W.Guide:Get("riverglades-h"))
 local nGuides, nSteps, mismatched, noQuest, ids = 0, 0, {}, 0, {}
 for _, def in ipairs(W.Guide:All()) do
-    if not ({ test = 1, riverglades = 1, nav = 1, resume = 1, resume2 = 1, modes = 1, target = 1, group = 1, groupq = 1, trail = 1, later = 1, nopin = 1, hints = 1, drops = 1, wait = 1, spots = 1 })[def.id] then
+    if not ({ test = 1, riverglades = 1, nav = 1, resume = 1, resume2 = 1, modes = 1, target = 1, group = 1, groupq = 1, trail = 1, later = 1, nopin = 1, hints = 1, hearth = 1, drops = 1, wait = 1, spots = 1 })[def.id] then
         check("unique guide id " .. def.id, not ids[def.id]) ids[def.id] = true
         if def.next then check(def.id .. " next exists", W.Guide:Get(def.next) ~= nil, def.next) end
         local expect = 0
@@ -933,7 +997,7 @@ for _, def in ipairs(W.Guide:All()) do
         local g = W.Guide:Active()
         if #g.steps ~= expect then mismatched[#mismatched + 1] = def.id .. " " .. #g.steps .. "/" .. expect end
         for _, s in ipairs(g.steps) do
-            local ok = s.quest or (s.verb == "fly" and s.from)
+            local ok = s.quest or (s.verb == "fly" and s.from) or (s.verb == "home" and s.at)
             if def.kind == "profession" then ok = s.skill or s.spell end
             if not ok then noQuest = noQuest + 1 end
         end

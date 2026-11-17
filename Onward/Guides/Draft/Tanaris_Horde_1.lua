@@ -6,6 +6,7 @@ Onward:RegisterGuide{
   levels = { 44, 51 },
   next = "tanaris-h-2",
   steps = [[
+home |npc Innkeeper Fizzgrimble |at 1446 52.5,27.9  -- set your hearthstone at the inn
 accept 992 |npc Senior Surveyor Fizzledowser |at 1446 50.2,27.5  -- Gadgetzan Water Survey (46)
 fly 1458 63.2,48.6 |from 1446 51.6,25.4 |npc Undercity (Michael Garrett)  -- flight master Bulkrek Ragefist
 accept 243 |npc Apothecary Zinge |at 1458 50.1,68.0  -- Into the Field (46)

@@ -5,6 +5,7 @@ Onward:RegisterGuide{
   id = "wetlands-a-2", title = "Wetlands (29-35)", faction = "Alliance", zone = "Wetlands",
   levels = { 29, 35 },
   steps = [[
+home |npc Innkeeper Helbrek |at 1437 10.7,61.0  -- set your hearthstone at the inn
 accept 289 |npc First Mate Fitzsimmons |at 1437 10.9,59.6 |value mid  -- The Cursed Crew (29)
 turnin 289 |npc First Mate Fitzsimmons |at 1437 10.9,59.6 |value mid  -- The Cursed Crew (29)
 accept 290 |npc First Mate Fitzsimmons |at 1437 10.9,59.6 |value mid  -- Lifting the Curse (30)

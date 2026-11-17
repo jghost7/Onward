@@ -6,6 +6,7 @@ Onward:RegisterGuide{
   levels = { 10, 17 },
   next = "silverpine-forest-h-2",
   steps = [[
+home |npc Innkeeper Bates |at 1421 43.2,41.3  -- set your hearthstone at the inn
 accept 428 |npc High Executor Hadrec |at 1421 43.4,40.9  -- Lost Deathstalkers (12)
 accept 437 |npc High Executor Hadrec |at 1421 43.4,40.9  -- The Dead Fields (14)
 accept 477 |npc Shadow Priest Allister |at 1421 44.0,40.9  -- Border Crossings (14)

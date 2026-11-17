@@ -145,12 +145,18 @@ function A:Debug()
     end
     local tgt = WP:ArrowTarget()
     if tgt then
-        W.Print(("arrow points at: %s%s  world %s %.0f, %.0f"):format(tgt.label or "?", tgt.flight and " (flight advice)" or tgt.spot and " (nearest objective spot)" or tgt.trail and " (the way you came)" or "",
+        W.Print(("arrow points at: %s%s  world %s %.0f, %.0f"):format(tgt.label or "?", tgt.flight and " (flight advice)" or tgt.hearth and " (hearthstone advice)" or tgt.spot and " (nearest objective spot)" or tgt.trail and " (the way you came)" or "",
             tostring(tgt.cont), tgt.wx or 0, tgt.wy or 0))
     end
     if W.Trail then
         local pts = W.Trail:Points()
         W.Print(("trail: %d points (%s)"):format(#pts, W.db.trailBack == false and "path back off" or "path back on"))
+    end
+    if W.Hearth then
+        local home = W.Hearth:Home()
+        W.Print(("hearthstone: bound to %s, %s, %s"):format(tostring(W.Hearth:BindName()),
+            home and "spot known" or "spot not learned yet (set it again, or walk into that town)",
+            W.Hearth:Ready() and "ready" or "not ready"))
     end
     if A.last then
         W.Print(("distance %.0f yd, bearing %.0f deg, facing %.0f deg, arrow turned %.0f deg"):format(A.last.yards,

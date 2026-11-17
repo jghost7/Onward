@@ -38,6 +38,7 @@ turnin 458 |npc Tarindrella |at 1438 57.8,45.2  -- The Woodland Protector (1)
 accept 97977 |npc Tarindrella |at 1438 57.8,45.2 |race NightElf  -- Nature's Call (3)
 accept 459 |npc Tarindrella |at 1438 57.8,45.2 |value low  -- The Woodland Protector (3)
 accept 2159 |npc Porthannius |at 1438 61.2,47.6  -- Dolanaar Delivery (5)
+home |npc Innkeeper Keldamyr |at 1438 55.6,59.8  -- set your hearthstone at the inn
 accept 918 |npc Denalan |at 1438 60.9,68.5  -- Timberling Seeds (7)
 accept 5842 |note Starts from Shadowglen Gift Voucher |race NightElf  -- Welcome! (1)
 complete 918 |at 1438 57.0,64.7 |mobs Timberling;Timberling Bark Ripper;Timberling Trampler;Timberling Mire Beast  -- Timberling Seeds (7)

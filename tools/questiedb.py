@@ -159,12 +159,16 @@ def map_names():
 FLIGHT_MASTER = 8      # classic npcFlags bit (Forever uses the classic table: Thor = 11 = gossip|questgiver|flight)
 
 
-def flight_masters(db, a2m, faction_letter):
-    """{uiMapId: [((x, y), name), ...]} for flight masters friendly to 'A' or 'H'."""
+INNKEEPER = 128        # classic npcFlags bit (Innkeeper Shay = 135 = gossip|questgiver|vendor|innkeeper)
+
+
+def flight_masters(db, a2m, faction_letter, flag=FLIGHT_MASTER):
+    """{uiMapId: [((x, y), name), ...]} for flight masters (or, with flag=INNKEEPER, innkeepers)
+    friendly to 'A' or 'H'."""
     out = {}
     for n in db.ids("Npc-"):
         flags = db.field("Npc-", n, NPC["npcFlags"]) or 0
-        if not flags & FLIGHT_MASTER:
+        if not flags & flag:
             continue
         friendly = db.npc(n, "friendlyToFaction")
         friendly = friendly.decode() if isinstance(friendly, bytes) else (friendly or "AH")

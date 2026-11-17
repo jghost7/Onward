@@ -5,6 +5,7 @@ Onward:RegisterGuide{
   id = "silithus-a", title = "Silithus (57-60)", faction = "Alliance", zone = "Silithus",
   levels = { 57, 60 },
   steps = [[
+home |npc Calandrath |at 1451 51.9,39.2  -- set your hearthstone at the inn
 accept 8277 |npc Beetix Ficklespragg |at 1451 51.6,38.6 |value mid  -- Deadly Desert Venom (55)
 accept 8283 |npc Wanted Poster: Deathclasp |at 1451 51.4,38.3 |group elite  -- Wanted - Deathclasp, Terror of the Sands (59)
 accept 8280 |npc Windcaller Proudhorn |at 1451 51.1,38.3 |value low  -- Securing the Supply Lines (55)

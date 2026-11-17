@@ -36,6 +36,7 @@ local VERB_STYLE = {
     fly      = { color = C.travel, icon = "fly" },
     level    = { color = C.accent, icon = "level" },
     note     = { color = C.sub,    icon = "note" },
+    home     = { color = C.accent, icon = "arrive" },
     train    = { color = C.accept, icon = "level" },
     craft    = { color = C.quest,  icon = "complete" },
     gather   = { color = C.turnin, icon = "goto" },
@@ -119,8 +120,13 @@ function UI.StepText(step)
         end
         return t
     elseif v == "goto" then return step.note or ("Go to %.1f, %.1f"):format(step.at.x, step.at.y)
-    elseif v == "fly" then return "Fly to " .. (step.npc or step.note or "the next flight point")
+    elseif v == "fly" then
+        -- the place (the flight point's in-game name), not the flight master; the zone as a fallback
+        local zone, who = W.Travel.SplitFlightNpc(step.npc)
+        local place = step.at and W.Travel:PlaceAt(step.at.map, step.at.x, step.at.y)
+        return "Fly to " .. (place or zone or who or step.note or "the next flight point")
     elseif v == "level" then return ("Reach level %d"):format(step.level or 0)
+    elseif v == "home" then return "Set your hearthstone here"
     elseif v == "note" then return step.text or "Note"
     elseif G.PROF_VERB[v] and W.Prof then return W.Prof:StepText(step)
     end
@@ -429,7 +435,13 @@ local function locationLine(step)
     local parts = {}
     local cur = WP:Current()
     if cur and cur.step == step then
-        if cur.name then parts[#parts + 1] = cur.name end
+        if step.verb == "fly" then
+            -- the place is the step's title; here, who you land by
+            local _, who = W.Travel.SplitFlightNpc(step.npc)
+            if who then parts[#parts + 1] = "flight master " .. who end
+        elseif cur.name then
+            parts[#parts + 1] = cur.name
+        end
         local here = C_Map.GetBestMapForUnit("player")
         if cur.map ~= here then
             local info = C_Map.GetMapInfo and C_Map.GetMapInfo(cur.map)
@@ -512,6 +524,7 @@ function UI:Render()
     mainText:SetText(text)
     local sub = locationLine(step)
     if step.verb == "note" then sub = (sub ~= "" and (sub .. "  ·  ") or "") .. "click when done" end
+    if step.verb == "home" then sub = (sub ~= "" and (sub .. "  ·  ") or "") .. "talk to the innkeeper: Make this inn your home" end
     subText:SetText(sub)
     subText:SetShown(sub ~= "")
     local h = mainText:GetStringHeight() + (sub ~= "" and (subText:GetStringHeight() + 3) or 0)

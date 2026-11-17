@@ -5,6 +5,7 @@ Onward:RegisterGuide{
   id = "silithus-h", title = "Silithus (57-60)", faction = "Horde", zone = "Silithus",
   levels = { 57, 60 },
   steps = [[
+home |npc Calandrath |at 1451 51.9,39.2  -- set your hearthstone at the inn
 accept 8277 |npc Beetix Ficklespragg |at 1451 51.6,38.6 |value mid  -- Deadly Desert Venom (55)
 accept 8280 |npc Windcaller Proudhorn |at 1451 51.1,38.3 |value low  -- Securing the Supply Lines (55)
 accept 8284 |npc Geologist Larksbane |at 1451 49.7,37.5  -- The Twilight Mystery (58)

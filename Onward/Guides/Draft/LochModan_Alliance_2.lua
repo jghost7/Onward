@@ -11,6 +11,7 @@ complete 217 |at 1432 34.6,90.5 |mobs Grawmug;Gnasher;Brawler |value mid  -- In 
 complete 86585 |at 1432 31.4,85.4 |mobs Headsplitter  -- Banner of the Fallen (17)
 turnin 217 |npc Captain Rugelfuss |at 1432 23.2,73.7 |value mid  -- In Defense of the King's Lands (17)
 turnin 86585 |npc Captain Rugelfuss |at 1432 23.2,73.7  -- Banner of the Fallen (17)
+home |npc Innkeeper Hearthstove |at 1432 35.5,48.4  -- set your hearthstone at the inn
 accept 255 |npc Magistrate Bluntnose |at 1432 34.6,44.5 |group elite  -- Mercenaries (19)
 accept 256 |npc WANTED |at 1432 37.3,46.5 |group elite  -- WANTED: Chok'sul (22)
 accept 436 |npc Jern Hornhelm |at 1432 37.2,47.4  -- Ironband's Excavation (18)

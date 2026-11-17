@@ -5,6 +5,7 @@ Onward:RegisterGuide{
   id = "stranglethorn-vale-a-3", title = "Stranglethorn Vale (50-55)", faction = "Alliance", zone = "Stranglethorn Vale",
   levels = { 50, 55 },
   steps = [[
+home |npc Innkeeper Skindle |at 1434 27.0,77.3  -- set your hearthstone at the inn
 accept 580 |npc Whiskey Slim |at 1434 27.1,77.5  -- Whiskey Slim's Lost Grog (50)
 accept 8552 |at 1434 23.2,72.1 |note Starts from Monogrammed Sash  -- The Monogrammed Sash (50)
 turnin 8552 |npc Captain Hecklebury Smotts |at 1434 26.7,73.6  -- The Monogrammed Sash (50)

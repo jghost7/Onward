@@ -63,7 +63,7 @@ function G:Active() return active end
 ---------------------------------------------------------------------------
 -- Parser
 ---------------------------------------------------------------------------
-local VERBS = { accept = true, complete = true, turnin = true, ["goto"] = true, fly = true, level = true, note = true,
+local VERBS = { accept = true, complete = true, turnin = true, ["goto"] = true, fly = true, level = true, note = true, home = true,
                 train = true, craft = true, gather = true }   -- the last three: profession guides (Prof.lua)
 local PROF_VERB = { train = true, craft = true, gather = true }
 G.PROF_VERB = PROF_VERB
@@ -277,6 +277,9 @@ function G:IsComplete(step)
         return reached[step] or false
     elseif v == "level" then
         return (UnitLevel("player") or 0) >= (step.level or 0)
+    elseif v == "home" then
+        -- your hearthstone is set at this inn (Onward knows where once you set it or stand in town)
+        return step.at and W.Hearth and W.Hearth:IsHomeAt(step.at.map, step.at.x, step.at.y) or false
     elseif PROF_VERB[v] then
         return W.Prof and W.Prof:IsDone(step) or false
     end

@@ -5,6 +5,7 @@ Onward:RegisterGuide{
   id = "stonetalon-mountains-h-2", title = "Stonetalon Mountains (26-32)", faction = "Horde", zone = "Stonetalon Mountains",
   levels = { 26, 32 },
   steps = [[
+home |npc Innkeeper Jayka |at 1442 47.5,62.1  -- set your hearthstone at the inn
 accept 1088 |npc Braelyn Firehand |at 1442 45.9,60.4  -- Ordanus (29)
 accept 86576 |npc Maggran Earthbinder |at 1442 47.2,61.2  -- Bloodfury Trinkets (26)
 accept 5881 |npc Maggran Earthbinder |at 1442 47.2,61.2  -- Calling in the Reserves (28)

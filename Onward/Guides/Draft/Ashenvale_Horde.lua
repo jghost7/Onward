@@ -14,6 +14,7 @@ turnin 6442 |npc Marukai |at 1440 11.7,34.9 |value low  -- Naga at the Zoram Str
 turnin 216 |npc Karang Amakkar |at 1440 11.9,34.5  -- Between a Rock and a Thistlefur (24)
 accept 6621 |npc Karang Amakkar |at 1440 11.9,34.5  -- King of the Foulweald (26)
 fly 1440 73.2,61.6 |from 1440 12.2,33.8 |npc Vhulgra  -- flight master Andruk
+home |npc Innkeeper Kaylisk |at 1440 74.0,60.6  -- set your hearthstone at the inn
 accept 6441 |npc Pixel |at 1440 73.1,61.5 |value mid  -- Satyr Horns (26)
 accept 6383 |npc Senani Thunderheart |at 1440 73.8,61.5  -- The Ashenvale Hunt (20)
 turnin 6383 |npc Senani Thunderheart |at 1440 73.8,61.5  -- The Ashenvale Hunt (20)

@@ -6,6 +6,7 @@ Onward:RegisterGuide{
   levels = { 19, 26 },
   next = "ashenvale-a-2",
   steps = [[
+home |npc Innkeeper Kimlya |at 1440 37.0,49.2  -- set your hearthstone at the inn
 accept 991 |npc Raene Wolfrunner |at 1440 36.6,49.6  -- Raene's Cleansing (19)
 accept 1056 |npc Faldreas Goeth'Shael |at 1440 35.8,49.1  -- Journey to Stonetalon Peak (18)
 accept 1070 |npc Sentinel Thenysil |at 1440 34.9,49.8  -- On Guard in Stonetalon (21)

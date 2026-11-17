@@ -5,6 +5,7 @@ Onward:RegisterGuide{
   id = "hillsbrad-foothills-h-2", title = "Hillsbrad Foothills (30-43)", faction = "Horde", zone = "Hillsbrad Foothills",
   levels = { 30, 43 },
   steps = [[
+home |npc Innkeeper Shay |at 1424 62.8,19.0  -- set your hearthstone at the inn
 accept 533 |npc Krusk |at 1424 63.2,20.7  -- Infiltration (34)
 accept 552 |npc Novice Thaivand |at 1424 63.9,19.7  -- Helcular's Revenge (33)
 accept 547 |npc Deathguard Humbert |at 1424 62.8,20.2 |group elite  -- Humbert's Sword (30)

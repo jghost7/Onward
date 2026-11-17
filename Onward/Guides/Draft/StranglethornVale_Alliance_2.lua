@@ -6,6 +6,7 @@ Onward:RegisterGuide{
   levels = { 41, 46 },
   next = "stranglethorn-vale-a-3",
   steps = [[
+home |npc Innkeeper Skindle |at 1434 27.0,77.3  -- set your hearthstone at the inn
 accept 209 |npc Kebok |at 1434 27.0,77.1 |value low  -- Skullsplitter Tusks (42)
 accept 606 |npc "Sea Wolf" MacKinley |at 1434 27.8,77.1  -- Scaring Shaky (41)
 accept 595 |npc First Mate Crazz |at 1434 28.1,76.2  -- The Bloodsail Buccaneers (41)

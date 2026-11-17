@@ -17,6 +17,7 @@ accept 342 |npc Barnil Stonepot |at 1434 35.7,10.5 |value mid  -- Chapter IV (40
 accept 341 |npc Barnil Stonepot |at 1434 35.7,10.5 |value mid  -- Chapter III (40)
 accept 339 |npc Barnil Stonepot |at 1434 35.7,10.5 |value mid  -- Chapter I (40)
 complete 190 |at 1434 40.5,11.4 |mobs Young Panther  -- Panther Mastery (31)
+home |npc Innkeeper Thulbek |at 1434 31.5,29.8  -- set your hearthstone at the inn
 accept 629 |npc Kin'weelay |at 1434 32.3,27.7  -- The Vile Reef (37)
 accept 568 |npc Commander Aggro'gosh |at 1434 32.2,28.9  -- The Defense of Grom'gol (36)
 accept 570 |npc Far Seer Mok'thardin |at 1434 32.1,29.2  -- Mok'thardin's Enchantment (38)

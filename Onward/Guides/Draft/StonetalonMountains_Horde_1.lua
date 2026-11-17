@@ -10,6 +10,7 @@ accept 6461 |npc Xen'Zilla |at 1442 71.2,95.0 |value mid  -- Blood Feeders (19)
 accept 6284 |npc Wanted Poster: Besseleth |at 1442 59.1,75.7 |group elite  -- Arachnophobia (21)
 complete 6461 |at 1442 54.7,72.8 |mobs Deepmoss Creeper;Deepmoss Venomspitter |value mid  -- Blood Feeders (19)
 complete 6284 |at 1442 53.6,72.6 |mobs Besseleth |group elite  -- Arachnophobia (21)
+home |npc Innkeeper Jayka |at 1442 47.5,62.1  -- set your hearthstone at the inn
 accept 6481 |npc Mor'rogal |at 1442 47.2,64.0 |group elite  -- Earthen Arise (20)
 fly 1454 45.1,63.9 |from 1442 45.1,59.8 |npc Orgrimmar (Doras)  -- flight master Tharm
 accept 1061 |npc Zor Lonetree |at 1454 38.9,38.4  -- The Spirits of Stonetalon (17)

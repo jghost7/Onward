@@ -5,6 +5,7 @@ Onward:RegisterGuide{
   id = "mount-hyjal-a", title = "Mount Hyjal (56-59)", faction = "Alliance", zone = "Mount Hyjal",
   levels = { 56, 59 },
   steps = [[
+home |npc Caitir Flinthew |at 2482 15.7,50.4  -- set your hearthstone at the inn
 accept 92449 |npc Sefira Everbright |at 2482 15.7,54.7  -- Blight No More (58)
 accept 96674 |npc Mirt |at 2482 15.9,52.7  -- Ewe Wandered Off (56)
 accept 95218 |npc Daythor Brellan |at 2482 15.6,52.1  -- More of the Same (56)

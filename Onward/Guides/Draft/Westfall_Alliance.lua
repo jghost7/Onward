@@ -5,6 +5,7 @@ Onward:RegisterGuide{
   id = "westfall-a", title = "Westfall (10-22)", faction = "Alliance", zone = "Westfall",
   levels = { 10, 22 },
   steps = [[
+home |npc Innkeeper Heather |at 1436 52.9,53.7  -- set your hearthstone at the inn
 accept 12 |npc Gryan Stoutmantle |at 1436 56.3,47.5  -- The People's Militia (12)
 accept 6181 |npc Quartermaster Lewis |at 1436 57.0,47.2 |race Human  -- A Swift Message (10)
 fly 1453 71.3,72.2 |from 1436 56.5,52.6 |npc Stormwind City (Dungar Longdrink)  -- flight master Thor

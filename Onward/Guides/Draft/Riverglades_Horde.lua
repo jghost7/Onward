@@ -17,6 +17,7 @@ accept 95119 |npc Wharfmaster Whizzbuzz |at 2548 79.5,52.7  -- Unfriendly Compet
 turnin 95165 |npc Wharfmaster Whizzbuzz |at 2548 79.5,52.7  -- See Ya, Scallywags! (44)
 accept 95118 |npc Wharfmaster Whizzbuzz |at 2548 79.5,52.7  -- Saltwater Savages (41)
 accept 95982 |npc Jasper Geartoggle |at 2548 76.0,52.6  -- Not My Circus (38)
+home |npc Innkeeper Toka |at 2548 58.0,45.1  -- set your hearthstone at the inn
 accept 96107 |npc Neza Bloodsnout |at 2548 60.5,47.9  -- Feathers for Fletching (40)
 accept 93788 |npc Kreza Darkthorn |at 2548 59.9,46.0 |value mid  -- Borrowed Blades (38)
 accept 93786 |npc Krom'rosh |at 2548 59.4,45.6  -- A Message in Blood (36)

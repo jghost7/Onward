@@ -6,6 +6,7 @@ Onward:RegisterGuide{
   levels = { 32, 39 },
   next = "desolace-h-2",
   steps = [[
+home |npc Innkeeper Sikewa |at 1443 24.1,68.2  -- set your hearthstone at the inn
 accept 5763 |npc Roon Wildmane |at 1443 25.1,72.3  -- Hunting in Stranglethorn (31)
 accept 6143 |npc Drulzegar Skraghook |at 1443 23.3,72.9 |value mid  -- Other Fish to Fry (36)
 accept 6142 |npc Mai'Lahii |at 1443 22.6,72.0 |value mid  -- Clam Bait (35)

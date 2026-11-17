@@ -5,6 +5,7 @@ Onward:RegisterGuide{
   id = "silverpine-forest-h-2", title = "Silverpine Forest (18-24)", faction = "Horde", zone = "Silverpine Forest",
   levels = { 18, 24 },
   steps = [[
+home |npc Innkeeper Bates |at 1421 43.2,41.3  -- set your hearthstone at the inn
 accept 442 |npc High Executor Hadrec |at 1421 43.4,40.9 |group elite  -- Assault on Fenris Isle (24)
 accept 451 |npc Apothecary Renferrel |at 1421 42.8,40.9 |value mid  -- A Recipe For Death (18)
 accept 98299 |npc Dalar Dawnweaver |at 1421 44.2,39.8 |value mid |group chain  -- Stop the Spread (20)

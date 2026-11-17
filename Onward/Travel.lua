@@ -88,6 +88,29 @@ function T:Refresh(force)
     end
 end
 
+-- The flight point at (or next to) a map spot, by its in-game name ("Tarren Mill, Hillsbrad"),
+-- known or not; nil when there's none within 300 yd or the taxi map hasn't been read yet.
+function T:PlaceAt(map, x, y)
+    T:Refresh()
+    local cont, wx, wy = T.World(map, x, y)
+    if not cont then return end
+    local best, bestD
+    for _, n in ipairs(nodes[cont] or {}) do
+        local dd = d2(n.wx, n.wy, wx, wy)
+        if not bestD or dd < bestD then best, bestD = n, dd end
+    end
+    if best and bestD <= 300 then return best.name end
+end
+
+-- Guide fly steps name the destination as "Zone (Flight Master)" (another zone) or "Flight
+-- Master" (same zone): split that into the two parts.
+function T.SplitFlightNpc(npc)
+    if not npc then return end
+    local zone, who = npc:match("^(.-) %((.-)%)$")
+    if zone then return zone, who end
+    return nil, npc
+end
+
 function T:KnownNodes(cont)
     local out = {}
     for _, n in ipairs(nodes[cont] or {}) do if n.known then out[#out + 1] = n end end

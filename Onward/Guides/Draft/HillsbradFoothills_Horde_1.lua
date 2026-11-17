@@ -7,6 +7,7 @@ Onward:RegisterGuide{
   next = "hillsbrad-foothills-h-2",
   steps = [[
 accept 494 |npc Deathstalker Lesh |at 1424 20.8,47.4 |value low  -- Time To Strike (20)
+home |npc Innkeeper Shay |at 1424 62.8,19.0  -- set your hearthstone at the inn
 accept 501 |npc Apothecary Lydon |at 1424 61.4,19.1  -- Elixir of Pain (24)
 accept 496 |npc Apothecary Lydon |at 1424 61.4,19.1  -- Elixir of Suffering (22)
 accept 527 |npc High Executor Darthalia |at 1424 62.3,20.4  -- Battle of Hillsbrad (24)

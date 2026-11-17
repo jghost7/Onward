@@ -77,6 +77,7 @@ complete 93951 |at 2521 36.0,54.3 |value low  -- A Little Beauty (7)
 complete 92516 |at 2521 37.1,53.8 |mobs Hippogryph Youth;Hippogryph Protector;Hippogryph Matriarch  -- Hippogryph Harassment (7)
 complete 93318 |at 2521 42.7,52.8 |mobs Vulgara the Insatiable |group elite  -- WANTED: Vulgara the Insatiable (9)
 complete 92553 |at 2521 45.7,54.1 |mobs Galestrider;Cloudrunner;Highlands Ursera;Shadowgale Ursera |value mid  -- Restocking the Larders (6)
+home |npc Donaal Downbreeze |at 2521 62.2,72.6  -- set your hearthstone at the inn
 turnin 93161 |npc Ealaane Nimbuswalker |at 2521 66.0,74.3  -- The Ancient Hilt (-1)
 accept 97029 |npc Ealaane Nimbuswalker |at 2521 66.0,74.3  -- Eluvi'ana (-1)
 turnin 97029 |npc Ealaane Nimbuswalker |at 2521 66.0,74.3  -- Eluvi'ana (-1)

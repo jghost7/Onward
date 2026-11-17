@@ -51,6 +51,7 @@ accept 91772 |npc Tordrin Sternblade |at 1429 51.2,40.8 |group chain  -- Shhh! W
 turnin 3905 |npc Brother Neals |at 1429 49.5,41.6 |value mid  -- Grape Manifest (4)
 turnin 6 |npc Deputy Willem |at 1429 48.2,42.9 |value mid  -- Bounty on Garrick Padfoot (5)
 accept 2158 |npc Falkhaan Isenstrider |at 1429 45.6,47.7  -- Rest and Relaxation (5)
+home |npc Innkeeper Farley |at 1429 43.8,65.8  -- set your hearthstone at the inn
 complete 91772 |at 1429 45.8,56.5 |group chain  -- Shhh! We're Hunting Kobolds (4)
 accept 99127 |npc Jason Mathers |at 1429 47.5,62.2  -- A Net Disaster (7)
 complete 99127 |at 1429 48.8,64.7  -- A Net Disaster (7)

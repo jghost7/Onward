@@ -6,6 +6,7 @@ Onward:RegisterGuide{
   levels = { 26, 36 },
   next = "thousand-needles-h-2",
   steps = [[
+home |npc Innkeeper Abeqwa |at 1441 46.1,51.5  -- set your hearthstone at the inn
 accept 4767 |npc Elu |at 1441 44.9,48.9 |value low  -- Wind Rider (29)
 accept 4821 |npc Hagar Lightninghoof |at 1441 44.6,50.3  -- Alien Egg (26)
 accept 4841 |npc Cliffwatcher Longhorn |at 1441 45.7,50.7 |value mid  -- Pacify the Centaur (25)

@@ -37,6 +37,7 @@ A step line can end in a `  -- comment`, written with whitespace before the `--`
 | `goto <mapID> <x>,<y> [radius]` | You are within the radius in yards (default 15) |
 | `fly <mapID> <x>,<y> [radius] \|from <mapID> <x>,<y>` | You land within the radius of the destination (default 150 yd). The pin and arrow point at the departure flight master (`from`) until take-off, then at the destination. At the flight master, the flight is picked for you; hold Shift to choose yourself |
 | `level <n>` | You reach that level |
+| `home \|npc <innkeeper> \|at <mapID> x,y` | Your hearthstone is set at that inn (within 200 yd). Onward learns where you're bound when you set it, or when you stand in that town. The generator adds one per guide, at the inn of the busiest quest hub |
 | `note <text>` | You right-click it, or click it |
 
 ### Profession guides

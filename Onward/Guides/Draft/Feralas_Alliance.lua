@@ -5,6 +5,7 @@ Onward:RegisterGuide{
   id = "feralas-a", title = "Feralas (43-51)", faction = "Alliance", zone = "Feralas",
   levels = { 43, 51 },
   steps = [[
+home |npc Innkeeper Shyria |at 1444 31.0,43.5  -- set your hearthstone at the inn
 accept 2821 |npc Pratt McGrubben |at 1444 30.6,42.7 |value mid  -- The Mark of Quality (46)
 accept 2866 |npc Shandris Feathermoon |at 1444 30.3,46.2  -- The Ruins of Solarsal (43)
 turnin 2866 |npc Solarsal Gazebo |at 1444 26.3,52.3  -- The Ruins of Solarsal (43)

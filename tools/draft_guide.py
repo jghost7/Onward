@@ -644,6 +644,39 @@ def flight_masters_for(zone):
     return _FM[key]
 
 
+_INNS = {}
+HUB = 12             # map units: steps this close to an inn count as that town's hub
+MIN_HUB_STEPS = 6    # a guide gets a "set your hearthstone" step only at a real quest hub
+
+
+def inns_for(zone):
+    """[((x, y), name)] innkeepers on this zone's map friendly to its faction."""
+    from questiedb import flight_masters, INNKEEPER
+    key = zone.faction[0]
+    if key not in _INNS:
+        _INNS[key] = flight_masters(zone.db, zone.a2m, key, INNKEEPER)
+    return _INNS[key].get(zone.map, [])
+
+
+def add_home(zone, entries):
+    """Insert ("home", inn) before the first step at the guide's busiest inn town: the place you
+    come back to most is where your hearthstone should take you."""
+    inns = inns_for(zone)
+    if not inns:
+        return entries
+    pts = [(k, step_xy(zone, v, q)) for k, (v, q) in enumerate(entries) if v not in ("fly", "home")]
+    best, best_n = None, 0
+    for xy, name in inns:
+        n = sum(1 for _, p in pts if p and dist(p, xy) < HUB)
+        if n > best_n:
+            best, best_n = (xy, name), n
+    if not best or best_n < MIN_HUB_STEPS:
+        return entries
+    first = next(k for k, p in pts if p and dist(p, best[0]) < HUB)
+    inn = {"map": zone.map, "xy": best[0], "name": best[1]}
+    return entries[:first] + [("home", inn)] + entries[first:]
+
+
 def nearest_fm(fms, m, xy):
     best = None
     for p, name in fms.get(m, []):
@@ -734,7 +767,7 @@ def flight_tiers(zone, entries, tiers):
             seg = entries[prev_i + 1:i]
         else:
             seg = []
-        ts = [tiers.get(q["id"], 0) for v, q in seg if v != "fly"]
+        ts = [tiers.get(q["id"], 0) for v, q in seg if v not in ("fly", "home")]
         out[i] = min(ts) if ts else 0
     return out
 
@@ -754,9 +787,13 @@ def render(zone, steps, leftovers, levels, name, faction, gid=None, next_id=None
     if next_id:
         out.append(f'  next = "{next_id}",')
     out.append("  steps = [[")
-    entries = add_flights(zone, steps)
+    entries = add_home(zone, add_flights(zone, steps))
     ftiers = flight_tiers(zone, entries, tiers)
     for idx, (verb, q) in enumerate(entries):
+        if verb == "home":
+            x, y = q["xy"]
+            out.append(f"home |npc {clean(q['name'])} |at {q['map']} {x:.1f},{y:.1f}  -- set your hearthstone at the inn")
+            continue
         if verb == "fly":
             (fm, fp, fn), (tm, tp, tn) = q["from"], q["to"]
             where = f"{q['zone']} ({clean(tn)})" if q["zone"] and tm != zone.map else clean(tn)

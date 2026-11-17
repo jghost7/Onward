@@ -5,6 +5,7 @@ Onward:RegisterGuide{
   id = "duskwood-a-2", title = "Duskwood (30-35)", faction = "Alliance", zone = "Duskwood",
   levels = { 30, 35 },
   steps = [[
+home |npc Innkeeper Trelayne |at 1431 73.9,44.4  -- set your hearthstone at the inn
 accept 58 |npc Commander Althea Ebonlocke |at 1431 73.5,46.8 |value mid  -- The Night Watch (30)
 accept 98 |npc Commander Althea Ebonlocke |at 1431 73.5,46.8  -- The Legend of Stalvan (35)
 accept 222 |npc Calor |at 1431 75.8,47.6  -- Worgen in the Woods (31)

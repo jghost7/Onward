@@ -78,6 +78,7 @@ accept 94413 |npc Rathiril Sunlance |at 2521 45.0,46.4  -- A Magical Affront (6)
 complete 93461 |at 2521 45.0,46.4 |mobs Rathiril Sunlance;Coriella Calmbreeze  -- Welcome to Shen'dar Village (6)
 complete 93318 |at 2521 42.7,52.8 |mobs Vulgara the Insatiable |group elite  -- WANTED: Vulgara the Insatiable (9)
 complete 92550 |at 2521 48.9,54.0 |mobs Al'Aketh Stormcaller;Living Lightning;Commander Cyclas  -- Havoc in the Highlands (8)
+home |npc Donaal Downbreeze |at 2521 62.2,72.6  -- set your hearthstone at the inn
 accept 93317 |npc Nyalah Brightfire |at 2521 60.6,72.7  -- Crab Season (9)
 accept 92679 |npc Alvarion Windfield |at 2521 62.1,73.3  -- Blood Tithe (9)
 accept 93320 |npc Valennia Stormfist |at 2521 66.1,76.6 |race SkyborneAlliance  -- Tower Defense (11)

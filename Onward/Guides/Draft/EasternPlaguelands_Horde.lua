@@ -5,6 +5,7 @@ Onward:RegisterGuide{
   id = "eastern-plaguelands-h", title = "Eastern Plaguelands (55-60)", faction = "Horde", zone = "Eastern Plaguelands",
   levels = { 55, 60 },
   steps = [[
+home |npc Jessica Chambers |at 1423 71.8,48.5  -- set your hearthstone at the inn
 accept 5211 |npc Carlin Redpath |at 1423 71.7,50.0  -- Defenders of Darrowshire (55)
 accept 9128 |npc Archmage Angela Dosantos |at 1423 71.7,48.7 |value mid  -- The Elemental Equation (60)
 accept 9126 |npc Rohan the Assassin |at 1423 71.6,48.9 |value mid  -- Bonescythe Digs (60)

@@ -31,6 +31,7 @@ turnin 1028 |npc Hidden Shrine |at 1440 56.4,49.2  -- Raene's Cleansing (28)
 accept 1055 |npc Hidden Shrine |at 1440 56.4,49.2  -- Raene's Cleansing (28)
 turnin 1055 |npc Shael'dryn |at 1440 53.5,46.2  -- Raene's Cleansing (28)
 accept 1029 |npc Shael'dryn |at 1440 53.5,46.2  -- Raene's Cleansing (28)
+home |npc Innkeeper Kimlya |at 1440 37.0,49.2  -- set your hearthstone at the inn
 accept 1035 |npc Pelturas Whitemoon |at 1440 37.4,51.8  -- Fallen Sky Lake (30)
 turnin 1029 |npc Raene Wolfrunner |at 1440 36.6,49.6  -- Raene's Cleansing (28)
 accept 1030 |npc Raene Wolfrunner |at 1440 36.6,49.6  -- Raene's Cleansing (28)

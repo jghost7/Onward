@@ -5,6 +5,7 @@ Onward:RegisterGuide{
   id = "redridge-mountains-a-2", title = "Redridge Mountains (21-27)", faction = "Alliance", zone = "Redridge Mountains",
   levels = { 21, 27 },
   steps = [[
+home |npc Innkeeper Brianna |at 1433 21.9,44.8  -- set your hearthstone at the inn
 accept 91 |npc Bailiff Conacher |at 1433 24.6,44.3  -- Solomon's Law (23)
 accept 94 |npc Theocritus |at 1429 65.2,69.7  -- A Watchful Eye (21)
 accept 95999 |npc Wanted: Incinerator Gar'im |at 1433 24.3,46.2 |group elite  -- WANTED: Incinerator Gar'im (25)

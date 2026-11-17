@@ -5,6 +5,7 @@ Onward:RegisterGuide{
   id = "winterspring-h", title = "Winterspring (54-60)", faction = "Horde", zone = "Winterspring",
   levels = { 54, 60 },
   steps = [[
+home |npc Innkeeper Vizzie |at 1452 61.4,38.8  -- set your hearthstone at the inn
 accept 969 |npc Witch Doctor Mau'ari |at 1452 61.9,38.3  -- Luck Be With You (60)
 accept 5054 |npc Storm Shadowhoof |at 1452 61.9,38.4 |group elite  -- Ursius of the Shardtooth (56)
 accept 4809 |npc Felnok Steelspring |at 1452 61.6,38.6 |value mid  -- Chillwind Horns (54)

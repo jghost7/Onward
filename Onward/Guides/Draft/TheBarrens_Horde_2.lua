@@ -12,6 +12,7 @@ fly 1413 51.5,30.3 |from 1454 45.1,63.9 |npc Devrak  -- flight master Doras
 accept 876 |npc Darsok Swiftdagger |at 1413 51.6,30.9  -- Serena Bloodfeather (20)
 accept 899 |npc Mankrik |at 1413 52.0,31.6 |value low  -- Consumed by Hatred (20)
 accept 4921 |npc Mankrik |at 1413 52.0,31.6  -- Lost in Battle (20)
+home |npc Innkeeper Byula |at 1413 45.6,59.0  -- set your hearthstone at the inn
 accept 883 |at 1413 47.4,51.3 |note Starts from Hoof of Lakota'mani  -- Lakota'mani (22)
 complete 5052 |at 1413 47.1,52.7 |mobs Bristleback Hunter;Oasis Snapjaw;Bristleback Geomancer;Bristleback Water Seeker  -- Blood Shards of Agamaggan (21)
 complete 899 |at 1413 46.9,53.1 |mobs Bristleback Hunter;Bristleback Geomancer;Bristleback Water Seeker;Bristleback Thornweaver |value low  -- Consumed by Hatred (20)

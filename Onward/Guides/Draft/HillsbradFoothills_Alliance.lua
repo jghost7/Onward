@@ -5,6 +5,7 @@ Onward:RegisterGuide{
   id = "hillsbrad-foothills-a", title = "Hillsbrad Foothills (27-40)", faction = "Alliance", zone = "Hillsbrad Foothills",
   levels = { 27, 40 },
   steps = [[
+home |npc Innkeeper Anderson |at 1424 51.2,58.9  -- set your hearthstone at the inn
 accept 536 |npc Lieutenant Farren Orinelle |at 1424 51.5,58.4  -- Down the Coast (30)
 turnin 559 |npc Lieutenant Farren Orinelle |at 1424 51.5,58.4  -- Farren's Proof (32)
 accept 560 |npc Lieutenant Farren Orinelle |at 1424 51.5,58.4  -- Farren's Proof (32)

@@ -9,6 +9,7 @@ accept 2933 |npc Venom Bottle |at 1425 23.5,58.8  -- Venom Bottles (43)
 accept 77 |npc Gilveradin Sunchaser |at 1425 26.7,48.6 |value mid  -- A Sticky Situation (48)
 complete 7844 |at 1425 50.3,63.2 |mobs Vilebranch Scalper;Vilebranch Soothsayer |value low  -- Cannibalistic Cousins (48)
 complete 7849 |at 1425 58.6,64.8  -- Separation Anxiety (50)
+home |npc Lard |at 1425 78.1,81.4  -- set your hearthstone at the inn
 accept 98203 |npc Qujo |at 1425 78.0,77.8  -- Witch Doctor Ti'ik (49)
 turnin 7844 |npc Mystic Yayo'jin |at 1425 78.8,78.2 |value low  -- Cannibalistic Cousins (48)
 accept 7844 |npc Mystic Yayo'jin |at 1425 78.8,78.2 |value low  -- Cannibalistic Cousins (48)

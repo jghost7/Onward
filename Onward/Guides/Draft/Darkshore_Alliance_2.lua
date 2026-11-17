@@ -8,6 +8,7 @@ Onward:RegisterGuide{
 accept 4731 |npc Beached Sea Turtle |at 1439 31.7,83.7  -- Beached Sea Turtle (19)
 accept 4733 |npc Beached Sea Creature |at 1439 31.3,87.4  -- Beached Sea Creature (19)
 accept 4732 |npc Beached Sea Turtle |at 1439 31.2,85.6  -- Beached Sea Turtle (19)
+home |npc Innkeeper Shaussiy |at 1439 37.0,44.1  -- set your hearthstone at the inn
 turnin 4732 |npc Gwennyth Bly'Leggonde |at 1439 36.6,45.6  -- Beached Sea Turtle (19)
 turnin 4733 |npc Gwennyth Bly'Leggonde |at 1439 36.6,45.6  -- Beached Sea Creature (19)
 turnin 4731 |npc Gwennyth Bly'Leggonde |at 1439 36.6,45.6  -- Beached Sea Turtle (19)

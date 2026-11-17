@@ -52,6 +52,7 @@ accept 818 |npc Master Vornal |at 1411 55.9,74.4  -- A Solvent Spirit (7)
 turnin 99123 |npc Master Vornal |at 1411 55.9,74.4  -- Lost in the Shadows (8)
 accept 96821 |npc Vel'rin Fang |at 1411 56.0,73.9  -- Legging It (6)
 accept 817 |npc Vel'rin Fang |at 1411 56.0,73.9  -- Practical Prey (8)
+home |npc Innkeeper Grosk |at 1411 51.5,41.6  -- set your hearthstone at the inn
 accept 96822 |npc Turroc |at 1411 54.0,42.6  -- For Honor (7)
 accept 791 |npc Furl Scornbrow |at 1411 49.9,40.4  -- Carry Your Weight (7)
 accept 96825 |npc Cook Torka |at 1411 51.1,42.5 |value mid  -- This Fruit Could Bite Back (6)

@@ -6,6 +6,7 @@ Onward:RegisterGuide{
   levels = { 47, 53 },
   next = "azshara-a-2",
   steps = [[
+home |npc Berdun Cliffbrew |at 1447 12.6,77.4  -- set your hearthstone at the inn
 accept 5535 |npc Loh'atu |at 1447 11.4,78.2  -- Spiritual Unrest (47)
 accept 5536 |npc Loh'atu |at 1447 11.4,78.2  -- A Land Filled with Hatred (47)
 accept 88807 |npc Commander Truesong |at 1447 11.8,78.4  -- Slay the Spitelash (48)

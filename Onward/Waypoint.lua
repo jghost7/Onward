@@ -184,8 +184,24 @@ local function nearestSpot(c)
     return best
 end
 
--- What the nav arrow points at: flight advice when it beats running, else the step target.
--- returns { label, sub, cont, wx, wy, radius, arrived } or nil
+-- Hearthstone advice for a target, weighed against walking or the flight advice (its cost is
+-- the straight-line walk minus what the flight saves). Returns an arrow target, or nil.
+local function hearthFor(cont, wx, wy, label, flight)
+    if not (W.Hearth and cont) then return end
+    local now
+    if flight and flight.save then
+        local pc, px, py = T.PlayerWorld()
+        if pc == cont then now = math.sqrt((wx - px) ^ 2 + (wy - py) ^ 2) - flight.save end
+    end
+    local h = W.Hearth:Advice(cont, wx, wy, now)
+    if not h then return end
+    T:SetWantedDestination(nil)
+    return { label = "Hearth to " .. h.name, sub = "hearthstone is ready, then " .. (label or "on from there"),
+             cont = cont, wx = wx, wy = wy, radius = 10, hearth = true }
+end
+
+-- What the nav arrow points at: hearthstone or flight advice when it beats running, else the
+-- step target. returns { label, sub, cont, wx, wy, radius, arrived } or nil
 function WP:ArrowTarget()
     if not current then return end
     local step = current.step
@@ -195,6 +211,8 @@ function WP:ArrowTarget()
         -- far from every spot, flight advice still applies (to the spot itself)
         local cx, cy = current.x, current.y
         local advice = T:Advice(current.map, cx, cy)
+        local hs = hearthFor(spot.cont, spot.wx, spot.wy, label, advice)
+        if hs then return hs end
         if advice then
             local A, B = advice.from, advice.to
             T:SetWantedDestination(spot.cont, B.wx, B.wy)
@@ -206,6 +224,11 @@ function WP:ArrowTarget()
     end
     local radius = (step.verb == "goto" or (step.verb == "fly" and current.leg == "arrive")) and step.radius or 10
     local advice = step.verb ~= "fly" and T:Advice(current.map, current.x, current.y)
+    if step.verb ~= "fly" and step.verb ~= "home" then
+        local hc, hx, hy = T.World(current.map, current.x, current.y)
+        local hs = hearthFor(hc, hx, hy, label, advice or nil)
+        if hs then return hs end
+    end
     if step.verb ~= "fly" and not advice then T:SetWantedDestination(nil) end
     if advice then
         local A, B = advice.from, advice.to
@@ -219,7 +242,9 @@ function WP:ArrowTarget()
     if not cont then return end
     local sub = current.name
     if step.verb == "fly" then
-        sub = UnitOnTaxi("player") and "in flight" or (current.name and ("flight master, then " .. current.name) or "flight master")
+        local _, who = T.SplitFlightNpc(current.name)
+        sub = UnitOnTaxi("player") and ("in flight" .. (who and (", landing by " .. who) or ""))
+            or "go to the flight master and take this flight"
     elseif W.Trail then
         -- back to a quest giver (or any place you walked from): lead along the way you came
         local pc, px, py = T.PlayerWorld()

@@ -6,6 +6,7 @@ Onward:RegisterGuide{
   levels = { 10, 16 },
   next = "loch-modan-a-2",
   steps = [[
+home |npc Innkeeper Hearthstove |at 1432 35.5,48.4  -- set your hearthstone at the inn
 accept 418 |npc Vidra Hearthstove |at 1432 34.8,49.3  -- Thelsamar Blood Sausages (11)
 accept 86667 |npc Grenhild Darktalon |at 1432 36.5,48.3  -- Snowbound (10)
 accept 6387 |npc Brock Stoneseeker |at 1432 37.0,47.8 |race Dwarf,Gnome  -- Honor Students (10)

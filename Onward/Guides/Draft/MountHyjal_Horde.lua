@@ -5,6 +5,7 @@ Onward:RegisterGuide{
   id = "mount-hyjal-h", title = "Mount Hyjal (57-60)", faction = "Horde", zone = "Mount Hyjal",
   levels = { 57, 60 },
   steps = [[
+home |npc Ortak Lomgok |at 2482 12.9,52.9  -- set your hearthstone at the inn
 accept 91794 |npc Kal'tinzan |at 2482 13.8,53.1  -- Flags of Our Forebears (59)
 accept 96616 |npc Ortak Lomgok |at 2482 12.9,52.9 |value low  -- Herbs for the Bruised and Weary (57)
 accept 95026 |npc Zet'gan |at 2482 13.8,54.8 |value mid  -- Blight No More (58)

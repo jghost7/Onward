@@ -6,6 +6,7 @@ Onward:RegisterGuide{
   levels = { 42, 47 },
   next = "stranglethorn-vale-h-3",
   steps = [[
+home |npc Innkeeper Skindle |at 1434 27.0,77.3  -- set your hearthstone at the inn
 accept 209 |npc Kebok |at 1434 27.0,77.1 |value mid  -- Skullsplitter Tusks (42)
 accept 604 |npc Fleet Master Seahorn |at 1434 27.2,77.0  -- The Bloodsail Buccaneers (43)
 accept 621 |npc Crank Fizzlebub |at 1434 27.1,77.2 |value mid  -- Zanzil's Secret (44)

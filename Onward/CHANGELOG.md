@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.5.0
+
+- **Hearthstone advice.** When your hearthstone is ready and hearthing beats running or the best
+  flight to the next step by a clear margin, the arrow says "Hearth to <town>". Never while it's
+  on cooldown. Options > Travel > Suggest your hearthstone.
+- **Set your hearthstone here.** Every guide now tells you where to set it: at the inn of its
+  busiest quest hub (Tarren Mill in Hillsbrad, Goldshire in Elwynn, the Crossroads in the
+  Barrens), the first time you get there. Already bound there? The step ticks itself off.
+- Onward learns where your hearthstone takes you when you set it, or whenever you're in that
+  town. `/ow arrow debug` shows what it knows.
+- Flight steps name the place you fly to ("Fly to Tarren Mill, Hillsbrad", the flight point's
+  in-game name) instead of the flight master; the flight master is on the line below.
+
 ## 0.4.2
 
 - **Quest hints.** Tricky quests get a short note on the step card: one for the quest, and one
