@@ -11,8 +11,6 @@ Free leveling and profession guide for WoW Forever: every zone, 1-300 in every p
 
 # Onward
 
-*Formerly Sloppy Questing. Upgrading? Delete the old `SloppyQuesting` folder from your AddOns first.*
-
 **A free leveling guide for World of Warcraft: Forever.** Onward tells you what to do next, points you there, and keeps up as you play: pick up these quests, kill these mobs, hand them in, take this flight.
 
 > **Beta.** The routes are generated from quest data and have not all been played through yet. Expect the odd step in a strange order. Please report what you find (see *Reporting problems* below).
