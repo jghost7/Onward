@@ -72,7 +72,7 @@ turnin 7844 |npc Mystic Yayo'jin |at 1425 78.8,78.2 |value low  -- Cannibalistic
 turnin 98203 |npc Qujo |at 1425 78.0,77.8  -- Witch Doctor Ti'ik (49)
 accept 98203 |npc Qujo |at 1425 78.0,77.8  -- Witch Doctor Ti'ik (49)
 accept 1444 |npc Atal'ai Exile |at 1425 33.8,75.2  -- Return to Fel'Zerul (44)
-complete 2937 |at 1425 33.8,73.0 |mobs Shadra  -- Summoning Shadra (55)
+complete 2937 |at 1425 33.8,73.0 |item 9323 |mobs Shadra  -- Summoning Shadra (55)
 complete 2934 |at 1425 33.3,69.3 |mobs Witherbark Broodguard  -- Undamaged Venom Sac (45)
 complete 98203 |at 1425 25.8,65.8 |mobs Witch Doctor Ti'ik  -- Witch Doctor Ti'ik (49)
 fly 1446 51.6,25.4 |from 1425 81.7,81.8 |npc Tanaris (Bulkrek Ragefist)  -- flight master Gorkas

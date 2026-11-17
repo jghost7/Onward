@@ -24,4 +24,16 @@ Onward:RegisterHints{
         source = "Wowhead comments (Classic), in our own words",
     },
 
+    -- Riverglades
+    [94923] = {   -- Hats Off
+        objectives = {
+            ["Robbie's Hat"] = "It's inside a hollow clam shell by the river, around 49, 79.",
+        },
+        source = "Wowhead WoW Forever (where the clam shell spawns)",
+    },
+    [95951] = {   -- Fetch 'n' Fletch
+        quest = "Loot Bundles of Wood around Turner's Logging Camp, then use the Wood Bundles (quest item button) to fletch the spears.",
+        source = "Quest text and Wowhead WoW Forever (where the wood bundles spawn)",
+    },
+
 }

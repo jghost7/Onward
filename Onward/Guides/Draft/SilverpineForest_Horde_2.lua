@@ -33,7 +33,7 @@ complete 516 |at 1421 58.7,71.3 |mobs Ravenclaw Drudger;Ravenclaw Guardian |valu
 complete 95883 |at 1421 58.7,71.3 |mobs Ravenclaw Guardian;Ravenclaw Drudger  -- The Tortured Soul (23)
 turnin 95883 |npc Offering Stone |at 1421 58.1,69.8  -- The Tortured Soul (23)
 accept 95885 |npc Offering Stone |at 1421 58.1,69.8 |group elite  -- The Offering of Blood (23)
-complete 95885 |at 1421 58.2,69.8 |mobs Tortured Soul |group elite  -- The Offering of Blood (23)
+complete 95885 |at 1421 58.2,69.8 |item 210713 |mobs Tortured Soul |group elite  -- The Offering of Blood (23)
 turnin 95885 |npc Offering Stone |at 1421 58.1,69.8 |group elite  -- The Offering of Blood (23)
 complete 95981 |at 1421 63.4,65.6 |mobs Dalaran Watcher;Dalaran Wizard  -- Watching the Roads (20)
 complete 480 |at 1421 63.4,64.3 |mobs Archmage Ataeric  -- The Weaver (22)

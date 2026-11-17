@@ -29,7 +29,7 @@ turnin 1421 |npc Watcher Biggs |at 1435 26.7,59.8 |value mid  -- The Lost Carava
 accept 1398 |npc Watcher Biggs |at 1435 26.7,59.8 |value mid  -- Driftwood (42)
 complete 1116 |at 1435 60.5,53.1 |mobs Scalebane Captain;Green Scalebane;Adolescent Whelp;Wyrmkin Dreamwalker  -- Dream Dust in the Swamp (36)
 complete 1398 |at 1435 94.0,57.1 |value mid  -- Driftwood (42)
-complete 93176 |at 1435 62.9,67.6 |mobs Deathstrike Tarantula;Weevil K. Neevil  -- My Little Friends (35)
+complete 93176 |at 1435 62.9,67.6 |item 213565 |mobs Deathstrike Tarantula;Weevil K. Neevil  -- My Little Friends (35)
 turnin 1398 |npc Watcher Biggs |at 1435 26.7,59.8 |value mid  -- Driftwood (42)
 accept 1425 |npc Watcher Biggs |at 1435 26.7,59.8 |value mid  -- Deliver the Shipment (42)
 accept 94929 |npc Watcher Biggs |at 1435 26.7,59.8 |value mid  -- Deliver the Second Shipment (38)

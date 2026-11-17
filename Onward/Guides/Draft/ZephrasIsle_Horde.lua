@@ -211,7 +211,7 @@ turnin 93738 |npc Ayessa Dawnsinger |at 2521 59.1,79.8  -- The Broken Construct 
 turnin 92646 |npc Ayessa Dawnsinger |at 2521 59.1,79.8  -- Confront Lorthuna (12)
 turnin 92708 |npc Ayessa Dawnsinger |at 2521 59.1,79.8  -- A Grand Adventure (12)
 accept 93746 |npc Ayessa Dawnsinger |at 2521 59.1,79.8  -- A Firm Response (9)
-complete 92683 |at 2521 50.5,79.6  -- Flutterfly Dust (9)
+complete 92683 |at 2521 50.5,79.6 |item 253666  -- Flutterfly Dust (9)
 turnin 92684 |npc Aamelia Windfield |at 2521 46.7,82.0  -- Ornery Ornery Galestriders (9)
 turnin 92682 |npc Aamelia Windfield |at 2521 46.7,82.0  -- Make Yourself Useful (9)
 turnin 92683 |npc Aamelia Windfield |at 2521 46.7,82.0  -- Flutterfly Dust (9)

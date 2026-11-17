@@ -22,7 +22,7 @@ accept 3462 |npc Kalaran Windblade |at 1427 39.1,39.0 |group chain  -- Squire Ma
 turnin 3462 |npc Squire Maltrake |at 1427 39.2,39.0 |group chain  -- Squire Maltrake (50)
 accept 3463 |npc Squire Maltrake |at 1427 39.2,39.0 |group chain  -- Set Them Ablaze! (52)
 accept 4451 |at 1427 41.0,43.8 |note Starts from Grimesilt Outhouse Key  -- The Key to Freedom (47)
-complete 3463 |at 1427 44.0,60.9 |group chain  -- Set Them Ablaze! (52)
+complete 3463 |at 1427 44.0,60.9 |item 10515 |group chain  -- Set Them Ablaze! (52)
 turnin 4449 |npc Wooden Outhouse |at 1427 65.6,62.2 |value mid  -- Caught! (45)
 accept 4450 |npc Wooden Outhouse |at 1427 65.6,62.2 |value mid  -- Ledger from Tanaris (46)
 turnin 4451 |npc Wooden Outhouse |at 1427 65.6,62.2  -- The Key to Freedom (47)

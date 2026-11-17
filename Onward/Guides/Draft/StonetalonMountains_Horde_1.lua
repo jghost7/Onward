@@ -22,7 +22,7 @@ accept 6548 |npc Makaba Flathoof |at 1413 35.2,27.8  -- Avenge My Village (18)
 fly 1442 45.1,59.8 |from 1413 51.5,30.3 |npc Tharm  -- flight master Devrak
 complete 6301 |at 1442 48.0,39.8 |value mid  -- Cycle of Rebirth (23)
 accept 1093 |npc Ziz Fizziks |at 1442 59.0,62.6  -- Super Reaper 6000 (21)
-complete 6481 |at 1442 57.4,89.4 |mobs Goggeroc |group elite  -- Earthen Arise (20)
+complete 6481 |at 1442 57.4,89.4 |item 16603 |mobs Goggeroc |group elite  -- Earthen Arise (20)
 turnin 6461 |npc Xen'Zilla |at 1442 71.2,95.0 |value mid  -- Blood Feeders (19)
 accept 6542 |npc Darn Talongrip |at 1442 73.2,94.9  -- Report to Kadrak (19)
 complete 6548 |at 1442 82.3,86.9 |mobs Grimtotem Ruffian;Grimtotem Mercenary  -- Avenge My Village (18)
@@ -39,7 +39,7 @@ accept 1087 |npc Braelyn Firehand |at 1442 45.9,60.4 |value low  -- Cenarius' Le
 turnin 6481 |npc Mor'rogal |at 1442 47.2,64.0 |group elite  -- Earthen Arise (20)
 accept 6393 |npc Tsunaman |at 1442 47.4,64.2  -- Elemental War (25)
 complete 6393 |at 1442 34.1,63.7 |mobs Rogue Flame Spirit;Burning Destroyer;Burning Ravager  -- Elemental War (25)
-complete 6381 |at 1442 32.2,68.2 |value mid  -- New Life (25)
+complete 6381 |at 1442 32.2,68.2 |item 16208 |value mid  -- New Life (25)
 fly 1413 51.5,30.3 |from 1442 45.1,59.8 |npc The Barrens (Devrak)  -- flight master Tharm
 turnin 1062 |npc Seereth Stonebreak |at 1413 35.3,27.9  -- Goblin Invaders (19)
 turnin 1094 |npc Sputtervalve |at 1413 63.0,37.2  -- Further Instructions (21)

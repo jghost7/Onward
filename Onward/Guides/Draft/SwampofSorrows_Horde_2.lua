@@ -32,7 +32,7 @@ accept 2623 |npc Bengor |at 1435 45.0,57.4  -- The Swamp Talker (55)
 complete 2623 |at 1435 63.6,86.4 |mobs Swamp Talker  -- The Swamp Talker (55)
 turnin 2623 |npc Fallen Hero of the Horde |at 1435 34.3,66.1  -- The Swamp Talker (55)
 accept 3374 |at 1435 13.7,71.7 |note Starts from Oathstone of Ysera's Dragonflight |value mid  -- The Essence of Eranikus (55)
-complete 3374 |at 1435 39.1,47.3 |mobs Swamp Jaguar;Swamp Talker |value mid  -- The Essence of Eranikus (55)
+complete 3374 |at 1435 39.1,47.3 |item 10589 |mobs Swamp Jaguar;Swamp Talker |value mid  -- The Essence of Eranikus (55)
 turnin 3374 |npc Itharius |at 1435 13.7,71.7 |value mid  -- The Essence of Eranikus (55)
 accept 3512 |npc Itharius |at 1435 13.7,71.7 |value mid  -- In Eranikus' Own Words (55)
 fly 1452 60.5,36.3 |from 1435 46.1,54.8 |npc Winterspring (Yugrek) |value mid  -- flight master Breyk

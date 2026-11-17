@@ -20,7 +20,7 @@ complete 93430 |at 1435 53.7,30.6 |mobs Lost One Fisherman  -- Taking the Bait B
 complete 1389 |at 1435 62.3,23.6  -- Draenethyst Crystals (35)
 complete 698 |at 1435 78.0,28.4 |mobs Sawtooth Snapper;Sawtooth Crocolisk |value mid  -- Lack of Surplus (40)
 turnin 698 |npc Tok'Kar |at 1435 81.3,81.0 |value mid  -- Lack of Surplus (40)
-complete 93176 |at 1435 62.9,67.6 |mobs Deathstrike Tarantula;Weevil K. Neevil |value mid  -- My Little Friends (35)
+complete 93176 |at 1435 62.9,67.6 |item 213565 |mobs Deathstrike Tarantula;Weevil K. Neevil |value mid  -- My Little Friends (35)
 complete 1116 |at 1435 60.5,53.1 |mobs Scalebane Captain;Green Scalebane;Adolescent Whelp;Wyrmkin Dreamwalker  -- Dream Dust in the Swamp (36)
 turnin 93176 |npc Amaryllis Webb |at 1435 25.2,54.0 |value mid  -- My Little Friends (35)
 accept 93429 |npc Karana |at 1435 24.7,32.6  -- Blood of My Blood (35)

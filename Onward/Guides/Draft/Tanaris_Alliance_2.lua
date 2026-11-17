@@ -37,10 +37,10 @@ complete 2741 |at 1444 58.0,76.3  -- The Super Egg-O-Matic (60)
 complete 8585 |at 1444 29.2,78.1 |value mid |group elite  -- The Isle of Dread! (60)
 turnin 8597 |npc Freshly Dug Dirt |at 947 30.0,89.2 |group chain  -- Draconic for Dummies (60)
 accept 8598 |npc Freshly Dug Dirt |at 947 30.0,89.2 |group chain  -- rAnS0m (60)
-complete 5801 |at 1449 48.9,47.0  -- Fire Plume Forged (57)
+complete 5801 |at 1449 48.9,47.0 |item 14644  -- Fire Plume Forged (57)
 complete 4496 |at 1449 48.2,77.1  -- Bungle in the Jungle (53)
 complete 4504 |at 1449 51.8,25.1 |value mid  -- Super Sticky (54)
-complete 4507 |at 1449 43.9,81.4  -- Pawn Captures Queen (54)
+complete 4507 |at 1449 43.9,81.4 |item 11833  -- Pawn Captures Queen (54)
 fly 1428 84.3,68.3 |from 1449 45.2,5.8 |npc Burning Steppes (Borgus Stoutarm) |value mid  -- flight master Gryfe
 complete 8925 |at 1428 35.4,57.8 |value mid |class WARRIOR,PALADIN,HUNTER,ROGUE,PRIEST,MAGE,WARLOCK,DRUID |group chain  -- A Portable Power Source (60)
 complete 8921 |at 1428 60.1,40.4 |value mid |class WARRIOR,PALADIN,HUNTER,ROGUE,PRIEST,MAGE,WARLOCK,DRUID |group chain  -- The Ectoplasmic Distiller (60)
@@ -50,7 +50,7 @@ turnin 8577 |npc Inconspicuous Crate |at 1421 46.2,86.7 |group chain  -- Stewvul
 turnin 4508 |npc Gracina Spiritmight |at 1457 41.8,85.6  -- Calm Before the Storm (54)
 turnin 8182 |npc Molthor |at 1434 15.0,15.1 |group chain  -- The Hand of Rastakhan (58)
 fly 1452 62.3,36.6 |from 1434 27.5,77.8 |npc Winterspring (Maethrya)  -- flight master Gyll
-complete 8606 |at 1452 67.2,72.6 |mobs Number Two |group elite  -- Decoy! (60)
+complete 8606 |at 1452 67.2,72.6 |item 21042 |mobs Number Two |group elite  -- Decoy! (60)
 fly 1422 42.9,85.1 |from 1452 62.3,36.6 |npc Western Plaguelands (Bibilfaz Featherwhistle)  -- flight master Maethrya
 turnin 5801 |npc Alchemist Arbington |at 1422 42.7,83.8  -- Fire Plume Forged (57)
 fly 1446 51.0,29.3 |from 1422 42.9,85.1 |npc Bera Stonehammer  -- flight master Bibilfaz Featherwhistle
@@ -79,7 +79,7 @@ turnin 8606 |npc Narain Soothfancy |at 1446 65.2,18.6 |group elite  -- Decoy! (6
 accept 8606 |npc Narain Soothfancy |at 1446 65.2,18.6 |group elite  -- Decoy! (60)
 accept 8576 |npc Narain Soothfancy |at 1446 65.2,18.6 |group chain  -- Translating the Ledger (60)
 accept 8620 |npc Narain Soothfancy |at 1446 65.2,18.6 |group chain  -- The Only Prescription (60)
-complete 8620 |group chain  -- The Only Prescription (60)
+complete 8620 |item 21112 |group chain  -- The Only Prescription (60)
 turnin 8620 |npc Narain Soothfancy |at 1446 65.2,18.6 |group chain  -- The Only Prescription (60)
 turnin 8576 |npc Narain Soothfancy |at 1446 65.2,18.6 |group chain  -- Translating the Ledger (60)
 accept 8577 |npc Narain Soothfancy |at 1446 65.2,18.6 |group chain  -- Stewvul, Ex-B.F.F. (60)
@@ -114,6 +114,6 @@ turnin 8759 |npc Anachronos |at 1446 65.3,50.0  -- The Path of the Invoker (60)
 complete 8751  -- The Protector of Kalimdor (60)
 turnin 8751 |npc Anachronos |at 1446 65.3,50.0  -- The Protector of Kalimdor (60)
 accept 8760 |npc Anachronos |at 1446 65.3,50.0  -- The Path of the Invoker (60)
-complete 8924 |at 1446 54.1,93.0 |mobs Treasure Hunting Pirate;Treasure Hunting Swashbuckler;Treasure Hunting Buccaneer |value mid |class WARRIOR,PALADIN,HUNTER,ROGUE,PRIEST,MAGE,WARLOCK,DRUID |group chain  -- Hunting for Ectoplasm (60)
+complete 8924 |at 1446 54.1,93.0 |item 21946 |mobs Treasure Hunting Pirate;Treasure Hunting Swashbuckler;Treasure Hunting Buccaneer |value mid |class WARRIOR,PALADIN,HUNTER,ROGUE,PRIEST,MAGE,WARLOCK,DRUID |group chain  -- Hunting for Ectoplasm (60)
 accept 8599 |npc Meridith the Mermaiden |at 1446 59.4,96.0  -- Love Song for Narain (60)
 ]]}

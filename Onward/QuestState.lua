@@ -71,7 +71,7 @@ end
 -- The quest's own description from your quest log (the story text, which often says where to
 -- go), or nil when it isn't in your log. Selecting a quest is how the API hands it over, so the
 -- previous selection is put back. Cached per quest.
-local descCache = {}
+local descCache, objTextCache = {}, {}
 function QS:Description(q)
     if descCache[q] then return descCache[q] end
     if not (C_QuestLog.GetLogIndexForQuestID and C_QuestLog.SetSelectedQuest and GetQuestLogQuestText) then return end
@@ -80,11 +80,19 @@ function QS:Description(q)
     local prev = C_QuestLog.GetSelectedQuest and C_QuestLog.GetSelectedQuest()
     local ok, desc = pcall(function()
         C_QuestLog.SetSelectedQuest(q)
-        return (GetQuestLogQuestText(idx))
+        local d, o = GetQuestLogQuestText(idx)
+        objTextCache[q] = W.Safe(o)
+        return d
     end)
     if prev then pcall(C_QuestLog.SetSelectedQuest, prev) end
     desc = ok and W.Safe(desc) or nil
     if desc and desc ~= "" then descCache[q] = desc return desc end
+end
+
+-- the quest's short objective text ("Collect Wood Bundles ... then fletch them into 20 Spears.")
+function QS:ObjectiveText(q)
+    if objTextCache[q] == nil then QS:Description(q) end
+    return objTextCache[q]
 end
 
 function QS:Title(q)

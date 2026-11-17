@@ -14,7 +14,7 @@ accept 89228 |npc Berdun Cliffbrew |at 1447 12.6,77.4  -- Winter Frontier Fisher
 accept 89013 |npc Berdun Cliffbrew |at 1447 12.6,77.4  -- Gettin' Buzzed (48)
 accept 89001 |npc Berdun Cliffbrew |at 1447 12.6,77.4  -- Home on the Range (48)
 complete 88807 |at 1447 31.0,55.1 |mobs Spitelash Warrior;Spitelash Screamer  -- Slay the Spitelash (48)
-complete 89013 |at 1447 19.6,55.5 |mobs Honey Wasp  -- Gettin' Buzzed (48)
+complete 89013 |at 1447 19.6,55.5 |item 238501 |mobs Honey Wasp  -- Gettin' Buzzed (48)
 accept 88857 |npc Sentinel Keldara Sunblade |at 1447 20.6,61.9  -- Saving a Sentinel (47)
 complete 5536 |at 1447 19.8,62.2 |mobs Haldarr Satyr;Haldarr Trickster;Haldarr Felsworn  -- A Land Filled with Hatred (47)
 complete 5535 |at 1447 16.6,69.4 |mobs Highborne Apparition;Highborne Lichling  -- Spiritual Unrest (47)

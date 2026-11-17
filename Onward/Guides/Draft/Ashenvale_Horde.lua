@@ -42,7 +42,7 @@ complete 6504 |at 1440 73.6,63.6 |mobs Splintertree Guard;Shredder 9000;Warsong 
 turnin 6571 |npc Locke Okarr |at 1440 71.4,67.6 |value mid  -- Warsong Supplies (27)
 turnin 6503 |npc Kuray'bin |at 1440 71.1,68.1  -- Ashenvale Outrunners (24)
 turnin 6504 |npc Gurda Ragescar |at 1440 70.0,71.2  -- The Lost Pages (30)
-complete 6621 |at 1440 56.4,63.5 |mobs Chief Murgut  -- King of the Foulweald (26)
+complete 6621 |at 1440 56.4,63.5 |item 16972 |mobs Chief Murgut  -- King of the Foulweald (26)
 turnin 6621 |npc Karang Amakkar |at 1440 11.9,34.5  -- King of the Foulweald (26)
 turnin 824 |npc Je'neu Sancrea |at 1440 11.6,34.3  -- Je'neu of the Earthen Ring (27)
 ]]}

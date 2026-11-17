@@ -50,7 +50,7 @@ accept 592 |npc Kin'weelay |at 1434 32.3,27.7 |group chain  -- Saving Yenniku (4
 turnin 598 |npc Kin'weelay |at 1434 32.3,27.7 |value mid  -- Split Bone Necklace (42)
 turnin 97386 |npc Commander Aggro'gosh |at 1434 32.2,28.9 |group elite  -- The Offense of Grom'gol (44)
 complete 621 |at 1434 38.9,57.6 |mobs Zanzil Naga;Zanzil Zombie;Zanzil Witch Doctor;Zanzil Hunter |value mid  -- Zanzil's Secret (44)
-complete 592 |at 1434 39.0,58.4 |mobs Yenniku |group chain  -- Saving Yenniku (46)
+complete 592 |at 1434 39.0,58.4 |item 3912 |mobs Yenniku |group chain  -- Saving Yenniku (46)
 complete 348 |at 1434 35.0,60.9 |mobs Mokk the Savage  -- Stranglethorn Fever (45)
 complete 8551 |at 1434 37.0,69.7 |mobs Gorlash |group elite  -- The Captain's Chest (47)
 accept 594 |at 1434 36.6,77.1 |note Starts from Carefully Folded Note  -- Message in a Bottle (45)

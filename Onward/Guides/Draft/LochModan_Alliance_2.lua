@@ -8,7 +8,7 @@ Onward:RegisterGuide{
 accept 217 |npc Captain Rugelfuss |at 1432 23.2,73.7 |value mid  -- In Defense of the King's Lands (17)
 accept 86585 |npc Mountaineer Ylva |at 1432 31.8,86.3  -- Banner of the Fallen (17)
 complete 217 |at 1432 34.6,90.5 |mobs Grawmug;Gnasher;Brawler |value mid  -- In Defense of the King's Lands (17)
-complete 86585 |at 1432 31.4,85.4 |mobs Headsplitter  -- Banner of the Fallen (17)
+complete 86585 |at 1432 31.4,85.4 |item 253247 |mobs Headsplitter  -- Banner of the Fallen (17)
 turnin 86585 |npc Captain Rugelfuss |at 1432 23.2,73.7  -- Banner of the Fallen (17)
 turnin 217 |npc Captain Rugelfuss |at 1432 23.2,73.7 |value mid  -- In Defense of the King's Lands (17)
 home |npc Innkeeper Hearthstove |at 1432 35.5,48.4  -- set your hearthstone at the inn
@@ -36,7 +36,7 @@ complete 258 |at 1432 64.9,38.8 |mobs Elder Mountain Boar |value mid  -- A Hunte
 turnin 258 |npc Daryl the Youngling |at 1432 83.5,65.5 |value mid  -- A Hunter's Challenge (17)
 accept 271 |npc Vyrin Swiftwind |at 1432 81.7,64.1 |value mid |group elite  -- Vyrin's Revenge (20)
 accept 86613 |at 1432 69.4,67.5 |note Starts from Excavation Tools  -- Excavation Tools (18)
-complete 86613 |at 1432 69.4,67.5  -- Excavation Tools (18)
+complete 86613 |at 1432 69.4,67.5 |item 278398  -- Excavation Tools (18)
 turnin 436 |npc Magmar Fellhew |at 1432 64.9,66.7  -- Ironband's Excavation (18)
 accept 297 |npc Magmar Fellhew |at 1432 64.9,66.7 |value mid  -- Gathering Idols (18)
 complete 297 |at 1432 70.6,64.8 |mobs Stonesplinter Digger;Stonesplinter Geomancer;Berserk Trogg |value mid  -- Gathering Idols (18)

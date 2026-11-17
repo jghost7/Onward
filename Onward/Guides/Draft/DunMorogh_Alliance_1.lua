@@ -105,7 +105,7 @@ accept 414 |npc Mountaineer Barleybrew |at 1426 86.3,48.8  -- Stout to Kadrell (
 accept 419 |npc Pilot Hammerfoot |at 1426 83.9,39.2  -- The Lost Pilot (10)
 turnin 419 |npc A Dwarven Corpse |at 1426 79.7,36.2  -- The Lost Pilot (10)
 accept 417 |npc A Dwarven Corpse |at 1426 79.7,36.2  -- A Pilot's Revenge (11)
-complete 417 |at 1426 78.3,37.8 |mobs Mangeclaw  -- A Pilot's Revenge (11)
+complete 417 |at 1426 78.3,37.8 |item 3117 |mobs Mangeclaw  -- A Pilot's Revenge (11)
 turnin 417 |npc Pilot Hammerfoot |at 1426 83.9,39.2  -- A Pilot's Revenge (11)
 complete 433 |at 1426 72.4,52.9 |mobs Rockjaw Bonesnapper  -- The Public Servant (11)
 turnin 95214 |npc Quarrymaster Thesten |at 1426 69.2,54.8 |value mid  -- Stolen Blasting Powder (10)
@@ -142,7 +142,7 @@ accept 5841 |note Starts from Coldridge Valley Gift Voucher |race Dwarf,Gnome  -
 fly 1453 71.3,72.2 |from 1455 55.5,47.7 |npc Stormwind City (Dungar Longdrink)  -- flight master Gryth Thurden
 accept 2923 |npc Brother Sarno |at 1453 51.0,48.4  -- Tinkmaster Overspark (26)
 complete 2922 |at 1426 19.8,31.9 |mobs Techbot |group elite  -- Save Techbot's Brain! (26)
-complete 2926 |at 1426 20.9,36.0 |mobs Irradiated Invader |group elite  -- Gnogaine (27)
+complete 2926 |at 1426 20.9,36.0 |item 9283 |mobs Irradiated Invader |group elite  -- Gnogaine (27)
 complete 95041 |at 1426 26.3,40.5 |value mid  -- Data Hoarders (10)
 complete 412 |at 1426 26.0,40.8 |mobs Leper Gnome;Gibblewilt |value mid  -- Operation Recombobulation (10)
 turnin 311 |npc Marleth Barleybrew |at 1426 30.2,45.5  -- Return to Marleth (7)

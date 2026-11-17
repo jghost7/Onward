@@ -1,3 +1,4 @@
 <Bindings>
     <Binding name="CLICK OnwardTargetButton:LeftButton" header="ONWARD" category="ADDONS"/>
+    <Binding name="CLICK OnwardItemButton:LeftButton" category="ADDONS"/>
 </Bindings>

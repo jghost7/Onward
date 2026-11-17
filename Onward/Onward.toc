@@ -2,7 +2,7 @@
 ## Title: Onward
 ## Notes: Leveling and profession guides for WoW Forever: step engine, waypoints, recorder, party sync.
 ## Author: Josh McCann
-## Version: 0.5.2
+## Version: 0.5.3
 ## Category: Quests
 ## X-License: GPL-3.0
 ## X-Curse-Project-ID: 1808625
@@ -28,6 +28,7 @@ Party.lua
 Recorder.lua
 UI.lua
 Target.lua
+Item.lua
 Arrow.lua
 Route.lua
 Options.lua
@@ -35,3 +36,4 @@ Options.lua
 Guides\Guides.xml
 Guides\Professions\Professions.xml
 Guides\QuestHints.lua
+Guides\QuestSpots.lua

@@ -8,7 +8,7 @@ Onward:RegisterGuide{
   steps = [[
 home |npc Innkeeper Fizzgrimble |at 1446 52.5,27.9  -- set your hearthstone at the inn
 accept 992 |npc Senior Surveyor Fizzledowser |at 1446 50.2,27.5  -- Gadgetzan Water Survey (46)
-complete 992 |at 1446 39.0,29.0  -- Gadgetzan Water Survey (46)
+complete 992 |at 1446 39.0,29.0 |item 8584  -- Gadgetzan Water Survey (46)
 turnin 992 |npc Senior Surveyor Fizzledowser |at 1446 50.2,27.5  -- Gadgetzan Water Survey (46)
 turnin 10 |npc Senior Surveyor Fizzledowser |at 1446 50.2,27.5  -- The Scrimshank Redemption (48)
 accept 110 |npc Senior Surveyor Fizzledowser |at 1446 50.2,27.5  -- Insect Part Analysis (48)
@@ -47,7 +47,7 @@ fly 1458 63.2,48.6 |from 1441 45.1,49.1 |npc Undercity (Michael Garrett)  -- fli
 accept 2861 |npc Anastasia Hartwell |at 1458 85.1,10.0  -- Tabetha's Task (46)
 accept 243 |npc Apothecary Zinge |at 1458 50.1,68.0  -- Into the Field (46)
 fly 1444 75.5,44.4 |from 1458 63.2,48.6 |npc Feralas (Shyn)  -- flight master Michael Garrett
-complete 3520 |at 1444 52.3,49.2 |mobs Screecher Spirit  -- Screecher Spirits (44)
+complete 3520 |at 1444 52.3,49.2 |item 10699 |mobs Screecher Spirit  -- Screecher Spirits (44)
 complete 2846 |group dungeon  -- Tiara of the Deep (46)
 fly 1445 35.6,31.9 |from 1444 75.5,44.4 |npc Dustwallow Marsh (Shardi)  -- flight master Shyn
 turnin 2846 |npc Tabetha |at 1445 46.1,57.1 |group dungeon  -- Tiara of the Deep (46)
@@ -118,7 +118,7 @@ turnin 2770 |npc Wizzle Brassbolts |at 1441 78.1,77.1 |group dungeon  -- Gahz'ri
 fly 1446 51.6,25.4 |from 1441 45.1,49.1 |npc Bulkrek Ragefist  -- flight master Nyse
 complete 10 |at 1446 56.0,71.2  -- The Scrimshank Redemption (48)
 turnin 351 |npc Homing Robot OOX-17/TN |at 1446 60.2,64.7  -- Find OOX-17/TN! (48)
-complete 3161 |at 1446 47.6,57.2 |value low  -- Gahz'ridian (48)
+complete 3161 |at 1446 47.6,57.2 |item 9978 |value low  -- Gahz'ridian (48)
 turnin 3444 |npc Marvon Rivetseeker |at 1446 52.7,45.9  -- The Stone Circle (51)
 turnin 3161 |npc Marvon Rivetseeker |at 1446 52.7,45.9 |value low  -- Gahz'ridian (48)
 accept 3042 |npc Trenton Lighthammer |at 1446 51.4,28.8 |value mid |group dungeon  -- Troll Temper (45)

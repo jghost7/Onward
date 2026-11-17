@@ -24,6 +24,7 @@ local DEFAULTS = {
     routeStops = 3,          -- how many steps past the current one "next" shows
     targetButton = true,     -- crosshair on kill/loot steps that targets the nearest quest mob
     targetMark = true,       -- put a skull on the mob it targets
+    itemButton = true,       -- button that uses the quest's item (fletch the bundles, throw the spear)
     targetDetached = false,  -- target button as its own movable button instead of on the step card
     targetPoint = nil,
     -- travel

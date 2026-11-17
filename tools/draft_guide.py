@@ -395,7 +395,20 @@ class Zone:
         races, classes = self.who(q)
         obj, guess, mobs = (medoid(pts) if pts else None), None, self.mob_names(q)
         has_obj = bool(db.quest(q, "objectives") or db.quest(q, "triggerEnd"))
-        if obj is None and has_obj:
+        far_spot = None
+        if obj is None and has_obj and q in quest_spots():
+            # looked up by hand (tools/quest_spots.json): spots on this map, else the map with most
+            by_map = {}
+            for e in quest_spots()[q]:
+                for xy in e["points"].split():
+                    x, y = xy.split(",")
+                    by_map.setdefault(e["map"], []).append((float(x), float(y)))
+            if self.map in by_map:
+                obj, guess = medoid(by_map[self.map]), "spots"
+            elif by_map:
+                m = max(by_map, key=lambda k: len(by_map[k]))
+                far_spot = (m, medoid(by_map[m]))
+        if obj is None and has_obj and not far_spot:
             text = " ".join(t for t in texts if t)
             spot, named = self.text_mobs(q, text)
             if spot:
@@ -411,13 +424,14 @@ class Zone:
             "id": q, "name": s(db.quest(q, "name")) or f"quest {q}",
             "level": db.quest(q, "questLevel") or 0, "minLevel": db.quest(q, "requiredLevel") or 0,
             "start": start, "startItem": item, "finish": self.finisher(q),
-            "obj": obj, "objGuess": guess, "objFar": None if obj else self.far_objective(q), "hasObjectives": has_obj,
+            "obj": obj, "objGuess": guess, "objFar": None if obj else (far_spot or self.far_objective(q)), "hasObjectives": has_obj,
             "preAny": [p for p in lua_list(db.quest(q, "preQuestSingle")) if p],
             "preAll": [p for p in lua_list(db.quest(q, "preQuestGroup")) if p],
             "exclusive": [p for p in lua_list(db.quest(q, "exclusiveTo")) if p],
             "breadcrumbFor": db.quest(q, "breadcrumbForQuestId"),
             "text": texts[0] if texts else "",
             "mobs": mobs,
+            "useItem": db.quest(q, "sourceItemId") or None,   # the item the quest hands you, often the one you use
             "group": self.group(q),
         }
 
@@ -435,6 +449,18 @@ _PLACES = {}
 TEXT_STOP = {"bring", "gather", "collect", "return", "deliver", "speak", "travel", "slay", "recover",
              "kill", "steal", "retrieve", "obtain", "find", "locate", "report", "there", "their", "these",
              "alliance", "horde", "young", "elder", "greater", "lesser"}
+
+
+_SPOTS = {}
+
+
+def quest_spots():
+    """{questId: [{what, map, points, ...}]} from tools/quest_spots.json (looked up by hand)."""
+    if not _SPOTS:
+        import json
+        path = pathlib.Path(__file__).resolve().parent / "quest_spots.json"
+        _SPOTS.update({int(k): v for k, v in json.loads(path.read_text(encoding="utf-8")).items() if not k.startswith("_")})
+    return _SPOTS
 
 
 def places():
@@ -945,7 +971,8 @@ def render(zone, steps, leftovers, levels, name, faction, gid=None, next_id=None
         elif verb == "complete":
             at = f" |at {zone.map} {q['obj'][0]:.1f},{q['obj'][1]:.1f}" if q["obj"] else fmt_at(q.get("objFar"))
             mobs = f" |mobs {';'.join(q['mobs'])}" if q.get("mobs") else ""
-            out.append(f"complete {q['id']}{at}{mobs}{who}{title}")
+            use = f" |item {q['useItem']}" if q.get("useItem") else ""
+            out.append(f"complete {q['id']}{at}{use}{mobs}{who}{title}")
         else:
             loc = q["finish"]
             npc = f" |npc {clean(loc[2])}" if loc and loc[2] else ""

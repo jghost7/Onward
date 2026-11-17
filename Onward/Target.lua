@@ -157,7 +157,8 @@ function TG:Sync()
     b:SetAttribute("macrotext", macro)
     local show = #names > 0 and place()
     b:SetShown(show and true or false)
-    if W.UI and W.UI.SetCardInset then W.UI.SetCardInset((show and not detached()) and (SIZE + 2) or 0) end
+    if W.Item then W.Item:Sync() end   -- it sits beside this button
+    if W.UI and W.UI.SetCardInset then W.UI.SetCardInset((show and not detached()) and (SIZE + 2) or 0, "target") end
 end
 
 ---------------------------------------------------------------------------

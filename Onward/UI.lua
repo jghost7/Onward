@@ -234,9 +234,12 @@ local subText = fs(card, 12, C.sub)
 subText:SetPoint("TOPLEFT", mainText, "BOTTOMLEFT", 0, -3)
 subText:SetPoint("RIGHT")
 UI.card = card
--- room for the target button (Target.lua) in the card's top-right corner
-local cardInset = 0
-function UI.SetCardInset(px)
+-- room for the target and quest item buttons (Target.lua, Item.lua) in the card's top-right corner
+local cardInset, insets = 0, {}
+function UI.SetCardInset(px, who)
+    insets[who or "target"] = px
+    px = 0
+    for _, v in pairs(insets) do px = px + v end
     if px == cardInset then return end
     cardInset = px
     mainText:SetPoint("RIGHT", card, "RIGHT", -px, 0)
@@ -460,7 +463,7 @@ local function locationLine(step)
     end
     if step.note and step.verb ~= "goto" then parts[#parts + 1] = step.note end
     if step.group then parts[#parts + 1] = UI.GroupText(step.group) end
-    if step.item then
+    if step.item and W.Item and W.Item.item == step.item then   -- only when you have it to use
         local name = C_Item and C_Item.GetItemNameByID and C_Item.GetItemNameByID(step.item)
         parts[#parts + 1] = "use " .. (name or ("item " .. step.item))
     end

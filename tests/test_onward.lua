@@ -273,6 +273,30 @@ note done
     W.Guide:Activate("nav") settle()
 end
 
+-- our own looked-up spots (Guides/QuestSpots.lua) when Questie has none; a finished objective's
+-- spots drop out
+do
+    W.QuestSpots[8970] = { { 1423, "Clam", "70,50 71,50" }, { 1423, "Reed", "52,50" } }
+    W:RegisterGuide{ id = "ownspots", title = "Own spots", faction = "", steps = [[
+complete 8970
+note done
+]] }
+    MOCK.addQuest(8970, "Shore Things", {
+        { text = "Clam: 0/2", finished = false, numFulfilled = 0, numRequired = 2 },
+        { text = "Reed: 0/5", finished = false, numFulfilled = 0, numRequired = 5 },
+    })
+    MOCK.fire("QUEST_LOG_UPDATE")
+    MOCK.pos = { map = 1423, x = 0.5, y = 0.5 }
+    W.Guide:Activate("ownspots") settle()
+    local c = W.Waypoint:Current()
+    check("own spots: points at the nearest one", c and c.map == 1423 and c.x == 52, c and (c.map .. " " .. c.x))
+    MOCK.log[8970].objectives[2].finished = true MOCK.fire("QUEST_LOG_UPDATE") settle()
+    check("own spots: a finished objective's spots drop out", #W.Waypoint.ObjectiveSpots(8970) == 2 and W.Waypoint.ObjectiveSpots(8970)[1].name == "Clam")
+    MOCK.finish(8970) MOCK.turnIn(8970) MOCK.fire("QUEST_TURNED_IN", 8970) MOCK.fire("QUEST_LOG_UPDATE")
+    W.QuestSpots[8970] = nil
+    W.Guide:Activate("nav") settle()
+end
+
 -- quest hints: built-in notes on the card (per objective, gone once it's done), your own notes
 do
     W:RegisterGuide{ id = "hints", title = "Hints", faction = "", steps = [[
@@ -694,6 +718,45 @@ MOCK.fire("QUEST_LOG_UPDATE") settle()
 W.Guide:Activate("group") settle()
 for _, q in ipairs({ 960, 961, 962 }) do MOCK.finish(q) MOCK.turnIn(q) MOCK.fire("QUEST_TURNED_IN", q) end
 MOCK.fire("QUEST_LOG_UPDATE") settle()
+-- quest item button: the guide's |item, or a usable quest item in your bags the quest text names
+do
+    local saved = { GetItemSpell = GetItemSpell, GetItemInfoInstant = GetItemInfoInstant, C_Container = C_Container, name = C_Item.GetItemNameByID }
+    local NAMES = { [5001] = "Makeshift Spear", [5002] = "Wood Bundle", [5003] = "Shiny Pebble" }
+    local bagSlots = { 5002, 5003 }
+    GetItemSpell = function(id) return (id == 5001 or id == 5002 or id == 5003) and "Use" or nil end
+    GetItemInfoInstant = function(id) return id, nil, nil, nil, nil, 12 end
+    C_Item.GetItemNameByID = function(id) return NAMES[id] end
+    C_Container = { GetContainerNumSlots = function(bag) return bag == 0 and #bagSlots or 0 end,
+                    GetContainerItemID = function(bag, slot) return bag == 0 and bagSlots[slot] or nil end }
+    W:RegisterGuide{ id = "itemq", title = "Item", faction = "", steps = [[
+complete 8960 |item 5001
+complete 8961
+complete 8962
+]]}
+    MOCK.addQuest(8960, "Stick Them", { { text = "Crocolisk impaled: 0/5", finished = false, numFulfilled = 0, numRequired = 5 } })
+    MOCK.addQuest(8961, "Fletching", { { text = "Collect Wood Bundles and fletch spears: 0/20", finished = false, numFulfilled = 0, numRequired = 20 } })
+    MOCK.addQuest(8962, "Unrelated", { { text = "Wolf slain: 0/5", finished = false, numFulfilled = 0, numRequired = 5 } })
+    for _, q in ipairs({ 8960, 8961, 8962 }) do MOCK.fire("QUEST_ACCEPTED", q) end
+    W.Guide:Activate("itemq") settle()
+    local IB = W.Item.button
+    check("no item button while the guide's item isn't in your bags", W.Item.For(W.Guide:Current()) == nil)
+    MOCK.bags[5001] = 1 W.Item:Sync()
+    check("item button uses the guide's item", IB:IsShown() and IB:GetAttribute("item") == "item:5001", IB:GetAttribute("item"))
+    MOCK.finish(8960) MOCK.fire("QUEST_LOG_UPDATE") settle()
+    MOCK.bags[5002] = 3 W.Item:Sync()
+    check("item button finds a bag quest item the quest names", IB:GetAttribute("item") == "item:5002", IB:GetAttribute("item"))
+    check("plural in the text matches the item name", W.Item.Names("Collect Wood Bundles", "Wood Bundle") and not W.Item.Names("Woodbundles", "Wood Bundle"))
+    MOCK.finish(8961) MOCK.fire("QUEST_LOG_UPDATE") settle()
+    check("no item for a quest whose text names none of your items", W.Item.For(W.Guide:Current()) == nil)
+    W.db.itemButton = false W.Item:Sync()
+    check("item button can be turned off", not IB:IsShown())
+    W.db.itemButton = true
+    MOCK.bags[5001], MOCK.bags[5002] = nil, nil
+    for _, q in ipairs({ 8960, 8961, 8962 }) do MOCK.finish(q) MOCK.turnIn(q) MOCK.fire("QUEST_TURNED_IN", q) end
+    MOCK.fire("QUEST_LOG_UPDATE") settle()
+    GetItemSpell, GetItemInfoInstant, C_Container, C_Item.GetItemNameByID = saved.GetItemSpell, saved.GetItemInfoInstant, saved.C_Container, saved.name
+    W.Item:Sync()
+end
 -- a turn-in whose quest isn't finished waits instead of becoming the current step
 -- (the Panther Mastery case: kill step skipped because the boss was too hard)
 W:RegisterGuide{ id = "wait", title = "Wait", faction = "", steps = [[
@@ -929,7 +992,7 @@ W.db.theme = "onward"
 fakeE.IsEnabled = function() return false end
 SK.Refresh()
 
-check("options fit the window", W.Options.cursor[1] > -704 and W.Options.cursor[2] > -704, W.Options.cursor[1] .. " / " .. W.Options.cursor[2])   -- window is 720 tall
+check("options fit the window", W.Options.cursor[1] > -724 and W.Options.cursor[2] > -724, W.Options.cursor[1] .. " / " .. W.Options.cursor[2])   -- window is 740 tall
 
 -- profession guides: steps complete on your skill, the card shows mats against your bags,
 -- the trainer is found, and the game's own best recipe is offered when the route's isn't usable
@@ -1018,7 +1081,7 @@ MOCK.printed = {}
 check("riverglades guides registered", W.Guide:Get("riverglades-a") and W.Guide:Get("riverglades-h"))
 local nGuides, nSteps, mismatched, noQuest, ids = 0, 0, {}, 0, {}
 for _, def in ipairs(W.Guide:All()) do
-    if not ({ test = 1, riverglades = 1, nav = 1, resume = 1, resume2 = 1, modes = 1, target = 1, group = 1, group2 = 1, groupq = 1, trail = 1, later = 1, nopin = 1, hints = 1, hearth = 1, pickup = 1, drops = 1, wait = 1, spots = 1 })[def.id] then
+    if not ({ test = 1, riverglades = 1, nav = 1, resume = 1, resume2 = 1, modes = 1, target = 1, group = 1, group2 = 1, itemq = 1, groupq = 1, trail = 1, later = 1, nopin = 1, ownspots = 1, hints = 1, hearth = 1, pickup = 1, drops = 1, wait = 1, spots = 1 })[def.id] then
         check("unique guide id " .. def.id, not ids[def.id]) ids[def.id] = true
         if def.next then check(def.id .. " next exists", W.Guide:Get(def.next) ~= nil, def.next) end
         local expect = 0

@@ -21,7 +21,7 @@ accept 5151 |npc Wizlo Bearingshiner |at 1441 21.4,32.5 |group elite  -- Hyperca
 turnin 4865 |npc Motega Firemane |at 1441 21.5,32.4  -- Serpent Wild (26)
 accept 5062 |npc Motega Firemane |at 1441 21.5,32.4 |value low  -- Sacred Fire (27)
 turnin 4881 |npc Kanati Greycloud |at 1441 21.2,32.1  -- Assassination Plot (28)
-complete 5151 |at 1441 22.8,24.6 |mobs Enraged Panther |group elite  -- Hypercapacitor Gizmo (30)
+complete 5151 |at 1441 22.8,24.6 |item 12942 |mobs Enraged Panther |group elite  -- Hypercapacitor Gizmo (30)
 accept 4542 |npc Brave Moonhorn |at 1441 32.2,22.2  -- Message to Freewind Post (25)
 complete 5147 |at 1441 38.1,26.9 |mobs Arnak Grimtotem  -- WANTED: Arnak Grimtotem (29)
 accept 1150 |npc Dorn Plainstalker |at 1441 54.0,41.5  -- Test of Endurance (30)
@@ -57,7 +57,7 @@ accept 1111 |npc Kravel Koalbeard |at 1441 77.8,77.3  -- Wharfmaster Dizzywig (3
 turnin 1110 |npc Kravel Koalbeard |at 1441 77.8,77.3 |value low  -- Rocket Car Parts (31)
 complete 1147 |at 1441 68.1,86.0 |mobs Silithid Searcher;Silithid Hive Drone;Silithid Invader  -- The Swarm Grows (35)
 accept 1148 |at 1441 68.1,86.0 |note Starts from Cracked Silithid Carapace  -- Parts of the Swarm (35)
-complete 1148 |at 1441 68.1,86.0 |mobs Silithid Hive Drone;Silithid Invader;Silithid Searcher;Silithid Ravager  -- Parts of the Swarm (35)
+complete 1148 |at 1441 68.1,86.0 |item 5877 |mobs Silithid Hive Drone;Silithid Invader;Silithid Searcher;Silithid Ravager  -- Parts of the Swarm (35)
 complete 1150 |at 1441 26.0,55.6 |mobs Grenka Bloodscreech  -- Test of Endurance (30)
 complete 98070 |at 1441 26.7,52.1 |mobs Screeching Harpy;Screeching Roguefeather;Screeching Windcaller  -- Stop the Screeching (30)
 fly 1442 45.1,59.8 |from 1441 45.1,49.1 |npc Stonetalon Mountains (Tharm)  -- flight master Nyse

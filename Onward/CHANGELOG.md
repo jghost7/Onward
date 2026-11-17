@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.5.3
+
+- **Quest item button.** On a step where the quest has you use an item (fletch the Wood Bundles,
+  throw the spear at a crocolisk), a button that uses it appears beside the target button, or
+  beside the detached target button. It shows the item's icon, count and cooldown. Bind a key under
+  Key Bindings > AddOns > Onward; turn it off in Options > Navigation. It uses the item the quest
+  hands you, or a usable quest item in your bags that the quest's text names.
+- Looked-up spots for Riverglades quests Questie has no data for (Fetch 'n' Fletch, A Boar's
+  Delight, Hats Off, Stuff 'Em and Stick 'Em, Apple of My Eye, Her World), from Wowhead's WoW
+  Forever database. The arrow goes to the nearest bush, bale or woodpile, and drops an objective's
+  spots once it's done. More to come (`tools/quest_spots.json`).
+- Hints for Hats Off (the hat is in a clam shell) and Fetch 'n' Fletch (fletch the bundles).
+
 ## 0.5.2
 
 - Quests whose objectives Questie has no spawn data for (many of Forever's own quests) now get a

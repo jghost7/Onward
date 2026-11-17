@@ -57,7 +57,7 @@ Register with `kind = "profession"` and `skill = <skillLine>` (171 Alchemy, 164 
 | `at <mapID> x,y` | Waypoint for the step. Without it, accept and turn-in steps use Questie's NPC location, and complete steps use Blizzard's quest area |
 | `npc <name>` | Name shown under the step |
 | `note <text>` | Hint line |
-| `item <itemID>` | "use item" hint |
+| `item <itemID>` | The item the quest has you use. While it's in your bags the quest item button uses it (and the step says "use <item>"). Without it, the button looks for a usable quest item in your bags that the quest's text names. The drafter writes the item a quest gives you when you accept it |
 | `mobs <Name>;<Name>` | Mobs the target button and key binding target on a `complete` step, in order of preference (kill targets first, then the mobs that drop the quest items). The drafter writes up to four |
 | `class`, `race`, `faction` | The step is shown only to matching characters. Use comma lists of class tokens (`WARRIOR`) or race names: `Human`, `Orc`, `Dwarf`, `NightElf`, `Scourge` (or `Undead`), `Tauren`, `Gnome`, `Troll`, and Forever's `SkyborneAlliance` / `SkyborneHorde`. The generated guides narrow a quest by its prerequisites too: the follow-up to a dwarf-and-gnome quest is tagged dwarf-and-gnome (`tools/retag_guides.py`) |
 | `group <kind>` | Needs a group: `elite` (elite targets), `dungeon` (targets only inside an instance) or `chain` (only reachable through one of those). Shown marked on the panel; left out when Options > Elite and dungeon quests is Hide (`/ow group hide`). The drafter sets it from Questie's NPC rank and spawn maps |

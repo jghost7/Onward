@@ -58,7 +58,7 @@ turnin 977 |npc Umi Rumplesnicker |at 1452 60.9,37.6  -- Are We There, Yeti? (58
 accept 5163 |npc Umi Rumplesnicker |at 1452 60.9,37.6  -- Are We There, Yeti? (58)
 accept 6605 |npc Harlo Wigglesworth |at 1452 61.1,38.4  -- A Strange One (54)
 accept 6606 |npc Harlo Wigglesworth |at 1452 61.1,38.4  -- A Little Luck (60)
-complete 5163 |at 1452 61.5,38.6 |mobs Legacki;Sprinkle;Quixxil  -- Are We There, Yeti? (58)
+complete 5163 |at 1452 61.5,38.6 |item 12928 |mobs Legacki;Sprinkle;Quixxil  -- Are We There, Yeti? (58)
 turnin 4809 |npc Felnok Steelspring |at 1452 61.6,38.6 |value mid  -- Chillwind Horns (54)
 accept 4810 |npc Felnok Steelspring |at 1452 61.6,38.6 |value mid  -- Return to Tinkee (54)
 turnin 5056 |npc Storm Shadowhoof |at 1452 61.9,38.4 |group elite  -- Shy-Rotam (60)
@@ -79,7 +79,7 @@ turnin 6603 |npc Donova Snowden |at 1452 31.3,45.2  -- Trouble in Winterspring! 
 fly 1448 34.4,54.0 |from 1452 60.5,36.3 |npc Felwood (Brakkar)  -- flight master Yugrek
 turnin 4882 |npc Trull Failbane |at 1448 34.7,52.8  -- Guarding Secrets (59)
 turnin 6605 |npc Winna Hazzard |at 1448 34.2,52.3  -- A Strange One (54)
-complete 8471  -- Winterfall Ritual Totem (56)
+complete 8471 |item 20742  -- Winterfall Ritual Totem (56)
 turnin 8471 |npc Kernda |at 1448 65.5,3.5  -- Winterfall Ritual Totem (56)
 accept 4883 |npc Trull Failbane |at 1448 34.7,52.8  -- Guarding Secrets (59)
 turnin 5128 |npc Kelek Skykeeper |at 1448 51.1,81.8  -- Words of the High Chief (59)

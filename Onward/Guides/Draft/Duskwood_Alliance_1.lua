@@ -163,7 +163,7 @@ complete 57 |at 1431 20.6,46.4 |mobs Skeletal Fiend;Skeletal Horror |value mid  
 complete 75 |at 1431 77.3,36.2 |mobs Stalvan Mistmantle |value low  -- The Legend of Stalvan (28)
 turnin 156 |npc Tavernkeep Smitts |at 1431 73.8,44.5  -- Gather Rot Blossoms (24)
 accept 159 |npc Tavernkeep Smitts |at 1431 73.8,44.5  -- Juice Delivery (24)
-complete 96137 |at 1431 49.0,65.2 |mobs Young Black Ravager;Black Ravager  -- Ira's Dagger (25)
+complete 96137 |at 1431 49.0,65.2 |item 281143 |mobs Young Black Ravager;Black Ravager  -- Ira's Dagger (25)
 turnin 245 |npc Watcher Dodds |at 1431 45.1,67.0 |value low  -- Eight-Legged Menaces (21)
 turnin 75 |npc Marshal Haggard |at 1429 84.6,69.4 |value low  -- The Legend of Stalvan (28)
 accept 78 |npc Marshal Haggard |at 1429 84.6,69.4 |value low  -- The Legend of Stalvan (28)

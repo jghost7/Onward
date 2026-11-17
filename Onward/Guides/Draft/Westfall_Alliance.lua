@@ -27,7 +27,7 @@ complete 38 |at 1436 41.9,38.8 |mobs Goretusk;Fleshripper;Young Goretusk;Foe Rea
 accept 136 |at 1436 32.4,26.6 |note Starts from Captain Sander's Treasure Map  -- Captain Sander's Hidden Treasure (16)
 complete 92744 |at 1436 32.4,26.6 |mobs Murloc Warrior;Murloc Hunter;Murloc Netter;Murloc Oracle |value mid  -- Murloc Gills (12)
 complete 64 |at 1436 49.3,19.3  -- The Forgotten Heirloom (12)
-complete 92742 |at 1436 56.6,18.7  -- Testing the Wells (12)
+complete 92742 |at 1436 56.6,18.7 |item 254545  -- Testing the Wells (12)
 turnin 151 |npc Verna Furlbrow |at 1436 59.9,19.4  -- Poor Old Blanchy (14)
 turnin 64 |npc Farmer Furlbrow |at 1436 60.0,19.4  -- The Forgotten Heirloom (12)
 accept 6181 |npc Quartermaster Lewis |at 1436 57.0,47.2 |race Human  -- A Swift Message (10)

@@ -5,6 +5,39 @@ local WP = {}
 W.Waypoint = WP
 
 local QB, T = W.QuestieBridge, W.Travel
+
+-- Objective spots: Questie's spawns, else our own looked-up list (Guides/QuestSpots.lua) for
+-- quests Questie has nothing for. done[i] = objective i is finished; our spots are matched to
+-- objectives by item name ("Sweetberry: 8/8" finished -> its bushes drop out).
+local ownCache = {}
+function WP.ObjectiveSpots(q, done)
+    local s = QB:ObjectiveSpots(q, done)
+    if s and #s > 0 then return s end
+    local data = W.QuestSpots and W.QuestSpots[q]
+    if not data then return s end
+    local finished = {}
+    local e = W.QuestState and W.QuestState:Get(q)
+    for i, o in ipairs(e and e.objectives or {}) do
+        if (o.finished or (done and done[i])) and o.text then finished[#finished + 1] = o.text:lower() end
+    end
+    if not ownCache[q] then
+        ownCache[q] = {}
+        for _, d in ipairs(data) do
+            for x, y in d[3]:gmatch("([%d.]+),([%d.]+)") do
+                ownCache[q][#ownCache[q] + 1] = { map = d[1], x = tonumber(x), y = tonumber(y), name = d[2] }
+            end
+        end
+    end
+    local out = {}
+    for _, p in ipairs(ownCache[q]) do
+        local skip = false
+        for _, f in ipairs(finished) do
+            if f:find(p.name:lower(), 1, true) == 1 then skip = true break end
+        end
+        if not skip then out[#out + 1] = p end
+    end
+    return out
+end
 local tomtomUid
 local ticker
 local current       -- { step, map, x, y, name, title } : the step's own target
@@ -82,7 +115,7 @@ function WP:Resolve(step)
     -- a kill/loot step the guide has no place for (its mobs are over a zone border, say): the
     -- nearest place Questie knows the objective can be done
     if step.verb == "complete" and step.quest then
-        local spots = QB:ObjectiveSpots(step.quest)
+        local spots = WP.ObjectiveSpots(step.quest)
         if spots then
             local pc, px, py = T.PlayerWorld()
             local best, bestD
@@ -172,7 +205,7 @@ local function nearestSpot(c)
                 if i ~= step.obj then done[i] = true end
             end
         end
-        for _, s in ipairs(QB:ObjectiveSpots(step.quest, done) or {}) do
+        for _, s in ipairs(WP.ObjectiveSpots(step.quest, done) or {}) do
             local cont, wx, wy = T.World(s.map, s.x, s.y)
             if cont then c.spots[#c.spots + 1] = { cont = cont, wx = wx, wy = wy, name = s.name } end
         end
