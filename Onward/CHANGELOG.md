@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.5.2
+
+- Quests whose objectives Questie has no spawn data for (many of Forever's own quests) now get a
+  location from their own text: the mobs it names ("Paletusk Harvesting" -> the Paletusk boars)
+  or the place it names ("Wood Bundles ... in Turner's Logging Camp"). Fetch 'n' Fletch now has
+  an arrow, and steps without a pin went from 295 to 208 across the guides.
+- Routes rebuilt. Steps nobody could place no longer drag the route around (they used to sit
+  wherever the step before them was), and hand-ins in another zone are saved up for one trip
+  instead of sending you away mid-zone. Total travel is down 28%, zone changes down 43%.
+  Fetch 'n' Fletch is now done together with Borrowed Blades at the logging camp.
+- "Also here" no longer lists a quest across the zone just because the current step has no pin.
+
 ## 0.5.1
 
 - A step for a quest you haven't picked up (you skipped past its giver) now sends you there:

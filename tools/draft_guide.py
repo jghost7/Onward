@@ -16,8 +16,11 @@ import argparse
 import datetime
 import math
 import pathlib
+import re
 
-from questiedb import QuestieDB, area_to_uimap, lua_list
+from questiedb import NPC, QuestieDB, area_to_uimap, lua_list
+
+NPC_FLAGS = NPC["npcFlags"]
 
 CLASSIC_ALLIANCE, CLASSIC_HORDE = 77, 178    # race bits Human|Dwarf|NightElf|Gnome, Orc|Undead|Tauren|Troll
 SKYBORNE_ALLIANCE, SKYBORNE_HORDE = 2 ** 32, 2 ** 33   # Forever's High Order / Windshaper Skyborne
@@ -258,7 +261,72 @@ class Zone:
         if not by_map:
             return None
         m = max(by_map, key=lambda k: len(by_map[k]))
+        # a drop shared by mobs all over the world (boar meat) says nothing about where to go
+        if len(by_map[m]) < 0.6 * sum(len(v) for v in by_map.values()):
+            return None
         return m, medoid(by_map[m])
+
+    # ------------------------------------------------------------ objectives Questie can't place
+    # Forever's own quests often have objectives with no spawn data (a woodpile, a herb only this
+    # zone has). Their text still says where: "...from Peasant Woodpiles in Turner's Logging Camp",
+    # "Gather Chunks of Boar Meat ... (Paletusk Harvesting)". Read it.
+    def zone_mobs(self):
+        """{name: [(x, y)]} for NPCs on this zone's map that aren't townsfolk (cached per map)."""
+        if self.map not in _ZONE_MOBS:
+            out = {}
+            for n in self.db.ids("Npc-"):
+                # townsfolk and quest NPCs aren't targets (friendlyToFaction is no help: neutral
+                # beasts are "AH" too)
+                if (self.db.field("Npc-", n, NPC_FLAGS) or self.db.npc(n, "questStarts")
+                        or self.db.npc(n, "questEnds")):
+                    continue
+                spawns = self.db.npc(n, "spawns")
+                if not spawns:
+                    continue
+                pts = self.zone_points(spawns)
+                if pts:
+                    name = s(self.db.npc(n, "name"))
+                    if name:
+                        out.setdefault(name, []).extend(pts)
+            _ZONE_MOBS[self.map] = out
+        return _ZONE_MOBS[self.map]
+
+    def text_mobs(self, q, text):
+        """Hostile mobs of this zone named in the quest's title or objective text: the full name,
+        or a distinctive word of it ("Paletusk" -> Young Paletusk)."""
+        hay = (s(self.db.quest(q, "name")) or "") + " " + text
+        # place words name an area, not a mob ("Bolder'ok Brute" for "near Bolder'ok"): text_place
+        # handles those
+        placey = {w.lower() for *_, name in places().get(self.map, []) for w in re.findall(r"[\w'-]+", name)}
+        words = {w for w in re.findall(r"[A-Z][\w'-]{4,}", hay)
+                 if w.lower() not in TEXT_STOP and w.lower() not in placey}
+        found = {}
+        for name, pts in self.zone_mobs().items():
+            parts = set(re.findall(r"[\w'-]+", name))
+            if name in hay or (parts & words):
+                found[name] = pts
+        if not found or len(found) > 6:          # nothing, or a word too common to mean anything
+            return None, []
+        pts = [p for v in found.values() for p in v]
+        return medoid(pts), sorted(found, key=lambda k: -len(found[k]))
+
+    def text_place(self, q, text):
+        """Centre of a named area of this zone that the objective text mentions, unless it's
+        where you hand the quest in ("Bring 10 stew to Jasper in Powderfuse Port")."""
+        low = text.lower()
+        fin = self.finisher(q)
+        fin = fin[1] if fin and fin[0] == self.map else None
+        best = None
+        for l, t, r, b, name in places().get(self.map, []):
+            n = name.lower()
+            short = n[4:] if n.startswith("the ") else n
+            if not re.search(r"\b" + re.escape(short) + r"\b", low):
+                continue
+            if fin and l - 2 <= fin[0] <= r + 2 and t - 2 <= fin[1] <= b + 2:
+                continue
+            if best is None or len(short) > best[0]:
+                best = (len(short), ((l + r) / 2, (t + b) / 2))
+        return best and best[1]
 
     def item_points(self, item, collect=None):
         collect = collect or self.zone_points
@@ -325,6 +393,17 @@ class Zone:
         pts = self.objective_points(q)
         texts = [s(t) for t in lua_list(db.quest(q, "objectivesText"))]
         races, classes = self.who(q)
+        obj, guess, mobs = (medoid(pts) if pts else None), None, self.mob_names(q)
+        has_obj = bool(db.quest(q, "objectives") or db.quest(q, "triggerEnd"))
+        if obj is None and has_obj:
+            text = " ".join(t for t in texts if t)
+            spot, named = self.text_mobs(q, text)
+            if spot:
+                obj, guess, mobs = spot, "mobs", (mobs or named[:4])
+            else:
+                spot = self.text_place(q, text)
+                if spot:
+                    obj, guess = spot, "place"
         return {
             "classes": bits_to_tokens(classes, CLASS_BITS) if classes != ALL_CLASSES else [],
             # only worth a filter when narrower than the whole faction (e.g. dwarf+gnome start zone)
@@ -332,13 +411,13 @@ class Zone:
             "id": q, "name": s(db.quest(q, "name")) or f"quest {q}",
             "level": db.quest(q, "questLevel") or 0, "minLevel": db.quest(q, "requiredLevel") or 0,
             "start": start, "startItem": item, "finish": self.finisher(q),
-            "obj": medoid(pts) if pts else None, "objFar": None if pts else self.far_objective(q), "hasObjectives": bool(db.quest(q, "objectives") or db.quest(q, "triggerEnd")),
+            "obj": obj, "objGuess": guess, "objFar": None if obj else self.far_objective(q), "hasObjectives": has_obj,
             "preAny": [p for p in lua_list(db.quest(q, "preQuestSingle")) if p],
             "preAll": [p for p in lua_list(db.quest(q, "preQuestGroup")) if p],
             "exclusive": [p for p in lua_list(db.quest(q, "exclusiveTo")) if p],
             "breadcrumbFor": db.quest(q, "breadcrumbForQuestId"),
             "text": texts[0] if texts else "",
-            "mobs": self.mob_names(q),
+            "mobs": mobs,
             "group": self.group(q),
         }
 
@@ -349,6 +428,29 @@ class Zone:
                 for x in self.quests[q]["exclusive"]:
                     if x in self.quests and x > q:
                         del self.quests[x]
+
+
+_ZONE_MOBS = {}
+_PLACES = {}
+TEXT_STOP = {"bring", "gather", "collect", "return", "deliver", "speak", "travel", "slay", "recover",
+             "kill", "steal", "retrieve", "obtain", "find", "locate", "report", "there", "their", "these",
+             "alliance", "horde", "young", "elder", "greater", "lesser"}
+
+
+def places():
+    """{uiMap: [(left, top, right, bottom, name)]} from Onward/Places.lua (tools/make_places.py)."""
+    if not _PLACES:
+        cur = None
+        path = pathlib.Path(__file__).resolve().parent.parent / "Onward" / "Places.lua"
+        for line in path.read_text(encoding="utf-8").splitlines():
+            m = re.match(r"\s*\[(\d+)\] = \{", line)
+            if m:
+                cur = int(m.group(1))
+                continue
+            m = re.match(r'\s*\{ ([\d.]+), ([\d.]+), ([\d.]+), ([\d.]+), "(.*)" \}', line)
+            if m and cur:
+                _PLACES.setdefault(cur, []).append((*map(float, m.groups()[:4]), m.group(5)))
+    return _PLACES
 
 
 def dungeon_maps():
@@ -484,7 +586,7 @@ def stats(zone, steps):
     return travel, trips_back
 
 
-def violations(Q, seq, lo, hi):
+def violations(Q, seq, lo, hi, loose=()):
     """Hard rules a route must keep: accept -> objectives -> turn-in per quest, prerequisites
     turned in first, at most LOG_SIZE quests held, and no quest picked up far above the level
     the player has reached (simulated from the share of quests handed in)."""
@@ -504,7 +606,7 @@ def violations(Q, seq, lo, hi):
             if (q["minLevel"] or 0) > lo - 1 + (hi - lo + 2) * len(done) / max(1, len(Q)) + 1:
                 bad += 1
             accepted.add(i)
-            if not q["hasObjectives"]:
+            if not q["hasObjectives"] or i in loose:     # loose: its complete step is put back later
                 ready.add(i)
         elif v == "complete":
             if i not in accepted:
@@ -521,11 +623,17 @@ REGION_R = 7.0        # map units: steps this close to a region's centre are "th
 SWITCH = 10.0         # cost of leaving an area, in map units: favours finishing one area before the next
 
 
+AWAY = (-150.0, 50.0)  # stand-in spot for steps in another zone: one far-off area, so trips out are
+                       # bundled and put where they cost least instead of wherever greedy left them
+
+
 def fixed_positions(zone, seq):
-    """{(verb, id): (x, y)} per step; steps without coordinates borrow the step before them."""
+    """{(verb, id): (x, y)} per step; steps in another zone sit at AWAY; steps without
+    coordinates borrow the step before them."""
     pos, last = {}, None
     for v, q in seq:
-        p = step_xy(zone, v, q) or last
+        loc = step_loc(zone, v, q)
+        p = step_xy(zone, v, q) or (AWAY if loc and loc[0] != zone.map else None) or last
         pos[(v, q["id"])] = p
         last = p
     first = next((p for p in pos.values() if p), (50.0, 50.0))
@@ -566,11 +674,32 @@ def optimize(zone, Q, steps, lo, hi):
     seq = list(steps)
     if len(seq) < 6:
         return seq
-    base_bad = violations(Q, seq, lo, hi)
+    # objectives nobody can place ride along with their turn-in: "finish it, then hand it in"
+    # (pinned to whatever came before them, they used to drag whole areas around)
+    loose = {q["id"] for v, q in seq if v == "complete" and not step_loc(zone, v, q)}
+    turned = {q["id"] for v, q in seq if v == "turnin"}
+    loose &= turned
+    seq = [(v, q) for v, q in seq if not (v == "complete" and q["id"] in loose)]
+    if len(seq) < 6:
+        return reattach(steps, seq, loose)
+    base_bad = violations(Q, seq, lo, hi, loose)
     pos = fixed_positions(zone, seq)
     reg = regions(pos)
-    runs = [anneal(Q, seq, lo, hi, base_bad, pos, reg, seed=k) for k in range(4)]
-    return min(runs, key=lambda s: route_cost(s, pos, reg))
+    runs = [anneal(Q, seq, lo, hi, base_bad, pos, reg, seed=k, loose=loose) for k in range(4)]
+    return reattach(steps, min(runs, key=lambda s: route_cost(s, pos, reg)), loose)
+
+
+def reattach(steps, seq, loose):
+    """Put each loose `complete` step back right before its quest's turn-in."""
+    if not loose:
+        return seq
+    by_id = {q["id"]: (v, q) for v, q in steps if v == "complete" and q["id"] in loose}
+    out = []
+    for v, q in seq:
+        if v == "turnin" and q["id"] in by_id:
+            out.append(by_id[q["id"]])
+        out.append((v, q))
+    return out
 
 
 def route_cost(s, pos, reg):
@@ -578,7 +707,7 @@ def route_cost(s, pos, reg):
     return sum(dist(pos[a], pos[b]) + (SWITCH if reg[a] != reg[b] else 0) for a, b in zip(keys, keys[1:]))
 
 
-def anneal(Q, seq, lo, hi, base_bad, pos, reg, iters=None, seed=1):
+def anneal(Q, seq, lo, hi, base_bad, pos, reg, iters=None, seed=1, loose=()):
     """Lift a run of 1-30 steps and drop it anywhere else. Early on it accepts a slightly worse
     route so whole area visits can be regrouped later. Rule checks run only on moves it would
     accept. Keeps the best route."""
@@ -613,7 +742,7 @@ def anneal(Q, seq, lo, hi, base_bad, pos, reg, iters=None, seed=1):
         delta = add - gain
         if delta < 0 or rng.random() < math.exp(-delta / T):
             cand = rest[:j] + cur[i:i + L] + rest[j:]
-            if violations(Q, cand, lo, hi) <= base_bad:
+            if violations(Q, cand, lo, hi, loose) <= base_bad:
                 cur, cur_cost = cand, cur_cost + delta
                 if cur_cost < best_cost - 1e-9:
                     best, best_cost = list(cur), cur_cost
@@ -629,7 +758,7 @@ FLY_MIN_LEG = 45          # map units: shorter legs inside a zone are always wal
 def step_loc(zone, verb, q):
     """(map, (x, y)) of a step, any zone."""
     if verb == "complete":
-        return (zone.map, q["obj"]) if q["obj"] else None
+        return (zone.map, q["obj"]) if q["obj"] else q.get("objFar")
     loc = q["start"] if verb == "accept" else q["finish"]
     return (loc[0], loc[1]) if loc else None
 

@@ -681,6 +681,17 @@ check("card lists the grouped quest as 'also here'", alsoHere)
 check("grouped quest is not repeated as an upcoming step", not repeated)
 MOCK.finish(960) MOCK.fire("QUEST_LOG_UPDATE") settle()
 check("group moves on when the first quest is done", W.Guide:Group()[1].quest == 961)
+-- a step without coordinates doesn't pull in a placed quest across the zone as "also here"
+W:RegisterGuide{ id = "group2", title = "Group 2", faction = "", steps = [[
+complete 963
+complete 964 |at 1423 90.0,90.0 |mobs Far Beast
+]]}
+for _, q in ipairs({ 963, 964 }) do MOCK.addQuest(q, "Q" .. q) MOCK.fire("QUEST_ACCEPTED", q) end
+W.Guide:Activate("group2") settle()
+check("unplaced step doesn't group with a placed one", #W.Guide:Group() == 1, #W.Guide:Group())
+for _, q in ipairs({ 963, 964 }) do MOCK.finish(q) MOCK.turnIn(q) MOCK.fire("QUEST_TURNED_IN", q) end
+MOCK.fire("QUEST_LOG_UPDATE") settle()
+W.Guide:Activate("group") settle()
 for _, q in ipairs({ 960, 961, 962 }) do MOCK.finish(q) MOCK.turnIn(q) MOCK.fire("QUEST_TURNED_IN", q) end
 MOCK.fire("QUEST_LOG_UPDATE") settle()
 -- a turn-in whose quest isn't finished waits instead of becoming the current step
@@ -1007,7 +1018,7 @@ MOCK.printed = {}
 check("riverglades guides registered", W.Guide:Get("riverglades-a") and W.Guide:Get("riverglades-h"))
 local nGuides, nSteps, mismatched, noQuest, ids = 0, 0, {}, 0, {}
 for _, def in ipairs(W.Guide:All()) do
-    if not ({ test = 1, riverglades = 1, nav = 1, resume = 1, resume2 = 1, modes = 1, target = 1, group = 1, groupq = 1, trail = 1, later = 1, nopin = 1, hints = 1, hearth = 1, pickup = 1, drops = 1, wait = 1, spots = 1 })[def.id] then
+    if not ({ test = 1, riverglades = 1, nav = 1, resume = 1, resume2 = 1, modes = 1, target = 1, group = 1, group2 = 1, groupq = 1, trail = 1, later = 1, nopin = 1, hints = 1, hearth = 1, pickup = 1, drops = 1, wait = 1, spots = 1 })[def.id] then
         check("unique guide id " .. def.id, not ids[def.id]) ids[def.id] = true
         if def.next then check(def.id .. " next exists", W.Guide:Get(def.next) ~= nil, def.next) end
         local expect = 0

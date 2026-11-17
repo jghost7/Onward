@@ -385,11 +385,15 @@ end
 
 -- Kill/loot steps you can work on together: the current `complete` step plus later open
 -- `complete` steps whose quest is already in your log and whose objective area lies within
--- GROUP_YARDS of the current one. Steps without coordinates join only when they directly follow.
+-- GROUP_YARDS of the current one. Steps without coordinates join only when they directly follow
+-- one that has none either (a placed step far away is not "also here").
 -- The scan stops at travel (goto / fly) and looks at most GROUP_LOOKAHEAD open steps ahead.
 local GROUP_YARDS, GROUP_LOOKAHEAD, GROUP_MAX = 350, 8, 4
 local function near(a, b)
-    if not (a.at and b.at and a.at.map and b.at.map) then return nil end
+    local ha, hb = a.at and a.at.map, b.at and b.at.map
+    if not (ha or hb) then return nil end        -- neither placed: adjacency decides
+    if not (ha and hb) then return false end     -- one placed, one not: no reason to think they're together
+
     local T = W.Travel
     if not T then return nil end
     local ca, xa, ya = T.World(a.at.map, a.at.x, a.at.y)
