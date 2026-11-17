@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.11
+
+- The quest mob target button skips mobs someone else has tagged: with enemy nameplates on, out of
+  combat, it goes for an untagged quest mob (the one nearest the middle of your screen). Without
+  nameplates, or once you're in combat, it targets the nearest quest mob by name as before.
+
 ## 0.6.10
 
 - Route on the world map, Current: once you're at the step the line had nothing to draw, so the map

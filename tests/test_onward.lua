@@ -694,6 +694,32 @@ MOCK.fire("QUEST_LOG_UPDATE") settle()
 check("no macro change in combat", not (TB:GetAttribute("macrotext") or ""):find("Bog Lurker", 1, true))
 MOCK.combat = false MOCK.fire("PLAYER_REGEN_ENABLED") settle()
 check("macro catches up after combat", (TB:GetAttribute("macrotext") or ""):find("Bog Lurker", 1, true))
+-- untagged first: out of combat the macro tries one untagged quest mob's nameplate, then the names
+do
+    MOCK.units.nameplate1 = { name = "Mire Hag", tapDenied = true }
+    MOCK.units.nameplate2 = { name = "Mire Hag", dead = true }
+    MOCK.units.nameplate3 = { name = "Swamp Rat" }
+    MOCK.units.nameplate4 = { name = "Bog Lurker" }
+    MOCK.fire("NAME_PLATE_UNIT_ADDED", "nameplate4") MOCK.advance(1) settle()
+    local m = TB:GetAttribute("macrotext") or ""
+    check("untagged quest mob on a nameplate is tried first", m:find("/cleartarget\n/target [@nameplate4,exists,nodead,harm] nameplate4\n", 1, true), m)
+    check("...with the names still behind it", m:find("/targetexact [noexists][dead] Bog Lurker", 1, true) and m:find("/targetexact [noexists][dead] Mire Hag", 1, true))
+    check("plate macro fits 255", #m <= 255, #m)
+    MOCK.units.nameplate4.tapDenied = true
+    MOCK.fire("UNIT_FLAGS", "nameplate4") MOCK.advance(1) settle()
+    m = TB:GetAttribute("macrotext") or ""
+    check("tagged by someone else: no plate line, names only", not m:find("nameplate", 1, true) and m:find("/targetexact Bog Lurker", 1, true), m)
+    MOCK.units.nameplate4.tapDenied = false
+    MOCK.fire("UNIT_FLAGS", "nameplate4") MOCK.advance(1) settle()
+    MOCK.fire("PLAYER_REGEN_DISABLED") settle()
+    m = TB:GetAttribute("macrotext") or ""
+    check("entering combat drops the plate line", not m:find("nameplate", 1, true), m)
+    MOCK.fire("PLAYER_REGEN_ENABLED") settle()
+    check("after combat it's back", (TB:GetAttribute("macrotext") or ""):find("nameplate4", 1, true))
+    for i = 1, 4 do MOCK.units["nameplate" .. i] = nil end
+    MOCK.fire("NAME_PLATE_UNIT_REMOVED", "nameplate4") MOCK.advance(1) settle()
+    check("no nameplates: names as before", not (TB:GetAttribute("macrotext") or ""):find("nameplate", 1, true))
+end
 -- droppers leave the button once their item is collected: tied by the guide ("Mob@Item"), or by
 -- name when the guide doesn't say ("Sand Crawler" -> "Sand Crawler Meat")
 do

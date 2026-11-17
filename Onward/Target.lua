@@ -119,15 +119,18 @@ end
 
 -- /cleartarget, then /targetexact each name while there is no living target; names past the
 -- 255-character macro limit are left out (the first ones are the ones that matter)
-function TG.BuildMacro(names, mark)
+-- plate: a nameplate token ("nameplate7") holding an untagged quest mob, tried first; the names
+-- follow as the fallback, so the button works the same without nameplates
+function TG.BuildMacro(names, mark, plate)
     local lines = { "/cleartarget" }
+    if plate and #names > 0 then lines[2] = ("/target [@%s,exists,nodead,harm] %s"):format(plate, plate) end
     -- skull via the secure /tm command: Lua from a macro (/run) is force-tainted on this client and
     -- SetRaidTarget is blocked ("ForceTaint_Strong has been blocked"). /tm 8 toggles, so clear first.
     local tail = "/cleartarget [dead]" .. (mark and "\n/tm [exists,nodead] 0\n/tm [exists,nodead] 8" or "")
     local budget = MACRO_MAX - #tail - 1
-    local used = #lines[1]
+    local used = #table.concat(lines, "\n")
     for i, name in ipairs(names) do
-        local add = (i == 1 and "/targetexact " or "/targetexact [noexists][dead] ") .. name
+        local add = ((i == 1 and not plate) and "/targetexact " or "/targetexact [noexists][dead] ") .. name
         if used + 1 + #add > budget then break end
         lines[#lines + 1] = add
         used = used + 1 + #add
@@ -170,12 +173,40 @@ local function place()
     return true
 end
 
+-- Untagged first (needs enemy nameplates; out of combat only): the nameplate of a living quest
+-- mob nobody else has tagged, the one nearest the middle of the screen (nameplates carry no
+-- distance; the middle is what you're facing). A macro can't test "tagged", so Sync writes this
+-- one mob's token into it, and refreshes it as plates come and go and tags change.
+function TG.UntaggedPlate(names)
+    local want = {}
+    for _, n in ipairs(names or {}) do want[n] = true end
+    if not next(want) then return nil end
+    local cx, cy = UIParent:GetCenter()
+    local best, bestD
+    for i = 1, 40 do
+        local u = "nameplate" .. i
+        local name = W.Safe(UnitName(u))
+        if name and want[name] and not W.Safe(UnitIsDead(u)) and not W.Safe(UnitIsTapDenied(u))
+           and W.Safe(UnitCanAttack("player", u)) then
+            local d = i * 1e-6                                   -- no position: token order
+            local plate = C_NamePlate and C_NamePlate.GetNamePlateForUnit and C_NamePlate.GetNamePlateForUnit(u)
+            local x, y
+            if plate and plate.GetCenter then x, y = plate:GetCenter() end
+            if x and cx then d = (x - cx) ^ 2 + (y - cy) ^ 2 end
+            if not bestD or d < bestD then best, bestD = u, d end
+        end
+    end
+    return best
+end
+
+local namesOnly = false   -- entering combat: drop the plate line (tokens shift while it's locked)
 function TG:Sync()
     if InCombatLockdown and InCombatLockdown() then pending = true return end
     pending = false
     local group = W.db.targetButton and G:Group() or {}   -- the steps the card shows
     local names = TG.MobsForGroup(group)
-    local macro = TG.BuildMacro(names, W.db.targetMark)
+    TG.plate = (not namesOnly) and TG.UntaggedPlate(names) or nil
+    local macro = TG.BuildMacro(names, W.db.targetMark, TG.plate)
     TG.mobs = {}
     for _, name in ipairs(names) do   -- only what made it into the macro (tooltip honesty)
         if macro:find("/targetexact[^\n]* " .. name:gsub("%p", "%%%0") .. "\n") then TG.mobs[#TG.mobs + 1] = name end
@@ -267,5 +298,20 @@ W:On("WF_SETTINGS_CHANGED", sync)
 W:On("WF_RESET_POSITION", function() W.db.targetPoint = nil sync() end)
 W:On("WF_PANEL_MOVED", sync)
 W:On("WF_TOGGLE_PANEL", sync)
-W:On("PLAYER_REGEN_ENABLED", function() if pending then sync() end end)
+W:On("PLAYER_REGEN_ENABLED", function() namesOnly = false sync() end)
+-- PLAYER_REGEN_DISABLED comes just before the lockdown: the last chance to take the plate line
+-- out, since in combat a token can move on to another mob and nothing could correct it
+W:On("PLAYER_REGEN_DISABLED", function()
+    if TG.plate then namesOnly = true sync() end
+end)
+-- out of combat, keep the picked plate current (coalesced: plates come in bursts)
+local queued = false
+local function soon()
+    if queued or (InCombatLockdown and InCombatLockdown()) or not b:IsShown() then return end
+    queued = true
+    C_Timer.After(0.2, function() queued = false sync() end)
+end
+W:On("NAME_PLATE_UNIT_ADDED", soon)
+W:On("NAME_PLATE_UNIT_REMOVED", soon)
+W:On("UNIT_FLAGS", function(_, u) if type(u) == "string" and u:find("^nameplate") then soon() end end)
 W:On("CVAR_UPDATE", function() if not (InCombatLockdown and InCombatLockdown()) then registerClicks() end end)
