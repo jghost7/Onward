@@ -26,7 +26,8 @@ local function tooltip(owner, text)
     if not text then return end
     owner:SetScript("OnEnter", function(self)
         GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-        GameTooltip:SetText(text, 1, 1, 1, 1, true)
+        -- a function tip is worked out when shown (the looks depend on whether EllesmereUI is on)
+        GameTooltip:SetText(type(text) == "function" and text() or text, 1, 1, 1, 1, true)
         GameTooltip:Show()
     end)
     owner:SetScript("OnLeave", function() GameTooltip:Hide() end)
@@ -249,11 +250,22 @@ check(1, "hearthAdvice", "Suggest your hearthstone", "When your hearthstone is r
 check(1, "travelAdvice", "Suggest flights", "When a learned flight path beats running, the arrow points to the flight master.")
 check(1, "autoTaxi", "Pick the flight automatically", "At the flight master, take the flight the guide or suggestion wants. Hold Shift when you talk to the flight master to pick your own destination.")
 
+-- what each look does with fonts: EllesmereUI's font in every look when it's installed
+local function lookTip(text)
+    if S.UsingEllesmere() then return text .. " Text uses your EllesmereUI font." end
+    return text .. (text:find("plain font") and "" or " Titles in the game's headline font.")
+end
+
 section(2, "Panel")
 choice(2, "theme", "Look", {
-    { value = "onward", label = "Onward", tip = "The logo's colours: deep teal glass with a gold edge and gold highlights." },
-    { value = "glass", label = "Glass", tip = "Blue-slate glass with green highlights." },
-    { value = "flat", label = "Ellesmere", tip = "Neutral dark glass with green highlights and a plain font. With EllesmereUI installed it uses your EllesmereUI accent colour, panel colour and font." },
+    { value = "onward", label = "Onward", tip = function() return lookTip("The logo's colours: deep teal glass with a gold edge and gold highlights.") end },
+    { value = "glass", label = "Glass", tip = function() return lookTip("Blue-slate glass with green highlights.") end },
+    { value = "flat", label = "Ellesmere", tip = function()
+        if S.UsingEllesmere() then
+            return lookTip("Dark glass in your EllesmereUI colours: its accent for highlights, its panel colour for the glass.")
+        end
+        return "Neutral dark glass with green highlights and one plain font. With EllesmereUI installed it takes your EllesmereUI accent and panel colours."
+    end },
 }, nil, function() S.Refresh() end)
 slider(2, "showNext", "Upcoming steps shown", 0, 8, 1, "%d")
 slider(2, "scale", "Panel size", 0.7, 1.5, 0.05, "%.2f")

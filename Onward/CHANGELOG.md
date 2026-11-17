@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.6
+
+- Options > Panel > Look: the descriptions now match what you get. With EllesmereUI installed the
+  Ellesmere look says it uses your EllesmereUI colours (not "green highlights"), and every look
+  says its text uses your EllesmereUI font.
+
 ## 0.6.5
 
 - The text under the nav arrow (distance, arrival time, where it's pointing) is no longer in a box:
