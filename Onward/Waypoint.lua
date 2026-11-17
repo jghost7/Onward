@@ -151,7 +151,8 @@ function WP:Update()
         local leg
         leg, legKind = flyLeg(step)
         map, x, y, name = leg.map or step.at.map, leg.x, leg.y, step.npc
-        T:SetWantedDestination(T.World(step.at.map, step.at.x, step.at.y))
+        local wc, wx, wy = T.World(step.at.map, step.at.x, step.at.y)
+        T:SetWantedDestination(wc, wx, wy, T:PlaceAt(step.at.map, step.at.x, step.at.y))
     else
         map, x, y, name, pickup = WP:Resolve(step)
         T:SetWantedDestination(nil)
@@ -261,7 +262,7 @@ function WP:ArrowTarget()
         if hs then return hs end
         if advice then
             local A, B = advice.from, advice.to
-            T:SetWantedDestination(spot.cont, B.wx, B.wy)
+            T:SetWantedDestination(spot.cont, B.wx, B.wy, B.name)
             return { label = "Fly: " .. A.name, sub = "to " .. B.name .. ", then " .. label, cont = spot.cont, wx = A.wx, wy = A.wy, radius = 10, flight = true,
                      via = { wx = B.wx, wy = B.wy }, final = { cont = spot.cont, wx = spot.wx, wy = spot.wy } }
         end
@@ -279,7 +280,7 @@ function WP:ArrowTarget()
     if advice then
         local A, B = advice.from, advice.to
         local cont = T.PlayerWorld()
-        T:SetWantedDestination(cont, B.wx, B.wy)
+        T:SetWantedDestination(cont, B.wx, B.wy, B.name)
         local fc, fx, fy = T.World(current.map, current.x, current.y)
         return { label = "Fly: " .. A.name, sub = "to " .. B.name .. ", then " .. label, cont = cont, wx = A.wx, wy = A.wy, radius = 10, flight = true,
                  via = { wx = B.wx, wy = B.wy }, final = fc and { cont = fc, wx = fx, wy = fy } or nil }

@@ -488,6 +488,23 @@ local took = called("TakeTaxiNode")
 check("auto-taxi takes the learned flight near the target", took and took[2] == 2, took and took[2])
 MOCK.calls = {} MOCK.shift = true MOCK.fire("TAXIMAP_OPENED") settle() MOCK.shift = false
 check("shift at the flight master = choose yourself", not called("TakeTaxiNode"))
+do  -- talking to the flight master refreshes the guide and clears the wanted flight just
+    -- before the map opens: the flight is still found, marked and taken
+    _G.TaxiButton2 = CreateFrame("Button", "TaxiButton2", UIParent) _G.TaxiButton2:Show()
+    W.Travel:SetWantedDestination(nil)
+    MOCK.calls = {} MOCK.fire("TAXIMAP_OPENED") settle()
+    local t2 = called("TakeTaxiNode")
+    check("wanted flight survives a refresh at the flight master", t2 and t2[2] == 2, t2 and t2[2])
+    check("wanted flight is marked on the flight map", W.Travel.marked == 2, W.Travel.marked)
+    W.db.autoTaxi = false MOCK.printed = {}
+    MOCK.calls = {} MOCK.fire("TAXIMAP_OPENED") settle()
+    local hinted = false
+    for _, p in ipairs(MOCK.printed) do if p:find("Fly to Eastwatch") then hinted = true end end
+    check("auto flight off: marked and named, not taken", hinted and W.Travel.marked == 2 and not called("TakeTaxiNode"))
+    W.db.autoTaxi = true
+    MOCK.fire("TAXIMAP_CLOSED")
+    _G.TaxiButton2 = nil
+end
 -- fly steps are named by place (the flight point), with the flight master as the detail
 do
     local s = { verb = "fly", at = { map = 1424, x = 50, y = 50 }, npc = "East Zone (Bob Gryphonhand)" }

@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.6.13
+
+- The flight master now picks the flight the arrow suggested. Talking to the flight master
+  refreshed the guide, which cleared the wanted flight just before the flight map opened, so
+  nothing happened. The flight is also matched by name now, not only by position.
+- The wanted flight point gets a glow on the flight map, and chat names it. With "Pick the flight
+  automatically" off, or Shift held, it's marked for you to click.
+- If this flight master can't reach the wanted flight point yet, chat says so.
+
 ## 0.6.12
 
 - Logging in no longer drops you back on quests you skipped earlier in the guide. The step was

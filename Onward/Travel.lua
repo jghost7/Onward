@@ -193,38 +193,106 @@ end
 ---------------------------------------------------------------------------
 -- Auto-taxi: at a flight master, take the flight the current step (or advice) wants.
 ---------------------------------------------------------------------------
-local wantedDest   -- { cont, wx, wy, label }
+local wantedDest   -- { cont, wx, wy, name }: name = the flight point's in-game name, when known
 
-function T:SetWantedDestination(cont, wx, wy, label)
-    wantedDest = cont and { cont = cont, wx = wx, wy = wy, label = label } or nil
+function T:SetWantedDestination(cont, wx, wy, name)
+    wantedDest = cont and { cont = cont, wx = wx, wy = wy, name = name } or nil
 end
 
-local function takeFlight()
-    if not W.db.autoTaxi or IsShiftKeyDown() or not wantedDest then return end
+-- The node on this flight master's map that the guide wants: by name first, else the one
+-- nearest the wanted spot (within 600 yd). Returns { slot, name, current } or nil.
+function T.WantedNode()
+    if not wantedDest then return end
     local taxiMap = GetTaxiMapID and GetTaxiMapID()
-    if not taxiMap or not (C_TaxiMap and C_TaxiMap.GetAllTaxiNodes) then return end
-    local ok, list = pcall(C_TaxiMap.GetAllTaxiNodes, taxiMap)
-    if not ok or type(list) ~= "table" then return end
-    storeNodes(taxiMap, list)
-    local best, bestD
-    for _, n in ipairs(list) do
-        if n.position and n.slotIndex and n.state ~= UNREACHABLE then
-            local cont, wx, wy = T.World(taxiMap, n.position.x * 100, n.position.y * 100)
-            if cont == wantedDest.cont then
-                local d = d2(wx, wy, wantedDest.wx, wantedDest.wy)
-                if not bestD or d < bestD then best, bestD = n, d end
+    if taxiMap and C_TaxiMap and C_TaxiMap.GetAllTaxiNodes then
+        local ok, list = pcall(C_TaxiMap.GetAllTaxiNodes, taxiMap)
+        if ok and type(list) == "table" then
+            storeNodes(taxiMap, list)
+            local CURRENT = (Enum and Enum.FlightPathState and Enum.FlightPathState.Current) or 0
+            local best, bestD
+            for _, n in ipairs(list) do
+                if n.slotIndex and n.state ~= UNREACHABLE then
+                    if wantedDest.name and n.name == wantedDest.name then best, bestD = n, 0 break end
+                    if n.position then
+                        local cont, wx, wy = T.World(taxiMap, n.position.x * 100, n.position.y * 100)
+                        if cont == wantedDest.cont then
+                            local d = d2(wx, wy, wantedDest.wx, wantedDest.wy)
+                            if not bestD or d < bestD then best, bestD = n, d end
+                        end
+                    end
+                end
+            end
+            if best and bestD < 600 then return { slot = best.slotIndex, name = best.name, current = best.state == CURRENT } end
+        end
+    end
+    -- older taxi API: by name only (its positions are frame offsets, not map spots)
+    if wantedDest.name and NumTaxiNodes and TaxiNodeName then
+        for i = 1, NumTaxiNodes() do
+            if TaxiNodeName(i) == wantedDest.name then
+                local kind = TaxiNodeGetType and TaxiNodeGetType(i)
+                if kind ~= "NONE" and kind ~= "DISTANT" then return { slot = i, name = wantedDest.name, current = kind == "CURRENT" } end
             end
         end
     end
-    local CURRENT = (Enum and Enum.FlightPathState and Enum.FlightPathState.Current) or 0
-    if best and bestD < 600 and best.state ~= CURRENT then
-        -- only reached with auto flight on (see the guard above), so the Shift hint always applies
-        W.Print("Auto flight to " .. best.name .. ". To pick your own destination, hold Shift when you talk to the flight master.")
-        TakeTaxiNode(best.slotIndex)
+end
+
+-- a glow around the wanted node's button on the flight map, so the hint is there to see
+-- even when you pick the flight yourself
+local mark
+local function markNode(slot)
+    local b = slot and _G["TaxiButton" .. slot]
+    if not (b and b.IsShown and b:IsShown()) then
+        if mark then mark:Hide() end
+        return
+    end
+    if not mark then
+        mark = CreateFrame("Frame", nil, UIParent)
+        mark.ring = mark:CreateTexture(nil, "OVERLAY")
+        mark.ring:SetAllPoints()
+        mark.ring:SetTexture("Interface\\Buttons\\UI-ActionButton-Border")
+        mark.ring:SetBlendMode("ADD")
+        mark.text = mark:CreateFontString(nil, "OVERLAY")
+        mark.text:SetPoint("BOTTOM", mark, "TOP", 0, -6)
+    end
+    local A = W.Skin and W.Skin.ACCENT or { 0.3, 0.8, 1 }
+    mark:SetParent(b:GetParent() or UIParent)
+    mark:SetFrameStrata(b:GetFrameStrata() or "DIALOG")
+    mark:SetFrameLevel((b:GetFrameLevel() or 1) + 2)
+    mark:ClearAllPoints()
+    local w = math.max(tonumber(b:GetWidth()) or 16, 16)
+    mark:SetSize(w * 3, w * 3)
+    mark:SetPoint("CENTER", b, "CENTER", 0, 0)
+    mark.ring:SetVertexColor(A[1], A[2], A[3], 1)
+    mark.text:SetFont(W.Skin and W.Skin.FontPath("body") or "Fonts\\FRIZQT__.TTF", 11, "OUTLINE")
+    mark.text:SetTextColor(A[1], A[2], A[3])
+    mark.text:SetText("Onward")
+    mark:Show()
+    T.marked = slot
+end
+
+local function takeFlight()
+    -- talking to the flight master refreshes the guide, which can clear the wanted flight a
+    -- moment before the map opens: ask the arrow again so it's set from the current step
+    if W.Waypoint and W.Waypoint.ArrowTarget then pcall(W.Waypoint.ArrowTarget, W.Waypoint) end
+    T.marked = nil
+    if not wantedDest then return end
+    local node = T.WantedNode()
+    if not node then
+        if wantedDest.name then W.Print("This flight master can't fly you to " .. wantedDest.name .. " yet.") end
+        return
+    end
+    if node.current then return end
+    markNode(node.slot)
+    if W.db.autoTaxi and not IsShiftKeyDown() then
+        W.Print("Auto flight to " .. node.name .. ". To pick your own destination, hold Shift when you talk to the flight master.")
+        TakeTaxiNode(node.slot)
+    else
+        W.Print("Fly to " .. node.name .. " (marked on the flight map).")
     end
 end
 
 W:On("TAXIMAP_OPENED", function() C_Timer.After(0.1, takeFlight) end)
+W:On("TAXIMAP_CLOSED", function() if mark then mark:Hide() end end)
 W:On("PLAYER_ENTERING_WORLD", function() C_Timer.After(3, function() T:Refresh(true) end) end)
 -- learning a new flight path: re-read known nodes shortly after
 W:On("UI_INFO_MESSAGE", function(_, _, msg)
