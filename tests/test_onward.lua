@@ -514,6 +514,18 @@ check("route stops are numbered", RT.drawn.marks >= 1, RT.drawn.marks)
 MOCK.mapShown = nil
 W.db.routeMode = "off" W:Fire("WF_SETTINGS_CHANGED")
 check("route can be turned off", #RT:Points() == 0 and RT.drawn.dots == 0)
+do  -- Current while standing on the target: shows the step after it instead of nothing
+    W.db.routeMode = "current"
+    local realTarget = W.Waypoint.ArrowTarget
+    local pc, px, py = W.Travel.PlayerWorld()
+    W.Waypoint.ArrowTarget = function() return { cont = pc, wx = px, wy = py, label = "here" } end
+    local here = RT:Points()
+    check("current, arrived: the next stop is drawn", #here >= 2 and here[#here].stop == 2, #here)
+    W.Waypoint.ArrowTarget = function() return { cont = pc, wx = px + 500, wy = py, label = "there" } end
+    local there = RT:Points()
+    check("current, on the way: only the line to the target", #there == 2 and there[2].label == "there", #there)
+    W.Waypoint.ArrowTarget = realTarget
+end
 W.db.routeMode = "next"
 WorldMapFrame:Hide()
 W.db.travelAdvice = false

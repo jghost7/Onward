@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.6.10
+
+- Route on the world map, Current: once you're at the step the line had nothing to draw, so the map
+  showed no route. It now shows the way to the step after it.
+
 ## 0.6.9
 
 - The quest mob target button lets go of a mob once you have what it's there for: the guides now say

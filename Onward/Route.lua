@@ -59,11 +59,15 @@ function R:Points()
             add(tgt.cont, tgt.wx, tgt.wy, "walk", tgt.label, stop)
         end
     end
-    if mode == "next" then
-        local list = G:Upcoming((W.db.routeStops or 3) + 2)
+    -- Current with nowhere left to go (you're at the target): show the step after it instead,
+    -- so the map never goes blank while you work a step
+    local more = mode == "next" and (W.db.routeStops or 3) or (#pts == 1 and 1 or 0)
+    if more > 0 then
+        local list = G:Upcoming(more + 2)
         local cur = WP:Current()
+        local base = math.max(stop, 1)
         for i = 2, #list do
-            if stop >= 1 + (W.db.routeStops or 3) then break end
+            if stop >= base + more then break end
             local s = list[i]
             if not (cur and cur.step == s) then
                 if s.verb == "fly" and s.from then
