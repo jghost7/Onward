@@ -5,7 +5,7 @@ Onward:RegisterGuide{
   id = "alterac-mountains-a-2", title = "Alterac Mountains (40-45)", faction = "Alliance", zone = "Alterac Mountains",
   levels = { 40, 45 },
   steps = [[
-accept 551 |at 1416 39.2,14.7 |note Starts from Ensorcelled Parchment |lvl 30  -- The Ensorcelled Parchment (40)
+accept 551 |at 1416 39.2,14.7 |note Starts from Ensorcelled Parchment |startitem 3706 |lvl 30  -- The Ensorcelled Parchment (40)
 accept 95798 |npc Loremaster Dibbs |at 1424 50.6,57.1 |lvl 30 |preany 95788  -- The Web of Magic (40)
 accept 504 |npc Marshal Redpath |at 1424 49.5,58.7 |value mid |group elite |lvl 30 |preany 500  -- Crushridge Warmongers (40)
 turnin 551 |npc Loremaster Dibbs |at 1424 50.6,57.1  -- The Ensorcelled Parchment (40)

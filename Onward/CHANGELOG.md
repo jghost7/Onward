@@ -1,5 +1,17 @@
 # Changelog
 
+## Unreleased
+
+- The guide no longer stops on a quest it can't lead you to. "Accept Torn Mystical Scroll" in
+  Stranglethorn showed no place and no hint: the quest starts from a dropped item, and neither
+  the quest data nor Wowhead knows where it drops. Quests like that (about 60 across the
+  guides) are now passed over. Get the quest anyway and the guide takes it from there; when a
+  quest starts from an item and it's in your bags, its step comes up and says so.
+- Routes now use the nearest place for quests that can be done in several: the route planner
+  works each such quest at the camp closest to the steps around it, instead of always the
+  biggest camp. "Akiris by the Bundle" is now routed to the naga by Booty Bay when that's
+  where the route is.
+
 ## 0.6.26
 
 - Quests whose mobs or objects sit in several places well apart ("Akiris by the Bundle": naga

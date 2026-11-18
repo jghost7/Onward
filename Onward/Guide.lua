@@ -175,6 +175,10 @@ local function parseLine(line, lineNo, guideId)
     -- what the game asks before it offers the quest (accept steps): |lvl n, |pre a,b (all turned
     -- in), |preany a,b (one of them)
     step.lvl = tonumber(opts.lvl)
+    -- |loose: nowhere to send you for this quest (it starts from a drop nobody has placed, or a
+    -- giver the data has no spot for). |startitem <id>: the item it starts from.
+    step.loose = opts.loose ~= nil
+    step.startItem = tonumber(opts.startitem)
     for name, field in pairs({ pre = "pre", preany = "preAny" }) do
         if opts[name] and opts[name]:find("%d") then
             step[field] = {}
@@ -255,6 +259,7 @@ local function parse(def)
                 step.key = stepKey(step, seen)
                 g.steps[step.index] = step
                 if step.verb == "accept" then g.acceptOf[step.quest] = g.acceptOf[step.quest] or step end
+                if step.loose and step.startItem then g.hasStartItems = true end
                 if step.verb == "turnin" then g.turninAt[step.quest] = g.turninAt[step.quest] or step.index end
             end
         end
@@ -440,6 +445,12 @@ end
 -- The step is passed over and comes back by itself once it's on offer.
 function G:HeldReason(step)
     if step.verb ~= "accept" then return end
+    if step.loose then
+        -- comes up once the item that starts it is in your bags; never waited on otherwise
+        local id = step.startItem
+        local have = id and ((C_Item and C_Item.GetItemCount and C_Item.GetItemCount(id)) or (GetItemCount and GetItemCount(id)) or 0) or 0
+        if have == 0 then return "no known place to pick this up", "loose" end
+    end
     if step.lvl and (UnitLevel("player") or 0) < step.lvl then
         return ("needs level %d"):format(step.lvl), "level"
     end
@@ -1004,6 +1015,11 @@ W:On("WF_QUEST_STATE", function(_, _, state)
 end)
 
 W:On("PLAYER_LEVEL_UP", function() G:ClearSuggestion() W:RequestRefresh() end)
+-- an item that starts a quest landed in your bags: its accept step can come up
+W:On("BAG_UPDATE_DELAYED", function()
+    if not (active and active.hasStartItems) then return end
+    W:RequestRefresh()
+end)
 
 W:On("WF_REFRESH", function()
     if not active then return end

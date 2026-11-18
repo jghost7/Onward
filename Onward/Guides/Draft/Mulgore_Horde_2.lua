@@ -11,7 +11,7 @@ accept 98427 |npc Morin Cloudstalker |at 1412 54.8,64.3 |group elite |lvl 5 |pre
 accept 765 |npc Morin Cloudstalker |at 1412 54.8,64.3 |lvl 5 |preany 751  -- Supervisor Fizsprocket (12)
 accept 76160 |npc Boarton Shadetotem |at 1456 39.4,65.8 |race Orc,Tauren,Troll |lvl 4 |preany 76156  -- Stalk With The Earthmother (11)
 accept 776 |npc Cairne Bloodhoof |at 1456 60.3,51.7 |lvl 3 |preany 775  -- Rites of the Earthmother (14)
-accept 770 |at 1412 34.7,34.2 |note Starts from Demon Scarred Cloak |lvl 6  -- The Demon Scarred Cloak (12)
+accept 770 |at 1412 34.7,34.2 |note Starts from Demon Scarred Cloak |startitem 4854 |lvl 6  -- The Demon Scarred Cloak (12)
 complete 76160 |at 1412 39.4,36.2 |item 206176 |race Orc,Tauren,Troll  -- Stalk With The Earthmother (11)
 complete 776 |at 1412 51.2,24.8 |mobs Arra'chea@Horn of Arra'chea  -- Rites of the Earthmother (14)
 complete 98427 |at 1412 56.8,42.8 |mobs Venture Co. Clearclutter@Clearcutter Key |group elite  -- Ceasing Operations (12)

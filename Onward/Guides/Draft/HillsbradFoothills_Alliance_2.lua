@@ -28,7 +28,7 @@ turnin 95788 |npc Loremaster Dibbs |at 1424 50.6,57.1  -- Magics of the Drowned 
 accept 95787 |npc Loremaster Dibbs |at 1424 50.6,57.1 |lvl 30 |preany 95786  -- Take Two With Water (40)
 complete 95787  -- Take Two With Water (40)
 turnin 95787 |npc Loremaster Dibbs |at 1424 50.6,57.1  -- Take Two With Water (40)
-accept 99326 |race Human |lvl 40  -- Your First Horse (40)
+accept 99326 |loose |race Human |lvl 40  -- Your First Horse (40)
 turnin 99326 |race Human  -- Your First Horse (40)
 turnin 661 |npc Phin Odelic |at 1424 50.4,59.0  -- Hints of a New Plague? (37)
 ]]}

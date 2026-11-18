@@ -1813,6 +1813,34 @@ turnin 9401
     check("no area line on other steps", not W.UI.areaBtn:IsShown())
 end
 
+-- quests with no known place to pick them up (|loose) ---------------------------------
+do
+    local G = W.Guide
+    local oldGuide = W.cdb.guide
+    local function at() local s = cur() return s and (s.verb .. " " .. tostring(s.quest or s.text)) or "end" end
+    W:RegisterGuide{ id = "loose", title = "Loose", faction = "", steps = [[
+accept 9501 |loose
+turnin 9501 |npc Collector |at 1423 40.0,40.0
+accept 9502 |note Starts from Gift Voucher |startitem 77001 |loose
+turnin 9502 |npc Collector |at 1423 40.0,40.0
+accept 9503 |npc Collector |at 1423 40.0,40.0
+]] }
+    G:Activate("loose") settle()
+    check("no known start: the guide doesn't wait on it, or on its turn-in", at() == "accept 9503", at())
+    check("...and says why when asked", select(2, G:HeldReason(G:Active().steps[1])) == "loose")
+    check("a fresh character's count still starts at 0", (G:Progress()) == 0, (G:Progress()))
+    MOCK.bags[77001] = 1 MOCK.fire("BAG_UPDATE_DELAYED") settle()
+    check("the item that starts a quest is in your bags: its accept comes up", at() == "accept 9502", at())
+    MOCK.bags[77001] = nil
+    MOCK.addQuest(9502, "Voucher") MOCK.finish(9502) MOCK.fire("QUEST_ACCEPTED", 9502) settle()
+    check("accepted: its turn-in is next", at() == "turnin 9502", at())
+    MOCK.addQuest(9501, "Scrap of scroll (a drop)") MOCK.finish(9501) MOCK.fire("QUEST_ACCEPTED", 9501) settle()
+    MOCK.turnIn(9502) MOCK.fire("QUEST_TURNED_IN", 9502) settle()
+    check("a dropped quest you happened to get: the guide takes it from there", #G:Waiting().ready == 1 or at() == "turnin 9501", at())
+    MOCK.turnIn(9501) MOCK.done[9501], MOCK.done[9502] = nil, nil MOCK.fire("QUEST_REMOVED", 9501)
+    G:Activate(oldGuide) settle()
+end
+
 check("no runtime errors", #MOCK.errors == 0, MOCK.errors[1])
 print(("%d passed, %d failed"):format(pass, fail))
 return fail

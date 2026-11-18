@@ -965,10 +965,12 @@ function UI:Render()
     elseif G:HeldReason(step) then
         text = text .. "  |cffff7366(" .. G:HeldReason(step) .. ")|r"
     end
+    local inBags = step.verb == "accept" and step.loose and step.startItem and not G:HeldReason(step)
     mainText:SetText(text)
     local sub = locationLine(step)
     if step.verb == "note" then sub = (sub ~= "" and (sub .. "  ·  ") or "") .. "click when done" end
     if step.verb == "home" then sub = (sub ~= "" and (sub .. "  ·  ") or "") .. "talk to the innkeeper: Make this inn your home" end
+    if inBags then sub = (sub ~= "" and (sub .. "  ·  ") or "") .. "it's in your bags: right-click it to start the quest" end
     subText:SetText(sub)
     subText:SetShown(sub ~= "")
     local h = verbText:GetStringHeight() + 2 + mainText:GetStringHeight() + (sub ~= "" and (subText:GetStringHeight() + 3) or 0)

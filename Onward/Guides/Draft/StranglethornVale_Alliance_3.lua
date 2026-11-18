@@ -7,7 +7,7 @@ Onward:RegisterGuide{
   steps = [[
 home |npc Innkeeper Skindle |at 1434 27.0,77.3  -- set your hearthstone at the inn
 accept 580 |npc Whiskey Slim |at 1434 27.1,77.5 |lvl 40  -- Whiskey Slim's Lost Grog (50)
-accept 8552 |at 1434 23.2,72.1 |note Starts from Monogrammed Sash |lvl 40  -- The Monogrammed Sash (50)
+accept 8552 |at 1434 23.2,72.1 |note Starts from Monogrammed Sash |startitem 3985 |lvl 40  -- The Monogrammed Sash (50)
 turnin 8552 |npc Captain Hecklebury Smotts |at 1434 26.7,73.6  -- The Monogrammed Sash (50)
 fly 1425 11.1,46.1 |from 1434 27.5,77.8 |npc The Hinterlands (Guthrum Thunderfist)  -- flight master Gyll
 complete 580 |at 1425 77.4,70.3  -- Whiskey Slim's Lost Grog (50)
@@ -18,12 +18,12 @@ goto 1445 71.6,56.4 15 |note Take the boat to Menethil Harbor  -- boat Theramore
 fly 1425 11.1,46.1 |from 1437 9.5,59.7 |npc The Hinterlands (Guthrum Thunderfist)  -- flight master Shellei Brondir
 turnin 626 |npc Cortello's Treasure |at 1425 80.8,46.8  -- Cortello's Riddle (51)
 fly 1434 27.5,77.8 |from 1425 11.1,46.1 |npc Gyll  -- flight master Guthrum Thunderfist
-accept 7810 |at 1434 30.5,47.9 |note Starts from Arena Master  -- Arena Master (55)
+accept 7810 |at 1434 30.5,47.9 |note Starts from Arena Master |startitem 18706  -- Arena Master (55)
 turnin 7810 |npc Short John Mithril |at 1434 29.6,47.4  -- Arena Master (55)
-accept 614 |group elite |lvl 35  -- The Captain's Chest (51)
-accept 615 |lvl 35 |preany 8552  -- The Captain's Cutlass (51)
+accept 614 |loose |group elite |lvl 35  -- The Captain's Chest (51)
+accept 615 |loose |lvl 35 |preany 8552  -- The Captain's Cutlass (51)
 complete 614 |at 1434 37.0,69.7 |mobs Gorlash@Smotts' Chest |group elite  -- The Captain's Chest (51)
-accept 618 |value mid |group elite |lvl 40 |preany 615,8553  -- Facing Negolash (50)
+accept 618 |loose |value mid |group elite |lvl 40 |preany 615,8553  -- Facing Negolash (50)
 turnin 614 |group elite  -- The Captain's Chest (51)
 turnin 615  -- The Captain's Cutlass (51)
 accept 3721 |npc Oglethorpe Obnoticus |at 1434 28.4,76.3 |lvl 45 |pre 648,836,2767  -- An OOX of Your Own (50)

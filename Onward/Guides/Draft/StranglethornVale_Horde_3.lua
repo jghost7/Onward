@@ -7,13 +7,13 @@ Onward:RegisterGuide{
   steps = [[
 home |npc Innkeeper Skindle |at 1434 27.0,77.3  -- set your hearthstone at the inn
 accept 580 |npc Whiskey Slim |at 1434 27.1,77.5 |lvl 40  -- Whiskey Slim's Lost Grog (50)
-accept 8552 |at 1434 23.2,72.1 |note Starts from Monogrammed Sash |lvl 40  -- The Monogrammed Sash (50)
+accept 8552 |at 1434 23.2,72.1 |note Starts from Monogrammed Sash |startitem 3985 |lvl 40  -- The Monogrammed Sash (50)
 turnin 8552 |npc Captain Hecklebury Smotts |at 1434 26.7,73.6  -- The Monogrammed Sash (50)
-accept 7810 |at 1434 30.5,47.9 |note Starts from Arena Master  -- Arena Master (55)
-accept 615 |lvl 35 |preany 8552  -- The Captain's Cutlass (51)
+accept 7810 |at 1434 30.5,47.9 |note Starts from Arena Master |startitem 18706  -- Arena Master (55)
+accept 615 |loose |lvl 35 |preany 8552  -- The Captain's Cutlass (51)
 turnin 615  -- The Captain's Cutlass (51)
 turnin 7810 |npc Short John Mithril |at 1434 29.6,47.4  -- Arena Master (55)
-accept 618 |value mid |group elite |lvl 40 |preany 615,8553  -- Facing Negolash (50)
+accept 618 |loose |value mid |group elite |lvl 40 |preany 615,8553  -- Facing Negolash (50)
 goto 1434 31.3,29.2 15 |note Take the zeppelin to Orgrimmar  -- zeppelin Grom'gol to Orgrimmar
 accept 626 |npc Musty Scroll |at 1445 31.1,66.1 |lvl 35 |preany 625  -- Cortello's Riddle (51)
 fly 1413 63.1,37.2 |from 1445 35.6,31.9 |npc The Barrens (Bragok)  -- flight master Shardi

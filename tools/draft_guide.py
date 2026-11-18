@@ -261,6 +261,12 @@ class Zone:
             return ((self.map, medoid(pts), None) if pts else None), iname
         return None, None
 
+    def start_item(self, q):
+        sb = self.db.quest(q, "startedBy") or {}
+        sb = sb if isinstance(sb, dict) else dict(enumerate(lua_list(sb), 1))
+        items = [i for i in lua_list(sb.get(3)) if i]
+        return items[0] if items else None
+
     def finisher(self, q):
         fb = self.db.quest(q, "finishedBy") or {}
         fb = fb if isinstance(fb, dict) else dict(enumerate(lua_list(fb), 1))
@@ -460,7 +466,7 @@ class Zone:
             "races": bits_to_tokens(races, RACE_BITS) if races != self.bit else [],
             "id": q, "name": s(db.quest(q, "name")) or f"quest {q}",
             "level": db.quest(q, "questLevel") or 0, "minLevel": db.quest(q, "requiredLevel") or 0,
-            "start": start, "startItem": item, "finish": self.finisher(q),
+            "start": start, "startItem": item, "startItemId": self.start_item(q), "finish": self.finisher(q),
             "obj": obj, "objGuess": guess, "objFar": None if obj else (far_spot or self.far_objective(q)), "hasObjectives": has_obj,
             "areas": areas_of(pts) if pts else [],
             "preAny": [p for p in lua_list(db.quest(q, "preQuestSingle")) if p] + quest_fixes().get(q, {}).get("preAny", []),
@@ -625,6 +631,10 @@ def route(zone, quests=None, presplit=False):
         return lo - 1 + (hi - lo + 2) * len(done) / max(1, len(Q))
 
     while len(done) < len(Q):
+        # a quest with several camps is worked at the one nearest to where the route is now
+        for q in Q.values():
+            if q.get("areas") and q["id"] in log and q["id"] not in ready:
+                q["obj"] = min((a for a, _ in q["areas"]), key=lambda a: dist(pos, a))
         cands = []
         for q in Q.values():
             i = q["id"]
@@ -662,10 +672,23 @@ def route(zone, quests=None, presplit=False):
     if optimize_route:
         steps = optimize(zone, Q, steps, lo, hi)
         steps = group_away(zone, Q, steps, lo, hi)
+    refine_areas(zone, steps)
     return steps, leftovers, (lo, hi)
 
 
 optimize_route = True
+
+
+def refine_areas(zone, steps):
+    """Once the order is settled, each several-camp objective takes the camp that adds the least
+    travel between the step before it and the step after it."""
+    for k, (v, q) in enumerate(steps):
+        if v != "complete" or not q.get("areas"):
+            continue
+        prev = next((p for p in (step_xy(zone, *s) for s in reversed(steps[:k])) if p), None)
+        nxt = next((p for p in (step_xy(zone, *s) for s in steps[k + 1:]) if p), None)
+        q["obj"] = min((a for a, _ in q["areas"]),
+                       key=lambda a: (dist(prev, a) if prev else 0) + (dist(a, nxt) if nxt else 0))
 
 
 # ---------------------------------------------------------------- route quality + optimizer
@@ -1168,7 +1191,12 @@ def render(zone, steps, leftovers, levels, name, faction, gid=None, next_id=None
             loc = q["start"]
             npc = f" |npc {clean(loc[2])}" if loc and loc[2] else ""
             note = f" |note Starts from {clean(q['startItem'])}" if q["startItem"] else ""
-            out.append(f"accept {q['id']}{npc}{fmt_at(loc)}{note}{who}{gate_tags(zone, q)}{title}")
+            # a quest that starts from an item names it; one with no place to send you (a drop
+            # nobody has placed, a giver the data has no spawn for) is |loose: the addon doesn't
+            # wait on it, and takes it from there once it's in your log or the item is in your bags
+            item = f" |startitem {q['startItemId']}" if q.get("startItemId") else ""
+            loose = "" if loc else " |loose"
+            out.append(f"accept {q['id']}{npc}{fmt_at(loc)}{note}{item}{loose}{who}{gate_tags(zone, q)}{title}")
         elif verb == "complete":
             at = f" |at {zone.map} {q['obj'][0]:.1f},{q['obj'][1]:.1f}" if q["obj"] else fmt_at(q.get("objFar"))
             mobs = f" |mobs {';'.join(q['mobs'])}" if q.get("mobs") else ""
