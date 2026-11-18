@@ -76,7 +76,8 @@ local function storeNodes(contMap, list)
                 if found then
                     found.known = found.known or known
                 else
-                    table.insert(nodes[cont], { name = n.name, wx = wx, wy = wy, known = known, id = n.nodeID })
+                    local net = W.cdb and W.cdb.taxiNet and W.cdb.taxiNet[n.name] or nil
+                    table.insert(nodes[cont], { name = n.name, wx = wx, wy = wy, known = known, id = n.nodeID, net = net })
                 end
             end
         end
@@ -142,19 +143,27 @@ function T:FlightPlan(step)
     local dc, dx, dy = T.World(step.at.map, step.at.x, step.at.y)
     local list = dc and nodes[dc]
     if not list or #list == 0 then return end
-    local via, viaD
-    for _, n in ipairs(list) do
-        if n.known then
-            local d = d2(n.wx, n.wy, dx, dy)
-            if d <= 300 then return end                    -- the destination is learned: fly it
-            if not viaD or d < viaD then via, viaD = n, d end
-        end
-    end
     -- where the flight would start: the departure flight master, else where you stand
     local sc, sx, sy
     if step.from then sc, sx, sy = T.World(step.from.map or step.at.map, step.from.x, step.from.y) end
     local pc, px, py = T.PlayerWorld()
     if not sc or (pc and sc ~= pc and pc == dc) then sc, sx, sy = pc, px, py end
+    -- the known flight point there: only points on its network can be flown to
+    local startNode, startNodeD
+    if sc == dc then
+        for _, n in ipairs(list) do
+            local d = n.known and d2(n.wx, n.wy, sx, sy)
+            if d and d <= 300 and (not startNodeD or d < startNodeD) then startNode, startNodeD = n, d end
+        end
+    end
+    local via, viaD
+    for _, n in ipairs(list) do
+        if n.known and T.SameNetwork(n, startNode) then
+            local d = d2(n.wx, n.wy, dx, dy)
+            if d <= 300 then return end                    -- the destination is learned: fly it
+            if not viaD or d < viaD then via, viaD = n, d end
+        end
+    end
     local startD = sc == dc and d2(sx, sy, dx, dy) or math.huge
     if via and viaD < startD * 0.8 and d2(via.wx, via.wy, sx or 0, sy or 0) > 300 then
         return { via = via, viaD = viaD }
@@ -224,6 +233,7 @@ local cache = { key = nil, at = 0, result = nil }
 -- while it still saves at least 10% over running, so the arrow doesn't flip between the flight
 -- master and the quest as the numbers drift with every step you take.
 local sticky = { key = nil, pick = nil }
+local function forgetAdvice() cache.key, sticky.key, sticky.pick = nil, nil, nil end
 
 -- Your travel speed (yd/s): on foot 7, or your mount's speed once you've ridden it, since you'd
 -- ride to the flight master and on from it. Speed boosts without a mount (Cheetah) don't count.
@@ -271,11 +281,17 @@ function T:Advice(map, x, y)
     table.sort(known, function(a, b) return d2(px, py, a.wx, a.wy) < d2(px, py, b.wx, b.wy) end)
     local froms = { known[1], known[2], known[3] }
     table.sort(known, function(a, b) return d2(tx, ty, a.wx, a.wy) < d2(tx, ty, b.wx, b.wy) end)
-    local tos = { known[1], known[2], known[3] }
+    local tos = {}   -- the nearest three a departure can reach (not ones on another network)
+    for _, B in ipairs(known) do
+        for _, A in ipairs(froms) do
+            if A ~= B and T.SameNetwork(A, B) then tos[#tos + 1] = B break end
+        end
+        if #tos == 3 then break end
+    end
     local best, bestCost
     for _, A in ipairs(froms) do
         for _, B in ipairs(tos) do
-            if A ~= B then
+            if A ~= B and T.SameNetwork(A, B) then
                 local cost = flightTime(v, px, py, A, B, tx, ty)
                 if not bestCost or cost < bestCost then best, bestCost = { from = A, to = B }, cost end
             end
@@ -378,15 +394,60 @@ local function markNode(slot)
     end)
 end
 
+-- Flight networks. The flight master's own list is the truth about where you can fly from there.
+-- The continent map also shows flight points you know on a network of their own (a zone with
+-- its own flights and no route to the rest, like Riverglades). Each flight master visit names
+-- its network after the first of its points (alphabetically) and marks the points you know that
+-- it doesn't reach "~<that name>"; remembered per character. Flights are only planned between
+-- points of one network (or points whose network isn't known yet). Returns true on a change.
+local function learnNetwork()
+    local taxiMap = GetTaxiMapID and GetTaxiMapID()
+    if not (taxiMap and C_TaxiMap and C_TaxiMap.GetAllTaxiNodes) then return end
+    local ok, list = pcall(C_TaxiMap.GetAllTaxiNodes, taxiMap)
+    if not (ok and type(list) == "table") then return end
+    local offered, key = {}, nil
+    for _, n in ipairs(list) do
+        if n.name and n.slotIndex and n.state ~= UNREACHABLE then
+            offered[n.name] = true
+            if not key or n.name < key then key = n.name end
+        end
+    end
+    if not key then return end
+    local pc = T.PlayerWorld()
+    W.cdb.taxiNet = W.cdb.taxiNet or {}
+    local changed
+    for _, n in ipairs(nodes[pc] or {}) do
+        local net = offered[n.name] and key or (n.known and "~" .. key) or nil
+        if net and net ~= n.net then
+            changed = true
+            n.net = net
+            W.cdb.taxiNet[n.name] = net
+        end
+    end
+    return changed
+end
+-- can you fly from a to b (as far as Onward knows)?
+-- (two points that are both just "not on that network" aren't known to share one)
+function T.SameNetwork(a, b)
+    if not (a and b and a.net and b.net) then return true end
+    return a.net == b.net and a.net:sub(1, 1) ~= "~"
+end
+T.LearnNetwork = learnNetwork
+
 local function takeFlight()
+    T.marked = nil
+    -- what this flight master really reaches, before any plan uses it
+    if learnNetwork() then
+        forgetAdvice()
+        if W.Waypoint and W.Waypoint.Update then pcall(W.Waypoint.Update, W.Waypoint) end
+    end
     -- talking to the flight master refreshes the guide, which can clear the wanted flight a
     -- moment before the map opens: ask the arrow again so it's set from the current step
     if W.Waypoint and W.Waypoint.ArrowTarget then pcall(W.Waypoint.ArrowTarget, W.Waypoint) end
-    T.marked = nil
     if not wantedDest then return end
     local node = T.WantedNode()
     if not node then
-        if wantedDest.name then W.Print("This flight master can't fly you to " .. wantedDest.name .. " yet.") end
+        if wantedDest.name then W.Print("No flight from here reaches " .. wantedDest.name .. ". The arrow leads the rest of the way.") end
         return
     end
     if node.current then return end

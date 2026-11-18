@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- Flight points on a network of their own (Riverglades' flight point, learned before any flight
+  connects it to the rest) no longer get suggested from flight masters that can't reach them.
+  Each flight master shows which points it really flies to; Onward remembers that per character,
+  and at the flight master it re-plans on the spot: it flies to the nearest point it can reach
+  and the arrow leads the rest of the way.
 - Flight advice now compares travel times using your own speed: on foot, or your mount's once
   you've ridden it. A flight is suggested when it saves at least 30 seconds and 15% of the trip.
   On foot that catches flights it used to miss (Booty Bay to Grom'gol for the north of
