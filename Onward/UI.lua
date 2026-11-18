@@ -931,6 +931,8 @@ function UI:Render()
         text = questTitle(step.quest)
     elseif G:IsMissing(step) then
         text = text .. "  |cffff7366(not in quest log)|r"
+    elseif G:HeldReason(step) then
+        text = text .. "  |cffff7366(" .. G:HeldReason(step) .. ")|r"
     end
     mainText:SetText(text)
     local sub = locationLine(step)

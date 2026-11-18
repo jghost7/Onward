@@ -1,5 +1,27 @@
 # Changelog
 
+## Unreleased
+
+Quest and step logic, after an audit of how quests and steps connect:
+
+- Picking a quest up before the guide asks for it no longer makes the guide jump ahead and mark
+  the quests in between as missed. Where a guide resumes is now worked out once per guide and
+  character, from the quests you've turned in, and kept; `/ow resume` works it out again.
+- Skipping an accept step skips the quest: its objectives and turn-in no longer come up as the
+  next steps. Pick the quest up anyway and they come back.
+- Skips and ticked notes stay on their own step when you change the quest mode or the elite
+  setting, and when a guide is updated. They used to be saved by step number, which moved. Skips
+  saved by the old numbers are dropped once, since they can't be matched to steps any more.
+- Quests the game won't offer yet (you're under their level, or the quest before them isn't
+  turned in) are passed over instead of sending you to a quest giver with nothing for you, and
+  come back when they're on offer. The generated guides carry each quest's level and the quests
+  it follows (`|lvl`, `|pre`, `|preany`).
+- A step behind you that opens again (you lost a quest item, or took a quest you had skipped)
+  brings the guide back to it right away, not only after a relog.
+- Guides: the route optimizer could place a turn-in before its own accept (109 steps in 27
+  guides, Tanaris and the Hinterlands most). It can't any more, and `python tests/run.py` now
+  checks every guide's step order and tags.
+
 ## 0.6.21
 
 - A flight point you've discovered but can't reach from here (Rog'mar in Riverglades before its

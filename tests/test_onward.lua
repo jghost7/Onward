@@ -402,6 +402,8 @@ turnin 9990 |npc Trap Hunter |at 1423 40.0,40.0
     MOCK.pos = { map = 1423, x = 0.5, y = 0.5 }
     W.Guide:Activate("pickup") settle()
     W.Guide:Skip(1) settle()
+    check("skipping the accept skips the quest: its objectives and turn-in go with it", W.Guide:Current() == nil, W.Guide:Current() and W.Guide:Current().verb)
+    W.Guide:GoToStep(W.Guide:Active().steps[2]) settle()      -- stepping to its objectives on purpose
     local c = W.Waypoint:Current()
     check("not picked up: points at the quest giver", c and c.pickup and c.x == 40 and c.name == "Trap Hunter", c and (tostring(c.pickup) .. " " .. c.x))
     check("...and says so", c and c.title:find("^Pick up") and c.title:find("first", 1, true), c and c.title)
@@ -1658,6 +1660,111 @@ note After
     W.db.animations = true
     AN.Play = realPlay
     MOCK.pos = savedPos
+end
+
+-- quest and step logic (0.6.22) ---------------------------------------------------
+-- A quest picked up early, skips that stay on their step, skipping a whole quest, and accepts
+-- held until the game offers them.
+do
+    local G = W.Guide
+    local oldGuide, oldMode, oldLevel = W.cdb.guide, W.db.questMode, MOCK.level
+    local function at() local s = cur() return s and (s.verb .. " " .. tostring(s.quest or s.text)) or "end" end
+
+    -- one quest picked up early doesn't move the guide on
+    local lines = {}
+    for q = 9001, 9009 do
+        lines[#lines + 1] = "accept " .. q
+        lines[#lines + 1] = "complete " .. q
+        lines[#lines + 1] = "turnin " .. q
+    end
+    W:RegisterGuide{ id = "early", title = "Early", faction = "", steps = table.concat(lines, "\n") }
+    G:Activate("early") settle()
+    MOCK.addQuest(9001, "First") MOCK.fire("QUEST_ACCEPTED", 9001)
+    MOCK.addQuest(9009, "Offered by the same NPC, taken last by the guide") MOCK.fire("QUEST_ACCEPTED", 9009) settle()
+    check("early pickup: still on the first quest", at() == "complete 9001", at())
+    MOCK.finish(9001) MOCK.fire("QUEST_LOG_UPDATE") settle()
+    MOCK.turnIn(9001) MOCK.fire("QUEST_TURNED_IN", 9001) settle()
+    check("early pickup: the next quest in the guide comes next", at() == "accept 9002", at())
+    check("early pickup: nothing counts as missed", #G:Missed() == 0, #G:Missed())
+    -- ...and a quest finished out of order far ahead doesn't either
+    MOCK.finish(9009) MOCK.fire("QUEST_LOG_UPDATE") settle()
+    MOCK.turnIn(9009) MOCK.fire("QUEST_TURNED_IN", 9009) settle()
+    check("a quest handed in far ahead: still on the next quest", at() == "accept 9002", at())
+    G:Resume() settle()
+    check("/ow resume with one quest done ahead: stays put", at() == "accept 9002" and #G:Missed() == 0, at())
+    MOCK.done[9001], MOCK.done[9009] = nil, nil
+
+    -- the resume point is worked out once and kept
+    W:RegisterGuide{ id = "keep", title = "Keep", faction = "", steps = "accept 9011\nturnin 9011\naccept 9012\nturnin 9012\naccept 9013\nturnin 9013\naccept 9014\nturnin 9014" }
+    MOCK.done[9012], MOCK.done[9013] = true, true
+    G:Activate("keep") settle()
+    check("resume: past the quests done, the one before them is missed", at() == "accept 9014" and G:Missed()[1] == 9011, at())
+    check("resume point saved as a quest", W.cdb.resume.keep == 9013, W.cdb.resume.keep)
+    MOCK.done[9012], MOCK.done[9013] = nil, nil
+
+    -- skips stay on their step when the quest mode changes the step numbers
+    W.db.questMode = "efficient"
+    W:RegisterGuide{ id = "keys", title = "Keys", faction = "", steps = "accept 9101 |value low\nnote Sell junk\naccept 9102\naccept 9103" }
+    G:Activate("keys") settle()
+    check("efficient: starts on the note", at() == "note Sell junk", at())
+    G:MarkDone(cur()) settle()
+    W.db.questMode = "all" G:Reload() settle()
+    check("mode change: the low-value quest shows, the ticked note stays ticked", at() == "accept 9101", at())
+    G:Skip(1) settle()
+    check("...and the note is still done after it", at() == "accept 9102", at())
+    W.cdb.skipped.keys[3] = true                                 -- a skip saved by step number (0.6.21)
+    G:Activate("keys") settle()
+    check("skips saved by step number are dropped", W.cdb.skipped.keys[3] == nil and at() == "accept 9102", at())
+    W.db.questMode = oldMode
+
+    -- skipping an accept skips the quest; picking it up anyway brings its steps back
+    W:RegisterGuide{ id = "whole", title = "Whole", faction = "", steps = "accept 9201\ncomplete 9201\nturnin 9201\naccept 9202\ncomplete 9202" }
+    G:Activate("whole") settle()
+    G:Skip(1) settle()
+    check("skip an accept: on to the next quest", at() == "accept 9202", at())
+    MOCK.addQuest(9202, "Second") MOCK.fire("QUEST_ACCEPTED", 9202) settle()
+    check("...its objectives next", at() == "complete 9202", at())
+    MOCK.addQuest(9201, "Taken after all") MOCK.fire("QUEST_ACCEPTED", 9201) settle()
+    check("picked up after all: back to its objectives", at() == "complete 9201", at())
+    MOCK.turnIn(9201) MOCK.turnIn(9202) MOCK.done[9201], MOCK.done[9202] = nil, nil
+    MOCK.fire("QUEST_REMOVED", 9201) MOCK.fire("QUEST_REMOVED", 9202) settle()
+
+    -- accepts the game won't offer yet are held, with the reason, and come back by themselves
+    W:RegisterGuide{ id = "held", title = "Held", faction = "", steps = [[
+accept 9301
+accept 9302 |pre 9301
+complete 9302
+accept 9303 |lvl 30
+complete 9303
+turnin 9301
+turnin 9302
+accept 9304 |preany 9777,9778
+accept 9305
+]] }
+    MOCK.level = 20
+    local p = G.ParseStep("accept 5 |lvl 12 |pre 3,4 |preany 8")
+    check("parser reads |lvl, |pre and |preany", p.lvl == 12 and p.pre[2] == 4 and p.preAny[1] == 8)
+    G:Activate("held") settle()
+    MOCK.addQuest(9301, "Opener (a delivery: ready as soon as you have it)") MOCK.finish(9301)
+    MOCK.fire("QUEST_ACCEPTED", 9301) settle()
+    check("held: the follow-up and the level 30 quest are passed over", at() == "turnin 9301", at())
+    local reason, kind = G:HeldReason(G:Active().steps[4])
+    check("held: says why", reason == "needs level 30" and kind == "level", reason)
+    MOCK.turnIn(9301) MOCK.fire("QUEST_TURNED_IN", 9301) settle()
+    check("prerequisite handed in: the follow-up is on offer and comes back", at() == "accept 9302", at())
+    MOCK.addQuest(9302, "Follow-up") MOCK.fire("QUEST_ACCEPTED", 9302) settle()
+    MOCK.finish(9302) MOCK.fire("QUEST_LOG_UPDATE") settle()
+    MOCK.turnIn(9302) MOCK.fire("QUEST_TURNED_IN", 9302) settle()
+    check("a quest whose prerequisite is in no guide is left out", at() == "accept 9305", at())
+    MOCK.addQuest(9305, "Last") MOCK.fire("QUEST_ACCEPTED", 9305) settle()
+    check("level wall: only the under-level quest is left, so it becomes the step", at() == "accept 9303", at())
+    MOCK.level = 30 MOCK.fire("PLAYER_LEVEL_UP") settle()
+    check("levelled: the same step, now open", at() == "accept 9303" and G:HeldReason(cur()) == nil, at())
+
+    MOCK.turnIn(9305) MOCK.done[9305], MOCK.done[9301], MOCK.done[9302] = nil, nil, nil
+    MOCK.fire("QUEST_REMOVED", 9305)
+    MOCK.level = oldLevel
+    G:Activate(oldGuide) settle()
 end
 
 check("no runtime errors", #MOCK.errors == 0, MOCK.errors[1])

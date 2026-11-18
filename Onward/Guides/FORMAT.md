@@ -60,8 +60,22 @@ Register with `kind = "profession"` and `skill = <skillLine>` (171 Alchemy, 164 
 | `item <itemID>` | The item the quest has you use. While it's in your bags the quest item button uses it (and the step says "use <item>"). Without it, the button looks for a usable quest item in your bags that the quest's text names. The drafter writes the item a quest gives you when you accept it |
 | `mobs <Name>;<Name>` | Mobs the target button and key binding target on a `complete` step, in order of preference (kill targets first, then the mobs that drop the quest items). The drafter writes up to four |
 | `class`, `race`, `faction` | The step is shown only to matching characters. Use comma lists of class tokens (`WARRIOR`) or race names: `Human`, `Orc`, `Dwarf`, `NightElf`, `Scourge` (or `Undead`), `Tauren`, `Gnome`, `Troll`, and Forever's `SkyborneAlliance` / `SkyborneHorde`. The generated guides narrow a quest by its prerequisites too: the follow-up to a dwarf-and-gnome quest is tagged dwarf-and-gnome (`tools/retag_guides.py`) |
+| `lvl <n>`, `pre <questID>,<questID>`, `preany <questID>,<questID>` | On `accept` steps: what the game asks before it offers the quest (its minimum level; quests that must all be turned in; quests of which one must be). Until then the step is passed over, with its objectives and turn-in, and comes back by itself once the quest is on offer. A quest you're under-level for becomes the step, marked "needs level N", when nothing else is left in the guide. The drafter writes all three from Questie's data |
 | `group <kind>` | Needs a group: `elite` (elite targets), `dungeon` (targets only inside an instance) or `chain` (only reachable through one of those). Shown marked on the panel; left out when Options > Elite and dungeon quests is Hide (`/ow group hide`). The drafter sets it from Questie's NPC rank and spawn maps |
 | `optional` | Marks the step as optional |
+
+## How the guide follows you
+
+Each step is judged by its own quest: an accept is done when the quest is in your log or turned in, and so on.
+Picking a quest up early just ticks its accept step when the guide gets there.
+
+- Skipping an accept skips the quest: its objectives and turn-in go with it, and come back if you pick it up anyway.
+- Skips and ticked notes are saved by what the step is (`accept:123`, or a note's own line), not by its number,
+  so they stay put when the quest mode or a new version of the guide moves the steps.
+- A character that already did part of a guide resumes at the point that best divides quests turned in from
+  quests not yet done. That point is worked out once per guide and character and saved; `/ow resume` works it out again.
+- Keep a quest's steps in order (accept, complete, turnin) and give them the same `value`, `group`, `class` and
+  `race` tags. `python tests/run.py` checks every guide for this.
 
 ## Quest hints
 

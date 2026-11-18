@@ -620,18 +620,21 @@ def stats(zone, steps):
 
 
 def violations(Q, seq, lo, hi, loose=()):
-    """Hard rules a route must keep: accept -> objectives -> turn-in per quest, prerequisites
-    turned in first, at most LOG_SIZE quests held, and no quest picked up far above the level
-    the player has reached (simulated from the share of quests handed in)."""
+    """Rules a route must keep. Hard (HARD each, never traded away): accept -> objectives ->
+    turn-in per quest, prerequisites turned in first. Soft (1 each): at most LOG_SIZE quests
+    held, and no quest picked up far above the level the player has reached (simulated from the
+    share of quests handed in). The optimizer keeps a route only when its total is no worse than
+    the greedy route's, so with equal weights it used to buy off a level-gate miss with a turn-in
+    placed before its accept."""
     accepted, ready, done = set(), set(), set()
     bad = 0
     for v, q in seq:
         i = q["id"]
         if v == "accept":
             if q["preAll"] and not all(p in done or p not in Q for p in q["preAll"]):
-                bad += 1
+                bad += HARD
             if q["preAny"] and not any(p in done or p not in Q for p in q["preAny"]):
-                bad += 1
+                bad += HARD
             if len(accepted) - len(done) >= LOG_SIZE:
                 bad += 1
             # the game's real gate is the quest's minimum level; the player's level is simulated
@@ -643,13 +646,16 @@ def violations(Q, seq, lo, hi, loose=()):
                 ready.add(i)
         elif v == "complete":
             if i not in accepted:
-                bad += 1
+                bad += HARD
             ready.add(i)
         else:
             if i not in ready:
-                bad += 1
+                bad += HARD
             done.add(i)
     return bad
+
+
+HARD = 1000
 
 
 REGION_R = 7.0        # map units: steps this close to a region's centre are "the same area"
@@ -1008,6 +1014,22 @@ def guide_id(name, faction, band=None):
 TIER_TAG = {1: " |value mid", 2: " |value low"}
 
 
+def gate_tags(zone, q):
+    """What the game asks before it offers the quest, for the accept step: |lvl <minimum level>,
+    |pre a,b (all turned in) and |preany a,b (one of them). The addon holds the step back until
+    they're met instead of pointing at a quest giver with nothing to offer. A breadcrumb leads to
+    a quest without being needed for it, so it is left out."""
+    out = ""
+    if (q.get("minLevel") or 0) > 1:
+        out += f" |lvl {q['minLevel']}"
+    if q.get("preAll"):
+        out += " |pre " + ",".join(str(p) for p in q["preAll"])
+    any_ = [p for p in q.get("preAny") or [] if zone.db.quest(p, "breadcrumbForQuestId") != q["id"]]
+    if any_:
+        out += " |preany " + ",".join(str(p) for p in any_)
+    return out
+
+
 def flight_tiers(zone, entries, tiers):
     """A flight is only worth taking when a quest it serves is kept: out-legs take the lowest
     tier of the steps after them (until the next flight), return legs the steps before them."""
@@ -1073,7 +1095,7 @@ def render(zone, steps, leftovers, levels, name, faction, gid=None, next_id=None
             loc = q["start"]
             npc = f" |npc {clean(loc[2])}" if loc and loc[2] else ""
             note = f" |note Starts from {clean(q['startItem'])}" if q["startItem"] else ""
-            out.append(f"accept {q['id']}{npc}{fmt_at(loc)}{note}{who}{title}")
+            out.append(f"accept {q['id']}{npc}{fmt_at(loc)}{note}{who}{gate_tags(zone, q)}{title}")
         elif verb == "complete":
             at = f" |at {zone.map} {q['obj'][0]:.1f},{q['obj'][1]:.1f}" if q["obj"] else fmt_at(q.get("objFar"))
             mobs = f" |mobs {';'.join(q['mobs'])}" if q.get("mobs") else ""

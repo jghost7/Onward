@@ -57,7 +57,8 @@ W.DEFAULTS = DEFAULTS
 
 local CHAR_DEFAULTS = {
     guide = "smart",         -- active guide id ("smart" = built from your quest log)
-    skipped = {},            -- [guideId] = { [stepIndex] = true }
+    skipped = {},            -- [guideId] = { [step key] = true }   ("accept:123", or a note's own line)
+    resume = {},             -- [guideId] = quest whose turn-in the guide resumed after (0 = from the start)
     recording = nil,         -- recorder session in progress
 }
 
@@ -165,6 +166,7 @@ local HELP = {
     "/ow later  - come back to the current quest later (or shift-right-click the step)",
     "/ow hint <text> | clear  - your own note on the current quest; /ow hints lists them to share",
     "/ow next | prev  - skip or go back one step",
+    "/ow resume  - work out again where this guide picks up, from the quests you've turned in",
     "/ow auto  - toggle auto accept / turn-in",
     "/ow party  - toggle party sync",
     "/ow drops [reset | debug]  - your quest-item drop rates vs the expected ones",
@@ -237,6 +239,9 @@ SlashCmdList.ONWARD = function(msg)
         W.Guide:Skip(1)
     elseif cmd == "prev" then
         W.Guide:Skip(-1)
+    elseif cmd == "resume" then
+        W.Guide:Resume()
+        W.Print("picked the guide up again from the quests you've turned in")
     elseif cmd == "rec" then
         W.Recorder:Command(rest)
     elseif cmd == "auto" then
