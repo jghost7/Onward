@@ -21,6 +21,8 @@ Optional: [Questie](https://github.com/Questie/Questie) for more accurate quest 
 
 Found a problem? [Open an issue](https://github.com/jghost7/Onward/issues) with the guide name, the step you were on, and what happened.
 
+Onward is free and stays free. If it saved you some time and you'd like to say thanks, you can [buy me a coffee on Ko-fi](https://ko-fi.com/onwardaddon).
+
 ---
 
 *The rest of this page is for working on the addon.* The code is written from scratch and nothing is taken from Zygor or RestedXP.
