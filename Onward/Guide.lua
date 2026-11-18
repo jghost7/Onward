@@ -554,10 +554,12 @@ function G:Recommend()
     local here = GetRealZoneText and GetRealZoneText() or ""
     local inLog = {}
     for _, q in ipairs(QS:Order()) do inLog[q] = true end
+    -- the guide you're on is out once you've reached its end, even with turn-ins skipped on the way
+    local finished = active and not active.def.smart and not active.steps[cursor] and active.def
     local best, bestScore, bestReason
     for i, def in ipairs(ordered) do
         local factionOk = not (def.faction and def.faction ~= "" and faction and def.faction:sub(1, 1):upper() ~= faction:sub(1, 1))
-        if not def.smart and def.kind ~= "profession" and factionOk and def.steps then
+        if not def.smart and def.kind ~= "profession" and factionOk and def.steps and def ~= finished then
             local lo, hi = def.levels[1], def.levels[2]
             local pct = G:ProgressFor(def) or 0
             if pct < 1 and lvl <= hi + 1 then

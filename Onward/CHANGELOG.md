@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased
+
+- At the end of a guide, the "Guide complete" card no longer offers the guide you just finished
+  (it did when some of its turn-ins were skipped and their quests were still in your log). The
+  guide list's "recommended" tag skips it too.
+- The options window drops the route recorder buttons (Record route, Show recording) and the
+  Header art choice. The art behind the panel header is off for now.
+
 ## 0.6.18
 
 - Five new looks under Options > Panel > Look, each a dark glass with a highlight from the other

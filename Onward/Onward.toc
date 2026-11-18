@@ -1,6 +1,6 @@
 ## Interface: 16001
 ## Title: Onward
-## Notes: Leveling and profession guides for WoW Forever: step engine, waypoints, recorder, party sync.
+## Notes: Leveling and profession guides for WoW Forever: step engine, waypoints, party sync.
 ## Author: Josh McCann
 ## Version: 0.6.18
 ## Category: Quests

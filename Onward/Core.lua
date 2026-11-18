@@ -165,7 +165,6 @@ local HELP = {
     "/ow later  - come back to the current quest later (or shift-right-click the step)",
     "/ow hint <text> | clear  - your own note on the current quest; /ow hints lists them to share",
     "/ow next | prev  - skip or go back one step",
-    "/ow rec start | stop | show  - record a route as you play",
     "/ow auto  - toggle auto accept / turn-in",
     "/ow party  - toggle party sync",
     "/ow drops [reset | debug]  - your quest-item drop rates vs the expected ones",

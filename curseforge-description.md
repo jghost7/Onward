@@ -53,7 +53,7 @@ Install it on a character you've already been playing and Onward works out what 
 ## Getting around
 
 - **Nav arrow** with distance and arrival time. It turns green when you face your target.
-- **Flight advice:** when a flight path you know beats running, the arrow points you to the flight master and Onward picks the flight for you. Hold Shift to choose yourself.
+- **Flight advice:** when a flight path you know beats running, the arrow points you to the flight master and Onward picks the flight for you. Hold Shift to choose yourself. A flight point you haven't found yet: it flies you to the nearest one you know and walks you to the rest. A step on the other continent: it sends you to the right boat or zeppelin first.
 - **Hearthstone advice:** each guide tells you which inn to set your hearthstone at, and when hearthing beats running or flying, the arrow says "Hearth to <town>".
 - **Route on the world map:** a dotted line to the current step and on through the next three stops, numbered, with flight legs marked.
 - On kill and loot steps the arrow points at the nearest mobs, not the middle of the area. Objectives the quest database doesn't place (things to gather, objects to use) have their own looked-up spots, so the arrow still has somewhere to go.
@@ -92,11 +92,7 @@ For "collect" quests, each item objective shows your own drop rate per kill and 
 
 ## Looks and feel
 
-A compact panel built around the current step: what kind of step it is, where, its objectives with progress bars, the quests you can do in the same area, one notice at a time, and what comes next. Behind each guide's header sits a faint, colourless picture of the zone: an ink-wash landscape painting for many zones, a strip of the zone's own map for the rest. Choose a picture, the map, or nothing under Options > Panel > Header art. Frosted-glass panels in three colourways: **Onward** (the logo's teal and gold, the default), **Glass** (blue-slate) and **Ellesmere** (neutral dark; with **EllesmereUI** installed it takes your EllesmereUI accent colour, panel colour and font). Switch under Options > Panel > Look. Pick any font for Onward's text under Options > Panel > Font: the game's own, or any your other addons share through SharedMedia. Opacity, size, number of upcoming steps and more are in the options (`/ow options`, the gear on the panel, or Esc > Options > AddOns).
-
-## Write your own routes
-
-`/ow rec start` records a guide as you play: every quest you accept, complete and turn in, and every flight. `/ow rec show` gives you the text to keep or share.
+A compact panel built around the current step: what kind of step it is, where, its objectives with progress bars, the quests you can do in the same area, one notice at a time, and what comes next. Frosted-glass panels in eight looks: **Onward** (the logo's teal and gold, the default), **Glass** (blue-slate), **Ellesmere** (neutral dark; with **EllesmereUI** installed it takes your EllesmereUI accent colour, panel colour and font), **Twilight**, **Alliance**, **Horde**, **Feywood** and **Neon**. Switch under Options > Panel > Look. Small animations play once and never in combat (a sheen when a quest is ready, objectives ticking off, a glow when a guide is finished); turn them off under Options > Panel > Animations. Pick any font for Onward's text under Options > Panel > Font: the game's own, or any your other addons share through SharedMedia. Opacity, size, number of upcoming steps and more are in the options (`/ow options`, the gear on the panel, or Esc > Options > AddOns).
 
 ## Commands
 

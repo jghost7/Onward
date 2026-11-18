@@ -2,6 +2,7 @@
 -- Everything redraws only on WF_UPDATED / WF_PARTY_UPDATED (both debounced upstream).
 local _, W = ...
 local UI = {}
+UI.HEADER_ART = "off"   -- art behind the panel header: off for now (the Header art option is gone)
 W.UI = UI
 
 local G, QS, P, WP = W.Guide, W.QuestState, W.Party, W.Waypoint
@@ -296,7 +297,7 @@ local INK_ALPHA = 0.22   -- added light: faint grey brushwork, about as present 
 
 local artShown
 local function renderArt(g)
-    local mode = W.db.headerArt or "shot"
+    local mode = UI.HEADER_ART   -- off for now (too faint to earn its place); "shot" / "map" bring it back
     local map = mode ~= "off" and mapFor(g) or nil
     local kind = mode == "shot" and map and W.ZoneShots and W.ZoneShots[map]
     if kind == true then kind = "shot" end
@@ -350,6 +351,7 @@ local mainText = fs(card, 15, C.text, nil, HEAD)
 mainText:SetPoint("TOPLEFT", verbText, "BOTTOMLEFT", 0, -2)
 mainText:SetPoint("RIGHT")
 local subText = fs(card, 11, C.sub)
+UI.subText = subText
 subText:SetPoint("TOPLEFT", mainText, "BOTTOMLEFT", 0, -3)
 subText:SetPoint("RIGHT")
 UI.card, UI.mainText, UI.verbText = card, mainText, verbText

@@ -393,11 +393,6 @@ fontPicker(2, "Font", "The font for all of Onward's text: the panel, the arrow a
 slider(2, "showNext", "Upcoming steps shown", 0, 8, 1, "%d")
 slider(2, "scale", "Panel size", 0.7, 1.5, 0.05, "%.2f")
 slider(2, "bgAlpha", "Background opacity", 0, 1, 0.05, "%.2f")
-choice(2, "headerArt", "Header art", {
-    { value = "shot", label = "Zone shot", tip = "A faded picture of the guide's zone behind the title. Zones without one show the map." },
-    { value = "map", label = "Map", tip = "A faded strip of the guide's zone map behind the title." },
-    { value = "off", label = "Off" },
-}, nil, function() W.UI:Render() end)
 check(2, "showObjectives", "Show quest objectives")
 check(2, "showParty", "Show party progress")
 check(2, "dropStats", "Show drop rates", "Under \"collect\" objectives: how many of your kills dropped the item, the expected rate (Wowhead's, through Questie) and whether you're luckier or unluckier than that.")
@@ -411,16 +406,12 @@ check(2, "partyToasts", "Party pop-ups", "Short notice when someone finishes or 
 check(2, "partyChat", "Announce in party chat", "Also say \"done: <quest>\" in party chat, for people without the addon.")
 
 section(2, "Tools")
-local guidesBtn = button(2, "Choose guide", function() W:Fire("WF_SHOW_PICKER") end, 138)
-local recBtn = button(2, "Record route", function() W.Recorder:Command(W.cdb.recording and "stop" or "start") O:Refresh() end, 138, 146)
-cursor[2] = cursor[2] - 30
-button(2, "Show recording", function() W.Recorder:Command("show") end, 138)
+button(2, "Choose guide", function() W:Fire("WF_SHOW_PICKER") end, 138)
 button(2, "Reset positions", function()
     W.db.point, W.db.arrowPoint = nil, nil
     W:Fire("WF_RESET_POSITION")
 end, 138, 146)
 cursor[2] = cursor[2] - 30
-controls[#controls + 1] = function() recBtn.label:SetText(W.cdb.recording and "Stop recording" or "Record route") end
 
 O.cursor = cursor   -- lowest point used in each column (tests check it fits the window)
 function O:Refresh() for _, r in ipairs(controls) do r() end end

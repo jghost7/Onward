@@ -852,16 +852,18 @@ goto 1423 50.0,50.0 |note elsewhere
 ]]}
     W.Guide:Activate("artq") settle()
     local art = W.UI.artTiles
+    check("header art is off by default", not art[1]:IsShown() and not W.UI.shotTex:IsShown())
+    W.UI.HEADER_ART = "shot" W.UI:Render()
     check("zone art shows behind the header", art[1]:IsShown() and art[1].texture == 142306 and art[2].texture == 142307, art[1].texture)
-    W.db.headerArt = "map" W.UI:Render()
+    W.UI.HEADER_ART = "map" W.UI:Render()
     check("header art 'map' shows the map tiles", art[1]:IsShown() and not W.UI.shotTex:IsShown())
-    W.db.headerArt = "shot" W.UI:Render()
+    W.UI.HEADER_ART = "shot" W.UI:Render()
     check("no zone shot yet: the map stands in", art[1]:IsShown() and not W.UI.shotTex:IsShown())
     W.ZoneShots[1423] = true W.UI:Render()
     check("zone shot shows instead of the map", W.UI.shotTex:IsShown() and W.UI.shotTex.texture == "Interface\\AddOns\\Onward\\media\\zones\\1423" and not art[1]:IsShown(), W.UI.shotTex.texture)
-    W.db.headerArt = "off" W.UI:Render()
+    W.UI.HEADER_ART = "off" W.UI:Render()
     check("header art can be turned off", not art[1]:IsShown() and not W.UI.shotTex:IsShown())
-    W.db.headerArt = "shot" W.ZoneShots[1423] = savedShot
+    W.UI.HEADER_ART = "off" W.ZoneShots[1423] = savedShot
     C_Map.GetMapArtLayers, C_Map.GetMapArtLayerTextures = savedL, savedT
     W.Guide:Activate("group") settle()
 end
@@ -1372,6 +1374,22 @@ do
     MOCK.addQuest(2118, "Plagued Lands") MOCK.fire("QUEST_LOG_UPDATE") settle()
     r, why = G:Recommend()
     check("quests in your log pick their guide", r and r.id == "darkshore-a-1" and why == "log", r and r.id, why)
+    -- at the end of a guide (turn-ins skipped, its quest still in the log) it isn't offered again;
+    -- level 65 is past every real guide, so the test guide is the only one that could be
+    MOCK.level = 65
+    W:RegisterGuide{ id = "finq", title = "Finq Vale", faction = "", levels = { 64, 66 }, steps = [[
+goto 1439 10.0,10.0 |note somewhere
+goto 1439 90.0,90.0 |note elsewhere
+]]}
+    G:Activate("finq") settle()
+    check("the guide you're on is recommended while it has steps left", G:Recommend() and G:Recommend().id == "finq", G:Recommend() and G:Recommend().id)
+    for _ = 1, 5 do if G:Current() then G:Skip(1) end end settle()
+    W.UI:Render()
+    check("a finished guide isn't recommended again", G:Active().id == "finq" and G:Current() == nil and G:Recommend() == nil, G:Recommend() and G:Recommend().id)
+    check("...nor offered on its own Guide complete card", W.UI.subText:GetText() == "Open the guide list to pick the next one.", W.UI.subText:GetText())
+    G:Get("finq").faction = "Zz"   -- out of every later test's way
+    MOCK.level = 13
+    G:Activate("elwynn-forest-a") settle()
     MOCK.log, MOCK.logOrder = {}, {}
     MOCK.fire("QUEST_LOG_UPDATE") settle()
     MOCK.level = 1
