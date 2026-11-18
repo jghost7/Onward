@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.6.21
 
 - A flight point you've discovered but can't reach from here (Rog'mar in Riverglades before its
   connecting flight point is learned) is no longer picked: Onward now reads the flight map's
