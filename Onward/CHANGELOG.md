@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.6.22
 
 Quest and step logic, after an audit of how quests and steps connect:
 
