@@ -113,6 +113,7 @@ accept 97329 |npc Zimmix Sputterspark |at 1434 23.5,12.8  -- Where's the Key? (3
 complete 97329 |at 1434 24.1,10.7 |mobs Bloodscalp Mystic@Primitive Key;Bloodscalp Scout@Primitive Key;Bloodscalp Headhunter@Primitive Key;Bloodscalp Berserker@Primitive Key  -- Where's the Key? (35)
 turnin 97329 |npc Zimmix Sputterspark |at 1434 23.5,12.8  -- Where's the Key? (35)
 accept 97331 |npc Zimmix Sputterspark |at 1434 23.5,12.8  -- Zimmix's Great Escape (35)
+fly 2548 60.6,81.5 |from 1434 27.5,77.8 |npc Riverglades (Gretchen Mayberry)  -- flight master Gyll
 turnin 93443 |npc Friz Frazzlespark |at 2548 77.1,52.9  -- Lost Shipping Crate (36)
 turnin 602 |npc Archmage Ansirem Runeweaver |at 1416 18.8,78.5  -- Magical Analysis (37)
 accept 603 |npc Archmage Ansirem Runeweaver |at 1416 18.8,78.5  -- Ansirem's Key (37)

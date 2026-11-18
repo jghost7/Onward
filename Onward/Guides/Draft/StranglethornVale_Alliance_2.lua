@@ -77,5 +77,6 @@ goto 1437 4.6,57.1 15 |note Take the boat to Theramore  -- boat Menethil Harbor 
 turnin 623 |npc Privateer Groy |at 1445 68.8,53.2  -- Akiris by the Bundle (43)
 turnin 625 |npc Musty Scroll |at 1445 31.1,66.1  -- Cortello's Riddle (43)
 goto 1445 71.6,56.4 15 |note Take the boat to Menethil Harbor  -- boat Theramore to Menethil Harbor
+fly 2548 60.6,81.5 |from 1437 9.5,59.7 |npc Riverglades (Gretchen Mayberry)  -- flight master Shellei Brondir
 turnin 97332 |npc Wharfmaster Whizzbuzz |at 2548 79.5,52.7  -- Twice Misplaced Trust (41)
 ]]}

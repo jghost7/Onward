@@ -65,6 +65,7 @@ complete 5060 |at 1422 48.2,49.7 |mobs Farmer Dalson@Dalson Cabinet Key  -- Lock
 turnin 5060 |npc Locked Cabinet |at 1422 47.4,49.6  -- Locked Away (55)
 complete 4984 |at 1422 46.5,44.9 |mobs Diseased Wolf |value mid  -- The Wildlife Suffers Too (54)
 goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
+fly 2482 68.7,46.8 |from 1413 63.1,37.2 |npc Mount Hyjal (Fayran Elthas)  -- flight master Bragok
 turnin 97319 |npc Thark Gorax |at 2482 79.9,70.7  -- A Cousin Abroad (55)
 goto 1411 50.6,12.6 15 |note Take the zeppelin to Undercity  -- zeppelin Orgrimmar to Undercity
 turnin 5232 |npc Shadow Priestess Vandis |at 1420 83.0,71.9  -- Return to the Bulwark (55)

@@ -94,7 +94,9 @@ turnin 1361 |npc Regthar Deathgate |at 1413 45.3,28.4  -- Regthar Deathgate (32)
 turnin 93045 |npc Nerlokh |at 2652 20.9,22.7  -- Test Your Theory (38)
 goto 1411 50.8,13.6 15 |note Take the zeppelin to Grom'gol  -- zeppelin Orgrimmar to Grom'gol
 turnin 5763 |npc Hemet Nesingwary |at 1434 35.7,10.8  -- Hunting in Stranglethorn (31)
+fly 2548 59.6,45.1 |from 1434 32.5,29.4 |npc Riverglades (Grakna)  -- flight master Thysta
 turnin 94895 |npc Friz Frazzlespark |at 2548 77.1,52.9  -- Lost Shipping Crate (38)
+fly 1434 26.9,77.1 |from 2548 59.6,45.1 |npc Stranglethorn Vale (Gringer)  -- flight master Grakna
 goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
 fly 1443 21.6,74.1 |from 1413 63.1,37.2 |npc Thalon  -- flight master Bragok
 complete 6161 |at 1443 33.0,22.1 |mobs Drysnap Crawler@Rackmore's Silver Key;Slitherblade Myrmidon@Rackmore's Golden Key;Drysnap Pincer@Rackmore's Silver Key;Slitherblade Naga@Rackmore's Golden Key  -- Claim Rackmore's Treasure! (36)

@@ -74,7 +74,9 @@ turnin 652 |npc Keystone |at 1417 36.1,58.1  -- Breaking the Keystone (42)
 accept 653 |npc Keystone |at 1417 36.1,58.1  -- Myzrael's Allies (40)
 turnin 92867 |npc Groundskeeper Lomar |at 1417 27.0,57.2 |group elite  -- Ground to Keep (39)
 accept 636  -- Legends of the Earth (35)
+fly 2548 60.6,81.5 |from 1417 45.7,46.1 |npc Riverglades (Gretchen Mayberry)  -- flight master Cedrik Prose
 turnin 95315 |npc Demar Brant |at 2548 66.7,81.0  -- The Riverglades Report (38)
+fly 1455 55.5,47.7 |from 2548 60.6,81.5 |npc Ironforge (Gryth Thurden)  -- flight master Gretchen Mayberry
 accept 687 |npc Gerrig Bonegrip |at 1455 50.8,5.6  -- Theldurin the Lost (40)
 turnin 653 |npc Gerrig Bonegrip |at 1455 50.8,5.6  -- Myzrael's Allies (40)
 fly 1434 27.5,77.8 |from 1455 55.5,47.7 |npc Stranglethorn Vale (Gyll)  -- flight master Gryth Thurden

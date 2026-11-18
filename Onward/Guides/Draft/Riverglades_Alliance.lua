@@ -198,6 +198,7 @@ accept 94678 |npc Cedric Dalton |at 2548 39.6,74.7 |value mid  -- Gnoll Infestat
 complete 94678 |at 2548 25.0,64.5 |mobs Redridge Mystic;Redridge Trapper;Redridge Brute |value mid  -- Gnoll Infestation (38)
 accept 95147 |npc Scout Bolain |at 2548 23.7,67.8  -- The Lost Scout (37)
 complete 94679 |at 2548 18.1,71.0 |mobs Snargl@Snargl's Snout |group elite  -- Snargl's Snout (40)
+fly 1453 71.3,72.2 |from 2548 60.6,81.5 |npc Stormwind City (Dungar Longdrink)  -- flight master Gretchen Mayberry
 turnin 94894 |npc Highlord Bolvar Fordragon |at 1453 80.2,38.4 |group chain  -- The Twilight Threat (45)
 accept 95161 |npc Orphan Matron Nightingale |at 1453 56.3,54.0  -- Remember That I Love You (22)
 turnin 94893 |npc Abigail Lawson |at 1453 50.1,51.5  -- Delivering Closure (47)
@@ -211,6 +212,7 @@ fly 1413 63.1,37.2 |from 1444 30.2,43.2 |npc The Barrens (Bragok)  -- flight mas
 goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
 fly 1431 77.5,44.3 |from 1434 27.5,77.8 |npc Duskwood (Felicia Maline)  -- flight master Gyll
 turnin 95161 |npc Avette Fellwood |at 1431 73.0,44.4  -- Remember That I Love You (22)
+fly 2548 60.6,81.5 |from 1431 77.5,44.3 |npc Gretchen Mayberry  -- flight master Felicia Maline
 complete 95935 |at 2548 30.8,72.4 |mobs Scaldaron@Head of Scaldaron |group elite  -- Hail the Dragonslayer (43)
 turnin 94999 |npc Watcher Fredericks |at 2548 36.4,75.8  -- Eyes for the Watchman (36)
 turnin 95147 |npc Cedric Dalton |at 2548 39.6,74.7  -- The Lost Scout (37)

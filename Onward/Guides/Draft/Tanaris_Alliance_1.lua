@@ -63,7 +63,9 @@ turnin 2861 |npc Tabetha |at 1445 46.1,57.1  -- Tabetha's Task (46)
 fly 1413 63.1,37.2 |from 1445 67.5,51.3 |npc The Barrens (Bragok)  -- flight master Baldruc
 complete 3444 |at 1413 62.5,38.5  -- The Stone Circle (51)
 goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
+fly 2548 60.6,81.5 |from 1434 27.5,77.8 |npc Riverglades (Gretchen Mayberry)  -- flight master Gyll
 turnin 95144 |npc Friz Frazzlespark |at 2548 77.1,52.9  -- Overseas Delivery (38)
+fly 1434 27.5,77.8 |from 2548 60.6,81.5 |npc Stranglethorn Vale (Gyll)  -- flight master Gretchen Mayberry
 goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
 fly 1444 30.2,43.2 |from 1413 63.1,37.2 |npc Feralas (Fyldren Moonfeather)  -- flight master Bragok
 complete 3520 |at 1444 52.3,49.2 |item 10699 |mobs Screecher Spirit  -- Screecher Spirits (44)

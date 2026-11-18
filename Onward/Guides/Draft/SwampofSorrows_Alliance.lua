@@ -38,8 +38,10 @@ goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratc
 fly 1443 64.7,10.5 |from 1413 63.1,37.2 |npc Desolace (Baritanas Skyriver)  -- flight master Bragok
 turnin 93464 |npc Azore Aldamort |at 1443 38.9,27.2  -- The Visiting Mage (38)
 fly 1413 63.1,37.2 |from 1443 64.7,10.5 |npc The Barrens (Bragok)  -- flight master Baritanas Skyriver
-goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay |value mid  -- boat Ratchet to Booty Bay
+goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
+fly 2548 60.6,81.5 |from 1434 27.5,77.8 |npc Riverglades (Gretchen Mayberry) |value mid  -- flight master Gyll
 turnin 94929 |npc Demar Brant |at 2548 66.7,81.0 |value mid  -- Deliver the Second Shipment (38)
+fly 1419 65.5,24.3 |from 2548 60.6,81.5 |npc Blasted Lands (Alexandra Constantine) |value mid  -- flight master Gretchen Mayberry
 turnin 1425 |npc Quartermaster Lungertz |at 1419 66.5,21.4 |value mid  -- Deliver the Shipment (42)
 fly 1434 27.5,77.8 |from 1419 65.5,24.3 |npc Stranglethorn Vale (Gyll)  -- flight master Alexandra Constantine
 turnin 1116 |npc Krazek |at 1434 26.9,77.2  -- Dream Dust in the Swamp (36)

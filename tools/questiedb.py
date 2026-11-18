@@ -162,6 +162,9 @@ FLIGHT_MASTER = 8      # classic npcFlags bit (Forever uses the classic table: T
 INNKEEPER = 128        # classic npcFlags bit (Innkeeper Shay = 135 = gossip|questgiver|vendor|innkeeper)
 
 
+FLIGHT_TITLES = ("Wind Rider Master", "Gryphon Master", "Hippogryph Master", "Bat Handler", "Flight Master")
+
+
 def flight_masters(db, a2m, faction_letter, flag=FLIGHT_MASTER):
     """{uiMapId: [((x, y), name), ...]} for flight masters (or, with flag=INNKEEPER, innkeepers)
     friendly to 'A' or 'H'."""
@@ -169,7 +172,12 @@ def flight_masters(db, a2m, faction_letter, flag=FLIGHT_MASTER):
     for n in db.ids("Npc-"):
         flags = db.field("Npc-", n, NPC["npcFlags"]) or 0
         if not flags & flag:
-            continue
+            # Forever's own flight masters (Riverglades, Mount Hyjal) lack the flag in Questie's
+            # data: know them by their title instead
+            sub = db.npc(n, "subName") if flag == FLIGHT_MASTER else None
+            sub = sub.decode("utf-8", "replace") if isinstance(sub, bytes) else sub
+            if sub not in FLIGHT_TITLES:
+                continue
         friendly = db.npc(n, "friendlyToFaction")
         friendly = friendly.decode() if isinstance(friendly, bytes) else (friendly or "AH")
         if faction_letter not in friendly:

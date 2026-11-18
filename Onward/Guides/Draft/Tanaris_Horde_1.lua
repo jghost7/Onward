@@ -119,7 +119,9 @@ fly 1454 45.1,63.9 |from 1413 63.1,37.2 |npc Orgrimmar (Doras)  -- flight master
 turnin 32 |npc Zilzibin Drumlore |at 1454 56.3,46.7  -- Rise of the Silithid (48)
 fly 1413 63.1,37.2 |from 1454 45.1,63.9 |npc The Barrens (Bragok)  -- flight master Doras
 goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
+fly 2548 59.6,45.1 |from 1434 26.9,77.1 |npc Riverglades (Grakna)  -- flight master Gringer
 turnin 95144 |npc Friz Frazzlespark |at 2548 77.1,52.9  -- Overseas Delivery (38)
+fly 1434 26.9,77.1 |from 2548 59.6,45.1 |npc Stranglethorn Vale (Gringer)  -- flight master Grakna
 turnin 2874 |npc "Sea Wolf" MacKinley |at 1434 27.8,77.1  -- Deliver to MacKinley (45)
 fly 1425 81.7,81.8 |from 1434 26.9,77.1 |npc The Hinterlands (Gorkas)  -- flight master Gringer
 complete 2641 |at 1425 41.0,59.8  -- Sprinkle's Secret Ingredient (49)

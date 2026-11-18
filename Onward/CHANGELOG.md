@@ -1,7 +1,10 @@
 # Changelog
 
-## Unreleased
+## 0.6.20
 
+- The guides now know Forever's own flight masters (Grakna and Gretchen Mayberry in Riverglades,
+  Fayran Elthas in Mount Hyjal), which the quest data doesn't mark as flight masters: trips to and
+  from Riverglades fly there instead of running.
 - Flight points on a network of their own (Riverglades' flight point, learned before any flight
   connects it to the rest) no longer get suggested from flight masters that can't reach them.
   Each flight master shows which points it really flies to; Onward remembers that per character,

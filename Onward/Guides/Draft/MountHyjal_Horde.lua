@@ -30,6 +30,7 @@ accept 96999 |npc Zet'gan |at 2482 13.8,54.8  -- Wrap Return (58)
 turnin 91794 |npc Kal'tinzan |at 2482 13.8,53.1  -- Flags of Our Forebears (59)
 accept 92101 |npc Veteran of the Third War |at 2482 8.8,46.5  -- Lifted by Legacy (58)
 accept 93510 |npc Veteran of the Third War |at 2482 8.8,46.5  -- Wake Memories (58)
+fly 1413 63.1,37.2 |from 2482 68.7,46.8 |npc The Barrens (Bragok)  -- flight master Fayran Elthas
 goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
 complete 93510 |at 1433 29.9,57.2 |item 274795  -- Wake Memories (58)
 turnin 93510 |npc Weathered Anchor |at 1433 30.4,57.0  -- Wake Memories (58)

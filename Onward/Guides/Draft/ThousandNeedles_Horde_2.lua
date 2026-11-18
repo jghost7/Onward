@@ -21,7 +21,9 @@ accept 1108 |npc Martek the Exiled |at 1418 42.2,52.7  -- Indurium (39)
 complete 1108 |at 1418 50.9,67.2  -- Indurium (39)
 turnin 1108 |npc Martek the Exiled |at 1418 42.2,52.7  -- Indurium (39)
 accept 1137 |npc Martek the Exiled |at 1418 42.2,52.7  -- News for Fizzle (38)
+fly 2548 59.6,45.1 |from 1418 4.0,44.8 |npc Riverglades (Grakna)  -- flight master Gorrik
 turnin 94930 |npc Friz Frazzlespark |at 2548 77.1,52.9  -- Lost Shipping Crate (38)
+fly 1434 26.9,77.1 |from 2548 59.6,45.1 |npc Stranglethorn Vale (Gringer)  -- flight master Grakna
 turnin 1180 |npc Wharfmaster Lozgil |at 1434 26.4,73.6  -- Goblin Sponsorship (37)
 accept 1181 |npc Wharfmaster Lozgil |at 1434 26.4,73.6  -- Goblin Sponsorship (37)
 turnin 1181 |npc Baron Revilgaz |at 1434 27.2,76.9  -- Goblin Sponsorship (37)

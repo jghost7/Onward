@@ -61,6 +61,7 @@ complete 644 |at 1417 28.4,58.1 |mobs Prince Galen Trollbane@Sigil of Trollbane 
 accept 92867 |npc Groundskeeper Lomar |at 1417 27.0,57.2 |group elite  -- Ground to Keep (39)
 complete 639 |at 1417 26.5,63.5 |mobs Syndicate Prowler@Sigil of Strom;Syndicate Conjuror@Sigil of Strom;Syndicate Magus@Sigil of Strom |group elite  -- Sigil of Strom (37)
 complete 92867 |at 1417 25.8,64.2 |mobs Boulderfist Mauler;Syndicate Conjuror;Syndicate Prowler;Witherbark Berserker |group elite  -- Ground to Keep (39)
+fly 2548 59.6,45.1 |from 1417 73.0,32.7 |npc Riverglades (Grakna)  -- flight master Urda
 turnin 95143 |npc Tan'jani |at 2548 58.1,45.3  -- Finding Tan'jani (38)
 accept 687 |npc Gerrig Bonegrip |at 1455 50.8,5.6  -- Theldurin the Lost (40)
 turnin 687 |npc Theldurin the Lost |at 1418 51.4,76.9  -- Theldurin the Lost (40)

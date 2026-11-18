@@ -100,8 +100,10 @@ turnin 95602 |npc Clubtoe |at 2548 50.0,47.0  -- Sickening Lights (40)
 accept 95427 |npc Clubtoe |at 2548 50.0,47.0 |group elite  -- Twilight No More! (41)
 complete 94535 |at 2548 25.4,63.6 |mobs Redridge Trapper@Stolen Ore;Redridge Brute@Stolen Ore;Redridge Scout@Stolen Ore;Redridge Mystic@Stolen Ore |value mid  -- Bristle Hills Bandits (38)
 complete 94532 |at 2548 25.0,64.5 |mobs Redridge Mystic;Redridge Trapper;Redridge Brute  -- Gnoll Infestation (38)
+fly 1458 63.2,48.6 |from 2548 59.6,45.1 |npc Undercity (Michael Garrett)  -- flight master Grakna
 accept 97884 |npc Mirelle Tremayne |at 1458 61.6,28.9  -- Armory of Sunnyglade (40)
 accept 93971  -- Farholde Scouting Report (45)
+fly 2548 59.6,45.1 |from 1458 63.2,48.6 |npc Grakna  -- flight master Michael Garrett
 complete 94533 |at 2548 18.1,71.0 |mobs Snargl@Snargl's Snout |group elite  -- Snargl's Snout (40)
 complete 95936 |at 2548 30.8,72.4 |mobs Scaldaron@Head of Scaldaron |group elite  -- Hail the Dragonslayer (43)
 complete 95955 |at 2548 47.4,60.1 |item 271639 |mobs Freshwater Crocolisk |value mid  -- Stick 'Em (39)
@@ -187,6 +189,7 @@ turnin 94965 |npc Jezap Jinglesprocket |at 2548 65.6,21.4 |group chain  -- Blood
 accept 95063 |npc Jezap Jinglesprocket |at 2548 65.6,21.4 |group chain  -- Bloodmaster's Ring (45)
 turnin 95063 |npc Clugfist |at 2548 64.2,15.7 |group chain  -- Bloodmaster's Ring (45)
 turnin 95433 |npc Clugfist |at 2548 64.2,15.7 |group elite  -- Death to the Executioner (46)
+fly 1458 63.2,48.6 |from 2548 59.6,45.1 |npc Undercity (Michael Garrett)  -- flight master Grakna
 turnin 97884 |npc Mirelle Tremayne |at 1458 61.6,28.9  -- Armory of Sunnyglade (40)
 fly 1434 26.9,77.1 |from 1458 63.2,48.6 |npc Stranglethorn Vale (Gringer)  -- flight master Michael Garrett
 turnin 95295 |npc Caravaneer Ruzzgot |at 1434 27.4,74.1  -- I Know a Guy (40)

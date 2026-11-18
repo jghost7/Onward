@@ -151,7 +151,9 @@ turnin 628 |npc Drizzlik |at 1434 28.3,77.6 |group elite  -- Excelsior (38)
 turnin 607 |npc "Sea Wolf" MacKinley |at 1434 27.8,77.1  -- Return to MacKinley (41)
 turnin 600 |npc Crank Fizzlebub |at 1434 27.1,77.2  -- Venture Company Mining (41)
 turnin 587 |npc Deeg |at 1434 26.9,77.3  -- Up to Snuff (41)
+fly 2548 59.6,45.1 |from 1434 26.9,77.1 |npc Riverglades (Grakna)  -- flight master Gringer
 turnin 95141 |npc Krom'rosh |at 2548 59.4,45.6  -- Report to Rog'mar (38)
+fly 1417 73.0,32.7 |from 2548 59.6,45.1 |npc Arathi Highlands (Urda)  -- flight master Grakna
 turnin 638 |npc Zengu |at 1417 73.8,34.0  -- Trollbane (37)
 fly 1434 26.9,77.1 |from 1417 73.0,32.7 |npc Gringer  -- flight master Urda
 goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
