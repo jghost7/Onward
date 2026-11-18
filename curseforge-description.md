@@ -2,97 +2,103 @@
 CurseForge project text for Onward. Two parts:
   SUMMARY     -> the project's "Summary" field (one line, shown in search results)
   DESCRIPTION -> the "Description" field (set the editor to Markdown, paste everything below the line)
+Images load from GitHub (gallery/web/ on main), so push gallery/web before pasting.
 -->
 
 SUMMARY:
-Free leveling and profession guide for WoW Forever: every zone, 1-300 in every profession, nav arrow, quest-mob targeting. Beta.
+Free leveling and profession guide for WoW Forever: pick any zone, follow the arrow, skip the quests that aren't worth it. 1-60 both factions, 1-300 every profession.
 
 ---
+
+![Onward: always know your next step](https://raw.githubusercontent.com/jghost7/Onward/main/gallery/web/01-hero.jpg)
 
 # Onward
 
 **A free leveling guide for World of Warcraft: Forever.** Onward tells you what to do next, points you there, and keeps up as you play: pick up these quests, kill these mobs, hand them in, take this flight.
 
-> **Beta.** The routes are generated from quest data and have not all been played through yet. Expect the odd step in a strange order. Please report what you find (see *Reporting problems* below).
+### Why Onward
 
-## Every zone, both factions
+- **You choose the zone.** 97 zone guides, Alliance and Horde, 1 to 60. Play the zone you like; Onward recommends one from your level and quest log, and picks up mid-zone from what you've already done.
+- **Skip what isn't worth it.** Three quest modes, from every quest to the best XP per hour.
+- **Built for the fight over tags.** A target button that finds the nearest untagged quest mob, a "come back later" when an area is crowded, and your real drop luck on every collect quest.
+- **Plays nice with your group.** See everyone's progress on the current quest, Onward and Questie users alike.
+- **Light and private.** No companion app, no account, and nothing leaves the game. Free and open source.
 
-- Guides for all open-world zones from 1 to 60, Alliance and Horde.
-- Includes the Forever zones: **Riverglades, Zephras Isle, Mount Hyjal and Shen'dralas**.
-- Zones that span a wide level range are split into bands, and each guide hands you on to the next.
-- Routes finish one area before moving to the next and keep running back and forth to a minimum: quests in the same spot are done together, not one hand-in at a time. They take flight paths where flying is faster.
+> **Beta.** The routes are generated from quest data and not all of them have been played through yet. Expect the odd step in a strange order, and please report it (see *Reporting problems*).
+
+## Every step, at a glance
+
+![The step card](https://raw.githubusercontent.com/jghost7/Onward/main/gallery/web/02-card.jpg)
+
+A compact panel built around the current step: what kind of step it is, where and how far, its objectives with progress bars, the quests you can do in the same spot, and what comes next.
+
+- **Quests done together:** quests in the same place are bundled, not one hand-in at a time.
+- **Drop rates, lucky or not:** each collect objective shows your drop rate per kill against the expected one, e.g. *3 in 14 kills (21%) · Wowhead 35% · unluckier · ~9 more kills*. Expected rates come from **Questie** when it's installed; your own rate works without it. `/ow drops` lists them across your characters.
+- **Quest hints:** tricky quests get a short hint (where in the sunken ship the charts are, which path leads up). Write your own with `/ow hint <text>` and share them with `/ow hints`. Hover the step to read the quest text.
+- **Too crowded? Come back later.** When most of the quest's mobs around you are tagged by others, Onward offers to move on, reminds you when you're back in the area, and returns to it at the end of the guide (or `/ow later`, or shift-right-click the step).
+
+### Quest-mob targeting and quest items
+
+On kill and loot steps a crosshair appears next to the step. Click it, or **bind a key** (Key Bindings > AddOns > Onward), to target the nearest living quest mob and put a skull on it. With enemy nameplates on, it skips mobs someone else has tagged. When the quest has you use an item (fletch the bundles, throw the spear), a **quest item button** appears with its icon, count and cooldown. Prefer them on your bars? Options > Navigation > Buttons in a dock puts them in a movable dock of action-sized buttons.
+
+## Getting around
+
+![The nav arrow and travel advice](https://raw.githubusercontent.com/jghost7/Onward/main/gallery/web/03-travel.jpg)
+
+- **Nav arrow** with distance and arrival time. It turns green when you face your target, and on kill and loot steps points at the nearest mobs, not the middle of the area.
+- **Flight advice by travel time:** Onward weighs running against flying at your own speed (on foot or mounted) and suggests a flight when it saves real time. At the flight master it marks the destination on the flight map and takes the flight for you; hold Shift to choose yourself.
+- **Flight points you don't have yet:** it flies you to the nearest one you know and walks you the rest of the way, and tells you when a flight point you know isn't linked to the network yet.
+- **Boats and zeppelins:** a step on the other continent sends you to the right dock first, flying you there when that's faster.
+- **Hearthstone advice:** each guide says which inn to bind at, and the arrow says "Hearth to <town>" when that beats running or flying.
+- **The way you came:** heading back to a quest giver, the arrow follows the path you walked out on (around cliffs, over bridges) instead of a straight line.
+- **Back to your body:** after you die and release, the arrow leads your ghost to your corpse, then back to the guide.
+- **Route on the world map:** a dotted line through the next three stops, numbered, with flight legs marked. Map pin on the current step, and TomTom support.
+
+## The right guide, picked for you
+
+![The guide list](https://raw.githubusercontent.com/jghost7/Onward/main/gallery/web/04-picker.jpg)
+
+- A new character starts straight on its starting zone's guide, with the arrow on the first quest giver.
+- Later, the recommended guide follows your quest log, the zone you're in and your level. When the guide you're on stops fitting, the panel suggests a better one (`/ow suggest`).
+- Installing on a character you've already played? Onward reads your quest history: finished quests are skipped, and quests you passed by are listed so you can go back for them, or not.
+- Every open-world zone from 1 to 60, including the Forever zones **Riverglades, Zephras Isle, Mount Hyjal and Shen'dralas**. Wide zones are split into level bands, and each guide hands you on to the next.
+
+### Skip the quests that aren't worth it
+
+Choose how thorough you want to be in Options or with `/ow mode`:
+
+- **All:** every quest in the zone.
+- **Efficient** (default): leaves out clear time sinks, like long collection grinds for little XP. Keeps at least 85% of each zone's XP.
+- **Fastest:** the best XP per hour. Keeps at least 60% of each zone's XP, so you move on sooner.
+
+A quest that unlocks a worthwhile follow-up is always kept. Elite and dungeon quests are marked ("Elite: bring a group"); playing solo, hide them and their follow-ups with `/ow group hide`.
+
+### Less clicking
+
+Onward accepts the guide's quests and turns in finished ones (hold Shift at an NPC to pause). It never picks a quest reward for you.
 
 ## Profession guides, 1 to 300
 
 Every profession for both factions: Alchemy, Blacksmithing, Enchanting, Engineering, Leatherworking, Tailoring, Cooking, First Aid, Herbalism, Mining, Skinning and Fishing. Open them with `/ow prof`.
 
 - What to craft up to which skill, about how many times, and the mats for the rest of the run against what's in your bags and bank.
-- The arrow takes you to the nearest trainer when it's time to train, and to the nearest vendor for recipes you buy.
-- Herbalism and Mining name the best zone for each skill band.
-- It checks the plan against the game: open your profession window once and it sees your recipes and their real colours. When the planned recipe has gone green, or you're out of mats, it suggests the best orange or yellow recipe you can make right now.
+- The arrow takes you to the nearest trainer when it's time to train, and to the vendor for recipes you buy. Herbalism and Mining name the best zone for each skill band.
+- Open your profession window once and Onward checks the plan against your real recipe colours: when the planned recipe has gone green, or you're out of mats, it suggests the best one you can make right now.
 - Built from Forever's own game data, so Forever's recipe changes are in.
 
-## Skip the quests that aren't worth it
+## Quest with your party
 
-Choose how thorough you want to be, in Options or with `/ow mode`:
+![Party progress](https://raw.githubusercontent.com/jghost7/Onward/main/gallery/web/06-party.jpg)
 
-- **All:** every quest in the zone.
-- **Efficient** (default): leaves out clear time sinks, like long collection grinds for little XP. Keeps at least 85% of each zone's XP.
-- **Fastest:** the best XP per hour. Keeps at least 60% of each zone's XP, so you move on to the next zone sooner.
-
-A quest that unlocks a worthwhile follow-up is always kept.
-
-Elite and dungeon quests are marked on the panel ("Elite: bring a group"). Playing solo? Hide them, and any follow-ups that need them, in Options or with `/ow group hide`.
-
-## Picks up where you are
-
-A new character starts straight on its starting zone's guide, with the arrow on the first quest giver. Later, the recommended guide follows your quest log, the zone you're in and your level: it's first in the guide list, marked "recommended". When the guide you're on stops fitting, the panel suggests the better one, and `/ow suggest` switches to it.
-
-Install it on a character you've already been playing and Onward works out what you have done. Completed quests are skipped. Quests you passed by are listed so you can go back for them, or not.
-
-## Getting around
-
-- **Nav arrow** with distance and arrival time. It turns green when you face your target.
-- **Flight advice:** when a flight path you know beats running, the arrow points you to the flight master and Onward picks the flight for you. Hold Shift to choose yourself. A flight point you haven't found yet: it flies you to the nearest one you know and walks you to the rest. A step on the other continent: it sends you to the right boat or zeppelin first.
-- **Hearthstone advice:** each guide tells you which inn to set your hearthstone at, and when hearthing beats running or flying, the arrow says "Hearth to <town>".
-- **Route on the world map:** a dotted line to the current step and on through the next three stops, numbered, with flight legs marked.
-- On kill and loot steps the arrow points at the nearest mobs, not the middle of the area. Objectives the quest database doesn't place (things to gather, objects to use) have their own looked-up spots, so the arrow still has somewhere to go.
-- The text under the arrow sits on a soft shadow instead of a box, and its size is adjustable (Options > Navigation > Arrow text size).
-- **The way you came:** heading back to a quest giver, the arrow follows the path you walked out on (around cliffs, over bridges) instead of a straight line.
-- Map pin on the current step, and TomTom support if you use it.
-
-## Quest-mob targeting and quest items
-
-On kill and loot steps a crosshair appears next to the step. Click it, or **bind a key** (Key Bindings > AddOns > Onward), to target the nearest living quest mob and put a skull on it. With enemy nameplates on, it skips mobs someone else has already tagged (between fights; in combat it targets by name as before). When several kill quests share an area, Onward lists them together and the button covers all of them. Prefer them by your action bars? Options > Navigation > Buttons in a dock puts the target and quest item buttons in a dock of action-button-sized buttons, with your key bindings on them, that you can drag anywhere.
-
-When the quest has you use an item (fletch the bundles, throw the spear), a **quest item button** appears beside it with the item's icon, count and cooldown: one per item (up to four) when the quests you're doing together each need one. They have their own key bindings too.
-
-## Too crowded? Come back later
-
-Fighting other players for every tag? Onward notices when most of the quest's mobs around you are tagged by someone else and offers to come back later (or shift-right-click the step, or `/ow later`). The guide moves on, reminds you when you're back in that area, and returns to it at the end of the guide.
-
-## Quest hints
-
-Tricky quests get a short hint on the step card: where in the sunken ship the charts are, which path leads up. Write your own with `/ow hint <text>`, and share them with `/ow hints` so they can go into the addon for everyone. Hover the step to read the quest's own text.
-
-## Drop rates: lucky or not?
-
-For "collect" quests, each item objective shows your own drop rate per kill and the expected one (turn on enemy nameplates so kills you don't target are counted too), e.g. *3 in 14 kills (21%) · Wowhead 35% · unluckier · ~9 more kills*. The expected rates come from **Questie** (install it to see them; your own rate works without it). The Forever-only zones mostly have no expected rates yet. Stats add up across your characters; `/ow drops` lists them.
-
-## Less clicking
-
-- Accepts the guide's quests and turns in finished ones. Hold Shift at an NPC to pause.
-- It never chooses between quest rewards for you.
-
-## Questing with friends
-
-- See your party's progress on the current quest: who has it, how far along they are, who is ready to turn in.
+- See your party's progress on the current quest: who has it, how far along they are, who's ready to turn in.
 - Works with party members running Onward, and with those running **Questie**.
-- Optional pop-ups and party chat messages when someone finishes a quest.
+- Optional pop-ups and party chat lines when someone finishes a quest.
 
-## Looks and feel
+## Make it yours
 
-A compact panel built around the current step: what kind of step it is, where, its objectives with progress bars, the quests you can do in the same area, one notice at a time, and what comes next. Frosted-glass panels in eight looks: **Onward** (the logo's teal and gold, the default), **Glass** (blue-slate), **Ellesmere** (neutral dark; with **EllesmereUI** installed it takes your EllesmereUI accent colour, panel colour and font), **Twilight**, **Alliance**, **Horde**, **Feywood** and **Neon**. Switch under Options > Panel > Look. Small animations play once and never in combat (a sheen when a quest is ready, objectives ticking off, a glow when a guide is finished); turn them off under Options > Panel > Animations. Pick any font for Onward's text under Options > Panel > Font: the game's own, or any your other addons share through SharedMedia. Opacity, size, number of upcoming steps and more are in the options (`/ow options`, the gear on the panel, or Esc > Options > AddOns).
+![Eight looks](https://raw.githubusercontent.com/jghost7/Onward/main/gallery/web/05-looks.jpg)
+
+Frosted-glass panels in eight looks: **Onward** (the logo's teal and gold, the default), **Glass**, **Ellesmere** (with **EllesmereUI** installed it takes your EllesmereUI accent, panel colour and font), **Twilight**, **Alliance**, **Horde**, **Feywood** and **Neon** (Options > Panel > Look). Pick any font, the game's own or any shared through SharedMedia. Small animations play once and never in combat: a sheen when a quest is ready, objectives ticking off, a glow when a guide is finished (Options > Panel > Animations). Opacity, size, upcoming steps and more are in `/ow options`, the gear on the panel, or Esc > Options > AddOns.
 
 ## Commands
 
@@ -114,16 +120,16 @@ A compact panel built around the current step: what kind of step it is, where, i
 
 ## Optional addons
 
-- **Questie:** more accurate quest locations, party progress and expected drop rates.
-- **TomTom:** adds TomTom waypoints alongside Onward's own.
-- **EllesmereUI:** the panel matches your EllesmereUI colours and font.
-- **SharedMedia** (or any addon that shares fonts through it): more fonts to pick from under Options > Panel > Font.
+None is required.
 
-None of them is required.
+- **Questie:** more accurate quest locations, party progress and expected drop rates.
+- **TomTom:** TomTom waypoints alongside Onward's own.
+- **EllesmereUI:** the panel matches your EllesmereUI colours and font.
+- **SharedMedia** (or any addon that shares fonts through it): more fonts to pick from.
 
 ## Reporting problems
 
-Please leave a comment, or open an issue on [GitHub](https://github.com/jghost7/Onward/issues), with:
+Leave a comment, or open an issue on [GitHub](https://github.com/jghost7/Onward/issues), with:
 
 - the guide name and the step you were on;
 - what you expected and what happened;
@@ -136,3 +142,5 @@ Onward is free and stays free. If it saved you some time and you'd like to say t
 ## License and credits
 
 Onward is free software under the **GPL-3.0** license. Quest, NPC and item locations come from the [Questie](https://github.com/Questie/Questie) database (GPL-3.0). The routes are generated by Onward's own tools. Source code: [github.com/jghost7/Onward](https://github.com/jghost7/Onward).
+
+*Gallery images are illustrations of Onward's panel over game scenery.*
