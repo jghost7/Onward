@@ -57,6 +57,8 @@ accept 92101 |npc Veteran of the Third War |at 2482 8.8,46.5  -- Lifted by Legac
 accept 93510 |npc Veteran of the Third War |at 2482 8.8,46.5  -- Wake Memories (58)
 complete 92101 |at 1441 31.9,24.1 |item 274795  -- Lifted by Legacy (58)
 turnin 92101 |npc Carving |at 1441 31.9,24.1  -- Lifted by Legacy (58)
+goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
+fly 1433 25.5,59.4 |from 1434 27.5,77.8 |npc Redridge Mountains (Ariena Stormfeather)  -- flight master Gyll
 complete 93510 |at 1433 29.9,57.2 |item 274795  -- Wake Memories (58)
 turnin 93510 |npc Weathered Anchor |at 1433 30.4,57.0  -- Wake Memories (58)
 fly 1453 71.3,72.2 |from 1433 25.5,59.4 |npc Stormwind City (Dungar Longdrink)  -- flight master Ariena Stormfeather

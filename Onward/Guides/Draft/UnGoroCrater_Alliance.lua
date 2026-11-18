@@ -60,11 +60,14 @@ turnin 3913 |npc A Conspicuous Gravestone |at 1446 53.8,29.1  -- A Grave Situati
 accept 3914 |npc A Conspicuous Gravestone |at 1446 53.8,29.1  -- Linken's Sword (52)
 fly 1413 63.1,37.2 |from 1446 51.0,29.3 |npc The Barrens (Bragok) |value mid  -- flight master Bera Stonehammer
 accept 4502 |npc Liv Rizzlefix |at 1413 62.5,38.7 |value mid  -- Volcanic Activity (55)
-fly 1455 55.5,47.7 |from 1413 63.1,37.2 |npc Ironforge (Gryth Thurden)  -- flight master Bragok
+goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
+fly 1455 55.5,47.7 |from 1434 27.5,77.8 |npc Ironforge (Gryth Thurden)  -- flight master Gyll
 accept 95924 |npc Curator Thorius |at 1455 71.5,15.7  -- Panic at the Digsite (60)
 accept 95925 |npc Curator Thorius |at 1455 71.5,15.7  -- Mapping the Way Forward (60)
 accept 95790 |value mid  -- Digestible Research (60)
-fly 1449 45.2,5.8 |from 1455 55.5,47.7 |npc Gryfe  -- flight master Gryth Thurden
+fly 1434 27.5,77.8 |from 1455 55.5,47.7 |npc Stranglethorn Vale (Gyll)  -- flight master Gryth Thurden
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
+fly 1449 45.2,5.8 |from 1413 63.1,37.2 |npc Gryfe  -- flight master Bragok
 turnin 3882 |npc Spark Nilminer |at 1449 43.5,7.4 |value mid  -- Roll the Bones (51)
 turnin 3914 |npc Linken |at 1449 44.7,8.1  -- Linken's Sword (52)
 complete 95790 |value mid  -- Digestible Research (60)

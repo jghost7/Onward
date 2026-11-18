@@ -43,8 +43,10 @@ turnin 6821 |npc Duke Hydraxis |at 1447 79.3,73.7 |group dungeon  -- Eye of the 
 accept 6822 |npc Duke Hydraxis |at 1447 79.3,73.7 |group dungeon  -- The Molten Core (60)
 turnin 3602 |npc Loramus Thalipedes |at 1447 60.8,66.3 |group chain  -- Azsharite (58)
 accept 3621 |npc Loramus Thalipedes |at 1447 60.8,66.3 |group chain  -- The Formation of Felbane (58)
-fly 1434 27.5,77.8 |from 1447 11.9,77.6 |npc Stranglethorn Vale (Gyll)  -- flight master Jarrodenus
+fly 1413 63.1,37.2 |from 1447 11.9,77.6 |npc The Barrens (Bragok)  -- flight master Jarrodenus
+goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
 turnin 3621 |npc Galvan the Ancient |at 1434 50.6,20.5 |group chain  -- The Formation of Felbane (58)
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
 turnin 92345 |npc Mathrengyl Bearwalker |at 1457 35.4,8.4  -- Beneath Nordrassil (55)
 accept 8729 |npc Narain Soothfancy |at 1446 65.2,18.6 |group chain  -- The Wrath of Neptulon (60)
 fly 1447 11.9,77.6 |from 1446 51.0,29.3 |npc Jarrodenus  -- flight master Bera Stonehammer

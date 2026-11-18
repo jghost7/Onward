@@ -30,10 +30,13 @@ accept 96999 |npc Zet'gan |at 2482 13.8,54.8  -- Wrap Return (58)
 turnin 91794 |npc Kal'tinzan |at 2482 13.8,53.1  -- Flags of Our Forebears (59)
 accept 92101 |npc Veteran of the Third War |at 2482 8.8,46.5  -- Lifted by Legacy (58)
 accept 93510 |npc Veteran of the Third War |at 2482 8.8,46.5  -- Wake Memories (58)
+goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
 complete 93510 |at 1433 29.9,57.2 |item 274795  -- Wake Memories (58)
 turnin 93510 |npc Weathered Anchor |at 1433 30.4,57.0  -- Wake Memories (58)
 accept 97000 |npc Abigail Sawyer |at 1458 54.7,38.8  -- Grain of Memory (57)
-fly 1441 45.1,49.1 |from 1458 63.2,48.6 |npc Thousand Needles (Nyse)  -- flight master Michael Garrett
+fly 1434 26.9,77.1 |from 1458 63.2,48.6 |npc Stranglethorn Vale (Gringer)  -- flight master Michael Garrett
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
+fly 1441 45.1,49.1 |from 1413 63.1,37.2 |npc Thousand Needles (Nyse)  -- flight master Bragok
 complete 92101 |at 1441 31.9,24.1 |item 274795  -- Lifted by Legacy (58)
 turnin 92101 |npc Carving |at 1441 31.9,24.1  -- Lifted by Legacy (58)
 turnin 97000  -- Grain of Memory (57)

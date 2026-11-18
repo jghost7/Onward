@@ -15,9 +15,11 @@ accept 484 |npc James Halloran |at 1437 8.6,55.7  -- Young Crocolisk Skins (22)
 fly 1432 33.9,51.0 |from 1437 9.5,59.7 |npc Loch Modan (Thorgrum Borrelson)  -- flight master Shellei Brondir
 accept 468 |npc Mountaineer Kadrell |at 1432 32.6,49.7  -- Report to Mountaineer Rockgar (21)
 turnin 468 |npc Mountaineer Rockgar |at 1432 25.4,10.4  -- Report to Mountaineer Rockgar (21)
-fly 1439 36.3,45.6 |from 1432 33.9,51.0 |npc Darkshore (Caylais Moonfeather)  -- flight master Thorgrum Borrelson
+fly 1437 9.5,59.7 |from 1432 33.9,51.0 |npc Shellei Brondir  -- flight master Thorgrum Borrelson
+goto 1437 4.8,63.6 15 |note Take the boat to Auberdine  -- boat Menethil Harbor to Auberdine
 accept 98461 |npc Archaeologist Hollee |at 1439 37.4,41.8  -- Unrequited Love (21)
-fly 1424 49.3,52.3 |from 1439 36.3,45.6 |npc Hillsbrad Foothills (Darla Harris)  -- flight master Caylais Moonfeather
+goto 1439 32.4,43.8 15 |note Take the boat to Menethil Harbor  -- boat Auberdine to Menethil Harbor
+fly 1424 49.3,52.3 |from 1437 9.5,59.7 |npc Hillsbrad Foothills (Darla Harris)  -- flight master Shellei Brondir
 accept 98459 |npc Tom "Half-fish" Wilson |at 1424 51.2,66.5  -- A Lack of Virtue (21)
 fly 1437 9.5,59.7 |from 1424 49.3,52.3 |npc Shellei Brondir  -- flight master Darla Harris
 complete 279 |at 1437 15.3,39.8 |mobs Bluegill Murloc;Gobbler@Gobbler's Head  -- Claws from the Deep (22)

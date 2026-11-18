@@ -65,7 +65,7 @@ turnin 1038 |npc Thyn'tel Bladeweaver |at 1457 61.8,39.2  -- Velinde's Effects (
 accept 1039 |npc Thyn'tel Bladeweaver |at 1457 61.8,39.2  -- The Barrens Port (30)
 turnin 1039 |npc Wharfmaster Dizzywig |at 1413 63.4,38.5  -- The Barrens Port (30)
 accept 1040 |npc Wharfmaster Dizzywig |at 1413 63.4,38.5  -- Passage to Booty Bay (30)
-fly 1434 27.5,77.8 |from 1413 63.1,37.2 |npc Stranglethorn Vale (Gyll)  -- flight master Bragok
+goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
 turnin 1040 |npc Caravaneer Ruzzgot |at 1434 27.4,74.1  -- Passage to Booty Bay (30)
 accept 1041 |npc Caravaneer Ruzzgot |at 1434 27.4,74.1  -- The Caravan Road (30)
 fly 1431 77.5,44.3 |from 1434 27.5,77.8 |npc Duskwood (Felicia Maline)  -- flight master Gyll
@@ -76,6 +76,8 @@ accept 1043 |npc Jonathan Carevin |at 1431 75.3,49.0  -- The Scythe of Elune (30
 complete 1043 |at 1431 73.5,79.1  -- The Scythe of Elune (30)
 turnin 1043 |npc Jonathan Carevin |at 1431 75.3,49.0  -- The Scythe of Elune (30)
 accept 1044 |npc Jonathan Carevin |at 1431 75.3,49.0  -- Answered Questions (30)
+fly 1434 27.5,77.8 |from 1431 77.5,44.3 |npc Stranglethorn Vale (Gyll)  -- flight master Felicia Maline
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
 turnin 1044 |npc Thyn'tel Bladeweaver |at 1457 61.8,39.2  -- Answered Questions (30)
 ]]}
 

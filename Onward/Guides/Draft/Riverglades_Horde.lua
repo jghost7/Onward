@@ -190,6 +190,7 @@ turnin 95433 |npc Clugfist |at 2548 64.2,15.7 |group elite  -- Death to the Exec
 turnin 97884 |npc Mirelle Tremayne |at 1458 61.6,28.9  -- Armory of Sunnyglade (40)
 fly 1434 26.9,77.1 |from 1458 63.2,48.6 |npc Stranglethorn Vale (Gringer)  -- flight master Michael Garrett
 turnin 95295 |npc Caravaneer Ruzzgot |at 1434 27.4,74.1  -- I Know a Guy (40)
-fly 1444 75.5,44.4 |from 1434 26.9,77.1 |npc Feralas (Shyn)  -- flight master Gringer
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
+fly 1444 75.5,44.4 |from 1413 63.1,37.2 |npc Feralas (Shyn)  -- flight master Bragok
 turnin 95033 |npc Witch Doctor Uzer'i |at 1444 74.4,43.4  -- On the Other Side (41)
 ]]}

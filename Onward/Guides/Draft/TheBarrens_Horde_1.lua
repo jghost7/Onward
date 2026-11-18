@@ -158,6 +158,8 @@ turnin 3261 |npc Jorn Skyseer |at 1413 44.9,59.1  -- Jorn Skyseer (18)
 turnin 907 |npc Jorn Skyseer |at 1413 44.9,59.1  -- Enraged Thunder Lizards (18)
 fly 1454 45.1,63.9 |from 1413 44.5,59.1 |npc Orgrimmar (Doras) |value low  -- flight master Omusa Thunderhorn
 turnin 3923 |npc Rilli Greasygob |at 1454 76.5,24.4 |value low  -- Rilli Greasygob (18)
-fly 1421 45.6,42.6 |from 1454 45.1,63.9 |npc Silverpine Forest (Karos Razok)  -- flight master Doras
+fly 1413 63.1,37.2 |from 1454 45.1,63.9 |npc Bragok |value low  -- flight master Doras
+goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
+fly 1421 45.6,42.6 |from 1434 26.9,77.1 |npc Silverpine Forest (Karos Razok)  -- flight master Gringer
 turnin 3301 |npc Mura Runetotem |at 1421 42.9,42.0  -- Mura Runetotem (15)
 ]]}

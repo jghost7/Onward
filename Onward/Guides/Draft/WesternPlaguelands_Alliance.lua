@@ -85,9 +85,13 @@ accept 5050 |npc Ol' Emma |at 1453 60.2,57.0  -- Good Luck Charm (52)
 fly 1423 71.8,49.6 |from 1453 71.3,72.2 |npc Eastern Plaguelands (Khaelyn Steelwing)  -- flight master Dungar Longdrink
 accept 5861 |npc Tirion Fordring |at 1423 5.2,35.6 |group chain  -- Find Myranda (60)
 accept 5465 |npc Leonid Barthalomew the Revered |at 1423 71.9,48.3 |group chain  -- Soulbound Keepsake (60)
-fly 1452 62.3,36.6 |from 1423 71.8,49.6 |npc Winterspring (Maethrya)  -- flight master Khaelyn Steelwing
+fly 1434 27.5,77.8 |from 1423 71.8,49.6 |npc Stranglethorn Vale (Gyll)  -- flight master Khaelyn Steelwing
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
+fly 1452 62.3,36.6 |from 1413 63.1,37.2 |npc Winterspring (Maethrya)  -- flight master Bragok
 accept 5162 |npc Haleh |at 1452 54.5,51.2  -- Wrath of the Blue Flight (60)
-fly 1417 45.7,46.1 |from 1452 62.3,36.6 |npc Arathi Highlands (Cedrik Prose)  -- flight master Maethrya
+fly 1413 63.1,37.2 |from 1452 62.3,36.6 |npc The Barrens (Bragok)  -- flight master Maethrya
+goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
+fly 1417 45.7,46.1 |from 1434 27.5,77.8 |npc Arathi Highlands (Cedrik Prose)  -- flight master Gyll
 complete 5461 |at 1417 20.8,65.8 |group chain  -- The Human, Ras Frostwhisper (60)
 fly 1422 42.9,85.1 |from 1417 45.7,46.1 |npc Bibilfaz Featherwhistle  -- flight master Cedrik Prose
 complete 5344 |at 1422 26.4,58.0 |group elite  -- The Last Barov (60)
@@ -130,8 +134,12 @@ accept 6023 |npc Kirsta Deepshadow |at 1422 51.9,28.1 |value mid  -- Unfinished 
 complete 6023 |at 1422 57.8,36.1 |mobs Huntsman Radley;Cavalier Durgen |value mid  -- Unfinished Business (57)
 turnin 6023 |npc Kirsta Deepshadow |at 1422 51.9,28.1 |value mid  -- Unfinished Business (57)
 turnin 5862 |npc Highlord Taelan Fordring |at 1422 42.0,14.8 |group chain  -- Scarlet Subterfuge (60)
-fly 1446 51.0,29.3 |from 1422 42.9,85.1 |npc Tanaris (Bera Stonehammer)  -- flight master Bibilfaz Featherwhistle
+fly 1434 27.5,77.8 |from 1422 42.9,85.1 |npc Stranglethorn Vale (Gyll)  -- flight master Bibilfaz Featherwhistle
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
+fly 1446 51.0,29.3 |from 1413 63.1,37.2 |npc Tanaris (Bera Stonehammer) |value mid  -- flight master Bragok
 turnin 5538 |npc Krinkle Goodsteel |at 1446 51.5,28.8 |value low  -- Mold Rhymes With... (57)
 turnin 4986 |npc Mathrengyl Bearwalker |at 1457 35.4,8.4 |value mid  -- Glyphed Oaken Branch (56)
+goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
+fly 1423 71.8,49.6 |from 1434 27.5,77.8 |npc Eastern Plaguelands (Khaelyn Steelwing)  -- flight master Gyll
 turnin 5462 |npc Leonid Barthalomew the Revered |at 1423 71.9,48.3 |group chain  -- The Dying, Ras Frostwhisper (60)
 ]]}

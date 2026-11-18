@@ -12,8 +12,12 @@ accept 81917 |npc Bloodmage Lynnore |at 1419 50.6,14.3 |value low  -- Chains Tha
 accept 2601 |npc Bloodmage Lynnore |at 1419 50.6,14.3  -- The Basilisk's Bite (50)
 accept 81919 |npc Bloodmage Lynnore |at 1419 50.6,14.3 |group elite  -- Brought to Heel (54)
 accept 2603 |npc Bloodmage Lynnore |at 1419 50.6,14.3  -- Vulture's Vigor (50)
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
+fly 1454 45.1,63.9 |from 1413 63.1,37.2 |npc Orgrimmar (Doras)  -- flight master Bragok
 accept 91548 |npc Zevrost |at 1454 48.5,45.4 |group elite  -- Vek'zol (55)
-fly 1435 46.1,54.8 |from 1454 45.1,63.9 |npc Swamp of Sorrows (Breyk)  -- flight master Doras
+fly 1413 63.1,37.2 |from 1454 45.1,63.9 |npc The Barrens (Bragok)  -- flight master Doras
+goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
+fly 1435 46.1,54.8 |from 1434 26.9,77.1 |npc Swamp of Sorrows (Breyk)  -- flight master Gringer
 accept 3627 |npc Fallen Hero of the Horde |at 1435 34.3,66.1 |group elite  -- Uniting the Shattered Amulet (60)
 accept 2681 |npc Fallen Hero of the Horde |at 1435 34.3,66.1  -- The Stones That Bind Us (57)
 complete 2681 |at 1419 55.0,48.5 |mobs Servant of Razelikh;Servant of Grol;Servant of Allistarj;Servant of Sevine  -- The Stones That Bind Us (57)
@@ -36,8 +40,12 @@ turnin 2621 |npc Dispatch Commander Ruag |at 1435 47.8,54.9  -- The Disgraced On
 accept 2721 |npc Fallen Hero of the Horde |at 1435 34.3,66.1  -- Kirith (58)
 accept 87451  -- Memories of Rockard (55)
 turnin 87451  -- Memories of Rockard (55)
-fly 1454 45.1,63.9 |from 1435 46.1,54.8 |npc Orgrimmar (Doras)  -- flight master Breyk
+fly 1434 26.9,77.1 |from 1435 46.1,54.8 |npc Stranglethorn Vale (Gringer)  -- flight master Breyk
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
+fly 1454 45.1,63.9 |from 1413 63.1,37.2 |npc Orgrimmar (Doras)  -- flight master Bragok
 turnin 91548 |npc Zevrost |at 1454 48.5,45.4 |group elite  -- Vek'zol (55)
+fly 1413 63.1,37.2 |from 1454 45.1,63.9 |npc The Barrens (Bragok)  -- flight master Doras
+goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
 complete 3628 |at 1419 47.6,29.8 |item 10757 |mobs Razelikh the Defiler@Severed Horn of the Defiler |group elite  -- You Are Rakh'likh, Demon (60)
 complete 2581 |at 1419 50.8,35.2 |mobs Helboar@Blasted Boar Lung;Scorpok Stinger@Scorpok Pincer;Grunter@Blasted Boar Lung;Clack the Reaver@Scorpok Pincer |value mid  -- Snickerfang Jowls (50)
 complete 2585 |at 1419 50.8,35.2 |mobs Helboar@Blasted Boar Lung;Scorpok Stinger@Scorpok Pincer;Black Slayer@Vulture Gizzard;Grunter@Blasted Boar Lung |value mid  -- The Decisive Striker (50)

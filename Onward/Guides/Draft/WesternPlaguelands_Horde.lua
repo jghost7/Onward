@@ -6,7 +6,11 @@ Onward:RegisterGuide{
   levels = { 53, 60 },
   steps = [[
 accept 5021 |npc Janice Felstone |at 1422 38.4,54.0  -- Better Late Than Never (52)
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
+fly 1454 45.1,63.9 |from 1413 63.1,37.2 |npc Orgrimmar (Doras)  -- flight master Bragok
 accept 5093 |npc Warcaller Gorlach |at 1454 37.7,75.2  -- A Call to Arms: The Plaguelands! (50)
+fly 1413 63.1,37.2 |from 1454 45.1,63.9 |npc The Barrens (Bragok)  -- flight master Doras
+goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
 accept 5050 |npc Ol' Emma |at 1453 60.2,57.0  -- Good Luck Charm (52)
 accept 5861 |npc Tirion Fordring |at 1423 5.2,35.6 |group chain  -- Find Myranda (60)
 accept 5228 |npc High Executor Derrington |at 1420 83.1,68.9  -- The Scourge Cauldrons (53)
@@ -60,14 +64,19 @@ accept 5060 |npc Locked Cabinet |at 1422 47.4,49.6  -- Locked Away (55)
 complete 5060 |at 1422 48.2,49.7 |mobs Farmer Dalson@Dalson Cabinet Key  -- Locked Away (55)
 turnin 5060 |npc Locked Cabinet |at 1422 47.4,49.6  -- Locked Away (55)
 complete 4984 |at 1422 46.5,44.9 |mobs Diseased Wolf |value mid  -- The Wildlife Suffers Too (54)
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
 turnin 97319 |npc Thark Gorax |at 2482 79.9,70.7  -- A Cousin Abroad (55)
+goto 1411 50.6,12.6 15 |note Take the zeppelin to Undercity  -- zeppelin Orgrimmar to Undercity
 turnin 5232 |npc Shadow Priestess Vandis |at 1420 83.0,71.9  -- Return to the Bulwark (55)
 accept 964 |npc Apothecary Dithers |at 1420 83.3,69.2 |value low  -- Skeletal Fragments (57)
 accept 5233 |npc Shadow Priestess Vandis |at 1420 83.0,71.9  -- Target: Writhing Haunt (55)
 accept 5342 |npc Alexi Barov |at 1420 83.1,71.6 |group elite  -- The Last Barov (60)
 accept 105 |npc High Executor Derrington |at 1420 83.1,68.9  -- Alas, Andorhal (60)
+goto 1420 60.8,58.8 15 |note Take the zeppelin to Orgrimmar  -- zeppelin Undercity to Orgrimmar
 accept 5162 |npc Haleh |at 1452 54.5,51.2  -- Wrath of the Blue Flight (60)
-fly 1423 70.5,47.5 |from 1452 60.5,36.3 |npc Eastern Plaguelands (Georgia)  -- flight master Yugrek
+fly 1413 63.1,37.2 |from 1452 60.5,36.3 |npc The Barrens (Bragok)  -- flight master Yugrek
+goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
+fly 1423 70.5,47.5 |from 1434 26.9,77.1 |npc Eastern Plaguelands (Georgia)  -- flight master Gringer
 accept 5465 |npc Leonid Barthalomew the Revered |at 1423 71.9,48.3 |group chain  -- Soulbound Keepsake (60)
 turnin 5162 |npc Jeziba |at 1422 39.4,66.8  -- Wrath of the Blue Flight (60)
 accept 5164 |npc Jeziba |at 1422 39.4,66.8  -- Catalogue of the Wayward (60)
@@ -121,7 +130,9 @@ turnin 964 |npc Apothecary Dithers |at 1420 83.3,69.2 |value low  -- Skeletal Fr
 accept 5514 |npc Apothecary Dithers |at 1420 83.3,69.2 |value low  -- Mold Rhymes With... (57)
 turnin 5238 |npc High Executor Derrington |at 1420 83.1,68.9  -- Mission Accomplished! (58)
 turnin 5462 |npc Leonid Barthalomew the Revered |at 1423 71.9,48.3 |group chain  -- The Dying, Ras Frostwhisper (60)
-fly 1446 51.6,25.4 |from 1423 70.5,47.5 |npc Tanaris (Bulkrek Ragefist) |value low  -- flight master Georgia
+fly 1434 26.9,77.1 |from 1423 70.5,47.5 |npc Stranglethorn Vale (Gringer)  -- flight master Georgia
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
+fly 1446 51.6,25.4 |from 1413 63.1,37.2 |npc Tanaris (Bulkrek Ragefist) |value low  -- flight master Bragok
 turnin 5514 |npc Krinkle Goodsteel |at 1446 51.5,28.8 |value low  -- Mold Rhymes With... (57)
 fly 1456 47.0,49.8 |from 1446 51.6,25.4 |npc Thunder Bluff (Tal) |value mid  -- flight master Bulkrek Ragefist
 turnin 4987 |npc Nara Wildmane |at 1456 75.7,31.6 |value mid  -- Glyphed Oaken Branch (56)

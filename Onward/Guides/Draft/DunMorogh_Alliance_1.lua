@@ -163,8 +163,12 @@ accept 6722 |npc Grif Wildheart |at 1426 45.8,53.0 |class HUNTER |race NightElf 
 complete 5541 |at 1426 44.1,57.0  -- Ammo for Rumbleshot (6)
 turnin 5541 |npc Hegnar Rumbleshot |at 1426 40.7,65.1  -- Ammo for Rumbleshot (6)
 turnin 5841 |npc Yori Crackhelm |at 1426 30.1,71.7 |race Dwarf,Gnome  -- Welcome! (1)
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
+fly 1438 58.4,94.0 |from 1413 63.1,37.2 |npc Teldrassil (Vesprystus)  -- flight master Bragok
 turnin 6722 |npc Dazalar |at 1438 56.7,59.5 |class HUNTER |race NightElf  -- The Hunter's Path (10)
-fly 1455 55.5,47.7 |from 1438 58.4,94.0 |npc Ironforge (Gryth Thurden)  -- flight master Vesprystus
+fly 1413 63.1,37.2 |from 1438 58.4,94.0 |npc The Barrens (Bragok)  -- flight master Vesprystus
+goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
+fly 1455 55.5,47.7 |from 1434 27.5,77.8 |npc Ironforge (Gryth Thurden)  -- flight master Gyll
 turnin 95041 |npc Jemma Quikswitch |at 1455 67.7,44.2 |value mid  -- Data Hoarders (10)
 turnin 291 |npc Senator Barin Redstone |at 1455 39.5,57.5  -- The Reports (10)
 turnin 2923 |npc Tinkmaster Overspark |at 1455 69.5,50.3  -- Tinkmaster Overspark (26)

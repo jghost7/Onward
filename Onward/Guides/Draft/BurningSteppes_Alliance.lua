@@ -43,9 +43,13 @@ fly 1423 71.8,49.6 |from 1433 25.5,59.4 |npc Eastern Plaguelands (Khaelyn Steelw
 turnin 5522 |npc Leonid Barthalomew the Revered |at 1423 71.9,48.3 |group chain  -- Leonid Barthalomew (60)
 fly 1453 71.3,72.2 |from 1423 71.8,49.6 |npc Stormwind City (Dungar Longdrink)  -- flight master Khaelyn Steelwing
 turnin 4184 |npc Highlord Bolvar Fordragon |at 1453 80.2,38.4 |group chain  -- The True Masters (54)
-fly 1452 62.3,36.6 |from 1453 71.3,72.2 |npc Winterspring (Maethrya)  -- flight master Dungar Longdrink
+fly 1434 27.5,77.8 |from 1453 71.3,72.2 |npc Stranglethorn Vale (Gyll)  -- flight master Dungar Longdrink
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
+fly 1452 62.3,36.6 |from 1413 63.1,37.2 |npc Winterspring (Maethrya)  -- flight master Bragok
 turnin 4808 |npc Felnok Steelspring |at 1452 61.6,38.6  -- Felnok Steelspring (54)
-fly 1428 84.3,68.3 |from 1452 62.3,36.6 |npc Borgus Stoutarm  -- flight master Maethrya
+fly 1413 63.1,37.2 |from 1452 62.3,36.6 |npc The Barrens (Bragok)  -- flight master Maethrya
+goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
+fly 1428 84.3,68.3 |from 1434 27.5,77.8 |npc Borgus Stoutarm  -- flight master Gyll
 turnin 3825 |npc Oralius |at 1428 84.6,68.7  -- Ogre Head On A Stick = Party (53)
 turnin 4223 |npc Marshal Maxwell |at 1428 84.7,69.0 |group chain  -- The True Masters (54)
 ]]}

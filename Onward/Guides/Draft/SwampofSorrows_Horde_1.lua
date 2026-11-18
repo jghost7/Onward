@@ -35,6 +35,7 @@ fly 1418 4.0,44.8 |from 1435 46.1,54.8 |npc Badlands (Gorrik)  -- flight master 
 turnin 1418 |npc Neeka Bloodscar |at 1418 6.5,47.2  -- Neeka Bloodscar (35)
 fly 1434 26.9,77.1 |from 1418 4.0,44.8 |npc Stranglethorn Vale (Gringer)  -- flight master Gorrik
 turnin 1116 |npc Krazek |at 1434 26.9,77.2  -- Dream Dust in the Swamp (36)
-fly 1443 21.6,74.1 |from 1434 26.9,77.1 |npc Desolace (Thalon)  -- flight master Gringer
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
+fly 1443 21.6,74.1 |from 1413 63.1,37.2 |npc Desolace (Thalon)  -- flight master Bragok
 turnin 93464 |npc Azore Aldamort |at 1443 38.9,27.2  -- The Visiting Mage (38)
 ]]}

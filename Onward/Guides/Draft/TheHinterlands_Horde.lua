@@ -9,9 +9,13 @@ accept 2933 |npc Venom Bottle |at 1425 23.5,58.8  -- Venom Bottles (43)
 fly 1424 60.1,18.6 |from 1425 81.7,81.8 |npc Hillsbrad Foothills (Zarise)  -- flight master Gorkas
 turnin 2933 |npc Apothecary Lydon |at 1424 61.4,19.1  -- Venom Bottles (43)
 accept 2934 |npc Apothecary Lydon |at 1424 61.4,19.1  -- Undamaged Venom Sac (45)
+fly 1434 26.9,77.1 |from 1424 60.1,18.6 |npc Stranglethorn Vale (Gringer)  -- flight master Zarise
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
 accept 2937 |npc Master Gadrin |at 1411 56.0,74.7  -- Summoning Shadra (55)
 accept 4787 |npc Yeh'kinya |at 1446 67.0,22.4 |group chain  -- The Ancient Egg (50)
-fly 1425 81.7,81.8 |from 1446 51.6,25.4 |npc Gorkas  -- flight master Bulkrek Ragefist
+fly 1413 63.1,37.2 |from 1446 51.6,25.4 |npc The Barrens (Bragok)  -- flight master Bulkrek Ragefist
+goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
+fly 1425 81.7,81.8 |from 1434 26.9,77.1 |npc Gorkas  -- flight master Gringer
 turnin 77 |npc Gilveradin Sunchaser |at 1425 26.7,48.6  -- A Sticky Situation (48)
 accept 77 |npc Gilveradin Sunchaser |at 1425 26.7,48.6  -- A Sticky Situation (48)
 complete 7841 |at 1425 31.1,47.9 |mobs Highvale Scout;Highvale Outrunner;Highvale Ranger;Highvale Marksman |value mid  -- Message to the Wildhammer (48)
@@ -75,9 +79,13 @@ accept 1444 |npc Atal'ai Exile |at 1425 33.8,75.2  -- Return to Fel'Zerul (44)
 complete 2937 |at 1425 33.8,73.0 |item 9323 |mobs Shadra@Shadra's Venom  -- Summoning Shadra (55)
 complete 2934 |at 1425 33.3,69.3 |mobs Witherbark Broodguard@Undamaged Venom Sac  -- Undamaged Venom Sac (45)
 complete 98203 |at 1425 25.8,65.8 |mobs Witch Doctor Ti'ik@Ti'ik's Head  -- Witch Doctor Ti'ik (49)
-fly 1446 51.6,25.4 |from 1425 81.7,81.8 |npc Tanaris (Bulkrek Ragefist)  -- flight master Gorkas
+fly 1434 26.9,77.1 |from 1425 81.7,81.8 |npc Stranglethorn Vale (Gringer)  -- flight master Gorkas
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
+fly 1446 51.6,25.4 |from 1413 63.1,37.2 |npc Tanaris (Bulkrek Ragefist)  -- flight master Bragok
 turnin 4787 |npc Yeh'kinya |at 1446 67.0,22.4 |group chain  -- The Ancient Egg (50)
-fly 1424 60.1,18.6 |from 1446 51.6,25.4 |npc Hillsbrad Foothills (Zarise)  -- flight master Bulkrek Ragefist
+fly 1413 63.1,37.2 |from 1446 51.6,25.4 |npc The Barrens (Bragok)  -- flight master Bulkrek Ragefist
+goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
+fly 1424 60.1,18.6 |from 1434 26.9,77.1 |npc Hillsbrad Foothills (Zarise)  -- flight master Gringer
 turnin 2934 |npc Apothecary Lydon |at 1424 61.4,19.1  -- Undamaged Venom Sac (45)
 turnin 2937 |npc Apothecary Lydon |at 1424 61.4,19.1  -- Summoning Shadra (55)
 accept 2935 |npc Apothecary Lydon |at 1424 61.4,19.1  -- Consult Master Gadrin (45)
@@ -89,5 +97,7 @@ turnin 2782 |npc Oran Snakewrithe |at 1458 73.1,32.9  -- Rin'ji's Secret (47)
 accept 8273 |npc Oran Snakewrithe |at 1458 73.1,32.9  -- Oran's Gratitude (47)
 turnin 2938 |npc Master Apothecary Faranell |at 1458 48.8,69.3  -- Venom to the Undercity (55)
 turnin 8273 |npc Oran Snakewrithe |at 1458 73.1,32.9  -- Oran's Gratitude (47)
+fly 1434 26.9,77.1 |from 1458 63.2,48.6 |npc Stranglethorn Vale (Gringer)  -- flight master Michael Garrett
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
 turnin 2935 |npc Master Gadrin |at 1411 56.0,74.7  -- Consult Master Gadrin (45)
 ]]}

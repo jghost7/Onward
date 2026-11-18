@@ -203,10 +203,13 @@ accept 95161 |npc Orphan Matron Nightingale |at 1453 56.3,54.0  -- Remember That
 turnin 94893 |npc Abigail Lawson |at 1453 50.1,51.5  -- Delivering Closure (47)
 fly 1434 27.5,77.8 |from 1453 71.3,72.2 |npc Stranglethorn Vale (Gyll)  -- flight master Dungar Longdrink
 turnin 95295 |npc Caravaneer Ruzzgot |at 1434 27.4,74.1  -- I Know a Guy (40)
-fly 1444 30.2,43.2 |from 1434 27.5,77.8 |npc Feralas (Fyldren Moonfeather)  -- flight master Gyll
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
+fly 1444 30.2,43.2 |from 1413 63.1,37.2 |npc Feralas (Fyldren Moonfeather)  -- flight master Bragok
 turnin 95219 |npc Mardrack Greenwell |at 1444 31.0,43.1  -- From Port to Port (41)
 accept 95935 |group elite  -- Hail the Dragonslayer (43)
-fly 1431 77.5,44.3 |from 1444 30.2,43.2 |npc Duskwood (Felicia Maline)  -- flight master Fyldren Moonfeather
+fly 1413 63.1,37.2 |from 1444 30.2,43.2 |npc The Barrens (Bragok)  -- flight master Fyldren Moonfeather
+goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
+fly 1431 77.5,44.3 |from 1434 27.5,77.8 |npc Duskwood (Felicia Maline)  -- flight master Gyll
 turnin 95161 |npc Avette Fellwood |at 1431 73.0,44.4  -- Remember That I Love You (22)
 complete 95935 |at 2548 30.8,72.4 |mobs Scaldaron@Head of Scaldaron |group elite  -- Hail the Dragonslayer (43)
 turnin 94999 |npc Watcher Fredericks |at 2548 36.4,75.8  -- Eyes for the Watchman (36)

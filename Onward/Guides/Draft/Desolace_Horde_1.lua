@@ -82,15 +82,21 @@ turnin 6142 |npc Mai'Lahii |at 1443 22.6,72.0 |value mid  -- Clam Bait (35)
 accept 94895 |npc Lost Shipping Crate |at 1443 23.4,72.6  -- Lost Shipping Crate (38)
 turnin 6143 |npc Drulzegar Skraghook |at 1443 23.3,72.9 |value mid  -- Other Fish to Fry (36)
 complete 5386 |at 1443 22.4,73.1 |mobs Jinar'Zillen@Bloodbelly Fish  -- Catch of the Day (37)
-fly 1424 60.1,18.6 |from 1443 21.6,74.1 |npc Hillsbrad Foothills (Zarise)  -- flight master Thalon
+fly 1413 63.1,37.2 |from 1443 21.6,74.1 |npc The Barrens (Bragok)  -- flight master Thalon
+goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
+fly 1424 60.1,18.6 |from 1434 26.9,77.1 |npc Hillsbrad Foothills (Zarise)  -- flight master Gringer
 accept 1361 |npc Krusk |at 1424 63.2,20.7  -- Regthar Deathgate (32)
 turnin 92754  -- A New Need for Shadow Protection (35)
-fly 1413 51.5,30.3 |from 1424 60.1,18.6 |npc The Barrens (Devrak)  -- flight master Zarise
+fly 1434 26.9,77.1 |from 1424 60.1,18.6 |npc Stranglethorn Vale (Gringer)  -- flight master Zarise
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
 accept 1362 |npc Regthar Deathgate |at 1413 45.3,28.4  -- The Kolkar of Desolace (32)
 turnin 1361 |npc Regthar Deathgate |at 1413 45.3,28.4  -- Regthar Deathgate (32)
 turnin 93045 |npc Nerlokh |at 2652 20.9,22.7  -- Test Your Theory (38)
+goto 1411 50.8,13.6 15 |note Take the zeppelin to Grom'gol  -- zeppelin Orgrimmar to Grom'gol
 turnin 5763 |npc Hemet Nesingwary |at 1434 35.7,10.8  -- Hunting in Stranglethorn (31)
 turnin 94895 |npc Friz Frazzlespark |at 2548 77.1,52.9  -- Lost Shipping Crate (38)
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
+fly 1443 21.6,74.1 |from 1413 63.1,37.2 |npc Thalon  -- flight master Bragok
 complete 6161 |at 1443 33.0,22.1 |mobs Drysnap Crawler@Rackmore's Silver Key;Slitherblade Myrmidon@Rackmore's Golden Key;Drysnap Pincer@Rackmore's Silver Key;Slitherblade Naga@Rackmore's Golden Key  -- Claim Rackmore's Treasure! (36)
 complete 1482 |at 1443 31.6,15.6 |mobs Slitherblade Oracle@Oracle Crystal  -- The Corrupter (35)
 complete 6027 |at 1443 28.2,6.7 |item 15766 |mobs Lord Kragaru@Book of the Ancients  -- Book of the Ancients (38)

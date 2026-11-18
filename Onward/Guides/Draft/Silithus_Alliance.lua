@@ -24,15 +24,22 @@ complete 1126 |at 1451 60.2,52.4 |mobs Hive'Ashi Ambusher@Encrusted Silithid Obj
 turnin 1126 |npc Layo Starstrike |at 1451 81.9,18.9 |value low  -- Hive in the Tower (57)
 accept 6844 |npc Layo Starstrike |at 1451 81.9,18.9 |value low  -- Umber, Archivist (57)
 complete 8284 |at 1451 24.4,11.8  -- The Twilight Mystery (58)
-fly 1423 71.8,49.6 |from 1451 50.6,34.5 |npc Eastern Plaguelands (Khaelyn Steelwing)  -- flight master Cloud Skydancer
+fly 1413 63.1,37.2 |from 1451 50.6,34.5 |npc The Barrens (Bragok)  -- flight master Cloud Skydancer
+goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
+fly 1423 71.8,49.6 |from 1434 27.5,77.8 |npc Eastern Plaguelands (Khaelyn Steelwing)  -- flight master Gyll
 turnin 8859 |npc Lord Maxwell Tyrosus |at 1423 71.9,48.4  -- Secrets of the Colossus - Zora (60)
-fly 1450 44.1,45.2 |from 1423 71.8,49.6 |npc Moonglade (Silva Fil'naveth) |value low  -- flight master Khaelyn Steelwing
+fly 1434 27.5,77.8 |from 1423 71.8,49.6 |npc Stranglethorn Vale (Gyll)  -- flight master Khaelyn Steelwing
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
+fly 1450 44.1,45.2 |from 1413 63.1,37.2 |npc Moonglade (Silva Fil'naveth) |value low  -- flight master Bragok
 turnin 6844 |npc Umber |at 1450 44.9,35.6 |value low  -- Umber, Archivist (57)
-fly 1434 27.5,77.8 |from 1450 44.1,45.2 |npc Stranglethorn Vale (Gyll)  -- flight master Silva Fil'naveth
+fly 1413 63.1,37.2 |from 1450 44.1,45.2 |npc The Barrens (Bragok)  -- flight master Silva Fil'naveth
+goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
 turnin 8857 |npc Oglethorpe Obnoticus |at 1434 28.4,76.3  -- Secrets of the Colossus - Ashi (60)
 fly 1427 37.9,30.9 |from 1434 27.5,77.8 |npc Searing Gorge (Lanie Reed)  -- flight master Gyll
 turnin 8858 |npc Overseer Oilfist |at 1427 38.1,27.0  -- Secrets of the Colossus - Regal (60)
-fly 1451 50.6,34.5 |from 1427 37.9,30.9 |npc Cloud Skydancer  -- flight master Lanie Reed
+fly 1434 27.5,77.8 |from 1427 37.9,30.9 |npc Stranglethorn Vale (Gyll)  -- flight master Lanie Reed
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
+fly 1451 50.6,34.5 |from 1413 63.1,37.2 |npc Cloud Skydancer  -- flight master Bragok
 accept 8318 |npc Bor Wildmane |at 1451 48.6,37.8 |value mid  -- Secret Communication (60)
 turnin 8284 |npc Geologist Larksbane |at 1451 49.7,37.5  -- The Twilight Mystery (58)
 accept 8285 |npc Geologist Larksbane |at 1451 49.7,37.5  -- The Deserter (59)

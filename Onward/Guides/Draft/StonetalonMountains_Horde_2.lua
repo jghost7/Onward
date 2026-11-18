@@ -39,8 +39,10 @@ turnin 1096 |npc Ziz Fizziks |at 1442 59.0,62.6  -- Gerenzo Wrenchwhistle (27)
 turnin 1058 |npc Witch Doctor Jin'Zil |at 1442 74.5,97.9 |value mid  -- Jin'Zil's Forest Magic (26)
 turnin 86576 |npc Mor'rogal |at 1442 47.2,64.0 |value mid  -- Bloodfury Trinkets (26)
 turnin 6283 |npc Maggran Earthbinder |at 1442 47.2,61.2 |group elite  -- Bloodfury Bloodline (26)
-fly 1456 47.0,49.8 |from 1442 45.1,59.8 |npc Thunder Bluff (Tal)  -- flight master Tharm
+fly 1456 47.0,49.8 |from 1442 45.1,59.8 |npc Thunder Bluff (Tal) |value low  -- flight master Tharm
 turnin 97538 |npc Tah Winterhoof |at 1456 54.1,47.0 |value low  -- Pigments for Paints (26)
+fly 1413 63.1,37.2 |from 1456 47.0,49.8 |npc The Barrens (Bragok)  -- flight master Tal
+goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
 turnin 79974 |npc Carved Figurine |at 1432 49.4,12.9  -- Wet Job (32)
 ]]}
 

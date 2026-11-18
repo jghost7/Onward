@@ -85,12 +85,14 @@ fly 1417 45.7,46.1 |from 1437 9.5,59.7 |npc Arathi Highlands (Cedrik Prose)  -- 
 turnin 634 |npc Captain Nials |at 1417 45.8,47.6  -- Plea To The Alliance (31)
 accept 647 |npc Foggy MacKreel |at 1417 43.2,92.6  -- MacKreel's Moonshine (30)
 complete 633 |at 1417 48.8,88.0  -- The Thandol Span (31)
-fly 1439 36.3,45.6 |from 1417 45.7,46.1 |npc Darkshore (Caylais Moonfeather)  -- flight master Cedrik Prose
+fly 1437 9.5,59.7 |from 1417 45.7,46.1 |npc Shellei Brondir  -- flight master Cedrik Prose
+goto 1437 4.8,63.6 15 |note Take the boat to Auberdine  -- boat Menethil Harbor to Auberdine
 turnin 98209 |npc Thundris Windweaver |at 1439 37.4,40.1  -- Bloom of the Heavens (29)
 fly 1445 67.5,51.3 |from 1439 36.3,45.6 |npc Dustwallow Marsh (Baldruc)  -- flight master Caylais Moonfeather
 turnin 1302 |npc Clerk Lendry |at 1445 67.9,48.2  -- James Hyal (35)
 turnin 1132 |npc Fiora Longears |at 1445 66.5,45.1  -- Fiora Longears (30)
-fly 1453 71.3,72.2 |from 1445 67.5,51.3 |npc Stormwind City (Dungar Longdrink) |value mid  -- flight master Baldruc
+goto 1445 71.6,56.4 15 |note Take the boat to Menethil Harbor  -- boat Theramore to Menethil Harbor
+fly 1453 71.3,72.2 |from 1437 9.5,59.7 |npc Stormwind City (Dungar Longdrink) |value mid  -- flight master Shellei Brondir
 turnin 293 |npc Archbishop Benedictus |at 1453 50.3,45.5 |value mid  -- Cleansing the Eye (30)
 fly 1424 49.3,52.3 |from 1453 71.3,72.2 |npc Hillsbrad Foothills (Darla Harris)  -- flight master Dungar Longdrink
 turnin 647 |npc Brewmeister Bilger |at 1424 52.1,58.7  -- MacKreel's Moonshine (30)

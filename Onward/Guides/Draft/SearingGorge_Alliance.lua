@@ -50,10 +50,14 @@ complete 3452 |at 1427 20.8,35.9 |mobs Twilight Fire Guard@Symbol of Ragnaros;Tw
 fly 1455 55.5,47.7 |from 1427 37.9,30.9 |npc Ironforge (Gryth Thurden)  -- flight master Lanie Reed
 turnin 3368 |npc Curator Thorius |at 1455 71.5,15.7  -- Suntara Stones (48)
 turnin 3566 |npc Curator Thorius |at 1455 71.5,15.7 |group elite  -- Rise, Obsidion! (52)
+fly 1434 27.5,77.8 |from 1455 55.5,47.7 |npc Stranglethorn Vale (Gyll)  -- flight master Gryth Thurden
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
 turnin 3378 |npc Astarii Starseeker |at 1457 38.3,81.0 |group elite  -- Prayer to Elune (50)
 turnin 4450 |npc Krinkle Goodsteel |at 1446 51.5,28.8 |value low  -- Ledger from Tanaris (46)
 accept 7704 |note Starts from Chambermaid Pillaclencher's Pillow  -- Look at the Size of It! (50)
-fly 1432 33.9,51.0 |from 1446 51.0,29.3 |npc Loch Modan (Thorgrum Borrelson)  -- flight master Bera Stonehammer
+fly 1413 63.1,37.2 |from 1446 51.0,29.3 |npc The Barrens (Bragok)  -- flight master Bera Stonehammer
+goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
+fly 1432 33.9,51.0 |from 1434 27.5,77.8 |npc Loch Modan (Thorgrum Borrelson)  -- flight master Gyll
 turnin 3181 |npc Mountaineer Pebblebitty |at 1432 18.2,84.0  -- The Horn of the Beast (48)
 fly 1427 37.9,30.9 |from 1432 33.9,51.0 |npc Lanie Reed  -- flight master Thorgrum Borrelson
 complete 7724 |at 1427 29.3,62.4 |mobs Greater Lava Spider |value mid  -- Fiery Menace! (49)

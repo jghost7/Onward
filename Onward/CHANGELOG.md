@@ -1,11 +1,14 @@
 # Changelog
 
-## Unreleased
+## 0.6.18
 
-- Four new looks under Options > Panel > Look, each a dark glass with a highlight from the other
+- Five new looks under Options > Panel > Look, each a dark glass with a highlight from the other
   side of the colour wheel: Twilight (teal on violet), Alliance (gold on navy, blue edge), Horde
-  (ember red on blood-iron, bronze edge) and Verdant (amber on forest green). The Look picker
-  wraps onto a second row.
+  (ember red on blood-iron, bronze edge), Feywood (glowing fae green on deep moss, violet edge) and
+  Neon (hot pink on deep purple, teal edge). The Look picker wraps onto a second row.
+- The guides no longer fly between continents: the generator now routes those trips through the
+  boat or zeppelin (fly to the dock, "Take the boat to Ratchet", fly on from the far side). 145
+  impossible flights across the guides became 211 travel steps.
 - A step on the other continent (a flight to Feralas from Booty Bay, say) now sends you to the boat
   or zeppelin first: "Take the boat to Ratchet", picking the crossing that makes the whole trip
   shortest for your faction (Booty Bay - Ratchet; Grom'gol and Undercity - Orgrimmar zeppelins;

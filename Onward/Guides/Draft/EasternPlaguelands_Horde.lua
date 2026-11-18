@@ -50,8 +50,12 @@ turnin 6133 |npc Nathanos Blightcaller |at 1423 22.2,63.5  -- The Ranger Lord's 
 turnin 6042 |npc Nathanos Blightcaller |at 1423 22.2,63.5  -- Un-Life's Little Annoyances (58)
 accept 6136 |npc Nathanos Blightcaller |at 1423 22.2,63.5 |group elite  -- The Corpulent One (60)
 accept 6135 |npc Nathanos Blightcaller |at 1423 22.2,63.5 |group elite  -- Duskwing, Oh How I Hate Thee... (60)
-fly 1446 51.6,25.4 |from 1423 70.5,47.5 |npc Tanaris (Bulkrek Ragefist)  -- flight master Georgia
+fly 1434 26.9,77.1 |from 1423 70.5,47.5 |npc Stranglethorn Vale (Gringer)  -- flight master Georgia
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
+fly 1446 51.6,25.4 |from 1413 63.1,37.2 |npc Tanaris (Bulkrek Ragefist)  -- flight master Bragok
 accept 5065 |npc Prospector Ironboot |at 1446 66.9,24.0 |group chain  -- The Lost Tablets of Mosh'aru (58)
+fly 1413 63.1,37.2 |from 1446 51.6,25.4 |npc The Barrens (Bragok)  -- flight master Bulkrek Ragefist
+goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
 accept 5210 |npc Chromie |at 1422 39.5,66.8  -- Brother Carlin (56)
 turnin 5152 |npc Marlene Redpath |at 1422 49.2,78.6  -- Auntie Marlene (56)
 turnin 5781 |npc Tirion Fordring |at 1423 5.2,35.6  -- Of Forgotten Memories (57)
@@ -91,9 +95,13 @@ turnin 5153 |npc Chromie |at 1422 39.5,66.8  -- A Strange Historian (56)
 turnin 6144 |npc Varimathras |at 1458 56.2,92.2 |group chain  -- The Call to Command (60)
 accept 6145 |npc Varimathras |at 1458 56.2,92.2 |group elite  -- The Crimson Courier (60)
 accept 5464 |group chain  -- Menethil's Gift (60)
-fly 1446 51.6,25.4 |from 1458 63.2,48.6 |npc Tanaris (Bulkrek Ragefist)  -- flight master Michael Garrett
+fly 1434 26.9,77.1 |from 1458 63.2,48.6 |npc Stranglethorn Vale (Gringer)  -- flight master Michael Garrett
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
+fly 1446 51.6,25.4 |from 1413 63.1,37.2 |npc Tanaris (Bulkrek Ragefist)  -- flight master Bragok
 turnin 5065 |npc Prospector Ironboot |at 1446 66.9,24.0 |group chain  -- The Lost Tablets of Mosh'aru (58)
-fly 1423 70.5,47.5 |from 1446 51.6,25.4 |npc Georgia  -- flight master Bulkrek Ragefist
+fly 1413 63.1,37.2 |from 1446 51.6,25.4 |npc The Barrens (Bragok)  -- flight master Bulkrek Ragefist
+goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
+fly 1423 70.5,47.5 |from 1434 26.9,77.1 |npc Georgia  -- flight master Gringer
 turnin 5543 |npc Tirion Fordring |at 1423 5.2,35.6 |value mid  -- Blood Tinged Skies (56)
 turnin 5845 |npc Tirion Fordring |at 1423 5.2,35.6  -- Of Lost Honor (58)
 accept 5846 |npc Tirion Fordring |at 1423 5.2,35.6  -- Of Love and Family (58)
@@ -130,8 +138,12 @@ accept 9121 |npc Archmage Angela Dosantos |at 1423 71.7,48.7 |value low |group e
 complete 9121 |at 1423 51.0,51.1 |mobs Crimson Courier@Righteous Orb;Demetria@Righteous Orb |value low |group elite  -- The Dread Citadel - Naxxramas (60)
 turnin 6147 |npc Nathanos Blightcaller |at 1423 22.2,63.5 |group chain  -- Return to Nathanos (60)
 accept 6148 |npc Nathanos Blightcaller |at 1423 22.2,63.5 |group elite  -- The Scarlet Oracle, Demetria (60)
-fly 1454 45.1,63.9 |from 1423 70.5,47.5 |npc Orgrimmar (Doras)  -- flight master Georgia
+fly 1434 26.9,77.1 |from 1423 70.5,47.5 |npc Stranglethorn Vale (Gringer)  -- flight master Georgia
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
+fly 1454 45.1,63.9 |from 1413 63.1,37.2 |npc Orgrimmar (Doras)  -- flight master Bragok
 accept 8930 |npc Mokvar |at 1454 35.0,38.3 |class WARRIOR,HUNTER,ROGUE,PRIEST,SHAMAN,MAGE,WARLOCK,DRUID |group chain  -- In Search of Anthion (60)
+fly 1413 63.1,37.2 |from 1454 45.1,63.9 |npc The Barrens (Bragok)  -- flight master Doras
+goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
 turnin 5941 |npc Chromie |at 1422 39.5,66.8  -- Return to Chromie (60)
 turnin 5846 |npc Artist Renfray |at 1422 65.8,75.4  -- Of Love and Family (58)
 accept 5721 |npc Chromie |at 1422 39.5,66.8  -- The Battle of Darrowshire (60)

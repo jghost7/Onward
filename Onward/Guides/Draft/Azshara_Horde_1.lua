@@ -50,11 +50,15 @@ fly 1456 47.0,49.8 |from 1447 22.0,49.6 |npc Thunder Bluff (Tal)  -- flight mast
 turnin 3518 |npc Magatha Grimtotem |at 1456 69.8,30.9  -- Delivery to Magatha (52)
 accept 91737 |npc Magatha Grimtotem |at 1456 69.8,30.9  -- Remote Contact (52)
 accept 3562 |npc Magatha Grimtotem |at 1456 69.8,30.9  -- Magatha's Payment to Jediga (52)
-fly 1458 63.2,48.6 |from 1456 47.0,49.8 |npc Undercity (Michael Garrett)  -- flight master Tal
+fly 1413 63.1,37.2 |from 1456 47.0,49.8 |npc The Barrens (Bragok)  -- flight master Tal
+goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
+fly 1458 63.2,48.6 |from 1434 26.9,77.1 |npc Undercity (Michael Garrett)  -- flight master Gringer
 accept 91734 |npc Andron Gant |at 1458 54.8,76.3  -- Remote Contact (52)
 turnin 3542 |npc Andron Gant |at 1458 54.8,76.3  -- Delivery to Andron Gant (52)
 accept 3564 |npc Andron Gant |at 1458 54.8,76.3  -- Andron's Payment to Jediga (52)
-fly 1454 45.1,63.9 |from 1458 63.2,48.6 |npc Orgrimmar (Doras)  -- flight master Michael Garrett
+fly 1434 26.9,77.1 |from 1458 63.2,48.6 |npc Stranglethorn Vale (Gringer)  -- flight master Michael Garrett
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
+fly 1454 45.1,63.9 |from 1413 63.1,37.2 |npc Orgrimmar (Doras)  -- flight master Bragok
 turnin 3541 |npc Jes'rimon |at 1454 55.5,34.1  -- Delivery to Jes'rimon (52)
 accept 91735 |npc Jes'rimon |at 1454 55.5,34.1  -- Remote Contact (52)
 accept 3563 |npc Jes'rimon |at 1454 55.5,34.1  -- Jes'rimon's Payment to Jediga (52)

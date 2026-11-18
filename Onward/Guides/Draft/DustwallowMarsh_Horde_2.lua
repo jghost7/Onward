@@ -13,7 +13,11 @@ turnin 95283 |npc Nazeer Bloodpike |at 1445 35.2,30.7  -- The Missing Kor'kron (
 turnin 95284 |npc Sergeant Ulka |at 1445 70.3,18.9  -- The Elite of the Elite (53)
 accept 95285 |npc Sergeant Ulka |at 1445 70.3,18.9  -- Right Place, Wrong Time (53)
 turnin 95285 |npc Sergeant Ulka |at 1445 70.3,18.9  -- Right Place, Wrong Time (53)
+fly 1413 63.1,37.2 |from 1445 35.6,31.9 |npc The Barrens (Bragok)  -- flight master Shardi
+goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
 accept 6570 |npc Myranda the Hag |at 1422 50.8,77.8 |group chain  -- Emberstrife (60)
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
+fly 1445 35.6,31.9 |from 1413 63.1,37.2 |npc Shardi  -- flight master Bragok
 turnin 6570 |npc Emberstrife |at 1445 56.7,87.7 |group chain  -- Emberstrife (60)
 accept 6582 |npc Emberstrife |at 1445 56.7,87.7 |group elite  -- The Test of Skulls, Scryer (60)
 accept 6583 |npc Emberstrife |at 1445 56.7,87.7 |group elite  -- The Test of Skulls, Somnus (60)
@@ -22,15 +26,21 @@ fly 1452 60.5,36.3 |from 1445 35.6,31.9 |npc Winterspring (Yugrek)  -- flight ma
 complete 6582 |at 1452 52.7,55.9 |group elite  -- The Test of Skulls, Scryer (60)
 fly 1446 51.6,25.4 |from 1452 60.5,36.3 |npc Tanaris (Bulkrek Ragefist)  -- flight master Yugrek
 complete 6584 |at 1446 64.2,48.5 |group chain  -- The Test of Skulls, Chronalis (60)
-fly 1435 46.1,54.8 |from 1446 51.6,25.4 |npc Swamp of Sorrows (Breyk)  -- flight master Bulkrek Ragefist
+fly 1413 63.1,37.2 |from 1446 51.6,25.4 |npc The Barrens (Bragok)  -- flight master Bulkrek Ragefist
+goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
+fly 1435 46.1,54.8 |from 1434 26.9,77.1 |npc Swamp of Sorrows (Breyk)  -- flight master Gringer
 complete 6583 |at 1435 76.0,66.6 |group elite  -- The Test of Skulls, Somnus (60)
-fly 1445 35.6,31.9 |from 1435 46.1,54.8 |npc Shardi  -- flight master Breyk
+fly 1434 26.9,77.1 |from 1435 46.1,54.8 |npc Stranglethorn Vale (Gringer)  -- flight master Breyk
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
+fly 1445 35.6,31.9 |from 1413 63.1,37.2 |npc Shardi  -- flight master Bragok
 turnin 6584 |npc Emberstrife |at 1445 56.7,87.7 |group chain  -- The Test of Skulls, Chronalis (60)
 turnin 6582 |npc Emberstrife |at 1445 56.7,87.7 |group elite  -- The Test of Skulls, Scryer (60)
 turnin 6583 |npc Emberstrife |at 1445 56.7,87.7 |group elite  -- The Test of Skulls, Somnus (60)
 accept 6585 |npc Emberstrife |at 1445 56.7,87.7 |group elite  -- The Test of Skulls, Axtroz (60)
 accept 8970 |npc Bodley |at 1415 48.9,63.9 |value mid |class WARRIOR,HUNTER,ROGUE,PRIEST,SHAMAN,MAGE,WARLOCK,DRUID |group chain  -- I See Alcaz Island In Your Future... (60)
 complete 6585 |at 1437 81.8,48.2 |group elite  -- The Test of Skulls, Axtroz (60)
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
+fly 1445 35.6,31.9 |from 1413 63.1,37.2 |npc Shardi  -- flight master Bragok
 complete 8970 |at 1445 76.4,18.4 |item 21984 |mobs Strashaz Serpent Guard@Bloodkelp;Strashaz Myrmidon@Bloodkelp;Strashaz Siren@Bloodkelp;Strashaz Warrior@Bloodkelp |value mid |class WARRIOR,HUNTER,ROGUE,PRIEST,SHAMAN,MAGE,WARLOCK,DRUID |group chain  -- I See Alcaz Island In Your Future... (60)
 turnin 6585 |npc Emberstrife |at 1445 56.7,87.7 |group elite  -- The Test of Skulls, Axtroz (60)
 accept 6601 |npc Emberstrife |at 1445 56.7,87.7 |group chain  -- Ascension... (60)

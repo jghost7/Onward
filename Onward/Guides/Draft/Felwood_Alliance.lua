@@ -75,9 +75,13 @@ turnin 5242 |npc Greta Mosshoof |at 1448 51.2,82.1  -- A Final Blow (58)
 turnin 5157 |npc Greta Mosshoof |at 1448 51.2,82.1  -- Collection of the Corrupt Water (52)
 accept 5158 |npc Greta Mosshoof |at 1448 51.2,82.1  -- Seeking Spiritual Aid (52)
 turnin 5882 |npc Arathandris Silversky |at 1448 54.1,86.8 |value mid  -- Salve via Hunting (55)
-fly 1455 55.5,47.7 |from 1448 62.5,24.2 |npc Ironforge (Gryth Thurden)  -- flight master Mishellena
+fly 1413 63.1,37.2 |from 1448 62.5,24.2 |npc The Barrens (Bragok)  -- flight master Mishellena
+goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
+fly 1455 55.5,47.7 |from 1434 27.5,77.8 |npc Ironforge (Gryth Thurden)  -- flight master Gyll
 turnin 8484 |npc King Magni Bronzebeard |at 1455 39.1,56.2  -- The Brokering of Peace (60)
-fly 1452 62.3,36.6 |from 1455 55.5,47.7 |npc Winterspring (Maethrya)  -- flight master Gryth Thurden
+fly 1434 27.5,77.8 |from 1455 55.5,47.7 |npc Stranglethorn Vale (Gyll)  -- flight master Gryth Thurden
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
+fly 1452 62.3,36.6 |from 1413 63.1,37.2 |npc Winterspring (Maethrya)  -- flight master Bragok
 turnin 5249 |npc Wynd Nightchaser |at 1452 52.0,30.4  -- To Winterspring! (56)
 turnin 8465 |npc Salfa |at 1452 27.7,34.5  -- Speak to Salfa (55)
 turnin 8464 |npc Salfa |at 1452 27.7,34.5  -- Winterfall Activity (58)

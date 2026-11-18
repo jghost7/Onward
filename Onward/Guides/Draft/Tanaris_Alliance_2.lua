@@ -41,19 +41,28 @@ complete 5801 |at 1449 48.9,47.0 |item 14644  -- Fire Plume Forged (57)
 complete 4496 |at 1449 48.2,77.1  -- Bungle in the Jungle (53)
 complete 4504 |at 1449 51.8,25.1 |value mid  -- Super Sticky (54)
 complete 4507 |at 1449 43.9,81.4 |item 11833  -- Pawn Captures Queen (54)
-fly 1428 84.3,68.3 |from 1449 45.2,5.8 |npc Burning Steppes (Borgus Stoutarm) |value mid  -- flight master Gryfe
+fly 1413 63.1,37.2 |from 1449 45.2,5.8 |npc The Barrens (Bragok)  -- flight master Gryfe
+goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
+fly 1428 84.3,68.3 |from 1434 27.5,77.8 |npc Burning Steppes (Borgus Stoutarm) |value mid  -- flight master Gyll
 complete 8925 |at 1428 35.4,57.8 |value mid |class WARRIOR,PALADIN,HUNTER,ROGUE,PRIEST,MAGE,WARLOCK,DRUID |group chain  -- A Portable Power Source (60)
 complete 8921 |at 1428 60.1,40.4 |value mid |class WARRIOR,PALADIN,HUNTER,ROGUE,PRIEST,MAGE,WARLOCK,DRUID |group chain  -- The Ectoplasmic Distiller (60)
 fly 1455 55.5,47.7 |from 1428 84.3,68.3 |npc Ironforge (Gryth Thurden)  -- flight master Borgus Stoutarm
 accept 8922 |npc Deliana |at 1455 43.5,52.6 |class WARRIOR,PALADIN,HUNTER,ROGUE,PRIEST,MAGE,WARLOCK,DRUID |group chain  -- A Supernatural Device (60)
 turnin 8577 |npc Inconspicuous Crate |at 1421 46.2,86.7 |group chain  -- Stewvul, Ex-B.F.F. (60)
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
 turnin 4508 |npc Gracina Spiritmight |at 1457 41.8,85.6  -- Calm Before the Storm (54)
+goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
 turnin 8182 |npc Molthor |at 1434 15.0,15.1 |group chain  -- The Hand of Rastakhan (58)
-fly 1452 62.3,36.6 |from 1434 27.5,77.8 |npc Winterspring (Maethrya)  -- flight master Gyll
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
+fly 1452 62.3,36.6 |from 1413 63.1,37.2 |npc Winterspring (Maethrya)  -- flight master Bragok
 complete 8606 |at 1452 67.2,72.6 |item 21042 |mobs Number Two |group elite  -- Decoy! (60)
-fly 1422 42.9,85.1 |from 1452 62.3,36.6 |npc Western Plaguelands (Bibilfaz Featherwhistle)  -- flight master Maethrya
+fly 1413 63.1,37.2 |from 1452 62.3,36.6 |npc The Barrens (Bragok)  -- flight master Maethrya
+goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
+fly 1422 42.9,85.1 |from 1434 27.5,77.8 |npc Western Plaguelands (Bibilfaz Featherwhistle)  -- flight master Gyll
 turnin 5801 |npc Alchemist Arbington |at 1422 42.7,83.8  -- Fire Plume Forged (57)
-fly 1446 51.0,29.3 |from 1422 42.9,85.1 |npc Bera Stonehammer  -- flight master Bibilfaz Featherwhistle
+fly 1434 27.5,77.8 |from 1422 42.9,85.1 |npc Stranglethorn Vale (Gyll)  -- flight master Bibilfaz Featherwhistle
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
+fly 1446 51.0,29.3 |from 1413 63.1,37.2 |npc Bera Stonehammer  -- flight master Bragok
 accept 5801 |npc Krinkle Goodsteel |at 1446 51.5,28.8  -- Fire Plume Forged (57)
 turnin 8585 |npc Dirge Quikcleave |at 1446 52.6,28.1 |value mid |group elite  -- The Isle of Dread! (60)
 accept 8586 |npc Dirge Quikcleave |at 1446 52.6,28.1 |value mid |group chain  -- Dirge's Kickin' Chimaerok Chops (60)

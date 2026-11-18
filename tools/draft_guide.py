@@ -826,7 +826,7 @@ def add_home(zone, entries):
     inns = inns_for(zone)
     if not inns:
         return entries
-    pts = [(k, step_xy(zone, v, q)) for k, (v, q) in enumerate(entries) if v not in ("fly", "home")]
+    pts = [(k, step_xy(zone, v, q)) for k, (v, q) in enumerate(entries) if v not in ("fly", "home", "boat")]
     best, best_n = None, 0
     for xy, name in inns:
         n = sum(1 for _, p in pts if p and dist(p, xy) < HUB)
@@ -848,13 +848,76 @@ def nearest_fm(fms, m, xy):
     return best
 
 
+# Between continents there are no flights: boats and zeppelins (the same docks as Travel.lua's
+# CROSSINGS). faction None = anyone.
+CROSSINGS = [
+    ("boat", None, (1434, (25.8, 73.1), "Booty Bay"), (1413, (63.7, 38.6), "Ratchet")),
+    ("zeppelin", "H", (1434, (31.3, 29.2), "Grom'gol"), (1411, (50.8, 13.6), "Orgrimmar")),
+    ("zeppelin", "H", (1420, (60.8, 58.8), "Undercity"), (1411, (50.6, 12.6), "Orgrimmar")),
+    ("boat", "A", (1437, (4.6, 57.1), "Menethil Harbor"), (1445, (71.6, 56.4), "Theramore")),
+    ("boat", "A", (1437, (4.8, 63.6), "Menethil Harbor"), (1439, (32.4, 43.8), "Auberdine")),
+]
+_CONT = {}
+
+
+def continent(m):
+    """The continent a uiMap is on, from the game's AreaTable (via Questie's area -> map table)."""
+    if not _CONT:
+        import csv
+        from questiedb import area_to_uimap
+        path = pathlib.Path(__file__).resolve().parent / "data" / "db2" / "1.60.1.70938" / "AreaTable.csv"
+        conts = {int(r["ID"]): r["ContinentID"] for r in csv.DictReader(open(path, encoding="utf-8"))}
+        for area, um in area_to_uimap().items():
+            if area in conts:
+                _CONT.setdefault(um, conts[area])
+    return _CONT.get(m)
+
+
+def crossing(zone, m0, p0, m1, p1):
+    """The boat or zeppelin from continent(m0) to continent(m1) that makes the trip shortest:
+    (kind, (map, xy, name) here, (map, xy, name) there), or None. Docks on another map than the
+    start / end count as a flight away (60 map units)."""
+    c0, c1 = continent(m0), continent(m1)
+    best = None
+    for kind, fac, A, B in CROSSINGS:
+        if fac and fac != zone.faction[0]:
+            continue
+        for here, there in ((A, B), (B, A)):
+            if continent(here[0]) == c0 and continent(there[0]) == c1:
+                cost = (dist(p0, here[1]) if here[0] == m0 else 60) + (dist(there[1], p1) if there[0] == m1 else 60)
+                if best is None or cost < best[0]:
+                    best = (cost, (kind, here, there))
+    return best and best[1]
+
+
 def add_flights(zone, steps):
     """Insert ("fly", leg) entries where a route changes zone (fly out and back), or makes a long
-    run inside the zone that two of its flight masters cut short."""
+    run inside the zone that two of its flight masters cut short. A change of continent becomes
+    fly to the dock's flight master, ("boat", crossing), fly on from the far dock's flight master."""
     fms = flight_masters_for(zone)
     out, pos = [], None
+
+    def fly(a, b, ma, mb):
+        (_, pa, na), (_, pb, nb) = a, b
+        out.append(("fly", {"from": (ma, pa, na), "to": (mb, pb, nb), "zone": _NAMES.get(mb, "")}))
+
     for verb, q in steps:
         loc = step_loc(zone, verb, q)
+        if loc and pos and continent(pos[0]) != continent(loc[0]):
+            (m0, p0), (m1, p1) = pos, loc
+            cx = crossing(zone, m0, p0, m1, p1)
+            if cx:
+                kind, here, there = cx
+                a, dock_a = nearest_fm(fms, m0, p0), nearest_fm(fms, here[0], here[1])
+                if a and dock_a and a[1] != dock_a[1] and not (here[0] == m0 and dist(p0, here[1]) < FLY_MIN_LEG):
+                    fly(a, dock_a, m0, here[0])
+                out.append(("boat", {"kind": kind, "from": here, "to": there}))
+                dock_b, b = nearest_fm(fms, there[0], there[1]), nearest_fm(fms, m1, p1)
+                if dock_b and b and dock_b[1] != b[1] and not (there[0] == m1 and dist(there[1], p1) < FLY_MIN_LEG):
+                    fly(dock_b, b, there[0], m1)
+            out.append((verb, q))
+            pos = loc
+            continue
         if loc and pos:
             (m0, p0), (m1, p1) = pos, loc
             a, b = nearest_fm(fms, m0, p0), nearest_fm(fms, m1, p1)
@@ -918,18 +981,18 @@ def flight_tiers(zone, entries, tiers):
     """A flight is only worth taking when a quest it serves is kept: out-legs take the lowest
     tier of the steps after them (until the next flight), return legs the steps before them."""
     out = {}
-    fly_idx = [i for i, (v, _) in enumerate(entries) if v == "fly"]
+    fly_idx = [i for i, (v, _) in enumerate(entries) if v in ("fly", "boat")]
     for n, i in enumerate(fly_idx):
         leg = entries[i][1]
         prev_i = fly_idx[n - 1] if n > 0 else -1
         next_i = fly_idx[n + 1] if n + 1 < len(fly_idx) else len(entries)
-        if leg["to"][0] != zone.map:
+        if leg["to"][0] != zone.map:   # boats: from/to are (map, xy, name) like flights
             seg = entries[i + 1:next_i]
         elif leg["from"][0] != zone.map:
             seg = entries[prev_i + 1:i]
         else:
             seg = []
-        ts = [tiers.get(q["id"], 0) for v, q in seg if v not in ("fly", "home")]
+        ts = [tiers.get(q["id"], 0) for v, q in seg if v not in ("fly", "home", "boat")]
         out[i] = min(ts) if ts else 0
     return out
 
@@ -955,6 +1018,11 @@ def render(zone, steps, leftovers, levels, name, faction, gid=None, next_id=None
         if verb == "home":
             x, y = q["xy"]
             out.append(f"home |npc {clean(q['name'])} |at {q['map']} {x:.1f},{y:.1f}  -- set your hearthstone at the inn")
+            continue
+        if verb == "boat":
+            (fm, fp, fn), (tm, tp, tn) = q["from"], q["to"]
+            out.append(f"goto {fm} {fp[0]:.1f},{fp[1]:.1f} 15 |note Take the {q['kind']} to {clean(tn)}"
+                       f"{TIER_TAG.get(ftiers.get(idx, 0), '')}  -- {q['kind']} {clean(fn)} to {clean(tn)}")
             continue
         if verb == "fly":
             (fm, fp, fn), (tm, tp, tn) = q["from"], q["to"]

@@ -48,10 +48,10 @@ turnin 1239 |npc Nazeer Bloodpike |at 1445 35.2,30.7  -- The Severed Head (35)
 turnin 1202 |npc Nazeer Bloodpike |at 1445 35.2,30.7  -- The Theramore Docks (35)
 accept 1240 |npc Nazeer Bloodpike |at 1445 35.2,30.7  -- The Troll Witchdoctor (35)
 complete 1206 |at 1445 32.2,22.2 |mobs Darkmist Silkspinner@Unpopped Darkmist Eye;Darkmist Spider@Unpopped Darkmist Eye;Darkmist Lurker@Unpopped Darkmist Eye;Darkmist Recluse@Unpopped Darkmist Eye |value mid  -- Jarl Needs Eyes (35)
-fly 1434 32.5,29.4 |from 1445 35.6,31.9 |npc Stranglethorn Vale (Thysta)  -- flight master Shardi
+goto 1411 50.8,13.6 15 |note Take the zeppelin to Grom'gol  -- zeppelin Orgrimmar to Grom'gol
 turnin 1240 |npc Kin'weelay |at 1434 32.3,27.7  -- The Troll Witchdoctor (35)
 accept 1261 |npc Bubbling Cauldron |at 1434 32.2,27.6  -- Marg Speaks (40)
-fly 1456 47.0,49.8 |from 1434 32.5,29.4 |npc Thunder Bluff (Tal)  -- flight master Thysta
+goto 1434 31.3,29.2 15 |note Take the zeppelin to Orgrimmar  -- zeppelin Grom'gol to Orgrimmar
 accept 1205 |npc Melor Stonehoof |at 1456 61.5,80.9  -- Deadmire (45)
 fly 1445 35.6,31.9 |from 1456 47.0,49.8 |npc Shardi  -- flight master Tal
 complete 98192 |at 1445 33.1,65.7 |mobs Bloodfen Lashtail@Intact Raptor Hide;Bloodfen Razormaw@Intact Raptor Hide  -- Skin Careful, Skin Sharp (43)

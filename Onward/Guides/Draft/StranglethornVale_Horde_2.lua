@@ -72,6 +72,8 @@ turnin 592 |npc Nimboya |at 1434 32.2,27.7 |group chain  -- Saving Yenniku (46)
 fly 1435 46.1,54.8 |from 1434 32.5,29.4 |npc Swamp of Sorrows (Breyk)  -- flight master Thysta
 turnin 624 |npc A Soggy Scroll |at 1435 22.9,48.2  -- Cortello's Riddle (43)
 accept 625 |npc A Soggy Scroll |at 1435 22.9,48.2  -- Cortello's Riddle (43)
-fly 1445 35.6,31.9 |from 1435 46.1,54.8 |npc Dustwallow Marsh (Shardi)  -- flight master Breyk
+fly 1434 26.9,77.1 |from 1435 46.1,54.8 |npc Gringer  -- flight master Breyk
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
+fly 1445 35.6,31.9 |from 1413 63.1,37.2 |npc Dustwallow Marsh (Shardi)  -- flight master Bragok
 turnin 625 |npc Musty Scroll |at 1445 31.1,66.1  -- Cortello's Riddle (43)
 ]]}

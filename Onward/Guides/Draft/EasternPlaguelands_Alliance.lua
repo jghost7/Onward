@@ -35,9 +35,13 @@ accept 5152 |npc Pamela Redpath |at 1423 31.1,78.0  -- Auntie Marlene (56)
 fly 1422 42.9,85.1 |from 1423 71.8,49.6 |npc Western Plaguelands (Bibilfaz Featherwhistle)  -- flight master Khaelyn Steelwing
 accept 5210 |npc Chromie |at 1422 39.5,66.8  -- Brother Carlin (56)
 turnin 5152 |npc Marlene Redpath |at 1422 49.2,78.6  -- Auntie Marlene (56)
-fly 1446 51.0,29.3 |from 1422 42.9,85.1 |npc Tanaris (Bera Stonehammer)  -- flight master Bibilfaz Featherwhistle
+fly 1434 27.5,77.8 |from 1422 42.9,85.1 |npc Stranglethorn Vale (Gyll)  -- flight master Bibilfaz Featherwhistle
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
+fly 1446 51.0,29.3 |from 1413 63.1,37.2 |npc Tanaris (Bera Stonehammer)  -- flight master Bragok
 accept 5065 |npc Prospector Ironboot |at 1446 66.9,24.0 |group chain  -- The Lost Tablets of Mosh'aru (58)
-fly 1423 71.8,49.6 |from 1446 51.0,29.3 |npc Khaelyn Steelwing  -- flight master Bera Stonehammer
+fly 1413 63.1,37.2 |from 1446 51.0,29.3 |npc The Barrens (Bragok)  -- flight master Bera Stonehammer
+goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
+fly 1423 71.8,49.6 |from 1434 27.5,77.8 |npc Khaelyn Steelwing  -- flight master Gyll
 accept 5781 |npc Tirion Fordring |at 1423 5.2,35.6  -- Of Forgotten Memories (57)
 accept 5542 |npc Tirion Fordring |at 1423 5.2,35.6  -- Demon Dogs (56)
 accept 5544 |npc Tirion Fordring |at 1423 5.2,35.6  -- Carrion Grubbage (56)
@@ -102,12 +106,16 @@ complete 5153 |at 1422 49.7,76.8  -- A Strange Historian (56)
 turnin 5153 |npc Chromie |at 1422 39.5,66.8  -- A Strange Historian (56)
 fly 1453 71.3,72.2 |from 1422 42.9,85.1 |npc Stormwind City (Dungar Longdrink)  -- flight master Bibilfaz Featherwhistle
 accept 6187 |npc Highlord Bolvar Fordragon |at 1453 80.2,38.4 |group elite  -- Order Must Be Restored (60)
-fly 1452 62.3,36.6 |from 1453 71.3,72.2 |npc Winterspring (Maethrya)  -- flight master Dungar Longdrink
+fly 1434 27.5,77.8 |from 1453 71.3,72.2 |npc Stranglethorn Vale (Gyll)  -- flight master Dungar Longdrink
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
+fly 1452 62.3,36.6 |from 1413 63.1,37.2 |npc Winterspring (Maethrya)  -- flight master Bragok
 turnin 5248 |npc Remorseful Highborne |at 1452 56.1,44.4  -- Tormented By the Past (58)
 accept 5464 |group chain  -- Menethil's Gift (60)
 fly 1446 51.0,29.3 |from 1452 62.3,36.6 |npc Tanaris (Bera Stonehammer)  -- flight master Maethrya
 turnin 5065 |npc Prospector Ironboot |at 1446 66.9,24.0 |group chain  -- The Lost Tablets of Mosh'aru (58)
-fly 1455 55.5,47.7 |from 1446 51.0,29.3 |npc Ironforge (Gryth Thurden)  -- flight master Bera Stonehammer
+fly 1413 63.1,37.2 |from 1446 51.0,29.3 |npc The Barrens (Bragok)  -- flight master Bera Stonehammer
+goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
+fly 1455 55.5,47.7 |from 1434 27.5,77.8 |npc Ironforge (Gryth Thurden)  -- flight master Gyll
 accept 8929 |npc Deliana |at 1455 43.5,52.6 |class WARRIOR,PALADIN,HUNTER,ROGUE,PRIEST,MAGE,WARLOCK,DRUID |group chain  -- In Search of Anthion (60)
 accept 8946 |class WARRIOR,PALADIN,HUNTER,ROGUE,PRIEST,MAGE,WARLOCK,DRUID |group chain  -- Proof of Life (60)
 fly 1423 71.8,49.6 |from 1455 55.5,47.7 |npc Khaelyn Steelwing  -- flight master Gryth Thurden

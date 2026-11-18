@@ -66,9 +66,11 @@ accept 92749 |npc Sprite Jumpsprocket |at 1453 61.9,30.6 |value mid  -- A Dynami
 fly 1433 25.5,59.4 |from 1453 71.3,72.2 |npc Redridge Mountains (Ariena Stormfeather)  -- flight master Dungar Longdrink
 turnin 65 |npc Wiley the Black |at 1433 21.4,45.4  -- The Defias Brotherhood (18)
 accept 132 |npc Wiley the Black |at 1433 21.4,45.4  -- The Defias Brotherhood (18)
-fly 1413 63.1,37.2 |from 1433 25.5,59.4 |npc The Barrens (Bragok)  -- flight master Ariena Stormfeather
+fly 1434 27.5,77.8 |from 1433 25.5,59.4 |npc Stranglethorn Vale (Gyll)  -- flight master Ariena Stormfeather
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
 turnin 79008 |npc Burned-Out Remains |at 1413 46.4,73.9  -- ... and that note you found (22)
-fly 1436 56.5,52.6 |from 1413 63.1,37.2 |npc Thor  -- flight master Bragok
+goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
+fly 1436 56.5,52.6 |from 1434 27.5,77.8 |npc Thor  -- flight master Gyll
 accept 104 |npc Captain Grayson |at 1436 30.0,86.0  -- The Coastal Menace (20)
 accept 152 |npc Captain Grayson |at 1436 30.0,86.0  -- The Coast Isn't Clear (19)
 accept 103 |npc Captain Grayson |at 1436 30.0,86.0  -- Keeper of the Flame (16)

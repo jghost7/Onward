@@ -73,12 +73,22 @@ turnin 5084 |npc Deadwood Cauldron |at 1448 60.2,5.8  -- Falling to Corruption (
 turnin 5128 |npc Kelek Skykeeper |at 1448 51.1,81.8  -- Words of the High Chief (59)
 accept 5085 |npc Deadwood Cauldron |at 1448 60.2,5.8  -- Mystery Goo (56)
 turnin 5253 |npc Arch Druid Fandral Staghelm |at 1457 34.8,9.3  -- The Crystal of Zin-Malor (58)
+goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
+fly 1423 71.8,49.6 |from 1434 27.5,77.8 |npc Eastern Plaguelands (Khaelyn Steelwing)  -- flight master Gyll
 turnin 6030 |npc Duke Nicholas Zverenhoff |at 1423 71.6,50.1  -- Duke Nicholas Zverenhoff (52)
 turnin 5245 |npc Aurora Skycaller |at 1423 46.5,16.0  -- Troubled Spirits of Kel'Theril (56)
-fly 1438 58.4,94.0 |from 1423 71.8,49.6 |npc Teldrassil (Vesprystus)  -- flight master Khaelyn Steelwing
+fly 1434 27.5,77.8 |from 1423 71.8,49.6 |npc Stranglethorn Vale (Gyll)  -- flight master Khaelyn Steelwing
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
+fly 1438 58.4,94.0 |from 1413 63.1,37.2 |npc Teldrassil (Vesprystus)  -- flight master Bragok
 accept 4902 |npc Erelas Ambersky |at 1438 55.5,92.0  -- Wildkin of Elune (57)
-fly 1428 84.3,68.3 |from 1438 58.4,94.0 |npc Burning Steppes (Borgus Stoutarm)  -- flight master Vesprystus
+fly 1413 63.1,37.2 |from 1438 58.4,94.0 |npc The Barrens (Bragok)  -- flight master Vesprystus
+goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
+fly 1428 84.3,68.3 |from 1434 27.5,77.8 |npc Burning Steppes (Borgus Stoutarm) |value mid  -- flight master Gyll
 turnin 4810 |npc Tinkee Steamboil |at 1428 65.2,24.0 |value mid  -- Return to Tinkee (54)
+fly 1434 27.5,77.8 |from 1428 84.3,68.3 |npc Stranglethorn Vale (Gyll)  -- flight master Borgus Stoutarm
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
 turnin 4902 |npc Arch Druid Fandral Staghelm |at 1457 34.8,9.3  -- Wildkin of Elune (57)
+goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
+fly 1422 42.9,85.1 |from 1434 27.5,77.8 |npc Western Plaguelands (Bibilfaz Featherwhistle)  -- flight master Gyll
 turnin 6028 |npc Argent Officer Pureheart |at 1422 43.0,83.5  -- The Everlook Report (52)
 ]]}

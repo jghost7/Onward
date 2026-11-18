@@ -150,5 +150,7 @@ turnin 600 |npc Crank Fizzlebub |at 1434 27.1,77.2  -- Venture Company Mining (4
 turnin 587 |npc Deeg |at 1434 26.9,77.3  -- Up to Snuff (41)
 turnin 95141 |npc Krom'rosh |at 2548 59.4,45.6  -- Report to Rog'mar (38)
 turnin 638 |npc Zengu |at 1417 73.8,34.0  -- Trollbane (37)
+fly 1434 26.9,77.1 |from 1417 73.0,32.7 |npc Gringer  -- flight master Urda
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
 turnin 96078 |npc Master Gadrin |at 1411 56.0,74.7  -- A Tale Spun Around the Fire (40)
 ]]}

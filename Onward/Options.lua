@@ -386,7 +386,8 @@ choice(2, "theme", "Look", {
     { value = "twilight", label = "Twilight", tip = function() return lookTip("Violet glass with teal highlights.") end },
     { value = "alliance", label = "Alliance", tip = function() return lookTip("Navy glass with a blue edge and gold highlights.") end },
     { value = "horde", label = "Horde", tip = function() return lookTip("Dark blood-iron glass with a bronze edge and ember-red highlights.") end },
-    { value = "verdant", label = "Verdant", tip = function() return lookTip("Forest-green glass with amber highlights.") end },
+    { value = "feywood", label = "Feywood", tip = function() return lookTip("A mystical forest: deep moss glass with a violet edge and glowing fae-green highlights.") end },
+    { value = "neon", label = "Neon", tip = function() return lookTip("Deep purple glass with a teal edge and hot-pink highlights.") end },
 }, nil, function() S.Refresh() end)
 fontPicker(2, "Font", "The font for all of Onward's text: the panel, the arrow and this window. Automatic uses your EllesmereUI font when it's installed, otherwise each look's own fonts. The list has the game's fonts and any font your other addons share (SharedMedia and addons built on it).")
 slider(2, "showNext", "Upcoming steps shown", 0, 8, 1, "%d")

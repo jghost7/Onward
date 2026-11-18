@@ -45,7 +45,8 @@ S.PALETTES = {
     twilight = { accent = { 0.24, 0.86, 0.80 }, tint = { 0.072, 0.045, 0.118 }, rim = { 0.24, 0.86, 0.80, 0.24 } },  -- teal on violet
     alliance = { accent = { 0.96, 0.80, 0.34 }, tint = { 0.030, 0.062, 0.140 }, rim = { 0.40, 0.62, 1.00, 0.30 } },  -- gold on navy, blue edge
     horde    = { accent = { 0.95, 0.33, 0.24 }, tint = { 0.105, 0.036, 0.032 }, rim = { 0.80, 0.52, 0.26, 0.28 } },  -- ember on blood-iron, bronze edge
-    verdant  = { accent = { 0.98, 0.70, 0.28 }, tint = { 0.028, 0.078, 0.048 }, rim = { 0.55, 0.80, 0.45, 0.22 } },  -- amber on forest, leaf edge
+    feywood  = { accent = { 0.62, 0.98, 0.66 }, tint = { 0.020, 0.070, 0.058 }, rim = { 0.66, 0.48, 1.00, 0.26 } },  -- glowing fae green on deep moss, violet edge
+    neon     = { accent = { 1.00, 0.32, 0.72 }, tint = { 0.078, 0.034, 0.112 }, rim = { 0.20, 0.88, 0.82, 0.30 } },  -- hot pink on deep purple, teal edge
 }
 local THEMES = { onward = true, flat = true, glass = true }
 for k in pairs(S.PALETTES) do THEMES[k] = true end

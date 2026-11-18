@@ -85,6 +85,7 @@ accept 4883 |npc Trull Failbane |at 1448 34.7,52.8  -- Guarding Secrets (59)
 turnin 5128 |npc Kelek Skykeeper |at 1448 51.1,81.8  -- Words of the High Chief (59)
 fly 1456 47.0,49.8 |from 1448 34.4,54.0 |npc Thunder Bluff (Tal)  -- flight master Brakkar
 turnin 4883 |npc Nara Wildmane |at 1456 75.7,31.6  -- Guarding Secrets (59)
+goto 1411 50.6,12.6 15 |note Take the zeppelin to Undercity  -- zeppelin Orgrimmar to Undercity
 turnin 6029 |npc Argent Officer Garush |at 1420 83.2,68.5  -- The Everlook Report (52)
 turnin 6030 |npc Duke Nicholas Zverenhoff |at 1423 71.6,50.1  -- Duke Nicholas Zverenhoff (52)
 fly 1428 65.7,24.2 |from 1423 70.5,47.5 |npc Burning Steppes (Vahgruk) |value mid  -- flight master Georgia

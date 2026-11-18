@@ -39,9 +39,13 @@ accept 2941 |npc Daryn Lightwind |at 1438 55.4,92.2  -- The Borrower (48)
 fly 1446 51.0,29.3 |from 1438 58.4,94.0 |npc Tanaris (Bera Stonehammer)  -- flight master Vesprystus
 turnin 2941 |npc Curgle Cranklehop |at 1446 52.4,26.9  -- The Borrower (48)
 accept 2944 |npc Curgle Cranklehop |at 1446 52.4,26.9 |group elite  -- The Super Snapper FX (48)
-fly 1425 11.1,46.1 |from 1446 51.0,29.3 |npc The Hinterlands (Guthrum Thunderfist)  -- flight master Bera Stonehammer
+fly 1413 63.1,37.2 |from 1446 51.0,29.3 |npc The Barrens (Bragok)  -- flight master Bera Stonehammer
+goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
+fly 1425 11.1,46.1 |from 1434 27.5,77.8 |npc The Hinterlands (Guthrum Thunderfist)  -- flight master Gyll
 complete 2944 |at 1425 80.4,58.2 |item 9328 |group elite  -- The Super Snapper FX (48)
-fly 1438 58.4,94.0 |from 1425 11.1,46.1 |npc Teldrassil (Vesprystus)  -- flight master Guthrum Thunderfist
+fly 1434 27.5,77.8 |from 1425 11.1,46.1 |npc Stranglethorn Vale (Gyll)  -- flight master Guthrum Thunderfist
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
+fly 1438 58.4,94.0 |from 1413 63.1,37.2 |npc Teldrassil (Vesprystus)  -- flight master Bragok
 turnin 2944 |npc Daryn Lightwind |at 1438 55.4,92.2 |group elite  -- The Super Snapper FX (48)
 accept 2943 |npc Daryn Lightwind |at 1438 55.4,92.2 |group chain  -- Return to Troyas (48)
 turnin 2972 |npc Tyrande Whisperwind |at 1457 39.1,81.6  -- Doling Justice (47)
@@ -87,9 +91,13 @@ accept 3842 |npc Quentin |at 1441 78.3,74.7  -- A Short Incubation (47)
 complete 3842  -- A Short Incubation (47)
 turnin 3842 |npc Quentin |at 1441 78.3,74.7  -- A Short Incubation (47)
 accept 3843 |npc Quentin |at 1441 78.3,74.7  -- The Newest Member of the Family (47)
+goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
+fly 1425 11.1,46.1 |from 1434 27.5,77.8 |npc The Hinterlands (Guthrum Thunderfist)  -- flight master Gyll
 turnin 3843 |npc Agnar Beastamer |at 1425 14.2,43.6  -- The Newest Member of the Family (47)
 accept 4297 |npc Agnar Beastamer |at 1425 14.2,43.6  -- Food for Baby (47)
-fly 1444 30.2,43.2 |from 1425 11.1,46.1 |npc Fyldren Moonfeather  -- flight master Guthrum Thunderfist
+fly 1434 27.5,77.8 |from 1425 11.1,46.1 |npc Stranglethorn Vale (Gyll)  -- flight master Guthrum Thunderfist
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
+fly 1444 30.2,43.2 |from 1413 63.1,37.2 |npc Fyldren Moonfeather  -- flight master Bragok
 complete 2870 |at 1444 28.5,70.5 |mobs Lord Shalzaru@Mysterious Relic  -- Against Lord Shalzaru (45)
 complete 4297 |at 1444 52.0,60.9 |mobs Bloodroar the Stalker  -- Food for Baby (47)
 complete 7721 |at 1444 45.9,51.7 |mobs Sea Spray@Water Elemental Core;Sea Elemental@Water Elemental Core |value mid  -- Fuel for the Zapping (48)
@@ -104,10 +112,14 @@ turnin 2870 |npc Latronicus Moonspear |at 1444 30.4,46.2  -- Against Lord Shalza
 turnin 92858 |npc Latronicus Moonspear |at 1444 30.4,46.2 |group elite  -- WANTED: Ohk'zi (43)
 accept 2871 |npc Latronicus Moonspear |at 1444 30.4,46.2  -- Delivering the Relic (45)
 turnin 2871 |npc Vestia Moonspear |at 1444 30.1,45.1  -- Delivering the Relic (45)
-fly 1425 11.1,46.1 |from 1444 30.2,43.2 |npc The Hinterlands (Guthrum Thunderfist)  -- flight master Fyldren Moonfeather
+fly 1413 63.1,37.2 |from 1444 30.2,43.2 |npc The Barrens (Bragok)  -- flight master Fyldren Moonfeather
+goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
+fly 1425 11.1,46.1 |from 1434 27.5,77.8 |npc The Hinterlands (Guthrum Thunderfist)  -- flight master Gyll
 turnin 4297 |npc Agnar Beastamer |at 1425 14.2,43.6  -- Food for Baby (47)
 accept 4298 |npc Agnar Beastamer |at 1425 14.2,43.6  -- Becoming a Parent (48)
 turnin 4298 |npc Agnar Beastamer |at 1425 14.2,43.6  -- Becoming a Parent (48)
-fly 1446 51.0,29.3 |from 1425 11.1,46.1 |npc Tanaris (Bera Stonehammer)  -- flight master Guthrum Thunderfist
+fly 1434 27.5,77.8 |from 1425 11.1,46.1 |npc Stranglethorn Vale (Gyll)  -- flight master Guthrum Thunderfist
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
+fly 1446 51.0,29.3 |from 1413 63.1,37.2 |npc Tanaris (Bera Stonehammer)  -- flight master Bragok
 turnin 3445 |npc Marvon Rivetseeker |at 1446 52.7,45.9  -- The Sunken Temple (51)
 ]]}

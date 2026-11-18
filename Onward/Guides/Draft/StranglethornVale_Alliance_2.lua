@@ -73,7 +73,9 @@ turnin 617 |npc Privateer Bloads |at 1434 26.8,76.4  -- Akiris by the Bundle (43
 accept 623 |npc Privateer Bloads |at 1434 26.8,76.4  -- Akiris by the Bundle (43)
 turnin 624 |npc A Soggy Scroll |at 1435 22.9,48.2  -- Cortello's Riddle (43)
 accept 625 |npc A Soggy Scroll |at 1435 22.9,48.2  -- Cortello's Riddle (43)
+goto 1437 4.6,57.1 15 |note Take the boat to Theramore  -- boat Menethil Harbor to Theramore
 turnin 623 |npc Privateer Groy |at 1445 68.8,53.2  -- Akiris by the Bundle (43)
 turnin 625 |npc Musty Scroll |at 1445 31.1,66.1  -- Cortello's Riddle (43)
+goto 1445 71.6,56.4 15 |note Take the boat to Menethil Harbor  -- boat Theramore to Menethil Harbor
 turnin 97332 |npc Wharfmaster Whizzbuzz |at 2548 79.5,52.7  -- Twice Misplaced Trust (41)
 ]]}

@@ -14,9 +14,11 @@ accept 615  -- The Captain's Cutlass (51)
 turnin 615  -- The Captain's Cutlass (51)
 turnin 7810 |npc Short John Mithril |at 1434 29.6,47.4  -- Arena Master (55)
 accept 618 |value mid |group elite  -- Facing Negolash (50)
-fly 1445 35.6,31.9 |from 1434 32.5,29.4 |npc Dustwallow Marsh (Shardi)  -- flight master Thysta
+goto 1434 31.3,29.2 15 |note Take the zeppelin to Orgrimmar  -- zeppelin Grom'gol to Orgrimmar
 accept 626 |npc Musty Scroll |at 1445 31.1,66.1  -- Cortello's Riddle (51)
-fly 1425 81.7,81.8 |from 1445 35.6,31.9 |npc The Hinterlands (Gorkas)  -- flight master Shardi
+fly 1413 63.1,37.2 |from 1445 35.6,31.9 |npc The Barrens (Bragok)  -- flight master Shardi
+goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
+fly 1425 81.7,81.8 |from 1434 26.9,77.1 |npc The Hinterlands (Gorkas)  -- flight master Gringer
 turnin 626 |npc Cortello's Treasure |at 1425 80.8,46.8  -- Cortello's Riddle (51)
 complete 580 |at 1425 77.4,70.3  -- Whiskey Slim's Lost Grog (50)
 fly 1434 26.9,77.1 |from 1425 81.7,81.8 |npc Gringer  -- flight master Gorkas

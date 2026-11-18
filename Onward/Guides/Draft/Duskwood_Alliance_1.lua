@@ -50,9 +50,11 @@ accept 5 |npc Jitters |at 1431 18.4,56.4  -- Jitters' Growling Gut (20)
 fly 1436 56.5,52.6 |from 1431 77.5,44.3 |npc Westfall (Thor)  -- flight master Felicia Maline
 turnin 67 |npc Old Footlocker |at 1436 41.5,66.7  -- The Legend of Stalvan (28)
 accept 68 |npc Old Footlocker |at 1436 41.5,66.7  -- The Legend of Stalvan (28)
-fly 1413 63.1,37.2 |from 1436 56.5,52.6 |npc The Barrens (Bragok)  -- flight master Thor
+fly 1434 27.5,77.8 |from 1436 56.5,52.6 |npc Stranglethorn Vale (Gyll)  -- flight master Thor
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
 complete 174 |at 1413 47.8,84.9  -- Look To The Stars (25)
-fly 1431 77.5,44.3 |from 1413 63.1,37.2 |npc Felicia Maline  -- flight master Bragok
+goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
+fly 1431 77.5,44.3 |from 1434 27.5,77.8 |npc Felicia Maline  -- flight master Gyll
 turnin 230 |npc Sven Yorgen |at 1431 7.8,34.1  -- Sven's Camp (25)
 accept 262 |npc Sven Yorgen |at 1431 7.8,34.1  -- The Shadowy Figure (25)
 accept 81733 |npc Field Captain Palandar |at 1431 45.6,51.2  -- Duskwood Mission IV: Ogre Intelligence (27)

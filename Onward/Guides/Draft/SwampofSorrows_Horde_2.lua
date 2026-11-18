@@ -35,8 +35,12 @@ accept 3374 |at 1435 13.7,71.7 |note Starts from Oathstone of Ysera's Dragonflig
 complete 3374 |at 1435 39.1,47.3 |item 10589 |mobs Swamp Jaguar;Swamp Talker |value mid  -- The Essence of Eranikus (55)
 turnin 3374 |npc Itharius |at 1435 13.7,71.7 |value mid  -- The Essence of Eranikus (55)
 accept 3512 |npc Itharius |at 1435 13.7,71.7 |value mid  -- In Eranikus' Own Words (55)
-fly 1452 60.5,36.3 |from 1435 46.1,54.8 |npc Winterspring (Yugrek) |value mid  -- flight master Breyk
+fly 1434 26.9,77.1 |from 1435 46.1,54.8 |npc Stranglethorn Vale (Gringer)  -- flight master Breyk
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
+fly 1452 60.5,36.3 |from 1413 63.1,37.2 |npc Winterspring (Yugrek) |value mid  -- flight master Bragok
 turnin 3512 |npc Umbranse the Spiritspeaker |at 1452 67.8,27.4 |value mid  -- In Eranikus' Own Words (55)
-fly 1425 81.7,81.8 |from 1452 60.5,36.3 |npc The Hinterlands (Gorkas)  -- flight master Yugrek
+fly 1413 63.1,37.2 |from 1452 60.5,36.3 |npc The Barrens (Bragok)  -- flight master Yugrek
+goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
+fly 1425 81.7,81.8 |from 1434 26.9,77.1 |npc The Hinterlands (Gorkas)  -- flight master Gringer
 turnin 1429 |npc Atal'ai Exile |at 1425 33.8,75.2  -- The Atal'ai Exile (44)
 ]]}

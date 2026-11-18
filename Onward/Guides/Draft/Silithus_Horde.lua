@@ -21,13 +21,17 @@ accept 8858 |npc Colossus Researcher Eazel |at 1451 49.5,37.3  -- Secrets of the
 accept 8318 |npc Bor Wildmane |at 1451 48.6,37.8 |value low  -- Secret Communication (60)
 complete 8315 |at 1451 48.8,58.1 |item 20464 |mobs Emissary Roman'khan@Crystal Unlocking Mechanism |group elite  -- The Calling (60)
 complete 8278 |at 1451 39.7,71.3 |mobs Stonelash Pincer@Stonelash Pincer Stinger;Stonelash Flayer@Stonelash Flayer Stinger;Rock Stalker@Rock Stalker Fang |value mid  -- Noggle's Last Hope (57)
-fly 1427 34.8,30.9 |from 1451 48.7,36.7 |npc Searing Gorge (Grisha)  -- flight master Runk Windtamer
+fly 1413 63.1,37.2 |from 1451 48.7,36.7 |npc The Barrens (Bragok)  -- flight master Runk Windtamer
+goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
+fly 1427 34.8,30.9 |from 1434 26.9,77.1 |npc Searing Gorge (Grisha)  -- flight master Gringer
 turnin 8858 |npc Overseer Oilfist |at 1427 38.1,27.0  -- Secrets of the Colossus - Regal (60)
 fly 1434 26.9,77.1 |from 1427 34.8,30.9 |npc Stranglethorn Vale (Gringer)  -- flight master Grisha
 turnin 8857 |npc Oglethorpe Obnoticus |at 1434 28.4,76.3  -- Secrets of the Colossus - Ashi (60)
 fly 1423 70.5,47.5 |from 1434 26.9,77.1 |npc Eastern Plaguelands (Georgia)  -- flight master Gringer
 turnin 8859 |npc Lord Maxwell Tyrosus |at 1423 71.9,48.4  -- Secrets of the Colossus - Zora (60)
-fly 1451 48.7,36.7 |from 1423 70.5,47.5 |npc Runk Windtamer  -- flight master Georgia
+fly 1434 26.9,77.1 |from 1423 70.5,47.5 |npc Stranglethorn Vale (Gringer)  -- flight master Georgia
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
+fly 1451 48.7,36.7 |from 1413 63.1,37.2 |npc Runk Windtamer  -- flight master Bragok
 complete 8284 |at 1451 24.4,11.8 |value mid  -- The Twilight Mystery (58)
 turnin 8304 |npc Commander Mar'alith |at 1451 49.2,34.2  -- Dearest Natalia (60)
 turnin 8301 |npc Baristolth of the Shifting Sands |at 1451 49.5,36.5 |group chain  -- The Path of the Righteous (60)

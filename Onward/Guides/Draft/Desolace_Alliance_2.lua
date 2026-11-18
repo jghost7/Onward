@@ -32,7 +32,9 @@ accept 79235 |npc Bibbly F'utzbuckle |at 1443 62.3,39.0  -- On the Lam (40)
 turnin 93224 |npc Captain Pentigast |at 1443 66.7,10.9 |value mid  -- Carved Centaur Totems (40)
 turnin 1466 |npc Kreldig Ungor |at 1443 66.2,9.6 |value mid  -- Reagents for Reclaimers Inc. (40)
 accept 1467 |npc Kreldig Ungor |at 1443 66.2,9.6 |value mid  -- Reagents for Reclaimers Inc. (40)
-fly 1455 55.5,47.7 |from 1443 64.7,10.5 |npc Ironforge (Gryth Thurden) |value mid  -- flight master Baritanas Skyriver
+fly 1413 63.1,37.2 |from 1443 64.7,10.5 |npc The Barrens (Bragok)  -- flight master Baritanas Skyriver
+goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
+fly 1455 55.5,47.7 |from 1434 27.5,77.8 |npc Ironforge (Gryth Thurden) |value mid  -- flight master Gyll
 turnin 1467 |npc Roetten Stonehammer |at 1455 70.0,21.3 |value mid  -- Reagents for Reclaimers Inc. (40)
 fly 1434 27.5,77.8 |from 1455 55.5,47.7 |npc Stranglethorn Vale (Gyll)  -- flight master Gryth Thurden
 turnin 79235 |npc Tokal |at 1434 27.0,77.3  -- On the Lam (40)

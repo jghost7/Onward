@@ -62,9 +62,13 @@ fly 1454 45.1,63.9 |from 1444 75.5,44.4 |npc Orgrimmar (Doras)  -- flight master
 turnin 2976 |npc Belgrom Rockmaul |at 1454 75.2,34.2  -- A Grim Discovery (45)
 turnin 3002 |npc Uthel'nay |at 1454 39.2,86.3  -- The Gordunni Orb (47)
 turnin 7732 |npc Zilzibin Drumlore |at 1454 56.3,46.7  -- Zukk'ash Report (48)
-fly 1425 81.7,81.8 |from 1454 45.1,63.9 |npc The Hinterlands (Gorkas)  -- flight master Doras
+fly 1413 63.1,37.2 |from 1454 45.1,63.9 |npc The Barrens (Bragok)  -- flight master Doras
+goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
+fly 1425 81.7,81.8 |from 1434 26.9,77.1 |npc The Hinterlands (Gorkas)  -- flight master Gringer
 complete 3123 |at 1425 55.2,51.4 |item 9618  -- Testing the Vessel (47)
-fly 1448 34.4,54.0 |from 1425 81.7,81.8 |npc Felwood (Brakkar)  -- flight master Gorkas
+fly 1434 26.9,77.1 |from 1425 81.7,81.8 |npc Stranglethorn Vale (Gringer)  -- flight master Gorkas
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
+fly 1448 34.4,54.0 |from 1413 63.1,37.2 |npc Felwood (Brakkar)  -- flight master Bragok
 complete 4120 |at 1448 56.6,19.4 |mobs Angerclaw Grizzly;Felpaw Ravager  -- The Strength of Corruption (52)
 fly 1444 75.5,44.4 |from 1448 34.4,54.0 |npc Shyn  -- flight master Brakkar
 complete 3063 |at 1444 39.1,13.1 |mobs Northspring Harpy;Northspring Roguefeather;Northspring Slayer;Northspring Windcaller  -- Vengeance on the Northspring (50)

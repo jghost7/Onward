@@ -110,18 +110,26 @@ turnin 1483 |npc Ziz Fizziks |at 1442 59.0,62.6  -- Ziz Fizziks (21)
 turnin 79192 |npc Pocket Litter |at 1442 40.8,52.6  -- Stepping Stones (24)
 fly 1456 47.0,49.8 |from 1442 45.1,59.8 |npc Thunder Bluff (Tal)  -- flight master Tharm
 turnin 3369 |npc Arch Druid Hamuul Runetotem |at 1456 78.6,28.6  -- In Nightmares (25)
-fly 1458 63.2,48.6 |from 1456 47.0,49.8 |npc Undercity (Michael Garrett)  -- flight master Tal
+fly 1413 63.1,37.2 |from 1456 47.0,49.8 |npc Bragok  -- flight master Tal
+goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
+fly 1458 63.2,48.6 |from 1434 26.9,77.1 |npc Undercity (Michael Garrett)  -- flight master Gringer
 accept 1109 |npc Master Apothecary Faranell |at 1458 48.8,69.3 |group dungeon  -- Going, Going, Guano! (33)
-fly 1454 45.1,63.9 |from 1458 63.2,48.6 |npc Orgrimmar (Doras)  -- flight master Michael Garrett
+fly 1434 26.9,77.1 |from 1458 63.2,48.6 |npc Stranglethorn Vale (Gringer)  -- flight master Michael Garrett
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
+fly 1454 45.1,63.9 |from 1413 63.1,37.2 |npc Orgrimmar (Doras)  -- flight master Bragok
 turnin 1145 |npc Belgrom Rockmaul |at 1454 75.2,34.2  -- The Swarm Grows (33)
 accept 3924 |npc Rilli Greasygob |at 1454 76.5,24.4  -- Samophlange Manual (19)
 fly 1440 73.2,61.6 |from 1454 45.1,63.9 |npc Ashenvale (Vhulgra)  -- flight master Doras
 turnin 6382 |npc Senani Thunderheart |at 1440 73.8,61.5  -- The Ashenvale Hunt (20)
 complete 1109 |group dungeon  -- Going, Going, Guano! (33)
-fly 1458 63.2,48.6 |from 1440 73.2,61.6 |npc Undercity (Michael Garrett)  -- flight master Vhulgra
+fly 1413 63.1,37.2 |from 1440 73.2,61.6 |npc Bragok  -- flight master Vhulgra
+goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
+fly 1458 63.2,48.6 |from 1434 26.9,77.1 |npc Undercity (Michael Garrett)  -- flight master Gringer
 turnin 1109 |npc Master Apothecary Faranell |at 1458 48.8,69.3 |group dungeon  -- Going, Going, Guano! (33)
 turnin 79007 |npc Burned-Out Remains |at 1436 37.4,50.7  -- ... and that note you found (22)
 complete 3924  -- Samophlange Manual (19)
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
+fly 1454 45.1,63.9 |from 1413 63.1,37.2 |npc Orgrimmar (Doras)  -- flight master Bragok
 turnin 3924 |npc Rilli Greasygob |at 1454 76.5,24.4  -- Samophlange Manual (19)
 fly 1413 44.5,59.1 |from 1454 45.1,63.9 |npc Omusa Thunderhorn  -- flight master Doras
 turnin 1153 |npc Tatternack Steelforge |at 1413 45.1,57.7  -- A New Ore Sample (29)

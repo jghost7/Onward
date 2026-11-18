@@ -27,9 +27,10 @@ complete 973 |at 1440 25.3,60.7  -- The Tower of Althalaxx (24)
 turnin 973 |npc Delgren the Purifier |at 1440 26.2,38.7  -- The Tower of Althalaxx (24)
 turnin 741 |npc Chief Archaeologist Greywhisker |at 1457 31.2,84.5  -- The Absent Minded Prospector (20)
 accept 942 |npc Chief Archaeologist Greywhisker |at 1457 31.2,84.5  -- The Absent Minded Prospector (20)
+goto 1439 32.4,43.8 15 |note Take the boat to Menethil Harbor  -- boat Auberdine to Menethil Harbor
 turnin 942 |npc Archaeologist Flagongut |at 1437 10.8,60.4  -- The Absent Minded Prospector (20)
 accept 943 |npc Archaeologist Flagongut |at 1437 10.8,60.4  -- The Absent Minded Prospector (24)
-fly 1439 36.3,45.6 |from 1437 9.5,59.7 |npc Caylais Moonfeather  -- flight master Shellei Brondir
+goto 1437 4.8,63.6 15 |note Take the boat to Auberdine  -- boat Menethil Harbor to Auberdine
 turnin 729 |npc Prospector Remtravel |at 1439 35.7,83.7  -- The Absent Minded Prospector (20)
 complete 943 |at 1439 36.2,85.9 |mobs Stone Behemoth  -- The Absent Minded Prospector (24)
 complete 986 |at 1439 41.7,83.3 |mobs Moonstalker Sire@Fine Moonstalker Pelt;Moonstalker Matriarch@Fine Moonstalker Pelt |value mid  -- A Lost Master (20)
@@ -50,7 +51,7 @@ turnin 951 |npc Onu |at 1439 43.5,76.3  -- Mathystra Relics (20)
 turnin 98028 |npc Onu |at 1439 43.5,76.3  -- Baron Marinous (21)
 turnin 98013 |npc Arbal |at 1439 43.6,76.4 |value low  -- Swelling Forces (20)
 turnin 993 |npc Volcor |at 1439 45.0,85.3 |value mid  -- A Lost Master (20)
-fly 1437 9.5,59.7 |from 1439 36.3,45.6 |npc Wetlands (Shellei Brondir)  -- flight master Caylais Moonfeather
+goto 1439 32.4,43.8 15 |note Take the boat to Menethil Harbor  -- boat Auberdine to Menethil Harbor
 turnin 943 |npc Archaeologist Flagongut |at 1437 10.8,60.4  -- The Absent Minded Prospector (24)
 ]]}
 

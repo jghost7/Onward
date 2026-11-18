@@ -87,10 +87,14 @@ accept 4084 |npc Eridan Bluewind |at 1448 51.4,81.5  -- Silver Heart (54)
 complete 4084 |at 1448 42.4,57.7  -- Silver Heart (54)
 turnin 4084 |npc Eridan Bluewind |at 1448 51.4,81.5  -- Silver Heart (54)
 accept 4005 |npc Eridan Bluewind |at 1448 51.4,81.5  -- Aquementas (54)
-fly 1458 63.2,48.6 |from 1448 34.4,54.0 |npc Undercity (Michael Garrett)  -- flight master Brakkar
+fly 1413 63.1,37.2 |from 1448 34.4,54.0 |npc The Barrens (Bragok)  -- flight master Brakkar
+goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
+fly 1458 63.2,48.6 |from 1434 26.9,77.1 |npc Undercity (Michael Garrett)  -- flight master Gringer
 accept 95926 |npc Master Apothecary Faranell |at 1458 48.8,69.3  -- The Dark Crystal (60)
 accept 97049 |npc Chemist Fuely |at 1458 47.5,73.3 |value mid  -- Essence of Seeping Slimes (60)
-fly 1452 60.5,36.3 |from 1458 63.2,48.6 |npc Winterspring (Yugrek)  -- flight master Michael Garrett
+fly 1434 26.9,77.1 |from 1458 63.2,48.6 |npc Stranglethorn Vale (Gringer)  -- flight master Michael Garrett
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
+fly 1452 60.5,36.3 |from 1413 63.1,37.2 |npc Winterspring (Yugrek)  -- flight master Bragok
 turnin 980 |npc Donova Snowden |at 1452 31.3,45.2  -- The New Springs (55)
 fly 1413 63.1,37.2 |from 1452 60.5,36.3 |npc The Barrens (Bragok) |value mid  -- flight master Yugrek
 turnin 4502 |npc Liv Rizzlefix |at 1413 62.5,38.7 |value mid  -- Volcanic Activity (55)
@@ -100,9 +104,13 @@ fly 1446 51.6,25.4 |from 1413 63.1,37.2 |npc Tanaris (Bulkrek Ragefist)  -- flig
 complete 4005 |at 1446 70.4,49.9 |item 11617  -- Aquementas (54)
 accept 94399 |value mid  -- Ravasaur Provisions (60)
 complete 97049 |value mid  -- Essence of Seeping Slimes (60)
-fly 1458 63.2,48.6 |from 1446 51.6,25.4 |npc Undercity (Michael Garrett) |value mid  -- flight master Bulkrek Ragefist
+fly 1413 63.1,37.2 |from 1446 51.6,25.4 |npc The Barrens (Bragok)  -- flight master Bulkrek Ragefist
+goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
+fly 1458 63.2,48.6 |from 1434 26.9,77.1 |npc Undercity (Michael Garrett) |value mid  -- flight master Gringer
 turnin 97049 |npc Chemist Fuely |at 1458 47.5,73.3 |value mid  -- Essence of Seeping Slimes (60)
-fly 1449 45.2,5.8 |from 1458 63.2,48.6 |npc Gryfe |value mid  -- flight master Michael Garrett
+fly 1434 26.9,77.1 |from 1458 63.2,48.6 |npc Stranglethorn Vale (Gringer)  -- flight master Michael Garrett
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
+fly 1449 45.2,5.8 |from 1413 63.1,37.2 |npc Gryfe  -- flight master Bragok
 turnin 4005 |npc J.D. Collie |at 1449 41.9,2.7  -- Aquementas (54)
 accept 3961 |npc J.D. Collie |at 1449 41.9,2.7  -- Linken's Adventure (54)
 turnin 3883 |npc Hol'anyee Marshal |at 1449 43.9,7.2  -- Alien Ecology (52)

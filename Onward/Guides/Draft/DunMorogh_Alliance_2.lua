@@ -12,8 +12,11 @@ accept 2930 |npc Master Mechanic Castpipe |at 1455 69.8,48.1 |group dungeon  -- 
 fly 1453 71.3,72.2 |from 1455 55.5,47.7 |npc Stormwind City (Dungar Longdrink)  -- flight master Gryth Thurden
 accept 2928 |npc Shoni the Shilent |at 1453 62.6,34.1  -- Gyrodrillmatic Excavationators (30)
 accept 2951  -- The Sparklematic 5200! (30)
+fly 1434 27.5,77.8 |from 1453 71.3,72.2 |npc Stranglethorn Vale (Gyll)  -- flight master Dungar Longdrink
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
 accept 2925 |npc Mathiel |at 1457 59.5,45.4  -- Klockmort's Essentials (30)
 accept 2945 |note Starts from Grime-Encrusted Ring  -- Grime-Encrusted Ring (34)
+goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
 complete 2924 |at 1426 48.0,53.6 |mobs Ironforge Protector |value low |group dungeon  -- Essential Artificials (30)
 complete 2930 |at 1426 48.0,53.6 |mobs Ironforge Protector |group dungeon  -- Data Rescue (30)
 complete 2962 |at 1426 49.1,48.2 |item 9364 |mobs Green Mechanostrider;Swift Green Mechanostrider |group dungeon  -- The Only Cure is More Green Glow (30)
@@ -24,8 +27,12 @@ complete 2951 |at 1426 20.9,36.0 |mobs Irradiated Invader@Grime-Encrusted Object
 accept 2952  -- The Sparklematic 5200! (30)
 turnin 2951  -- The Sparklematic 5200! (30)
 turnin 2952  -- The Sparklematic 5200! (30)
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
+fly 1442 36.4,7.2 |from 1413 63.1,37.2 |npc Stonetalon Mountains (Teloren)  -- flight master Bragok
 accept 2931 |npc Gaxim Rustfizzle |at 1442 59.5,67.2  -- Castpipe's Task (28)
-fly 1455 55.5,47.7 |from 1442 36.4,7.2 |npc Ironforge (Gryth Thurden)  -- flight master Teloren
+fly 1413 63.1,37.2 |from 1442 36.4,7.2 |npc The Barrens (Bragok)  -- flight master Teloren
+goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
+fly 1455 55.5,47.7 |from 1434 27.5,77.8 |npc Ironforge (Gryth Thurden)  -- flight master Gyll
 turnin 2930 |npc Master Mechanic Castpipe |at 1455 69.8,48.1 |group dungeon  -- Data Rescue (30)
 turnin 2929 |npc High Tinker Mekkatorque |at 1455 68.8,49.0 |group dungeon  -- The Grand Betrayal (35)
 turnin 2925 |npc Klockmort Spannerspan |at 1455 67.9,46.1  -- Klockmort's Essentials (30)

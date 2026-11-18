@@ -15,11 +15,15 @@ accept 1452 |npc Rhapsody Shindigger |at 1425 26.9,48.6  -- Rhapsody's Kalimdor 
 fly 1419 65.5,24.3 |from 1425 11.1,46.1 |npc Blasted Lands (Alexandra Constantine)  -- flight master Guthrum Thunderfist
 accept 2993 |npc Thadius Grimshade |at 1419 66.9,19.5 |group chain  -- Return to the Hinterlands (47)
 turnin 2990 |npc Thadius Grimshade |at 1419 66.9,19.5  -- Thadius Grimshade (47)
-fly 1444 89.5,45.9 |from 1419 65.5,24.3 |npc Feralas (Thyssiana)  -- flight master Alexandra Constantine
+fly 1434 27.5,77.8 |from 1419 65.5,24.3 |npc Stranglethorn Vale (Gyll)  -- flight master Alexandra Constantine
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
+fly 1444 89.5,45.9 |from 1413 63.1,37.2 |npc Feralas (Thyssiana)  -- flight master Bragok
 complete 1452 |at 1444 68.1,44.8  -- Rhapsody's Kalimdor Kocktail (43)
 fly 1446 51.0,29.3 |from 1444 89.5,45.9 |npc Tanaris (Bera Stonehammer)  -- flight master Thyssiana
 accept 4787 |npc Yeh'kinya |at 1446 67.0,22.4 |group chain  -- The Ancient Egg (50)
-fly 1425 11.1,46.1 |from 1446 51.0,29.3 |npc Guthrum Thunderfist  -- flight master Bera Stonehammer
+fly 1413 63.1,37.2 |from 1446 51.0,29.3 |npc The Barrens (Bragok)  -- flight master Bera Stonehammer
+goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
+fly 1425 11.1,46.1 |from 1434 27.5,77.8 |npc Guthrum Thunderfist  -- flight master Gyll
 accept 2988 |npc Gryphon Master Talonaxe |at 1425 9.8,44.5  -- Witherbark Cages (45)
 turnin 2993 |npc Gryphon Master Talonaxe |at 1425 9.8,44.5 |group chain  -- Return to the Hinterlands (47)
 accept 2994 |npc Gryphon Master Talonaxe |at 1425 9.8,44.5 |group chain  -- Saving Sharpbeak (51)
@@ -43,6 +47,8 @@ turnin 2988 |npc Gryphon Master Talonaxe |at 1425 9.8,44.5  -- Witherbark Cages 
 turnin 2994 |npc Gryphon Master Talonaxe |at 1425 9.8,44.5 |group chain  -- Saving Sharpbeak (51)
 fly 1453 71.3,72.2 |from 1425 11.1,46.1 |npc Stormwind City (Dungar Longdrink)  -- flight master Guthrum Thunderfist
 turnin 1469 |npc Brohann Caskbelly |at 1453 69.5,40.4  -- Rhapsody's Tale (43)
-fly 1446 51.0,29.3 |from 1453 71.3,72.2 |npc Tanaris (Bera Stonehammer)  -- flight master Dungar Longdrink
+fly 1434 27.5,77.8 |from 1453 71.3,72.2 |npc Stranglethorn Vale (Gyll)  -- flight master Dungar Longdrink
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
+fly 1446 51.0,29.3 |from 1413 63.1,37.2 |npc Tanaris (Bera Stonehammer)  -- flight master Bragok
 turnin 4787 |npc Yeh'kinya |at 1446 67.0,22.4 |group chain  -- The Ancient Egg (50)
 ]]}

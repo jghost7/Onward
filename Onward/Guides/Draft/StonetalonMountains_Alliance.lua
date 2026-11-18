@@ -14,13 +14,17 @@ accept 1094 |npc Ziz Fizziks |at 1442 59.0,62.6  -- Further Instructions (21)
 turnin 1071 |npc Gaxim Rustfizzle |at 1442 59.5,67.2  -- A Gnome's Respite (21)
 accept 1075 |npc Gaxim Rustfizzle |at 1442 59.5,67.2  -- A Scroll from Mauren (21)
 accept 1072 |npc Gaxim Rustfizzle |at 1442 59.5,67.2  -- An Old Colleague (21)
-fly 1455 55.5,47.7 |from 1442 36.4,7.2 |npc Ironforge (Gryth Thurden)  -- flight master Teloren
+fly 1413 63.1,37.2 |from 1442 36.4,7.2 |npc The Barrens (Bragok)  -- flight master Teloren
+goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
+fly 1455 55.5,47.7 |from 1434 27.5,77.8 |npc Ironforge (Gryth Thurden)  -- flight master Gyll
 turnin 1072 |npc Lomac Gearstrip |at 1455 72.1,51.9  -- An Old Colleague (21)
 accept 1073 |npc Lomac Gearstrip |at 1455 72.1,51.9  -- Ineptitude + Chemicals = Fun (21)
-fly 1413 63.1,37.2 |from 1455 55.5,47.7 |npc The Barrens (Bragok)  -- flight master Gryth Thurden
+fly 1434 27.5,77.8 |from 1455 55.5,47.7 |npc Stranglethorn Vale (Gyll)  -- flight master Gryth Thurden
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
 turnin 1094 |npc Sputtervalve |at 1413 63.0,37.2  -- Further Instructions (21)
 accept 1095 |npc Sputtervalve |at 1413 63.0,37.2  -- Further Instructions (27)
-fly 1453 71.3,72.2 |from 1413 63.1,37.2 |npc Stormwind City (Dungar Longdrink)  -- flight master Bragok
+goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
+fly 1453 71.3,72.2 |from 1434 27.5,77.8 |npc Stormwind City (Dungar Longdrink)  -- flight master Gyll
 turnin 1075 |npc Collin Mauren |at 1453 53.0,86.6  -- A Scroll from Mauren (21)
 accept 1076 |npc Collin Mauren |at 1453 53.0,86.6  -- Devils in Westfall (21)
 accept 1078 |npc Collin Mauren |at 1453 53.0,86.6 |value mid  -- Retrieval for Mauren (26)
@@ -29,7 +33,9 @@ complete 1076 |at 1436 45.6,49.3  -- Devils in Westfall (21)
 fly 1453 71.3,72.2 |from 1436 56.5,52.6 |npc Stormwind City (Dungar Longdrink)  -- flight master Thor
 turnin 1076 |npc Collin Mauren |at 1453 53.0,86.6  -- Devils in Westfall (21)
 accept 1077 |npc Collin Mauren |at 1453 53.0,86.6  -- Special Delivery for Gaxim (21)
-fly 1442 36.4,7.2 |from 1453 71.3,72.2 |npc Teloren  -- flight master Dungar Longdrink
+fly 1434 27.5,77.8 |from 1453 71.3,72.2 |npc Stranglethorn Vale (Gyll)  -- flight master Dungar Longdrink
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
+fly 1442 36.4,7.2 |from 1413 63.1,37.2 |npc Teloren  -- flight master Bragok
 accept 1057 |npc Keeper Albagorm |at 1442 37.1,8.1 |value low  -- Reclaiming the Charred Vale (27)
 accept 86574 |npc Night Elf Courier |at 1442 48.7,39.9 |value mid  -- Stonetalon Supply Run (24)
 complete 86574 |at 1442 51.8,43.2 |item 277915 |mobs Pridewing Wyvern@Stonetalon Supply Bundle;Pridewing Consort@Stonetalon Supply Bundle;Pridewing Skyhunter@Stonetalon Supply Bundle;Young Pridewing@Stonetalon Supply Bundle |value mid  -- Stonetalon Supply Run (24)
@@ -37,10 +43,14 @@ complete 1073 |at 1442 62.7,55.3 |mobs Venture Co. Logger@Minor Mana Potion;Wind
 accept 79980 |npc Pocket Litter |at 1442 40.8,52.6  -- Scramble (24)
 turnin 79980 |npc Mound of Dirt |at 1442 39.6,49.8  -- Scramble (24)
 accept 79974 |npc Mound of Dirt |at 1442 39.6,49.8  -- Wet Job (32)
-fly 1455 55.5,47.7 |from 1442 36.4,7.2 |npc Ironforge (Gryth Thurden)  -- flight master Teloren
+fly 1413 63.1,37.2 |from 1442 36.4,7.2 |npc The Barrens (Bragok)  -- flight master Teloren
+goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
+fly 1455 55.5,47.7 |from 1434 27.5,77.8 |npc Ironforge (Gryth Thurden)  -- flight master Gyll
 turnin 1073 |npc Lomac Gearstrip |at 1455 72.1,51.9  -- Ineptitude + Chemicals = Fun (21)
 accept 1074 |npc Lomac Gearstrip |at 1455 72.1,51.9  -- Ineptitude + Chemicals = Fun (21)
-fly 1442 36.4,7.2 |from 1455 55.5,47.7 |npc Teloren  -- flight master Gryth Thurden
+fly 1434 27.5,77.8 |from 1455 55.5,47.7 |npc Stranglethorn Vale (Gyll)  -- flight master Gryth Thurden
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
+fly 1442 36.4,7.2 |from 1413 63.1,37.2 |npc Teloren  -- flight master Bragok
 turnin 1077 |npc Gaxim Rustfizzle |at 1442 59.5,67.2  -- Special Delivery for Gaxim (21)
 turnin 1074 |npc Gaxim Rustfizzle |at 1442 59.5,67.2  -- Ineptitude + Chemicals = Fun (21)
 accept 1079 |npc Gaxim Rustfizzle |at 1442 59.5,67.2  -- Covert Ops - Alpha (22)
@@ -69,11 +79,15 @@ turnin 1096 |npc Ziz Fizziks |at 1442 59.0,62.6 |value mid  -- Gerenzo Wrenchwhi
 turnin 1057 |npc Keeper Albagorm |at 1442 37.1,8.1 |value low  -- Reclaiming the Charred Vale (27)
 accept 1059 |npc Keeper Albagorm |at 1442 37.1,8.1 |value low  -- Reclaiming the Charred Vale (27)
 turnin 86574 |npc Innkeeper Faralia |at 1442 35.8,5.7 |value mid  -- Stonetalon Supply Run (24)
-fly 1432 33.9,51.0 |from 1442 36.4,7.2 |npc Loch Modan (Thorgrum Borrelson)  -- flight master Teloren
+fly 1413 63.1,37.2 |from 1442 36.4,7.2 |npc The Barrens (Bragok)  -- flight master Teloren
+goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
+fly 1432 33.9,51.0 |from 1434 27.5,77.8 |npc Loch Modan (Thorgrum Borrelson)  -- flight master Gyll
 turnin 79974 |npc Carved Figurine |at 1432 49.4,12.9  -- Wet Job (32)
 fly 1453 71.3,72.2 |from 1432 33.9,51.0 |npc Stormwind City (Dungar Longdrink) |value mid  -- flight master Thorgrum Borrelson
 turnin 1078 |npc Collin Mauren |at 1453 53.0,86.6 |value mid  -- Retrieval for Mauren (26)
-fly 1440 34.4,48.0 |from 1453 71.3,72.2 |npc Ashenvale (Daelyshia)  -- flight master Dungar Longdrink
+fly 1434 27.5,77.8 |from 1453 71.3,72.2 |npc Stranglethorn Vale (Gyll)  -- flight master Dungar Longdrink
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
+fly 1440 34.4,48.0 |from 1413 63.1,37.2 |npc Ashenvale (Daelyshia)  -- flight master Bragok
 turnin 1082 |npc Sentinel Thenysil |at 1440 34.9,49.8  -- Update for Sentinel Thenysil (22)
 accept 1081 |npc Sentinel Thenysil |at 1440 34.9,49.8  -- Reception from Tyrande (28)
 turnin 1081 |npc Tyrande Whisperwind |at 1457 39.1,81.6  -- Reception from Tyrande (28)

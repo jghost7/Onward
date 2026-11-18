@@ -580,14 +580,14 @@ check("options window opens", _G.OnwardOptions.shown)
 do  -- colour looks: each sets its own accent and glass, and the options still fit the window
     local S = W.Skin
     local seen = {}
-    for _, look in ipairs({ "twilight", "alliance", "horde", "verdant" }) do
+    for _, look in ipairs({ "twilight", "alliance", "horde", "feywood", "neon" }) do
         W.db.theme = look S.Refresh()
         local p = S.PALETTES[look]
         check(look .. " look: its accent and glass", S.Theme() == look and S.ACCENT[1] == p.accent[1] and S.TINT[3] == p.tint[3])
         seen[("%.2f%.2f%.2f"):format(S.ACCENT[1], S.ACCENT[2], S.ACCENT[3])] = true
     end
     local n = 0 for _ in pairs(seen) do n = n + 1 end
-    check("the new looks all differ", n == 4, n)
+    check("the new looks all differ", n == 5, n)
     W.db.theme = "onward" S.Refresh()
     check("back to Onward", S.ACCENT[1] == S.ONWARD.accent[1])
     check("options columns fit the 780px window", W.Options.cursor[1] > -770 and W.Options.cursor[2] > -770,
@@ -1310,6 +1310,7 @@ for _, def in ipairs(W.Guide:All()) do
         if #g.steps ~= expect then mismatched[#mismatched + 1] = def.id .. " " .. #g.steps .. "/" .. expect end
         for _, s in ipairs(g.steps) do
             local ok = s.quest or (s.verb == "fly" and s.from) or (s.verb == "home" and s.at)
+                or (s.verb == "goto" and s.at and s.note and s.note:find("^Take the"))   -- boat / zeppelin
             if def.kind == "profession" then ok = s.skill or s.spell end
             if not ok then noQuest = noQuest + 1 end
         end

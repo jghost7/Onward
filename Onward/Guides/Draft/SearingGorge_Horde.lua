@@ -39,9 +39,13 @@ complete 7723 |at 1427 38.3,48.0 |mobs Heavy War Golem  -- Curse These Fat Finge
 complete 7728 |at 1427 38.1,51.4 |mobs Dark Iron Lookout@Lookout's Spyglass;Dark Iron Steamsmith@Smithing Tuyere  -- STOLEN: Smithing Tuyere and Lookout's Spyglass (48)
 complete 7724 |at 1427 29.3,62.4 |mobs Greater Lava Spider  -- Fiery Menace! (49)
 accept 7704 |note Starts from Chambermaid Pillaclencher's Pillow  -- Look at the Size of It! (50)
-fly 1446 51.6,25.4 |from 1427 34.8,30.9 |npc Tanaris (Bulkrek Ragefist) |value mid  -- flight master Grisha
+fly 1434 26.9,77.1 |from 1427 34.8,30.9 |npc Stranglethorn Vale (Gringer)  -- flight master Grisha
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
+fly 1446 51.6,25.4 |from 1413 63.1,37.2 |npc Tanaris (Bulkrek Ragefist) |value mid  -- flight master Bragok
 turnin 4450 |npc Krinkle Goodsteel |at 1446 51.5,28.8 |value mid  -- Ledger from Tanaris (46)
-fly 1427 34.8,30.9 |from 1446 51.6,25.4 |npc Grisha |value mid  -- flight master Bulkrek Ragefist
+fly 1413 63.1,37.2 |from 1446 51.6,25.4 |npc The Barrens (Bragok)  -- flight master Bulkrek Ragefist
+goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
+fly 1427 34.8,30.9 |from 1434 26.9,77.1 |npc Grisha  -- flight master Gringer
 complete 3452 |at 1427 20.8,35.9 |mobs Twilight Fire Guard@Symbol of Ragnaros;Twilight Geomancer@Symbol of Ragnaros;Twilight Dark Shaman@Symbol of Ragnaros;Twilight Idolater@Symbol of Ragnaros |group elite  -- The Flame's Casing (50)
 accept 3481 |npc Hoard of the Black Dragonflight |at 1427 38.9,39.0 |group chain  -- Trinkets... (50)
 turnin 3481 |npc Hoard of the Black Dragonflight |at 1427 38.9,39.0 |group chain  -- Trinkets... (50)

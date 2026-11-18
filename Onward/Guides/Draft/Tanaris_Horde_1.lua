@@ -36,17 +36,23 @@ accept 2876 |note Starts from Ship Schedule  -- Ship Schedules (45)
 accept 2873 |npc Stoley |at 1446 67.1,24.0  -- Stoley's Shipment (45)
 complete 1690 |at 1446 63.6,31.0 |mobs Wastewander Bandit;Wastewander Thief  -- Wastewander Justice (43)
 complete 82 |at 1446 33.3,44.4 |mobs Centipaar Stinger@Centipaar Insect Parts;Centipaar Wasp@Centipaar Insect Parts;Centipaar Swarmer@Centipaar Insect Parts;Centipaar Worker@Centipaar Insect Parts  -- Noxious Lair Investigation (47)
-fly 1434 26.9,77.1 |from 1446 51.6,25.4 |npc Stranglethorn Vale (Gringer)  -- flight master Bulkrek Ragefist
+fly 1413 63.1,37.2 |from 1446 51.6,25.4 |npc The Barrens (Bragok)  -- flight master Bulkrek Ragefist
+goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
 accept 2872 |npc "Sea Wolf" MacKinley |at 1434 27.8,77.1  -- Stoley's Debt (45)
 accept 2864 |npc Krazek |at 1434 26.9,77.2  -- Tran'rek (45)
-fly 1445 35.6,31.9 |from 1434 26.9,77.1 |npc Dustwallow Marsh (Shardi)  -- flight master Gringer
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
+fly 1445 35.6,31.9 |from 1413 63.1,37.2 |npc Dustwallow Marsh (Shardi)  -- flight master Bragok
 accept 2846 |npc Tabetha |at 1445 46.1,57.1 |group dungeon  -- Tiara of the Deep (46)
 fly 1441 45.1,49.1 |from 1445 35.6,31.9 |npc Thousand Needles (Nyse)  -- flight master Shardi
 accept 2770 |npc Wizzle Brassbolts |at 1441 78.1,77.1 |group dungeon  -- Gahz'rilla (50)
-fly 1458 63.2,48.6 |from 1441 45.1,49.1 |npc Undercity (Michael Garrett)  -- flight master Nyse
+fly 1413 63.1,37.2 |from 1441 45.1,49.1 |npc The Barrens (Bragok)  -- flight master Nyse
+goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
+fly 1458 63.2,48.6 |from 1434 26.9,77.1 |npc Undercity (Michael Garrett)  -- flight master Gringer
 accept 2861 |npc Anastasia Hartwell |at 1458 85.1,10.0  -- Tabetha's Task (46)
 accept 243 |npc Apothecary Zinge |at 1458 50.1,68.0  -- Into the Field (46)
-fly 1444 75.5,44.4 |from 1458 63.2,48.6 |npc Feralas (Shyn)  -- flight master Michael Garrett
+fly 1434 26.9,77.1 |from 1458 63.2,48.6 |npc Stranglethorn Vale (Gringer)  -- flight master Michael Garrett
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
+fly 1444 75.5,44.4 |from 1413 63.1,37.2 |npc Feralas (Shyn)  -- flight master Bragok
 complete 3520 |at 1444 52.3,49.2 |item 10699 |mobs Screecher Spirit  -- Screecher Spirits (44)
 complete 2846 |group dungeon  -- Tiara of the Deep (46)
 fly 1445 35.6,31.9 |from 1444 75.5,44.4 |npc Dustwallow Marsh (Shardi)  -- flight master Shyn
@@ -102,18 +108,25 @@ turnin 82 |npc Alchemist Pestlezugg |at 1446 50.9,27.0  -- Noxious Lair Investig
 accept 10 |npc Senior Surveyor Fizzledowser |at 1446 50.2,27.5  -- The Scrimshank Redemption (48)
 turnin 113 |npc Senior Surveyor Fizzledowser |at 1446 50.2,27.5  -- Insect Part Analysis (48)
 accept 32 |npc Senior Surveyor Fizzledowser |at 1446 50.2,27.5  -- Rise of the Silithid (48)
-fly 1458 63.2,48.6 |from 1446 51.6,25.4 |npc Undercity (Michael Garrett) |value mid  -- flight master Bulkrek Ragefist
+fly 1413 63.1,37.2 |from 1446 51.6,25.4 |npc The Barrens (Bragok)  -- flight master Bulkrek Ragefist
+goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
+fly 1458 63.2,48.6 |from 1434 26.9,77.1 |npc Undercity (Michael Garrett) |value mid  -- flight master Gringer
 complete 654 |at 1458 58.6,54.7 |value mid  -- Tanaris Field Sampling (46)
-fly 1413 63.1,37.2 |from 1458 63.2,48.6 |npc The Barrens (Bragok)  -- flight master Michael Garrett
+fly 1434 26.9,77.1 |from 1458 63.2,48.6 |npc Stranglethorn Vale (Gringer)  -- flight master Michael Garrett
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
 complete 3444 |at 1413 62.5,38.5  -- The Stone Circle (51)
 fly 1454 45.1,63.9 |from 1413 63.1,37.2 |npc Orgrimmar (Doras)  -- flight master Bragok
 turnin 32 |npc Zilzibin Drumlore |at 1454 56.3,46.7  -- Rise of the Silithid (48)
+fly 1413 63.1,37.2 |from 1454 45.1,63.9 |npc The Barrens (Bragok)  -- flight master Doras
+goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
 turnin 95144 |npc Friz Frazzlespark |at 2548 77.1,52.9  -- Overseas Delivery (38)
 turnin 2874 |npc "Sea Wolf" MacKinley |at 1434 27.8,77.1  -- Deliver to MacKinley (45)
 fly 1425 81.7,81.8 |from 1434 26.9,77.1 |npc The Hinterlands (Gorkas)  -- flight master Gringer
 complete 2641 |at 1425 41.0,59.8  -- Sprinkle's Secret Ingredient (49)
 complete 2770 |group dungeon  -- Gahz'rilla (50)
-fly 1441 45.1,49.1 |from 1425 81.7,81.8 |npc Thousand Needles (Nyse)  -- flight master Gorkas
+fly 1434 26.9,77.1 |from 1425 81.7,81.8 |npc Stranglethorn Vale (Gringer)  -- flight master Gorkas
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
+fly 1441 45.1,49.1 |from 1413 63.1,37.2 |npc Thousand Needles (Nyse)  -- flight master Bragok
 turnin 2770 |npc Wizzle Brassbolts |at 1441 78.1,77.1 |group dungeon  -- Gahz'rilla (50)
 fly 1446 51.6,25.4 |from 1441 45.1,49.1 |npc Bulkrek Ragefist  -- flight master Nyse
 complete 10 |at 1446 56.0,71.2  -- The Scrimshank Redemption (48)

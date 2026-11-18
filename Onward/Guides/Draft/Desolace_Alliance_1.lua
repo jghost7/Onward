@@ -79,11 +79,15 @@ accept 1457 |npc Kreldig Ungor |at 1443 66.2,9.6  -- The Karnitol Shipwreck (39)
 accept 94841 |npc Lost Shipping Crate |at 1443 64.6,10.3  -- Lost Shipping Crate (38)
 turnin 6027 |npc Azore Aldamort |at 1443 38.9,27.2  -- Book of the Ancients (38)
 turnin 92754  -- A New Need for Shadow Protection (35)
-fly 1453 71.3,72.2 |from 1443 64.7,10.5 |npc Stormwind City (Dungar Longdrink)  -- flight master Baritanas Skyriver
+fly 1413 63.1,37.2 |from 1443 64.7,10.5 |npc The Barrens (Bragok)  -- flight master Baritanas Skyriver
+goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
+fly 1453 71.3,72.2 |from 1434 27.5,77.8 |npc Stormwind City (Dungar Longdrink)  -- flight master Gyll
 accept 6141 |npc Brother Crowley |at 1453 52.6,43.2  -- Brother Anton (39)
 fly 1455 55.5,47.7 |from 1453 71.3,72.2 |npc Ironforge (Gryth Thurden)  -- flight master Dungar Longdrink
 turnin 1457 |npc Roetten Stonehammer |at 1455 70.0,21.3  -- The Karnitol Shipwreck (39)
 turnin 94841 |npc Friz Frazzlespark |at 2548 77.1,52.9  -- Lost Shipping Crate (38)
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
+fly 1443 64.7,10.5 |from 1413 63.1,37.2 |npc Baritanas Skyriver  -- flight master Bragok
 accept 92814 |npc Molkar |at 1443 35.7,92.2  -- I Need a Tailor (35)
 turnin 92814 |npc Molkar |at 1443 35.7,92.2  -- I Need a Tailor (35)
 complete 1375 |at 1443 40.5,95.5 |mobs Khan Shaka@Khan Shaka's Head  -- Khan Shaka (37)

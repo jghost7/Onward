@@ -11,9 +11,11 @@ accept 8552 |at 1434 23.2,72.1 |note Starts from Monogrammed Sash  -- The Monogr
 turnin 8552 |npc Captain Hecklebury Smotts |at 1434 26.7,73.6  -- The Monogrammed Sash (50)
 fly 1425 11.1,46.1 |from 1434 27.5,77.8 |npc The Hinterlands (Guthrum Thunderfist)  -- flight master Gyll
 complete 580 |at 1425 77.4,70.3  -- Whiskey Slim's Lost Grog (50)
-fly 1445 67.5,51.3 |from 1425 11.1,46.1 |npc Dustwallow Marsh (Baldruc)  -- flight master Guthrum Thunderfist
+fly 1437 9.5,59.7 |from 1425 11.1,46.1 |npc Wetlands (Shellei Brondir)  -- flight master Guthrum Thunderfist
+goto 1437 4.6,57.1 15 |note Take the boat to Theramore  -- boat Menethil Harbor to Theramore
 accept 626 |npc Musty Scroll |at 1445 31.1,66.1  -- Cortello's Riddle (51)
-fly 1425 11.1,46.1 |from 1445 67.5,51.3 |npc The Hinterlands (Guthrum Thunderfist)  -- flight master Baldruc
+goto 1445 71.6,56.4 15 |note Take the boat to Menethil Harbor  -- boat Theramore to Menethil Harbor
+fly 1425 11.1,46.1 |from 1437 9.5,59.7 |npc The Hinterlands (Guthrum Thunderfist)  -- flight master Shellei Brondir
 turnin 626 |npc Cortello's Treasure |at 1425 80.8,46.8  -- Cortello's Riddle (51)
 fly 1434 27.5,77.8 |from 1425 11.1,46.1 |npc Gyll  -- flight master Guthrum Thunderfist
 accept 7810 |at 1434 30.5,47.9 |note Starts from Arena Master  -- Arena Master (55)

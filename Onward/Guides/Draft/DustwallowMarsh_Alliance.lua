@@ -45,11 +45,14 @@ complete 1218 |at 1445 52.0,54.6 |mobs Acidic Swamp Ooze;Bubbling Swamp Ooze;Cor
 complete 98233 |at 1445 49.3,55.7 |mobs Corrosive Swamp Ooze@Jameson's Training Sword  -- Sword in the Slime (42)
 turnin 1286 |npc Balos Jacken |at 1445 36.1,54.3  -- The Deserters (38)
 accept 1287 |npc Balos Jacken |at 1445 36.1,54.3  -- The Deserters (38)
+goto 1445 71.6,56.4 15 |note Take the boat to Menethil Harbor  -- boat Theramore to Menethil Harbor
 complete 1258 |at 1435 96.0,57.6  -- ... and Bugs (40)
 accept 1271 |npc Angus Stern |at 1453 51.8,93.6  -- Feast at the Blue Recluse (37)
 accept 1260 |npc Angus Stern |at 1453 51.8,93.6  -- Morgan Stern (38)
 turnin 1271 |npc Angus Stern |at 1453 51.8,93.6  -- Feast at the Blue Recluse (37)
-fly 1440 34.4,48.0 |from 1453 71.3,72.2 |npc Ashenvale (Daelyshia)  -- flight master Dungar Longdrink
+fly 1434 27.5,77.8 |from 1453 71.3,72.2 |npc Stranglethorn Vale (Gyll)  -- flight master Dungar Longdrink
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
+fly 1440 34.4,48.0 |from 1413 63.1,37.2 |npc Ashenvale (Daelyshia)  -- flight master Bragok
 turnin 1133 |npc Shindrell Swiftfire |at 1440 34.7,48.8  -- Journey to Astranaar (20)
 complete 1135 |at 1441 12.3,37.1  -- Highperch Venom (30)
 turnin 1177 |npc Mudcrush Durtfeet |at 1445 35.1,38.3 |value mid  -- Hungry! (36)

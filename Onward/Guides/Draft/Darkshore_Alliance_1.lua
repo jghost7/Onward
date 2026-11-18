@@ -38,15 +38,22 @@ accept 98042 |npc Twilight Tome |at 1439 38.5,86.0  -- It's All Fun and Games Un
 complete 98042 |at 1439 38.5,86.3 |mobs Twilight Thug@Peerless Eye;Twilight Disciple@Peerless Eye  -- It's All Fun and Games Until... (17)
 accept 968 |at 1439 38.5,86.3 |note Starts from Book: The Powers Below  -- The Powers Below (18)
 accept 4730 |npc Beached Sea Creature |at 1439 32.7,80.8  -- Beached Sea Creature (16)
-fly 1455 55.5,47.7 |from 1439 36.3,45.6 |npc Ironforge (Gryth Thurden)  -- flight master Caylais Moonfeather
+goto 1439 32.4,43.8 15 |note Take the boat to Menethil Harbor  -- boat Auberdine to Menethil Harbor
+fly 1455 55.5,47.7 |from 1437 9.5,59.7 |npc Ironforge (Gryth Thurden)  -- flight master Shellei Brondir
 turnin 968 |npc Gerrig Bonegrip |at 1455 50.8,5.6  -- The Powers Below (18)
-fly 1438 58.4,94.0 |from 1455 55.5,47.7 |npc Teldrassil (Vesprystus)  -- flight master Gryth Thurden
+fly 1434 27.5,77.8 |from 1455 55.5,47.7 |npc Stranglethorn Vale (Gyll)  -- flight master Gryth Thurden
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
+fly 1438 58.4,94.0 |from 1413 63.1,37.2 |npc Teldrassil (Vesprystus)  -- flight master Bragok
 accept 6341 |npc Nessa Shadowsong |at 1438 56.3,92.4 |race NightElf  -- The Bounty of Teldrassil (10)
 turnin 6341 |npc Vesprystus |at 1438 58.4,94.0 |race NightElf  -- The Bounty of Teldrassil (10)
 accept 6342 |npc Vesprystus |at 1438 58.4,94.0 |race NightElf  -- Flight to Auberdine (10)
-fly 1453 71.3,72.2 |from 1438 58.4,94.0 |npc Stormwind City (Dungar Longdrink)  -- flight master Vesprystus
+fly 1413 63.1,37.2 |from 1438 58.4,94.0 |npc The Barrens (Bragok)  -- flight master Vesprystus
+goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
+fly 1453 71.3,72.2 |from 1434 27.5,77.8 |npc Stormwind City (Dungar Longdrink)  -- flight master Gyll
 accept 97894 |npc Borgus Steelhand |at 1453 59.4,34.3  -- Business in Auberdine (17)
 accept 97926 |npc Baros Alexston |at 1453 57.7,47.9  -- Making Do (17)
+fly 1434 27.5,77.8 |from 1453 71.3,72.2 |npc Stranglethorn Vale (Gyll)  -- flight master Dungar Longdrink
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
 accept 952 |npc Arch Druid Fandral Staghelm |at 1457 34.8,9.3  -- Grove of the Ancients (17)
 accept 963 |npc Cerellean Whiteclaw |at 1439 35.7,43.7  -- For Love Eternal (16)
 turnin 6342 |npc Laird |at 1439 36.8,44.3 |race NightElf  -- Flight to Auberdine (10)

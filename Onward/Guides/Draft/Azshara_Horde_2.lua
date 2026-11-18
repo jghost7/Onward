@@ -36,9 +36,9 @@ accept 6822 |npc Duke Hydraxis |at 1447 79.3,73.7 |group dungeon  -- The Molten 
 turnin 3602 |npc Loramus Thalipedes |at 1447 60.8,66.3 |group chain  -- Azsharite (58)
 accept 3621 |npc Loramus Thalipedes |at 1447 60.8,66.3 |group chain  -- The Formation of Felbane (58)
 turnin 91611 |npc Kurll |at 1447 21.8,52.1 |group elite  -- Deadliest Catch (56)
-fly 1434 32.5,29.4 |from 1447 22.0,49.6 |npc Stranglethorn Vale (Thysta)  -- flight master Kroum
+goto 1411 50.8,13.6 15 |note Take the zeppelin to Grom'gol  -- zeppelin Orgrimmar to Grom'gol
 turnin 3621 |npc Galvan the Ancient |at 1434 50.6,20.5 |group chain  -- The Formation of Felbane (58)
-fly 1454 45.1,63.9 |from 1434 32.5,29.4 |npc Orgrimmar (Doras)  -- flight master Thysta
+goto 1434 31.3,29.2 15 |note Take the zeppelin to Orgrimmar  -- zeppelin Grom'gol to Orgrimmar
 turnin 91547 |npc Zevrost |at 1454 48.5,45.4  -- Sin'dorei Tome of Summoning (55)
 fly 1456 47.0,49.8 |from 1454 45.1,63.9 |npc Thunder Bluff (Tal)  -- flight master Doras
 turnin 92346 |npc Nara Wildmane |at 1456 75.7,31.6  -- Beneath Nordrassil (55)
