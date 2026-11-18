@@ -391,9 +391,9 @@ The panel, redesigned around the current step (direction A from the mock-ups):
 
 ## 0.3.0
 
-- **Sloppy Questing is now Onward.** Same addon, new name. The command is `/ow` (or `/onward`);
+- **The addon is now called Onward.** Same addon, new name. The command is `/ow` (or `/onward`);
   `/sq` still works for now.
-- **Upgrading:** delete the old `SloppyQuesting` folder from `Interface\AddOns`, or both copies
+- **Upgrading:** delete the addon's old folder from `Interface\AddOns`, or both copies
   load and fight over the panel. Settings start fresh under the new name: the game keeps saved
   settings per addon folder, so it can't hand the old ones over by itself.
   `tools/migrate_settings.py` in the source copies them across (run it with the game closed).
@@ -485,7 +485,7 @@ The panel, redesigned around the current step (direction A from the mock-ups):
 
 ## 0.1.1
 
-- Renamed from Wayfarer to Sloppy Questing. Commands are now `/sq`; settings start fresh once.
+- Renamed. Commands are now `/sq`; settings start fresh once.
 - Drop rates on "collect" objectives: how many of your kills dropped the item, the expected
   rate (Wowhead's, read from Questie) and whether you're luckier or unluckier than that, with
   an estimate of the kills left. Kills are counted as mobs you fought die (target and enemy
