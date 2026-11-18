@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.6.23
 
 - The step count on the panel (122/226 on a new character in Riverglades) started at the number
   of quests not on offer yet instead of 0: since 0.6.22 those steps were counted as done. They

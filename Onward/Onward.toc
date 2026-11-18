@@ -2,7 +2,7 @@
 ## Title: Onward
 ## Notes: Leveling and profession guides for WoW Forever: step engine, waypoints, party sync.
 ## Author: Josh McCann
-## Version: 0.6.22
+## Version: 0.6.23
 ## Category: Quests
 ## X-License: GPL-3.0
 ## X-Curse-Project-ID: 1808625
