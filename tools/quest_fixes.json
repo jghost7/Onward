@@ -1,0 +1,8 @@
+{
+  "_about": "Corrections to Questie's Forever quest data, looked up by hand (one quest at a time). preAny: one of these must be turned in first; preAll: all of them. They are added to what the data already says.",
+  "95183": {
+    "name": "Step One: Rock",
+    "preAny": [95420],
+    "why": "Riverglades, Horde: Gorgegut and Hamur don't offer it until Land of Giants (95420) is done, which opens the Bolder'ok ogre quests. Questie lists no prerequisite. Source: player reports on Wowhead's quest page and Onward users, 2026-11-17. Not confirmed in game by us."
+  }
+}

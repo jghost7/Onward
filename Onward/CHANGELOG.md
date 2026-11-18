@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+- Riverglades (Horde): "Step One: Rock" came up near the start of the guide, but Gorgegut and
+  Hamur don't offer it until "Land of Giants" is done, which the quest data doesn't say. The
+  guide now takes it after that quest's turn-in. Corrections like this live in
+  `tools/quest_fixes.json`.
+
 ## 0.6.24
 
 - About 300 quests were in no guide because the quest data gives them no zone, most of them in

@@ -462,8 +462,8 @@ class Zone:
             "level": db.quest(q, "questLevel") or 0, "minLevel": db.quest(q, "requiredLevel") or 0,
             "start": start, "startItem": item, "finish": self.finisher(q),
             "obj": obj, "objGuess": guess, "objFar": None if obj else (far_spot or self.far_objective(q)), "hasObjectives": has_obj,
-            "preAny": [p for p in lua_list(db.quest(q, "preQuestSingle")) if p],
-            "preAll": [p for p in lua_list(db.quest(q, "preQuestGroup")) if p],
+            "preAny": [p for p in lua_list(db.quest(q, "preQuestSingle")) if p] + quest_fixes().get(q, {}).get("preAny", []),
+            "preAll": [p for p in lua_list(db.quest(q, "preQuestGroup")) if p] + quest_fixes().get(q, {}).get("preAll", []),
             "exclusive": [p for p in lua_list(db.quest(q, "exclusiveTo")) if p],
             "breadcrumbFor": db.quest(q, "breadcrumbForQuestId"),
             "text": texts[0] if texts else "",
@@ -489,6 +489,21 @@ TEXT_STOP = {"bring", "gather", "collect", "return", "deliver", "speak", "travel
 
 
 _SPOTS = {}
+
+
+_FIXES = None
+
+
+def quest_fixes():
+    """{questId: {"preAny": [...], "preAll": [...]}} from tools/quest_fixes.json: prerequisites the
+    game enforces that Questie's data doesn't list, looked up by hand."""
+    global _FIXES
+    import json
+    if _FIXES is None:
+        path = pathlib.Path(__file__).parent / "quest_fixes.json"
+        raw = json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
+        _FIXES = {int(k): v for k, v in raw.items() if k.isdigit()}
+    return _FIXES
 
 
 def quest_spots():
