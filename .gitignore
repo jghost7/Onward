@@ -9,7 +9,6 @@ __pycache__/
 # Forever client tables from wago.tools (12 MB, Blizzard data): tools/draft_professions.py --fetch downloads them
 tools/data/
 
-# full-size UI previews (the *_detail.png crops are kept)
-preview_flat.png
-preview_glass.png
+# UI mockups from tools/preview_ui.py (the README image lives in art/)
+preview_*.png
 zone_art_samples.png
