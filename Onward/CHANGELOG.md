@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.6.24
 
 - About 300 quests were in no guide because the quest data gives them no zone, most of them in
   the new zones. They now go by where their quest giver stands. Mount Hyjal grows from 22 to 128
