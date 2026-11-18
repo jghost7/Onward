@@ -61,6 +61,19 @@ end
 ---------------------------------------------------------------------------
 local UNREACHABLE = (Enum and Enum.FlightPathState and Enum.FlightPathState.Unreachable) or 2
 
+-- can the open flight map fly to this node? The flight map's own answer (TaxiNodeGetType:
+-- REACHABLE / CURRENT, not DISTANT: a point you discovered with no route from here, drawn on the
+-- map with no line to it) beats the node's state, which counts those as reachable.
+local function flyable(n)
+    if not (n and n.slotIndex) then return false end
+    if TaxiNodeGetType then
+        local ok, kind = pcall(TaxiNodeGetType, n.slotIndex)
+        if ok and kind then return kind == "REACHABLE" or kind == "CURRENT" end
+    end
+    return n.state ~= UNREACHABLE
+end
+T.Flyable = flyable
+
 local function storeNodes(contMap, list)
     if type(list) ~= "table" then return end
     for _, n in ipairs(list) do
@@ -233,6 +246,7 @@ local cache = { key = nil, at = 0, result = nil }
 -- while it still saves at least 10% over running, so the arrow doesn't flip between the flight
 -- master and the quest as the numbers drift with every step you take.
 local sticky = { key = nil, pick = nil }
+T.toldCut = {}
 local function forgetAdvice() cache.key, sticky.key, sticky.pick = nil, nil, nil end
 
 -- Your travel speed (yd/s): on foot 7, or your mount's speed once you've ridden it, since you'd
@@ -326,7 +340,7 @@ function T.WantedNode()
             local CURRENT = (Enum and Enum.FlightPathState and Enum.FlightPathState.Current) or 0
             local best, bestD
             for _, n in ipairs(list) do
-                if n.slotIndex and n.state ~= UNREACHABLE then
+                if flyable(n) then
                     if wantedDest.name and n.name == wantedDest.name then best, bestD = n, 0 break end
                     if n.position then
                         local cont, wx, wy = T.World(taxiMap, n.position.x * 100, n.position.y * 100)
@@ -400,6 +414,7 @@ end
 -- its network after the first of its points (alphabetically) and marks the points you know that
 -- it doesn't reach "~<that name>"; remembered per character. Flights are only planned between
 -- points of one network (or points whose network isn't known yet). Returns true on a change.
+
 local function learnNetwork()
     local taxiMap = GetTaxiMapID and GetTaxiMapID()
     if not (taxiMap and C_TaxiMap and C_TaxiMap.GetAllTaxiNodes) then return end
@@ -407,7 +422,7 @@ local function learnNetwork()
     if not (ok and type(list) == "table") then return end
     local offered, key = {}, nil
     for _, n in ipairs(list) do
-        if n.name and n.slotIndex and n.state ~= UNREACHABLE then
+        if n.name and flyable(n) then
             offered[n.name] = true
             if not key or n.name < key then key = n.name end
         end
@@ -436,6 +451,7 @@ T.LearnNetwork = learnNetwork
 
 local function takeFlight()
     T.marked = nil
+    local asked = wantedDest and wantedDest.name
     -- what this flight master really reaches, before any plan uses it
     if learnNetwork() then
         forgetAdvice()
@@ -444,7 +460,16 @@ local function takeFlight()
     -- talking to the flight master refreshes the guide, which can clear the wanted flight a
     -- moment before the map opens: ask the arrow again so it's set from the current step
     if W.Waypoint and W.Waypoint.ArrowTarget then pcall(W.Waypoint.ArrowTarget, W.Waypoint) end
-    if not wantedDest then return end
+    -- the flight the plan wanted is on the map but not linked to this one: say why, once
+    local cutOff = asked and W.cdb.taxiNet and (W.cdb.taxiNet[asked] or ""):sub(1, 1) == "~"
+    if cutOff and not T.toldCut[asked] then
+        T.toldCut[asked] = true
+        W.Print(asked .. " is on your flight map, but no flight path links it to here yet: a flight point between them is still to find. Learn the flight points you pass on the way and it joins up.")
+    end
+    if not wantedDest then
+        if cutOff then W.Print("No flight from here gets you closer. The arrow leads the way on foot.") end
+        return
+    end
     local node = T.WantedNode()
     if not node then
         if wantedDest.name then W.Print("No flight from here reaches " .. wantedDest.name .. ". The arrow leads the rest of the way.") end

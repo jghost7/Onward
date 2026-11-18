@@ -1540,15 +1540,17 @@ end
 
 do  -- a flight point on a network of its own (Riverglades): the flight master's list is the truth
     local TR = W.Travel
-    local savedTaxi, savedPos, savedAll = MOCK.taxi, MOCK.pos, C_TaxiMap.GetAllTaxiNodes
+    local savedTaxi, savedPos = MOCK.taxi, MOCK.pos
     W.cdb.mountSpeed, W.cdb.taxiNet = nil, nil
     MOCK.taxi = {
         { name = "Bay Post", nodeID = 31, slotIndex = 1, state = 0, position = { x = 0.5, y = 0.5 } },
         { name = "Hill Post", nodeID = 32, slotIndex = 2, state = 1, position = { x = 1.5, y = 0.5 } },
         { name = "Glade Keep", nodeID = 33, slotIndex = 3, state = 1, position = { x = 2.5, y = 0.5 } },
     }
-    -- the continent map shows all three; this flight master reaches only two
-    C_TaxiMap.GetAllTaxiNodes = function() return { MOCK.taxi[1], MOCK.taxi[2] } end
+    -- every list calls all three reachable; only the flight map's own type says the keep is
+    -- DISTANT (discovered, no route from here)
+    local TYPES = { "CURRENT", "REACHABLE", "DISTANT" }
+    TaxiNodeGetType = function(i) return TYPES[i] end
     MOCK.pos = { map = 1415, x = 0.5, y = 0.5 }
     TR:Refresh(true)
     W:RegisterGuide{ id = "glade", title = "Glade (38-46)", levels = { 38, 46 }, faction = "", steps = [[
@@ -1558,14 +1560,17 @@ note After
     W.Guide:Activate("glade") settle() MOCK.advance(4)
     local tgt = W.Waypoint:ArrowTarget()
     check("before the flight master: the far keep looks flyable", tgt and tgt.flight and tgt.sub:find("Glade Keep", 1, true), tgt and tgt.sub)
-    MOCK.calls = {} MOCK.prints = {} MOCK.fire("TAXIMAP_OPENED") settle()
+    MOCK.calls = {} MOCK.printed = {} MOCK.fire("TAXIMAP_OPENED") settle()
     local took = called("TakeTaxiNode")
     check("at the flight master: flies to the nearest point it reaches instead", took and took[2] == 2, took and took[2])
     check("...and remembers the keep is on another network", W.cdb.taxiNet["Glade Keep"] == "~Bay Post" and W.cdb.taxiNet["Hill Post"] == "Bay Post",
           tostring(W.cdb.taxiNet["Glade Keep"]))
+    local said = 0
+    for _, line in ipairs(MOCK.printed) do if line:find("Glade Keep is on your flight map, but no flight path links it", 1, true) then said = said + 1 end end
+    check("...and says a connecting flight point is missing", said == 1, said)
     tgt = W.Waypoint:ArrowTarget()
     check("the arrow no longer offers the keep", tgt and not (tgt.sub or ""):find("Glade Keep", 1, true), tgt and tgt.sub)
-    C_TaxiMap.GetAllTaxiNodes = savedAll
+    TaxiNodeGetType = nil
     MOCK.taxi, MOCK.pos, W.cdb.taxiNet = savedTaxi, savedPos, nil
     TR:Refresh(true)
 end

@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased
+
+- A flight point you've discovered but can't reach from here (Rog'mar in Riverglades before its
+  connecting flight point is learned) is no longer picked: Onward now reads the flight map's
+  own route check, which tells those apart (the game's node list calls them reachable). At the
+  flight master it says once that a connecting flight point is still to find, flies you to the
+  nearest point it can reach, and the arrow leads on.
+
 ## 0.6.20
 
 - The guides now know Forever's own flight masters (Grakna and Gretchen Mayberry in Riverglades,
