@@ -39,7 +39,16 @@ S.STRIP = { 0, 0, 0, 0.35 }          -- flat title strip, over the body
 
 local panels, nines, accents, fonts, hovers, badges = {}, {}, {}, {}, {}, {}
 
+-- colour looks: the same glass in other colours (glass body tint, highlight accent, lit rim).
+-- Each pairs a dark body with a highlight from the other side of the wheel, so the accent reads.
+S.PALETTES = {
+    twilight = { accent = { 0.24, 0.86, 0.80 }, tint = { 0.072, 0.045, 0.118 }, rim = { 0.24, 0.86, 0.80, 0.24 } },  -- teal on violet
+    alliance = { accent = { 0.96, 0.80, 0.34 }, tint = { 0.030, 0.062, 0.140 }, rim = { 0.40, 0.62, 1.00, 0.30 } },  -- gold on navy, blue edge
+    horde    = { accent = { 0.95, 0.33, 0.24 }, tint = { 0.105, 0.036, 0.032 }, rim = { 0.80, 0.52, 0.26, 0.28 } },  -- ember on blood-iron, bronze edge
+    verdant  = { accent = { 0.98, 0.70, 0.28 }, tint = { 0.028, 0.078, 0.048 }, rim = { 0.55, 0.80, 0.45, 0.22 } },  -- amber on forest, leaf edge
+}
 local THEMES = { onward = true, flat = true, glass = true }
+for k in pairs(S.PALETTES) do THEMES[k] = true end
 function S.Theme()
     local t = W.db and W.db.theme
     return THEMES[t] and t or "onward"
@@ -79,6 +88,9 @@ local function pullLooks()
     end
     if theme == "onward" then
         a, tint, rim = S.ONWARD.accent, S.ONWARD.tint, S.ONWARD.rim
+    elseif S.PALETTES[theme] then
+        local pal = S.PALETTES[theme]
+        a, tint, rim = pal.accent, pal.tint, pal.rim
     elseif theme == "flat" and euiOn then
         local ok, r, g, b = pcall(eui.GetAccentColor)
         if ok and r then a = { r, g, b } end

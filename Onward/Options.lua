@@ -165,12 +165,14 @@ local function choice(col, key, label, items, tip, onChange)
     local t = fs(win, 12)
     t:SetPoint("TOPLEFT", cols[col], cursor[col] - 2)
     t:SetText(label)
-    local w = math.floor(284 / #items) - 2
+    local perRow = math.min(#items, 4)          -- more than four wrap onto another row
+    local w = math.floor(284 / perRow) - 2
     local btns = {}
     for i, it in ipairs(items) do
         local b = CreateFrame("Button", nil, win)
         b:SetSize(w, 22)
-        b:SetPoint("TOPLEFT", cols[col] + (i - 1) * (w + 3), cursor[col] - 20)
+        local r, c = math.floor((i - 1) / perRow), (i - 1) % perRow
+        b:SetPoint("TOPLEFT", cols[col] + c * (w + 3), cursor[col] - 20 - r * 26)
         b.bg = W.Skin.Nine(b, "BACKGROUND", 0, W.Skin.MEDIA .. "glass_body", 64, 16, 7, 0)
         b.text = fs(b, 11)
         b.text:SetPoint("CENTER")
@@ -191,7 +193,7 @@ local function choice(col, key, label, items, tip, onChange)
             b.text:SetTextColor(on and 0.05 or 0.93, on and 0.06 or 0.94, on and 0.07 or 0.96)
         end
     end
-    cursor[col] = cursor[col] - 50
+    cursor[col] = cursor[col] - 50 - 26 * (math.ceil(#items / perRow) - 1)
 end
 
 -- font dropdown: label above, a box showing the current font in itself; click for a list of
@@ -303,6 +305,7 @@ local function fontPicker(col, label, tip)
         value:SetFont(S.ChosenFont() or autoFontPath(), 12, "")
         value:SetText(name == "auto" and "Automatic" or name)
     end
+    O.cursor = cursor
     O.fontList = { open = open, list = list, rows = rows, value = value, entries = function() return entries end }
     cursor[col] = cursor[col] - 50
 end
@@ -380,6 +383,10 @@ choice(2, "theme", "Look", {
         end
         return "Neutral dark glass with green highlights and one plain font. With EllesmereUI installed it takes your EllesmereUI accent and panel colours."
     end },
+    { value = "twilight", label = "Twilight", tip = function() return lookTip("Violet glass with teal highlights.") end },
+    { value = "alliance", label = "Alliance", tip = function() return lookTip("Navy glass with a blue edge and gold highlights.") end },
+    { value = "horde", label = "Horde", tip = function() return lookTip("Dark blood-iron glass with a bronze edge and ember-red highlights.") end },
+    { value = "verdant", label = "Verdant", tip = function() return lookTip("Forest-green glass with amber highlights.") end },
 }, nil, function() S.Refresh() end)
 fontPicker(2, "Font", "The font for all of Onward's text: the panel, the arrow and this window. Automatic uses your EllesmereUI font when it's installed, otherwise each look's own fonts. The list has the game's fonts and any font your other addons share (SharedMedia and addons built on it).")
 slider(2, "showNext", "Upcoming steps shown", 0, 8, 1, "%d")
