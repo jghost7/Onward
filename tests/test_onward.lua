@@ -1745,6 +1745,7 @@ accept 9305
     local p = G.ParseStep("accept 5 |lvl 12 |pre 3,4 |preany 8")
     check("parser reads |lvl, |pre and |preany", p.lvl == 12 and p.pre[2] == 4 and p.preAny[1] == 8)
     G:Activate("held") settle()
+    check("held quests are still ahead: a fresh character's count starts at 0", (G:Progress()) == 0, (G:Progress()))
     MOCK.addQuest(9301, "Opener (a delivery: ready as soon as you have it)") MOCK.finish(9301)
     MOCK.fire("QUEST_ACCEPTED", 9301) settle()
     check("held: the follow-up and the level 30 quest are passed over", at() == "turnin 9301", at())

@@ -540,9 +540,18 @@ end
 
 function G:Progress()
     if not active or #active.steps == 0 then return 0, 0 end
+    -- steps behind you: done, skipped, set aside or passed. A quest that isn't on offer yet (and
+    -- its objectives and turn-in) is still ahead of you, so it doesn't count: a fresh character
+    -- starts at 0, not at the number of quests with a prerequisite.
     local done = 0
     for _, s in ipairs(active.steps) do
-        if not isOpen(s) then done = done + 1 end
+        if G:IsComplete(s) then
+            done = done + 1
+        elseif not isOpen(s) then
+            local a = s.verb == "accept" and s or (G:IsBlocked(s) and active.acceptOf[s.quest])
+            local stillAhead = a and not G:IsSkipped(a) and not G:IsBehind(a) and G:HeldReason(a) ~= nil
+            if not stillAhead then done = done + 1 end
+        end
     end
     return done, #active.steps
 end

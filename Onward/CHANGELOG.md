@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+- The step count on the panel (122/226 on a new character in Riverglades) started at the number
+  of quests not on offer yet instead of 0: since 0.6.22 those steps were counted as done. They
+  now count as still ahead. Only the number was wrong; the steps and their order were not.
+
 ## 0.6.22
 
 Quest and step logic, after an audit of how quests and steps connect:
