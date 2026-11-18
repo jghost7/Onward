@@ -1491,6 +1491,25 @@ note After
     check("across: on to a flight master on this side", c and c.leg == "depart" and not c.cross, c and (tostring(c.leg) .. " " .. tostring(c.map) .. " " .. tostring(c.x)) or "no current")
     tgt = W.Waypoint:ArrowTarget()
     check("arrow no longer says boat", tgt and not tgt.label:find("boat", 1, true), tgt and tgt.label)
+    -- far from the dock on this side: fly to the flight point nearest it, marked on the flight map
+    local savedTaxi = MOCK.taxi
+    MOCK.taxi = {
+        { name = "Far Camp", nodeID = 11, slotIndex = 1, state = 0, position = { x = 2.6, y = 0.4 } },
+        { name = "Dock Town", nodeID = 12, slotIndex = 2, state = 1, position = { x = 0.64, y = 0.39 } },
+    }
+    MOCK.pos = { map = 1415, x = 2.6, y = 0.4 }
+    W.Travel:Refresh(true)
+    W:RegisterGuide{ id = "cross2", title = "Cross back (35-36)", levels = { 35, 36 }, faction = "", steps = [[
+goto 1434 30.0,70.0 |note Over there
+note After
+]]}
+    W.Guide:Activate("cross2") settle()
+    tgt = W.Waypoint:ArrowTarget()
+    check("far from the dock: fly toward it first", tgt and tgt.label == "Fly: Far Camp" and tgt.sub:find("take the boat to Booty Bay", 1, true),
+          tgt and (tgt.label .. " / " .. tostring(tgt.sub)))
+    MOCK.calls = {} MOCK.fire("TAXIMAP_OPENED") settle()
+    check("...and the flight to the dock's flight point is taken", called("TakeTaxiNode", 2))
+    MOCK.taxi = savedTaxi
     MOCK.mapCont, MOCK.pos = nil, savedPos
     MOCK.mapOffset[1434], MOCK.mapOffset[1413], MOCK.mapOffset[1444], MOCK.mapOffset[1414] = nil, nil, nil, nil
     W.Travel:Refresh(true)

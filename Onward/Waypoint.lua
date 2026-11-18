@@ -305,6 +305,16 @@ function WP:ArrowTarget()
     local label = current.title
     if current.cross then
         local c = current.cross
+        local boat = "take the " .. c.kind .. " to " .. c.to.name
+        -- the dock is far: fly to the flight point nearest it first (marked on the flight map)
+        local advice = T:Advice(c.from.map, c.from.x, c.from.y)
+        if advice then
+            local A, B = advice.from, advice.to
+            T:SetWantedDestination(c.from.cont, B.wx, B.wy, B.name)
+            return { label = "Fly: " .. A.name, sub = "to " .. B.name .. ", then " .. boat, cont = c.from.cont, wx = A.wx, wy = A.wy,
+                     radius = 10, flight = true, via = { wx = B.wx, wy = B.wy }, final = { cont = c.from.cont, wx = c.from.wx, wy = c.from.wy } }
+        end
+        T:SetWantedDestination(nil)
         return { label = "Take the " .. c.kind .. " to " .. c.to.name,
                  sub = "from " .. c.from.name .. ", then " .. label,
                  cont = c.from.cont, wx = c.from.wx, wy = c.from.wy, radius = 15, crossing = true }

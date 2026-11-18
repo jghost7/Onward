@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+- On the way to a boat or zeppelin across the continent, the flight master now marks the flight
+  point nearest the dock (Ratchet, say) on the flight map and takes that flight. The arrow reads
+  "Fly: <here>, to Ratchet, then take the boat to Booty Bay" instead of pointing straight at the
+  dock thousands of yards away.
+
 ## 0.6.19
 
 - At the end of a guide, the "Guide complete" card no longer offers the guide you just finished
