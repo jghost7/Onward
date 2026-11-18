@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.6.26
 
 - Quests whose mobs or objects sit in several places well apart ("Akiris by the Bundle": naga
   on the north coast of Stranglethorn and again near Booty Bay) now know all of them. The step
