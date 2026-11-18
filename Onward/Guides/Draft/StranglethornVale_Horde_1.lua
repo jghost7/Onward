@@ -1,4 +1,4 @@
--- DRAFT Stranglethorn Vale (Horde) generated 2026-11-17 by tools/draft_guide.py
+-- DRAFT Stranglethorn Vale (Horde) generated 2026-11-18 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -137,7 +137,7 @@ turnin 213 |npc Kebok |at 1434 27.0,77.1  -- Hostile Takeover (36)
 turnin 189 |npc Kebok |at 1434 27.0,77.1 |value mid  -- Bloodscalp Ears (35)
 turnin 605 |npc Crank Fizzlebub |at 1434 27.1,77.2  -- Singing Blue Shards (35)
 accept 600 |npc Crank Fizzlebub |at 1434 27.1,77.2 |lvl 30 |preany 605  -- Venture Company Mining (41)
-accept 95384 |loose |lvl 32  -- Partial Mystical Notes (40)
+accept 95384 |note No quest giver on record: it most likely starts from an item you loot or find in this zone. Hand it in to Dudd Fizzlescroll |loose |lvl 32  -- Partial Mystical Notes (40)
 turnin 577 |npc Drizzlik |at 1434 28.3,77.6  -- Some Assembly Required (36)
 accept 628 |npc Drizzlik |at 1434 28.3,77.6 |group elite |lvl 31 |preany 577  -- Excelsior (38)
 complete 95791 |at 1434 29.3,88.3 |mobs Captain Dreadrise;Saltseer Coroner  -- The Saltseer Captain (40)

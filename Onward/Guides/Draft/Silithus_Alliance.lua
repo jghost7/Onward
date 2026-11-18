@@ -1,4 +1,4 @@
--- DRAFT Silithus (Alliance) generated 2026-11-17 by tools/draft_guide.py
+-- DRAFT Silithus (Alliance) generated 2026-11-18 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -145,7 +145,7 @@ turnin 8348 |npc Bor Wildmane |at 1451 48.6,37.8 |group elite  -- Signet of the 
 turnin 8351 |npc Bor Wildmane |at 1451 48.6,37.8 |group chain  -- Bor Wishes to Speak (60)
 turnin 8318 |npc Bor Wildmane |at 1451 48.6,37.8 |value mid  -- Secret Communication (60)
 turnin 8349 |npc Bor Wildmane |at 1451 48.6,37.8 |group chain  -- Bor Wildmane (60)
-accept 8856 |loose |value low |lvl 60  -- Desert Survival Kits (0)
+accept 8856 |note No quest giver on record: it most likely starts from an item you loot or find in this zone |loose |value low |lvl 60  -- Desert Survival Kits (0)
 accept 8745 |npc Jonathan the Revelator |at 1451 25.9,91.0 |group chain |lvl 60 |preany 8742  -- Treasure of the Timeless One (60)
 turnin 8745 |npc Jonathan the Revelator |at 1451 25.9,91.0 |group chain  -- Treasure of the Timeless One (60)
 accept 8743 |npc The Scarab Gong |at 1451 25.7,90.9 |group chain |lvl 60 |preany 8742  -- Bang a Gong! (60)

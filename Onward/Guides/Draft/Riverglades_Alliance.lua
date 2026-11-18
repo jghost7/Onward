@@ -1,4 +1,4 @@
--- DRAFT Riverglades (Alliance) generated 2026-11-17 by tools/draft_guide.py
+-- DRAFT Riverglades (Alliance) generated 2026-11-18 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -85,7 +85,7 @@ turnin 95059 |npc Demar Brant |at 2548 66.7,81.0  -- Frazzlespark's Crate (36)
 turnin 94884 |npc Ashe Amberhall |at 2548 66.8,81.1 |group chain  -- An Unsettling Discovery (41)
 turnin 94881 |npc Ashe Amberhall |at 2548 66.8,81.1  -- Curious Trinkets (38)
 accept 94907 |npc Ashe Amberhall |at 2548 66.8,81.1 |lvl 36 |preany 94881  -- A Small Favor (44)
-accept 94980 |note Starts from Krol'dok Moulding |startitem 267138 |loose |lvl 38  -- Krol'dok Moulding (41)
+accept 94980 |note Starts from the item Krol'dok Moulding, found on Tunk. Hand it in to Alphonse Dumas |startitem 267138 |loose |lvl 38  -- Krol'dok Moulding (41)
 accept 95561 |npc Tessa Dawnbright |at 2548 63.9,82.2 |lvl 36 |preany 94877  -- Apple of My Eye (38)
 complete 95561 |at 2548 62.9,83.8  -- Apple of My Eye (38)
 turnin 95561 |npc Tessa Dawnbright |at 2548 63.9,82.2  -- Apple of My Eye (38)
@@ -218,14 +218,14 @@ fly 1434 27.5,77.8 |from 2548 60.6,81.5 |npc Stranglethorn Vale (Gyll)  -- fligh
 goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
 fly 1444 30.2,43.2 |from 1413 63.1,37.2 |npc Feralas (Fyldren Moonfeather)  -- flight master Bragok
 turnin 95219 |npc Mardrack Greenwell |at 1444 31.0,43.1  -- From Port to Port (41)
-accept 94926 |loose |group elite |lvl 38  -- Drop the Hammer (45)
+accept 94926 |note No quest giver on record: it most likely starts from an item you loot or find in this zone. Hand it in to Demar Brant |loose |group elite |lvl 38  -- Drop the Hammer (45)
 fly 1413 63.1,37.2 |from 1444 30.2,43.2 |npc The Barrens (Bragok)  -- flight master Fyldren Moonfeather
 goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
 fly 1453 71.3,72.2 |from 1434 27.5,77.8 |npc Stormwind City (Dungar Longdrink)  -- flight master Gyll
 turnin 94894 |npc Highlord Bolvar Fordragon |at 1453 80.2,38.4 |group chain  -- The Twilight Threat (45)
 turnin 94893 |npc Abigail Lawson |at 1453 50.1,51.5  -- Delivering Closure (47)
 accept 95161 |npc Orphan Matron Nightingale |at 1453 56.3,54.0 |lvl 15 |preany 92415  -- Remember That I Love You (22)
-accept 95935 |loose |group elite |lvl 36  -- Hail the Dragonslayer (43)
+accept 95935 |note No quest giver on record: it most likely starts from an item you loot or find in this zone. Hand it in to Cedric Dalton |loose |group elite |lvl 36  -- Hail the Dragonslayer (43)
 fly 1431 77.5,44.3 |from 1453 71.3,72.2 |npc Duskwood (Felicia Maline)  -- flight master Dungar Longdrink
 turnin 95161 |npc Avette Fellwood |at 1431 73.0,44.4  -- Remember That I Love You (22)
 fly 1434 27.5,77.8 |from 1431 77.5,44.3 |npc Stranglethorn Vale (Gyll)  -- flight master Felicia Maline

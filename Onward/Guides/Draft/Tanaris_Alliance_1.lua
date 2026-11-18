@@ -1,4 +1,4 @@
--- DRAFT Tanaris (Alliance) generated 2026-11-17 by tools/draft_guide.py
+-- DRAFT Tanaris (Alliance) generated 2026-11-18 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -16,7 +16,7 @@ accept 3520 |npc Yeh'kinya |at 1446 67.0,22.4 |lvl 40  -- Screecher Spirits (44)
 accept 95383 |npc Wharfmaster Steamfizzle |at 1446 67.6,23.1 |preany 95296  -- Shipping and Handling (40)
 turnin 95383 |npc Tazzik |at 1446 67.3,24.0  -- Shipping and Handling (40)
 accept 95312 |npc Tazzik |at 1446 67.3,24.0 |preany 95383  -- Coming to Collect (40)
-accept 2876 |note Starts from Ship Schedule |startitem 9250 |loose |lvl 40  -- Ship Schedules (45)
+accept 2876 |note Starts from the item Ship Schedule; where it comes from isn't on record. Hand it in to Security Chief Bilgewhizzle |startitem 9250 |loose |lvl 40  -- Ship Schedules (45)
 accept 2873 |npc Stoley |at 1446 67.1,24.0 |lvl 40  -- Stoley's Shipment (45)
 accept 97530 |npc Security Chief Bilgewhizzle |at 1446 67.1,23.9 |lvl 40  -- Dunemaul Dues (47)
 accept 8366 |npc Security Chief Bilgewhizzle |at 1446 67.1,23.9 |value mid |lvl 40  -- Southsea Shakedown (45)

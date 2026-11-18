@@ -1,4 +1,4 @@
--- DRAFT Shen'dralas (Horde) generated 2026-11-17 by tools/draft_guide.py
+-- DRAFT Shen'dralas (Horde) generated 2026-11-18 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -9,14 +9,14 @@ accept 93404 |npc Woodwyrd |at 2652 69.7,71.8 |preany 93594  -- Rot and Regret (
 complete 93404 |at 2652 69.7,71.8 |mobs Woodwyrd  -- Rot and Regret (49)
 turnin 93404 |npc Woodwyrd |at 2652 69.7,71.8  -- Rot and Regret (49)
 accept 93601 |npc Woodwyrd |at 2652 69.7,71.8 |preany 93404  -- Passing the Blame (45)
-accept 93644 |loose |value mid  -- Tattered Journal (45)
-accept 93574 |loose |group elite  -- Corpsefeeder's Carapace (45)
+accept 93644 |note No quest giver on record: it most likely starts from an item you loot or find in this zone. Hand it in to Mordent Evenshade |loose |value mid  -- Tattered Journal (45)
+accept 93574 |note No quest giver on record: it most likely starts from an item you loot or find in this zone. Hand it in to Kog'thug the Brave |loose |group elite  -- Corpsefeeder's Carapace (45)
 complete 93644 |at 2652 56.8,52.8 |areas 33.7,26.9:150;58.3,24.4:91;56.8,52.8:70 |mobs Magram Necromancer@Tattered Journal |value mid  -- Tattered Journal (45)
 complete 93574 |at 2652 64.2,39.4 |areas 58.6,23.3:108;46.4,33.0:83;64.2,39.4:55 |mobs Corpsefeeder@Corpsefeeder's Carapace |group elite  -- Corpsefeeder's Carapace (45)
 turnin 93601 |npc Kog'thug the Brave |at 2652 72.7,31.2  -- Passing the Blame (45)
-accept 93609 |loose  -- Forlorn Necklace (45)
+accept 93609 |note No quest giver on record: it most likely starts from an item you loot or find in this zone. Hand it in to Mithera |loose  -- Forlorn Necklace (45)
 turnin 93574 |npc Kog'thug the Brave |at 2652 72.7,31.2 |group elite  -- Corpsefeeder's Carapace (45)
-accept 93568 |loose  -- Partially Digested Collar (45)
+accept 93568 |note No quest giver on record: it most likely starts from an item you loot or find in this zone. Hand it in to Liranne |loose  -- Partially Digested Collar (45)
 accept 93604 |npc Kog'thug the Brave |at 2652 72.7,31.2 |preany 93601  -- Agamaggan's Blood (45)
 complete 93604  -- Agamaggan's Blood (45)
 turnin 93604 |npc Kog'thug the Brave |at 2652 72.7,31.2  -- Agamaggan's Blood (45)

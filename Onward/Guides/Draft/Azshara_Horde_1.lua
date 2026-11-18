@@ -1,4 +1,4 @@
--- DRAFT Azshara (Horde) generated 2026-11-17 by tools/draft_guide.py
+-- DRAFT Azshara (Horde) generated 2026-11-18 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -73,9 +73,9 @@ turnin 3563 |npc Jediga |at 1447 22.6,51.4  -- Jes'rimon's Payment to Jediga (52
 turnin 3564 |npc Jediga |at 1447 22.6,51.4  -- Andron's Payment to Jediga (52)
 turnin 91734 |npc Jediga |at 1447 22.6,51.4  -- Remote Contact (52)
 turnin 91735 |npc Jediga |at 1447 22.6,51.4  -- Remote Contact (52)
-accept 86747 |loose |value mid |preany 86746  -- Legashi Horns (0)
+accept 86747 |note No quest giver on record: it most likely starts from an item you loot or find in this zone. Hand it in to Ekkal |loose |value mid |preany 86746  -- Legashi Horns (0)
 turnin 3562 |npc Jediga |at 1447 22.6,51.4  -- Magatha's Payment to Jediga (52)
-accept 91607 |loose |group elite |lvl 50  -- Pay Dirt! (53)
+accept 91607 |note No quest giver on record: it most likely starts from an item you loot or find in this zone |loose |group elite |lvl 50  -- Pay Dirt! (53)
 turnin 86747 |npc Ekkal |at 1447 42.0,38.9 |value mid  -- Legashi Horns (0)
 turnin 5534 |npc Kim'jael |at 1447 53.5,21.8  -- Kim'jael's "Missing" Equipment (53)
 complete 91607 |at 1447 75.7,16.2 |areas 54.1,81.0:21;75.7,16.2:18 |mobs Cliff Thunderer@Humongous Crystal;Cliff Walker@Humongous Crystal;Cliff Breaker@Humongous Crystal |group elite  -- Pay Dirt! (53)

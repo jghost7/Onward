@@ -1,4 +1,4 @@
--- DRAFT Blasted Lands (Horde) generated 2026-11-17 by tools/draft_guide.py
+-- DRAFT Blasted Lands (Horde) generated 2026-11-18 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -26,7 +26,7 @@ fly 1435 46.1,54.8 |from 1434 26.9,77.1 |npc Swamp of Sorrows (Breyk)  -- flight
 accept 2681 |npc Fallen Hero of the Horde |at 1435 34.3,66.1 |lvl 45 |preany 2801  -- The Stones That Bind Us (57)
 accept 3627 |npc Fallen Hero of the Horde |at 1435 34.3,66.1 |group elite |lvl 45 |preany 3626  -- Uniting the Shattered Amulet (60)
 accept 2621 |npc Fallen Hero of the Horde |at 1435 34.3,66.1 |lvl 45 |preany 2784  -- The Disgraced One (50)
-accept 87451 |loose |lvl 45  -- Memories of Rockard (55)
+accept 87451 |note No quest giver on record: it most likely starts from an item you loot or find in this zone |loose |lvl 45  -- Memories of Rockard (55)
 complete 3627 |at 1419 40.8,30.0 |mobs Grol the Destroyer@Amulet of Grol;Archmage Allistarj@Amulet of Allistarj;Lady Sevine@Amulet of Sevine |group elite  -- Uniting the Shattered Amulet (60)
 accept 2521 |npc Kum'isha the Collector |at 1419 52.0,35.6 |lvl 45  -- To Serve Kum'isha (55)
 accept 93685 |npc Kum'isha the Collector |at 1419 52.0,35.6 |preany 93684  -- To Serve Kum'isha (55)

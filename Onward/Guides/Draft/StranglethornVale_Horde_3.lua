@@ -1,4 +1,4 @@
--- DRAFT Stranglethorn Vale (Horde) generated 2026-11-17 by tools/draft_guide.py
+-- DRAFT Stranglethorn Vale (Horde) generated 2026-11-18 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -10,10 +10,10 @@ accept 580 |npc Whiskey Slim |at 1434 27.1,77.5 |lvl 40  -- Whiskey Slim's Lost 
 accept 8552 |at 1434 23.2,72.1 |note Starts from Monogrammed Sash |startitem 3985 |lvl 40  -- The Monogrammed Sash (50)
 turnin 8552 |npc Captain Hecklebury Smotts |at 1434 26.7,73.6  -- The Monogrammed Sash (50)
 accept 7810 |at 1434 30.5,47.9 |note Starts from Arena Master |startitem 18706  -- Arena Master (55)
-accept 615 |loose |lvl 35 |preany 8552  -- The Captain's Cutlass (51)
+accept 615 |note No quest giver on record: it most likely starts from an item you loot or find in this zone |loose |lvl 35 |preany 8552  -- The Captain's Cutlass (51)
 turnin 615  -- The Captain's Cutlass (51)
 turnin 7810 |npc Short John Mithril |at 1434 29.6,47.4  -- Arena Master (55)
-accept 618 |loose |value mid |group elite |lvl 40 |preany 615,8553  -- Facing Negolash (50)
+accept 618 |note No quest giver on record: it most likely starts from an item you loot or find in this zone |loose |value mid |group elite |lvl 40 |preany 615,8553  -- Facing Negolash (50)
 goto 1434 31.3,29.2 15 |note Take the zeppelin to Orgrimmar  -- zeppelin Grom'gol to Orgrimmar
 accept 626 |npc Musty Scroll |at 1445 31.1,66.1 |lvl 35 |preany 625  -- Cortello's Riddle (51)
 fly 1413 63.1,37.2 |from 1445 35.6,31.9 |npc The Barrens (Bragok)  -- flight master Shardi

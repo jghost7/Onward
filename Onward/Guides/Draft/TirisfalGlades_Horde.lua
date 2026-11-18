@@ -1,4 +1,4 @@
--- DRAFT Tirisfal Glades (Horde) generated 2026-11-17 by tools/draft_guide.py
+-- DRAFT Tirisfal Glades (Horde) generated 2026-11-18 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -145,7 +145,7 @@ complete 99153 |at 1420 9.7,69.4 |race Scourge  -- The One That Got Away (12)
 turnin 95328 |npc Father Lankester |at 1458 49.1,14.6 |group elite  -- Whispering Horror Residue (13)
 turnin 98545 |npc Glix Xizzix |at 1458 70.0,47.3 |race Scourge  -- Leonid's Letter (12)
 accept 366 |npc Bethor Iceshard |at 1458 84.1,17.4 |lvl 5 |preany 357  -- Return the Book (8)
-accept 5847 |note Starts from Deathknell Gift Voucher |startitem 14651 |loose |race Scourge  -- Welcome! (1)
+accept 5847 |note Starts from the item Deathknell Gift Voucher; where it comes from isn't on record. Hand it in to Claire Willower |startitem 14651 |loose |race Scourge  -- Welcome! (1)
 turnin 99153 |npc Ephram Barbaro |at 1420 20.2,46.5 |race Scourge  -- The One That Got Away (12)
 turnin 99152 |npc Hilda the Breaker |at 1420 22.0,47.2 |race Scourge  -- As Above, So Below (12)
 complete 408 |at 1420 52.2,27.4 |mobs Wailing Ancestor;Rotting Ancestor;Captain Dargol@Dargol's Skull  -- The Family Crypt (13)

@@ -1,4 +1,4 @@
--- DRAFT Alterac Mountains (Alliance) generated 2026-11-17 by tools/draft_guide.py
+-- DRAFT Alterac Mountains (Alliance) generated 2026-11-18 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -26,7 +26,7 @@ turnin 92459 |npc Archmage Celindra |at 1416 14.2,60.0 |value low  -- Friend of 
 turnin 512 |npc Magistrate Henry Maleb |at 1424 48.1,59.1  -- Noble Deaths (36)
 turnin 95534 |npc Kundric Zanden |at 1424 48.6,59.0  -- Strahnbrad Mystery (36)
 accept 514 |npc Loremaster Dibbs |at 1424 50.6,57.1 |lvl 30 |preany 511  -- Letter to Stormpike (34)
-accept 522 |note Starts from Assassin's Contract |startitem 3668 |loose |lvl 30  -- Assassin's Contract (38)
+accept 522 |note Starts from the item Assassin's Contract, found on Shadowy Assassin. Hand it in to Magistrate Henry Maleb |startitem 3668 |loose |lvl 30  -- Assassin's Contract (38)
 turnin 522 |npc Magistrate Henry Maleb |at 1424 48.1,59.1  -- Assassin's Contract (38)
 turnin 505 |npc Magistrate Henry Maleb |at 1424 48.1,59.1 |value mid  -- Syndicate Assassins (33)
 fly 1455 55.5,47.7 |from 1424 49.3,52.3 |npc Ironforge (Gryth Thurden)  -- flight master Darla Harris

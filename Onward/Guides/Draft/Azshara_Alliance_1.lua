@@ -1,4 +1,4 @@
--- DRAFT Azshara (Alliance) generated 2026-11-17 by tools/draft_guide.py
+-- DRAFT Azshara (Alliance) generated 2026-11-18 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -41,7 +41,7 @@ turnin 88809 |npc Commander Truesong |at 1447 11.8,78.4 |value mid  -- Preservin
 turnin 88857 |npc Commander Truesong |at 1447 11.8,78.4  -- Saving a Sentinel (47)
 turnin 5535 |npc Loh'atu |at 1447 11.4,78.2  -- Spiritual Unrest (47)
 turnin 5536 |npc Loh'atu |at 1447 11.4,78.2  -- A Land Filled with Hatred (47)
-accept 90813 |loose |group elite |lvl 50  -- Pay Dirt! (53)
+accept 90813 |note No quest giver on record: it most likely starts from an item you loot or find in this zone |loose |group elite |lvl 50  -- Pay Dirt! (53)
 turnin 88917 |npc Saria Fairmoon |at 1447 50.6,42.7 |value mid  -- Slithering Looters (52)
 accept 88884 |npc Saria Fairmoon |at 1447 50.6,42.7 |value mid |lvl 47 |preany 88917  -- Highborne Tablets (52)
 turnin 86746 |npc Ekkal |at 1447 42.0,38.9  -- The Legashi Threat (53)
@@ -51,7 +51,7 @@ accept 89037 |npc Saria Fairmoon |at 1447 50.6,42.7 |value mid |lvl 47 |preany 8
 complete 89037 |at 1447 89.0,31.5 |mobs Razorgill@Memory Crystal |value mid  -- Murloc Thieves (52)
 complete 90813 |at 1447 74.4,18.6 |areas 51.5,79.6:13;74.4,18.6:12 |mobs Cliff Walker@Humongous Crystal;Cliff Breaker@Humongous Crystal |group elite  -- Pay Dirt! (53)
 turnin 90813 |group elite  -- Pay Dirt! (53)
-accept 86747 |loose |preany 86746  -- Legashi Horns (0)
+accept 86747 |note No quest giver on record: it most likely starts from an item you loot or find in this zone. Hand it in to Ekkal |loose |preany 86746  -- Legashi Horns (0)
 turnin 5534 |npc Kim'jael |at 1447 53.5,21.8  -- Kim'jael's "Missing" Equipment (53)
 turnin 86747 |npc Ekkal |at 1447 42.0,38.9  -- Legashi Horns (0)
 turnin 89037 |npc Saria Fairmoon |at 1447 50.6,42.7 |value mid  -- Murloc Thieves (52)

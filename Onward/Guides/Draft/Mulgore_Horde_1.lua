@@ -1,4 +1,4 @@
--- DRAFT Mulgore (Horde) generated 2026-11-17 by tools/draft_guide.py
+-- DRAFT Mulgore (Horde) generated 2026-11-18 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -9,7 +9,7 @@ Onward:RegisterGuide{
 accept 98476 |npc Nuara Tremorhoof |at 1412 33.5,22.7 |preany 98477  -- More Unstable Magic (0)
 turnin 98476 |npc Nuara Tremorhoof |at 1412 33.5,22.7  -- More Unstable Magic (0)
 accept 76156 |npc Boarton Shadetotem |at 1456 39.4,65.8 |race Orc,Tauren,Troll |lvl 4  -- Stalk With The Earthmother (10)
-accept 5844 |note Starts from Camp Narache Gift Voucher |startitem 14650 |loose |race Tauren  -- Welcome! (1)
+accept 5844 |note Starts from the item Camp Narache Gift Voucher; where it comes from isn't on record. Hand it in to Vorn Skyseer |startitem 14650 |loose |race Tauren  -- Welcome! (1)
 accept 1656 |npc Antur Fallow |at 1412 39.2,81.2  -- A Task Unfinished (5)
 turnin 5844 |npc Vorn Skyseer |at 1412 44.0,77.4 |race Tauren  -- Welcome! (1)
 accept 747 |npc Grull Hawkwind |at 1412 44.5,77.5 |value mid  -- The Hunt Begins (2)

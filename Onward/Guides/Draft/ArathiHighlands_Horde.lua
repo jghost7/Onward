@@ -1,4 +1,4 @@
--- DRAFT Arathi Highlands (Horde) generated 2026-11-17 by tools/draft_guide.py
+-- DRAFT Arathi Highlands (Horde) generated 2026-11-18 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -89,7 +89,7 @@ accept 687 |npc Gerrig Bonegrip |at 1455 50.8,5.6 |lvl 30 |preany 653,688  -- Th
 turnin 687 |npc Theldurin the Lost |at 1418 51.4,76.9  -- Theldurin the Lost (40)
 fly 2548 59.6,45.1 |from 1418 4.0,44.8 |npc Riverglades (Grakna)  -- flight master Gorrik
 turnin 95143 |npc Tan'jani |at 2548 58.1,45.3  -- Finding Tan'jani (38)
-accept 92707 |loose |group elite |lvl 30  -- The Giant in the Den (33)
+accept 92707 |note No quest giver on record: it most likely starts from an item you loot or find in this zone. Hand it in to Drum Fel |loose |group elite |lvl 30  -- The Giant in the Den (33)
 fly 1417 73.0,32.7 |from 2548 59.6,45.1 |npc Urda  -- flight master Grakna
 complete 79677 |at 1417 21.3,84.0 |item 283389  -- A Quick Grocery Run (40)
 complete 662 |at 1417 20.6,85.1  -- Deep Sea Salvage (40)
@@ -111,7 +111,7 @@ turnin 645 |npc Trollbane's Tomb |at 1417 28.9,59.6 |group chain  -- Trol'kalar 
 accept 646 |npc Trollbane's Tomb |at 1417 28.9,59.6 |group chain |lvl 32 |preany 645  -- Trol'kalar (42)
 turnin 702 |npc Gor'mul |at 1417 72.6,33.9 |value mid  -- Guile of the Raptor (37)
 accept 847 |npc Gor'mul |at 1417 72.6,33.9 |value mid |lvl 29 |preany 702  -- Guile of the Raptor (37)
-accept 636 |loose |lvl 30  -- Legends of the Earth (35)
+accept 636 |note No quest giver on record: it most likely starts from an item you loot or find in this zone |loose |lvl 30  -- Legends of the Earth (35)
 turnin 680 |npc Korin Fel |at 1417 74.0,33.1 |value mid |group elite  -- The Real Threat (40)
 turnin 636  -- Legends of the Earth (35)
 turnin 92707 |npc Drum Fel |at 1417 74.2,33.9 |group elite  -- The Giant in the Den (33)

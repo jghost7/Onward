@@ -1,4 +1,4 @@
--- DRAFT Un'Goro Crater (Alliance) generated 2026-11-17 by tools/draft_guide.py
+-- DRAFT Un'Goro Crater (Alliance) generated 2026-11-18 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -42,7 +42,7 @@ complete 3909 |at 1444 45.1,25.6  -- The Videre Elixir (52)
 fly 1452 62.3,36.6 |from 1444 30.2,43.2 |npc Winterspring (Maethrya)  -- flight master Fyldren Moonfeather
 turnin 3909 |npc Donova Snowden |at 1452 31.3,45.2  -- The Videre Elixir (52)
 accept 3912 |npc Donova Snowden |at 1452 31.3,45.2 |lvl 47 |preany 3909  -- Meet at the Grave (52)
-accept 87494 |loose  -- Microcrystal Contamination (55)
+accept 87494 |note No quest giver on record: it most likely starts from an item you loot or find in this zone. Hand it in to Torwa Pathfinder |loose  -- Microcrystal Contamination (55)
 fly 2482 68.7,46.8 |from 1452 62.3,36.6 |npc Mount Hyjal (Fayran Elthas)  -- flight master Maethrya
 turnin 92020 |npc Tiala Whitemane |at 2482 68.8,50.6  -- Hol'anyee's Big Book of Big Lizards (55)
 fly 1446 51.0,29.3 |from 2482 68.7,46.8 |npc Tanaris (Bera Stonehammer)  -- flight master Fayran Elthas
@@ -63,7 +63,7 @@ turnin 4289 |npc Torwa Pathfinder |at 1449 71.6,76.0  -- The Apes of Un'Goro (55
 complete 4291 |at 1449 63.0,77.0 |areas 66.0,62.0:7;63.0,77.0:5 |mobs Lar'korwi Mate@Ravasaur Pheromone Gland  -- The Scent of Lar'korwi (53)
 turnin 4291 |npc Torwa Pathfinder |at 1449 71.6,76.0  -- The Scent of Lar'korwi (53)
 accept 4292 |npc Torwa Pathfinder |at 1449 71.6,76.0 |lvl 48 |preany 4291  -- The Bait for Lar'korwi (56)
-accept 95790 |loose |value mid |lvl 55  -- Digestible Research (60)
+accept 95790 |note No quest giver on record: it most likely starts from an item you loot or find in this zone |loose |value mid |lvl 55  -- Digestible Research (60)
 accept 4301 |npc Torwa Pathfinder |at 1449 71.6,76.0 |lvl 50 |preany 4289  -- The Mighty U'cha (55)
 complete 4292 |at 1449 79.7,49.8 |item 11568 |mobs Lar'korwi@Lar'korwi's Head  -- The Bait for Lar'korwi (56)
 complete 3881 |at 1449 68.5,36.5  -- Expedition Salvation (53)

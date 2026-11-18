@@ -109,13 +109,20 @@ end
 -- states: "accepted", "progress", "ready", "turnedin", "removed"
 ---------------------------------------------------------------------------
 local lastReady = {}
+-- A quest is announced as finished only when we watched it go from unfinished to finished.
+-- After a login or /reload nothing is remembered, so every finished quest already in your log
+-- used to look freshly finished: each one was announced again (party toasts, and a "done" line
+-- in party chat per quest). A quest first seen already finished is noted, not announced.
+local seen = {}
 
 local function snapshotReady()
     ensure()
     for q, e in pairs(log) do
+        local known = seen[q]
+        seen[q] = true
         if e.ready and not lastReady[q] then
             lastReady[q] = true
-            W:Fire("WF_QUEST_STATE", q, "ready")
+            if known then W:Fire("WF_QUEST_STATE", q, "ready") end
         elseif not e.ready and lastReady[q] then
             lastReady[q] = nil
         end
@@ -150,6 +157,7 @@ W:On("QUEST_REMOVED", function(_, questID)
     dirty = true
     if questID and not C_QuestLog.IsQuestFlaggedCompleted(questID) then
         lastReady[questID] = nil
+        seen[questID] = nil
         W:Fire("WF_QUEST_STATE", questID, "removed")
     end
     W:RequestRefresh()

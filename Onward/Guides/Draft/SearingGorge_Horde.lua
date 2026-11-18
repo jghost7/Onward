@@ -1,4 +1,4 @@
--- DRAFT Searing Gorge (Horde) generated 2026-11-17 by tools/draft_guide.py
+-- DRAFT Searing Gorge (Horde) generated 2026-11-18 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -46,7 +46,7 @@ fly 1434 26.9,77.1 |from 1427 34.8,30.9 |npc Stranglethorn Vale (Gringer)  -- fl
 goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
 fly 1446 51.6,25.4 |from 1413 63.1,37.2 |npc Tanaris (Bulkrek Ragefist)  -- flight master Bragok
 turnin 4450 |npc Krinkle Goodsteel |at 1446 51.5,28.8 |value mid  -- Ledger from Tanaris (46)
-accept 7704 |note Starts from Chambermaid Pillaclencher's Pillow |startitem 18950 |loose |lvl 45  -- Look at the Size of It! (50)
+accept 7704 |note Starts from the item Chambermaid Pillaclencher's Pillow, found on Pillaclencher's Ornate Pillow. Hand it in to Evonice Sootsmoker |startitem 18950 |loose |lvl 45  -- Look at the Size of It! (50)
 fly 1413 63.1,37.2 |from 1446 51.6,25.4 |npc The Barrens (Bragok)  -- flight master Bulkrek Ragefist
 goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
 fly 1427 34.8,30.9 |from 1434 26.9,77.1 |npc Grisha  -- flight master Gringer

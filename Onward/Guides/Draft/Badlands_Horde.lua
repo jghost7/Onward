@@ -1,4 +1,4 @@
--- DRAFT Badlands (Horde) generated 2026-11-17 by tools/draft_guide.py
+-- DRAFT Badlands (Horde) generated 2026-11-18 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -33,7 +33,7 @@ fly 1434 26.9,77.1 |from 1418 4.0,44.8 |npc Stranglethorn Vale (Gringer)  -- fli
 goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
 fly 1454 45.1,63.9 |from 1413 63.1,37.2 |npc Orgrimmar (Doras)  -- flight master Bragok
 accept 2283 |npc Dran Droffers |at 1454 59.5,36.6 |group elite |lvl 37  -- Necklace Recovery (41)
-accept 78823 |loose |lvl 26  -- Terror of the Desert Skies (40)
+accept 78823 |note No quest giver on record: it most likely starts from an item you loot or find in this zone. Hand it in to Hemet Nesingwary |loose |lvl 26  -- Terror of the Desert Skies (40)
 fly 1413 63.1,37.2 |from 1454 45.1,63.9 |npc The Barrens (Bragok)  -- flight master Doras
 goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
 accept 737 |npc Gerrig Bonegrip |at 1455 50.8,5.6 |group chain |lvl 30 |preany 735,736  -- Forbidden Knowledge (40)
@@ -42,7 +42,7 @@ fly 1435 46.1,54.8 |from 1458 63.2,48.6 |npc Swamp of Sorrows (Breyk)  -- flight
 turnin 1420 |npc Helgrum the Swift |at 1435 47.7,55.2  -- Report to Helgrum (40)
 fly 1434 32.5,29.4 |from 1435 46.1,54.8 |npc Stranglethorn Vale (Thysta)  -- flight master Breyk
 complete 705 |at 1434 26.3,26.1 |value mid  -- Pearl Diving (37)
-accept 97821 |loose |group elite  -- Mirage Mirror (42)
+accept 97821 |note No quest giver on record: it most likely starts from an item you loot or find in this zone. Hand it in to Dorgaron |loose |group elite  -- Mirage Mirror (42)
 fly 1418 4.0,44.8 |from 1434 32.5,29.4 |npc Gorrik  -- flight master Thysta
 accept 782 |npc Gorn |at 1418 2.9,45.6 |lvl 40  -- Broken Alliances (43)
 complete 2258 |at 1418 37.6,63.0 |mobs Elder Crag Coyote@Crag Coyote Fang;Feral Crag Coyote@Crag Coyote Fang;Rock Elemental@Rock Elemental Shard;Crag Coyote@Crag Coyote Fang |value mid  -- Badlands Reagent Run (39)
@@ -69,7 +69,7 @@ complete 2342 |at 1418 34.2,18.6  -- Reclaimed Treasures (43)
 complete 2202 |at 1418 37.6,15.3 |value mid  -- Uldaman Reagent Run (42)
 complete 2418 |at 1418 47.6,12.4 |mobs Shadowforge Digger@Dentrium Power Stone;Shadowforge Surveyor@Dentrium Power Stone;Shadowforge Ruffian@Dentrium Power Stone |value mid  -- Power Stones (36)
 complete 2283 |at 1418 47.8,12.2 |mobs Shadowforge Digger@Shattered Necklace;Shadowforge Surveyor@Shattered Necklace;Shadowforge Ruffian@Shattered Necklace;Stonevault Rockchewer@Shattered Necklace |group elite  -- Necklace Recovery (41)
-accept 2280 |loose |lvl 40 |preany 2278  -- The Platinum Discs (47)
+accept 2280 |note Starts from The Discs of Norgannon, whose place isn't on record. Hand it in to Sage Truthseeker |loose |lvl 40 |preany 2278  -- The Platinum Discs (47)
 turnin 97821 |npc Dorgaron |at 1418 54.6,12.9 |group elite  -- Mirage Mirror (42)
 complete 78823 |at 1418 65.7,23.5 |areas 10.7,75.9:23;7.6,90.4:19;49.9,68.4:19;65.7,23.5:8 |mobs Stonevault Bonesnapper@Primitive Drawing;Dustbelcher Mauler@Primitive Drawing;Dustbelcher Ogre Mage@Primitive Drawing;Dustbelcher Wyrmhunter@Primitive Drawing  -- Terror of the Desert Skies (40)
 complete 793 |at 1418 81.9,49.5 |item 4640 |mobs Blacklash@Blacklash's Bindings;Hematus@Chains of Hematus |group elite  -- Broken Alliances (50)
@@ -94,7 +94,7 @@ accept 81900 |npc Weathered Etching |at 1427 14.5,35.8 |lvl 45  -- The Burning B
 fly 1458 63.2,48.6 |from 1427 34.8,30.9 |npc Undercity (Michael Garrett)  -- flight master Grisha
 turnin 2342 |npc Patrick Garrett |at 1458 62.3,48.6  -- Reclaimed Treasures (43)
 turnin 728 |npc Keeper Bel'dugur |at 1458 53.7,54.5  -- To the Undercity for Yagyin's Digest (40)
-accept 2318 |loose |group chain |lvl 37 |preany 2284  -- Translating the Journal (42)
+accept 2318 |note Starts from Remains of a Paladin, whose place isn't on record. Hand it in to Jarkal Mossmeld |loose |group chain |lvl 37 |preany 2284  -- Translating the Journal (42)
 fly 1418 4.0,44.8 |from 1458 63.2,48.6 |npc Gorrik  -- flight master Michael Garrett
 turnin 2318 |npc Jarkal Mossmeld |at 1418 2.4,46.1 |group chain  -- Translating the Journal (42)
 accept 2338 |npc Jarkal Mossmeld |at 1418 2.4,46.1 |group chain |lvl 37 |preany 2318  -- Translating the Journal (42)

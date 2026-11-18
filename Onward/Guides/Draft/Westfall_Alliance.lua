@@ -1,4 +1,4 @@
--- DRAFT Westfall (Alliance) generated 2026-11-17 by tools/draft_guide.py
+-- DRAFT Westfall (Alliance) generated 2026-11-18 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -7,7 +7,7 @@ Onward:RegisterGuide{
   steps = [[
 home |npc Innkeeper Heather |at 1436 52.9,53.7  -- set your hearthstone at the inn
 accept 12 |npc Gryan Stoutmantle |at 1436 56.3,47.5 |value mid |lvl 9  -- The People's Militia (12)
-accept 184 |note Starts from Westfall Deed |startitem 1972 |loose |lvl 8  -- Furlbrow's Deed (9)
+accept 184 |note Starts from the item Westfall Deed, found on Defias Bandit, Defias Rogue Wizard, Defias Ambusher. Hand it in to Farmer Furlbrow |startitem 1972 |loose |lvl 8  -- Furlbrow's Deed (9)
 accept 102 |npc Captain Danuvin |at 1436 56.4,47.6 |lvl 8  -- Patrolling Westfall (14)
 accept 6181 |npc Quartermaster Lewis |at 1436 57.0,47.2 |race Human |lvl 10  -- A Swift Message (10)
 turnin 6181 |npc Thor |at 1436 56.5,52.6 |race Human  -- A Swift Message (10)

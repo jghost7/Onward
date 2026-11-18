@@ -1,4 +1,4 @@
--- DRAFT Teldrassil (Alliance) generated 2026-11-17 by tools/draft_guide.py
+-- DRAFT Teldrassil (Alliance) generated 2026-11-18 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -61,7 +61,7 @@ complete 918 |at 1438 54.5,69.8 |areas 54.5,69.8:27;43.2,30.1:20 |mobs Timberlin
 complete 99050 |at 1438 57.1,68.9 |areas 57.1,68.9:162;43.1,39.2:90 |mobs Lasher Sproutling@Dewy Lasher Frond;Blooming Lasher@Dewy Lasher Frond;Wrathvine@Dewy Lasher Frond |race NightElf,SkyborneAlliance  -- The Great Tree Provides (10)
 turnin 918 |npc Denalan |at 1438 60.9,68.5  -- Timberling Seeds (7)
 accept 922 |npc Denalan |at 1438 60.9,68.5 |lvl 4 |preany 918  -- Rellian Greenspyre (7)
-accept 5842 |note Starts from Shadowglen Gift Voucher |startitem 14648 |loose |race NightElf  -- Welcome! (1)
+accept 5842 |note Starts from the item Shadowglen Gift Voucher; where it comes from isn't on record. Hand it in to Orenthil Whisperwind |startitem 14648 |loose |race NightElf  -- Welcome! (1)
 complete 2438 |at 1438 68.0,59.6  -- The Emerald Dreamcatcher (6)
 turnin 475 |npc Gaerolas Talvethren |at 1438 66.3,58.5  -- A Troubling Breeze (6)
 accept 476 |npc Gaerolas Talvethren |at 1438 66.3,58.5 |lvl 4 |preany 475  -- Gnarlpine Corruption (6)
@@ -126,7 +126,7 @@ turnin 940 |npc Arch Druid Fandral Staghelm |at 1457 34.8,9.3  -- Teldrassil (11
 accept 98065 |npc Lariia |at 1457 40.4,88.7 |race NightElf |preany 98046  -- Crown of the Earth (11)
 turnin 98065 |npc Tyrande Whisperwind |at 1457 39.1,81.6 |race NightElf  -- Crown of the Earth (11)
 accept 2498 |npc Rellian Greenspyre |at 1457 38.2,21.6 |lvl 4 |preany 923  -- Return to Denalan (9)
-accept 934 |loose  -- Crown of the Earth (11)
+accept 934 |note No quest giver on record: it most likely starts from an item you loot or find in this zone |loose  -- Crown of the Earth (11)
 complete 486 |at 1438 38.8,79.8 |mobs Ursal the Mauler  -- Ursal the Mauler (12)
 accept 930 |npc Strange Fruited Plant |at 1438 42.6,76.2 |lvl 4 |preany 918  -- The Glowing Fruit (10)
 complete 933 |at 1438 42.4,67.1 |item 5621  -- Crown of the Earth (9)

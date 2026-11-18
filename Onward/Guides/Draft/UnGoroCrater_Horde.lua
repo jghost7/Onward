@@ -1,4 +1,4 @@
--- DRAFT Un'Goro Crater (Horde) generated 2026-11-17 by tools/draft_guide.py
+-- DRAFT Un'Goro Crater (Horde) generated 2026-11-18 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -42,7 +42,7 @@ fly 1452 60.5,36.3 |from 1449 45.2,5.8 |npc Winterspring (Yugrek)  -- flight mas
 turnin 3908 |npc Donova Snowden |at 1452 31.3,45.2  -- It's a Secret to Everybody (52)
 accept 3909 |npc Donova Snowden |at 1452 31.3,45.2 |lvl 47 |preany 3908  -- The Videre Elixir (52)
 turnin 980 |npc Donova Snowden |at 1452 31.3,45.2  -- The New Springs (55)
-accept 87494 |loose  -- Microcrystal Contamination (55)
+accept 87494 |note No quest giver on record: it most likely starts from an item you loot or find in this zone. Hand it in to Torwa Pathfinder |loose  -- Microcrystal Contamination (55)
 fly 1444 75.5,44.4 |from 1452 60.5,36.3 |npc Feralas (Shyn)  -- flight master Yugrek
 complete 3909 |at 1444 45.1,25.6  -- The Videre Elixir (52)
 fly 1452 60.5,36.3 |from 1444 75.5,44.4 |npc Winterspring (Yugrek)  -- flight master Shyn
@@ -106,7 +106,7 @@ fly 1434 26.9,77.1 |from 1458 63.2,48.6 |npc Stranglethorn Vale (Gringer)  -- fl
 goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
 fly 2482 68.7,46.8 |from 1413 63.1,37.2 |npc Mount Hyjal (Fayran Elthas)  -- flight master Bragok
 turnin 92020 |npc Tiala Whitemane |at 2482 68.8,50.6  -- Hol'anyee's Big Book of Big Lizards (55)
-accept 94399 |loose |value mid |lvl 58  -- Ravasaur Provisions (60)
+accept 94399 |note No quest giver on record: it most likely starts from an item you loot or find in this zone |loose |value mid |lvl 58  -- Ravasaur Provisions (60)
 fly 1446 51.6,25.4 |from 2482 68.7,46.8 |npc Tanaris (Bulkrek Ragefist)  -- flight master Fayran Elthas
 complete 4005 |at 1446 70.4,49.9 |item 11617  -- Aquementas (54)
 fly 1449 45.2,5.8 |from 1446 51.6,25.4 |npc Gryfe  -- flight master Bulkrek Ragefist

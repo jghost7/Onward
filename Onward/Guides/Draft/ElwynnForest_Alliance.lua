@@ -1,4 +1,4 @@
--- DRAFT Elwynn Forest (Alliance) generated 2026-11-17 by tools/draft_guide.py
+-- DRAFT Elwynn Forest (Alliance) generated 2026-11-18 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -159,7 +159,7 @@ complete 91738  -- An Apple Treat (10)
 turnin 91738 |npc Sergeant De Vries |at 1429 24.1,73.2  -- An Apple Treat (10)
 accept 109 |npc Farmer Saldean |at 1436 56.0,31.2 |lvl 9  -- Report to Gryan Stoutmantle (10)
 turnin 109 |npc Gryan Stoutmantle |at 1436 56.3,47.5  -- Report to Gryan Stoutmantle (10)
-accept 5805 |note Starts from Northshire Gift Voucher |startitem 14646 |loose |race Human  -- Welcome! (1)
+accept 5805 |note Starts from the item Northshire Gift Voucher; where it comes from isn't on record. Hand it in to Merissa Stilwell |startitem 14646 |loose |race Human  -- Welcome! (1)
 fly 1453 71.3,72.2 |from 1436 56.5,52.6 |npc Stormwind City (Dungar Longdrink)  -- flight master Thor
 turnin 61 |npc Morgan Pestle |at 1453 63.2,74.4  -- Shipment to Stormwind (7)
 turnin 5805 |npc Merissa Stilwell |at 1429 47.4,41.9 |race Human  -- Welcome! (1)

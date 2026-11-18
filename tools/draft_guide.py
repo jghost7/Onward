@@ -1110,6 +1110,30 @@ def guide_id(name, faction, band=None):
 TIER_TAG = {1: " |value mid", 2: " |value low"}
 
 
+def loose_note(zone, q):
+    """What is known about a quest the guide can't lead you to, for its accept step: the item it
+    starts from and what drops it, or the giver's name, and who takes it in the end."""
+    db = zone.db
+    fin = q["finish"][2] if q.get("finish") and q["finish"][2] else None
+    end = f". Hand it in to {fin}" if fin else ""
+    item = q.get("startItemId")
+    if item:
+        name = s(db.field("Item-", item, 1)) or q.get("startItem") or "an item"
+        mobs = [s(db.npc(n, "name")) for n in lua_list(db.field("Item-", item, 2)) if n]
+        objs = [s(db.obj(o, "name")) for o in lua_list(db.field("Item-", item, 3)) if o]
+        src = list(dict.fromkeys(x for x in mobs + objs if x))[:3]
+        if src:
+            return f"Starts from the item {name}, found on {', '.join(src)}{end}"
+        return f"Starts from the item {name}; where it comes from isn't on record{end}"
+    sb = db.quest(q["id"], "startedBy") or {}
+    sb = sb if isinstance(sb, dict) else dict(enumerate(lua_list(sb), 1))
+    givers = [s(db.npc(i, "name")) for i in lua_list(sb.get(1)) if i] + [s(db.obj(i, "name")) for i in lua_list(sb.get(2)) if i]
+    givers = [g for g in givers if g]
+    if givers:
+        return f"Starts from {givers[0]}, whose place isn't on record{end}"
+    return f"No quest giver on record: it most likely starts from an item you loot or find in this zone{end}"
+
+
 def gate_tags(zone, q):
     """What the game asks before it offers the quest, for the accept step: |lvl <minimum level>,
     |pre a,b (all turned in) and |preany a,b (one of them). The addon holds the step back until
@@ -1196,6 +1220,8 @@ def render(zone, steps, leftovers, levels, name, faction, gid=None, next_id=None
             # wait on it, and takes it from there once it's in your log or the item is in your bags
             item = f" |startitem {q['startItemId']}" if q.get("startItemId") else ""
             loose = "" if loc else " |loose"
+            if not loc:
+                note = f" |note {clean(loose_note(zone, q))}"
             out.append(f"accept {q['id']}{npc}{fmt_at(loc)}{note}{item}{loose}{who}{gate_tags(zone, q)}{title}")
         elif verb == "complete":
             at = f" |at {zone.map} {q['obj'][0]:.1f},{q['obj'][1]:.1f}" if q["obj"] else fmt_at(q.get("objFar"))

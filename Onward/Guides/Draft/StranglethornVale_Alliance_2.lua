@@ -1,4 +1,4 @@
--- DRAFT Stranglethorn Vale (Alliance) generated 2026-11-17 by tools/draft_guide.py
+-- DRAFT Stranglethorn Vale (Alliance) generated 2026-11-18 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -43,7 +43,7 @@ accept 624 |at 1434 30.6,90.2 |note Starts from Cortello's Riddle |startitem 405
 complete 608 |at 1434 30.6,90.6 |mobs Captain Stillwater;Captain Keelhaul;Fleet Master Firallon  -- The Bloodsail Buccaneers (45)
 turnin 624 |npc A Soggy Scroll |at 1435 22.9,48.2  -- Cortello's Riddle (43)
 accept 625 |npc A Soggy Scroll |at 1435 22.9,48.2 |lvl 35 |preany 624  -- Cortello's Riddle (43)
-accept 95385 |loose  -- Torn Mystical Scroll (43)
+accept 95385 |note No quest giver on record: it most likely starts from an item you loot or find in this zone. Hand it in to Dudd Fizzlescroll |loose  -- Torn Mystical Scroll (43)
 goto 1437 4.6,57.1 15 |note Take the boat to Theramore  -- boat Menethil Harbor to Theramore
 turnin 623 |npc Privateer Groy |at 1445 68.8,53.2  -- Akiris by the Bundle (43)
 turnin 625 |npc Musty Scroll |at 1445 31.1,66.1  -- Cortello's Riddle (43)

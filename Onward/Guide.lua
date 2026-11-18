@@ -471,6 +471,21 @@ function G:HeldReason(step)
     end
 end
 
+-- Quests of this guide with no known place to pick them up, that you don't have yet: the
+-- panel lists them with what is known (the item, what drops it, who takes it), since the guide
+-- can't lead you to them.
+function G:Loose()
+    local out = {}
+    if not active or active.id == "smart" then return out end
+    for _, s in ipairs(active.steps) do
+        if s.verb == "accept" and s.loose and not G:IsComplete(s) and not G:IsSkipped(s) then
+            local _, kind = G:HeldReason(s)
+            if kind == "loose" then out[#out + 1] = s end
+        end
+    end
+    return out
+end
+
 -- Objectives and the turn-in of a quest you don't have, when its accept step was skipped or
 -- can't be done yet: nothing to do here, so they go with it. Picking the quest up anyway
 -- brings them back.

@@ -1,4 +1,4 @@
--- DRAFT Dun Morogh (Alliance) generated 2026-11-17 by tools/draft_guide.py
+-- DRAFT Dun Morogh (Alliance) generated 2026-11-18 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -129,7 +129,7 @@ accept 415 |npc Pilot Bellowfiz |at 1426 49.4,48.4 |lvl 8 |preany 315  -- Rejold
 accept 412 |npc Razzle Sprysprocket |at 1426 45.9,49.4 |value mid |lvl 7  -- Operation Recombobulation (10)
 accept 2926 |npc Ozzie Togglevolt |at 1426 45.9,49.4 |group elite |lvl 20  -- Gnogaine (27)
 complete 319 |at 1426 34.9,35.7 |areas 59.0,57.9:50;34.9,35.7:37 |mobs Ice Claw Bear;Elder Crag Boar;Snow Leopard  -- A Favor for Evershine (8)
-accept 5841 |note Starts from Coldridge Valley Gift Voucher |startitem 14647 |loose |race Dwarf,Gnome  -- Welcome! (1)
+accept 5841 |note Starts from the item Coldridge Valley Gift Voucher; where it comes from isn't on record. Hand it in to Yori Crackhelm |startitem 14647 |loose |race Dwarf,Gnome  -- Welcome! (1)
 accept 467 |npc Mountaineer Kadrell |at 1432 32.6,49.7 |lvl 20  -- Stonegear's Search (23)
 turnin 414 |npc Mountaineer Kadrell |at 1432 32.6,49.7  -- Stout to Kadrell (10)
 fly 1455 55.5,47.7 |from 1432 33.9,51.0 |npc Ironforge (Gryth Thurden)  -- flight master Thorgrum Borrelson
@@ -137,7 +137,7 @@ turnin 291 |npc Senator Barin Redstone |at 1455 39.5,57.5  -- The Reports (10)
 accept 95041 |npc Jemma Quikswitch |at 1455 67.7,44.2 |value mid |lvl 7  -- Data Hoarders (10)
 accept 2927 |npc Gnoarn |at 1455 69.2,50.5 |lvl 20  -- The Day After (27)
 accept 2922 |npc Tinkmaster Overspark |at 1455 69.5,50.3 |group elite |lvl 20  -- Save Techbot's Brain! (26)
-accept 98423 |note Starts from Treaty of Understanding |startitem 281030 |loose |lvl 9  -- The Treaty of Understanding (16)
+accept 98423 |note Starts from the item Treaty of Understanding, found on Treaty of Understanding. Hand it in to King Magni Bronzebeard |startitem 281030 |loose |lvl 9  -- The Treaty of Understanding (16)
 fly 1437 9.5,59.7 |from 1455 55.5,47.7 |npc Wetlands (Shellei Brondir)  -- flight master Gryth Thurden
 complete 466 |at 1437 48.4,62.1  -- Search for Incendicite (22)
 complete 2922 |at 1426 19.8,31.9 |mobs Techbot@Techbot's Memory Core |group elite  -- Save Techbot's Brain! (26)

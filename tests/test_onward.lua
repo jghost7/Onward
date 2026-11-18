@@ -1828,6 +1828,8 @@ accept 9503 |npc Collector |at 1423 40.0,40.0
     G:Activate("loose") settle()
     check("no known start: the guide doesn't wait on it, or on its turn-in", at() == "accept 9503", at())
     check("...and says why when asked", select(2, G:HeldReason(G:Active().steps[1])) == "loose")
+    check("both are listed as quests to find", #G:Loose() == 2 and G:Loose()[2].note == "Starts from Gift Voucher", #G:Loose())
+    check("panel: a footer link for them", W.UI.looseBtn:IsShown() and W.UI.looseBtn.text:GetText():find("2 to find here", 1, true), W.UI.looseBtn.text:GetText())
     check("a fresh character's count still starts at 0", (G:Progress()) == 0, (G:Progress()))
     MOCK.bags[77001] = 1 MOCK.fire("BAG_UPDATE_DELAYED") settle()
     check("the item that starts a quest is in your bags: its accept comes up", at() == "accept 9502", at())
@@ -1837,8 +1839,33 @@ accept 9503 |npc Collector |at 1423 40.0,40.0
     MOCK.addQuest(9501, "Scrap of scroll (a drop)") MOCK.finish(9501) MOCK.fire("QUEST_ACCEPTED", 9501) settle()
     MOCK.turnIn(9502) MOCK.fire("QUEST_TURNED_IN", 9502) settle()
     check("a dropped quest you happened to get: the guide takes it from there", #G:Waiting().ready == 1 or at() == "turnin 9501", at())
+    check("once you have them they leave the list", #G:Loose() == 0, #G:Loose())
     MOCK.turnIn(9501) MOCK.done[9501], MOCK.done[9502] = nil, nil MOCK.fire("QUEST_REMOVED", 9501)
     G:Activate(oldGuide) settle()
+end
+
+-- reload in a party: finished quests already in the log are not announced again -----------
+do
+    local oldChat = W.db.partyChat
+    W.db.partyChat = true
+    local function count(q)
+        local n = 0
+        for _, s in ipairs(MOCK.sent) do if s[2] == "1|Q|" .. q .. "|r" then n = n + 1 end end
+        return n
+    end
+    local chatBefore = #MOCK.chat
+    MOCK.addQuest(9651, "Finished before the reload") MOCK.finish(9651)      -- first seen already finished
+    MOCK.addQuest(9652, "Still working on it")
+    MOCK.fire("PLAYER_LOGIN") MOCK.fire("QUEST_LOG_UPDATE") MOCK.advance(3)
+    check("reload: a quest already finished is not announced", count(9651) == 0 and #MOCK.chat == chatBefore, count(9651) .. " / " .. (#MOCK.chat - chatBefore))
+    MOCK.finish(9652) MOCK.fire("QUEST_LOG_UPDATE") MOCK.advance(2)
+    check("finishing one now is announced, once", count(9652) == 1 and #MOCK.chat == chatBefore + 1
+        and MOCK.chat[#MOCK.chat][1] == "[Onward] done: Still working on it", count(9652) .. " / " .. (#MOCK.chat - chatBefore))
+    MOCK.fire("QUEST_LOG_UPDATE") MOCK.advance(2)
+    check("...and not again on the next update", count(9652) == 1 and #MOCK.chat == chatBefore + 1)
+    MOCK.turnIn(9651) MOCK.turnIn(9652) MOCK.done[9651], MOCK.done[9652] = nil, nil
+    MOCK.fire("QUEST_REMOVED", 9651) MOCK.fire("QUEST_REMOVED", 9652) MOCK.advance(20)
+    W.db.partyChat = oldChat
 end
 
 check("no runtime errors", #MOCK.errors == 0, MOCK.errors[1])

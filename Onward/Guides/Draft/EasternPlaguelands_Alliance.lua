@@ -1,4 +1,4 @@
--- DRAFT Eastern Plaguelands (Alliance) generated 2026-11-17 by tools/draft_guide.py
+-- DRAFT Eastern Plaguelands (Alliance) generated 2026-11-18 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -103,12 +103,12 @@ accept 6164 |npc Augustus the Touched |at 1423 11.4,26.4 |lvl 50  -- Augustus' R
 complete 6164 |at 1423 14.0,24.2  -- Augustus' Receipt Book (55)
 turnin 6164 |npc Augustus the Touched |at 1423 11.4,26.4  -- Augustus' Receipt Book (55)
 turnin 8929 |npc Anthion Harmon |at 1423 26.1,11.3 |class WARRIOR,PALADIN,HUNTER,ROGUE,PRIEST,MAGE,WARLOCK,DRUID |group chain  -- In Search of Anthion (60)
-accept 8946 |loose |class WARRIOR,PALADIN,HUNTER,ROGUE,PRIEST,MAGE,WARLOCK,DRUID |group chain |lvl 58 |preany 8945  -- Proof of Life (60)
+accept 8946 |note Starts from Ysida Harmon, whose place isn't on record. Hand it in to Anthion Harmon |loose |class WARRIOR,PALADIN,HUNTER,ROGUE,PRIEST,MAGE,WARLOCK,DRUID |group chain |lvl 58 |preany 8945  -- Proof of Life (60)
 turnin 8946 |npc Anthion Harmon |at 1423 26.1,11.3 |class WARRIOR,PALADIN,HUNTER,ROGUE,PRIEST,MAGE,WARLOCK,DRUID |group chain  -- Proof of Life (60)
 accept 8947 |npc Anthion Harmon |at 1423 26.1,11.3 |class WARRIOR,PALADIN,HUNTER,ROGUE,PRIEST,MAGE,WARLOCK,DRUID |group chain |lvl 58 |preany 8946  -- Anthion's Strange Request (60)
 complete 8947 |class WARRIOR,PALADIN,HUNTER,ROGUE,PRIEST,MAGE,WARLOCK,DRUID |group chain  -- Anthion's Strange Request (60)
 turnin 8947 |npc Anthion Harmon |at 1423 26.1,11.3 |class WARRIOR,PALADIN,HUNTER,ROGUE,PRIEST,MAGE,WARLOCK,DRUID |group chain  -- Anthion's Strange Request (60)
-accept 98109 |loose |preany 97986  -- Bleeding Edge (57)
+accept 98109 |note Starts from Argent Medic, whose place isn't on record. Hand it in to Adon |loose |preany 97986  -- Bleeding Edge (57)
 complete 6041 |at 1423 28.0,17.8 |item 15736 |mobs Scourge Structure  -- When Smokey Sings, I Get Violent (58)
 turnin 5247 |npc Aurora Skycaller |at 1423 46.5,16.0  -- Fragments of the Past (57)
 accept 5248 |npc Aurora Skycaller |at 1423 46.5,16.0 |lvl 53 |preany 5247  -- Tormented By the Past (58)
@@ -123,7 +123,7 @@ turnin 9136 |npc Rayne |at 1423 71.4,49.4 |value mid  -- Savage Flora (60)
 turnin 9664 |npc Emmisary Whitebeard |at 1423 71.5,49.7  -- Establishing New Outposts (60)
 turnin 5168 |npc Carlin Redpath |at 1423 71.7,50.0  -- Heroes of Darrowshire (56)
 turnin 5181 |npc Carlin Redpath |at 1423 71.7,50.0  -- Villains of Darrowshire (57)
-accept 5464 |loose |group chain |lvl 57 |preany 5463  -- Menethil's Gift (60)
+accept 5464 |note Starts from Menethil's Gift, whose place isn't on record. Hand it in to Leonid Barthalomew the Revered |loose |group chain |lvl 57 |preany 5463  -- Menethil's Gift (60)
 accept 5206 |npc Carlin Redpath |at 1423 71.7,50.0 |lvl 50 |pre 5168,5181  -- Marauders of Darrowshire (60)
 complete 5206 |item 13156  -- Marauders of Darrowshire (60)
 turnin 5206 |npc Carlin Redpath |at 1423 71.7,50.0  -- Marauders of Darrowshire (60)

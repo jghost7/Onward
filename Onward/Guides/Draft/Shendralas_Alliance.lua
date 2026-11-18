@@ -1,4 +1,4 @@
--- DRAFT Shen'dralas (Alliance) generated 2026-11-17 by tools/draft_guide.py
+-- DRAFT Shen'dralas (Alliance) generated 2026-11-18 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -6,13 +6,13 @@ Onward:RegisterGuide{
   levels = { 40, 49 },
   steps = [[
 accept 92914 |npc Shen'dralar Pylon |at 2652 43.7,34.4  -- Strange Pylons (43)
-accept 93644 |loose  -- Tattered Journal (45)
+accept 93644 |note No quest giver on record: it most likely starts from an item you loot or find in this zone. Hand it in to Mordent Evenshade |loose  -- Tattered Journal (45)
 home |npc Adarien |at 2652 42.4,69.8  -- set your hearthstone at the inn
 complete 92914 |at 2652 47.5,76.7  -- Strange Pylons (43)
 accept 93125 |npc Rokren |at 2652 34.1,77.9 |lvl 30  -- Going Home (43)
 accept 92841 |npc Warug |at 1443 75.0,68.2 |lvl 30 |preany 92743  -- Valley of Bones (40)
 accept 93034 |npc Uthek the Wise |at 1443 36.2,79.2 |lvl 30 |preany 1373  -- Valley of Bones (38)
-accept 93568 |loose  -- Partially Digested Collar (45)
+accept 93568 |note No quest giver on record: it most likely starts from an item you loot or find in this zone. Hand it in to Liranne |loose  -- Partially Digested Collar (45)
 turnin 93125 |npc Nerlokh |at 2652 20.9,22.7  -- Going Home (43)
 turnin 93034 |npc Nerlokh |at 2652 20.9,22.7  -- Valley of Bones (38)
 accept 93035 |npc Nerlokh |at 2652 20.9,22.7 |lvl 30 |preany 93034  -- Ravaging Ravagers (38)
@@ -50,7 +50,7 @@ turnin 93016 |npc Mordent Evenshade |at 2652 35.2,46.6  -- A Brief History Lesso
 accept 93394 |npc Mordent Evenshade |at 2652 35.2,46.6 |preany 93016  -- Meeting the Magister (43)
 turnin 93644 |npc Mordent Evenshade |at 2652 35.2,46.6  -- Tattered Journal (45)
 complete 93072 |at 2652 38.9,50.9 |areas 38.9,50.9:136;34.9,75.0:101 |mobs Outcast Scout;Outcast Marauder;Outcast Necromancer |value low  -- Long-Term Solutions (43)
-accept 93574 |loose |group elite  -- Corpsefeeder's Carapace (45)
+accept 93574 |note No quest giver on record: it most likely starts from an item you loot or find in this zone. Hand it in to Kog'thug the Brave |loose |group elite  -- Corpsefeeder's Carapace (45)
 turnin 93568 |npc Liranne |at 2652 47.5,65.6  -- Partially Digested Collar (45)
 turnin 93394 |npc Magister Kirandis |at 2652 47.4,76.5  -- Meeting the Magister (43)
 accept 93450 |npc Vindael |at 2652 42.0,79.0 |preany 93394  -- Phantasmal Problems (42)
@@ -72,7 +72,7 @@ accept 93188 |npc Hagiak |at 2652 59.3,53.9 |value low |lvl 30 |pre 93072,93129 
 complete 93574 |at 2652 64.2,39.4 |areas 58.6,23.3:108;46.4,33.0:83;64.2,39.4:55 |mobs Corpsefeeder@Corpsefeeder's Carapace |group elite  -- Corpsefeeder's Carapace (45)
 turnin 93574 |npc Kog'thug the Brave |at 2652 72.7,31.2 |group elite  -- Corpsefeeder's Carapace (45)
 turnin 93601 |npc Kog'thug the Brave |at 2652 72.7,31.2  -- Passing the Blame (45)
-accept 93609 |loose  -- Forlorn Necklace (45)
+accept 93609 |note No quest giver on record: it most likely starts from an item you loot or find in this zone. Hand it in to Mithera |loose  -- Forlorn Necklace (45)
 accept 93604 |npc Kog'thug the Brave |at 2652 72.7,31.2 |preany 93601  -- Agamaggan's Blood (45)
 complete 93604  -- Agamaggan's Blood (45)
 turnin 93604 |npc Kog'thug the Brave |at 2652 72.7,31.2  -- Agamaggan's Blood (45)

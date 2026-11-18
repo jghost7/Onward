@@ -1,4 +1,4 @@
--- DRAFT Stranglethorn Vale (Alliance) generated 2026-11-17 by tools/draft_guide.py
+-- DRAFT Stranglethorn Vale (Alliance) generated 2026-11-18 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -20,10 +20,10 @@ turnin 626 |npc Cortello's Treasure |at 1425 80.8,46.8  -- Cortello's Riddle (51
 fly 1434 27.5,77.8 |from 1425 11.1,46.1 |npc Gyll  -- flight master Guthrum Thunderfist
 accept 7810 |at 1434 30.5,47.9 |note Starts from Arena Master |startitem 18706  -- Arena Master (55)
 turnin 7810 |npc Short John Mithril |at 1434 29.6,47.4  -- Arena Master (55)
-accept 614 |loose |group elite |lvl 35  -- The Captain's Chest (51)
-accept 615 |loose |lvl 35 |preany 8552  -- The Captain's Cutlass (51)
+accept 614 |note No quest giver on record: it most likely starts from an item you loot or find in this zone |loose |group elite |lvl 35  -- The Captain's Chest (51)
+accept 615 |note No quest giver on record: it most likely starts from an item you loot or find in this zone |loose |lvl 35 |preany 8552  -- The Captain's Cutlass (51)
 complete 614 |at 1434 37.0,69.7 |mobs Gorlash@Smotts' Chest |group elite  -- The Captain's Chest (51)
-accept 618 |loose |value mid |group elite |lvl 40 |preany 615,8553  -- Facing Negolash (50)
+accept 618 |note No quest giver on record: it most likely starts from an item you loot or find in this zone |loose |value mid |group elite |lvl 40 |preany 615,8553  -- Facing Negolash (50)
 turnin 614 |group elite  -- The Captain's Chest (51)
 turnin 615  -- The Captain's Cutlass (51)
 accept 3721 |npc Oglethorpe Obnoticus |at 1434 28.4,76.3 |lvl 45 |pre 648,836,2767  -- An OOX of Your Own (50)

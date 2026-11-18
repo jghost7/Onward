@@ -4,9 +4,14 @@
 
 - The guide no longer stops on a quest it can't lead you to. "Accept Torn Mystical Scroll" in
   Stranglethorn showed no place and no hint: the quest starts from a dropped item, and neither
-  the quest data nor Wowhead knows where it drops. Quests like that (about 60 across the
-  guides) are now passed over. Get the quest anyway and the guide takes it from there; when a
-  quest starts from an item and it's in your bags, its step comes up and says so.
+  the quest data nor Wowhead knows where it drops. Quests like that are passed over in the
+  step order and listed on the panel instead ("2 to find here"): hover for what is known about
+  each, such as the item it starts from, what drops it, and who takes it in the end. Get the
+  quest and the guide takes it from there; when it starts from an item and that item is in your
+  bags, its step comes up and says so.
+- Party: after a /reload or login, every finished quest still in your log was announced again
+  ("[Onward] done: ..." in party chat, and a toast for party members). A quest is now announced
+  only when it goes from unfinished to finished while you're playing.
 - Routes now use the nearest place for quests that can be done in several: the route planner
   works each such quest at the camp closest to the steps around it, instead of always the
   biggest camp. "Akiris by the Bundle" is now routed to the naga by Booty Bay when that's

@@ -1,4 +1,4 @@
--- DRAFT Durotar (Horde) generated 2026-11-17 by tools/draft_guide.py
+-- DRAFT Durotar (Horde) generated 2026-11-18 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -145,7 +145,7 @@ turnin 96877 |npc Kamari |at 1454 63.3,44.8  -- Halikor's Hoof (12)
 accept 787 |npc Eitrigg |at 1454 34.3,39.4  -- The New Horde (1)
 turnin 831 |npc Nazgrel |at 1454 32.3,35.8  -- The Admiral's Orders (7)
 turnin 832 |npc Neeru Fireblade |at 1454 49.5,50.6  -- Burning Shadows (12)
-accept 5843 |note Starts from Valley of Trials Gift Voucher |startitem 14649 |loose |race Orc,Troll  -- Welcome! (1)
+accept 5843 |note Starts from the item Valley of Trials Gift Voucher; where it comes from isn't on record. Hand it in to Magga |startitem 14649 |loose |race Orc,Troll  -- Welcome! (1)
 fly 1413 51.5,30.3 |from 1454 45.1,63.9 |npc The Barrens (Devrak)  -- flight master Doras
 complete 809 |at 1413 62.3,20.1  -- Ak'Zeloth (13)
 turnin 809 |npc Ak'Zeloth |at 1413 62.3,20.1  -- Ak'Zeloth (13)

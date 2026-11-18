@@ -1,4 +1,4 @@
--- DRAFT Riverglades (Horde) generated 2026-11-17 by tools/draft_guide.py
+-- DRAFT Riverglades (Horde) generated 2026-11-18 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -8,8 +8,8 @@ Onward:RegisterGuide{
 home |npc Innkeeper Toka |at 2548 58.0,45.1  -- set your hearthstone at the inn
 accept 93786 |npc Krom'rosh |at 2548 59.4,45.6 |lvl 35  -- A Message in Blood (36)
 accept 93787 |npc Krom'rosh |at 2548 59.4,45.6 |lvl 36  -- Food for the Taking (36)
-accept 94973 |loose |lvl 38  -- Krol'dok Moulding (41)
-accept 95181 |loose |lvl 36  -- Twilight Scouting Report (42)
+accept 94973 |note No quest giver on record: it most likely starts from an item you loot or find in this zone. Hand it in to Kreza Darkthorn |loose |lvl 38  -- Krol'dok Moulding (41)
+accept 95181 |note No quest giver on record: it most likely starts from an item you loot or find in this zone |loose |lvl 36  -- Twilight Scouting Report (42)
 accept 93788 |npc Kreza Darkthorn |at 2548 59.9,46.0 |lvl 36  -- Borrowed Blades (38)
 turnin 94973 |npc Kreza Darkthorn |at 2548 59.9,46.0  -- Krol'dok Moulding (41)
 accept 95992 |npc WANTED! |at 2548 59.5,47.0 |group elite |lvl 38  -- WANTED: Ghostmaw (42)
@@ -64,7 +64,7 @@ turnin 96108 |npc Neza Bloodsnout |at 2548 60.5,47.9  -- Poison Tips (40)
 turnin 96104 |npc Neza Bloodsnout |at 2548 60.5,47.9  -- Song of the Strider (39)
 accept 96109 |npc Neza Bloodsnout |at 2548 60.5,47.9 |lvl 36 |preany 96108  -- A Hunter's Quiver (40)
 accept 96105 |npc Neza Bloodsnout |at 2548 60.5,47.9 |group elite |lvl 36 |preany 96104  -- King of the Wild Plains (41)
-accept 95936 |loose |group elite |lvl 36  -- Hail the Dragonslayer (43)
+accept 95936 |note No quest giver on record: it most likely starts from an item you loot or find in this zone. Hand it in to Krom'rosh |loose |group elite |lvl 36  -- Hail the Dragonslayer (43)
 turnin 93788 |npc Kreza Darkthorn |at 2548 59.9,46.0  -- Borrowed Blades (38)
 accept 94974 |npc Kreza Darkthorn |at 2548 59.9,46.0 |value mid |lvl 38 |preany 94973  -- Key Ingredients (41)
 turnin 95062 |npc Krom'rosh |at 2548 59.4,45.6  -- Frazzlespark's Crate (36)
@@ -124,7 +124,7 @@ complete 94535 |at 2548 25.4,63.6 |mobs Redridge Trapper@Stolen Ore;Redridge Bru
 complete 94533 |at 2548 18.1,71.0 |mobs Snargl@Snargl's Snout |group elite  -- Snargl's Snout (40)
 fly 1458 63.2,48.6 |from 2548 59.6,45.1 |npc Undercity (Michael Garrett)  -- flight master Grakna
 accept 97884 |npc Mirelle Tremayne |at 1458 61.6,28.9 |lvl 36  -- Armory of Sunnyglade (40)
-accept 93971 |loose |lvl 36  -- Farholde Scouting Report (45)
+accept 93971 |note No quest giver on record: it most likely starts from an item you loot or find in this zone. Hand it in to Krom'rosh |loose |lvl 36  -- Farholde Scouting Report (45)
 fly 2548 59.6,45.1 |from 1458 63.2,48.6 |npc Grakna  -- flight master Michael Garrett
 complete 95427 |at 2548 47.3,50.5 |mobs Chogg'Zac@Chogg's Head |group elite  -- Twilight No More! (41)
 turnin 94961 |npc Fuzzle |at 2548 47.3,51.4 |value mid  -- Biting the Hand (40)

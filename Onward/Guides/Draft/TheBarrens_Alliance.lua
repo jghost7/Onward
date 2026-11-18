@@ -1,4 +1,4 @@
--- DRAFT The Barrens (Alliance) generated 2026-11-17 by tools/draft_guide.py
+-- DRAFT The Barrens (Alliance) generated 2026-11-18 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -51,7 +51,7 @@ turnin 3370 |npc Mathrengyl Bearwalker |at 1457 35.4,8.4  -- In Nightmares (25)
 turnin 79192 |npc Pocket Litter |at 1442 40.8,52.6  -- Stepping Stones (24)
 complete 1069 |at 1442 61.6,59.4 |value mid  -- Deepmoss Spider Eggs (20)
 turnin 1483 |npc Ziz Fizziks |at 1442 59.0,62.6  -- Ziz Fizziks (21)
-accept 1142 |loose |group dungeon |lvl 25  -- Mortality Wanes (30)
+accept 1142 |note Starts from Heralath Fallowbrook, whose place isn't on record. Hand it in to Treshala Fallowbrook |loose |group dungeon |lvl 25  -- Mortality Wanes (30)
 complete 1142 |group dungeon  -- Mortality Wanes (30)
 turnin 1142 |npc Treshala Fallowbrook |at 1457 69.5,67.8 |group dungeon  -- Mortality Wanes (30)
 accept 1101 |npc Falfindel Waywarder |at 1444 89.6,46.6 |group dungeon |lvl 29 |preany 1100  -- The Crone of the Kraul (34)

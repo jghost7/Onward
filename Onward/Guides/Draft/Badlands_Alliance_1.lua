@@ -1,4 +1,4 @@
--- DRAFT Badlands (Alliance) generated 2026-11-17 by tools/draft_guide.py
+-- DRAFT Badlands (Alliance) generated 2026-11-18 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -16,14 +16,14 @@ accept 703 |npc Rigglefuzz |at 1418 42.4,52.9 |value mid |lvl 33  -- Barbecued B
 accept 2418 |npc Rigglefuzz |at 1418 42.4,52.9 |value low |lvl 30  -- Power Stones (36)
 accept 710 |npc Lotwil Veriatus |at 1418 25.9,44.9 |lvl 35  -- Study of the Elements: Rock (37)
 complete 710 |at 1418 18.8,43.0 |mobs Lesser Rock Elemental@Small Stone Shard  -- Study of the Elements: Rock (37)
-accept 78823 |loose |lvl 26  -- Terror of the Desert Skies (40)
+accept 78823 |note No quest giver on record: it most likely starts from an item you loot or find in this zone. Hand it in to Hemet Nesingwary |loose |lvl 26  -- Terror of the Desert Skies (40)
 accept 737 |npc Gerrig Bonegrip |at 1455 50.8,5.6 |group chain |lvl 30 |preany 735,736  -- Forbidden Knowledge (40)
 accept 1360 |npc Krom Stoutarm |at 1455 74.2,9.4 |lvl 33  -- Reclaimed Treasures (43)
 fly 1434 27.5,77.8 |from 1455 55.5,47.7 |npc Stranglethorn Vale (Gyll) |value mid  -- flight master Gryth Thurden
 complete 705 |at 1434 26.3,26.1 |value mid  -- Pearl Diving (37)
 fly 1432 33.9,51.0 |from 1434 27.5,77.8 |npc Loch Modan (Thorgrum Borrelson)  -- flight master Gyll
 accept 738 |npc Prospector Ironband |at 1432 65.9,65.6 |lvl 30  -- Find Agmond (38)
-accept 97821 |loose |group elite  -- Mirage Mirror (42)
+accept 97821 |note No quest giver on record: it most likely starts from an item you loot or find in this zone. Hand it in to Dorgaron |loose |group elite  -- Mirage Mirror (42)
 complete 2418 |at 1418 47.6,12.4 |mobs Shadowforge Digger@Dentrium Power Stone;Shadowforge Surveyor@Dentrium Power Stone;Shadowforge Ruffian@Dentrium Power Stone |value low  -- Power Stones (36)
 accept 2198 |at 1418 47.8,12.2 |note Starts from Shattered Necklace |startitem 7666 |lvl 37  -- The Shattered Necklace (41)
 accept 97617 |npc Dorgaron |at 1418 54.6,12.9 |value low |lvl 35  -- Safety Checks (40)
@@ -118,7 +118,7 @@ fly 1434 27.5,77.8 |from 1432 33.9,51.0 |npc Stranglethorn Vale (Gyll)  -- fligh
 turnin 78830 |npc Hemet Nesingwary |at 1434 35.7,10.8 |class HUNTER  -- Terror of the Desert Skies (40)
 turnin 2200  -- Back to Uldaman (42)
 turnin 2398  -- The Lost Dwarves (40)
-accept 2201 |loose |group dungeon |lvl 37 |preany 2200  -- Find the Gems (43)
+accept 2201 |note Starts from Remains of a Paladin, whose place isn't on record |loose |group dungeon |lvl 37 |preany 2200  -- Find the Gems (43)
 complete 2201 |item 7668 |group dungeon  -- Find the Gems (43)
 turnin 2201 |group dungeon  -- Find the Gems (43)
 ]]}

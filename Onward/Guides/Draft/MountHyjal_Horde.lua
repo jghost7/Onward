@@ -1,4 +1,4 @@
--- DRAFT Mount Hyjal (Horde) generated 2026-11-17 by tools/draft_guide.py
+-- DRAFT Mount Hyjal (Horde) generated 2026-11-18 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -269,7 +269,7 @@ turnin 92008 |npc Nami |at 1452 61.3,36.9  -- Premiere Parts (56)
 fly 1441 45.1,49.1 |from 1452 60.5,36.3 |npc Thousand Needles (Nyse)  -- flight master Yugrek
 complete 92101 |at 1441 31.9,24.1 |item 274795  -- Lifted by Legacy (58)
 turnin 92101 |npc Carving |at 1441 31.9,24.1  -- Lifted by Legacy (58)
-accept 97006 |loose |lvl 54  -- Notarized Claim (60)
+accept 97006 |note No quest giver on record: it most likely starts from an item you loot or find in this zone |loose |lvl 54  -- Notarized Claim (60)
 fly 1413 63.1,37.2 |from 1441 45.1,49.1 |npc The Barrens (Bragok)  -- flight master Nyse
 goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
 fly 1458 63.2,48.6 |from 1434 26.9,77.1 |npc Undercity (Michael Garrett)  -- flight master Gringer
@@ -281,14 +281,14 @@ goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Boot
 complete 93510 |at 1433 29.9,57.2 |item 274795  -- Wake Memories (58)
 turnin 93510 |npc Weathered Anchor |at 1433 30.4,57.0  -- Wake Memories (58)
 turnin 97006  -- Notarized Claim (60)
-accept 97001 |loose |lvl 54  -- Sawyer's Legacy (57)
-accept 97119 |loose |lvl 54  -- Now We're Cooking (57)
+accept 97001 |note No quest giver on record: it most likely starts from an item you loot or find in this zone |loose |lvl 54  -- Sawyer's Legacy (57)
+accept 97119 |note No quest giver on record: it most likely starts from an item you loot or find in this zone. Hand it in to Ortak Lomgok |loose |lvl 54  -- Now We're Cooking (57)
 turnin 97001  -- Sawyer's Legacy (57)
-accept 97007 |loose |lvl 54  -- Wood Remains (57)
+accept 97007 |note No quest giver on record: it most likely starts from an item you loot or find in this zone |loose |lvl 54  -- Wood Remains (57)
 goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
 fly 1450 44.1,45.2 |from 1413 63.1,37.2 |npc Moonglade (Silva Fil'naveth)  -- flight master Bragok
 turnin 92612 |npc Dendrite Starblaze |at 1450 56.2,30.6  -- Aid from Moonglade (58)
-accept 96561 |loose  -- Last Wishes (60)
+accept 96561 |note No quest giver on record: it most likely starts from an item you loot or find in this zone. Hand it in to Broken Fishing Basket |loose  -- Last Wishes (60)
 turnin 97007  -- Wood Remains (57)
 turnin 97000  -- Grain of Memory (57)
 fly 2482 68.7,46.8 |from 1450 44.1,45.2 |npc Fayran Elthas  -- flight master Silva Fil'naveth

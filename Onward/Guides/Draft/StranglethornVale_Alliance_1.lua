@@ -1,4 +1,4 @@
--- DRAFT Stranglethorn Vale (Alliance) generated 2026-11-17 by tools/draft_guide.py
+-- DRAFT Stranglethorn Vale (Alliance) generated 2026-11-18 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -11,7 +11,7 @@ accept 189 |npc Kebok |at 1434 27.0,77.1 |value mid |lvl 30  -- Bloodscalp Ears 
 accept 601 |npc Baron Revilgaz |at 1434 27.2,76.9 |lvl 32 |preany 578  -- Water Elementals (37)
 accept 213 |npc Kebok |at 1434 27.0,77.1 |lvl 31  -- Hostile Takeover (36)
 accept 198 |npc Krazek |at 1434 26.9,77.2 |lvl 30  -- Supplies to Private Thorsen (32)
-accept 95384 |loose |lvl 32  -- Partial Mystical Notes (40)
+accept 95384 |note No quest giver on record: it most likely starts from an item you loot or find in this zone. Hand it in to Dudd Fizzlescroll |loose |lvl 32  -- Partial Mystical Notes (40)
 accept 575 |npc Drizzlik |at 1434 28.3,77.6 |lvl 26  -- Supply and Demand (31)
 accept 95322 |npc Caravaneer Ruzzgot |at 1434 27.4,74.1 |preany 95295  -- Get the Goods (40)
 turnin 95322 |npc Caravaneer Ruzzgot |at 1434 27.4,74.1  -- Get the Goods (40)

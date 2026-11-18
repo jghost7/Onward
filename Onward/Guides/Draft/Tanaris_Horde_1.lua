@@ -1,4 +1,4 @@
--- DRAFT Tanaris (Horde) generated 2026-11-17 by tools/draft_guide.py
+-- DRAFT Tanaris (Horde) generated 2026-11-18 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -18,7 +18,7 @@ turnin 95383 |npc Tazzik |at 1446 67.3,24.0  -- Shipping and Handling (40)
 accept 95312 |npc Tazzik |at 1446 67.3,24.0 |preany 95383  -- Coming to Collect (40)
 accept 8366 |npc Security Chief Bilgewhizzle |at 1446 67.1,23.9 |value mid |lvl 40  -- Southsea Shakedown (45)
 accept 97530 |npc Security Chief Bilgewhizzle |at 1446 67.1,23.9 |lvl 40  -- Dunemaul Dues (47)
-accept 2876 |note Starts from Ship Schedule |startitem 9250 |loose |lvl 40  -- Ship Schedules (45)
+accept 2876 |note Starts from the item Ship Schedule; where it comes from isn't on record. Hand it in to Security Chief Bilgewhizzle |startitem 9250 |loose |lvl 40  -- Ship Schedules (45)
 accept 2873 |npc Stoley |at 1446 67.1,24.0 |lvl 40  -- Stoley's Shipment (45)
 fly 1413 63.1,37.2 |from 1446 51.6,25.4 |npc The Barrens (Bragok)  -- flight master Bulkrek Ragefist
 goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
@@ -75,7 +75,7 @@ accept 5863 |npc Andi Lynn |at 1446 52.8,27.4 |lvl 44  -- The Dunemaul Compound 
 turnin 1690 |npc Chief Engineer Bilgewhizzle |at 1446 52.5,28.5  -- Wastewander Justice (43)
 accept 1691 |npc Chief Engineer Bilgewhizzle |at 1446 52.5,28.5 |value mid |lvl 40 |preany 1690  -- More Wastewander Justice (44)
 turnin 379 |npc Chief Engineer Bilgewhizzle |at 1446 52.5,28.5  -- Slake That Thirst (46)
-accept 654 |note Starts from Model 4711-FTZ Power Source |startitem 8524 |loose |value mid |lvl 38 |preany 379  -- Tanaris Field Sampling (46)
+accept 654 |note Starts from the item Model 4711-FTZ Power Source; where it comes from isn't on record. Hand it in to Chief Engineer Bilgewhizzle |startitem 8524 |loose |value mid |lvl 38 |preany 379  -- Tanaris Field Sampling (46)
 accept 2768 |npc Chief Engineer Bilgewhizzle |at 1446 52.5,28.5 |group dungeon |lvl 40  -- Divino-matic Rod (47)
 complete 2768 |group dungeon  -- Divino-matic Rod (47)
 turnin 2768 |npc Chief Engineer Bilgewhizzle |at 1446 52.5,28.5 |group dungeon  -- Divino-matic Rod (47)

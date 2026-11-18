@@ -1,4 +1,4 @@
--- DRAFT Winterspring (Horde) generated 2026-11-17 by tools/draft_guide.py
+-- DRAFT Winterspring (Horde) generated 2026-11-18 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -34,12 +34,12 @@ turnin 5084 |npc Deadwood Cauldron |at 1448 60.2,5.8  -- Falling to Corruption (
 accept 5085 |npc Deadwood Cauldron |at 1448 60.2,5.8 |lvl 52 |preany 5084  -- Mystery Goo (56)
 turnin 4882 |npc Trull Failbane |at 1448 34.7,52.8  -- Guarding Secrets (59)
 accept 4883 |npc Trull Failbane |at 1448 34.7,52.8 |lvl 52 |preany 4882  -- Guarding Secrets (59)
-accept 97264 |loose |value mid |lvl 55  -- Shardtooth Pulling (58)
+accept 97264 |note No quest giver on record: it most likely starts from an item you loot or find in this zone |loose |value mid |lvl 55  -- Shardtooth Pulling (58)
 fly 1452 60.5,36.3 |from 1448 34.4,54.0 |npc Yugrek  -- flight master Brakkar
 turnin 5085 |npc Donova Snowden |at 1452 31.3,45.2  -- Mystery Goo (56)
 accept 5086 |npc Donova Snowden |at 1452 31.3,45.2 |lvl 52 |preany 5085  -- Toxic Horrors (56)
 complete 92009 |at 1452 50.6,83.3 |mobs Hyjal Bear;Hyjal Owl  -- Crate Expectations (56)
-accept 97403 |loose |value mid |lvl 55  -- Two-Headed Ravagers (59)
+accept 97403 |note No quest giver on record: it most likely starts from an item you loot or find in this zone |loose |value mid |lvl 55  -- Two-Headed Ravagers (59)
 complete 97264 |at 1452 61.1,58.7 |areas 59.8,17.9:28;61.1,58.7:5 |mobs Elder Shardtooth |value mid  -- Shardtooth Pulling (58)
 turnin 97264 |value mid  -- Shardtooth Pulling (58)
 complete 5055 |at 1452 62.5,57.9 |mobs Brumeran |group elite  -- Brumeran of the Chillwind (58)
@@ -53,7 +53,7 @@ accept 977 |npc Umi Rumplesnicker |at 1452 60.9,37.6 |lvl 52 |preany 3783  -- Ar
 complete 5086 |at 1452 60.9,33.9 |mobs Winterspring Owl;Winterspring Screecher  -- Toxic Horrors (56)
 complete 98462 |at 1452 58.6,23.5 |areas 58.6,23.5:43;66.2,52.5:24 |mobs Winterspring Owl@Winterspring Owl Feather;Chillwind Ravager@Chillwind Chimaera Fur;Winterspring Screecher@Winterspring Owl Feather;Chillwind Chimaera@Chillwind Chimaera Fur |value low  -- Shroud of the Winter Wilds (60)
 complete 97403 |at 1452 58.6,21.5 |mobs Chillwind Ravager |value mid  -- Two-Headed Ravagers (59)
-accept 97404 |loose |lvl 55  -- Too Bad to Bear (59)
+accept 97404 |note No quest giver on record: it most likely starts from an item you loot or find in this zone |loose |lvl 55  -- Too Bad to Bear (59)
 turnin 97403 |value mid  -- Two-Headed Ravagers (59)
 complete 4809 |at 1452 58.6,21.5 |areas 58.6,21.5:29;66.5,51.2:14 |mobs Chillwind Ravager@Uncracked Chillwind Horn;Chillwind Chimaera@Uncracked Chillwind Horn;Fledgling Chillwind@Uncracked Chillwind Horn |value mid  -- Chillwind Horns (54)
 complete 97404 |at 1452 59.0,10.6 |mobs Kuroma@Kuroma's Head;Kamuro@Kamuro's Head  -- Too Bad to Bear (59)

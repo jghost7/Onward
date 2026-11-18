@@ -1,4 +1,4 @@
--- DRAFT Tanaris (Horde) generated 2026-11-17 by tools/draft_guide.py
+-- DRAFT Tanaris (Horde) generated 2026-11-18 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{

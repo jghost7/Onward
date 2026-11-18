@@ -1,4 +1,4 @@
--- DRAFT Mount Hyjal (Alliance) generated 2026-11-17 by tools/draft_guide.py
+-- DRAFT Mount Hyjal (Alliance) generated 2026-11-18 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -282,7 +282,7 @@ complete 92101 |at 1441 31.9,24.1 |item 274795  -- Lifted by Legacy (58)
 turnin 92101 |npc Carving |at 1441 31.9,24.1  -- Lifted by Legacy (58)
 goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
 turnin 96077 |npc Michelle Belle |at 1429 43.4,65.5  -- Belle's Ring (58)
-accept 96561 |loose  -- Last Wishes (60)
+accept 96561 |note No quest giver on record: it most likely starts from an item you loot or find in this zone. Hand it in to Broken Fishing Basket |loose  -- Last Wishes (60)
 complete 93510 |at 1433 29.9,57.2 |item 274795  -- Wake Memories (58)
 turnin 93510 |npc Weathered Anchor |at 1433 30.4,57.0  -- Wake Memories (58)
 fly 1434 27.5,77.8 |from 1433 25.5,59.4 |npc Stranglethorn Vale (Gyll)  -- flight master Ariena Stormfeather

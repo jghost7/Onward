@@ -1,4 +1,4 @@
--- DRAFT Arathi Highlands (Alliance) generated 2026-11-17 by tools/draft_guide.py
+-- DRAFT Arathi Highlands (Alliance) generated 2026-11-18 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -84,7 +84,7 @@ turnin 669 |npc Fleet Master Seahorn |at 1434 27.2,77.0  -- Sunken Treasure (40)
 accept 670 |npc Fleet Master Seahorn |at 1434 27.2,77.0 |value low |lvl 35 |preany 669  -- Sunken Treasure (40)
 fly 2548 60.6,81.5 |from 1434 27.5,77.8 |npc Riverglades (Gretchen Mayberry)  -- flight master Gyll
 turnin 95315 |npc Demar Brant |at 2548 66.7,81.0  -- The Riverglades Report (38)
-accept 636 |loose |lvl 30  -- Legends of the Earth (35)
+accept 636 |note No quest giver on record: it most likely starts from an item you loot or find in this zone |loose |lvl 30  -- Legends of the Earth (35)
 turnin 636  -- Legends of the Earth (35)
 turnin 687 |npc Theldurin the Lost |at 1418 51.4,76.9  -- Theldurin the Lost (40)
 turnin 670 |npc Shakes O'Breen |at 1417 32.3,81.4 |value low  -- Sunken Treasure (40)

@@ -1,4 +1,4 @@
--- DRAFT Badlands (Alliance) generated 2026-11-17 by tools/draft_guide.py
+-- DRAFT Badlands (Alliance) generated 2026-11-18 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -19,8 +19,8 @@ accept 762 |npc Historian Karnik |at 1455 77.5,11.8 |group elite |lvl 35 |preany
 complete 762 |at 1418 42.1,28.9 |mobs Ambassador Infernus@Ambassador Infernus' Bracer |group elite  -- An Ambassador of Evil (44)
 turnin 762 |npc Advisor Belgrum |at 1455 77.3,9.7 |group elite  -- An Ambassador of Evil (44)
 accept 1139 |npc Advisor Belgrum |at 1455 77.3,9.7 |group dungeon |lvl 35 |preany 762  -- The Lost Tablets of Will (45)
-accept 2204 |loose |group dungeon |lvl 37 |preany 2201  -- Restoring the Necklace (44)
-accept 2279 |loose |lvl 40 |preany 2278  -- The Platinum Discs (47)
+accept 2204 |note Starts from Talvash's Scrying Bowl, whose place isn't on record. Hand it in to Talvash del Kissel |loose |group dungeon |lvl 37 |preany 2201  -- Restoring the Necklace (44)
+accept 2279 |note Starts from The Discs of Norgannon, whose place isn't on record. Hand it in to High Explorer Magellas |loose |lvl 40 |preany 2278  -- The Platinum Discs (47)
 turnin 2279 |npc High Explorer Magellas |at 1455 69.9,18.6  -- The Platinum Discs (47)
 complete 735 |item 4649 |value mid |group elite  -- The Star, the Hand and the Heart (44)
 turnin 735 |npc Gerrig Bonegrip |at 1455 50.8,5.6 |value mid |group elite  -- The Star, the Hand and the Heart (44)

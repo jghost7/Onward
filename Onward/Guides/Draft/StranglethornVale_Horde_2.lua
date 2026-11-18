@@ -1,4 +1,4 @@
--- DRAFT Stranglethorn Vale (Horde) generated 2026-11-17 by tools/draft_guide.py
+-- DRAFT Stranglethorn Vale (Horde) generated 2026-11-18 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -63,7 +63,7 @@ fly 1434 26.9,77.1 |from 1435 46.1,54.8 |npc Gringer  -- flight master Breyk
 goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
 fly 1445 35.6,31.9 |from 1413 63.1,37.2 |npc Dustwallow Marsh (Shardi)  -- flight master Bragok
 turnin 625 |npc Musty Scroll |at 1445 31.1,66.1  -- Cortello's Riddle (43)
-accept 95385 |loose  -- Torn Mystical Scroll (43)
+accept 95385 |note No quest giver on record: it most likely starts from an item you loot or find in this zone. Hand it in to Dudd Fizzlescroll |loose  -- Torn Mystical Scroll (43)
 fly 1413 63.1,37.2 |from 1445 35.6,31.9 |npc The Barrens (Bragok)  -- flight master Shardi
 goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
 turnin 617 |npc Privateer Bloads |at 1434 26.8,76.4 |value mid  -- Akiris by the Bundle (43)

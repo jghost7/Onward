@@ -603,6 +603,33 @@ end)
 missedBtn:SetScript("OnClick", function() G:GoBackToMissed() end)
 UI.missedBtn = missedBtn
 
+-- quests in this zone the guide can't lead you to (they start from a drop, or from a giver
+-- nobody has placed): what is known about each. Click prints the list to chat.
+local looseBtn = lineButton(C.dim)
+local function looseLine(s)
+    return questTitle(s.quest), s.note or "No pickup spot on record."
+end
+looseBtn:SetScript("OnEnter", function(self)
+    GameTooltip:SetOwner(self, "ANCHOR_LEFT")
+    GameTooltip:AddLine("Quests to find in this zone")
+    GameTooltip:AddLine("The guide can't lead you to these. Pick one up and it takes it from there.", 0.6, 0.6, 0.6, true)
+    for i, s in ipairs(self.steps or {}) do
+        if i > 8 then GameTooltip:AddLine(("...and %d more (click to list them all)"):format(#self.steps - 8), 0.6, 0.6, 0.6) break end
+        local title, note = looseLine(s)
+        GameTooltip:AddLine(" ")
+        GameTooltip:AddLine(title, 1, 1, 1)
+        GameTooltip:AddLine(note, 0.8, 0.8, 0.8, true)
+    end
+    GameTooltip:Show()
+end)
+looseBtn:SetScript("OnClick", function(self)
+    for _, s in ipairs(self.steps or {}) do
+        local title, note = looseLine(s)
+        W.Print(title .. ": " .. note)
+    end
+end)
+UI.looseBtn = looseBtn   -- Render reaches it through UI (60-upvalue limit)
+
 -- a better-fitting guide than the one you're on (G:Suggestion): click to switch, right-click to hide
 local suggestBtn = lineButton(C.accent)
 suggestBtn:RegisterForClicks("LeftButtonUp", "RightButtonUp")
@@ -914,7 +941,7 @@ function UI:Render()
     for _, r in ipairs(groupRows) do r:Hide() end
     for _, c in ipairs(partyChips) do c:Hide() end
     for _, r in ipairs(rows) do r:Hide() end
-    for _, b in ipairs({ missedBtn, suggestBtn, busyBtn, laterBtn, waitBtn }) do b:Hide() b.bg:Hide() end
+    for _, b in ipairs({ missedBtn, suggestBtn, busyBtn, laterBtn, waitBtn, UI.looseBtn }) do b:Hide() b.bg:Hide() end
     divider:Hide()
     alsoLabel:Hide()
     nextLabel:Hide()
@@ -1197,6 +1224,12 @@ function UI:Render()
     local footer = {}
     for _, b in ipairs(notices) do if b ~= top then footer[#footer + 1] = b end end
     if #missed > 0 then footer[#footer + 1] = missedBtn end
+    local loose = G:Loose()
+    if #loose > 0 then
+        UI.looseBtn.steps = loose
+        UI.looseBtn.short = ("%d to find here"):format(#loose)
+        footer[#footer + 1] = UI.looseBtn
+    end
     local fx = PAD
     if #footer > 0 then y = y + 2 end
     for _, b in ipairs(footer) do

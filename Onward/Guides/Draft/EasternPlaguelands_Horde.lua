@@ -1,4 +1,4 @@
--- DRAFT Eastern Plaguelands (Horde) generated 2026-11-17 by tools/draft_guide.py
+-- DRAFT Eastern Plaguelands (Horde) generated 2026-11-18 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -87,7 +87,7 @@ turnin 5264 |npc Lord Maxwell Tyrosus |at 1423 71.9,48.4 |group chain  -- Lord M
 accept 5265 |npc Lord Maxwell Tyrosus |at 1423 71.9,48.4 |group chain |lvl 55 |preany 5264  -- The Argent Hold (60)
 turnin 5265 |npc The Argent Hold |at 1423 72.0,48.4 |group chain  -- The Argent Hold (60)
 turnin 9131 |npc Korfax, Champion of the Light |at 1423 72.0,48.5 |value mid  -- Binding the Dreadnaught (60)
-accept 8946 |loose |class WARRIOR,HUNTER,ROGUE,PRIEST,SHAMAN,MAGE,WARLOCK,DRUID |group chain |lvl 58 |preany 8945  -- Proof of Life (60)
+accept 8946 |note Starts from Ysida Harmon, whose place isn't on record. Hand it in to Anthion Harmon |loose |class WARRIOR,HUNTER,ROGUE,PRIEST,SHAMAN,MAGE,WARLOCK,DRUID |group chain |lvl 58 |preany 8945  -- Proof of Life (60)
 accept 97986 |npc Argent Medic |at 1423 70.9,48.2 |preany 8152  -- Argent Arbiter (57)
 accept 9665 |npc Emmisary Gormok |at 1423 70.4,47.9 |lvl 55  -- Bolstering Our Defenses (60)
 complete 9665 |at 1423 59.0,39.4 |mobs <TXT>Crown Guard Capture Quest Doodad;<TXT>Eastwall Capture Quest Doodad;<TXT>Northpass Capture Quest Doodad;<TXT>Plaguewood Capture Quest Doodad  -- Bolstering Our Defenses (60)
@@ -107,7 +107,7 @@ complete 5168 |at 1422 42.5,19.0  -- Heroes of Darrowshire (56)
 accept 5142 |npc Marlene Redpath |at 1422 49.2,78.6 |lvl 50  -- Little Pamela (55)
 complete 5153 |at 1422 49.7,76.8  -- A Strange Historian (56)
 turnin 97986  -- Argent Arbiter (57)
-accept 5464 |loose |group chain |lvl 57 |preany 5463  -- Menethil's Gift (60)
+accept 5464 |note Starts from Menethil's Gift, whose place isn't on record. Hand it in to Leonid Barthalomew the Revered |loose |group chain |lvl 57 |preany 5463  -- Menethil's Gift (60)
 turnin 6144 |npc Varimathras |at 1458 56.2,92.2 |group chain  -- The Call to Command (60)
 accept 6145 |npc Varimathras |at 1458 56.2,92.2 |group elite |lvl 56 |preany 6144  -- The Crimson Courier (60)
 fly 1434 26.9,77.1 |from 1458 63.2,48.6 |npc Stranglethorn Vale (Gringer)  -- flight master Michael Garrett
@@ -122,14 +122,14 @@ accept 6164 |npc Augustus the Touched |at 1423 11.4,26.4 |lvl 50  -- Augustus' R
 complete 6164 |at 1423 14.0,24.2  -- Augustus' Receipt Book (55)
 turnin 6164 |npc Augustus the Touched |at 1423 11.4,26.4  -- Augustus' Receipt Book (55)
 complete 6041 |at 1423 28.0,17.8 |item 15736 |mobs Scourge Structure  -- When Smokey Sings, I Get Violent (58)
-accept 97988 |loose |lvl 53  -- Orgrimmar's Windshapers (57)
+accept 97988 |note No quest giver on record: it most likely starts from an item you loot or find in this zone |loose |lvl 53  -- Orgrimmar's Windshapers (57)
 turnin 97988  -- Orgrimmar's Windshapers (57)
 turnin 8946 |npc Anthion Harmon |at 1423 26.1,11.3 |class WARRIOR,HUNTER,ROGUE,PRIEST,SHAMAN,MAGE,WARLOCK,DRUID |group chain  -- Proof of Life (60)
 accept 8947 |npc Anthion Harmon |at 1423 26.1,11.3 |class WARRIOR,HUNTER,ROGUE,PRIEST,SHAMAN,MAGE,WARLOCK,DRUID |group chain |lvl 58 |preany 8946  -- Anthion's Strange Request (60)
 complete 8947 |class WARRIOR,HUNTER,ROGUE,PRIEST,SHAMAN,MAGE,WARLOCK,DRUID |group chain  -- Anthion's Strange Request (60)
 turnin 8947 |npc Anthion Harmon |at 1423 26.1,11.3 |class WARRIOR,HUNTER,ROGUE,PRIEST,SHAMAN,MAGE,WARLOCK,DRUID |group chain  -- Anthion's Strange Request (60)
 turnin 8930 |npc Anthion Harmon |at 1423 26.1,11.3 |class WARRIOR,HUNTER,ROGUE,PRIEST,SHAMAN,MAGE,WARLOCK,DRUID |group chain  -- In Search of Anthion (60)
-accept 98109 |loose |preany 97986  -- Bleeding Edge (57)
+accept 98109 |note Starts from Argent Medic, whose place isn't on record. Hand it in to Adon |loose |preany 97986  -- Bleeding Edge (57)
 turnin 98109 |npc Adon |at 1423 50.9,11.5  -- Bleeding Edge (57)
 complete 5065 |at 1423 63.4,7.8 |group chain  -- The Lost Tablets of Mosh'aru (58)
 complete 6024 |at 1423 62.0,11.1 |mobs Infiltrator Hameya@Hameya's Key  -- Hameya's Plea (60)
