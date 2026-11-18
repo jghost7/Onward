@@ -170,7 +170,8 @@ C_Map.GetMapPosFromWorldPos = function(cont, v, overrideMap)
 end
 MOCK.facing = 0
 function GetPlayerFacing() return MOCK.facing end
-function GetUnitSpeed() return 7 end
+function GetUnitSpeed() return MOCK.speed or 7 end
+function IsMounted() return MOCK.mounted or false end
 function UnitOnTaxi() return MOCK.onTaxi or false end
 Enum = { FlightPathState = { Current = 0, Reachable = 1, Unreachable = 2 } }
 MOCK.taxi = {}   -- { {name, position={x,y} (map 1415 = same frame as 1423), state, slotIndex} }

@@ -1515,6 +1515,29 @@ note After
     W.Travel:Refresh(true)
 end
 
+do  -- flight advice by travel time: a flight that saves ~100 s on foot, but under 30 s mounted
+    local TR = W.Travel
+    local savedTaxi, savedPos = MOCK.taxi, MOCK.pos
+    MOCK.taxi = {
+        { name = "Gate Camp", nodeID = 21, slotIndex = 1, state = 0, position = { x = 0.5, y = 0.5 } },
+        { name = "Far Harbor", nodeID = 22, slotIndex = 2, state = 1, position = { x = 2.5, y = 0.5 } },
+    }
+    MOCK.pos = { map = 1415, x = 0.5, y = 0.5 }
+    TR:Refresh(true)
+    MOCK.mounted, MOCK.speed = true, 11.2
+    check("travel speed: your mount's, once you've ridden", math.abs(TR.Speed() - 11.2) < 0.01, TR.Speed())
+    MOCK.mounted, MOCK.speed = false, 7
+    check("...and still on foot, since you'd ride to the flight master", math.abs(TR.Speed() - 11.2) < 0.01, TR.Speed())
+    local adv = TR:Advice(1415, 240, 110)
+    check("mounted: a flight that saves under 30 s isn't suggested", adv == nil, adv and adv.to.name)
+    W.cdb.mountSpeed = nil MOCK.advance(4)
+    adv = TR:Advice(1415, 240, 110)
+    check("on foot: the same flight is suggested", adv and adv.to.name == "Far Harbor", adv and adv.to.name)
+    check("travel speed on foot without a mount: 7", TR.Speed() == 7, TR.Speed())
+    MOCK.taxi, MOCK.pos, MOCK.speed = savedTaxi, savedPos, nil
+    TR:Refresh(true)
+end
+
 do  -- dead and released: the arrow leads to your body, then back to the guide once you're alive
     local savedPos = MOCK.pos
     W:RegisterGuide{ id = "ghost", title = "Ghost (35-36)", levels = { 35, 36 }, faction = "", steps = [[

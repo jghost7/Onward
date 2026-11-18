@@ -9,8 +9,13 @@ local T = {}
 W.Travel = T
 
 local CONTINENTS = { 1414, 1415 }      -- Kalimdor, Eastern Kingdoms
-local FLIGHT_SPEED = 3.2               -- flying vs running, roughly
-local FLIGHT_OVERHEAD = 120            -- yards-equivalent for talking, take-off and landing
+-- Flight advice compares travel times. Taxis fly ~32 yd/s on paths that wind ~1.25x the straight
+-- line; talking, take-off and landing cost ~15 s. A flight is suggested when it saves 30 s and 15%
+-- of the run, and kept (no flip-flopping as you move) while it still saves 8%.
+local TAXI_SPEED = 25                  -- yd/s along the straight line between the flight points
+local FLIGHT_OVERHEAD = 15             -- seconds
+local MIN_SAVE, NEW_SHARE, KEEP_SHARE = 30, 0.15, 0.08
+local RUN_SPEED, MOUNT_MAX = 7, 14
 local nodes = {}                       -- [continentID] = { {name, wx, wy, known, map, x, y}, ... }
 local lastRefresh = 0
 
@@ -219,7 +224,22 @@ local cache = { key = nil, at = 0, result = nil }
 -- while it still saves at least 10% over running, so the arrow doesn't flip between the flight
 -- master and the quest as the numbers drift with every step you take.
 local sticky = { key = nil, pick = nil }
-local KEEP_RATIO, NEW_RATIO = 0.9, 0.75
+
+-- Your travel speed (yd/s): on foot 7, or your mount's speed once you've ridden it, since you'd
+-- ride to the flight master and on from it. Speed boosts without a mount (Cheetah) don't count.
+function T.Speed()
+    local mounted = IsMounted and W.Safe(IsMounted())
+    if mounted and not UnitOnTaxi("player") then
+        local s = GetUnitSpeed and W.Safe(GetUnitSpeed("player")) or 0
+        if s > RUN_SPEED and s <= MOUNT_MAX and s > (W.cdb.mountSpeed or 0) then W.cdb.mountSpeed = s end
+    end
+    return W.cdb.mountSpeed or RUN_SPEED
+end
+
+-- seconds from here to the target via flight A -> B
+local function flightTime(v, px, py, A, B, tx, ty)
+    return d2(px, py, A.wx, A.wy) / v + d2(A.wx, A.wy, B.wx, B.wy) / TAXI_SPEED + FLIGHT_OVERHEAD + d2(B.wx, B.wy, tx, ty) / v
+end
 
 function T:Advice(map, x, y)
     if not W.db.travelAdvice or UnitOnTaxi("player") then return end
@@ -231,18 +251,19 @@ function T:Advice(map, x, y)
     local pc, px, py = T.PlayerWorld()
     local tc, tx, ty = T.World(map, x, y)
     if not pc or not tc or pc ~= tc then return end
-    local walk = d2(px, py, tx, ty)
+    local v = T.Speed()
+    local walk = d2(px, py, tx, ty) / v           -- seconds on foot (or mounted)
     if sticky.key == key and sticky.pick then
         local A, B = sticky.pick.from, sticky.pick.to
-        local cost = d2(px, py, A.wx, A.wy) + d2(A.wx, A.wy, B.wx, B.wy) / FLIGHT_SPEED + FLIGHT_OVERHEAD + d2(B.wx, B.wy, tx, ty)
-        if cost < walk * KEEP_RATIO then
-            sticky.pick.save = walk - cost
+        local t = flightTime(v, px, py, A, B, tx, ty)
+        if walk - t >= walk * KEEP_SHARE then
+            sticky.pick.save = (walk - t) * v      -- in yards, for the hearthstone comparison
             cache.result = sticky.pick
             return sticky.pick
         end
     end
     sticky.key, sticky.pick = key, nil
-    if walk < 900 then return end
+    if walk < MIN_SAVE + FLIGHT_OVERHEAD then return end
 
     local known = T:KnownNodes(pc)
     if #known < 2 then return end
@@ -255,13 +276,13 @@ function T:Advice(map, x, y)
     for _, A in ipairs(froms) do
         for _, B in ipairs(tos) do
             if A ~= B then
-                local cost = d2(px, py, A.wx, A.wy) + d2(A.wx, A.wy, B.wx, B.wy) / FLIGHT_SPEED + FLIGHT_OVERHEAD + d2(B.wx, B.wy, tx, ty)
+                local cost = flightTime(v, px, py, A, B, tx, ty)
                 if not bestCost or cost < bestCost then best, bestCost = { from = A, to = B }, cost end
             end
         end
     end
-    if best and bestCost < walk * NEW_RATIO then
-        best.save = walk - bestCost
+    if best and walk - bestCost >= math.max(MIN_SAVE, walk * NEW_SHARE) then
+        best.save = (walk - bestCost) * v
         cache.result = best
         sticky.pick = best
         return best

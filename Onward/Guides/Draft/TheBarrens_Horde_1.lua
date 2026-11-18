@@ -66,6 +66,7 @@ accept 867 |npc Darsok Swiftdagger |at 1413 51.6,30.9 |value mid  -- Harpy Raide
 turnin 903 |npc Sergra Darkthorn |at 1413 52.2,31.0  -- Prowlers of the Barrens (15)
 turnin 860 |npc Sergra Darkthorn |at 1413 52.2,31.0  -- Sergra Darkthorn (10)
 accept 881 |npc Sergra Darkthorn |at 1413 52.2,31.0  -- Echeyakee (16)
+fly 1413 63.1,37.2 |from 1413 51.5,30.3 |npc Bragok  -- flight master Devrak
 turnin 887 |npc Gazlowe |at 1413 62.7,36.2 |value mid  -- Southsea Freebooters (14)
 accept 890 |npc Gazlowe |at 1413 62.7,36.2 |value mid  -- The Missing Shipment (14)
 accept 895 |npc WANTED |at 1413 62.6,37.5  -- WANTED: Baron Longshore (16)
@@ -152,6 +153,7 @@ accept 3261 |npc Sergra Darkthorn |at 1413 52.2,31.0  -- Jorn Skyseer (18)
 turnin 880 |npc Tonga Runetotem |at 1413 52.3,31.9  -- Altered Beings (16)
 turnin 886 |npc Tonga Runetotem |at 1413 52.3,31.9  -- The Barrens Oases (10)
 accept 3301 |npc Tonga Runetotem |at 1413 52.3,31.9  -- Mura Runetotem (15)
+fly 1413 44.5,59.1 |from 1413 51.5,30.3 |npc Omusa Thunderhorn  -- flight master Devrak
 accept 907 |npc Jorn Skyseer |at 1413 44.9,59.1  -- Enraged Thunder Lizards (18)
 complete 907 |at 1413 47.5,60.9 |mobs Stormsnout@Thunder Lizard Blood;Thunderhead@Thunder Lizard Blood;Stormhide@Thunder Lizard Blood  -- Enraged Thunder Lizards (18)
 turnin 3261 |npc Jorn Skyseer |at 1413 44.9,59.1  -- Jorn Skyseer (18)

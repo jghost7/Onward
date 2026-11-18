@@ -30,6 +30,7 @@ turnin 76156 |npc Boarton Shadetotem |at 1456 39.4,65.8 |race Orc,Tauren,Troll  
 accept 76160 |npc Boarton Shadetotem |at 1456 39.4,65.8 |race Orc,Tauren,Troll  -- Stalk With The Earthmother (11)
 fly 1413 44.5,59.1 |from 1456 47.0,49.8 |npc The Barrens (Omusa Thunderhorn)  -- flight master Tal
 accept 854 |npc Kirge Sternhorn |at 1413 44.9,58.6 |race Tauren  -- Journey to the Crossroads (12)
+fly 1413 51.5,30.3 |from 1413 44.5,59.1 |npc The Barrens (Devrak)  -- flight master Omusa Thunderhorn
 turnin 854 |npc Thork |at 1413 51.5,30.9 |race Tauren  -- Journey to the Crossroads (12)
 accept 770 |at 1412 34.7,34.2 |note Starts from Demon Scarred Cloak  -- The Demon Scarred Cloak (12)
 complete 76160 |at 1412 39.4,36.2 |item 206176 |race Orc,Tauren,Troll  -- Stalk With The Earthmother (11)

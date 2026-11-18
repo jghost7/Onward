@@ -43,6 +43,7 @@ turnin 6571 |npc Locke Okarr |at 1440 71.4,67.6 |value mid  -- Warsong Supplies 
 turnin 6503 |npc Kuray'bin |at 1440 71.1,68.1  -- Ashenvale Outrunners (24)
 turnin 6504 |npc Gurda Ragescar |at 1440 70.0,71.2  -- The Lost Pages (30)
 complete 6621 |at 1440 56.4,63.5 |item 16972 |mobs Chief Murgut@Murgut's Totem  -- King of the Foulweald (26)
+fly 1440 12.2,33.8 |from 1440 73.2,61.6 |npc Andruk  -- flight master Vhulgra
 turnin 6621 |npc Karang Amakkar |at 1440 11.9,34.5  -- King of the Foulweald (26)
 turnin 824 |npc Je'neu Sancrea |at 1440 11.6,34.3  -- Je'neu of the Earthen Ring (27)
 ]]}

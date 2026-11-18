@@ -42,7 +42,9 @@ complete 6393 |at 1442 34.1,63.7 |mobs Rogue Flame Spirit@Incendrites;Burning De
 complete 6381 |at 1442 32.2,68.2 |item 16208 |value mid  -- New Life (25)
 fly 1413 51.5,30.3 |from 1442 45.1,59.8 |npc The Barrens (Devrak)  -- flight master Tharm
 turnin 1062 |npc Seereth Stonebreak |at 1413 35.3,27.9  -- Goblin Invaders (19)
+fly 1413 63.1,37.2 |from 1413 51.5,30.3 |npc The Barrens (Bragok)  -- flight master Devrak
 turnin 1094 |npc Sputtervalve |at 1413 63.0,37.2  -- Further Instructions (21)
+fly 1413 51.5,30.3 |from 1413 63.1,37.2 |npc The Barrens (Devrak)  -- flight master Bragok
 turnin 6548 |npc Makaba Flathoof |at 1413 35.2,27.8  -- Avenge My Village (18)
 turnin 6542 |npc Kadrak |at 1413 48.1,5.4  -- Report to Kadrak (19)
 fly 1454 45.1,63.9 |from 1413 51.5,30.3 |npc Orgrimmar (Doras)  -- flight master Devrak

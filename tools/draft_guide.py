@@ -785,7 +785,40 @@ def anneal(Q, seq, lo, hi, base_bad, pos, reg, iters=None, seed=1, loose=()):
 # ---------------------------------------------------------------- flights
 _FM = {}
 _NAMES = {}
-FLY_MIN_LEG = 45          # map units: shorter legs inside a zone are always walked
+FLY_MIN_LEG = 45          # map units: a dock this close is walked to, not flown to
+# Flights inside a zone: the same travel-time rule as Onward's flight advice (Travel.lua). Taxis
+# make ~25 yd/s along the straight line, plus ~15 s to talk, take off and land; a flight goes in
+# when it saves 30 s and 15% of the run. You run 7 yd/s, or ride 11.2 from MOUNT_LEVEL.
+TAXI_SPEED, FLIGHT_OVERHEAD, MIN_SAVE, NEW_SHARE = 25.0, 15.0, 30.0, 0.15
+RUN_SPEED, MOUNT_SPEED, MOUNT_LEVEL = 7.0, 11.2, 40
+_YD = {}
+
+
+def yard_scale(m):
+    """Yards per map unit (0-100) along x and y for a uiMap, from the game's UiMapAssignment
+    (a zone map is rarely square: Stranglethorn is 6381 yd wide and 4254 tall)."""
+    if not _YD:
+        import csv
+        path = pathlib.Path(__file__).resolve().parent / "data" / "db2" / "1.60.1.70938" / "UiMapAssignment.csv"
+        for r in csv.DictReader(open(path, encoding="utf-8")):
+            if r["OrderIndex"] == "0":
+                _YD[int(r["UiMapID"])] = ((float(r["Region_4"]) - float(r["Region_1"])) / 100,
+                                          (float(r["Region_3"]) - float(r["Region_0"])) / 100)
+    return _YD.get(m, (40.0, 40.0))
+
+
+def ydist(m, a, b):
+    """Yards between two points on map m."""
+    sx, sy = yard_scale(m)
+    return math.hypot((a[0] - b[0]) * sx, (a[1] - b[1]) * sy)
+
+
+def flight_saves(m, p0, p1, a, b, level):
+    """Does flying a -> b (flight master spots) beat running p0 -> p1 on map m?"""
+    v = MOUNT_SPEED if level >= MOUNT_LEVEL else RUN_SPEED
+    walk = ydist(m, p0, p1) / v
+    fly = ydist(m, p0, a) / v + ydist(m, a, b) / TAXI_SPEED + FLIGHT_OVERHEAD + ydist(m, b, p1) / v
+    return walk - fly >= max(MIN_SAVE, NEW_SHARE * walk)
 
 
 def step_loc(zone, verb, q):
@@ -890,7 +923,7 @@ def crossing(zone, m0, p0, m1, p1):
     return best and best[1]
 
 
-def add_flights(zone, steps):
+def add_flights(zone, steps, level=1):
     """Insert ("fly", leg) entries where a route changes zone (fly out and back), or makes a long
     run inside the zone that two of its flight masters cut short. A change of continent becomes
     fly to the dock's flight master, ("boat", crossing), fly on from the far dock's flight master."""
@@ -924,10 +957,8 @@ def add_flights(zone, steps):
             leg = None
             if a and b and m0 != m1:
                 leg = (a, b, m0, m1)
-            elif a and b and m0 == m1 and dist(p0, p1) >= FLY_MIN_LEG and a[1] != b[1]:
-                cost = a[0] + b[0] + dist(a[1], b[1]) / 3.2 + 6
-                if cost < 0.7 * dist(p0, p1):
-                    leg = (a, b, m0, m1)
+            elif a and b and m0 == m1 and a[1] != b[1] and flight_saves(m0, p0, p1, a[1], b[1], level):
+                leg = (a, b, m0, m1)
             if leg:
                 (_, pa, na), (_, pb, nb), ma, mb = leg
                 out.append(("fly", {"from": (ma, pa, na), "to": (mb, pb, nb), "zone": _NAMES.get(mb, "")}))
@@ -1012,7 +1043,7 @@ def render(zone, steps, leftovers, levels, name, faction, gid=None, next_id=None
     if next_id:
         out.append(f'  next = "{next_id}",')
     out.append("  steps = [[")
-    entries = add_home(zone, add_flights(zone, steps))
+    entries = add_home(zone, add_flights(zone, steps, levels[0]))
     ftiers = flight_tiers(zone, entries, tiers)
     for idx, (verb, q) in enumerate(entries):
         if verb == "home":

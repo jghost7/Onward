@@ -67,6 +67,7 @@ accept 1154 |npc Braug Dimspirit |at 1442 78.8,45.7 |group chain  -- Test of Lor
 fly 1413 51.5,30.3 |from 1442 45.1,59.8 |npc The Barrens (Devrak)  -- flight master Tharm
 turnin 1148 |npc Korran |at 1413 51.1,29.6  -- Parts of the Swarm (35)
 accept 1184 |npc Korran |at 1413 51.1,29.6  -- Parts of the Swarm (35)
+fly 1413 63.1,37.2 |from 1413 51.5,30.3 |npc The Barrens (Bragok)  -- flight master Devrak
 turnin 1111 |npc Wharfmaster Dizzywig |at 1413 63.4,38.5  -- Wharfmaster Dizzywig (36)
 accept 1112 |npc Wharfmaster Dizzywig |at 1413 63.4,38.5  -- Parts for Kravel (36)
 fly 1454 45.1,63.9 |from 1413 63.1,37.2 |npc Orgrimmar (Doras)  -- flight master Bragok

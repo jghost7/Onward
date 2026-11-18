@@ -52,6 +52,7 @@ accept 213 |npc Kebok |at 1434 27.0,77.1  -- Hostile Takeover (36)
 accept 605 |npc Crank Fizzlebub |at 1434 27.1,77.2  -- Singing Blue Shards (35)
 accept 606 |npc "Sea Wolf" MacKinley |at 1434 27.8,77.1  -- Scaring Shaky (41)
 accept 575 |npc Drizzlik |at 1434 28.3,77.6  -- Supply and Demand (31)
+fly 1434 32.5,29.4 |from 1434 26.9,77.1 |npc Thysta  -- flight master Gringer
 complete 605 |at 1434 37.0,41.7 |mobs Ironjaw Basilisk@Singing Crystal Shard;Cold Eye Basilisk@Singing Crystal Shard;Crystal Spine Basilisk@Singing Crystal Shard;Thrashtail Basilisk@Singing Crystal Shard  -- Singing Blue Shards (35)
 complete 570 |at 1434 39.6,35.5 |mobs Shadowmaw Panther@Shadowmaw Claw;Stranglethorn Tigress@Pristine Tigress Fang;Elder Shadowmaw Panther@Shadowmaw Claw  -- Mok'thardin's Enchantment (38)
 complete 192 |at 1434 41.3,34.8 |mobs Shadowmaw Panther  -- Panther Mastery (38)
@@ -96,6 +97,7 @@ accept 595 |npc First Mate Crazz |at 1434 28.1,76.2  -- The Bloodsail Buccaneers
 turnin 575 |npc Drizzlik |at 1434 28.3,77.6  -- Supply and Demand (31)
 accept 95384  -- Partial Mystical Notes (40)
 accept 577 |npc Drizzlik |at 1434 28.3,77.6  -- Some Assembly Required (36)
+fly 1434 32.5,29.4 |from 1434 26.9,77.1 |npc Thysta  -- flight master Gringer
 complete 95384 |at 1434 45.9,38.0 |mobs Skullsplitter Mystic@Partial Mystical Notes  -- Partial Mystical Notes (40)
 complete 193 |at 1434 49.4,24.0 |mobs Bhag'thera@Fang of Bhag'thera |group elite  -- Panther Mastery (40)
 complete 213 |at 1434 44.2,20.1 |mobs Venture Co. Geologist@Tumbled Crystal  -- Hostile Takeover (36)
@@ -110,6 +112,7 @@ accept 95770 |npc Kin'weelay |at 1434 32.3,27.7  -- Locating the Lost City (40)
 accept 96078 |npc Kin'weelay |at 1434 32.3,27.7  -- A Tale Spun Around the Fire (40)
 turnin 572 |npc Far Seer Mok'thardin |at 1434 32.1,29.2  -- Mok'thardin's Enchantment (41)
 accept 571 |npc Far Seer Mok'thardin |at 1434 32.1,29.2  -- Mok'thardin's Enchantment (41)
+fly 1434 26.9,77.1 |from 1434 32.5,29.4 |npc Gringer  -- flight master Thysta
 turnin 595 |npc Bloodsail Correspondence |at 1434 27.3,69.5  -- The Bloodsail Buccaneers (41)
 accept 597 |npc Bloodsail Correspondence |at 1434 27.3,69.5  -- The Bloodsail Buccaneers (41)
 turnin 597 |npc First Mate Crazz |at 1434 28.1,76.2  -- The Bloodsail Buccaneers (41)

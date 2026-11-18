@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+- Flight advice now compares travel times using your own speed: on foot, or your mount's once
+  you've ridden it. A flight is suggested when it saves at least 30 seconds and 15% of the trip.
+  On foot that catches flights it used to miss (Booty Bay to Grom'gol for the north of
+  Stranglethorn); mounted, it no longer sends you to a flight master to save a few seconds.
+- The guides use the same rule and measure in yards (a zone map is rarely square: Stranglethorn
+  is half again as wide as it is tall). Ten more flights inside zones, in Stranglethorn, the
+  Barrens, Stonetalon, Ashenvale, Mulgore and Thousand Needles.
 - After you die and release, the arrow leads back to your body ("Back to your body", then the
   step you were on) instead of the quest. Once you're alive again, at your body, a spirit healer
   or from a resurrection, it goes back to the guide.
