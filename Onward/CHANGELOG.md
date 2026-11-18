@@ -1,5 +1,15 @@
 # Changelog
 
+## Unreleased
+
+- Profession guides sent you to the wrong trainer for a new rank. "Train Journeyman Engineering"
+  pointed at Mukdrak in Razor Hill, a Journeyman Engineer, who only teaches Apprentice. A
+  trainer's title is their own rank and they teach the one below it, so every "Train" step now
+  points one tier up: Expert trainers for Journeyman, Artisan trainers for Expert, and Master
+  trainers for Artisan. Specialisation trainers (Goblin and Gnome Engineer, Dragonscale,
+  Elemental and Tribal Leatherworker, Shadoweave Tailor) are no longer offered for a rank.
+- Artisan Enchanting says where to go: Annora, inside the Uldaman dungeon.
+
 ## 0.6.27
 
 - The guide no longer stops on a quest it can't lead you to. "Accept Torn Mystical Scroll" in

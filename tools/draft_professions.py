@@ -175,8 +175,14 @@ def trainers(db, a2m):
             continue
         for s, kw in KEYWORD.items():
             if kw in sub and not (s == 186 and "Mining" not in sub and "Miner" not in sub):
-                cap = 300 if re.search(r"Artisan|Master", sub) else 225 if "Expert" in sub else \
-                    75 if "Junior" in sub else 150 if "Journeyman" in sub else 225
+                # a trainer's title is their own rank and they teach the one below it: a
+                # Journeyman teaches Apprentice (75), an Expert Journeyman (150), an Artisan
+                # Expert (225), a Master Artisan (300). Specialisation masters (Goblin Engineer,
+                # Dragonscale Leatherworker...) teach their speciality, not a rank.
+                if re.search(r"Gnome|Goblin|Dragonscale|Elemental|Tribal|Shadoweave", sub):
+                    continue
+                cap = 300 if "Master" in sub else 225 if "Artisan" in sub else 150 if "Expert" in sub else \
+                    75 if re.search(r"Junior|Journeyman|Apprentice", sub) else 225
                 name = text(db.npc(n, "name"))
                 for m, x, y in npc_points(db, a2m, n)[:1]:
                     out[s].append((cap, faction_of(db, n), m, x, y, name))
@@ -332,6 +338,9 @@ def train_line(skill, cap, faction, db):
     if skill in EXPERT_BOOK and cap == 300:
         q = artisan_quests(db).get((skill, faction))
         return f"train {skill} 300 |level 35" + (f" |quest {q}" if q else "")
+    if skill == 333 and cap == 300:
+        # the only Master Enchanter stands inside a dungeon, so there is no map spot to point at
+        return f"train 333 300 |level {CAP_LEVEL[cap]} |note Annora, the Master Enchanter, is inside the Uldaman dungeon in the Badlands"
     return f"train {skill} {cap} |level {CAP_LEVEL[cap]}"
 
 

@@ -13,7 +13,7 @@ train 333 225 |level 20
 craft 13419 155 |name Enchant Cloak - Minor Agility |n 53 |mats 10998:1 |recipe 11039 |from 110
 craft 13536 196 |name Enchant Bracer - Lesser Strength |n 68 |mats 11083:1 |recipe 11101 |from 155
 craft 13646 207 |name Enchant Bracer - Lesser Deflection |n 16 |mats 11134:1;11083:1 |recipe 11163 |from 196
-train 333 300 |level 35
+train 333 300 |level 35 |note Annora, the Master Enchanter, is inside the Uldaman dungeon in the Badlands
 craft 1248498 253 |name Enchant Bracer - Lesser Healing Power |n 66 |mats 11134:2 |recipe 249489 |from 207
 craft 13931 284 |name Enchant Bracer - Deflection |n 53 |mats 11174:2;11176:1 |recipe 11223 |from 253
 craft 20017 300 |name Enchant Shield - Greater Stamina |n 20 |mats 11176:6 |recipe 16217 |from 284
