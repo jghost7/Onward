@@ -39,3 +39,4 @@ turnin 9272 |npc Fleet Master Firallon |at 1434 30.6,90.6  -- Dressing the Part 
 --   1036  Avast Ye, Scallywag (60)
 --   4621  Avast Ye, Admiral! (60)
 --   83934  Show Me the Money! (60)
+--   96076  In Demand - Ancient Elven Curiosities (60)

@@ -31,16 +31,20 @@ turnin 2622 |npc Bengor |at 1435 45.0,57.4  -- The Missing Orders (50)
 accept 2623 |npc Bengor |at 1435 45.0,57.4 |lvl 45 |preany 2622  -- The Swamp Talker (55)
 complete 2623 |at 1435 63.6,86.4 |mobs Swamp Talker@Warchief's Orders  -- The Swamp Talker (55)
 turnin 2623 |npc Fallen Hero of the Horde |at 1435 34.3,66.1  -- The Swamp Talker (55)
-accept 3374 |at 1435 13.7,71.7 |note Starts from Oathstone of Ysera's Dragonflight |value mid |lvl 48 |preany 3373  -- The Essence of Eranikus (55)
-complete 3374 |at 1435 39.1,47.3 |item 10589 |mobs Swamp Jaguar;Swamp Talker |value mid  -- The Essence of Eranikus (55)
-turnin 3374 |npc Itharius |at 1435 13.7,71.7 |value mid  -- The Essence of Eranikus (55)
-accept 3512 |npc Itharius |at 1435 13.7,71.7 |value mid |lvl 48 |preany 3374  -- In Eranikus' Own Words (55)
+accept 3374 |at 1435 13.7,71.7 |note Starts from Oathstone of Ysera's Dragonflight |lvl 48 |preany 3373  -- The Essence of Eranikus (55)
+complete 3374 |at 1435 39.1,47.3 |item 10589 |mobs Swamp Jaguar;Swamp Talker  -- The Essence of Eranikus (55)
+accept 93679 |npc Magtoor |at 1435 26.0,31.4 |preany 93678  -- Visions of Another (55)
+turnin 93679 |npc Magtoor |at 1435 26.0,31.4  -- Visions of Another (55)
+accept 93684 |npc Magtoor |at 1435 26.0,31.4 |preany 93679  -- The Found One (55)
+turnin 3374 |npc Itharius |at 1435 13.7,71.7  -- The Essence of Eranikus (55)
+accept 3512 |npc Itharius |at 1435 13.7,71.7 |lvl 48 |preany 3374  -- In Eranikus' Own Words (55)
 fly 1434 26.9,77.1 |from 1435 46.1,54.8 |npc Stranglethorn Vale (Gringer)  -- flight master Breyk
 goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
-fly 1452 60.5,36.3 |from 1413 63.1,37.2 |npc Winterspring (Yugrek) |value mid  -- flight master Bragok
-turnin 3512 |npc Umbranse the Spiritspeaker |at 1452 67.8,27.4 |value mid  -- In Eranikus' Own Words (55)
+fly 1452 60.5,36.3 |from 1413 63.1,37.2 |npc Winterspring (Yugrek)  -- flight master Bragok
+turnin 3512 |npc Umbranse the Spiritspeaker |at 1452 67.8,27.4  -- In Eranikus' Own Words (55)
 fly 1413 63.1,37.2 |from 1452 60.5,36.3 |npc The Barrens (Bragok)  -- flight master Yugrek
 goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
 fly 1425 81.7,81.8 |from 1434 26.9,77.1 |npc The Hinterlands (Gorkas)  -- flight master Gringer
 turnin 1429 |npc Atal'ai Exile |at 1425 33.8,75.2  -- The Atal'ai Exile (44)
+turnin 93684 |npc Kum'isha the Collector |at 1419 52.0,35.6  -- The Found One (55)
 ]]}

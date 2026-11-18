@@ -103,6 +103,15 @@ function WP:Resolve(step)
         local loc = QB:StartLocation(step.quest)
         if loc then return loc.map, loc.x, loc.y, loc.name, true end
     end
+    -- an accept that waits on a quest the guide doesn't cover: lead to that quest's giver
+    if step.verb == "accept" and G then
+        local _, kind, pre = G:HeldReason(step)
+        local g = G:Active()
+        if kind == "pre" and pre and not (g and g.acceptOf and g.acceptOf[pre]) then
+            local first = QB:StartLocation(pre)
+            if first then return first.map, first.x, first.y, first.name end
+        end
+    end
     if step.at then
         return step.at.map or C_Map.GetBestMapForUnit("player"), step.at.x, step.at.y, step.npc
     end

@@ -62,3 +62,6 @@ accept 1189 |npc Shreev |at 1446 51.0,27.2 |lvl 29 |preany 1188  -- Safety First
 fly 1441 45.1,49.1 |from 1446 51.6,25.4 |npc Nyse  -- flight master Bulkrek Ragefist
 turnin 1189 |npc Razzeric |at 1441 80.3,76.1  -- Safety First (41)
 ]]}
+
+-- Not routed (far above the zone's level range, or no reachable path):
+--   92102  Praise (58)

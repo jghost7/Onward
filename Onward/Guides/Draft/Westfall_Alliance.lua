@@ -128,3 +128,4 @@ turnin 6285 |npc Quartermaster Lewis |at 1436 57.0,47.2 |race Human  -- Return t
 --   50  Sweet Amber (44)
 --   51  Sweet Amber (44)
 --   53  Sweet Amber (44)
+--   96337  More Valuable Than Gold (53)

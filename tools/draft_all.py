@@ -13,7 +13,7 @@ import re
 import time
 
 from questiedb import FOREVER, QuestieDB, area_to_uimap
-from draft_guide import Zone, area_changes, guide_id, render, route, split_outliers, stats
+from draft_guide import Zone, area_changes, guide_id, quest_zone, render, route, split_outliers, stats
 from quest_value import tiers as quest_tiers
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
@@ -106,7 +106,7 @@ def main():
     names = map_names()
     index = {}
     for q in db.ids("Quest-"):
-        z = db.quest(q, "zoneOrSort")
+        z = quest_zone(db, q)
         m = a2m.get(z) if z and z > 0 else None
         if m:
             index.setdefault(m, []).append(q)

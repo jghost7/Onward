@@ -13,14 +13,14 @@ accept 1421 |npc Watcher Biggs |at 1435 26.7,59.8 |value mid |lvl 30 |preany 139
 accept 93176 |npc Amaryllis Webb |at 1435 25.2,54.0 |lvl 25  -- My Little Friends (35)
 accept 1389 |npc Magtoor |at 1435 26.0,31.4 |lvl 30  -- Draenethyst Crystals (35)
 accept 93430 |npc Pelluk |at 1435 26.5,30.4 |lvl 30  -- Taking the Bait Back (35)
-accept 1392 |at 1435 54.9,34.1 |note Starts from Noboru's Cudgel |lvl 29  -- Noboru the Cudgel (39)
-complete 93430 |at 1435 53.7,30.6 |mobs Lost One Fisherman@Lucky Lure  -- Taking the Bait Back (35)
-complete 1389 |at 1435 62.3,23.6  -- Draenethyst Crystals (35)
 complete 1421 |at 1435 64.5,18.3 |value mid  -- The Lost Caravan (35)
+complete 1389 |at 1435 62.3,23.6  -- Draenethyst Crystals (35)
+complete 93430 |at 1435 53.7,30.6 |mobs Lost One Fisherman@Lucky Lure  -- Taking the Bait Back (35)
+accept 1392 |at 1435 54.9,34.1 |note Starts from Noboru's Cudgel |lvl 29  -- Noboru the Cudgel (39)
 turnin 93430 |npc Pelluk |at 1435 26.5,30.4  -- Taking the Bait Back (35)
-turnin 93585 |npc Magtoor |at 1435 26.0,31.4  -- This Light of Mine (34)
-turnin 1392 |npc Magtoor |at 1435 26.0,31.4  -- Noboru the Cudgel (39)
 turnin 1389 |npc Magtoor |at 1435 26.0,31.4  -- Draenethyst Crystals (35)
+turnin 1392 |npc Magtoor |at 1435 26.0,31.4  -- Noboru the Cudgel (39)
+turnin 93585 |npc Magtoor |at 1435 26.0,31.4  -- This Light of Mine (34)
 accept 93464 |npc Magtoor |at 1435 26.0,31.4 |lvl 30 |preany 1389  -- The Visiting Mage (38)
 accept 93429 |npc Karana |at 1435 24.7,32.6 |lvl 30  -- Blood of My Blood (35)
 turnin 93429 |npc Karana |at 1435 24.7,32.6  -- Blood of My Blood (35)
@@ -34,17 +34,18 @@ turnin 1398 |npc Watcher Biggs |at 1435 26.7,59.8 |value mid  -- Driftwood (42)
 accept 1425 |npc Watcher Biggs |at 1435 26.7,59.8 |value mid |lvl 30 |preany 1398  -- Deliver the Shipment (42)
 accept 94929 |npc Watcher Biggs |at 1435 26.7,59.8 |value mid |lvl 36 |preany 1398  -- Deliver the Second Shipment (38)
 turnin 93176 |npc Amaryllis Webb |at 1435 25.2,54.0  -- My Little Friends (35)
+turnin 1116 |npc Krazek |at 1434 26.9,77.2  -- Dream Dust in the Swamp (36)
 goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
 fly 1443 64.7,10.5 |from 1413 63.1,37.2 |npc Desolace (Baritanas Skyriver)  -- flight master Bragok
 turnin 93464 |npc Azore Aldamort |at 1443 38.9,27.2  -- The Visiting Mage (38)
 fly 1413 63.1,37.2 |from 1443 64.7,10.5 |npc The Barrens (Bragok)  -- flight master Baritanas Skyriver
 goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
-fly 2548 60.6,81.5 |from 1434 27.5,77.8 |npc Riverglades (Gretchen Mayberry) |value mid  -- flight master Gyll
+accept 79953 |npc Owen Thadd |at 1458 73.4,33.0  -- A Ludite's Guide to Caring for Your Demonic Pet (35)
 turnin 94929 |npc Demar Brant |at 2548 66.7,81.0 |value mid  -- Deliver the Second Shipment (38)
-fly 1419 65.5,24.3 |from 2548 60.6,81.5 |npc Blasted Lands (Alexandra Constantine) |value mid  -- flight master Gretchen Mayberry
+fly 1419 65.5,24.3 |from 2548 60.6,81.5 |npc Blasted Lands (Alexandra Constantine)  -- flight master Gretchen Mayberry
 turnin 1425 |npc Quartermaster Lungertz |at 1419 66.5,21.4 |value mid  -- Deliver the Shipment (42)
-fly 1434 27.5,77.8 |from 1419 65.5,24.3 |npc Stranglethorn Vale (Gyll)  -- flight master Alexandra Constantine
-turnin 1116 |npc Krazek |at 1434 26.9,77.2  -- Dream Dust in the Swamp (36)
+complete 79953  -- A Ludite's Guide to Caring for Your Demonic Pet (35)
+turnin 79953 |npc Owen Thadd |at 1458 73.4,33.0  -- A Ludite's Guide to Caring for Your Demonic Pet (35)
 ]]}
 
 -- Not routed (far above the zone's level range, or no reachable path):

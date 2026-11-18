@@ -57,5 +57,6 @@ turnin 249 |npc Theocritus |at 1429 65.2,69.7 |group elite  -- Morganth (27)
 ]]}
 
 -- Not routed (far above the zone's level range, or no reachable path):
+--   93551  Praise (58)
 --   95816  Sign Me Up! (60)
 --   98247  Shipping Label (60)

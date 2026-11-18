@@ -52,6 +52,36 @@ def bits_to_tokens(mask, table):
     return [tok for bit, tok in table.items() if mask & bit]
 
 
+_QZONE = {}
+
+
+def quest_zone(db, q):
+    """The quest's zone (Questie's zoneOrSort). About 300 quests in the Forever data have none,
+    most of them in the new zones (Mount Hyjal, Riverglades, Shen'dralas): those take the area
+    their giver stands in (most spawns), else their finisher's. Without this they were in no
+    guide, and every quest that follows one of them had a prerequisite nobody was sent to."""
+    if q not in _QZONE:
+        z = db.quest(q, "zoneOrSort")
+        if not z:
+            for field in ("startedBy", "finishedBy"):
+                who = db.quest(q, field) or {}
+                who = who if isinstance(who, dict) else dict(enumerate(lua_list(who), 1))
+                count = {}
+                for kind, slot in (("npc", 1), ("obj", 2)):
+                    for i in lua_list(who.get(slot)):
+                        if not i:
+                            continue
+                        spawns = db.npc(i, "spawns") if kind == "npc" else db.obj(i, "spawns")
+                        for area, pts in (as_area_map(spawns) or {}).items():
+                            if pts:
+                                count[area] = count.get(area, 0) + len(lua_list(pts))
+                if count:
+                    z = max(sorted(count), key=lambda a: count[a])
+                    break
+        _QZONE[q] = z
+    return _QZONE[q]
+
+
 class Zone:
     def __init__(self, db, uimap, faction, a2m=None, qids=None):
         self.db, self.map, self.faction = db, uimap, faction
@@ -66,7 +96,7 @@ class Zone:
         self.dungeon_maps = dungeon_maps()
         self.quests = {}
         for q in (qids if qids is not None else db.ids("Quest-")):
-            if db.quest(q, "zoneOrSort") not in self.areas:
+            if quest_zone(db, q) not in self.areas:
                 continue
             races = db.quest(q, "requiredRaces")
             if races and not (races & self.bit):

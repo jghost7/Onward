@@ -40,3 +40,6 @@ accept 1189 |npc Shreev |at 1446 51.0,27.2 |lvl 29 |preany 1188  -- Safety First
 turnin 1194 |npc Pozzik |at 1441 80.2,75.9  -- Rizzle's Schematics (41)
 turnin 1189 |npc Razzeric |at 1441 80.3,76.1  -- Safety First (41)
 ]]}
+
+-- Not routed (far above the zone's level range, or no reachable path):
+--   92102  Praise (58)

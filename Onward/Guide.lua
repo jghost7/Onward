@@ -427,7 +427,8 @@ function G:IsLater(step)
 end
 
 -- An accept the game won't offer yet: you're under the quest's level, or a quest it follows
--- isn't turned in. Returns the reason for the panel and its kind ("level" | "pre"), or nil.
+-- isn't turned in. Returns the reason for the panel, its kind ("level" | "pre") and, for
+-- "pre", the quest to do first; or nil.
 -- The step is passed over and comes back by itself once it's on offer.
 function G:HeldReason(step)
     if step.verb ~= "accept" then return end
@@ -436,7 +437,7 @@ function G:HeldReason(step)
     end
     if step.pre then
         for _, p in ipairs(step.pre) do
-            if not QS:IsDone(p) then return ("after %s"):format(QS:Title(p) or ("quest " .. p)), "pre" end
+            if not QS:IsDone(p) then return ("after %s"):format(QS:Title(p) or ("quest " .. p)), "pre", p end
         end
     end
     if step.preAny then
@@ -444,7 +445,10 @@ function G:HeldReason(step)
             if QS:IsDone(p) then return end
         end
         local p = step.preAny[1]
-        return ("after %s"):format(QS:Title(p) or ("quest " .. p)), "pre"
+        for _, alt in ipairs(step.preAny) do          -- the one this guide covers, if any
+            if active and active.acceptOf[alt] then p = alt break end
+        end
+        return ("after %s"):format(QS:Title(p) or ("quest " .. p)), "pre", p
     end
 end
 
@@ -460,9 +464,15 @@ function G:IsBlocked(step)
     return G:IsSkipped(a) or G:HeldReason(a) ~= nil
 end
 
--- The level wall: at the end of a guide, with only quests you're under-level for left, the
--- first of those becomes the step (marked "needs level N") instead of the guide ending.
-local levelWall = false
+-- The wall: at the end of a guide, with only held quests left, the first of them becomes the
+-- step instead of the guide ending: one you're under-level for (marked "needs level N"), or
+-- one that follows a quest this guide doesn't cover (marked "after <quest>", with the arrow
+-- on that quest's giver when Questie knows it). A quest held by one the guide does cover stays
+-- out: you skipped that one.
+local wall = false
+local function wallOpens(kind, pre)
+    return wall and (kind == "level" or (kind == "pre" and not (active and active.acceptOf[pre])))
+end
 
 local function isOpen(step)
     if G:IsComplete(step) then return false end
@@ -471,8 +481,8 @@ local function isOpen(step)
     if G:IsLater(step) then return false end
     if G:IsSkipped(step) then return false end
     if G:IsBlocked(step) then return false end
-    local _, held = G:HeldReason(step)
-    if held and not (levelWall and held == "level") then return false end
+    local _, held, pre = G:HeldReason(step)
+    if held and not wallOpens(held, pre) then return false end
     if G:IsBehind(step) then
         if not step.quest then return false end                -- travel / notes you've moved past
         if not QS:IsOnQuest(step.quest) then return false end  -- missed: listed, not forced
@@ -578,7 +588,7 @@ local function advance(fromStart)
     active.frontier = frontierIndex()
     local n = #active.steps
     local start = fromStart and 1 or cursor
-    levelWall = false
+    wall = false
     if not fromStart then
         for k = 1, math.min(cursor - 1, n) do
             local s = active.steps[k]
@@ -587,9 +597,9 @@ local function advance(fromStart)
     end
     local i = scan(start, fromStart)
     if i > n and active.id ~= "smart" and #G:LaterList() == 0 then
-        levelWall = true
+        wall = true
         i = scan(1, true)
-        if i > n then levelWall = false end
+        if i > n then wall = false end
     end
     local changed = i ~= cursor
     cursor = i
@@ -775,7 +785,7 @@ function G:Activate(id)
             end
         end
     end
-    levelWall = false
+    wall = false
     W.cdb.guide = def.id
     advance(true)
     W:Fire("WF_GUIDE_CHANGED", active)

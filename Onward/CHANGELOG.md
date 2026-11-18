@@ -1,5 +1,18 @@
 # Changelog
 
+## Unreleased
+
+- About 300 quests were in no guide because the quest data gives them no zone, most of them in
+  the new zones. They now go by where their quest giver stands. Mount Hyjal grows from 22 to 128
+  quests (Alliance; 18 to 123 Horde), Riverglades from 87 to 108 (72 to 91), Shen'dralas from 16
+  to 37 (8 to 29), and Moonglade gets a guide. Since 0.6.22 every quest that follows one of the
+  missing ones was held back with nothing leading to it; those are back in the route.
+- A quest that follows one the guide doesn't cover (a chain that starts in another zone) now
+  comes up at the end of the guide marked "after <quest>", with the arrow on that first
+  quest's giver when Questie knows it, instead of staying hidden.
+- Alterac Mountains and Hillsbrad (Alliance) and Shen'dralas (Horde) are now two guides each.
+  If one of those was your guide, pick it again with /ow guides or /ow suggest.
+
 ## 0.6.23
 
 - The step count on the panel (122/226 on a new character in Riverglades) started at the number
