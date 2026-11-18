@@ -19,7 +19,7 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 BUILD = "1.60.1.70938"
 DATA = ROOT / "tools" / "data" / "db2" / BUILD
 OUT = ROOT / "Onward" / "Places.lua"
-TABLES = ["WorldMapOverlay", "UiMapXMapArt", "AreaTable"]
+TABLES = ["WorldMapOverlay", "UiMapXMapArt", "AreaTable", "UiMapAssignment"]   # UiMapAssignment: map sizes for draft_guide.py
 ART_W, ART_H = 1002, 668
 
 
