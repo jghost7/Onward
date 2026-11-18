@@ -217,7 +217,7 @@ local function place()
 end
 
 function A:Sync()
-    local want = W.db.arrow and WP:Current() ~= nil
+    local want = W.db.arrow and (WP:Current() ~= nil or WP:CorpseTarget() ~= nil)
     if want and not f:IsShown() then
         f:Show()
         f:SetScript("OnUpdate", update)

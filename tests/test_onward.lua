@@ -1515,6 +1515,31 @@ note After
     W.Travel:Refresh(true)
 end
 
+do  -- dead and released: the arrow leads to your body, then back to the guide once you're alive
+    local savedPos = MOCK.pos
+    W:RegisterGuide{ id = "ghost", title = "Ghost (35-36)", levels = { 35, 36 }, faction = "", steps = [[
+goto 1423 90.0,90.0 |note Far corner
+note After
+]]}
+    W.Guide:Activate("ghost") settle() MOCK.advance(3)
+    local before = W.Waypoint:ArrowTarget()
+    check("ghost test starts on a step with an arrow", before ~= nil)
+    MOCK.pos = { map = 1424, x = 0.5, y = 0.5 }              -- the graveyard, in the next zone
+    MOCK.parents = { [1424] = 1423 }
+    MOCK.corpse = { map = 1423, x = 0.2, y = 0.3 }
+    MOCK.ghost = true MOCK.fire("PLAYER_ALIVE") settle()
+    local tgt = W.Waypoint:ArrowTarget()
+    local cc, cx, cy = W.Travel.World(1423, 20, 30)
+    check("ghost: the arrow points at your body", tgt and tgt.corpse and tgt.label == "Back to your body" and math.abs(tgt.wx - cx) < 1 and math.abs(tgt.wy - cy) < 1,
+          tgt and tgt.label)
+    check("...and says what comes after", tgt and tgt.sub and tgt.sub:find("^then "), tgt and tgt.sub)
+    check("...with the arrow shown", W.Arrow.frame == nil or W.Arrow.frame:IsShown())
+    MOCK.ghost = false MOCK.corpse = nil MOCK.fire("PLAYER_UNGHOST") settle()
+    tgt = W.Waypoint:ArrowTarget()
+    check("alive again: back to the guide", tgt and not tgt.corpse and tgt.label == before.label, tgt and tgt.label)
+    MOCK.pos, MOCK.parents = savedPos, nil
+end
+
 do  -- animations: each plays on its own change, never in combat, and the option turns them off
     local AN = W.Anim
     local played = {}

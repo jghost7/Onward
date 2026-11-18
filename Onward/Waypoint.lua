@@ -297,9 +297,44 @@ local function hearthFor(cont, wx, wy, label, flight)
              cont = cont, wx = wx, wy = wy, radius = 10, hearth = true }
 end
 
+-- Dead and released: the arrow leads back to your body instead of the step, and the guide
+-- picks up again once you're alive (at the body, a spirit healer or a resurrection).
+-- The corpse is looked up on the map you're on, then its parents (a graveyard in the next zone).
+local corpse
+function WP:CorpseTarget()
+    if not (UnitIsGhost and UnitIsGhost("player")) then corpse = nil return end
+    if not corpse and C_DeathInfo and C_DeathInfo.GetCorpseMapPosition then
+        local m = C_Map.GetBestMapForUnit("player")
+        for _ = 1, 4 do
+            if not m then break end
+            local ok, pos = pcall(C_DeathInfo.GetCorpseMapPosition, m)
+            if ok and pos and pos.x and (pos.x > 0 or pos.y > 0) then
+                local cont, wx, wy = T.World(m, pos.x * 100, pos.y * 100)
+                if cont then corpse = { cont = cont, wx = wx, wy = wy } end
+                break
+            end
+            local info = C_Map.GetMapInfo(m)
+            m = info and info.parentMapID
+        end
+    end
+    if not corpse then return end
+    return { label = "Back to your body", sub = current and ("then " .. current.title) or "run back to resurrect",
+             cont = corpse.cont, wx = corpse.wx, wy = corpse.wy, radius = 25, corpse = true }
+end
+
+local function deathChanged()
+    corpse = nil
+    W:Fire("WF_TARGET_CHANGED", current)
+end
+W:On("PLAYER_DEAD", deathChanged)
+W:On("PLAYER_ALIVE", deathChanged)     -- also fires on release, as a ghost
+W:On("PLAYER_UNGHOST", deathChanged)
+
 -- What the nav arrow points at: hearthstone or flight advice when it beats running, else the
 -- step target. returns { label, sub, cont, wx, wy, radius, arrived } or nil
 function WP:ArrowTarget()
+    local body = WP:CorpseTarget()
+    if body then return body end
     if not current then return end
     local step = current.step
     local label = current.title

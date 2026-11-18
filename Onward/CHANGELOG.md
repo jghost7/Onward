@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- After you die and release, the arrow leads back to your body ("Back to your body", then the
+  step you were on) instead of the quest. Once you're alive again, at your body, a spirit healer
+  or from a resurrection, it goes back to the guide.
 - On the way to a boat or zeppelin across the continent, the flight master now marks the flight
   point nearest the dock (Ratchet, say) on the flight map and takes that flight. The arrow reads
   "Fly: <here>, to Ratchet, then take the boat to Booty Bay" instead of pointing straight at the

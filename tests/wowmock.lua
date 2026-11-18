@@ -234,6 +234,12 @@ function UnitIsDead(u)
     if U(u) then return U(u).dead or false end
     return MOCK.targetDead or false
 end
+function UnitIsGhost(u) return u == "player" and MOCK.ghost or false end
+-- MOCK.corpse = { map, x, y } (0-1): where the body lies, readable on that map only
+C_DeathInfo = { GetCorpseMapPosition = function(m)
+    local c = MOCK.corpse
+    if c and c.map == m then return CreateVector2D(c.x, c.y) end
+end }
 function UnitIsTapDenied(u) return U(u) and U(u).tapDenied or false end
 function UnitCanAttack(_, u) return U(u) ~= nil end
 function UnitThreatSituation(_, u) return U(u) and U(u).threat end
