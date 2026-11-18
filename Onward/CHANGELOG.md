@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.6.27
 
 - The guide no longer stops on a quest it can't lead you to. "Accept Torn Mystical Scroll" in
   Stranglethorn showed no place and no hint: the quest starts from a dropped item, and neither
