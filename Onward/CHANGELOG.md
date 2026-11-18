@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.6.19
 
 - At the end of a guide, the "Guide complete" card no longer offers the guide you just finished
   (it did when some of its turn-ins were skipped and their quests were still in your log). The
