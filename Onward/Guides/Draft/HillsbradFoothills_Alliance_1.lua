@@ -21,7 +21,7 @@ turnin 561 |npc Lieutenant Farren Orinelle |at 1424 51.5,58.4  -- Farren's Proof
 accept 562 |npc Lieutenant Farren Orinelle |at 1424 51.5,58.4 |lvl 25 |preany 561  -- Stormwind Ho! (32)
 accept 555 |npc Chef Jessen |at 1424 51.9,58.7 |lvl 28  -- Soothing Turtle Bisque (31)
 complete 562 |at 1424 57.2,68.3 |mobs Daggerspine Shorehunter;Daggerspine Siren  -- Stormwind Ho! (32)
-complete 555 |at 1424 66.1,38.2 |mobs Snapjaw@Turtle Meat  -- Soothing Turtle Bisque (31)
+complete 555 |at 1424 66.1,38.2 |areas 63.9,39.7:4;68.0,22.9:4;55.9,54.0:3 |mobs Snapjaw@Turtle Meat  -- Soothing Turtle Bisque (31)
 accept 98071 |npc Brewmeister Bilger |at 1424 52.1,58.7 |lvl 23  -- Brewer's Trade (27)
 turnin 98071 |npc Brewmeister Bilger |at 1424 52.1,58.7  -- Brewer's Trade (27)
 turnin 555 |npc Chef Jessen |at 1424 51.9,58.7  -- Soothing Turtle Bisque (31)

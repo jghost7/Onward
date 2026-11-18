@@ -7,7 +7,7 @@ Onward:RegisterGuide{
   steps = [[
 accept 706 |npc Sigrun Ironhew |at 1418 53.8,43.3 |value low |lvl 40  -- Fiery Blaze Enchantments (45)
 accept 717 |npc Garek |at 1418 61.9,54.3 |value mid |group elite |lvl 40 |preany 732  -- Tremors of the Earth (50)
-complete 706 |at 1418 79.7,47.9 |mobs Scalding Whelp@Black Drake's Heart;Scorched Guardian@Black Drake's Heart |value low  -- Fiery Blaze Enchantments (45)
+complete 706 |at 1418 79.7,47.9 |areas 83.2,32.7:14;80.4,53.6:12 |mobs Scalding Whelp@Black Drake's Heart;Scorched Guardian@Black Drake's Heart |value low  -- Fiery Blaze Enchantments (45)
 complete 717 |at 1418 81.9,49.5 |item 4640 |mobs Blacklash@Blacklash's Bindings;Hematus@Chains of Hematus |value mid |group elite  -- Tremors of the Earth (50)
 turnin 717 |npc Garek |at 1418 61.9,54.3 |value mid |group elite  -- Tremors of the Earth (50)
 turnin 706 |npc Sigrun Ironhew |at 1418 53.8,43.3 |value low  -- Fiery Blaze Enchantments (45)

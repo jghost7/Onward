@@ -9,7 +9,7 @@ accept 681 |npc Captain Nials |at 1417 45.8,47.6 |value low |lvl 30  -- Northfol
 accept 95315 |npc Captain Nials |at 1417 45.8,47.6 |lvl 36  -- The Riverglades Report (38)
 accept 691 |npc Apprentice Kryten |at 1417 46.2,47.8 |lvl 30  -- Worth Its Weight in Gold (36)
 accept 79624 |at 1417 32.9,50.3 |note Starts from Illegible Recipe |lvl 32  -- Anyone Can Cook (40)
-complete 79624 |at 1417 32.9,50.3 |mobs Boulderfist Brute@Illegible Recipe;Boulderfist Ogre@Illegible Recipe;Boulderfist Enforcer@Illegible Recipe;Boulderfist Shaman@Illegible Recipe  -- Anyone Can Cook (40)
+complete 79624 |at 1417 32.9,50.3 |areas 33.6,44.6:34;20.0,67.5:30;53.1,75.9:30 |mobs Boulderfist Brute@Illegible Recipe;Boulderfist Ogre@Illegible Recipe;Boulderfist Enforcer@Illegible Recipe;Boulderfist Shaman@Illegible Recipe  -- Anyone Can Cook (40)
 complete 681 |at 1417 33.6,29.2 |mobs Syndicate Highwayman;Syndicate Mercenary |value low  -- Northfold Manor (31)
 accept 642 |npc Shards of Myzrael |at 1417 62.5,33.7 |lvl 30  -- The Princess Trapped (37)
 complete 642 |at 1417 81.8,35.9 |mobs Drywhisker Kobold@Mote of Myzrael;Drywhisker Digger@Mote of Myzrael;Drywhisker Surveyor@Mote of Myzrael  -- The Princess Trapped (37)

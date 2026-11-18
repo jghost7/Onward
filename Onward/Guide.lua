@@ -197,6 +197,14 @@ local function parseLine(line, lineNo, guideId)
             end
         end
     end
+    -- |areas x,y:n;x,y:n  the separate camps a kill/loot step can be done at (on the step's map)
+    if opts.areas and step.at and step.at.map then
+        local list = {}
+        for x, y, n in opts.areas:gmatch("([%d%.]+)%s*,%s*([%d%.]+):?(%d*)") do
+            list[#list + 1] = { x = tonumber(x), y = tonumber(y), n = tonumber(n) }
+        end
+        if #list > 1 then step.areas = list end
+    end
     step.optional = opts.optional ~= nil
     if PROF_VERB[verb] then
         step.skill = step.skill or tonumber(opts.prof)

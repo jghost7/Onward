@@ -32,7 +32,7 @@ complete 255 |at 1432 70.7,22.8 |mobs Mo'grosh Ogre;Mo'grosh Brute;Mo'grosh Enfo
 complete 256 |at 1432 79.6,14.7 |mobs Chok'sul@Chok'sul's Head |group elite  -- WANTED: Chok'sul (22)
 accept 258 |npc Daryl the Youngling |at 1432 83.5,65.5 |value mid |lvl 11 |preany 257  -- A Hunter's Challenge (17)
 complete 278 |at 1432 61.4,42.5 |mobs Daggerfang@Crocolisk Tear;Forest Lurker@Lurker Venom;Loch Crocolisk@Crocolisk Tear;Mo'grosh Enforcer@Mo'grosh Crystal |group elite  -- A Dark Threat Looms (18)
-complete 258 |at 1432 64.9,38.8 |mobs Elder Mountain Boar |value mid  -- A Hunter's Challenge (17)
+complete 258 |at 1432 64.9,38.8 |areas 62.4,38.4:14;75.7,46.6:4 |mobs Elder Mountain Boar |value mid  -- A Hunter's Challenge (17)
 turnin 258 |npc Daryl the Youngling |at 1432 83.5,65.5 |value mid  -- A Hunter's Challenge (17)
 accept 271 |npc Vyrin Swiftwind |at 1432 81.7,64.1 |value mid |group elite |lvl 15 |preany 258  -- Vyrin's Revenge (20)
 accept 86613 |at 1432 69.4,67.5 |note Starts from Excavation Tools |lvl 13  -- Excavation Tools (18)

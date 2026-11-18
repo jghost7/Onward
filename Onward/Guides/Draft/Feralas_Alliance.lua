@@ -25,7 +25,7 @@ accept 2869 |npc Latronicus Moonspear |at 1444 30.4,46.2 |lvl 40 |preany 3130  -
 turnin 4125 |npc Wrecked Row Boat |at 1444 45.4,65.0  -- The Missing Courier (43)
 accept 4127 |npc Wrecked Row Boat |at 1444 45.4,65.0 |lvl 40 |preany 4125  -- Boat Wreckage (44)
 complete 2821 |at 1444 52.3,58.5 |mobs Feral Scar Yeti@Thick Yeti Hide;Hulking Feral Scar@Thick Yeti Hide;Enraged Feral Scar@Thick Yeti Hide;Bloodroar the Stalker@Thick Yeti Hide |value mid  -- The Mark of Quality (46)
-complete 2982 |at 1444 60.6,57.6 |mobs Gordunni Warlock;Gordunni Shaman;Gordunni Brute |value low  -- The High Wilderness (44)
+complete 2982 |at 1444 60.6,57.6 |areas 59.9,67.0:27;75.4,29.7:15 |mobs Gordunni Warlock;Gordunni Shaman;Gordunni Brute |value low  -- The High Wilderness (44)
 accept 2766 |at 1444 59.0,51.4 |note Starts from OOX-22/FE Distress Beacon |lvl 40  -- Find OOX-22/FE! (45)
 accept 2970 |npc Jer'kai Moonweaver |at 1444 66.0,45.6 |lvl 38 |preany 2969  -- Doling Justice (47)
 complete 2970 |at 1444 69.0,40.8 |mobs Grimtotem Naturalist;Grimtotem Raider;Grimtotem Shaman  -- Doling Justice (47)
@@ -96,7 +96,7 @@ goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratc
 fly 1446 51.0,29.3 |from 1413 63.1,37.2 |npc Tanaris (Bera Stonehammer)  -- flight master Bragok
 turnin 3445 |npc Marvon Rivetseeker |at 1446 52.7,45.9  -- The Sunken Temple (51)
 fly 1444 30.2,43.2 |from 1446 51.0,29.3 |npc Fyldren Moonfeather  -- flight master Bera Stonehammer
-complete 7003 |at 1444 40.3,24.6 |item 18904 |mobs Land Walker@Miniaturization Residue;Cliff Giant@Miniaturization Residue;Zapped Cliff Giant@Miniaturization Residue;Shore Strider@Miniaturization Residue |value low  -- Zapped Giants (48)
+complete 7003 |at 1444 40.3,24.6 |areas 39.7,22.3:19;46.5,59.6:8 |item 18904 |mobs Land Walker@Miniaturization Residue;Cliff Giant@Miniaturization Residue;Zapped Cliff Giant@Miniaturization Residue;Shore Strider@Miniaturization Residue |value low  -- Zapped Giants (48)
 accept 2844 |npc Rockbiter |at 1444 42.4,22.0 |lvl 44  -- The Giant Guardian (49)
 complete 2879 |at 1444 38.8,13.2 |item 9263 |group chain  -- The Stave of Equinex (50)
 turnin 2879 |npc Equinex Monolith |at 1444 38.8,13.2 |group chain  -- The Stave of Equinex (50)
@@ -108,7 +108,7 @@ complete 92858 |at 1444 74.8,27.6 |mobs Ohk'zi@Staff of Ohk'zi |group elite  -- 
 turnin 4281 |npc Falfindel Waywarder |at 1444 89.6,46.6  -- Thalanaar Delivery (44)
 turnin 2766 |npc Homing Robot OOX-22/FE |at 1444 53.4,55.7  -- Find OOX-22/FE! (45)
 complete 4297 |at 1444 52.0,60.9 |mobs Bloodroar the Stalker |value mid  -- Food for Baby (47)
-complete 7721 |at 1444 45.9,51.7 |mobs Sea Spray@Water Elemental Core;Sea Elemental@Water Elemental Core |value mid  -- Fuel for the Zapping (48)
+complete 7721 |at 1444 45.9,51.7 |areas 46.8,55.3:23;38.0,36.2:20 |mobs Sea Spray@Water Elemental Core;Sea Elemental@Water Elemental Core |value mid  -- Fuel for the Zapping (48)
 turnin 7721 |npc Zorbin Fandazzle |at 1444 44.8,43.4 |value mid  -- Fuel for the Zapping (48)
 turnin 7003 |npc Zorbin Fandazzle |at 1444 44.8,43.4 |value low  -- Zapped Giants (48)
 turnin 3791 |npc Quintis Jonespyre |at 1444 32.5,43.8 |value mid  -- The Mystery of Morrowgrain (50)

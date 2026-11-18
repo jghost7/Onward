@@ -30,7 +30,7 @@ complete 8365 |at 1446 74.0,46.6 |mobs Southsea Swashbuckler@Southsea Pirate Hat
 complete 8366 |at 1446 74.0,46.6 |mobs Southsea Pirate;Southsea Freebooter;Southsea Dock Worker;Southsea Swashbuckler |value mid  -- Southsea Shakedown (45)
 complete 2875 |at 1446 73.4,47.1 |mobs Andre Firebeard@Firebeard's Head  -- WANTED: Andre Firebeard (45)
 complete 2873 |at 1446 72.2,46.8  -- Stoley's Shipment (45)
-complete 97530 |at 1446 40.7,56.9 |mobs Dunemaul Brute@Brilliantly Polished Bangle;Dunemaul Enforcer@Brilliantly Polished Bangle;Dunemaul Warlock@Brilliantly Polished Bangle;Dunemaul Ogre@Brilliantly Polished Bangle  -- Dunemaul Dues (47)
+complete 97530 |at 1446 40.7,56.9 |areas 40.1,54.3:53;41.0,72.7:22 |mobs Dunemaul Brute@Brilliantly Polished Bangle;Dunemaul Enforcer@Brilliantly Polished Bangle;Dunemaul Warlock@Brilliantly Polished Bangle;Dunemaul Ogre@Brilliantly Polished Bangle  -- Dunemaul Dues (47)
 fly 1445 35.6,31.9 |from 1446 51.6,25.4 |npc Dustwallow Marsh (Shardi)  -- flight master Bulkrek Ragefist
 accept 2846 |npc Tabetha |at 1445 46.1,57.1 |group dungeon |lvl 40  -- Tiara of the Deep (46)
 fly 1413 63.1,37.2 |from 1445 35.6,31.9 |npc The Barrens (Bragok)  -- flight master Shardi
@@ -98,8 +98,8 @@ accept 2605 |npc Marin Noggenfogger |at 1446 51.8,28.7 |lvl 44  -- The Thirsty G
 accept 3161 |npc Marvon Rivetseeker |at 1446 52.7,45.9 |value low |lvl 43  -- Gahz'ridian (48)
 accept 3444 |npc Marvon Rivetseeker |at 1446 52.7,45.9 |lvl 46 |preany 3380,3445  -- The Stone Circle (51)
 accept 351 |at 1446 48.3,50.4 |note Starts from OOX-17/TN Distress Beacon |lvl 43  -- Find OOX-17/TN! (48)
-complete 3161 |at 1446 47.6,57.2 |item 9978 |value low  -- Gahz'ridian (48)
-complete 5863 |at 1446 40.7,56.9 |mobs Dunemaul Brute;Dunemaul Enforcer;Gor'marok the Ravager  -- The Dunemaul Compound (49)
+complete 3161 |at 1446 47.6,57.2 |areas 47.1,64.5:24;53.5,47.6:17 |item 9978 |value low  -- Gahz'ridian (48)
+complete 5863 |at 1446 40.7,56.9 |areas 40.1,54.3:43;40.1,72.7:8 |mobs Dunemaul Brute;Dunemaul Enforcer;Gor'marok the Ravager  -- The Dunemaul Compound (49)
 accept 97540 |npc Tooga |at 1446 30.0,65.0  -- Oasis (50)
 turnin 97540 |npc Tooga |at 1446 30.0,65.0  -- Oasis (50)
 complete 2605 |at 1446 29.4,66.3 |mobs Thistleshrub Dew Collector@Laden Dew Gland  -- The Thirsty Goblin (49)

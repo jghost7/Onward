@@ -19,7 +19,7 @@ complete 556 |at 1416 17.9,76.2 |value mid  -- Stone Tokens (33)
 complete 544 |at 1416 19.9,86.0  -- Prison Break In (33)
 accept 515 |npc Master Apothecary Faranell |at 1458 48.8,69.3 |value mid |lvl 24 |preany 513  -- Elixir of Agony (30)
 fly 1424 60.1,18.6 |from 1458 63.2,48.6 |npc Zarise  -- flight master Michael Garrett
-complete 515 |at 1424 42.7,70.7 |item 3508 |mobs Torn Fin Coastrunner@Torn Fin Eye;Torn Fin Muckdweller@Torn Fin Eye;Torn Fin Oracle@Torn Fin Eye;Torn Fin Tidehunter@Torn Fin Eye |value mid  -- Elixir of Agony (30)
+complete 515 |at 1424 42.7,70.7 |areas 28.1,72.8:37;65.0,80.3:29;57.2,68.3:28 |item 3508 |mobs Torn Fin Coastrunner@Torn Fin Eye;Torn Fin Muckdweller@Torn Fin Eye;Torn Fin Oracle@Torn Fin Eye;Torn Fin Tidehunter@Torn Fin Eye |value mid  -- Elixir of Agony (30)
 turnin 544 |npc Magus Wordeen Voidglare |at 1424 61.6,20.9  -- Prison Break In (33)
 accept 545 |npc Magus Wordeen Voidglare |at 1424 61.6,20.9 |value low |lvl 30 |pre 544,93680  -- Dalaran Patrols (35)
 turnin 556 |npc Keeper Bel'varil |at 1424 61.5,20.9 |value mid  -- Stone Tokens (33)

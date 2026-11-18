@@ -33,10 +33,10 @@ accept 943 |npc Archaeologist Flagongut |at 1437 10.8,60.4 |lvl 15 |preany 942  
 goto 1437 4.8,63.6 15 |note Take the boat to Auberdine  -- boat Menethil Harbor to Auberdine
 turnin 729 |npc Prospector Remtravel |at 1439 35.7,83.7  -- The Absent Minded Prospector (20)
 complete 943 |at 1439 36.2,85.9 |mobs Stone Behemoth  -- The Absent Minded Prospector (24)
-complete 986 |at 1439 41.7,83.3 |mobs Moonstalker Sire@Fine Moonstalker Pelt;Moonstalker Matriarch@Fine Moonstalker Pelt |value mid  -- A Lost Master (20)
+complete 986 |at 1439 41.7,83.3 |areas 38.5,90.5:14;61.0,11.9:7 |mobs Moonstalker Sire@Fine Moonstalker Pelt;Moonstalker Matriarch@Fine Moonstalker Pelt |value mid  -- A Lost Master (20)
 accept 98013 |npc Arbal |at 1439 43.6,76.4 |value low |lvl 12 |preany 950  -- Swelling Forces (20)
 accept 951 |npc Onu |at 1439 43.5,76.3 |lvl 12 |preany 950  -- Mathystra Relics (20)
-complete 2098 |at 1439 36.2,71.0 |mobs Giant Foreststrider@Top of Gelkak's Key;Greymist Coastrunner@Middle of Gelkak's Key;Raging Reef Crawler@Bottom of Gelkak's Key;Greymist Seer@Middle of Gelkak's Key |value mid  -- Gyromast's Retrieval (20)
+complete 2098 |at 1439 36.2,71.0 |areas 31.4,87.5:53;38.7,29.2:35;56.0,14.9:32 |mobs Giant Foreststrider@Top of Gelkak's Key;Greymist Coastrunner@Middle of Gelkak's Key;Raging Reef Crawler@Bottom of Gelkak's Key;Greymist Seer@Middle of Gelkak's Key |value mid  -- Gyromast's Retrieval (20)
 turnin 87760 |npc Gwennyth Bly'Leggonde |at 1439 36.6,45.6  -- Holy Diver (20)
 turnin 986 |npc Terenthis |at 1439 39.4,43.5 |value mid  -- A Lost Master (20)
 accept 993 |npc Terenthis |at 1439 39.4,43.5 |value mid |lvl 10 |preany 986  -- A Lost Master (20)

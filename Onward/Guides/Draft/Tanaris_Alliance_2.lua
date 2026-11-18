@@ -48,7 +48,7 @@ accept 8577 |npc Narain Soothfancy |at 1446 65.2,18.6 |group chain |lvl 60 |prea
 turnin 8598 |npc Narain Soothfancy |at 1446 65.2,18.6 |group chain  -- rAnS0m (60)
 accept 8606 |npc Narain Soothfancy |at 1446 65.2,18.6 |group elite |lvl 60 |preany 8598  -- Decoy! (60)
 accept 8182 |npc Prospector Ironboot |at 1446 66.9,24.0 |group chain |lvl 40 |preany 8181  -- The Hand of Rastakhan (58)
-complete 8586 |at 1446 44.5,58.7 |mobs Dune Smasher@Deeprock Salt;Land Rager@Deeprock Salt;Ground Pounder@Deeprock Salt |value mid |group chain  -- Dirge's Kickin' Chimaerok Chops (60)
+complete 8586 |at 1446 44.5,58.7 |areas 37.1,79.9:6;48.7,27.8:3 |mobs Dune Smasher@Deeprock Salt;Land Rager@Deeprock Salt;Ground Pounder@Deeprock Salt |value mid |group chain  -- Dirge's Kickin' Chimaerok Chops (60)
 accept 8599 |npc Meridith the Mermaiden |at 1446 59.4,96.0 |lvl 60  -- Love Song for Narain (60)
 complete 8924 |at 1446 54.1,93.0 |item 21946 |mobs Treasure Hunting Pirate;Treasure Hunting Swashbuckler;Treasure Hunting Buccaneer |value mid |class WARRIOR,PALADIN,HUNTER,ROGUE,PRIEST,MAGE,WARLOCK,DRUID |group chain  -- Hunting for Ectoplasm (60)
 fly 1449 45.2,5.8 |from 1446 51.0,29.3 |npc Un'Goro Crater (Gryfe)  -- flight master Bera Stonehammer
@@ -135,6 +135,6 @@ turnin 8756 |npc Anachronos |at 1446 65.3,50.0  -- The Qiraji Conqueror (60)
 complete 8761  -- The Grand Invoker (60)
 turnin 8761 |npc Anachronos |at 1446 65.3,50.0  -- The Grand Invoker (60)
 turnin 8555 |npc Anachronos |at 1446 65.3,50.0 |group chain  -- The Charge of the Dragonflights (60)
-complete 8728 |at 1446 62.7,48.5 |mobs Southsea Pirate@Blue Sapphire;Dunemaul Enforcer@Blue Sapphire;Wastewander Shadow Mage@Blue Sapphire;Gor'marok the Ravager@Blue Sapphire |value low |group dungeon  -- The Good News and The Bad News (60)
+complete 8728 |at 1446 62.7,48.5 |areas 73.0,46.2:34;40.0,54.5:24;62.0,35.5:24 |mobs Southsea Pirate@Blue Sapphire;Dunemaul Enforcer@Blue Sapphire;Wastewander Shadow Mage@Blue Sapphire;Gor'marok the Ravager@Blue Sapphire |value low |group dungeon  -- The Good News and The Bad News (60)
 turnin 8728 |npc Narain Soothfancy |at 1446 65.2,18.6 |value low |group dungeon  -- The Good News and The Bad News (60)
 ]]}

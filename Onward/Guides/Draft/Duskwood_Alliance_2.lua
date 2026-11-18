@@ -18,7 +18,7 @@ accept 96138 |at 1431 39.9,63.9 |note Starts from Merrick's Bow |value mid |lvl 
 complete 96138 |at 1431 34.7,75.7 |item 281142 |mobs Splinter Fist Warrior;Splinter Fist Taskmaster |value mid  -- Merrick's Bow (30)
 complete 134 |at 1431 33.4,76.3  -- Ogre Thieves (30)
 complete 181 |at 1431 38.0,80.0 |mobs Zzarc' Vul@Ogre's Monocle  -- Look To The Stars (30)
-complete 222 |at 1431 72.0,74.7 |mobs Nightbane Vile Fang;Nightbane Tainted One  -- Worgen in the Woods (31)
+complete 222 |at 1431 72.0,74.7 |areas 73.0,72.7:20;61.9,81.9:13 |mobs Nightbane Vile Fang;Nightbane Tainted One  -- Worgen in the Woods (31)
 turnin 225 |npc Sirra Von'Indi |at 1431 72.6,47.6  -- The Weathered Grave (35)
 accept 227 |npc Sirra Von'Indi |at 1431 72.6,47.6 |lvl 28 |preany 225  -- Morgan Ladimore (35)
 turnin 227 |npc Commander Althea Ebonlocke |at 1431 73.5,46.8  -- Morgan Ladimore (35)

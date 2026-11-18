@@ -1,5 +1,15 @@
 # Changelog
 
+## Unreleased
+
+- Quests whose mobs or objects sit in several places well apart ("Akiris by the Bundle": naga
+  on the north coast of Stranglethorn and again near Booty Bay) now know all of them. The step
+  points at the place nearest you, and follows you if another becomes clearly nearer. The panel
+  shows "Area 1 of 2" with the place name: hover for the list with spawn counts and distances,
+  click (or `/ow area`) to send the arrow, the pin and the map route to the next one and stay
+  on it, for a camp that's overrun or one that suits where you're heading. The other places
+  are marked on the world map.
+
 ## 0.6.25
 
 - Riverglades (Horde): "Step One: Rock" came up near the start of the guide, but Gorgegut and

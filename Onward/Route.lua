@@ -204,7 +204,25 @@ function R:Draw()
             m:Show()
         end
     end
-    R.drawn = { dots = nDots, marks = nm }
+    -- the step's other areas: small hollow markers, so you can see where else it can be done
+    local areas, chosen = WP:Areas()
+    local na = 0
+    for _, a in ipairs(areas or {}) do
+        local x, y = project(mapID, a)
+        if a ~= chosen and x and inside(x, y) then
+            nm, na = nm + 1, na + 1
+            local m = mark(nm)
+            m:SetSize(msize * 0.8, msize * 0.8)
+            m:ClearAllPoints()
+            m:SetPoint("CENTER", overlay, "TOPLEFT", x * cw, -y * ch)
+            m.bg:SetVertexColor(A[1], A[2], A[3], 0.45)
+            m.num:SetFont(W.Skin.FontPath("body"), math.max(6, math.floor(9 / scale)), "")
+            m.num:SetTextColor(0.05, 0.06, 0.07)
+            m.num:SetText(tostring(a.index))
+            m:Show()
+        end
+    end
+    R.drawn = { dots = nDots, marks = nm, areas = na }
 end
 
 ---------------------------------------------------------------------------

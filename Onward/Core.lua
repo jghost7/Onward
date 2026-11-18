@@ -164,6 +164,7 @@ local HELP = {
     "/ow mode all | efficient | fastest  - which quests the guides include",
     "/ow group show | hide  - elite and dungeon quests in the guides",
     "/ow later  - come back to the current quest later (or shift-right-click the step)",
+    "/ow area  - a quest with several places to do it: point at the next one",
     "/ow hint <text> | clear  - your own note on the current quest; /ow hints lists them to share",
     "/ow next | prev  - skip or go back one step",
     "/ow resume  - work out again where this guide picks up, from the quests you've turned in",
@@ -223,6 +224,13 @@ SlashCmdList.ONWARD = function(msg)
         end
         if #out == 0 then W.Print("no notes yet: /ow hint <text> on a quest step adds one") return end
         W.UI.ShowText("Your quest hints (paste into a GitHub issue to share)", table.concat(out, "\n"))
+    elseif cmd == "area" then
+        local a, n = W.Waypoint:NextArea()
+        if a then
+            W.Print(("area %d of %d%s"):format(a.index, n, a.name and (": " .. a.name) or ""))
+        else
+            W.Print("this step has one place to do it")
+        end
     elseif cmd == "later" then
         W.Guide:Later()
     elseif cmd == "group" or cmd == "elite" then

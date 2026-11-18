@@ -68,7 +68,7 @@ accept 92818 |npc Grolkar |at 1443 69.8,77.9 |lvl 30 |preany 1369  -- Big, No, M
 turnin 92818 |npc Grolkar |at 1443 69.8,77.9  -- Big, No, MASSIVE Iron Axes (35)
 accept 92755 |npc Halea |at 1443 69.8,78.0 |value low |lvl 30 |preany 1370  -- Mysterious Mysticism (35)
 turnin 92755 |npc Halea |at 1443 69.8,78.0 |value low  -- Mysterious Mysticism (35)
-complete 1366 |at 1443 64.5,76.3 |mobs Magram Guardian@Centaur Ear;Magram Necromancer@Centaur Ear;Gelkis Windchaser@Centaur Ear;Gelkis Stamper@Centaur Ear |value mid  -- Centaur Bounty (31)
+complete 1366 |at 1443 64.5,76.3 |areas 67.6,77.6:147;36.4,85.0:73;71.5,45.5:63;30.8,55.7:49 |mobs Magram Guardian@Centaur Ear;Magram Necromancer@Centaur Ear;Gelkis Windchaser@Centaur Ear;Gelkis Stamper@Centaur Ear |value mid  -- Centaur Bounty (31)
 complete 1374 |at 1443 66.0,80.4 |mobs Khan Jehn@Khan Jehn's Head  -- Khan Jehn (37)
 complete 6134 |at 1443 64.2,91.6 |item 15848 |mobs Magrami Spectre@Ghost-o-plasm |value mid  -- Ghost-o-plasm Round Up (39)
 complete 1375 |at 1443 40.5,95.5 |mobs Khan Shaka@Khan Shaka's Head |value mid  -- Khan Shaka (37)
@@ -99,7 +99,7 @@ turnin 94895 |npc Friz Frazzlespark |at 2548 77.1,52.9  -- Lost Shipping Crate (
 fly 1434 26.9,77.1 |from 2548 59.6,45.1 |npc Stranglethorn Vale (Gringer)  -- flight master Grakna
 goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
 fly 1443 21.6,74.1 |from 1413 63.1,37.2 |npc Thalon  -- flight master Bragok
-complete 6161 |at 1443 33.0,22.1 |mobs Drysnap Crawler@Rackmore's Silver Key;Slitherblade Myrmidon@Rackmore's Golden Key;Drysnap Pincer@Rackmore's Silver Key;Slitherblade Naga@Rackmore's Golden Key  -- Claim Rackmore's Treasure! (36)
+complete 6161 |at 1443 33.0,22.1 |areas 30.9,9.8:44;23.3,80.3:23;33.0,31.1:15 |mobs Drysnap Crawler@Rackmore's Silver Key;Slitherblade Myrmidon@Rackmore's Golden Key;Drysnap Pincer@Rackmore's Silver Key;Slitherblade Naga@Rackmore's Golden Key  -- Claim Rackmore's Treasure! (36)
 complete 1482 |at 1443 31.6,15.6 |mobs Slitherblade Oracle@Oracle Crystal  -- The Corrupter (35)
 complete 6027 |at 1443 28.2,6.7 |item 15766 |mobs Lord Kragaru@Book of the Ancients  -- Book of the Ancients (38)
 turnin 6161 |npc Rackmore's Chest |at 1443 30.0,8.7  -- Claim Rackmore's Treasure! (36)
@@ -109,7 +109,7 @@ turnin 1482 |npc Maurin Bonesplitter |at 1443 52.2,53.4  -- The Corrupter (35)
 accept 1484 |npc Maurin Bonesplitter |at 1443 52.2,53.4 |lvl 25 |preany 1482  -- The Corrupter (35)
 turnin 1484 |npc Takata Steelblade |at 1443 52.6,54.4  -- The Corrupter (35)
 turnin 5386 |npc Nataka Longhorn |at 1443 55.4,55.8  -- Catch of the Day (37)
-complete 5561 |at 1443 51.4,58.3 |item 13892 |mobs Aged Kodo;Dying Kodo;Ancient Kodo  -- Kodo Roundup (34)
+complete 5561 |at 1443 51.4,58.3 |areas 51.5,59.2:22;44.9,19.6:4;49.4,40.5:4;56.8,83.0:4 |item 13892 |mobs Aged Kodo;Dying Kodo;Ancient Kodo  -- Kodo Roundup (34)
 turnin 6134 |npc Hornizz Brimbuzzle |at 1443 47.8,61.8 |value mid  -- Ghost-o-plasm Round Up (39)
 turnin 1366 |npc Felgur Twocuts |at 1443 56.2,59.6 |value mid  -- Centaur Bounty (31)
 turnin 1362 |npc Felgur Twocuts |at 1443 56.2,59.6  -- The Kolkar of Desolace (32)

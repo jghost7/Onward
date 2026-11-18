@@ -1775,6 +1775,44 @@ accept 9305
     G:Activate(oldGuide) settle()
 end
 
+-- areas: a kill/loot step whose mobs sit in several camps -----------------------------
+do
+    local G, WP = W.Guide, W.Waypoint
+    local oldGuide, savedPos = W.cdb.guide, MOCK.pos
+    W:RegisterGuide{ id = "areas", title = "Areas", faction = "", steps = [[
+accept 9401
+complete 9401 |at 1423 20.0,20.0 |areas 20.0,20.0:40;60.0,60.0:12;90.0,20.0:8
+turnin 9401
+]] }
+    local p = G.ParseStep("complete 5 |at 1423 20.0,20.0 |areas 20.0,20.0:40;60.5,61.0:12")
+    check("parser reads |areas", p.areas and #p.areas == 2 and p.areas[2].x == 60.5 and p.areas[2].n == 12)
+    check("one area is no choice", G.ParseStep("complete 5 |at 1423 20.0,20.0 |areas 20.0,20.0:40").areas == nil)
+    MOCK.pos = { map = 1423, x = 0.5, y = 0.5 }
+    MOCK.addQuest(9401, "Reeds by the bundle") MOCK.fire("QUEST_ACCEPTED", 9401)
+    G:Activate("areas") settle() MOCK.advance(3)
+    local c = WP:Current()
+    local list, chosen, pinned = WP:Areas()
+    check("areas: three camps, the nearest is picked", list and #list == 3 and chosen.index == 2 and not pinned and c.x == 60, c and c.x)
+    check("panel: the area line shows which one", W.UI.areaBtn:IsShown() and W.UI.areaBtn.text:GetText():find("Area 2 of 3", 1, true), W.UI.areaBtn.text:GetText())
+    MOCK.pos = { map = 1423, x = 0.24, y = 0.24 }                 -- walk towards the first camp
+    WP:ArrowTarget() MOCK.advance(1)
+    check("areas: follows you to the camp that's now clearly nearer", WP:Current().x == 20, WP:Current().x)
+    WorldMapFrame:Show() MOCK.advance(1)
+    check("map: the other two camps are marked", W.Route.drawn and W.Route.drawn.areas == 2, W.Route.drawn and W.Route.drawn.areas)
+    WorldMapFrame:Hide()
+    local a, n = WP:NextArea()
+    check("next area: on to the second camp", a.index == 2 and n == 3 and WP:Current().x == 60, WP:Current().x)
+    WP:ArrowTarget() MOCK.advance(1)
+    check("...and it stays there though the first is nearer", WP:Current().x == 60 and select(3, WP:Areas()) == true, WP:Current().x)
+    check("panel follows", W.UI.areaBtn.text:GetText():find("Area 2 of 3", 1, true), W.UI.areaBtn.text:GetText())
+    SlashCmdList.ONWARD("area")
+    check("/ow area: the third", WP:Current().x == 90, WP:Current().x)
+    MOCK.turnIn(9401) MOCK.done[9401] = nil MOCK.fire("QUEST_REMOVED", 9401)
+    MOCK.pos = savedPos
+    G:Activate(oldGuide) settle()
+    check("no area line on other steps", not W.UI.areaBtn:IsShown())
+end
+
 check("no runtime errors", #MOCK.errors == 0, MOCK.errors[1])
 print(("%d passed, %d failed"):format(pass, fail))
 return fail

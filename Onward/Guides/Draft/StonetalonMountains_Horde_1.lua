@@ -8,7 +8,7 @@ Onward:RegisterGuide{
   steps = [[
 accept 6461 |npc Xen'Zilla |at 1442 71.2,95.0 |value mid |lvl 13  -- Blood Feeders (19)
 accept 6284 |npc Wanted Poster: Besseleth |at 1442 59.1,75.7 |group elite |lvl 15  -- Arachnophobia (21)
-complete 6461 |at 1442 54.7,72.8 |mobs Deepmoss Creeper;Deepmoss Venomspitter |value mid  -- Blood Feeders (19)
+complete 6461 |at 1442 54.7,72.8 |areas 54.7,74.8:30;61.8,61.0:21;48.9,45.4:12 |mobs Deepmoss Creeper;Deepmoss Venomspitter |value mid  -- Blood Feeders (19)
 complete 6284 |at 1442 53.6,72.6 |mobs Besseleth@Besseleth's Fang |group elite  -- Arachnophobia (21)
 home |npc Innkeeper Jayka |at 1442 47.5,62.1  -- set your hearthstone at the inn
 accept 6301 |npc Tammra Windfield |at 1442 47.5,58.4 |lvl 17  -- Cycle of Rebirth (23)
@@ -31,7 +31,7 @@ accept 6381 |npc Tammra Windfield |at 1442 47.5,58.4 |lvl 17 |preany 6301  -- Ne
 turnin 1087 |npc Braelyn Firehand |at 1442 45.9,60.4 |value low  -- Cenarius' Legacy (25)
 accept 6481 |npc Mor'rogal |at 1442 47.2,64.0 |group elite |lvl 14 |preany 6421  -- Earthen Arise (20)
 accept 6393 |npc Tsunaman |at 1442 47.4,64.2 |lvl 19  -- Elemental War (25)
-complete 6393 |at 1442 34.1,63.7 |mobs Rogue Flame Spirit@Incendrites;Burning Destroyer@Incendrites;Burning Ravager@Incendrites  -- Elemental War (25)
+complete 6393 |at 1442 34.1,63.7 |areas 31.6,70.8:11;36.5,51.4:4 |mobs Rogue Flame Spirit@Incendrites;Burning Destroyer@Incendrites;Burning Ravager@Incendrites  -- Elemental War (25)
 complete 6381 |at 1442 32.2,68.2 |item 16208  -- New Life (25)
 fly 1413 51.5,30.3 |from 1442 45.1,59.8 |npc The Barrens (Devrak)  -- flight master Tharm
 turnin 6548 |npc Makaba Flathoof |at 1413 35.2,27.8 |value mid  -- Avenge My Village (18)

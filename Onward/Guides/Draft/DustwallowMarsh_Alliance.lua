@@ -10,7 +10,7 @@ accept 1133 |npc Fiora Longears |at 1445 66.5,45.1 |lvl 18  -- Journey to Astran
 accept 1135 |npc Fiora Longears |at 1445 66.5,45.1 |lvl 25  -- Highperch Venom (30)
 accept 1204 |npc Morgan Stern |at 1445 66.3,45.5 |lvl 33  -- Mudrock Soup and Bugs (38)
 accept 98233 |npc Guard Jameson |at 1445 65.5,45.4 |lvl 36  -- Sword in the Slime (42)
-complete 1204 |at 1445 56.2,44.2 |mobs Mudrock Burrower@Forked Mudrock Tongue;Mudrock Tortoise@Forked Mudrock Tongue;Mudrock Borer@Forked Mudrock Tongue;Mudrock Snapjaw@Forked Mudrock Tongue  -- Mudrock Soup and Bugs (38)
+complete 1204 |at 1445 56.2,44.2 |areas 59.8,55.0:85;59.4,14.6:42 |mobs Mudrock Burrower@Forked Mudrock Tongue;Mudrock Tortoise@Forked Mudrock Tongue;Mudrock Borer@Forked Mudrock Tongue;Mudrock Snapjaw@Forked Mudrock Tongue  -- Mudrock Soup and Bugs (38)
 accept 1253 |npc Black Shield |at 1445 29.6,48.6 |lvl 30 |preany 1302,1282  -- The Black Shield (35)
 accept 1252 |npc Theramore Guard Badge |at 1445 29.8,48.2 |lvl 30 |preany 1302,1282  -- Lieutenant Paval Reethe (40)
 accept 1284 |npc Hoofprints |at 1445 29.7,47.6 |lvl 30 |preany 1282,1302  -- Suspicious Hoofprints (35)

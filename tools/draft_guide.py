@@ -462,6 +462,7 @@ class Zone:
             "level": db.quest(q, "questLevel") or 0, "minLevel": db.quest(q, "requiredLevel") or 0,
             "start": start, "startItem": item, "finish": self.finisher(q),
             "obj": obj, "objGuess": guess, "objFar": None if obj else (far_spot or self.far_objective(q)), "hasObjectives": has_obj,
+            "areas": areas_of(pts) if pts else [],
             "preAny": [p for p in lua_list(db.quest(q, "preQuestSingle")) if p] + quest_fixes().get(q, {}).get("preAny", []),
             "preAll": [p for p in lua_list(db.quest(q, "preQuestGroup")) if p] + quest_fixes().get(q, {}).get("preAll", []),
             "exclusive": [p for p in lua_list(db.quest(q, "exclusiveTo")) if p],
@@ -534,6 +535,33 @@ def places():
 def dungeon_maps():
     from questiedb import map_names
     return {m for m, n in map_names().items() if "dungeon" in n.lower() or "raid" in n.lower()}
+
+
+AREA_R = 6.0          # map units: spawns this close to a camp's densest point belong to it
+AREA_APART = 14.0     # camps closer than this are one stretch of the same place, not two areas
+
+
+def areas_of(pts):
+    """The separate places an objective can be done: [((x, y), spawns), ...], biggest first, or
+    [] when it is all one place. Densest point first, everything within AREA_R joins it; camps
+    with under a tenth of the spawns (a stray mob or two) and camps next to a bigger one are
+    left out."""
+    left = list(dict.fromkeys(pts))
+    if len(left) < 6:
+        return []
+    total, found = len(left), []
+    while left:
+        c = max(left, key=lambda p: (sum(1 for o in left if dist(p, o) < AREA_R), -p[0], -p[1]))
+        members = [o for o in left if dist(c, o) < AREA_R]
+        left = [o for o in left if dist(c, o) >= AREA_R]
+        found.append((medoid(members), len(members)))
+    found.sort(key=lambda a: (-a[1], a[0]))
+    floor = max(3, round(total * 0.1))
+    out = []
+    for xy, n in found:
+        if n >= floor and all(dist(xy, o) >= AREA_APART for o, _ in out):
+            out.append((xy, n))
+    return out[:5] if len(out) > 1 else []
 
 
 def medoid(pts):
@@ -1145,7 +1173,10 @@ def render(zone, steps, leftovers, levels, name, faction, gid=None, next_id=None
             at = f" |at {zone.map} {q['obj'][0]:.1f},{q['obj'][1]:.1f}" if q["obj"] else fmt_at(q.get("objFar"))
             mobs = f" |mobs {';'.join(q['mobs'])}" if q.get("mobs") else ""
             use = f" |item {q['useItem']}" if q.get("useItem") else ""
-            out.append(f"complete {q['id']}{at}{use}{mobs}{who}{title}")
+            # the separate camps it can be done at, with their spawn counts: the addon leads to the
+            # nearest and offers the others
+            areas = (" |areas " + ";".join(f"{x:.1f},{y:.1f}:{n}" for (x, y), n in q["areas"])) if q.get("areas") and q["obj"] else ""
+            out.append(f"complete {q['id']}{at}{areas}{use}{mobs}{who}{title}")
         else:
             loc = q["finish"]
             npc = f" |npc {clean(loc[2])}" if loc and loc[2] else ""

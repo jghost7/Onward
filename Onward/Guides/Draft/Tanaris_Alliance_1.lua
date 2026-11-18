@@ -132,9 +132,9 @@ complete 2641 |at 1425 41.0,59.8  -- Sprinkle's Secret Ingredient (49)
 fly 1434 27.5,77.8 |from 1425 11.1,46.1 |npc Stranglethorn Vale (Gyll)  -- flight master Guthrum Thunderfist
 goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
 fly 1446 51.0,29.3 |from 1413 63.1,37.2 |npc Bera Stonehammer  -- flight master Bragok
-complete 97530 |at 1446 40.7,56.9 |mobs Dunemaul Brute@Brilliantly Polished Bangle;Dunemaul Enforcer@Brilliantly Polished Bangle;Dunemaul Warlock@Brilliantly Polished Bangle;Dunemaul Ogre@Brilliantly Polished Bangle  -- Dunemaul Dues (47)
-complete 5863 |at 1446 40.7,56.9 |mobs Dunemaul Brute;Dunemaul Enforcer;Gor'marok the Ravager  -- The Dunemaul Compound (49)
-complete 3161 |at 1446 47.6,57.2 |item 9978 |value low  -- Gahz'ridian (48)
+complete 97530 |at 1446 40.7,56.9 |areas 40.1,54.3:53;41.0,72.7:22 |mobs Dunemaul Brute@Brilliantly Polished Bangle;Dunemaul Enforcer@Brilliantly Polished Bangle;Dunemaul Warlock@Brilliantly Polished Bangle;Dunemaul Ogre@Brilliantly Polished Bangle  -- Dunemaul Dues (47)
+complete 5863 |at 1446 40.7,56.9 |areas 40.1,54.3:43;40.1,72.7:8 |mobs Dunemaul Brute;Dunemaul Enforcer;Gor'marok the Ravager  -- The Dunemaul Compound (49)
+complete 3161 |at 1446 47.6,57.2 |areas 47.1,64.5:24;53.5,47.6:17 |item 9978 |value low  -- Gahz'ridian (48)
 turnin 3444 |npc Marvon Rivetseeker |at 1446 52.7,45.9  -- The Stone Circle (51)
 turnin 3161 |npc Marvon Rivetseeker |at 1446 52.7,45.9 |value low  -- Gahz'ridian (48)
 turnin 2641 |npc Sprinkle |at 1446 51.1,26.9  -- Sprinkle's Secret Ingredient (49)

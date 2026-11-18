@@ -86,6 +86,73 @@ local function startProximity(step)
     end)
 end
 
+---------------------------------------------------------------------------
+-- Areas: a kill/loot step whose mobs or objects sit in several camps well apart (|areas).
+-- The step points at the camp nearest you, and only moves to another when that one is clearly
+-- closer (30%). Picking one yourself (the panel's area line, /ow area) keeps it until the step
+-- is done: for a camp that's overrun, or one that suits the way you're heading.
+---------------------------------------------------------------------------
+local AREA_SWITCH = 0.7
+local function areaList(step)
+    if not (step and step.verb == "complete" and step.areas and step.at and step.at.map) then return end
+    if not step.areaWorld then
+        local list = {}
+        for i, a in ipairs(step.areas) do
+            local cont, wx, wy = T.World(step.at.map, a.x, a.y)
+            if cont then
+                list[#list + 1] = { index = i, map = step.at.map, x = a.x, y = a.y, n = a.n, cont = cont, wx = wx, wy = wy,
+                                    name = T.PlaceName(step.at.map, a.x, a.y) }
+            end
+        end
+        if #list < #step.areas then return #list > 1 and list or nil end   -- map data not in yet: don't keep it
+        step.areaWorld = list
+    end
+    return #step.areaWorld > 1 and step.areaWorld or nil
+end
+
+local function pickArea(step)
+    local list = areaList(step)
+    if not list then return end
+    if step.areaPinned and list[step.area] then return list[step.area], list end
+    local pc, px, py = T.PlayerWorld()
+    local best, bestD
+    for k, a in ipairs(list) do
+        if a.cont == pc then
+            local d = (a.wx - px) ^ 2 + (a.wy - py) ^ 2
+            if not bestD or d < bestD then best, bestD = k, d end
+        end
+    end
+    local cur = step.area and list[step.area]
+    if not best then
+        best = cur and step.area or 1
+    elseif cur and best ~= step.area and cur.cont == pc
+        and bestD >= ((cur.wx - px) ^ 2 + (cur.wy - py) ^ 2) * AREA_SWITCH * AREA_SWITCH then
+        best = step.area                                                -- not clearly closer: keep
+    end
+    step.area = best
+    return list[best], list
+end
+
+-- the current step's areas and the one it points at: list, chosen (nil when it has only one place)
+function WP:Areas(step)
+    step = step or (W.Guide:Current())
+    local chosen, list = pickArea(step)
+    if not chosen then return end
+    return list, chosen, step.areaPinned or false
+end
+
+-- point the step at its next area (in the guide's order, biggest camp first) and keep it there
+function WP:NextArea()
+    local step = W.Guide:Current()
+    local chosen, list = pickArea(step)
+    if not chosen then return end
+    step.area = step.area % #list + 1
+    step.areaPinned = true
+    WP:Update()
+    W:Fire("WF_UPDATED")
+    return list[step.area], #list
+end
+
 -- Where a step points: explicit coords, then Questie NPC data, then Blizzard's quest waypoint.
 function WP:Resolve(step)
     if (step.verb == "train" or step.verb == "craft") and W.Prof then
@@ -111,6 +178,10 @@ function WP:Resolve(step)
             local first = QB:StartLocation(pre)
             if first then return first.map, first.x, first.y, first.name end
         end
+    end
+    if step.verb == "complete" then
+        local area = pickArea(step)
+        if area then return area.map, area.x, area.y, area.name or step.npc end
     end
     if step.at then
         return step.at.map or C_Map.GetBestMapForUnit("player"), step.at.x, step.at.y, step.npc
@@ -257,6 +328,8 @@ local function nearestSpot(c)
     if c.spotsAt and now - c.spotsAt < 1 then return c.spot end
     c.spotsAt = now
     local done, sig = doneSignature(step.quest)
+    local area, areas = pickArea(step)
+    if area then sig = sig .. "|area" .. area.index end
     if c.spotSig ~= sig then
         c.spotSig, c.spot = sig, nil
         c.spots = {}
@@ -267,7 +340,15 @@ local function nearestSpot(c)
         end
         for _, s in ipairs(WP.ObjectiveSpots(step.quest, done) or {}) do
             local cont, wx, wy = T.World(s.map, s.x, s.y)
-            if cont then c.spots[#c.spots + 1] = { cont = cont, wx = wx, wy = wy, name = s.name } end
+            local here = cont ~= nil
+            if here and area then
+                -- only the spawns of the chosen camp: those nearer to it than to any other
+                local own = (area.wx - wx) ^ 2 + (area.wy - wy) ^ 2
+                for _, o in ipairs(areas) do
+                    if o ~= area and o.cont == cont and (o.wx - wx) ^ 2 + (o.wy - wy) ^ 2 < own then here = false break end
+                end
+            end
+            if here then c.spots[#c.spots + 1] = { cont = cont, wx = wx, wy = wy, name = s.name } end
         end
     end
     if #c.spots == 0 then return end
@@ -363,6 +444,14 @@ function WP:ArrowTarget()
                  sub = "from " .. c.from.name .. ", then " .. label,
                  cont = c.from.cont, wx = c.from.wx, wy = c.from.wy, radius = 15, crossing = true }
     end
+    -- several camps: keep pointing at the nearest as you move (unless you picked one)
+    if step.areas and not step.areaPinned and not current.pickup then
+        local before = step.area
+        pickArea(step)
+        if before and step.area ~= before then
+            C_Timer.After(0, function() WP:Update() W:Fire("WF_UPDATED") end)
+        end
+    end
     local spot = nearestSpot(current)
     if spot then
         -- far from every spot, flight advice still applies (to the spot itself)
@@ -377,7 +466,10 @@ function WP:ArrowTarget()
                      via = { wx = B.wx, wy = B.wy }, final = { cont = spot.cont, wx = spot.wx, wy = spot.wy } }
         end
         T:SetWantedDestination(nil)
-        return { label = label, sub = spot.name and ("nearest: " .. spot.name) or current.name, cont = spot.cont, wx = spot.wx, wy = spot.wy, radius = 30, spot = true }
+        local sub = spot.name and ("nearest: " .. spot.name) or current.name
+        local list, chosen = WP:Areas(step)
+        if list then sub = ("area %d of %d"):format(chosen.index, #list) .. (sub and ("  ·  " .. sub) or "") end
+        return { label = label, sub = sub, cont = spot.cont, wx = spot.wx, wy = spot.wy, radius = 30, spot = true }
     end
     local radius = (step.verb == "goto" or (step.verb == "fly" and current.leg == "arrive")) and step.radius
         or (current.leg == "walk" and 20) or 10

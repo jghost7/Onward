@@ -21,10 +21,10 @@ turnin 92459 |npc Archmage Celindra |at 1416 14.2,60.0 |value low  -- Friend of 
 accept 96602 |npc Archmage Celindra |at 1416 14.2,60.0 |preany 96603  -- More Unstable Magic (0)
 turnin 96602 |npc Archmage Celindra |at 1416 14.2,60.0  -- More Unstable Magic (0)
 turnin 92432 |npc Image of Archmage Modera |at 1416 14.3,59.6  -- An Alarming Request (33)
-complete 505 |at 1416 57.6,68.5 |mobs Syndicate Footpad;Syndicate Thief |value mid  -- Syndicate Assassins (33)
+complete 505 |at 1416 57.6,68.5 |areas 58.4,67.7:13;47.7,81.9:10 |mobs Syndicate Footpad;Syndicate Thief |value mid  -- Syndicate Assassins (33)
 accept 95534 |at 1416 61.3,44.0 |note Starts from Singed Note |lvl 25  -- Strahnbrad Mystery (36)
-complete 512 |at 1416 55.4,30.5 |mobs Syndicate Sentry@Alterac Signet Ring;Syndicate Spy@Alterac Signet Ring;Syndicate Assassin@Alterac Signet Ring;Syndicate Enforcer@Alterac Signet Ring  -- Noble Deaths (36)
-complete 500 |at 1416 43.3,48.0 |mobs Crushridge Ogre@Dirty Knucklebones;Crushridge Brute@Dirty Knucklebones;Crushridge Warmonger@Dirty Knucklebones;Crushridge Mauler@Dirty Knucklebones  -- Crushridge Bounty (36)
+complete 512 |at 1416 55.4,30.5 |areas 61.0,43.5:34;41.3,17.9:32;56.2,27.8:24 |mobs Syndicate Sentry@Alterac Signet Ring;Syndicate Spy@Alterac Signet Ring;Syndicate Assassin@Alterac Signet Ring;Syndicate Enforcer@Alterac Signet Ring  -- Noble Deaths (36)
+complete 500 |at 1416 43.3,48.0 |areas 38.2,52.5:45;52.1,44.0:35 |mobs Crushridge Ogre@Dirty Knucklebones;Crushridge Brute@Dirty Knucklebones;Crushridge Warmonger@Dirty Knucklebones;Crushridge Mauler@Dirty Knucklebones  -- Crushridge Bounty (36)
 turnin 514 |npc Prospector Stormpike |at 1455 74.6,11.7  -- Letter to Stormpike (34)
 accept 525 |npc Prospector Stormpike |at 1455 74.6,11.7 |lvl 30 |preany 514  -- Further Mysteries (34)
 fly 1424 49.3,52.3 |from 1455 55.5,47.7 |npc Hillsbrad Foothills (Darla Harris)  -- flight master Gryth Thurden

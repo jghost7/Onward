@@ -420,6 +420,35 @@ local function outlineButton(parent, label, tip, onClick)
     b:SetScript("OnClick", onClick)
     return b
 end
+-- A kill/loot step with several camps: "Area 1 of 3 · <place> · next area". Click moves the
+-- arrow, the pin and the map route to the next camp and keeps them there.
+local areaBtn = CreateFrame("Button", nil, card)
+areaBtn:SetHeight(14)
+areaBtn.text = fs(areaBtn, 11, C.sub)
+areaBtn.text:SetPoint("LEFT")
+areaBtn.text:SetPoint("RIGHT")
+areaBtn.text:SetWordWrap(false)
+areaBtn:Hide()
+areaBtn:SetScript("OnClick", function() WP:NextArea() end)
+areaBtn:SetScript("OnEnter", function(self)
+    local list, chosen, pinned = WP:Areas(card.step)
+    if not list then return end
+    GameTooltip:SetOwner(self, "ANCHOR_LEFT")
+    GameTooltip:AddLine("This can be done in " .. #list .. " places")
+    for _, a in ipairs(list) do
+        local d = W.Travel.Distance(a.map, a.x, a.y)
+        local where = (a.name or "Area " .. a.index) .. ("  %.0f, %.0f"):format(a.x, a.y)
+        local right = (a.n and (a.n .. " spawns") or "") .. (d and ("  ·  %d yd"):format(d) or "")
+        local on = a == chosen
+        GameTooltip:AddDoubleLine((on and "> " or "   ") .. where, right, on and 1 or 0.8, on and 1 or 0.8, on and 1 or 0.8, 0.6, 0.6, 0.6)
+    end
+    GameTooltip:AddLine(pinned and "You picked this one. Click: the next area." or "The nearest is picked for you. Click: the next area, and stay on it.",
+        S.ACCENT[1], S.ACCENT[2], S.ACCENT[3], true)
+    GameTooltip:Show()
+end)
+areaBtn:SetScript("OnLeave", function() GameTooltip:Hide() end)
+UI.areaBtn = areaBtn   -- Render reaches it through UI: that function is at Lua's limit of 60 upvalues
+
 -- "Later" sits on the card's top-right corner, on the step-kind line: away from the target and
 -- item buttons (strip or dock), so a hurried click on those never sends the quest to the end
 local laterStripBtn = outlineButton(card, "Later", "Come back to this quest later: the guide moves on, reminds you when you're back here, and returns to it at the end.",
@@ -915,10 +944,12 @@ function UI:Render()
         card:SetHeight(verbText:GetStringHeight() + 2 + mainText:GetStringHeight() + subText:GetStringHeight() + 6)
         f:SetHeight(y + card:GetHeight() + PAD)
         card.step = nil
+        UI.areaBtn:Hide()
         if W.Target then W.Target:Sync() end
         return
     end
     card.step = step
+    UI.areaBtn:Hide()
 
     -- current step: what kind, the title, where
     setVerb(step)
@@ -962,6 +993,15 @@ function UI:Render()
     if wantsStrip(step) then
         strip:Show()
         place(strip, 8, STRIP_H)
+    end
+
+    -- several camps for this step: which one it points at, and a click to the next
+    local areas, area = WP:Areas(step)
+    if areas and not G:IsMissing(step) then
+        UI.areaBtn.text:SetText(("Area %d of %d%s  ·  |c%snext area|r"):format(area.index, #areas,
+            area.name and ("  ·  " .. area.name) or ("  ·  %.0f, %.0f"):format(area.x, area.y), S.AccentHex()))
+        UI.areaBtn:Show()
+        place(UI.areaBtn, 6, 14)
     end
 
     -- objectives, extra lines (drop rates once there's data, hints, your notes)
