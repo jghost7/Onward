@@ -2,7 +2,7 @@ name: Release
 
 # Push a tag like v0.2.7 (matching "## Version" in Onward.toc) and this builds the addon zip,
 # runs the tests, and publishes a GitHub release with the changelog entry as its notes, then
-# uploads the same zip to CurseForge (project 1808625) as a Beta for WoW Forever.
+# uploads the same zip to CurseForge (project 1808625) as a Release for WoW Forever.
 # Every release carries Onward.zip, so this link always gets the newest build:
 #   https://github.com/jghost7/Onward/releases/latest/download/Onward.zip
 
@@ -40,10 +40,10 @@ jobs:
           cp "dist/Onward-$VERSION.zip" Onward.zip
           gh release create "$GITHUB_REF_NAME" "dist/Onward-$VERSION.zip" Onward.zip \
             --title "Onward $VERSION" --notes-file notes.md
-      - name: Upload to CurseForge (Beta, WoW Forever)
+      - name: Upload to CurseForge (Release, WoW Forever)
         env:
           CF_API_KEY: ${{ secrets.CF_API_KEY }}
         run: |
           awk -v v="$VERSION" '$0 ~ "^## "v"( |$)" {f=1; next} /^## / {if (f) exit} f' Onward/CHANGELOG.md | tr -d '\r' > cf_notes.md
           python tools/cf_upload.py --project 1808625 --zip "dist/Onward-$VERSION.zip" \
-            --name "Onward $VERSION" --changelog cf_notes.md --release-type beta
+            --name "Onward $VERSION" --changelog cf_notes.md --release-type release
