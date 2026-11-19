@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.6.29
 
 - Herbalism, Mining and Skinning: "Train Artisan" had no trainer to point at, and Journeyman and
   Expert could skip a nearer one. Their trainers teach every rank up to Artisan (only the Junior
