@@ -1,5 +1,11 @@
 {
   "_about": "Where a quest's objectives are, for quests Questie has no spawn data for. Looked up one quest at a time on Wowhead's WoW Forever database (object spawn coordinates; facts only, no text copied). Per quest: what (the item and the object or mob it comes from), map (uiMapID), points ('x,y x,y ...'), source. tools/make_spots.py writes Onward/Guides/QuestSpots.lua; tools/draft_guide.py places the step at their medoid.",
+  "95934": [
+    {"what": "Cubic Draconia", "from": "Cubic Draconia (object 648590)", "map": 2548,
+     "points": "30.1,73.2 30.2,73.5",
+     "note": "Loot the big orange crystal inside the Cinderscale cave, south of Gelinda",
+     "source": "Wowhead WoW Forever, object 648590, 2026-11-19"}
+  ],
   "95951": [
     {"what": "Wood Bundle", "from": "Bundle of Wood (object 645516)", "map": 2548,
      "points": "37.2,63.5 37.3,61.4 37.3,63.4 37.4,65.7 37.6,61.2 37.7,60 37.8,58.5 37.9,58.3 38.3,63.4 38.3,65.4 38.7,62.6 38.7,65.7 38.8,60 38.8,62.3 38.9,65.3 39.6,62.3 39.9,59.1 39.9,62.9 40.3,60.6 40.4,57.8 41.3,65 41.4,61.3 41.4,62.2 41.6,61.1",

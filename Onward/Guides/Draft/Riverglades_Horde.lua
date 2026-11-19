@@ -117,7 +117,7 @@ complete 95936 |at 2548 30.8,72.4 |mobs Scaldaron@Head of Scaldaron |group elite
 complete 95792 |at 2548 30.0,72.4 |mobs Cinderscale Whelp;Cinderscale Warrior  -- Clear 'em Out (42)
 turnin 95792 |npc Gelinda Coppergleam |at 2548 30.2,69.1  -- Clear 'em Out (42)
 accept 95934 |npc Gelinda Coppergleam |at 2548 30.2,69.1  -- Proof of Profit (42)
-complete 95934  -- Proof of Profit (42)
+complete 95934 |at 2548 30.1,73.2 |note Loot the big orange crystal inside the Cinderscale cave, south of Gelinda  -- Proof of Profit (42)
 turnin 95934 |npc Gelinda Coppergleam |at 2548 30.2,69.1  -- Proof of Profit (42)
 complete 94532 |at 2548 25.0,64.5 |mobs Redridge Mystic;Redridge Trapper;Redridge Brute  -- Gnoll Infestation (38)
 complete 94535 |at 2548 25.4,63.6 |mobs Redridge Trapper@Stolen Ore;Redridge Brute@Stolen Ore;Redridge Scout@Stolen Ore;Redridge Mystic@Stolen Ore |value mid  -- Bristle Hills Bandits (38)

@@ -438,7 +438,7 @@ class Zone:
         races, classes = self.who(q)
         obj, guess, mobs = (medoid(pts) if pts else None), None, self.mob_names(q)
         has_obj = bool(db.quest(q, "objectives") or db.quest(q, "triggerEnd"))
-        far_spot = None
+        far_spot = spot_note = None
         if obj is None and has_obj and q in quest_spots():
             # looked up by hand (tools/quest_spots.json): spots on this map, else the map with most
             by_map = {}
@@ -446,6 +446,7 @@ class Zone:
                 for xy in e["points"].split():
                     x, y = xy.split(",")
                     by_map.setdefault(e["map"], []).append((float(x), float(y)))
+            spot_note = next((e["note"] for e in quest_spots()[q] if e.get("note")), None)
             if self.map in by_map:
                 obj, guess = medoid(by_map[self.map]), "spots"
             elif by_map:
@@ -474,7 +475,7 @@ class Zone:
             "exclusive": [p for p in lua_list(db.quest(q, "exclusiveTo")) if p],
             "breadcrumbFor": db.quest(q, "breadcrumbForQuestId"),
             "text": texts[0] if texts else "",
-            "mobs": mobs,
+            "mobs": mobs, "objNote": spot_note,
             "useItem": db.quest(q, "sourceItemId") or None,   # the item the quest hands you, often the one you use
             "group": self.group(q),
         }
@@ -1230,7 +1231,8 @@ def render(zone, steps, leftovers, levels, name, faction, gid=None, next_id=None
             # the separate camps it can be done at, with their spawn counts: the addon leads to the
             # nearest and offers the others
             areas = (" |areas " + ";".join(f"{x:.1f},{y:.1f}:{n}" for (x, y), n in q["areas"])) if q.get("areas") and q["obj"] else ""
-            out.append(f"complete {q['id']}{at}{areas}{use}{mobs}{who}{title}")
+            note = f" |note {clean(q['objNote'])}" if q.get("objNote") else ""
+            out.append(f"complete {q['id']}{at}{areas}{use}{mobs}{note}{who}{title}")
         else:
             loc = q["finish"]
             npc = f" |npc {clean(loc[2])}" if loc and loc[2] else ""

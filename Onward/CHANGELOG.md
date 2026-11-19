@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- Riverglades, "Proof of Profit": the step now points to the Cubic Draconia crystal in the
+  Cinderscale cave and says what to loot. It had no arrow and no location.
+
 ## 0.6.30
 
 - The detail under a step's title is easier to read. It used to be one run of grey text; now each

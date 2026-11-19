@@ -246,7 +246,7 @@ accept 95148 |npc Cedric Dalton |at 2548 39.6,74.7 |lvl 36 |preany 95147  -- Sou
 turnin 94679 |npc Cedric Dalton |at 2548 39.6,74.7 |group elite  -- Snargl's Snout (40)
 accept 95934 |npc Gelinda Coppergleam |at 2548 30.2,69.1  -- Proof of Profit (42)
 turnin 95792 |npc Gelinda Coppergleam |at 2548 30.2,69.1  -- Clear 'em Out (42)
-complete 95934  -- Proof of Profit (42)
+complete 95934 |at 2548 30.1,73.2 |note Loot the big orange crystal inside the Cinderscale cave, south of Gelinda  -- Proof of Profit (42)
 turnin 95934 |npc Gelinda Coppergleam |at 2548 30.2,69.1  -- Proof of Profit (42)
 complete 94926 |at 2548 69.7,33.9 |mobs Komuk@Komuk's Warmaul |group elite  -- Drop the Hammer (45)
 turnin 96125 |npc Dunston Willis |at 2548 68.6,12.7  -- In Need of Relief (43)
