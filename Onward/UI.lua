@@ -757,49 +757,63 @@ local function tint(c, s)
     return ("|cff%02x%02x%02x%s|r"):format(c[1] * 255, c[2] * 255, c[3] * 255, s)
 end
 
--- The detail under the step's title, one line per kind of information so it doesn't read as one
--- run of text: where (who, place, coordinates dimmed, distance bright), then the note in the hint
--- colour, then what else to know (group, item to use, what the step asks of you).
+-- a small icon at the start of a detail line, in the colour of that line's information
+local function glyph(name, c)
+    return ("|T%s%s:11:11:0:0:32:32:0:32:0:32:%d:%d:%d|t "):format(MEDIA, name, c[1] * 255, c[2] * 255, c[3] * 255)
+end
+UI.Glyph = glyph
+
+-- The detail under the step's title: one line per kind of information, each led by a small icon,
+-- so it doesn't read as one run of text.
+--   who    (person)  the NPC to talk to
+--   route  (arrow)   a leg to take first: a boat, a flight point still to discover
+--   where  (pin)     the place, coordinates dimmed, distance bright
+--   note   (i)       the note or hint, in the hint colour
+--   to do  (target)  what else the step asks: group size, an item to use, "click when done"
 local function locationLine(step)
-    local parts, coords, dist = {}
+    local who, route, place, coords, dist
     local cur = WP:Current()
     if cur and cur.step == step then
         if cur.leg == "cross" and cur.cross then
-            parts[#parts + 1] = "first the " .. cur.cross.kind .. " from " .. cur.cross.from.name .. " to " .. cur.cross.to.name
+            route = "first the " .. cur.cross.kind .. " from " .. cur.cross.from.name .. " to " .. cur.cross.to.name
         elseif step.verb == "fly" then
             -- the place is the step's title; here, who you land by
-            local _, who = W.Travel.SplitFlightNpc(step.npc)
-            if who then parts[#parts + 1] = "flight master " .. who end
+            local _, master = W.Travel.SplitFlightNpc(step.npc)
+            if master then who = "flight master " .. master end
             -- not discovered yet: how you get there instead
             local plan = step.plan
-            if cur.leg == "walk" then parts[#parts + 1] = "not discovered: walk there to learn it"
-            elseif plan and plan.via then parts[#parts + 1] = "not discovered: fly to " .. plan.via.name .. ", then walk" end
+            if cur.leg == "walk" then route = "not discovered: walk there to learn it"
+            elseif plan and plan.via then route = "not discovered: fly to " .. plan.via.name .. ", then walk" end
         elseif cur.name then
-            parts[#parts + 1] = cur.name
+            who = cur.name
         end
         -- the place by name when the map has one for it ("Powderfuse Port"), then the coordinates
         local here = C_Map.GetBestMapForUnit("player")
-        local place = W.Travel.PlaceName(cur.map, cur.x, cur.y)
+        local spot = W.Travel.PlaceName(cur.map, cur.x, cur.y)
         if cur.map ~= here then
             local info = C_Map.GetMapInfo and C_Map.GetMapInfo(cur.map)
             local zone = info and info.name or "another zone"
-            parts[#parts + 1] = (place and place ~= zone and (place .. ", ") or "") .. zone
+            place = (spot and spot ~= zone and (spot .. ", ") or "") .. zone
             coords = ("%.0f, %.0f"):format(cur.x, cur.y)
         else
-            if place then parts[#parts + 1] = place end
+            place = spot
             coords = ("%.1f, %.1f"):format(cur.x, cur.y)
         end
         local d = W.Travel.Distance(cur.map, cur.x, cur.y)
         if d then dist = ("%d yd"):format(d) end
     elseif step.npc then
-        parts[#parts + 1] = step.npc
+        who = step.npc
     end
     local lines = {}
-    local where = table.concat(parts, "  ·  ")
-    if coords then where = where .. (where ~= "" and "  " or "") .. tint(C.dim, coords) end
-    if dist then where = where .. (where ~= "" and tint(C.dim, "  ·  ") or "") .. tint(C.text, dist) end
-    if where ~= "" then lines[#lines + 1] = where end
-    if step.note and step.verb ~= "goto" then lines[#lines + 1] = tint(C.hint, step.note) end
+    if who then lines[#lines + 1] = glyph("who", C.sub) .. who end
+    if route then lines[#lines + 1] = glyph("nav", C.travel) .. tint(C.travel, route) end
+    if place or coords or dist then
+        local where = place or ""
+        if coords then where = where .. (where ~= "" and "  " or "") .. tint(C.dim, coords) end
+        if dist then where = where .. (where ~= "" and tint(C.dim, "  ·  ") or "") .. tint(C.text, dist) end
+        lines[#lines + 1] = glyph("goto", C.sub) .. where
+    end
+    if step.note and step.verb ~= "goto" then lines[#lines + 1] = glyph("note", C.hint) .. tint(C.hint, step.note) end
     local more = {}
     if step.group then more[#more + 1] = UI.GroupText(step.group) end
     if step.item and W.Item and W.Item.Has(step.item) then   -- only when you have it to use
@@ -812,7 +826,7 @@ local function locationLine(step)
     elseif step.verb == "accept" and step.loose and step.startItem and not G:HeldReason(step) then
         more[#more + 1] = "it's in your bags: right-click it to start the quest"
     end
-    if #more > 0 then lines[#lines + 1] = table.concat(more, "  ·  ") end
+    if #more > 0 then lines[#lines + 1] = glyph("complete", C.sub) .. table.concat(more, "  ·  ") end
     return table.concat(lines, "\n")
 end
 
@@ -1134,7 +1148,11 @@ function UI:Render()
         if step.quest then hints(step.quest, false) end   -- your own note on accept / turn-in too
         if G.PROF_VERB[step.verb] and W.Prof then
             -- skill, crafts left, recipe to learn, mats against your bags, the game's best pick now
-            for _, l in ipairs(W.Prof:CardLines(step)) do line(l[1], C[l[2] or "sub"] or C.sub) end
+            for _, l in ipairs(W.Prof:CardLines(step)) do
+                local c = C[l[2] or "sub"] or C.sub
+                -- the skill line gets the same icon treatment as the lines above it
+                line((l[1]:find("^skill ") and UI.Glyph("level", c) or "") .. l[1], c)
+            end
         end
     end
     card:SetHeight(math.max(18, h))

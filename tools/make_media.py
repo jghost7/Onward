@@ -140,6 +140,12 @@ def levelup(d, s):
                (s * .38, s * .5), (s * .14, s * .5)], fill=W)
 
 
+def person(d, s):
+    # who to talk to: a head over shoulders
+    d.ellipse([s * .33, s * .1, s * .67, s * .44], fill=W)
+    d.pieslice([s * .14, s * .52, s * .86, s * 1.24], 180, 360, fill=W)
+
+
 def info(d, s):
     d.ellipse([s * .41, s * .1, s * .59, s * .28], fill=W)
     d.rounded_rectangle([s * .42, s * .38, s * .58, s * .9], radius=s * .07, fill=W)
@@ -220,7 +226,8 @@ def main():
     for name, f in (("gear", gear), ("next", chevron("right")), ("prev", chevron("left")),
                     ("collapse", chevron("up")), ("expand", chevron("down")), ("list", listicon),
                     ("nav", navicon), ("accept", exclaim), ("turnin", question), ("complete", target),
-                    ("goto", pin), ("fly", wing), ("level", levelup), ("note", info)):
+                    ("goto", pin), ("fly", wing), ("level", levelup), ("note", info),
+                    ("who", person)):
         icon(name, f)
     print("wrote", sorted(p.name for p in OUT.glob("*.tga")))
 
