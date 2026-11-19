@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.6.28
 
 - Profession guides sent you to the wrong trainer for a new rank. "Train Journeyman Engineering"
   pointed at Mukdrak in Razor Hill, a Journeyman Engineer, who only teaches Apprentice. A
