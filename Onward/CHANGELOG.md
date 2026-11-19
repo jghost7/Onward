@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.6.32
 
 - Trips with nothing left to do are passed over whole. 0.6.31 dropped the flights of such a trip
   but left its boat steps and the last flight back, so a guide could still send you to Ratchet
