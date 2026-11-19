@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+- The detail under a step's title is easier to read. It used to be one run of grey text; now each
+  kind of information has its own line and colour: where to go (who and the place, coordinates
+  dimmed, distance in bright text), then the note or hint in the warm hint colour, then anything
+  else the step asks of you.
+
 ## 0.6.29
 
 - Herbalism, Mining and Skinning: "Train Artisan" had no trainer to point at, and Journeyman and

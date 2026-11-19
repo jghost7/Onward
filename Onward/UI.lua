@@ -752,8 +752,16 @@ local function setVerb(step)
     if st.color == C.accent then S.Accent(verbText, "text") else verbText:SetTextColor(rgb(st.color)) end
 end
 
+-- inline colour for one kind of information on the card's detail lines
+local function tint(c, s)
+    return ("|cff%02x%02x%02x%s|r"):format(c[1] * 255, c[2] * 255, c[3] * 255, s)
+end
+
+-- The detail under the step's title, one line per kind of information so it doesn't read as one
+-- run of text: where (who, place, coordinates dimmed, distance bright), then the note in the hint
+-- colour, then what else to know (group, item to use, what the step asks of you).
 local function locationLine(step)
-    local parts = {}
+    local parts, coords, dist = {}
     local cur = WP:Current()
     if cur and cur.step == step then
         if cur.leg == "cross" and cur.cross then
@@ -775,23 +783,37 @@ local function locationLine(step)
         if cur.map ~= here then
             local info = C_Map.GetMapInfo and C_Map.GetMapInfo(cur.map)
             local zone = info and info.name or "another zone"
-            parts[#parts + 1] = (place and place ~= zone and (place .. ", ") or "") .. zone .. (" %.0f, %.0f"):format(cur.x, cur.y)
+            parts[#parts + 1] = (place and place ~= zone and (place .. ", ") or "") .. zone
+            coords = ("%.0f, %.0f"):format(cur.x, cur.y)
         else
             if place then parts[#parts + 1] = place end
-            parts[#parts + 1] = ("%.1f, %.1f"):format(cur.x, cur.y)
+            coords = ("%.1f, %.1f"):format(cur.x, cur.y)
         end
         local d = W.Travel.Distance(cur.map, cur.x, cur.y)
-        if d then parts[#parts + 1] = ("%d yd"):format(d) end
+        if d then dist = ("%d yd"):format(d) end
     elseif step.npc then
         parts[#parts + 1] = step.npc
     end
-    if step.note and step.verb ~= "goto" then parts[#parts + 1] = step.note end
-    if step.group then parts[#parts + 1] = UI.GroupText(step.group) end
+    local lines = {}
+    local where = table.concat(parts, "  ·  ")
+    if coords then where = where .. (where ~= "" and "  " or "") .. tint(C.dim, coords) end
+    if dist then where = where .. (where ~= "" and tint(C.dim, "  ·  ") or "") .. tint(C.text, dist) end
+    if where ~= "" then lines[#lines + 1] = where end
+    if step.note and step.verb ~= "goto" then lines[#lines + 1] = tint(C.hint, step.note) end
+    local more = {}
+    if step.group then more[#more + 1] = UI.GroupText(step.group) end
     if step.item and W.Item and W.Item.Has(step.item) then   -- only when you have it to use
         local name = C_Item and C_Item.GetItemNameByID and C_Item.GetItemNameByID(step.item)
-        parts[#parts + 1] = "use " .. (name or ("item " .. step.item))
+        more[#more + 1] = "use " .. (name or ("item " .. step.item))
     end
-    return table.concat(parts, "  ·  ")
+    -- what the step asks for besides going there
+    if step.verb == "note" then more[#more + 1] = "click when done"
+    elseif step.verb == "home" then more[#more + 1] = "talk to the innkeeper: Make this inn your home"
+    elseif step.verb == "accept" and step.loose and step.startItem and not G:HeldReason(step) then
+        more[#more + 1] = "it's in your bags: right-click it to start the quest"
+    end
+    if #more > 0 then lines[#lines + 1] = table.concat(more, "  ·  ") end
+    return table.concat(lines, "\n")
 end
 
 local STATE_TEXT = {
@@ -992,12 +1014,8 @@ function UI:Render()
     elseif G:HeldReason(step) then
         text = text .. "  |cffff7366(" .. G:HeldReason(step) .. ")|r"
     end
-    local inBags = step.verb == "accept" and step.loose and step.startItem and not G:HeldReason(step)
     mainText:SetText(text)
     local sub = locationLine(step)
-    if step.verb == "note" then sub = (sub ~= "" and (sub .. "  ·  ") or "") .. "click when done" end
-    if step.verb == "home" then sub = (sub ~= "" and (sub .. "  ·  ") or "") .. "talk to the innkeeper: Make this inn your home" end
-    if inBags then sub = (sub ~= "" and (sub .. "  ·  ") or "") .. "it's in your bags: right-click it to start the quest" end
     subText:SetText(sub)
     subText:SetShown(sub ~= "")
     local h = verbText:GetStringHeight() + 2 + mainText:GetStringHeight() + (sub ~= "" and (subText:GetStringHeight() + 3) or 0)
@@ -1331,9 +1349,7 @@ local function syncDistanceTicker()
         distTicker = C_Timer.NewTicker(1, function()
             local step = card.step
             if step then
-                local s = locationLine(step)
-                if step.verb == "note" then s = (s ~= "" and (s .. "  ·  ") or "") .. "click when done" end
-                subText:SetText(s)
+                subText:SetText(locationLine(step))
             end
         end)
     elseif not need and distTicker then
