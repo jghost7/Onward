@@ -1,4 +1,4 @@
--- DRAFT Desolace (Horde) generated 2026-11-18 by tools/draft_guide.py
+-- DRAFT Desolace (Horde) generated 2026-11-19 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -18,7 +18,7 @@ complete 1380 |at 1443 29.6,52.0 |mobs Khan Hratha@Maraudine Key Fragment |group
 accept 93465 |npc Azore Aldamort |at 1443 38.9,27.2 |value mid |lvl 30 |preany 93464  -- Notes on Draenethyst (40)
 turnin 79229 |npc Bibbly F'utzbuckle |at 1443 62.3,39.0  -- Highway Robbery (40)
 accept 79235 |npc Bibbly F'utzbuckle |at 1443 62.3,39.0 |lvl 30 |preany 79229  -- On the Lam (40)
-complete 93225 |at 1443 71.5,45.5 |areas 68.6,77.3:119;36.4,85.0:73;71.5,45.5:56;30.8,55.7:48 |mobs Magram Guardian@Carved Centaur Totem;Gelkis Windchaser@Carved Centaur Totem;Gelkis Stamper@Carved Centaur Totem;Magram Wrangler@Carved Centaur Totem |value low  -- Carved Centaur Totems (40)
+complete 93225 |at 1443 71.5,45.5 |areas 68.5,77.4:121;36.5,85.0:75;71.5,45.5:56;30.8,55.7:48 |mobs Magram Guardian@Carved Centaur Totem;Gelkis Windchaser@Carved Centaur Totem;Gelkis Stamper@Carved Centaur Totem;Magram Wrangler@Carved Centaur Totem |value low  -- Carved Centaur Totems (40)
 accept 92743 |npc Warug |at 1443 75.0,68.2 |lvl 30 |preany 1369  -- A Conqueror's Crown (40)
 turnin 92743 |npc Warug |at 1443 75.0,68.2  -- A Conqueror's Crown (40)
 turnin 1381 |npc Warug |at 1443 75.0,68.2 |group elite  -- Khan Hratha (42)

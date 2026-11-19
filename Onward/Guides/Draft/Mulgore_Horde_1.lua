@@ -1,4 +1,4 @@
--- DRAFT Mulgore (Horde) generated 2026-11-18 by tools/draft_guide.py
+-- DRAFT Mulgore (Horde) generated 2026-11-19 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -6,9 +6,9 @@ Onward:RegisterGuide{
   levels = { 3, 10 },
   next = "mulgore-h-2",
   steps = [[
-accept 98476 |npc Nuara Tremorhoof |at 1412 33.5,22.7 |preany 98477  -- More Unstable Magic (0)
-turnin 98476 |npc Nuara Tremorhoof |at 1412 33.5,22.7  -- More Unstable Magic (0)
-accept 76156 |npc Boarton Shadetotem |at 1456 39.4,65.8 |race Orc,Tauren,Troll |lvl 4  -- Stalk With The Earthmother (10)
+accept 98476 |npc Nuara Tremorhoof |at 1412 33.6,22.5 |preany 98477  -- More Unstable Magic (0)
+turnin 98476 |npc Nuara Tremorhoof |at 1412 33.6,22.5  -- More Unstable Magic (0)
+accept 76156 |npc Boarton Shadetotem |at 1456 39.4,65.8 |race Tauren |lvl 4  -- Stalk With The Earthmother (10)
 accept 5844 |note Starts from the item Camp Narache Gift Voucher; where it comes from isn't on record. Hand it in to Vorn Skyseer |startitem 14650 |loose |race Tauren  -- Welcome! (1)
 accept 1656 |npc Antur Fallow |at 1412 39.2,81.2  -- A Task Unfinished (5)
 turnin 5844 |npc Vorn Skyseer |at 1412 44.0,77.4 |race Tauren  -- Welcome! (1)
@@ -92,7 +92,7 @@ turnin 833 |npc Lorekeeper Raintotem |at 1412 57.0,34.5  -- A Sacred Burial (10)
 accept 98424 |at 1412 61.2,49.3 |note Starts from Mulgore Expansion Plans |startitem 281031 |lvl 5  -- Fizsprocket's Notes (10)
 complete 764 |at 1412 59.3,47.1 |mobs Venture Co. Worker;Venture Co. Supervisor  -- The Venture Co. (10)
 complete 98424 |at 1412 59.0,46.4 |item 281031  -- Fizsprocket's Notes (10)
-complete 76156 |at 1412 58.4,47.8 |item 206159 |race Orc,Tauren,Troll  -- Stalk With The Earthmother (10)
+complete 76156 |at 1412 58.4,47.8 |item 206159 |race Tauren  -- Stalk With The Earthmother (10)
 turnin 98424 |npc Morin Cloudstalker |at 1412 54.8,64.3  -- Fizsprocket's Notes (10)
 turnin 764 |npc Morin Cloudstalker |at 1412 54.8,64.3  -- The Venture Co. (10)
 complete 99108 |at 1412 48.9,63.6 |mobs Novice Warrior  -- Sparring Match (6)
@@ -110,7 +110,7 @@ turnin 99101 |npc Baine Bloodhoof |at 1412 46.7,63.4 |race Scourge,Tauren  -- Ou
 turnin 766 |npc Maur Raincaller |at 1412 46.2,60.8  -- Mazzranache (8)
 turnin 96130 |npc Yaw Sharpmane |at 1412 46.9,59.6  -- Chakuyak (5)
 turnin 99411 |npc Ahab Wheathoof |at 1412 47.3,57.6  -- Kyle's Gone Missing! (7)
-turnin 76156 |npc Boarton Shadetotem |at 1456 39.4,65.8 |race Orc,Tauren,Troll  -- Stalk With The Earthmother (10)
+turnin 76156 |npc Boarton Shadetotem |at 1456 39.4,65.8 |race Tauren  -- Stalk With The Earthmother (10)
 turnin 861 |npc Melor Stonehoof |at 1456 61.5,80.9  -- The Hunter's Way (10)
 turnin 98435 |npc Arch Druid Hamuul Runetotem |at 1456 78.6,28.6 |race Tauren  -- Thunderhorn's Report (10)
 turnin 98430 |npc Cairne Bloodhoof |at 1456 60.3,51.7  -- The Longwalkers (8)

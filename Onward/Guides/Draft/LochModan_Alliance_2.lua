@@ -1,4 +1,4 @@
--- DRAFT Loch Modan (Alliance) generated 2026-11-18 by tools/draft_guide.py
+-- DRAFT Loch Modan (Alliance) generated 2026-11-19 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -33,23 +33,23 @@ accept 258 |npc Daryl the Youngling |at 1432 83.5,65.5 |value mid |lvl 11 |prean
 complete 258 |at 1432 75.7,46.6 |areas 62.4,38.4:14;75.7,46.6:4 |mobs Elder Mountain Boar |value mid  -- A Hunter's Challenge (17)
 turnin 258 |npc Daryl the Youngling |at 1432 83.5,65.5 |value mid  -- A Hunter's Challenge (17)
 accept 271 |npc Vyrin Swiftwind |at 1432 81.7,64.1 |value mid |group elite |lvl 15 |preany 258  -- Vyrin's Revenge (20)
-complete 278 |at 1432 61.4,42.5 |mobs Daggerfang@Crocolisk Tear;Forest Lurker@Lurker Venom;Loch Crocolisk@Crocolisk Tear;Mo'grosh Enforcer@Mo'grosh Crystal |group elite  -- A Dark Threat Looms (18)
+complete 278 |at 1432 60.5,42.0 |mobs Daggerfang@Crocolisk Tear;Forest Lurker@Lurker Venom;Loch Crocolisk@Crocolisk Tear;Mo'grosh Enforcer@Mo'grosh Crystal |group elite  -- A Dark Threat Looms (18)
 turnin 278 |npc Chief Engineer Hinderweir VII |at 1432 46.0,13.6 |group elite  -- A Dark Threat Looms (18)
 accept 280 |npc Chief Engineer Hinderweir VII |at 1432 46.0,13.6 |group chain |lvl 16 |preany 278  -- A Dark Threat Looms (18)
 turnin 280 |npc Explosive Charge |at 1432 50.6,14.3 |group chain  -- A Dark Threat Looms (18)
 accept 283 |npc Explosive Charge |at 1432 50.6,14.3 |group chain |lvl 16 |preany 280  -- A Dark Threat Looms (20)
 turnin 283 |npc Chief Engineer Hinderweir VII |at 1432 46.0,13.6 |group chain  -- A Dark Threat Looms (20)
-turnin 255 |npc Magistrate Bluntnose |at 1432 34.6,44.5 |group elite  -- Mercenaries (19)
 turnin 256 |npc Magistrate Bluntnose |at 1432 34.6,44.5 |group elite  -- WANTED: Chok'sul (22)
+turnin 255 |npc Magistrate Bluntnose |at 1432 34.6,44.5 |group elite  -- Mercenaries (19)
 accept 436 |npc Jern Hornhelm |at 1432 37.2,47.4 |lvl 13  -- Ironband's Excavation (18)
 complete 271 |at 1432 37.9,63.4 |mobs Ol' Sooty@Ol' Sooty's Head |value mid |group elite  -- Vyrin's Revenge (20)
 accept 297 |npc Magmar Fellhew |at 1432 64.9,66.7 |value mid |lvl 13  -- Gathering Idols (18)
+turnin 436 |npc Magmar Fellhew |at 1432 64.9,66.7  -- Ironband's Excavation (18)
 accept 86613 |at 1432 69.4,67.5 |note Starts from Excavation Tools |startitem 278049 |lvl 13  -- Excavation Tools (18)
 complete 86613 |at 1432 69.4,67.5 |item 278398  -- Excavation Tools (18)
 complete 297 |at 1432 70.6,64.8 |mobs Stonesplinter Digger@Carved Stone Idol;Stonesplinter Geomancer@Carved Stone Idol;Berserk Trogg@Carved Stone Idol |value mid  -- Gathering Idols (18)
 turnin 86613 |npc Prospector Ironband |at 1432 65.9,65.6  -- Excavation Tools (18)
 turnin 297 |npc Magmar Fellhew |at 1432 64.9,66.7 |value mid  -- Gathering Idols (18)
-turnin 436 |npc Magmar Fellhew |at 1432 64.9,66.7  -- Ironband's Excavation (18)
 turnin 271 |npc Daryl the Youngling |at 1432 83.5,65.5 |value mid |group elite  -- Vyrin's Revenge (20)
 accept 531 |npc Daryl the Youngling |at 1432 83.5,65.5 |value mid |group chain |lvl 15 |preany 271  -- Vyrin's Revenge (20)
 turnin 531 |npc Vyrin Swiftwind |at 1432 81.7,64.1 |value mid |group chain  -- Vyrin's Revenge (20)

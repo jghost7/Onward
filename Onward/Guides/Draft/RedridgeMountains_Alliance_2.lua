@@ -1,4 +1,4 @@
--- DRAFT Redridge Mountains (Alliance) generated 2026-11-18 by tools/draft_guide.py
+-- DRAFT Redridge Mountains (Alliance) generated 2026-11-19 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -10,8 +10,8 @@ accept 91 |npc Bailiff Conacher |at 1433 24.6,44.3 |lvl 17  -- Solomon's Law (23
 accept 95999 |npc Wanted: Incinerator Gar'im |at 1433 24.3,46.2 |group elite |lvl 16  -- WANTED: Incinerator Gar'im (25)
 accept 169 |npc Wanted: Gath'Ilzogg |at 1433 24.5,46.2 |group elite |lvl 15  -- WANTED: Gath'Ilzogg (26)
 accept 126 |npc Verner Osgood |at 1433 25.9,47.3 |lvl 15 |preany 124  -- Howling in the Hills (25)
-accept 98387 |npc Marshal Marris |at 1433 28.4,49.0 |value mid |lvl 18  -- Blackrock Blockade (21)
 accept 20 |npc Marshal Marris |at 1433 28.4,49.0 |value mid |lvl 18  -- Blackrock Menace (21)
+accept 98387 |npc Marshal Marris |at 1433 28.4,49.0 |value mid |lvl 18  -- Blackrock Blockade (21)
 accept 98386 |npc Foreman Oslow |at 1433 27.1,48.6 |value low |lvl 15 |preany 89  -- Alther's Mill (21)
 accept 127 |npc Dockmaster Baren |at 1433 22.6,47.4 |value low |lvl 16  -- Selling Fish (21)
 accept 180 |npc Wanted: Lieutenant Fangore |at 1433 21.7,46.4 |lvl 15  -- WANTED: Lieutenant Fangore (26)
@@ -35,7 +35,7 @@ accept 128 |npc Guard Howe |at 1433 26.4,57.9 |lvl 20  -- Blackrock Bounty (25)
 accept 249 |npc Theocritus |at 1429 65.2,69.7 |group elite |lvl 20 |preany 248  -- Morganth (27)
 complete 128 |at 1433 24.5,11.2 |mobs Blackrock Champion  -- Blackrock Bounty (25)
 complete 115 |at 1433 30.5,8.0 |areas 63.5,55.6:30;30.5,8.0:4 |mobs Blackrock Shadowcaster@Midnight Orb |value mid |group elite  -- Shadow Magic (23)
-complete 98386 |at 1433 49.0,41.8 |mobs Greater Tarantula |value low  -- Alther's Mill (21)
+complete 98386 |at 1433 48.2,41.4 |mobs Greater Tarantula |value low  -- Alther's Mill (21)
 accept 178 |at 1433 73.8,47.4 |note Starts from Glowing Shadowhide Pendant |startitem 1962 |lvl 15  -- Theocritus' Retrieval (23)
 complete 91 |at 1433 73.8,47.4 |mobs Shadowhide Warrior@Shadowhide Pendant;Shadowhide Darkweaver@Shadowhide Pendant;Shadowhide Slayer@Shadowhide Pendant;Shadowhide Gnoll@Shadowhide Pendant  -- Solomon's Law (23)
 complete 249 |at 1433 75.0,49.5 |mobs Morganth@Pendant of Shadow |group elite  -- Morganth (27)
@@ -46,9 +46,9 @@ turnin 115 |npc Marshal Marris |at 1433 28.4,49.0 |value mid |group elite  -- Sh
 turnin 19 |npc Marshal Marris |at 1433 28.4,49.0 |value mid |group elite  -- Tharil'zun (25)
 turnin 98386 |npc Foreman Oslow |at 1433 27.1,48.6 |value low  -- Alther's Mill (21)
 turnin 126 |npc Verner Osgood |at 1433 25.9,47.3  -- Howling in the Hills (25)
-turnin 169 |npc Magistrate Solomon |at 1433 24.9,44.5 |group elite  -- WANTED: Gath'Ilzogg (26)
 turnin 95999 |npc Magistrate Solomon |at 1433 24.9,44.5 |group elite  -- WANTED: Incinerator Gar'im (25)
 turnin 180 |npc Magistrate Solomon |at 1433 24.9,44.5  -- WANTED: Lieutenant Fangore (26)
+turnin 169 |npc Magistrate Solomon |at 1433 24.9,44.5 |group elite  -- WANTED: Gath'Ilzogg (26)
 turnin 91 |npc Bailiff Conacher |at 1433 24.6,44.3  -- Solomon's Law (23)
 turnin 127 |npc Dockmaster Baren |at 1433 22.6,47.4 |value low  -- Selling Fish (21)
 turnin 34 |npc Martie Jainrose |at 1433 16.8,46.3  -- An Unwelcome Guest (24)

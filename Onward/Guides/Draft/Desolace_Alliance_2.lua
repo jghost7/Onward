@@ -1,4 +1,4 @@
--- DRAFT Desolace (Alliance) generated 2026-11-18 by tools/draft_guide.py
+-- DRAFT Desolace (Alliance) generated 2026-11-19 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -10,7 +10,7 @@ accept 1052 |npc Brother Anton |at 1443 66.5,7.9 |lvl 34 |preany 261  -- Down th
 accept 1466 |npc Kreldig Ungor |at 1443 66.2,9.6 |value mid |lvl 30 |preany 1459  -- Reagents for Reclaimers Inc. (40)
 accept 93226 |npc Captain Pentigast |at 1443 66.7,10.9 |value mid |lvl 30 |preany 93224,93225  -- Buying Friendship: Magram (45)
 accept 93224 |npc Captain Pentigast |at 1443 66.7,10.9 |value mid |lvl 30  -- Carved Centaur Totems (40)
-complete 93224 |at 1443 71.5,45.5 |areas 68.6,77.3:119;36.4,85.0:73;71.5,45.5:56;30.8,55.7:48 |mobs Magram Guardian@Carved Centaur Totem;Gelkis Windchaser@Carved Centaur Totem;Gelkis Stamper@Carved Centaur Totem;Magram Wrangler@Carved Centaur Totem |value mid  -- Carved Centaur Totems (40)
+complete 93224 |at 1443 71.5,45.5 |areas 68.5,77.4:121;36.5,85.0:75;71.5,45.5:56;30.8,55.7:48 |mobs Magram Guardian@Carved Centaur Totem;Gelkis Windchaser@Carved Centaur Totem;Gelkis Stamper@Carved Centaur Totem;Magram Wrangler@Carved Centaur Totem |value mid  -- Carved Centaur Totems (40)
 accept 92743 |npc Warug |at 1443 75.0,68.2 |lvl 30 |preany 1369  -- A Conqueror's Crown (40)
 turnin 92743 |npc Warug |at 1443 75.0,68.2  -- A Conqueror's Crown (40)
 accept 1381 |npc Warug |at 1443 75.0,68.2 |group elite |lvl 30 |preany 1375  -- Khan Hratha (42)

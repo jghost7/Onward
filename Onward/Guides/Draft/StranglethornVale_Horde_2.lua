@@ -1,4 +1,4 @@
--- DRAFT Stranglethorn Vale (Horde) generated 2026-11-18 by tools/draft_guide.py
+-- DRAFT Stranglethorn Vale (Horde) generated 2026-11-19 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -43,7 +43,7 @@ turnin 348 |npc Fin Fizracket |at 1434 27.6,76.7  -- Stranglethorn Fever (45)
 accept 617 |npc Privateer Bloads |at 1434 26.8,76.4 |value mid |lvl 38  -- Akiris by the Bundle (43)
 turnin 8551 |npc Captain Hecklebury Smotts |at 1434 26.7,73.6 |group elite  -- The Captain's Chest (47)
 complete 573 |at 1434 26.2,62.4 |mobs Naga Explorer |value mid  -- Mok'thardin's Enchantment (44)
-complete 617 |at 1434 26.2,62.4 |areas 23.6,26.5:126;26.2,62.4:27 |mobs Brinescale Skirmisher@Akiris Reed;Naga Explorer@Akiris Reed |value mid  -- Akiris by the Bundle (43)
+complete 617 |at 1434 26.2,62.4 |areas 23.9,26.8:138;26.2,62.4:27 |mobs Brinescale Skirmisher@Akiris Reed;Naga Explorer@Akiris Reed |value mid  -- Akiris by the Bundle (43)
 complete 197 |at 1434 32.2,42.8 |mobs Tethis@Talon of Tethis |group elite  -- Raptor Mastery (43)
 turnin 573 |npc Far Seer Mok'thardin |at 1434 32.1,29.2 |value mid  -- Mok'thardin's Enchantment (44)
 turnin 589 |npc Kin'weelay |at 1434 32.3,27.7  -- The Singing Crystals (45)

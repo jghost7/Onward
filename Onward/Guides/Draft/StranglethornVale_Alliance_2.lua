@@ -1,4 +1,4 @@
--- DRAFT Stranglethorn Vale (Alliance) generated 2026-11-18 by tools/draft_guide.py
+-- DRAFT Stranglethorn Vale (Alliance) generated 2026-11-19 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -30,7 +30,7 @@ accept 617 |npc Privateer Bloads |at 1434 26.8,76.4 |lvl 38  -- Akiris by the Bu
 complete 587 |at 1434 27.9,69.9 |areas 30.7,89.5:64;27.9,69.9:17;23.9,53.8:13 |mobs Bloodsail Sea Dog@Snuff;Bloodsail Elder Magus@Snuff;Bloodsail Warlock@Snuff;Bloodsail Swashbuckler@Snuff |value low  -- Up to Snuff (41)
 complete 576 |at 1434 27.9,69.9 |areas 30.0,88.0:63;27.9,69.9:16;23.9,53.8:13 |mobs Bloodsail Sea Dog@Dizzy's Eye;Bloodsail Elder Magus@Dizzy's Eye;Bloodsail Warlock@Dizzy's Eye;Bloodsail Swashbuckler@Dizzy's Eye  -- Keep An Eye Out (42)
 complete 609 |at 1434 34.9,51.8 |mobs Maury "Club Foot" Wilkins@Maury's Clubbed Foot;Jon-Jon the Crow@Jon-Jon's Golden Spyglass;Chucky "Ten Thumbs"@Chucky's Huge Ring  -- Voodoo Dues (44)
-complete 617 |at 1434 26.2,62.4 |areas 23.6,26.5:126;26.2,62.4:27 |mobs Brinescale Skirmisher@Akiris Reed;Naga Explorer@Akiris Reed  -- Akiris by the Bundle (43)
+complete 617 |at 1434 26.2,62.4 |areas 23.9,26.8:138;26.2,62.4:27 |mobs Brinescale Skirmisher@Akiris Reed;Naga Explorer@Akiris Reed  -- Akiris by the Bundle (43)
 accept 97332 |npc Wharfmaster Lozgil |at 1434 26.4,73.6 |lvl 36 |pre 97328,97331  -- Twice Misplaced Trust (41)
 turnin 617 |npc Privateer Bloads |at 1434 26.8,76.4  -- Akiris by the Bundle (43)
 accept 623 |npc Privateer Bloads |at 1434 26.8,76.4 |lvl 38 |preany 617  -- Akiris by the Bundle (43)

@@ -1,4 +1,4 @@
--- DRAFT Desolace (Alliance) generated 2026-11-18 by tools/draft_guide.py
+-- DRAFT Desolace (Alliance) generated 2026-11-19 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -53,7 +53,7 @@ turnin 1369 |npc Warug |at 1443 75.0,68.2  -- Broken Tears (33)
 turnin 1385 |npc Warug |at 1443 75.0,68.2  -- Brutal Politics (35)
 accept 1386 |npc Warug |at 1443 75.0,68.2 |lvl 30 |preany 1385  -- Assault on the Kolkar (32)
 accept 1371 |npc Warug |at 1443 75.0,68.2 |lvl 30 |preany 1369  -- Gizmo for Warug (35)
-complete 1387 |at 1443 71.5,45.5 |areas 67.6,77.6:147;36.4,85.0:73;71.5,45.5:63;30.8,55.7:49 |mobs Magram Guardian@Centaur Ear;Magram Necromancer@Centaur Ear;Gelkis Windchaser@Centaur Ear;Gelkis Stamper@Centaur Ear |value mid  -- Centaur Bounty (31)
+complete 1387 |at 1443 71.5,45.5 |areas 67.3,78.6:153;36.5,85.0:75;71.5,45.5:63;30.8,55.7:49 |mobs Magram Guardian@Centaur Ear;Magram Necromancer@Centaur Ear;Gelkis Windchaser@Centaur Ear;Gelkis Stamper@Centaur Ear |value mid  -- Centaur Bounty (31)
 complete 1384 |at 1443 71.5,45.5 |mobs Kolkar Battle Lord@Crude Charm;Kolkar Windchaser@Crude Charm;Kolkar Mauler@Crude Charm;Kolkar Scout@Crude Charm  -- Raid on the Kolkar (32)
 complete 1386 |at 1443 70.1,45.5 |mobs Kolkar Centaur;Kolkar Scout;Kolkar Mauler  -- Assault on the Kolkar (32)
 accept 5501 |npc Bibbly F'utzbuckle |at 1443 62.3,39.0 |value low |lvl 33  -- Bone Collector (39)

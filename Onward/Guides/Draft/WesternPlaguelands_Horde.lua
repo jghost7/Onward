@@ -1,40 +1,44 @@
--- DRAFT Western Plaguelands (Horde) generated 2026-11-18 by tools/draft_guide.py
+-- DRAFT Western Plaguelands (Horde) generated 2026-11-19 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
   id = "western-plaguelands-h", title = "Western Plaguelands (52-60)", faction = "Horde", zone = "Western Plaguelands",
   levels = { 52, 60 },
   steps = [[
-accept 7790 |npc Fallen Skyborne |at 1422 70.1,44.2 |value low  -- quest 7790 (0)
+accept 7790 |npc Fallen Skyborne |at 1422 70.1,44.1  -- quest 7790 (0)
+turnin 7790 |npc Argent Wayfinder |at 1422 70.1,44.1  -- quest 7790 (0)
+accept 8152 |npc Argent Wayfinder |at 1422 70.1,44.1 |preany 7790  -- quest 8152 (0)
 accept 6004 |npc Kirsta Deepshadow |at 1422 51.9,28.1 |lvl 50  -- Unfinished Business (56)
 accept 6390 |npc Termite Barrel |at 1422 48.3,32.0 |lvl 48 |preany 5902  -- A Plague Upon Thee (55)
+accept 5050 |npc Ol' Emma |at 1453 60.2,57.0 |lvl 50 |preany 5048,5049  -- Good Luck Charm (52)
 accept 5228 |npc High Executor Derrington |at 1420 83.1,68.9 |lvl 50 |preany 5096  -- The Scourge Cauldrons (53)
 accept 5098 |npc High Executor Derrington |at 1420 83.1,68.9 |lvl 50 |preany 5096  -- All Along the Watchtowers (56)
 turnin 5228 |npc Shadow Priestess Vandis |at 1420 83.0,71.9  -- The Scourge Cauldrons (53)
 accept 5229 |npc Shadow Priestess Vandis |at 1420 83.0,71.9 |lvl 50 |preany 5228  -- Target: Felstone Field (53)
-accept 5050 |npc Ol' Emma |at 1453 60.2,57.0 |lvl 50 |preany 5048,5049  -- Good Luck Charm (52)
-turnin 7790 |npc Argent Wayfinder |at 1423 4.0,33.0 |value low  -- quest 7790 (0)
+turnin 8152  -- quest 8152 (0)
 accept 5861 |npc Tirion Fordring |at 1423 5.2,35.6 |group chain |lvl 52 |preany 5848  -- Find Myranda (60)
 turnin 5050 |npc Janice Felstone |at 1422 38.4,54.0  -- Good Luck Charm (52)
-accept 5021 |npc Janice Felstone |at 1422 38.4,54.0 |lvl 50  -- Better Late Than Never (52)
 accept 5051 |npc Janice Felstone |at 1422 38.4,54.0 |lvl 50 |preany 5050  -- Two Halves Become One (54)
 complete 5051 |item 12721  -- Two Halves Become One (54)
 turnin 5051 |npc Janice Felstone |at 1422 38.4,54.0  -- Two Halves Become One (54)
+accept 5021 |npc Janice Felstone |at 1422 38.4,54.0 |lvl 50  -- Better Late Than Never (52)
 turnin 5021 |npc Janice's Parcel |at 1422 38.7,55.2  -- Better Late Than Never (52)
 accept 5023 |npc Janice's Parcel |at 1422 38.7,55.2 |lvl 50 |preany 5021  -- Better Late Than Never (52)
 complete 5229 |at 1422 36.9,57.4 |item 13186 |mobs Cauldron Lord Bilemaw@Felstone Field Cauldron Key  -- Target: Felstone Field (53)
 turnin 5229 |npc Scourge Cauldron |at 1422 37.2,56.8  -- Target: Felstone Field (53)
 accept 5230 |npc Scourge Cauldron |at 1422 37.2,56.8 |lvl 50 |preany 5229  -- Return to the Bulwark (53)
 turnin 5230 |npc Shadow Priestess Vandis |at 1420 83.0,71.9  -- Return to the Bulwark (53)
+accept 5342 |npc Alexi Barov |at 1420 83.1,71.6 |group elite |lvl 52 |preany 5341  -- The Last Barov (60)
 accept 5231 |npc Shadow Priestess Vandis |at 1420 83.0,71.9 |lvl 50 |preany 5230  -- Target: Dalson's Tears (55)
+accept 4971 |npc Chromie |at 1422 39.5,66.8 |value mid |lvl 53  -- A Matter of Time (56)
+accept 5154 |npc Chromie |at 1422 39.5,66.8 |lvl 50 |preany 5153  -- The Annals of Darrowshire (56)
 turnin 5861 |npc Myranda the Hag |at 1422 50.8,77.8 |group chain  -- Find Myranda (60)
 accept 5862 |npc Myranda the Hag |at 1422 50.8,77.8 |group chain |lvl 52 |preany 5861  -- Scarlet Subterfuge (60)
-complete 5098 |at 1422 42.3,66.2 |item 12815 |mobs Andorhal Tower One;Andorhal Tower Two;Andorhal Tower Three;Andorhal Tower Four  -- All Along the Watchtowers (56)
+accept 5461 |npc Magistrate Marduke |at 1422 70.6,74.1 |group chain |lvl 57 |preany 5384  -- The Human, Ras Frostwhisper (60)
 accept 4984 |npc Mulgris Deepriver |at 1422 53.7,64.7 |value mid |lvl 51  -- The Wildlife Suffers Too (54)
+complete 4971 |at 1422 48.3,65.8 |item 12627 |mobs Temporal Parasite |value mid  -- A Matter of Time (56)
+complete 5098 |at 1422 42.3,66.2 |item 12815 |mobs Andorhal Tower One;Andorhal Tower Two;Andorhal Tower Three;Andorhal Tower Four  -- All Along the Watchtowers (56)
 complete 4984 |at 1422 48.6,60.2 |areas 46.5,42.6:28;48.6,60.2:12;48.9,28.3:12 |mobs Diseased Wolf |value mid  -- The Wildlife Suffers Too (54)
-turnin 4984 |npc Mulgris Deepriver |at 1422 53.7,64.7 |value mid  -- The Wildlife Suffers Too (54)
-accept 4985 |npc Mulgris Deepriver |at 1422 53.7,64.7 |value mid |lvl 51 |preany 4984  -- The Wildlife Suffers Too (56)
-complete 4985 |at 1422 60.5,52.0 |mobs Diseased Grizzly |value mid  -- The Wildlife Suffers Too (56)
 complete 5231 |at 1422 46.1,52.6 |item 13187 |mobs Cauldron Lord Malvinious@Dalson's Tears Cauldron Key  -- Target: Dalson's Tears (55)
 turnin 5231 |npc Scourge Cauldron |at 1422 46.2,51.9  -- Target: Dalson's Tears (55)
 accept 5232 |npc Scourge Cauldron |at 1422 46.2,51.9 |lvl 50 |preany 5231  -- Return to the Bulwark (55)
@@ -49,100 +53,96 @@ accept 6023 |npc Kirsta Deepshadow |at 1422 51.9,28.1 |lvl 50 |preany 6004  -- U
 complete 6023 |at 1422 57.8,36.1 |mobs Huntsman Radley;Cavalier Durgen  -- Unfinished Business (57)
 turnin 6023 |npc Kirsta Deepshadow |at 1422 51.9,28.1  -- Unfinished Business (57)
 turnin 5862 |npc Highlord Taelan Fordring |at 1422 42.0,14.8 |group chain  -- Scarlet Subterfuge (60)
-accept 97319 |npc Argent Officer Garush |at 1420 83.2,68.5 |lvl 55  -- A Cousin Abroad (55)
-turnin 5098 |npc High Executor Derrington |at 1420 83.1,68.9  -- All Along the Watchtowers (56)
-accept 5524 |npc Argent Quartermaster Hasana |at 1420 83.3,68.1 |value low |lvl 55  -- Chromatic Mantle of the Dawn (60)
 turnin 5232 |npc Shadow Priestess Vandis |at 1420 83.0,71.9  -- Return to the Bulwark (55)
-accept 5804 |npc Apothecary Dithers |at 1420 83.3,69.2 |lvl 55 |preany 5802  -- Araj's Scarab (60)
+turnin 6390 |npc Mickey Levine |at 1420 83.3,72.3  -- A Plague Upon Thee (55)
+turnin 5098 |npc High Executor Derrington |at 1420 83.1,68.9  -- All Along the Watchtowers (56)
 accept 838 |npc High Executor Derrington |at 1420 83.1,68.9 |lvl 55 |preany 5098  -- Scholomance (55)
-accept 5233 |npc Shadow Priestess Vandis |at 1420 83.0,71.9 |lvl 50 |preany 5232  -- Target: Writhing Haunt (55)
 turnin 838 |npc Apothecary Dithers |at 1420 83.3,69.2  -- Scholomance (55)
-accept 964 |npc Apothecary Dithers |at 1420 83.3,69.2 |value mid |lvl 55 |preany 838  -- Skeletal Fragments (57)
-accept 5342 |npc Alexi Barov |at 1420 83.1,71.6 |group elite |lvl 52 |preany 5341  -- The Last Barov (60)
 accept 5504 |npc Argent Quartermaster Hasana |at 1420 83.3,68.1 |value mid |lvl 55  -- Mantles of the Dawn (60)
+accept 5804 |npc Apothecary Dithers |at 1420 83.3,69.2 |lvl 55 |preany 5802  -- Araj's Scarab (60)
+accept 964 |npc Apothecary Dithers |at 1420 83.3,69.2 |value mid |lvl 55 |preany 838  -- Skeletal Fragments (57)
 accept 105 |npc High Executor Derrington |at 1420 83.1,68.9 |lvl 50 |preany 5098  -- Alas, Andorhal (60)
-goto 1420 60.8,58.8 15 |note Take the zeppelin to Orgrimmar  -- zeppelin Undercity to Orgrimmar
-accept 5093 |npc Warcaller Gorlach |at 1454 37.7,75.2 |lvl 50  -- A Call to Arms: The Plaguelands! (50)
-fly 1413 63.1,37.2 |from 1454 45.1,63.9 |npc The Barrens (Bragok)  -- flight master Doras
-goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
-accept 4971 |npc Chromie |at 1422 39.5,66.8 |value mid |lvl 53  -- A Matter of Time (56)
-accept 5154 |npc Chromie |at 1422 39.5,66.8 |lvl 50 |preany 5153  -- The Annals of Darrowshire (56)
+accept 5233 |npc Shadow Priestess Vandis |at 1420 83.0,71.9 |lvl 50 |preany 5232  -- Target: Writhing Haunt (55)
+accept 5524 |npc Argent Quartermaster Hasana |at 1420 83.3,68.1 |value low |lvl 55  -- Chromatic Mantle of the Dawn (60)
+turnin 5023 |npc Royal Overseer Bauhaus |at 1458 69.8,43.2  -- Better Late Than Never (52)
+turnin 4971 |npc Chromie |at 1422 39.5,66.8 |value mid  -- A Matter of Time (56)
+accept 4972 |npc Chromie |at 1422 39.5,66.8 |value mid |lvl 53 |preany 4971  -- Counting Out Time (56)
+complete 4972 |at 1422 42.7,69.6 |value mid  -- Counting Out Time (56)
+complete 5154 |at 1422 43.4,69.5  -- The Annals of Darrowshire (56)
 complete 964 |at 1422 44.5,68.9 |areas 44.5,68.9:76;37.4,56.3:43;53.9,80.1:33 |mobs Skeletal Acolyte@Skeletal Fragments;Skeletal Flayer@Skeletal Fragments;Skeletal Executioner@Skeletal Fragments;Skeletal Sorcerer@Skeletal Fragments |value mid  -- Skeletal Fragments (57)
 complete 105 |at 1422 45.3,69.2  -- Alas, Andorhal (60)
 complete 5804 |at 1422 45.3,69.2  -- Araj's Scarab (60)
-complete 4971 |at 1422 48.3,65.8 |item 12627 |mobs Temporal Parasite |value mid  -- A Matter of Time (56)
 complete 5233 |at 1422 52.9,66.1 |item 13188 |mobs Cauldron Lord Razarch@Writhing Haunt Cauldron Key  -- Target: Writhing Haunt (55)
+turnin 4984 |npc Mulgris Deepriver |at 1422 53.7,64.7 |value mid  -- The Wildlife Suffers Too (54)
+accept 4985 |npc Mulgris Deepriver |at 1422 53.7,64.7 |value mid |lvl 51 |preany 4984  -- The Wildlife Suffers Too (56)
 turnin 5233 |npc Scourge Cauldron |at 1422 53.0,65.6  -- Target: Writhing Haunt (55)
 accept 5234 |npc Scourge Cauldron |at 1422 53.0,65.6 |lvl 50 |preany 5233  -- Return to the Bulwark (55)
-turnin 4985 |npc Mulgris Deepriver |at 1422 53.7,64.7 |value mid  -- The Wildlife Suffers Too (56)
-accept 4987 |npc Mulgris Deepriver |at 1422 53.7,64.7 |value mid |lvl 51 |preany 4985  -- Glyphed Oaken Branch (56)
-accept 5461 |npc Magistrate Marduke |at 1422 70.6,74.1 |group chain |lvl 57 |preany 5384  -- The Human, Ras Frostwhisper (60)
 complete 5342 |at 1422 43.5,83.7 |mobs Weldon Barov@Head of Weldon Barov |group elite  -- The Last Barov (60)
 accept 92842 |npc Argent Officer Pureheart |at 1422 43.0,83.5  -- A Cousin Abroad (55)
 accept 5401 |npc Argent Officer Pureheart |at 1422 43.0,83.5 |lvl 50  -- Argent Dawn Commission (55)
 turnin 5401 |npc Argent Officer Pureheart |at 1422 43.0,83.5  -- Argent Dawn Commission (55)
-complete 5524 |at 1422 42.9,83.5 |mobs Argent Defender |value low  -- Chromatic Mantle of the Dawn (60)
 complete 5504 |at 1422 42.9,83.5 |mobs Argent Defender |value mid  -- Mantles of the Dawn (60)
-turnin 105 |npc High Executor Derrington |at 1420 83.1,68.9  -- Alas, Andorhal (60)
-turnin 6390 |npc Mickey Levine |at 1420 83.3,72.3  -- A Plague Upon Thee (55)
+complete 5524 |at 1422 42.9,83.5 |mobs Argent Defender |value low  -- Chromatic Mantle of the Dawn (60)
+complete 5461 |at 1417 20.8,65.8 |group chain  -- The Human, Ras Frostwhisper (60)
 turnin 5234 |npc Shadow Priestess Vandis |at 1420 83.0,71.9  -- Return to the Bulwark (55)
-turnin 5804 |npc Apothecary Dithers |at 1420 83.3,69.2  -- Araj's Scarab (60)
-turnin 5342 |npc Alexi Barov |at 1420 83.1,71.6 |group elite  -- The Last Barov (60)
-accept 5235 |npc Shadow Priestess Vandis |at 1420 83.0,71.9 |lvl 50 |preany 5234  -- Target: Gahrron's Withering (58)
 turnin 964 |npc Apothecary Dithers |at 1420 83.3,69.2 |value mid  -- Skeletal Fragments (57)
-turnin 5093 |npc High Executor Derrington |at 1420 83.1,68.9  -- A Call to Arms: The Plaguelands! (50)
+accept 5514 |npc Apothecary Dithers |at 1420 83.3,69.2 |value mid |lvl 55 |preany 964  -- Mold Rhymes With... (57)
+accept 5235 |npc Shadow Priestess Vandis |at 1420 83.0,71.9 |lvl 50 |preany 5234  -- Target: Gahrron's Withering (58)
+turnin 5524 |npc Argent Quartermaster Hasana |at 1420 83.3,68.1 |value low  -- Chromatic Mantle of the Dawn (60)
+turnin 5804 |npc Apothecary Dithers |at 1420 83.3,69.2  -- Araj's Scarab (60)
+turnin 105 |npc High Executor Derrington |at 1420 83.1,68.9  -- Alas, Andorhal (60)
+turnin 5342 |npc Alexi Barov |at 1420 83.1,71.6 |group elite  -- The Last Barov (60)
 goto 1420 60.8,58.8 15 |note Take the zeppelin to Orgrimmar  -- zeppelin Undercity to Orgrimmar
-turnin 92842 |npc Quintus Wainworth |at 2482 79.8,70.7  -- A Cousin Abroad (55)
-turnin 97319 |npc Thark Gorax |at 2482 79.9,70.7  -- A Cousin Abroad (55)
-fly 1413 63.1,37.2 |from 2482 68.7,46.8 |npc The Barrens (Bragok)  -- flight master Fayran Elthas
+accept 5093 |npc Warcaller Gorlach |at 1454 37.7,75.2 |lvl 50  -- A Call to Arms: The Plaguelands! (50)
+fly 1413 63.1,37.2 |from 1454 45.1,63.9 |npc The Barrens (Bragok)  -- flight master Doras
 goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
 fly 1423 70.5,47.5 |from 1434 26.9,77.1 |npc Eastern Plaguelands (Georgia)  -- flight master Gringer
 accept 5465 |npc Leonid Barthalomew the Revered |at 1423 71.9,48.3 |group chain |lvl 57 |preany 5464  -- Soulbound Keepsake (60)
-fly 1458 63.2,48.6 |from 1423 70.5,47.5 |npc Undercity (Michael Garrett)  -- flight master Georgia
-turnin 5023 |npc Royal Overseer Bauhaus |at 1458 69.8,43.2  -- Better Late Than Never (52)
-fly 1434 26.9,77.1 |from 1458 63.2,48.6 |npc Stranglethorn Vale (Gringer)  -- flight master Michael Garrett
+fly 1434 26.9,77.1 |from 1423 70.5,47.5 |npc Stranglethorn Vale (Gringer)  -- flight master Georgia
 goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
-fly 1452 60.5,36.3 |from 1413 63.1,37.2 |npc Winterspring (Yugrek)  -- flight master Bragok
+fly 2482 68.7,46.8 |from 1413 63.1,37.2 |npc Mount Hyjal (Fayran Elthas)  -- flight master Bragok
+turnin 92842 |npc Quintus Wainworth |at 2482 79.8,70.7  -- A Cousin Abroad (55)
+fly 1452 60.5,36.3 |from 2482 68.7,46.8 |npc Winterspring (Yugrek)  -- flight master Fayran Elthas
 accept 5162 |npc Haleh |at 1452 54.5,51.2 |lvl 57 |preany 5161  -- Wrath of the Blue Flight (60)
 fly 1413 63.1,37.2 |from 1452 60.5,36.3 |npc The Barrens (Bragok)  -- flight master Yugrek
 goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
-fly 1417 73.0,32.7 |from 1434 26.9,77.1 |npc Arathi Highlands (Urda)  -- flight master Gringer
-complete 5461 |at 1417 20.8,65.8 |group chain  -- The Human, Ras Frostwhisper (60)
 turnin 5162 |npc Jeziba |at 1422 39.4,66.8  -- Wrath of the Blue Flight (60)
 accept 5164 |npc Jeziba |at 1422 39.4,66.8 |lvl 57 |preany 5162  -- Catalogue of the Wayward (60)
-turnin 4971 |npc Chromie |at 1422 39.5,66.8 |value mid  -- A Matter of Time (56)
-accept 4972 |npc Chromie |at 1422 39.5,66.8 |value mid |lvl 53 |preany 4971  -- Counting Out Time (56)
 turnin 5164 |npc Catalogue of the Wayward |at 1422 39.4,66.6  -- Catalogue of the Wayward (60)
 accept 5166 |npc Catalogue of the Wayward |at 1422 39.4,66.6 |value mid |group dungeon |lvl 57 |preany 5164  -- Breastplate of the Chromatic Flight (60)
 accept 5167 |npc Catalogue of the Wayward |at 1422 39.4,66.6 |value mid |group dungeon |lvl 57 |preany 5164  -- Legplates of the Chromatic Defier (60)
-complete 5166 |at 1422 40.7,57.4 |areas 53.3,66.2:16;40.7,57.4:12;68.4,77.1:12 |value mid |group dungeon  -- Breastplate of the Chromatic Flight (60)
 complete 5167 |at 1422 40.7,57.4 |areas 53.3,66.2:16;40.7,57.4:12;68.4,77.1:12 |value mid |group dungeon  -- Legplates of the Chromatic Defier (60)
+complete 5166 |at 1422 40.7,57.4 |areas 53.3,66.2:16;40.7,57.4:12;68.4,77.1:12 |value mid |group dungeon  -- Breastplate of the Chromatic Flight (60)
+complete 4985 |at 1422 60.5,52.0 |mobs Diseased Grizzly |value mid  -- The Wildlife Suffers Too (56)
 complete 5235 |at 1422 62.2,59.1 |item 13189 |mobs Cauldron Lord Soulwrath@Gahrron's Withering Cauldron Key  -- Target: Gahrron's Withering (58)
 turnin 5235 |npc Scourge Cauldron |at 1422 62.5,58.5  -- Target: Gahrron's Withering (58)
 accept 5236 |npc Scourge Cauldron |at 1422 62.5,58.5 |lvl 50 |preany 5235  -- Return to the Bulwark (58)
 turnin 5461 |npc Magistrate Marduke |at 1422 70.6,74.1 |group chain  -- The Human, Ras Frostwhisper (60)
-turnin 5465 |npc Magistrate Marduke |at 1422 70.6,74.1 |group chain  -- Soulbound Keepsake (60)
 accept 5462 |npc Magistrate Marduke |at 1422 70.6,74.1 |group chain |lvl 57 |preany 5461  -- The Dying, Ras Frostwhisper (60)
-complete 5154 |at 1422 43.4,69.5  -- The Annals of Darrowshire (56)
-complete 4972 |at 1422 42.7,69.6 |value mid  -- Counting Out Time (56)
+turnin 5465 |npc Magistrate Marduke |at 1422 70.6,74.1 |group chain  -- Soulbound Keepsake (60)
+turnin 4985 |npc Mulgris Deepriver |at 1422 53.7,64.7 |value mid  -- The Wildlife Suffers Too (56)
+accept 4987 |npc Mulgris Deepriver |at 1422 53.7,64.7 |value mid |lvl 51 |preany 4985  -- Glyphed Oaken Branch (56)
 turnin 5154 |npc Chromie |at 1422 39.5,66.8  -- The Annals of Darrowshire (56)
 turnin 4972 |npc Chromie |at 1422 39.5,66.8 |value mid  -- Counting Out Time (56)
-turnin 5166 |npc Jeziba |at 1422 39.4,66.8 |value mid |group dungeon  -- Breastplate of the Chromatic Flight (60)
 turnin 5167 |npc Jeziba |at 1422 39.4,66.8 |value mid |group dungeon  -- Legplates of the Chromatic Defier (60)
-turnin 5236 |npc Shadow Priestess Vandis |at 1420 83.0,71.9  -- Return to the Bulwark (58)
-accept 5511 |npc High Executor Derrington |at 1420 83.1,68.9 |lvl 55 |preany 5804  -- The Key to Scholomance (60)
-turnin 5511 |npc High Executor Derrington |at 1420 83.1,68.9  -- The Key to Scholomance (60)
-accept 5514 |npc Apothecary Dithers |at 1420 83.3,69.2 |value mid |lvl 55 |preany 964  -- Mold Rhymes With... (57)
-accept 5238 |npc High Executor Derrington |at 1420 83.1,68.9 |lvl 50 |preany 5236  -- Mission Accomplished! (58)
-turnin 5504 |npc Argent Quartermaster Hasana |at 1420 83.3,68.1 |value mid  -- Mantles of the Dawn (60)
-turnin 5238 |npc High Executor Derrington |at 1420 83.1,68.9  -- Mission Accomplished! (58)
-turnin 5524 |npc Argent Quartermaster Hasana |at 1420 83.3,68.1 |value low  -- Chromatic Mantle of the Dawn (60)
-goto 1420 60.8,58.8 15 |note Take the zeppelin to Orgrimmar |value mid  -- zeppelin Undercity to Orgrimmar
-turnin 4987 |npc Nara Wildmane |at 1456 75.7,31.6 |value mid  -- Glyphed Oaken Branch (56)
-fly 1446 51.6,25.4 |from 1456 47.0,49.8 |npc Tanaris (Bulkrek Ragefist) |value mid  -- flight master Tal
+turnin 5166 |npc Jeziba |at 1422 39.4,66.8 |value mid |group dungeon  -- Breastplate of the Chromatic Flight (60)
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
+fly 1446 51.6,25.4 |from 1413 63.1,37.2 |npc Tanaris (Bulkrek Ragefist) |value mid  -- flight master Bragok
 turnin 5514 |npc Krinkle Goodsteel |at 1446 51.5,28.8 |value mid  -- Mold Rhymes With... (57)
-fly 1413 63.1,37.2 |from 1446 51.6,25.4 |npc The Barrens (Bragok)  -- flight master Bulkrek Ragefist
-goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
-fly 1423 70.5,47.5 |from 1434 26.9,77.1 |npc Eastern Plaguelands (Georgia)  -- flight master Gringer
+fly 1456 47.0,49.8 |from 1446 51.6,25.4 |npc Thunder Bluff (Tal) |value mid  -- flight master Bulkrek Ragefist
+turnin 4987 |npc Nara Wildmane |at 1456 75.7,31.6 |value mid  -- Glyphed Oaken Branch (56)
+goto 1411 50.6,12.6 15 |note Take the zeppelin to Undercity  -- zeppelin Orgrimmar to Undercity
+turnin 5236 |npc Shadow Priestess Vandis |at 1420 83.0,71.9  -- Return to the Bulwark (58)
+accept 97319 |npc Argent Officer Garush |at 1420 83.2,68.5 |lvl 55  -- A Cousin Abroad (55)
+turnin 5504 |npc Argent Quartermaster Hasana |at 1420 83.3,68.1 |value mid  -- Mantles of the Dawn (60)
+turnin 5093 |npc High Executor Derrington |at 1420 83.1,68.9  -- A Call to Arms: The Plaguelands! (50)
+accept 5511 |npc High Executor Derrington |at 1420 83.1,68.9 |lvl 55 |preany 5804  -- The Key to Scholomance (60)
+accept 5238 |npc High Executor Derrington |at 1420 83.1,68.9 |lvl 50 |preany 5236  -- Mission Accomplished! (58)
+turnin 5511 |npc High Executor Derrington |at 1420 83.1,68.9  -- The Key to Scholomance (60)
+turnin 5238 |npc High Executor Derrington |at 1420 83.1,68.9  -- Mission Accomplished! (58)
 turnin 5462 |npc Leonid Barthalomew the Revered |at 1423 71.9,48.3 |group chain  -- The Dying, Ras Frostwhisper (60)
+fly 1434 26.9,77.1 |from 1423 70.5,47.5 |npc Stranglethorn Vale (Gringer)  -- flight master Georgia
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
+fly 2482 68.7,46.8 |from 1413 63.1,37.2 |npc Mount Hyjal (Fayran Elthas)  -- flight master Bragok
+turnin 97319 |npc Thark Gorax |at 2482 79.9,70.7  -- A Cousin Abroad (55)
 ]]}

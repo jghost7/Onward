@@ -1,6 +1,11 @@
 # Changelog
 
-## Unreleased
+## 0.6.31
+
+- All leveling guides are rebuilt from Questie's newest data, so step order changes in most
+  zones. Your progress carries over: steps follow the quests you have done, not their numbers.
+  Horde Azshara is now one guide and Horde Tirisfal Glades is two; if you were on one of those,
+  pick it again with /ow guides.
 
 - No more pointless round trips. When a guide flies you somewhere and back, and everything it
   wanted there is already done, skipped or not on offer yet, both flights are passed over.

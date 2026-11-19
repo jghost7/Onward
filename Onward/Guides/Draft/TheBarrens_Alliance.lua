@@ -1,4 +1,4 @@
--- DRAFT The Barrens (Alliance) generated 2026-11-18 by tools/draft_guide.py
+-- DRAFT The Barrens (Alliance) generated 2026-11-19 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -66,5 +66,6 @@ turnin 97253 |npc Wrenix the Wretched |at 1413 63.1,36.3  -- Parts and Pieces (1
 ]]}
 
 -- Not routed (far above the zone's level range, or no reachable path):
+--   93862  Crate Return (60)
 --   96339  Legacy Reward: Replica Ironforge Air Rifle (60)
 --   96383  Legacy Reward: Spectral Bear Cub (60)

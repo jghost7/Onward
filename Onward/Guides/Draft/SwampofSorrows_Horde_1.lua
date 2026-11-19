@@ -1,4 +1,4 @@
--- DRAFT Swamp of Sorrows (Horde) generated 2026-11-18 by tools/draft_guide.py
+-- DRAFT Swamp of Sorrows (Horde) generated 2026-11-19 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -13,7 +13,7 @@ accept 698 |npc Dar |at 1435 44.7,57.2 |value mid |lvl 35  -- Lack of Surplus (4
 accept 93663 |npc Dar |at 1435 44.7,57.2 |lvl 30  -- Lost in Transit (35)
 accept 1418 |npc Helgrum the Swift |at 1435 47.7,55.2 |lvl 30  -- Neeka Bloodscar (35)
 complete 698 |at 1435 53.6,55.6 |areas 75.5,19.4:9;52.2,41.5:8;53.6,55.6:7 |mobs Sawtooth Snapper@Unprepared Sawtooth Flank;Sawtooth Crocolisk@Unprepared Sawtooth Flank |value mid  -- Lack of Surplus (40)
-complete 93176 |at 1435 62.9,67.6 |item 213565 |mobs Deathstrike Tarantula;Weevil K. Neevil  -- My Little Friends (35)
+complete 93176 |at 1435 62.9,67.6 |item 213565 |mobs Deathstrike Tarantula  -- My Little Friends (35)
 turnin 698 |npc Tok'Kar |at 1435 81.3,81.0 |value mid  -- Lack of Surplus (40)
 complete 1389 |at 1435 62.3,23.6  -- Draenethyst Crystals (35)
 complete 93430 |at 1435 53.7,30.6 |mobs Lost One Fisherman@Lucky Lure  -- Taking the Bait Back (35)

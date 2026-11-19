@@ -1,4 +1,4 @@
--- DRAFT Silverpine Forest (Horde) generated 2026-11-18 by tools/draft_guide.py
+-- DRAFT Silverpine Forest (Horde) generated 2026-11-19 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -47,3 +47,6 @@ turnin 98299 |npc Dalar Dawnweaver |at 1421 44.2,39.8 |group chain  -- Stop the 
 fly 1458 63.2,48.6 |from 1421 45.6,42.6 |npc Undercity (Michael Garrett)  -- flight master Karos Razok
 turnin 530 |npc Raleigh Andrean |at 1458 62.0,42.8  -- A Husband's Revenge (20)
 ]]}
+
+-- Not routed (far above the zone's level range, or no reachable path):
+--   80455  Biding Our Time (50)

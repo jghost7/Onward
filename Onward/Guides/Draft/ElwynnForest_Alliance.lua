@@ -1,4 +1,4 @@
--- DRAFT Elwynn Forest (Alliance) generated 2026-11-18 by tools/draft_guide.py
+-- DRAFT Elwynn Forest (Alliance) generated 2026-11-19 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -167,7 +167,7 @@ turnin 91777 |npc Brother Paxton |at 1429 49.6,40.4 |group chain  -- Rare Books 
 complete 91725 |at 1429 66.6,41.8  -- Stolen Enchanting Supplies (10)
 complete 91724 |at 1429 74.1,51.8 |areas 74.1,51.8:21;29.1,60.9:5 |mobs Defias Rogue Wizard  -- Delicate Instruments (10)
 accept 46 |npc Guard Thomas |at 1429 74.0,72.2 |lvl 7 |preany 39  -- Bounty on Murlocs (10)
-complete 46 |at 1429 79.2,55.3 |areas 77.0,84.0:133;79.2,55.3:94 |mobs Croaky@Torn Murloc Fin;Elder Finseer@Torn Murloc Fin;Murloc Forager@Torn Murloc Fin;Murloc Lurker@Torn Murloc Fin  -- Bounty on Murlocs (10)
+complete 46 |at 1429 79.2,55.4 |areas 77.0,84.2:133;79.2,55.4:96 |mobs Croaky@Torn Murloc Fin;Elder Finseer@Torn Murloc Fin;Murloc Forager@Torn Murloc Fin;Murloc Lurker@Torn Murloc Fin  -- Bounty on Murlocs (10)
 complete 5545 |at 1429 80.2,60.0  -- A Bundle of Trouble (9)
 turnin 91732 |npc Hagar Lowe |at 1429 82.5,63.8 |value low  -- Good Steel (7)
 turnin 5545 |npc Supervisor Raelen |at 1429 81.4,66.1  -- A Bundle of Trouble (9)

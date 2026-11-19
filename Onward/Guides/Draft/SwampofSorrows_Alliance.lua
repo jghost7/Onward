@@ -1,4 +1,4 @@
--- DRAFT Swamp of Sorrows (Alliance) generated 2026-11-18 by tools/draft_guide.py
+-- DRAFT Swamp of Sorrows (Alliance) generated 2026-11-19 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -34,7 +34,7 @@ goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Boot
 complete 1116 |at 1435 14.3,61.3 |areas 14.3,61.3:13;86.0,45.9:10;62.2,41.7:9;76.6,68.8:7 |mobs Scalebane Captain@Speck of Dream Dust;Green Scalebane@Speck of Dream Dust;Adolescent Whelp@Speck of Dream Dust;Wyrmkin Dreamwalker@Speck of Dream Dust |value mid  -- Dream Dust in the Swamp (36)
 turnin 1421 |npc Watcher Biggs |at 1435 26.7,59.8  -- The Lost Caravan (35)
 accept 1398 |npc Watcher Biggs |at 1435 26.7,59.8 |lvl 30 |preany 1421  -- Driftwood (42)
-complete 93176 |at 1435 62.9,67.6 |item 213565 |mobs Deathstrike Tarantula;Weevil K. Neevil  -- My Little Friends (35)
+complete 93176 |at 1435 62.9,67.6 |item 213565 |mobs Deathstrike Tarantula  -- My Little Friends (35)
 complete 1398 |at 1435 84.8,87.7 |areas 84.8,87.7:5;91.9,68.6:5;90.0,25.9:4;80.5,9.4:3  -- Driftwood (42)
 turnin 1398 |npc Watcher Biggs |at 1435 26.7,59.8  -- Driftwood (42)
 accept 94929 |npc Watcher Biggs |at 1435 26.7,59.8 |lvl 36 |preany 1398  -- Deliver the Second Shipment (38)

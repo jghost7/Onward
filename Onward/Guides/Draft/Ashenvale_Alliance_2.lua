@@ -1,4 +1,4 @@
--- DRAFT Ashenvale (Alliance) generated 2026-11-18 by tools/draft_guide.py
+-- DRAFT Ashenvale (Alliance) generated 2026-11-19 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -43,10 +43,10 @@ accept 1032 |npc Illiyana |at 1440 21.7,53.3 |value mid |lvl 26 |preany 1031  --
 accept 86757 |npc Shandrina |at 1440 49.5,67.1 |value low |lvl 27  -- Slowing the Orc Advance (30)
 turnin 1030 |npc Krolg |at 1440 50.8,75.1  -- Raene's Cleansing (28)
 accept 1045 |npc Krolg |at 1440 50.8,75.1 |lvl 18 |preany 1030  -- Raene's Cleansing (30)
-complete 1045 |at 1440 54.9,78.8 |item 5462 |mobs Ran Bloodtooth;Bloodtooth Guard  -- Raene's Cleansing (30)
+complete 1045 |at 1440 54.9,78.8 |item 5462 |mobs Bloodtooth Guard;Ran Bloodtooth@Ran Bloodtooth's Skull  -- Raene's Cleansing (30)
 turnin 1045 |npc Krolg |at 1440 50.8,75.1  -- Raene's Cleansing (30)
 accept 1046 |npc Krolg |at 1440 50.8,75.1 |lvl 18 |preany 1045  -- Raene's Cleansing (30)
-complete 1046 |at 1440 54.8,79.6 |mobs Ran Bloodtooth@Ran Bloodtooth's Skull  -- Raene's Cleansing (30)
+complete 1046 |at 1440 54.8,79.6 |mobs Ran Bloodtooth  -- Raene's Cleansing (30)
 complete 1035 |at 1440 66.7,82.2 |mobs Shadethicket Oracle@Fallen Moonstone  -- Fallen Sky Lake (30)
 complete 86757 |at 1440 71.7,80.5 |areas 87.5,58.5:36;71.7,80.5:14 |mobs Horde Scout@Curved Orcish Dagger;Horde Grunt@Jagged Orcish Sword |value low  -- Slowing the Orc Advance (30)
 complete 1012 |at 1440 77.2,74.0 |mobs Taneel Darkwood;Uthil Mooncall;Mavoris Cloudsbreak  -- Insane Druids (32)
