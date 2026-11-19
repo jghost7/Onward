@@ -1889,6 +1889,22 @@ fly 1424 50.0,50.0 |from 1423 52.0,52.0 |npc Eastwatch
         cur().verb == "accept" and cur().quest == 9703, cur().verb .. " " .. tostring(cur().quest))
     MOCK.addQuest(9703, "Next") MOCK.fire("QUEST_ACCEPTED", 9703) settle()
     check("the last flight of a guide always stands", cur() and cur().verb == "fly", cur() and cur().verb)
+    -- a longer trip with a boat walk in it: the whole run goes, boat steps included
+    W:RegisterGuide{ id = "roundtrip2", title = "Round trip 2", levels = { 1, 60 }, steps = [[
+accept 9701
+fly 1424 50.0,50.0 |from 1423 52.0,52.0 |npc Eastwatch
+accept 9702
+goto 1424 60.0,60.0 |note Take the boat
+fly 1423 52.0,52.0 |from 1424 50.0,50.0 |npc Home
+accept 9704
+]] }
+    W.Guide:Activate("roundtrip2") settle()
+    check("idle trip with a boat walk: flights and the boat step are all passed over",
+        cur().verb == "accept" and cur().quest == 9704, cur().verb .. " " .. tostring(cur().quest))
+    MOCK.pos = { map = 1424, x = 0.5, y = 0.5 }
+    W.Guide:Activate("roundtrip2") settle()
+    check("...but at the far end, the way back stays", cur().verb == "goto", cur().verb)
+    MOCK.pos = { map = 1423, x = 0.5, y = 0.5 }
     for _, q in ipairs({ 9701, 9702, 9703 }) do MOCK.turnIn(q) MOCK.done[q] = nil MOCK.fire("QUEST_REMOVED", q) end
     MOCK.pos = oldPos
     if prev then W.Guide:Activate(prev) settle() end

@@ -524,16 +524,37 @@ local function idleFlight(step)
     end
     return nextFly ~= nil
 end
-local function returnOfIdle(step)
-    for i = step.index - 1, 1, -1 do
-        local s = active.steps[i]
+-- A trip you don't need: a run of flights and boat walks with nothing left to do along the way
+-- that ends nearer to you than this leg's own stops (it comes back to where you are, or you
+-- are already where it goes). The leg is passed over. A flight's own landing counts only when
+-- nothing is left to do before it either, so the way back from an errand stays in the list.
+local function yards(at)
+    return at and at.map and W.Travel.Distance(at.map, at.x, at.y) or math.huge
+end
+local function pointlessLeg(step)
+    if not active or active.id == "smart" then return false end
+    local steps = active.steps
+    if UnitOnTaxi and UnitOnTaxi("player") then return false end
+    local first = step.index + 1
+    if step.verb == "fly" then
+        -- its own landing counts when it closes a trip: a flight before it that you didn't take,
+        -- with nothing open in between
+        for i = step.index - 1, 1, -1 do
+            local s = steps[i]
+            if s.verb == "fly" then
+                if not reached[s] then first = step.index end
+                break
+            end
+            if s.verb ~= "goto" and isOpen(s) then break end
+        end
+    end
+    for i = first, #steps do
+        local s = steps[i]
         if s.verb == "fly" then
-            if not (s.from and s.from.map == step.at.map and not reached[s] and idleFlight(s)) then return false end
-            -- unless you went there anyway: then the way back is still yours to take
-            local T = W.Travel
-            local here = T.Distance(step.at.map, step.at.x, step.at.y) or math.huge
-            local there = T.Distance(s.at.map, s.at.x, s.at.y) or math.huge
-            return here <= there
+            local d = yards(s.at)
+            if d < math.huge and d <= yards(step.from) and (i == step.index or d < yards(step.at)) then return true end
+        elseif s.verb ~= "goto" and isOpen(s) then
+            return false
         end
     end
     return false
@@ -545,7 +566,8 @@ function isOpen(step)
     if forced[step] then return true end
     if G:IsLater(step) then return false end
     if G:IsSkipped(step) then return false end
-    if step.verb == "fly" and step.index and (idleFlight(step) or returnOfIdle(step)) then return false end
+    if step.index and (step.verb == "fly" and (idleFlight(step) or pointlessLeg(step))
+        or step.verb == "goto" and pointlessLeg(step)) then return false end
     if G:IsBlocked(step) then return false end
     local _, held, pre = G:HeldReason(step)
     if held and not wallOpens(held, pre) then return false end
