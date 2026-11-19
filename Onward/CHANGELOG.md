@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+- Herbalism, Mining and Skinning: "Train Artisan" had no trainer to point at, and Journeyman and
+  Expert could skip a nearer one. Their trainers teach every rank up to Artisan (only the Junior
+  trainers in the starting zones stop at Apprentice), so each "Train" step now goes to the
+  nearest of them.
+
 ## 0.6.28
 
 - Profession guides sent you to the wrong trainer for a new rank. "Train Journeyman Engineering"

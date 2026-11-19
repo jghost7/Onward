@@ -182,7 +182,12 @@ def trainers(db, a2m):
                 if re.search(r"Gnome|Goblin|Dragonscale|Elemental|Tribal|Shadoweave", sub):
                     continue
                 cap = 300 if "Master" in sub else 225 if "Artisan" in sub else 150 if "Expert" in sub else \
-                    75 if re.search(r"Junior|Journeyman|Apprentice", sub) else 225
+                    75 if re.search(r"Junior|Journeyman|Apprentice", sub) else \
+                    300 if s in (182, 186, 393) else 225
+                # Herbalism, Mining and Skinning trainers carry no rank in their title ("Mining
+                # Trainer", "Herbalist", "Skinner") and teach every rank up to Artisan; only the
+                # Junior ones in the starting zones stop at Apprentice. (Checked on five trainers'
+                # pages, city and zone, 2026-11-18.)
                 name = text(db.npc(n, "name"))
                 for m, x, y in npc_points(db, a2m, n)[:1]:
                     out[s].append((cap, faction_of(db, n), m, x, y, name))
