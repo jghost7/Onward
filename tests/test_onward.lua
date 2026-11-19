@@ -1868,6 +1868,32 @@ do
     W.db.partyChat = oldChat
 end
 
+do  -- a flight out and back whose only errand is already done is passed over
+    local prev = W.Guide:Active() and W.Guide:Active().id
+    local oldPos = MOCK.pos
+    MOCK.pos = { map = 1423, x = 0.5, y = 0.5 }
+    W:RegisterGuide{ id = "roundtrip", title = "Round trip", levels = { 1, 60 }, steps = [[
+accept 9701
+fly 1424 50.0,50.0 |from 1423 52.0,52.0 |npc Eastwatch
+accept 9702
+fly 1423 52.0,52.0 |from 1424 50.0,50.0 |npc Home
+accept 9703
+fly 1424 50.0,50.0 |from 1423 52.0,52.0 |npc Eastwatch
+]] }
+    MOCK.addQuest(9701, "At home")
+    MOCK.fire("QUEST_LOG_UPDATE")
+    W.Guide:Activate("roundtrip") settle()
+    check("round trip with an errand left: the flight stands", cur().verb == "fly", cur().verb)
+    MOCK.addQuest(9702, "Picked up earlier") MOCK.fire("QUEST_ACCEPTED", 9702) settle()
+    check("round trip with nothing left to do there: both flights are passed over",
+        cur().verb == "accept" and cur().quest == 9703, cur().verb .. " " .. tostring(cur().quest))
+    MOCK.addQuest(9703, "Next") MOCK.fire("QUEST_ACCEPTED", 9703) settle()
+    check("the last flight of a guide always stands", cur() and cur().verb == "fly", cur() and cur().verb)
+    for _, q in ipairs({ 9701, 9702, 9703 }) do MOCK.turnIn(q) MOCK.done[q] = nil MOCK.fire("QUEST_REMOVED", q) end
+    MOCK.pos = oldPos
+    if prev then W.Guide:Activate(prev) settle() end
+end
+
 check("no runtime errors", #MOCK.errors == 0, MOCK.errors[1])
 print(("%d passed, %d failed"):format(pass, fail))
 return fail

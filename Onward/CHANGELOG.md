@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- No more pointless round trips. When a guide flies you somewhere and back, and everything it
+  wanted there is already done, skipped or not on offer yet, both flights are passed over.
+
 - Riverglades, "Proof of Profit": the step now points to the Cubic Draconia crystal in the
   Cinderscale cave and says what to loot. It had no arrow and no location.
 

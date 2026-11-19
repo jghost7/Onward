@@ -508,12 +508,44 @@ local function wallOpens(kind, pre)
     return wall and (kind == "level" or (kind == "pre" and not (active and active.acceptOf[pre])))
 end
 
-local function isOpen(step)
+local isOpen
+
+-- A flight with nothing left to do where it lands: every step between it and the next flight
+-- is done, skipped or held (you already have the quest the trip was for, say). It is passed
+-- over, and so is the flight back from there. The last flight of a guide always stands: it
+-- takes you to the next zone.
+local function idleFlight(step)
+    if not active or active.id == "smart" then return false end
+    local steps, nextFly = active.steps
+    for i = step.index + 1, #steps do
+        local s = steps[i]
+        if s.verb == "fly" then nextFly = s break end
+        if s.verb ~= "goto" and isOpen(s) then return false end
+    end
+    return nextFly ~= nil
+end
+local function returnOfIdle(step)
+    for i = step.index - 1, 1, -1 do
+        local s = active.steps[i]
+        if s.verb == "fly" then
+            if not (s.from and s.from.map == step.at.map and not reached[s] and idleFlight(s)) then return false end
+            -- unless you went there anyway: then the way back is still yours to take
+            local T = W.Travel
+            local here = T.Distance(step.at.map, step.at.x, step.at.y) or math.huge
+            local there = T.Distance(s.at.map, s.at.x, s.at.y) or math.huge
+            return here <= there
+        end
+    end
+    return false
+end
+
+function isOpen(step)
     if G:IsComplete(step) then return false end
     if G:IsWaiting(step) then return false end
     if forced[step] then return true end
     if G:IsLater(step) then return false end
     if G:IsSkipped(step) then return false end
+    if step.verb == "fly" and step.index and (idleFlight(step) or returnOfIdle(step)) then return false end
     if G:IsBlocked(step) then return false end
     local _, held, pre = G:HeldReason(step)
     if held and not wallOpens(held, pre) then return false end
