@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.6.30
 
 - The detail under a step's title is easier to read. It used to be one run of grey text; now each
   kind of information has its own line, led by a small icon: who to talk to, a boat or flight leg
