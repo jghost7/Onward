@@ -1935,6 +1935,28 @@ turnin 9801 |npc Marla Fipps |at 1423 50.0,50.0
     if prev then W.Guide:Activate(prev) settle() end
 end
 
+do  -- items to bring: a quest that wants something you have to buy or have made
+    local prev = W.Guide:Active() and W.Guide:Active().id
+    W:RegisterGuide{ id = "bring", title = "Bring", levels = { 1, 60 }, steps = [[
+accept 9811 |npc Lotwil |at 1423 50.0,50.0
+complete 9811 |need 3829:2:Frost Oil:made with Alchemy, so buy it at the auction house or ask a crafter;4389:1:Gyrochronatom:sold by Billibub in Stormwind City
+turnin 9811 |npc Lotwil |at 1423 50.0,50.0
+]] }
+    W.Guide:Activate("bring") settle()
+    local needs = W.Guide:Needs()
+    check("items to bring: both listed before the quest is even picked up", #needs == 2 and needs[1].name == "Frost Oil" and needs[1].n == 2, #needs)
+    check("...with where to get them", needs[1].where:find("Alchemy", 1, true) and needs[2].where:find("Billibub", 1, true))
+    MOCK.bags[3829] = 2
+    needs = W.Guide:Needs()
+    check("an item in your bags drops off the list", #needs == 1 and needs[1].id == 4389, #needs)
+    local title = W.UI.NeedLine(needs[1])
+    check("the list names the item", title == "Gyrochronatom", title)
+    MOCK.bags[4389] = 1
+    check("everything in hand: nothing to bring", #W.Guide:Needs() == 0)
+    MOCK.bags[3829], MOCK.bags[4389] = nil, nil
+    if prev then W.Guide:Activate(prev) settle() end
+end
+
 check("no runtime errors", #MOCK.errors == 0, MOCK.errors[1])
 print(("%d passed, %d failed"):format(pass, fail))
 return fail

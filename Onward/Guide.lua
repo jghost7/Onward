@@ -186,6 +186,13 @@ local function parseLine(line, lineNo, guideId)
         end
     end
     step.item = tonumber(opts.item)
+    -- |need id:count:name:where;...  items the quest wants that nothing drops: bought or crafted
+    if opts.need and opts.need ~= "" then
+        step.need = {}
+        for id, n, name, where in opts.need:gmatch("(%d+):(%d+):([^:;]*):([^;]*)") do
+            step.need[#step.need + 1] = { id = tonumber(id), n = tonumber(n), name = name, where = where }
+        end
+    end
     if opts.mobs and opts.mobs ~= "" then
         step.mobs = {}
         -- "Mob@Item": the mob is there for that item (Target drops it once the item is collected)
@@ -246,7 +253,7 @@ local function stepKey(step, seen)
 end
 
 local function parse(def)
-    local g = { def = def, id = def.id, title = def.title, steps = {}, acceptOf = {}, turninAt = {} }
+    local g = { def = def, id = def.id, title = def.title, steps = {}, acceptOf = {}, turninAt = {}, needOf = {} }
     local n, seen = 0, {}
     for raw in (def.steps .. "\n"):gmatch("(.-)\r?\n") do
         n = n + 1
@@ -259,6 +266,7 @@ local function parse(def)
                 step.key = stepKey(step, seen)
                 g.steps[step.index] = step
                 if step.verb == "accept" then g.acceptOf[step.quest] = g.acceptOf[step.quest] or step end
+                if step.need then g.needOf[step.quest] = step end
                 if step.loose and step.startItem then g.hasStartItems = true end
                 if step.verb == "turnin" then g.turninAt[step.quest] = g.turninAt[step.quest] or step.index end
             end
@@ -469,6 +477,42 @@ function G:HeldReason(step)
         end
         return ("after %s"):format(QS:Title(p) or ("quest " .. p)), "pre", p
     end
+end
+
+-- Items to bring: things a quest of this guide wants that no mob or object drops, so they have
+-- to be bought from a vendor or made by a profession (Frost Oil for "Coolant Heads Prevail").
+-- G:NeedsFor(quest) = what's still missing for one quest; G:Needs() = for every quest of the guide
+-- you haven't finished or dropped. Each entry: { id, n, name, where, have, bank, quest }.
+local function bagCount(id, bank)
+    return (C_Item and C_Item.GetItemCount and C_Item.GetItemCount(id, bank)) or (GetItemCount and GetItemCount(id, bank)) or 0
+end
+function G:NeedsFor(quest)
+    local out = {}
+    local s = active and active.needOf and active.needOf[quest]
+    if not s or QS:IsDone(quest) or QS:IsReady(quest) then return out end
+    for _, it in ipairs(s.need) do
+        local have = bagCount(it.id)
+        if have < it.n then
+            out[#out + 1] = { id = it.id, n = it.n, name = it.name, where = it.where, have = have,
+                              bank = math.max(0, bagCount(it.id, true) - have), quest = quest }
+        end
+    end
+    return out
+end
+function G:Needs()
+    local out = {}
+    if not active or active.id == "smart" then return out end
+    for _, s in ipairs(active.steps) do
+        if s.need and not G:IsSkipped(s) and not G:IsLater(s) then
+            local a = active.acceptOf[s.quest]
+            local dropped = a and G:IsSkipped(a) and not QS:IsOnQuest(s.quest)
+            local missed = G:IsBehind(s) and not QS:IsOnQuest(s.quest)
+            if not dropped and not missed then
+                for _, it in ipairs(G:NeedsFor(s.quest)) do out[#out + 1] = it end
+            end
+        end
+    end
+    return out
 end
 
 -- Quests of this guide with no known place to pick them up, that you don't have yet: the
@@ -1147,7 +1191,8 @@ end)
 W:On("PLAYER_LEVEL_UP", function() G:ClearSuggestion() W:RequestRefresh() end)
 -- an item that starts a quest landed in your bags: its accept step can come up
 W:On("BAG_UPDATE_DELAYED", function()
-    if not (active and active.hasStartItems) then return end
+    -- start items and items to bring both depend on what's in your bags
+    if not (active and (active.hasStartItems or (active.needOf and next(active.needOf)))) then return end
     W:RequestRefresh()
 end)
 

@@ -400,6 +400,60 @@ class Zone:
                 pts += collect(e[0])
         return pts
 
+    # ------------------------------------------------------------ items you have to bring
+    def needs(self, q):
+        """Objective items nothing in the world drops: ones a vendor sells or a profession makes.
+        [(itemId, count, name, where)]: the guide tells you to bring them (a quest that wants
+        Frost Oil never says it comes from an alchemist). Items with neither source are left
+        alone: they come out of the quest chain itself."""
+        obj = self.db.quest(q, "objectives")
+        items = obj.get(3) if isinstance(obj, dict) else (obj[2] if obj and len(obj) > 2 else None)
+        text = " ".join(s(t) or "" for t in lua_list(self.db.quest(q, "objectivesText")))
+        out = []
+        for e in lua_list(items):
+            item = e if isinstance(e, int) else lua_list(e)[0]
+            if not item or item == self.db.quest(q, "sourceItemId"):
+                continue
+            try:
+                f = lambda k: [x for x in lua_list(self.db.field("Item-", item, k)) if x]
+                name, drops, objs, vendors = s(self.db.field("Item-", item, 1)), f(2), f(3), f(14)
+            except Exception:
+                continue
+            if not name or drops or objs:
+                continue
+            where = self.vendor_text(vendors) or self.craft_text(item)
+            if not where:
+                continue
+            m = re.search(r"(\d+) " + re.escape(name[:-1] if name.endswith("s") else name), text)
+            out.append((item, int(m.group(1)) if m else 1, name, where))
+        return out
+
+    def vendor_text(self, vendors):
+        """'sold by Name in Zone' for a vendor friendly to this faction, one in this zone first."""
+        from questiedb import map_names
+        best = None
+        for n in vendors:
+            friendly = s(self.db.npc(n, "friendlyToFaction")) or "AH"
+            if self.faction[0] not in friendly:
+                continue
+            spawns = self.db.npc(n, "spawns")
+            here = bool(self.zone_points(spawns))
+            m = self.map if here else self.other_map_point(spawns)[0]
+            if not m:
+                continue
+            cand = (0 if here else 1, s(self.db.npc(n, "name")), m)
+            if best is None or cand < best:
+                best = cand
+        if not best:
+            return None
+        zone = map_names().get(best[2], "")
+        more = " and other vendors" if len(vendors) > 1 else ""
+        return f"sold by {best[1]}" + (f" in {zone}" if zone else "") + more
+
+    def craft_text(self, item):
+        skill = crafted_by().get(item)
+        return f"made with {skill}, so buy it at the auction house or ask a crafter" if skill else None
+
     def mob_names(self, q, limit=4):
         """Names to /target for a quest: kill targets and kill credit first, then the mobs that
         drop its items, most common in this zone first (a drop list can run to dozens). A dropper
@@ -476,6 +530,7 @@ class Zone:
             "breadcrumbFor": db.quest(q, "breadcrumbForQuestId"),
             "text": texts[0] if texts else "",
             "mobs": mobs, "objNote": spot_note,
+            "needs": self.needs(q),
             "useItem": db.quest(q, "sourceItemId") or None,   # the item the quest hands you, often the one you use
             "group": self.group(q),
         }
@@ -500,6 +555,23 @@ _SPOTS = {}
 
 
 _FIXES = None
+
+
+_CRAFTED = {}
+
+
+def crafted_by():
+    """{itemId: profession name} for everything a crafting recipe makes (Forever's own DB2 tables,
+    the same ones the profession guides are built from)."""
+    if not _CRAFTED:
+        from draft_professions import Client, CRAFT, I
+        c = Client()
+        for r in c.sla:
+            made = c.creates.get(I(r["Spell"]))
+            if made and I(r["SkillLine"]) in CRAFT:
+                _CRAFTED.setdefault(made[0], CRAFT[I(r["SkillLine"])])
+        _CRAFTED[0] = ""
+    return _CRAFTED
 
 
 def quest_fixes():
@@ -1321,7 +1393,10 @@ def render(zone, steps, leftovers, levels, name, faction, gid=None, next_id=None
             # nearest and offers the others
             areas = (" |areas " + ";".join(f"{x:.1f},{y:.1f}:{n}" for (x, y), n in q["areas"])) if q.get("areas") and q["obj"] else ""
             note = f" |note {clean(q['objNote'])}" if q.get("objNote") else ""
-            out.append(f"complete {q['id']}{at}{areas}{use}{mobs}{note}{who}{title}")
+            # items to bring: id:count:name:where, ';' between items
+            strip = lambda v: clean(v).replace(":", " ").replace(";", ",")
+            need = (" |need " + ";".join(f"{i}:{n}:{strip(nm)}:{strip(w)}" for i, n, nm, w in q["needs"])) if q.get("needs") else ""
+            out.append(f"complete {q['id']}{at}{areas}{use}{mobs}{note}{need}{who}{title}")
         else:
             loc = q["finish"]
             npc = f" |npc {clean(loc[2])}" if loc and loc[2] else ""

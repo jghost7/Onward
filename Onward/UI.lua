@@ -630,6 +630,36 @@ looseBtn:SetScript("OnClick", function(self)
 end)
 UI.looseBtn = looseBtn   -- Render reaches it through UI (60-upvalue limit)
 
+-- items to bring: what the guide's quests want that you have to buy or have made. Click prints
+-- the list to chat.
+local function needLine(it)
+    local count = it.n > 1 and (" %d/%d"):format(it.have, it.n) or ""
+    local bank = it.bank > 0 and (" (%d in your bank)"):format(it.bank) or ""
+    return it.name .. count .. bank, ("%s. For %s."):format(it.where, questTitle(it.quest))
+end
+UI.NeedLine = needLine
+local needBtn = lineButton(C.dim)
+needBtn:SetScript("OnEnter", function(self)
+    GameTooltip:SetOwner(self, "ANCHOR_LEFT")
+    GameTooltip:AddLine("Items to bring")
+    GameTooltip:AddLine("Quests in this guide want these, and nothing out here drops them. Pick them up while you're in a city.", 0.6, 0.6, 0.6, true)
+    for i, it in ipairs(self.items or {}) do
+        if i > 8 then GameTooltip:AddLine(("...and %d more (click to list them all)"):format(#self.items - 8), 0.6, 0.6, 0.6) break end
+        local title, note = needLine(it)
+        GameTooltip:AddLine(" ")
+        GameTooltip:AddLine(title, 1, 1, 1)
+        GameTooltip:AddLine(note, 0.8, 0.8, 0.8, true)
+    end
+    GameTooltip:Show()
+end)
+needBtn:SetScript("OnClick", function(self)
+    for _, it in ipairs(self.items or {}) do
+        local title, note = needLine(it)
+        W.Print(title .. ": " .. note)
+    end
+end)
+UI.needBtn = needBtn
+
 -- a better-fitting guide than the one you're on (G:Suggestion): click to switch, right-click to hide
 local suggestBtn = lineButton(C.accent)
 suggestBtn:RegisterForClicks("LeftButtonUp", "RightButtonUp")
@@ -814,6 +844,12 @@ local function locationLine(step)
         lines[#lines + 1] = glyph("goto", C.sub) .. where
     end
     if step.note and step.verb ~= "goto" then lines[#lines + 1] = glyph("note", C.hint) .. tint(C.hint, step.note) end
+    -- an item this quest wants that you have to buy or have made, while you don't have it
+    if step.quest and (step.verb == "accept" or step.verb == "complete") then
+        for _, it in ipairs(G:NeedsFor(step.quest)) do
+            lines[#lines + 1] = glyph("note", C.hint) .. tint(C.hint, "Bring " .. UI.NeedLine(it) .. ": " .. it.where)
+        end
+    end
     -- a flight or boat step says what the trip is for
     local why = (step.verb == "fly" or step.verb == "goto") and W.Guide.TripReason and W.Guide:TripReason(step)
     if why then lines[#lines + 1] = glyph("complete", C.sub) .. "for: " .. UI.StepText(why) end
@@ -981,7 +1017,7 @@ function UI:Render()
     for _, r in ipairs(groupRows) do r:Hide() end
     for _, c in ipairs(partyChips) do c:Hide() end
     for _, r in ipairs(rows) do r:Hide() end
-    for _, b in ipairs({ missedBtn, suggestBtn, busyBtn, laterBtn, waitBtn, UI.looseBtn }) do b:Hide() b.bg:Hide() end
+    for _, b in ipairs({ missedBtn, suggestBtn, busyBtn, laterBtn, waitBtn, UI.looseBtn, UI.needBtn }) do b:Hide() b.bg:Hide() end
     divider:Hide()
     alsoLabel:Hide()
     nextLabel:Hide()
@@ -1269,6 +1305,12 @@ function UI:Render()
         UI.looseBtn.steps = loose
         UI.looseBtn.short = ("%d to find here"):format(#loose)
         footer[#footer + 1] = UI.looseBtn
+    end
+    local needs = G:Needs()
+    if #needs > 0 then
+        UI.needBtn.items = needs
+        UI.needBtn.short = ("%d to bring"):format(#needs)
+        footer[#footer + 1] = UI.needBtn
     end
     local fx = PAD
     if #footer > 0 then y = y + 2 end
