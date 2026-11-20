@@ -578,6 +578,16 @@ function isOpen(step)
     return true
 end
 
+-- What a flight or boat step is for: the first step after it that isn't travel and is still
+-- open. The panel shows it, so a trip never looks like travel for its own sake.
+function G:TripReason(step)
+    if not active or not step.index or active.steps[step.index] ~= step then return end
+    for i = step.index + 1, #active.steps do
+        local s = active.steps[i]
+        if s.verb ~= "fly" and s.verb ~= "goto" and isOpen(s) then return s end
+    end
+end
+
 function G:Current()
     return active and active.steps[cursor]
 end

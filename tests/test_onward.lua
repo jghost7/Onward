@@ -1884,6 +1884,8 @@ fly 1424 50.0,50.0 |from 1423 52.0,52.0 |npc Eastwatch
     MOCK.fire("QUEST_LOG_UPDATE")
     W.Guide:Activate("roundtrip") settle()
     check("round trip with an errand left: the flight stands", cur().verb == "fly", cur().verb)
+    local why = W.Guide:TripReason(cur())
+    check("a flight says what it is for", why and why.verb == "accept" and why.quest == 9702, why and why.verb)
     MOCK.addQuest(9702, "Picked up earlier") MOCK.fire("QUEST_ACCEPTED", 9702) settle()
     check("round trip with nothing left to do there: both flights are passed over",
         cur().verb == "accept" and cur().quest == 9703, cur().verb .. " " .. tostring(cur().quest))

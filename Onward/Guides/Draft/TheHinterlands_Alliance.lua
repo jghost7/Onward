@@ -9,47 +9,47 @@ home |npc Innkeeper Thulfram |at 1425 14.2,41.6  -- set your hearthstone at the 
 accept 1450 |npc Falstad Wildhammer |at 1425 11.8,46.8 |lvl 38 |preany 1449  -- Gryphon Master Talonaxe (43)
 accept 86615 |npc Tove Redstone |at 1425 11.8,46.7 |lvl 40  -- Treaty Obligations (51)
 turnin 1450 |npc Gryphon Master Talonaxe |at 1425 9.8,44.5  -- Gryphon Master Talonaxe (43)
+accept 2990 |npc Gryphon Master Talonaxe |at 1425 9.8,44.5 |lvl 40 |preany 2989  -- Thadius Grimshade (47)
 accept 1451 |npc Gryphon Master Talonaxe |at 1425 9.8,44.5 |lvl 38 |preany 1450  -- Rhapsody Shindigger (43)
 accept 2988 |npc Gryphon Master Talonaxe |at 1425 9.8,44.5 |lvl 40  -- Witherbark Cages (45)
-complete 86615 |at 1425 10.3,44.8 |mobs Wildhammer Avenger  -- Treaty Obligations (51)
-turnin 86615 |npc Tove Redstone |at 1425 11.8,46.7  -- Treaty Obligations (51)
-turnin 1451 |npc Rhapsody Shindigger |at 1425 26.9,48.6  -- Rhapsody Shindigger (43)
-accept 1452 |npc Rhapsody Shindigger |at 1425 26.9,48.6 |lvl 38 |preany 1451  -- Rhapsody's Kalimdor Kocktail (43)
-fly 1434 27.5,77.8 |from 1425 11.1,46.1 |npc Stranglethorn Vale (Gyll)  -- flight master Guthrum Thunderfist
-goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
-fly 1444 89.5,45.9 |from 1413 63.1,37.2 |npc Feralas (Thyssiana)  -- flight master Bragok
-complete 1452 |at 1444 68.1,44.8  -- Rhapsody's Kalimdor Kocktail (43)
-fly 1446 51.0,29.3 |from 1444 89.5,45.9 |npc Tanaris (Bera Stonehammer)  -- flight master Thyssiana
-accept 4787 |npc Yeh'kinya |at 1446 67.0,22.4 |group chain |lvl 40 |preany 3527  -- The Ancient Egg (50)
-fly 1413 63.1,37.2 |from 1446 51.0,29.3 |npc The Barrens (Bragok)  -- flight master Bera Stonehammer
-goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
-fly 1419 65.5,24.3 |from 1434 27.5,77.8 |npc Blasted Lands (Alexandra Constantine)  -- flight master Gyll
-accept 2993 |npc Thadius Grimshade |at 1419 66.9,19.5 |group chain |lvl 40 |preany 2992  -- Return to the Hinterlands (47)
-fly 1425 11.1,46.1 |from 1419 65.5,24.3 |npc Guthrum Thunderfist  -- flight master Alexandra Constantine
-accept 86620 |npc Gryphon Master Talonaxe |at 1425 9.8,44.5  -- Fledgling Rescue (51)
-turnin 2993 |npc Gryphon Master Talonaxe |at 1425 9.8,44.5 |group chain  -- Return to the Hinterlands (47)
-accept 2994 |npc Gryphon Master Talonaxe |at 1425 9.8,44.5 |group chain |lvl 40 |preany 2993  -- Saving Sharpbeak (51)
-accept 86616 |npc Farseer Maret Firetend |at 1425 14.4,42.6 |value low |lvl 45  -- Repurposed Totems (48)
 accept 2877 |npc Fraggar Thundermantle |at 1425 14.8,44.6 |value mid |lvl 40  -- Skulk Rock Clean-up (48)
 accept 2880 |npc Fraggar Thundermantle |at 1425 14.8,44.6 |value mid |lvl 40  -- Troll Necklace Bounty (45)
-complete 2988 |at 1425 23.3,58.8  -- Witherbark Cages (45)
+turnin 1451 |npc Rhapsody Shindigger |at 1425 26.9,48.6  -- Rhapsody Shindigger (43)
+accept 1452 |npc Rhapsody Shindigger |at 1425 26.9,48.6 |lvl 38 |preany 1451  -- Rhapsody's Kalimdor Kocktail (43)
 complete 2880 |at 1425 29.6,58.0 |areas 64.3,69.9:84;29.6,58.0:46;47.6,66.5:38 |mobs Vilebranch Blood Drinker@Troll Tribal Necklace;Vilebranch Aman'zasi Guard@Troll Tribal Necklace;Vilebranch Scalper@Troll Tribal Necklace;Vilebranch Soothsayer@Troll Tribal Necklace |value mid  -- Troll Necklace Bounty (45)
-complete 4787 |at 1425 57.6,86.8 |group chain  -- The Ancient Egg (50)
+complete 2988 |at 1425 23.3,58.8  -- Witherbark Cages (45)
+fly 1419 65.5,24.3 |from 1425 11.1,46.1 |npc Blasted Lands (Alexandra Constantine)  -- flight master Guthrum Thunderfist
+accept 2993 |npc Thadius Grimshade |at 1419 66.9,19.5 |group chain |lvl 40 |preany 2992  -- Return to the Hinterlands (47)
+fly 1434 27.5,77.8 |from 1419 65.5,24.3 |npc Stranglethorn Vale (Gyll)  -- flight master Alexandra Constantine
+goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
+fly 1446 51.0,29.3 |from 1413 63.1,37.2 |npc Tanaris (Bera Stonehammer)  -- flight master Bragok
+accept 4787 |npc Yeh'kinya |at 1446 67.0,22.4 |group chain |lvl 40 |preany 3527  -- The Ancient Egg (50)
+fly 1444 89.5,45.9 |from 1446 51.0,29.3 |npc Feralas (Thyssiana)  -- flight master Bera Stonehammer
+complete 1452 |at 1444 68.1,44.8  -- Rhapsody's Kalimdor Kocktail (43)
+fly 1413 63.1,37.2 |from 1444 89.5,45.9 |npc The Barrens (Bragok)  -- flight master Thyssiana
+goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
+fly 1425 11.1,46.1 |from 1434 27.5,77.8 |npc Guthrum Thunderfist  -- flight master Gyll
+accept 86620 |npc Gryphon Master Talonaxe |at 1425 9.8,44.5  -- Fledgling Rescue (51)
+turnin 2993 |npc Gryphon Master Talonaxe |at 1425 9.8,44.5 |group chain  -- Return to the Hinterlands (47)
+turnin 2988 |npc Gryphon Master Talonaxe |at 1425 9.8,44.5  -- Witherbark Cages (45)
+accept 2994 |npc Gryphon Master Talonaxe |at 1425 9.8,44.5 |group chain |lvl 40 |preany 2993  -- Saving Sharpbeak (51)
+accept 86616 |npc Farseer Maret Firetend |at 1425 14.4,42.6 |value low |lvl 45  -- Repurposed Totems (48)
+turnin 1452 |npc Rhapsody Shindigger |at 1425 26.9,48.6  -- Rhapsody's Kalimdor Kocktail (43)
+accept 1469 |npc Rhapsody Shindigger |at 1425 26.9,48.6 |lvl 38 |preany 1452  -- Rhapsody's Tale (43)
 complete 2994 |at 1425 53.4,67.1 |group chain  -- Saving Sharpbeak (51)
 accept 485 |at 1425 53.0,53.6 |note Starts from OOX-09/HL Distress Beacon |startitem 8704 |lvl 43  -- Find OOX-09/HL! (48)
 complete 86616 |at 1425 71.0,48.6 |areas 47.6,66.5:15;71.0,48.6:4 |mobs Vilebranch Soothsayer@Vilebranch Totem |value low  -- Repurposed Totems (48)
 complete 86620 |at 1425 66.4,43.6 |mobs Grief-Crazed Gryphon;Aerie Gryphon;Aerie Gryphon Hatchling;Razorbeak Gryphon  -- Fledgling Rescue (51)
 complete 2877 |at 1425 56.0,42.7 |mobs Green Sludge;Jade Ooze |value mid  -- Skulk Rock Clean-up (48)
 turnin 485 |npc Homing Robot OOX-09/HL |at 1425 49.4,37.7  -- Find OOX-09/HL! (48)
-turnin 1452 |npc Rhapsody Shindigger |at 1425 26.9,48.6  -- Rhapsody's Kalimdor Kocktail (43)
-accept 1469 |npc Rhapsody Shindigger |at 1425 26.9,48.6 |lvl 38 |preany 1452  -- Rhapsody's Tale (43)
-turnin 2880 |npc Fraggar Thundermantle |at 1425 14.8,44.6 |value mid  -- Troll Necklace Bounty (45)
 turnin 2877 |npc Fraggar Thundermantle |at 1425 14.8,44.6 |value mid  -- Skulk Rock Clean-up (48)
+turnin 2880 |npc Fraggar Thundermantle |at 1425 14.8,44.6 |value mid  -- Troll Necklace Bounty (45)
 turnin 86616 |npc Farseer Maret Firetend |at 1425 14.4,42.6 |value low  -- Repurposed Totems (48)
-turnin 86620 |npc Gryphon Master Talonaxe |at 1425 9.8,44.5  -- Fledgling Rescue (51)
 turnin 2994 |npc Gryphon Master Talonaxe |at 1425 9.8,44.5 |group chain  -- Saving Sharpbeak (51)
-turnin 2988 |npc Gryphon Master Talonaxe |at 1425 9.8,44.5  -- Witherbark Cages (45)
-accept 2990 |npc Gryphon Master Talonaxe |at 1425 9.8,44.5 |lvl 40 |preany 2989  -- Thadius Grimshade (47)
+turnin 86620 |npc Gryphon Master Talonaxe |at 1425 9.8,44.5  -- Fledgling Rescue (51)
+complete 86615 |at 1425 10.3,44.8 |mobs Wildhammer Avenger  -- Treaty Obligations (51)
+turnin 86615 |npc Tove Redstone |at 1425 11.8,46.7  -- Treaty Obligations (51)
+complete 4787 |at 1425 57.6,86.8 |group chain  -- The Ancient Egg (50)
 fly 1453 71.3,72.2 |from 1425 11.1,46.1 |npc Stormwind City (Dungar Longdrink)  -- flight master Guthrum Thunderfist
 turnin 1469 |npc Brohann Caskbelly |at 1453 69.5,40.4  -- Rhapsody's Tale (43)
 fly 1419 65.5,24.3 |from 1453 71.3,72.2 |npc Blasted Lands (Alexandra Constantine)  -- flight master Dungar Longdrink

@@ -673,6 +673,7 @@ def route(zone, quests=None, presplit=False):
     if optimize_route:
         steps = optimize(zone, Q, steps, lo, hi)
         steps = group_away(zone, Q, steps, lo, hi)
+        steps = defer_away(zone, Q, steps, lo, hi)
     refine_areas(zone, steps)
     return steps, leftovers, (lo, hi)
 
@@ -763,13 +764,33 @@ AWAY = (-150.0, 50.0)  # stand-in spot for steps in another zone: one far-off ar
                        # bundled and put where they cost least instead of wherever greedy left them
 
 
+OVERSEA = 800.0       # map units added for a spot on another continent: a boat or zeppelin and the
+                      # flights to and from its docks, about eight zone widths
+
+
+def away_xy(zone, loc):
+    """Where a spot on another map lies, in this zone's map units (so (130, 50) is just past the
+    east edge). Another zone used to be one stand-in point for the whole world, which made a
+    hand-in across the sea free to add to a trip next door; now each has its real place, and
+    another continent is OVERSEA further off (spots there keep their distances to each other)."""
+    m, xy = loc[0], loc[1]
+    w, home = world_xy(m, xy), _REGION.get(zone.map)
+    if not w or not home:
+        return AWAY
+    sx, sy = yard_scale(zone.map)
+    x, y = (home[3] - w[1]) / sx, (home[2] - w[0]) / sy
+    if continent(m) != continent(zone.map):
+        x -= OVERSEA
+    return (x, y)
+
+
 def fixed_positions(zone, seq):
-    """{(verb, id): (x, y)} per step; steps in another zone sit at AWAY; steps without
-    coordinates borrow the step before them."""
+    """{(verb, id): (x, y)} per step; steps in another zone sit where that zone really is
+    (away_xy); steps without coordinates borrow the step before them."""
     pos, last = {}, None
     for v, q in seq:
         loc = step_loc(zone, v, q)
-        p = step_xy(zone, v, q) or (AWAY if loc and loc[0] != zone.map else None) or last
+        p = step_xy(zone, v, q) or (away_xy(zone, loc) if loc and loc[0] != zone.map else None) or last
         pos[(v, q["id"])] = p
         last = p
     first = next((p for p in pos.values() if p), (50.0, 50.0))
@@ -907,7 +928,38 @@ def yard_scale(m):
             if r["OrderIndex"] == "0":
                 _YD[int(r["UiMapID"])] = ((float(r["Region_4"]) - float(r["Region_1"])) / 100,
                                           (float(r["Region_3"]) - float(r["Region_0"])) / 100)
+                _REGION[int(r["UiMapID"])] = tuple(float(r[f"Region_{k}"]) for k in (0, 1, 3, 4))
     return _YD.get(m, (40.0, 40.0))
+
+
+_REGION = {}
+
+
+def world_xy(m, xy):
+    """World yards (x = north, y = west) of a map point, or None for a map with no world region."""
+    yard_scale(m)
+    r = _REGION.get(m)
+    if not r or not xy:
+        return None
+    return (r[2] - xy[1] / 100 * (r[2] - r[0]), r[3] - xy[0] / 100 * (r[3] - r[1]))
+
+
+def wdist(m0, p0, m1, p1):
+    """Yards between points on two maps of one continent (None when either can't be placed)."""
+    a, b = world_xy(m0, p0), world_xy(m1, p1)
+    return math.hypot(a[0] - b[0], a[1] - b[1]) if a and b else None
+
+
+def flight_saves_far(m0, p0, m1, p1, a, b, level):
+    """Like flight_saves, for a step in another zone of the same continent: fly a -> b (flight
+    masters on m0 and m1) only when it beats going on foot. A hand-in just over the border
+    used to get a flight because the map changed."""
+    v = MOUNT_SPEED if level >= MOUNT_LEVEL else RUN_SPEED
+    walk, d0, air, d1 = wdist(m0, p0, m1, p1), wdist(m0, p0, m0, a), wdist(m0, a, m1, b), wdist(m1, b, m1, p1)
+    if None in (walk, d0, air, d1):
+        return True
+    fly = d0 / v + air / TAXI_SPEED + FLIGHT_OVERHEAD + d1 / v
+    return walk - fly >= max(MIN_SAVE, NEW_SHARE * walk)
 
 
 def ydist(m, a, b):
@@ -1058,7 +1110,7 @@ def add_flights(zone, steps, level=1):
             (m0, p0), (m1, p1) = pos, loc
             a, b = nearest_fm(fms, m0, p0), nearest_fm(fms, m1, p1)
             leg = None
-            if a and b and m0 != m1:
+            if a and b and m0 != m1 and flight_saves_far(m0, p0, m1, p1, a[1], b[1], level):
                 leg = (a, b, m0, m1)
             elif a and b and m0 == m1 and a[1] != b[1] and flight_saves(m0, p0, p1, a[1], b[1], level):
                 leg = (a, b, m0, m1)
@@ -1092,6 +1144,43 @@ def group_away(zone, Q, steps, lo, hi):
                     seq = cand
         k += 1
     return seq
+
+
+def defer_away(zone, Q, steps, lo, hi):
+    """Steps in another zone that nothing later depends on go to the end of the guide: you leave
+    the zone for them once, when you're done here, instead of in the middle. A step stays where
+    it is when moving it would break a rule (its quest continues in this zone, or a quest here
+    needs it handed in first). The tail is then ordered as one tour: nearest next, rules kept."""
+    def away(s):
+        loc = step_loc(zone, *s)
+        return bool(loc and loc[0] != zone.map)
+
+    seq = list(steps)
+    # hard rules only: handing a far quest in later holds it longer, which the soft rules (log
+    # size, simulated level) would count against the move
+    hard = lambda s: violations(Q, s, lo, hi) // HARD
+    base = hard(seq)
+    # the tail that is already there: everything after the last step in this zone
+    last_home = max((k for k, s in enumerate(seq) if not away(s) and step_loc(zone, *s)), default=len(seq) - 1)
+    body, tail = seq[:last_home + 1], seq[last_home + 1:]
+    for k in range(len(body) - 1, -1, -1):
+        if not away(body[k]):
+            continue
+        # a placeless step right after it (an objective nobody can place) belongs to the trip
+        cand_body, moved = body[:k] + body[k + 1:], [body[k]]
+        if hard(cand_body + moved + tail) <= base:
+            body, tail = cand_body, moved + tail
+    # one tour through the tail
+    pos_of = lambda s: (away_xy(zone, step_loc(zone, *s)) if away(s) else step_xy(zone, *s)) if step_loc(zone, *s) else None
+    here = next((p for p in (step_xy(zone, *s) for s in reversed(body)) if p), None)
+    out, rest = [], list(tail)
+    while rest:
+        order = sorted(range(len(rest)), key=lambda i: dist(here, pos_of(rest[i])) if here and pos_of(rest[i]) else 0)
+        pick = next((i for i in order if hard(body + out + [rest[i]] + rest[:i] + rest[i + 1:]) <= base), 0)
+        s = rest.pop(pick)
+        out.append(s)
+        here = pos_of(s) or here
+    return body + out
 
 
 def fmt_at(loc):

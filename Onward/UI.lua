@@ -814,6 +814,9 @@ local function locationLine(step)
         lines[#lines + 1] = glyph("goto", C.sub) .. where
     end
     if step.note and step.verb ~= "goto" then lines[#lines + 1] = glyph("note", C.hint) .. tint(C.hint, step.note) end
+    -- a flight or boat step says what the trip is for
+    local why = (step.verb == "fly" or step.verb == "goto") and W.Guide.TripReason and W.Guide:TripReason(step)
+    if why then lines[#lines + 1] = glyph("complete", C.sub) .. "for: " .. UI.StepText(why) end
     local more = {}
     if step.group then more[#more + 1] = UI.GroupText(step.group) end
     if step.item and W.Item and W.Item.Has(step.item) then   -- only when you have it to use

@@ -19,9 +19,13 @@ accept 1428 |npc Katar |at 1435 83.8,80.4 |value mid |lvl 35 |preany 1427  -- Co
 home |npc Innkeeper Karakul |at 1435 45.2,56.7  -- set your hearthstone at the inn
 accept 1424 |npc Fel'zerul |at 1435 47.9,54.8 |lvl 38  -- Pool of Tears (43)
 accept 2622 |npc Dispatch Commander Ruag |at 1435 47.8,54.9 |lvl 45 |preany 2621  -- The Missing Orders (50)
-accept 1430 |npc Dar |at 1435 44.7,57.2 |value low |lvl 35  -- Fresh Meat (44)
 turnin 2622 |npc Bengor |at 1435 45.0,57.4  -- The Missing Orders (50)
 accept 2623 |npc Bengor |at 1435 45.0,57.4 |lvl 45 |preany 2622  -- The Swamp Talker (55)
+accept 1430 |npc Dar |at 1435 44.7,57.2 |value low |lvl 35  -- Fresh Meat (44)
+accept 93679 |npc Magtoor |at 1435 26.0,31.4 |preany 93678  -- Visions of Another (55)
+turnin 93679 |npc Magtoor |at 1435 26.0,31.4  -- Visions of Another (55)
+accept 93684 |npc Magtoor |at 1435 26.0,31.4 |preany 93679  -- The Found One (55)
+accept 3374 |at 1435 13.7,71.7 |note Starts from Oathstone of Ysera's Dragonflight |startitem 10589 |lvl 48 |preany 3373  -- The Essence of Eranikus (55)
 complete 2623 |at 1435 63.6,86.4 |mobs Swamp Talker@Warchief's Orders  -- The Swamp Talker (55)
 complete 1428 |at 1435 63.2,84.9 |areas 63.2,84.9:25;83.9,90.0:12;94.9,61.0:12 |mobs Marsh Inkspewer;Marsh Flesheater;Marsh Oracle |value mid  -- Continued Threat (45)
 turnin 1428 |npc Katar |at 1435 83.8,80.4 |value mid  -- Continued Threat (45)
@@ -30,20 +34,14 @@ complete 1424 |at 1435 72.5,53.1  -- Pool of Tears (43)
 turnin 1424 |npc Fel'zerul |at 1435 47.9,54.8  -- Pool of Tears (43)
 accept 1429 |npc Fel'zerul |at 1435 47.9,54.8 |lvl 38 |preany 1424  -- The Atal'ai Exile (44)
 turnin 1430 |npc Dar |at 1435 44.7,57.2 |value low  -- Fresh Meat (44)
-turnin 2623 |npc Fallen Hero of the Horde |at 1435 34.3,66.1  -- The Swamp Talker (55)
-accept 3374 |at 1435 13.7,71.7 |note Starts from Oathstone of Ysera's Dragonflight |startitem 10589 |lvl 48 |preany 3373  -- The Essence of Eranikus (55)
 complete 3374 |at 1435 39.1,47.3 |item 10589 |mobs Swamp Jaguar;Swamp Talker  -- The Essence of Eranikus (55)
-accept 93679 |npc Magtoor |at 1435 26.0,31.4 |preany 93678  -- Visions of Another (55)
-turnin 93679 |npc Magtoor |at 1435 26.0,31.4  -- Visions of Another (55)
-accept 93684 |npc Magtoor |at 1435 26.0,31.4 |preany 93679  -- The Found One (55)
+turnin 2623 |npc Fallen Hero of the Horde |at 1435 34.3,66.1  -- The Swamp Talker (55)
 turnin 3374 |npc Itharius |at 1435 13.7,71.7  -- The Essence of Eranikus (55)
 accept 3512 |npc Itharius |at 1435 13.7,71.7 |lvl 48 |preany 3374  -- In Eranikus' Own Words (55)
-fly 1434 26.9,77.1 |from 1435 46.1,54.8 |npc Stranglethorn Vale (Gringer)  -- flight master Breyk
+turnin 93684 |npc Kum'isha the Collector |at 1419 52.0,35.6  -- The Found One (55)
+turnin 1429 |npc Atal'ai Exile |at 1425 33.8,75.2  -- The Atal'ai Exile (44)
+fly 1434 26.9,77.1 |from 1425 81.7,81.8 |npc Stranglethorn Vale (Gringer)  -- flight master Gorkas
 goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
 fly 1452 60.5,36.3 |from 1413 63.1,37.2 |npc Winterspring (Yugrek)  -- flight master Bragok
 turnin 3512 |npc Umbranse the Spiritspeaker |at 1452 67.8,27.4  -- In Eranikus' Own Words (55)
-fly 1413 63.1,37.2 |from 1452 60.5,36.3 |npc The Barrens (Bragok)  -- flight master Yugrek
-goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
-turnin 93684 |npc Kum'isha the Collector |at 1419 52.0,35.6  -- The Found One (55)
-turnin 1429 |npc Atal'ai Exile |at 1425 33.8,75.2  -- The Atal'ai Exile (44)
 ]]}

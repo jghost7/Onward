@@ -1,5 +1,16 @@
 # Changelog
 
+## Unreleased
+
+- Far fewer trips out of the zone in the middle of a guide. A hand-in or pickup in another zone
+  that nothing in the current zone depends on now waits until you're done there, instead of
+  riding along on some other trip. Boat and zeppelin trips in the middle of a guide drop from
+  69 to 41 across all guides; the ones left are quest chains that really go overseas and back.
+- No flight just because the next step is over a zone border: a flight is added only when it
+  beats walking.
+- Flight and boat steps say what the trip is for ("for: Turn in ...").
+- All leveling guides are rebuilt, so step order changes again; progress carries over.
+
 ## 0.6.32
 
 - Trips with nothing left to do are passed over whole. 0.6.31 dropped the flights of such a trip
