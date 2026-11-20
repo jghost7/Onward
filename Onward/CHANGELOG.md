@@ -6,7 +6,7 @@
   Prevail", a potion, a crafted weapon, a drink from a vendor two zones away. The guide now
   says so before you get there: a "to bring" link on the panel lists every such item for the
   guide you're on, with where it comes from (which vendor, or which profession makes it), and
-  the quest's own steps say "Bring ..." until it's in your bags. 40 quests are covered so far.
+  the quest's own steps say "Bring ..." until it's in your bags. About 40 quests are covered so far.
 - The target button works on people too. On a step where you talk to someone (pick up, hand in,
   innkeeper, trainer) it targets that NPC and puts a star over them, so you can find them in a
   crowded town. Same button and key binding as for quest mobs.
