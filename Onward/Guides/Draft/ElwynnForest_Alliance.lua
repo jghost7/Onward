@@ -173,7 +173,6 @@ turnin 91738 |npc Sergeant De Vries |at 1429 24.1,73.2  -- An Apple Treat (10)
 turnin 5805 |npc Merissa Stilwell |at 1429 47.4,41.9 |race Human  -- Welcome! (1)
 turnin 91777 |npc Brother Paxton |at 1429 49.6,40.4 |group chain  -- Rare Books (7)
 turnin 61 |npc Morgan Pestle |at 1453 63.2,74.4  -- Shipment to Stormwind (7)
-fly 1436 56.5,52.6 |from 1453 71.3,72.2 |npc Westfall (Thor)  -- flight master Dungar Longdrink
 accept 109 |npc Farmer Saldean |at 1436 56.0,31.2 |lvl 9  -- Report to Gryan Stoutmantle (10)
 turnin 109 |npc Gryan Stoutmantle |at 1436 56.3,47.5  -- Report to Gryan Stoutmantle (10)
 ]]}

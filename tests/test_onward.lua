@@ -484,6 +484,7 @@ W.Travel:Refresh(true)
 W.Guide:Skip(1) settle()   -- to "East zone" (1000 yd away)
 local tgt = W.Waypoint:ArrowTarget()
 check("far target: arrow suggests the flight", tgt and tgt.flight and tgt.label == "Fly: Here Town", tgt and tgt.label)
+check("the travel plan says its first leg in words", tgt and tgt.route == "fly from Here Town to Eastwatch", tgt and tgt.route)
 MOCK.calls = {}
 MOCK.fire("TAXIMAP_OPENED") settle()
 local took = called("TakeTaxiNode")

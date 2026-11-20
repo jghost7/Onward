@@ -34,6 +34,5 @@ accept 92432 |npc Emissary Jacques |at 1424 48.3,60.0 |lvl 30  -- An Alarming Re
 turnin 92432 |npc Image of Archmage Modera |at 1421 68.6,45.1  -- An Alarming Request (33)
 turnin 514 |npc Prospector Stormpike |at 1455 74.6,11.7  -- Letter to Stormpike (34)
 accept 525 |npc Prospector Stormpike |at 1455 74.6,11.7 |lvl 30 |preany 514  -- Further Mysteries (34)
-fly 1424 49.3,52.3 |from 1455 55.5,47.7 |npc Hillsbrad Foothills (Darla Harris)  -- flight master Gryth Thurden
 turnin 525 |npc Magistrate Henry Maleb |at 1424 48.1,59.1  -- Further Mysteries (34)
 ]]}

@@ -679,6 +679,8 @@ function G:Report(note)
     if cur then
         add("Arrow: map %s %.1f, %.1f%s%s", tostring(cur.map), cur.x or 0, cur.y or 0,
             cur.leg and (" (" .. cur.leg .. ")") or "", cur.name and (" " .. cur.name) or "")
+        local ok, tgt = pcall(W.Waypoint.ArrowTarget, W.Waypoint)
+        if ok and tgt then add("Travel plan: %s / %s", tostring(tgt.label), tostring(tgt.route or tgt.sub or "on foot")) end
     end
     return table.concat(out, "\n")
 end

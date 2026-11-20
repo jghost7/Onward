@@ -12,13 +12,9 @@ accept 86576 |npc Maggran Earthbinder |at 1442 47.2,61.2 |value mid |lvl 18  -- 
 complete 86576 |at 1442 32.2,64.9 |mobs Bloodfury Windcaller@Glittering Sunstone;Bloodfury Storm Witch@Glittering Sunstone;Bloodfury Harpy@Glittering Sunstone;Bloodfury Roguefeather@Glittering Sunstone |value mid  -- Bloodfury Trinkets (26)
 complete 6282 |at 1442 31.9,66.5 |mobs Bloodfury Harpy;Bloodfury Ambusher;Bloodfury Slayer;Bloodfury Roguefeather  -- Harpies Threaten (26)
 accept 1058 |npc Witch Doctor Jin'Zil |at 1442 74.5,97.9 |lvl 20  -- Jin'Zil's Forest Magic (26)
-fly 1456 47.0,49.8 |from 1442 45.1,59.8 |npc Thunder Bluff (Tal) |value low  -- flight master Tharm
 accept 97538 |npc Tah Winterhoof |at 1456 54.1,47.0 |value low |lvl 20  -- Pigments for Paints (26)
-fly 1413 63.1,37.2 |from 1456 47.0,49.8 |npc The Barrens (Bragok)  -- flight master Tal
 accept 1095 |npc Sputtervalve |at 1413 63.0,37.2 |lvl 16 |preany 1094  -- Further Instructions (27)
-fly 1440 73.2,61.6 |from 1413 63.1,37.2 |npc Ashenvale (Vhulgra)  -- flight master Bragok
 complete 1088 |at 1440 62.0,51.4  -- Ordanus (29)
-fly 1442 45.1,59.8 |from 1440 73.2,61.6 |npc Tharm  -- flight master Vhulgra
 turnin 1095 |npc Ziz Fizziks |at 1442 59.0,62.6  -- Further Instructions (27)
 accept 1096 |npc Ziz Fizziks |at 1442 59.0,62.6 |lvl 16 |preany 1095  -- Gerenzo Wrenchwhistle (27)
 turnin 86576 |npc Mor'rogal |at 1442 47.2,64.0 |value mid  -- Bloodfury Trinkets (26)
@@ -37,12 +33,8 @@ complete 97538 |at 1442 47.6,40.3 |value low  -- Pigments for Paints (26)
 complete 1096 |at 1442 63.4,39.7 |mobs Gerenzo Wrenchwhistle@Gerenzo's Mechanical Arm  -- Gerenzo Wrenchwhistle (27)
 turnin 1096 |npc Ziz Fizziks |at 1442 59.0,62.6  -- Gerenzo Wrenchwhistle (27)
 turnin 1058 |npc Witch Doctor Jin'Zil |at 1442 74.5,97.9  -- Jin'Zil's Forest Magic (26)
-fly 1456 47.0,49.8 |from 1442 45.1,59.8 |npc Thunder Bluff (Tal) |value low  -- flight master Tharm
 turnin 97538 |npc Tah Winterhoof |at 1456 54.1,47.0 |value low  -- Pigments for Paints (26)
-fly 1441 45.1,49.1 |from 1456 47.0,49.8 |npc Thousand Needles (Nyse)  -- flight master Tal
 turnin 5881 |npc Grish Longrunner |at 1441 31.9,21.7  -- Calling in the Reserves (28)
-fly 1413 63.1,37.2 |from 1441 45.1,49.1 |npc The Barrens (Bragok)  -- flight master Nyse
-goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
 turnin 79974 |npc Carved Figurine |at 1432 49.4,12.9  -- Wet Job (32)
 ]]}
 

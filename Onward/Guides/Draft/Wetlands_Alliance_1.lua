@@ -19,12 +19,8 @@ accept 305 |npc Tarrel Rockweaver |at 1437 11.5,52.2 |lvl 21  -- In Search of Th
 complete 98197 |at 1437 11.5,53.2 |value low  -- Spoils of War (22)
 turnin 484 |npc James Halloran |at 1437 8.6,55.7  -- Young Crocolisk Skins (22)
 accept 471 |npc James Halloran |at 1437 8.6,55.7 |lvl 18 |preany 484  -- Apprentice's Duties (26)
-goto 1437 4.8,63.6 15 |note Take the boat to Auberdine  -- boat Menethil Harbor to Auberdine
 accept 98461 |npc Archaeologist Hollee |at 1439 37.4,41.8 |lvl 18  -- Unrequited Love (21)
-goto 1439 32.4,43.8 15 |note Take the boat to Menethil Harbor  -- boat Auberdine to Menethil Harbor
-fly 1424 49.3,52.3 |from 1437 9.5,59.7 |npc Hillsbrad Foothills (Darla Harris)  -- flight master Shellei Brondir
 accept 98459 |npc Tom "Half-fish" Wilson |at 1424 51.2,66.5 |lvl 18  -- A Lack of Virtue (21)
-fly 1437 9.5,59.7 |from 1424 49.3,52.3 |npc Shellei Brondir  -- flight master Darla Harris
 turnin 472 |npc Longbraid the Grim |at 1437 49.8,18.3 |value low  -- Fall of Dun Modr (25)
 accept 276 |npc Rethiel the Greenwarden |at 1437 56.4,40.4 |value mid |lvl 20  -- Tramping Paws (21)
 complete 276 |at 1437 62.4,69.0 |mobs Mosshide Gnoll;Mosshide Mongrel |value mid  -- Tramping Paws (21)
@@ -84,7 +80,6 @@ turnin 464 |npc Captain Stoutfist |at 1437 9.9,57.5  -- War Banners (28)
 turnin 98189 |npc Captain Stoutfist |at 1437 9.9,57.5  -- Return the Statuette (25)
 turnin 470 |npc Sida |at 1437 11.8,58.0  -- Digging Through the Ooze (24)
 turnin 288 |npc First Mate Fitzsimmons |at 1437 10.9,59.6  -- The Third Fleet (27)
-fly 1432 33.9,51.0 |from 1437 9.5,59.7 |npc Loch Modan (Thorgrum Borrelson)  -- flight master Shellei Brondir
 accept 468 |npc Mountaineer Kadrell |at 1432 32.6,49.7 |lvl 19  -- Report to Mountaineer Rockgar (21)
 turnin 468 |npc Mountaineer Rockgar |at 1432 25.4,10.4  -- Report to Mountaineer Rockgar (21)
 ]]}

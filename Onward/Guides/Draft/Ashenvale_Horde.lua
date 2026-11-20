@@ -15,7 +15,6 @@ turnin 6442 |npc Marukai |at 1440 11.7,34.9 |value low  -- Naga at the Zoram Str
 turnin 6462 |npc Mitsuwa |at 1440 11.7,34.9 |value mid  -- Troll Charm (24)
 turnin 216 |npc Karang Amakkar |at 1440 11.9,34.5  -- Between a Rock and a Thistlefur (24)
 accept 6621 |npc Karang Amakkar |at 1440 11.9,34.5 |lvl 21 |preany 216  -- King of the Foulweald (26)
-fly 1440 73.2,61.6 |from 1440 12.2,33.8 |npc Vhulgra  -- flight master Andruk
 home |npc Innkeeper Kaylisk |at 1440 74.0,60.6  -- set your hearthstone at the inn
 accept 6441 |npc Pixel |at 1440 73.1,61.5 |value mid |lvl 21  -- Satyr Horns (26)
 accept 6383 |npc Senani Thunderheart |at 1440 73.8,61.5 |lvl 20  -- The Ashenvale Hunt (20)
@@ -52,7 +51,6 @@ turnin 6441 |npc Pixel |at 1440 73.1,61.5 |value mid  -- Satyr Horns (26)
 complete 6504 |at 1440 73.6,63.6 |mobs Splintertree Guard;Shredder 9000;Warsong Shredder;Splintertree Raider  -- The Lost Pages (30)
 turnin 6571 |npc Locke Okarr |at 1440 71.4,67.6  -- Warsong Supplies (27)
 turnin 6504 |npc Gurda Ragescar |at 1440 70.0,71.2  -- The Lost Pages (30)
-fly 1440 12.2,33.8 |from 1440 73.2,61.6 |npc Andruk  -- flight master Vhulgra
 turnin 6621 |npc Karang Amakkar |at 1440 11.9,34.5  -- King of the Foulweald (26)
 turnin 824 |npc Je'neu Sancrea |at 1440 11.6,34.3  -- Je'neu of the Earthen Ring (27)
 ]]}

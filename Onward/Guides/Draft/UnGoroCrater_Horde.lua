@@ -58,13 +58,10 @@ accept 95928 |npc Mayena Earthseeker |at 1412 35.0,22.1 |lvl 55  -- Crystalline 
 complete 95928  -- Crystalline Elements (60)
 turnin 3908 |npc Donova Snowden |at 1452 31.3,45.2  -- It's a Secret to Everybody (52)
 accept 3909 |npc Donova Snowden |at 1452 31.3,45.2 |lvl 47 |preany 3908  -- The Videre Elixir (52)
-fly 1413 63.1,37.2 |from 1452 60.5,36.3 |npc The Barrens (Bragok)  -- flight master Yugrek
 accept 4502 |npc Liv Rizzlefix |at 1413 62.5,38.7 |value mid |lvl 49  -- Volcanic Activity (55)
 turnin 4147 |npc Liv Rizzlefix |at 1413 62.5,38.7 |value mid  -- Marvon's Workshop (52)
 accept 87494 |note No quest giver on record: it most likely starts from an item you loot or find in this zone. Hand it in to Torwa Pathfinder |loose  -- Microcrystal Contamination (55)
-fly 1444 75.5,44.4 |from 1413 63.1,37.2 |npc Feralas (Shyn)  -- flight master Bragok
 complete 3909 |at 1444 45.1,25.6  -- The Videre Elixir (52)
-fly 1449 45.2,5.8 |from 1444 75.5,44.4 |npc Gryfe  -- flight master Shyn
 turnin 974 |npc Krakle |at 1449 30.9,50.4  -- Finding the Source (55)
 accept 980 |npc Krakle |at 1449 30.9,50.4 |lvl 51 |preany 974  -- The New Springs (55)
 complete 87494 |at 1449 42.4,49.8 |mobs Frenzied Pterrordax@Crystal Infused Scale;Pterrordax@Crystal Infused Scale;Elder Diemetradon@Crystal Infused Scale;Diemetradon@Crystal Infused Scale  -- Microcrystal Contamination (55)
@@ -76,19 +73,15 @@ turnin 4301 |npc Torwa Pathfinder |at 1449 71.6,76.0  -- The Mighty U'cha (55)
 turnin 87494 |npc Torwa Pathfinder |at 1449 71.6,76.0  -- Microcrystal Contamination (55)
 turnin 87492 |npc Torwa Pathfinder |at 1449 71.6,76.0  -- Uncanny Crystal (55)
 turnin 4292 |npc Torwa Pathfinder |at 1449 71.6,76.0  -- The Bait for Lar'korwi (56)
-fly 1413 63.1,37.2 |from 1449 45.2,5.8 |npc The Barrens (Bragok) |value mid  -- flight master Gryfe
 accept 4146 |npc Liv Rizzlefix |at 1413 62.5,38.7 |value mid |group dungeon |lvl 47 |preany 4147  -- Zapper Fuel (52)
-fly 1452 60.5,36.3 |from 1413 63.1,37.2 |npc Winterspring (Yugrek)  -- flight master Bragok
 turnin 3909 |npc Donova Snowden |at 1452 31.3,45.2  -- The Videre Elixir (52)
 accept 3912 |npc Donova Snowden |at 1452 31.3,45.2 |lvl 47 |preany 3909  -- Meet at the Grave (52)
 accept 94399 |note Starts from Mor'vek, whose place isn't on record |loose |value mid |lvl 58  -- Ravasaur Provisions (60)
-fly 1446 51.6,25.4 |from 1452 60.5,36.3 |npc Tanaris (Bulkrek Ragefist)  -- flight master Yugrek
 turnin 3912 |npc Gaeriyan |at 1446 53.9,23.3  -- Meet at the Grave (52)
 accept 3913 |npc Gaeriyan |at 1446 53.9,23.3 |lvl 47 |preany 3912  -- A Grave Situation (52)
 turnin 3913 |npc A Conspicuous Gravestone |at 1446 53.8,29.1  -- A Grave Situation (52)
 accept 3914 |npc A Conspicuous Gravestone |at 1446 53.8,29.1 |lvl 47 |preany 3913  -- Linken's Sword (52)
 complete 4146 |item 11319 |value mid |group dungeon  -- Zapper Fuel (52)
-fly 1449 45.2,5.8 |from 1446 51.6,25.4 |npc Gryfe  -- flight master Bulkrek Ragefist
 turnin 4146 |npc Larion |at 1449 45.5,8.7 |value mid |group dungeon  -- Zapper Fuel (52)
 accept 4148 |npc Larion |at 1449 45.5,8.7 |value mid |group chain |lvl 47 |preany 4146  -- Bloodpetal Zapper (53)
 turnin 3914 |npc Linken |at 1449 44.7,8.1  -- Linken's Sword (52)
@@ -96,15 +89,12 @@ accept 3941 |npc Linken |at 1449 44.7,8.1 |lvl 47 |preany 3914  -- A Gnome's Ass
 turnin 3941 |npc J.D. Collie |at 1449 41.9,2.7  -- A Gnome's Assistance (52)
 turnin 4284 |npc J.D. Collie |at 1449 41.9,2.7 |value mid  -- Crystals of Power (53)
 accept 3942 |npc J.D. Collie |at 1449 41.9,2.7 |lvl 47 |preany 3941  -- Linken's Memory (54)
-fly 1448 34.4,54.0 |from 1449 45.2,5.8 |npc Felwood (Brakkar)  -- flight master Gryfe
 turnin 3942 |npc Eridan Bluewind |at 1448 51.4,81.5  -- Linken's Memory (54)
 accept 4084 |npc Eridan Bluewind |at 1448 51.4,81.5 |lvl 47 |preany 3942  -- Silver Heart (54)
 complete 4084 |at 1448 42.4,57.7  -- Silver Heart (54)
 turnin 4084 |npc Eridan Bluewind |at 1448 51.4,81.5  -- Silver Heart (54)
 accept 4005 |npc Eridan Bluewind |at 1448 51.4,81.5 |lvl 47 |preany 4084  -- Aquementas (54)
-fly 1446 51.6,25.4 |from 1448 34.4,54.0 |npc Tanaris (Bulkrek Ragefist)  -- flight master Brakkar
 complete 4005 |at 1446 70.4,49.9 |item 11617  -- Aquementas (54)
-fly 1449 45.2,5.8 |from 1446 51.6,25.4 |npc Gryfe  -- flight master Bulkrek Ragefist
 turnin 4005 |npc J.D. Collie |at 1449 41.9,2.7  -- Aquementas (54)
 accept 3961 |npc J.D. Collie |at 1449 41.9,2.7 |lvl 47 |preany 4005  -- Linken's Adventure (54)
 turnin 3961 |npc Linken |at 1449 44.7,8.1  -- Linken's Adventure (54)
@@ -118,15 +108,10 @@ complete 3962 |at 1449 49.4,49.3 |item 11522 |mobs Blazerunner |group elite  -- 
 turnin 4503 |npc Shizzle |at 1449 44.2,11.6 |value low  -- Shizzle's Flyer (51)
 turnin 4148 |npc Larion |at 1449 45.5,8.7 |value mid |group chain  -- Bloodpetal Zapper (53)
 turnin 3962 |npc Linken |at 1449 44.7,8.1 |group elite  -- It's Dangerous to Go Alone (56)
-fly 1413 63.1,37.2 |from 1449 45.2,5.8 |npc The Barrens (Bragok)  -- flight master Gryfe
 turnin 4502 |npc Liv Rizzlefix |at 1413 62.5,38.7 |value mid  -- Volcanic Activity (55)
 turnin 95928 |npc Mayena Earthseeker |at 1412 35.0,22.1  -- Crystalline Elements (60)
 turnin 92020 |npc Tiala Whitemane |at 2482 68.8,50.6  -- Hol'anyee's Big Book of Big Lizards (55)
-fly 1452 60.5,36.3 |from 2482 68.7,46.8 |npc Winterspring (Yugrek)  -- flight master Fayran Elthas
 turnin 980 |npc Donova Snowden |at 1452 31.3,45.2  -- The New Springs (55)
-fly 1413 63.1,37.2 |from 1452 60.5,36.3 |npc The Barrens (Bragok)  -- flight master Yugrek
-goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
-fly 1458 63.2,48.6 |from 1434 26.9,77.1 |npc Undercity (Michael Garrett)  -- flight master Gringer
 accept 95926 |npc Master Apothecary Faranell |at 1458 48.8,69.3 |lvl 55  -- The Dark Crystal (60)
 complete 95926  -- The Dark Crystal (60)
 turnin 95926 |npc Master Apothecary Faranell |at 1458 48.8,69.3  -- The Dark Crystal (60)

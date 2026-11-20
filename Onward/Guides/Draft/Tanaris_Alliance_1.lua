@@ -93,21 +93,13 @@ turnin 2606 |npc Sprinkle |at 1446 51.1,26.9  -- In Good Taste (49)
 accept 2641 |npc Sprinkle |at 1446 51.1,26.9 |lvl 44 |preany 2606  -- Sprinkle's Secret Ingredient (49)
 turnin 113 |npc Senior Surveyor Fizzledowser |at 1446 50.2,27.5  -- Insect Part Analysis (48)
 accept 162 |npc Senior Surveyor Fizzledowser |at 1446 50.2,27.5 |lvl 39 |preany 113  -- Rise of the Silithid (49)
-fly 1444 30.2,43.2 |from 1446 51.0,29.3 |npc Feralas (Fyldren Moonfeather)  -- flight master Bera Stonehammer
 complete 3520 |at 1444 52.3,49.2 |item 10699 |mobs Screecher Spirit  -- Screecher Spirits (44)
-fly 1413 63.1,37.2 |from 1444 30.2,43.2 |npc The Barrens (Bragok)  -- flight master Fyldren Moonfeather
-goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
 accept 2872 |npc "Sea Wolf" MacKinley |at 1434 27.8,77.1 |lvl 40  -- Stoley's Debt (45)
 accept 2864 |npc Krazek |at 1434 26.9,77.2 |lvl 40  -- Tran'rek (45)
-fly 1419 65.5,24.3 |from 1434 27.5,77.8 |npc Blasted Lands (Alexandra Constantine)  -- flight master Gyll
 accept 2991 |npc Thadius Grimshade |at 1419 66.9,19.5 |group dungeon |lvl 40 |preany 2990  -- Nekrum's Medallion (47)
 complete 2991 |group dungeon  -- Nekrum's Medallion (47)
-fly 1425 11.1,46.1 |from 1419 65.5,24.3 |npc The Hinterlands (Guthrum Thunderfist)  -- flight master Alexandra Constantine
 complete 2641 |at 1425 41.0,59.8  -- Sprinkle's Secret Ingredient (49)
-fly 1434 27.5,77.8 |from 1425 11.1,46.1 |npc Stranglethorn Vale (Gyll)  -- flight master Guthrum Thunderfist
-goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
 complete 3444 |at 1413 62.5,38.5  -- The Stone Circle (51)
-fly 1445 67.5,51.3 |from 1413 63.1,37.2 |npc Dustwallow Marsh (Baldruc)  -- flight master Bragok
 accept 2846 |npc Tabetha |at 1445 46.1,57.1 |group dungeon |lvl 40  -- Tiara of the Deep (46)
 complete 2846 |group dungeon  -- Tiara of the Deep (46)
 accept 2770 |npc Wizzle Brassbolts |at 1441 78.1,77.1 |group dungeon |lvl 40  -- Gahz'rilla (50)
@@ -129,18 +121,12 @@ turnin 3161 |npc Marvon Rivetseeker |at 1446 52.7,45.9 |value low  -- Gahz'ridia
 turnin 3444 |npc Marvon Rivetseeker |at 1446 52.7,45.9  -- The Stone Circle (51)
 turnin 2770 |npc Wizzle Brassbolts |at 1441 78.1,77.1 |group dungeon  -- Gahz'rilla (50)
 turnin 2846 |npc Tabetha |at 1445 46.1,57.1 |group dungeon  -- Tiara of the Deep (46)
-fly 1438 58.4,94.0 |from 1445 67.5,51.3 |npc Teldrassil (Vesprystus)  -- flight master Baldruc
 turnin 3022 |npc Erelas Ambersky |at 1438 55.5,92.0  -- Handle With Care (47)
 turnin 162 |npc Gracina Spiritmight |at 1457 41.8,85.6  -- Rise of the Silithid (49)
-goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
 accept 2861 |npc Anastasia Hartwell |at 1458 85.1,10.0 |lvl 40  -- Tabetha's Task (46)
 turnin 95472 |npc Friz Frazzlespark |at 2548 77.1,52.9  -- Consolation Prize (40)
 turnin 95144 |npc Friz Frazzlespark |at 2548 77.1,52.9  -- Overseas Delivery (38)
-fly 1419 65.5,24.3 |from 2548 60.6,81.5 |npc Blasted Lands (Alexandra Constantine)  -- flight master Gretchen Mayberry
 turnin 2991 |npc Thadius Grimshade |at 1419 66.9,19.5 |group dungeon  -- Nekrum's Medallion (47)
-fly 1434 27.5,77.8 |from 1419 65.5,24.3 |npc Stranglethorn Vale (Gyll)  -- flight master Alexandra Constantine
 turnin 2874 |npc "Sea Wolf" MacKinley |at 1434 27.8,77.1  -- Deliver to MacKinley (45)
-goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
-fly 1445 67.5,51.3 |from 1413 63.1,37.2 |npc Dustwallow Marsh (Baldruc)  -- flight master Bragok
 turnin 2861 |npc Tabetha |at 1445 46.1,57.1  -- Tabetha's Task (46)
 ]]}

@@ -33,17 +33,12 @@ turnin 1488 |npc Takata Steelblade |at 1443 52.6,54.4 |group elite  -- The Corru
 turnin 93225 |npc Gurda Wildmane |at 1443 56.3,59.7 |value low  -- Carved Centaur Totems (40)
 turnin 96222 |npc Umarak |at 1443 43.5,79.0 |group elite  -- Khan Hratha (42)
 turnin 1380 |npc Uthek the Wise |at 1443 36.2,79.2 |group elite  -- Khan Hratha (42)
-fly 1413 63.1,37.2 |from 1443 21.6,74.1 |npc The Barrens (Bragok)  -- flight master Thalon
-goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
-fly 1435 46.1,54.8 |from 1434 26.9,77.1 |npc Swamp of Sorrows (Breyk) |value mid  -- flight master Gringer
 turnin 93678 |npc Magtoor |at 1435 26.0,31.4 |value mid  -- Abridged Notes on Draenethyst (40)
-fly 1434 26.9,77.1 |from 1435 46.1,54.8 |npc Stranglethorn Vale (Gringer)  -- flight master Breyk
 turnin 79235 |npc Tokal |at 1434 27.0,77.3  -- On the Lam (40)
 accept 79236 |npc Tokal |at 1434 27.0,77.3 |lvl 30 |preany 79235  -- Cherry for Your Thoughts? (40)
 complete 79236 |need 4600:1:Cherry Grog:sold by Nixxrax Fillamug in Stranglethorn Vale and other vendors  -- Cherry for Your Thoughts? (40)
 turnin 79236 |npc Tokal |at 1434 27.0,77.3  -- Cherry for Your Thoughts? (40)
 accept 79242 |npc Tokal |at 1434 27.0,77.3 |lvl 30 |preany 79236  -- No Honor Among Thieves (40)
-fly 1417 73.0,32.7 |from 1434 26.9,77.1 |npc Arathi Highlands (Urda)  -- flight master Gringer
 turnin 79242 |npc Illari's Loot Cache |at 1417 94.2,69.3  -- No Honor Among Thieves (40)
 ]]}
 

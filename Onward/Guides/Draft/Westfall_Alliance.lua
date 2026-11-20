@@ -72,22 +72,18 @@ accept 92748 |npc Alba Fairmoon |at 1436 52.5,53.0 |value mid |lvl 9 |preany 927
 turnin 139 |npc Old Jug |at 1436 40.6,17.0  -- Captain Sander's Hidden Treasure (16)
 accept 140 |npc Old Jug |at 1436 40.6,17.0 |lvl 10 |preany 139  -- Captain Sander's Hidden Treasure (16)
 turnin 140 |npc Locked Chest |at 1436 26.0,16.9  -- Captain Sander's Hidden Treasure (16)
-fly 1453 71.3,72.2 |from 1436 56.5,52.6 |npc Stormwind City (Dungar Longdrink)  -- flight master Thor
 turnin 92748 |npc Sprite Jumpsprocket |at 1453 61.9,30.6 |value mid  -- Explosive Consultation (16)
 accept 92750 |npc Sprite Jumpsprocket |at 1453 61.9,30.6 |value mid |lvl 9 |preany 92748  -- Detonation at a Distance (16)
 accept 92749 |npc Sprite Jumpsprocket |at 1453 61.9,30.6 |value mid |lvl 9 |preany 92748  -- A Dynamite Plan (16)
 accept 98021 |npc Highlord Bolvar Fordragon |at 1453 80.2,38.4 |race SkyborneAlliance |lvl 7 |preany 94947  -- Journey to Sentinel Hill (13)
-fly 1433 25.5,59.4 |from 1453 71.3,72.2 |npc Redridge Mountains (Ariena Stormfeather)  -- flight master Dungar Longdrink
 turnin 65 |npc Wiley the Black |at 1433 21.4,45.4  -- The Defias Brotherhood (18)
 accept 132 |npc Wiley the Black |at 1433 21.4,45.4 |lvl 14 |preany 65  -- The Defias Brotherhood (18)
-fly 1436 56.5,52.6 |from 1433 25.5,59.4 |npc Thor  -- flight master Ariena Stormfeather
 turnin 6181 |npc Thor |at 1436 56.5,52.6 |race Human  -- A Swift Message (10)
 accept 6281 |npc Thor |at 1436 56.5,52.6 |race Human |lvl 10 |preany 6181  -- Continue to Stormwind (10)
 complete 92749 |at 1436 57.7,51.5 |mobs Stormwind Crier |need 4358:10:Rough Dynamite:made with Engineering, so buy it at the auction house or ask a crafter |value mid  -- A Dynamite Plan (16)
 turnin 98021 |npc Gryan Stoutmantle |at 1436 56.3,47.5 |race SkyborneAlliance  -- Journey to Sentinel Hill (13)
 turnin 132 |npc Gryan Stoutmantle |at 1436 56.3,47.5  -- The Defias Brotherhood (18)
 accept 135 |npc Gryan Stoutmantle |at 1436 56.3,47.5 |lvl 14 |preany 132  -- The Defias Brotherhood (18)
-fly 1453 71.3,72.2 |from 1436 56.5,52.6 |npc Stormwind City (Dungar Longdrink)  -- flight master Thor
 turnin 135 |npc Master Mathias Shaw |at 1453 78.3,70.7  -- The Defias Brotherhood (18)
 accept 141 |npc Master Mathias Shaw |at 1453 78.3,70.7 |lvl 14 |preany 135  -- The Defias Brotherhood (18)
 turnin 92750 |npc Jasper Fel |at 1453 80.3,70.1 |value mid  -- Detonation at a Distance (16)
@@ -99,7 +95,6 @@ accept 6285 |npc Dungar Longdrink |at 1453 71.3,72.2 |race Human |lvl 10 |preany
 turnin 92749 |npc Sprite Jumpsprocket |at 1453 61.9,30.6 |value mid  -- A Dynamite Plan (16)
 turnin 92751 |npc Sprite Jumpsprocket |at 1453 61.9,30.6 |value mid  -- Detonation at a Distance (16)
 accept 92752 |npc Sprite Jumpsprocket |at 1453 61.9,30.6 |value mid |lvl 9 |pre 92749,92751  -- Explosive Consultation (16)
-fly 1436 56.5,52.6 |from 1453 71.3,72.2 |npc Thor  -- flight master Dungar Longdrink
 turnin 6285 |npc Quartermaster Lewis |at 1436 57.0,47.2 |race Human  -- Return to Lewis (10)
 turnin 141 |npc Gryan Stoutmantle |at 1436 56.3,47.5  -- The Defias Brotherhood (18)
 accept 142 |npc Gryan Stoutmantle |at 1436 56.3,47.5 |lvl 14 |preany 141  -- The Defias Brotherhood (18)
@@ -114,9 +109,7 @@ complete 152 |at 1436 34.6,85.3 |areas 27.1,72.7:25;26.9,53.4:18;45.0,8.9:18;28.
 turnin 103 |npc Captain Grayson |at 1436 30.0,86.0  -- Keeper of the Flame (16)
 turnin 152 |npc Captain Grayson |at 1436 30.0,86.0  -- The Coast Isn't Clear (19)
 turnin 104 |npc Captain Grayson |at 1436 30.0,86.0  -- The Coastal Menace (20)
-fly 1434 27.5,77.8 |from 1436 56.5,52.6 |npc Stranglethorn Vale (Gyll)  -- flight master Thor
 turnin 93928 |npc Hemet Nesingwary |at 1434 35.7,10.8  -- Of Mice and Milk (15)
-goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
 turnin 79008 |npc Burned-Out Remains |at 1413 46.4,73.9  -- ... and that note you found (22)
 ]]}
 

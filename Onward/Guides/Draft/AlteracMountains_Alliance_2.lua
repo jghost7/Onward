@@ -48,6 +48,5 @@ turnin 537 |npc Magistrate Henry Maleb |at 1424 48.1,59.1 |value mid  -- Dark Co
 turnin 504 |npc Marshal Redpath |at 1424 49.5,58.7 |value low |group elite  -- Crushridge Warmongers (40)
 turnin 551 |npc Loremaster Dibbs |at 1424 50.6,57.1  -- The Ensorcelled Parchment (40)
 accept 554 |npc Loremaster Dibbs |at 1424 50.6,57.1 |value low |lvl 28 |preany 551  -- Stormpike's Deciphering (40)
-fly 1455 55.5,47.7 |from 1424 49.3,52.3 |npc Ironforge (Gryth Thurden) |value low  -- flight master Darla Harris
 turnin 554 |npc Prospector Stormpike |at 1455 74.6,11.7 |value low  -- Stormpike's Deciphering (40)
 ]]}

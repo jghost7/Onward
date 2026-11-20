@@ -66,13 +66,7 @@ accept 94841 |npc Lost Shipping Crate |at 1443 64.6,10.3 |lvl 36  -- Lost Shippi
 accept 5501 |npc Bibbly F'utzbuckle |at 1443 62.3,39.0 |value low |lvl 33  -- Bone Collector (39)
 complete 1371 |at 1443 35.2,60.2 |mobs Magra |need 4392:1:Advanced Target Dummy:made with Engineering, so buy it at the auction house or ask a crafter  -- Gizmo for Warug (35)
 complete 1373 |at 1443 29.1,57.1 |mobs Gelk  -- Ongeku (37)
-fly 1413 63.1,37.2 |from 1443 64.7,10.5 |npc The Barrens (Bragok)  -- flight master Baritanas Skyriver
-goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
-fly 1453 71.3,72.2 |from 1434 27.5,77.8 |npc Stormwind City (Dungar Longdrink)  -- flight master Gyll
 accept 6141 |npc Brother Crowley |at 1453 52.6,43.2 |lvl 34  -- Brother Anton (39)
-fly 1434 27.5,77.8 |from 1453 71.3,72.2 |npc Stranglethorn Vale (Gyll)  -- flight master Dungar Longdrink
-goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
-fly 1443 64.7,10.5 |from 1413 63.1,37.2 |npc Baritanas Skyriver  -- flight master Bragok
 turnin 1373 |npc Uthek the Wise |at 1443 36.2,79.2  -- Ongeku (37)
 accept 1374 |npc Uthek the Wise |at 1443 36.2,79.2 |lvl 30 |preany 1373  -- Khan Jehn (37)
 accept 92754 |npc Mirda |at 1443 70.5,70.4 |lvl 30 |preany 1369  -- A New Need for Shadow Protection (35)
@@ -106,10 +100,6 @@ turnin 1387 |npc Corporal Melkins |at 1443 66.7,10.9  -- Centaur Bounty (31)
 turnin 1459 |npc Kreldig Ungor |at 1443 66.2,9.6 |value mid  -- Reagents for Reclaimers Inc. (35)
 turnin 261 |npc Brother Anton |at 1443 66.5,7.9  -- Down the Scarlet Path (39)
 turnin 6141 |npc Brother Anton |at 1443 66.5,7.9  -- Brother Anton (39)
-fly 1413 63.1,37.2 |from 1443 64.7,10.5 |npc The Barrens (Bragok)  -- flight master Baritanas Skyriver
-goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
-fly 2548 60.6,81.5 |from 1434 27.5,77.8 |npc Riverglades (Gretchen Mayberry)  -- flight master Gyll
 turnin 94841 |npc Friz Frazzlespark |at 2548 77.1,52.9  -- Lost Shipping Crate (38)
-fly 1455 55.5,47.7 |from 2548 60.6,81.5 |npc Ironforge (Gryth Thurden)  -- flight master Gretchen Mayberry
 turnin 1457 |npc Roetten Stonehammer |at 1455 70.0,21.3  -- The Karnitol Shipwreck (39)
 ]]}

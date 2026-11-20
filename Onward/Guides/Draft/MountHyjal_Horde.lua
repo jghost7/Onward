@@ -249,16 +249,9 @@ accept 96550 |npc Embroidered Scabbard |at 2482 8.8,46.5 |preany 92100  -- Battl
 turnin 96550 |npc Veteran of the Third War |at 2482 8.8,46.5  -- Battle Recall (58)
 accept 93510 |npc Veteran of the Third War |at 2482 8.8,46.5 |lvl 54 |preany 96550  -- Wake Memories (58)
 accept 92101 |npc Veteran of the Third War |at 2482 8.8,46.5 |lvl 54 |preany 96550  -- Lifted by Legacy (58)
-fly 1413 63.1,37.2 |from 2482 68.7,46.8 |npc The Barrens (Bragok)  -- flight master Fayran Elthas
-goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
-fly 1458 63.2,48.6 |from 1434 26.9,77.1 |npc Undercity (Michael Garrett)  -- flight master Gringer
 accept 97000 |npc Abigail Sawyer |at 1458 54.7,38.8 |lvl 54  -- Grain of Memory (57)
 accept 96561 |note No quest giver on record: it most likely starts from an item you loot or find in this zone. Hand it in to Broken Fishing Basket |loose  -- Last Wishes (60)
-fly 1434 26.9,77.1 |from 1458 63.2,48.6 |npc Stranglethorn Vale (Gringer)  -- flight master Michael Garrett
-goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
-fly 1446 51.6,25.4 |from 1413 63.1,37.2 |npc Tanaris (Bulkrek Ragefist)  -- flight master Bragok
 complete 90854 |at 1446 37.6,67.4 |need 15407:1:Cured Rugged Hide:made with Leatherworking, so buy it at the auction house or ask a crafter  -- Leather for Inclement Weather (57)
-fly 2482 68.7,46.8 |from 1446 51.6,25.4 |npc Fayran Elthas  -- flight master Bulkrek Ragefist
 accept 95316 |npc Curious Crow |at 2482 48.3,85.7 |pre 95380,96262  -- The Experimental Method (57)
 turnin 96322 |npc Curious Crow |at 2482 48.3,85.7 |group chain  -- A Revenge Now Bitter (58)
 turnin 95316 |npc Curious Crow |at 2482 48.3,85.7  -- The Experimental Method (57)
@@ -321,15 +314,11 @@ accept 92959 |npc Fraxinus |at 2482 53.4,84.3 |preany 91770  -- The Dying Ancien
 turnin 90487 |npc Fraxinus |at 2482 53.4,84.3 |value mid  -- Ancient Allies (56)
 turnin 92959 |npc Fraxinus |at 2482 53.4,84.3  -- The Dying Ancients (56)
 turnin 95766 |npc Curious Crow |at 2482 48.3,85.7  -- Fine Feathered Friend (56)
-fly 1452 60.5,36.3 |from 2482 68.7,46.8 |npc Winterspring (Yugrek)  -- flight master Fayran Elthas
 turnin 93197 |npc Innkeeper Vizzie |at 1452 61.4,38.8  -- Mending Communications (58)
-fly 1450 44.1,45.2 |from 1452 60.5,36.3 |npc Moonglade (Silva Fil'naveth)  -- flight master Yugrek
 turnin 92612 |npc Dendrite Starblaze |at 1450 56.2,30.6  -- Aid from Moonglade (58)
 turnin 96999 |npc Tai'tasi |at 1411 56.4,73.8  -- Wrap Return (58)
 complete 92101 |at 1441 31.9,24.0 |item 274795  -- Lifted by Legacy (58)
 turnin 92101 |npc Carving |at 1441 31.9,24.0  -- Lifted by Legacy (58)
-fly 1413 63.1,37.2 |from 1441 45.1,49.1 |npc The Barrens (Bragok)  -- flight master Nyse
-goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
 complete 93510 |at 1433 29.9,57.2 |item 274795  -- Wake Memories (58)
 turnin 93510 |npc Weathered Anchor |at 1433 30.4,57.0  -- Wake Memories (58)
 accept 97007 |npc Royal Overseer Bauhaus |at 1458 69.8,43.2 |lvl 54  -- Wood Remains (57)

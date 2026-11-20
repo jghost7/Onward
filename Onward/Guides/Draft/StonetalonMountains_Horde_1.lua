@@ -49,17 +49,12 @@ turnin 6393 |npc Tsunaman |at 1442 47.4,64.2  -- Elemental War (25)
 turnin 6481 |npc Mor'rogal |at 1442 47.2,64.0 |group elite  -- Earthen Arise (20)
 turnin 6381 |npc Tammra Windfield |at 1442 47.5,58.4 |value mid  -- New Life (25)
 complete 1068 |at 1442 67.2,46.7 |mobs XT:4;XT:9  -- Shredding Machines (23)
-fly 1413 51.5,30.3 |from 1442 45.1,59.8 |npc The Barrens (Devrak)  -- flight master Tharm
 turnin 6542 |npc Kadrak |at 1413 48.1,5.4  -- Report to Kadrak (19)
-fly 1454 45.1,63.9 |from 1413 51.5,30.3 |npc Orgrimmar (Doras)  -- flight master Devrak
 accept 1061 |npc Zor Lonetree |at 1454 38.9,38.4 |lvl 13  -- The Spirits of Stonetalon (17)
-fly 1413 63.1,37.2 |from 1454 45.1,63.9 |npc The Barrens (Bragok)  -- flight master Doras
 turnin 1094 |npc Sputtervalve |at 1413 63.0,37.2  -- Further Instructions (21)
-fly 1413 51.5,30.3 |from 1413 63.1,37.2 |npc The Barrens (Devrak)  -- flight master Bragok
 accept 1063 |npc Seereth Stonebreak |at 1413 35.3,27.9 |lvl 13 |preany 1062  -- The Elder Crone (18)
 turnin 1061 |npc Seereth Stonebreak |at 1413 35.3,27.9  -- The Spirits of Stonetalon (17)
 turnin 1068 |npc Seereth Stonebreak |at 1413 35.3,27.9  -- Shredding Machines (23)
 turnin 6629 |npc Makaba Flathoof |at 1413 35.2,27.8  -- Kill Grundig Darkcloud (18)
-fly 1456 47.0,49.8 |from 1413 51.5,30.3 |npc Thunder Bluff (Tal)  -- flight master Devrak
 turnin 1063 |npc Magatha Grimtotem |at 1456 69.8,30.9  -- The Elder Crone (18)
 ]]}

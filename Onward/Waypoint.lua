@@ -384,7 +384,7 @@ local function hearthFor(cont, wx, wy, label, flight)
     if not h then return end
     T:SetWantedDestination(nil)
     return { label = "Hearth to " .. h.name, sub = "hearthstone is ready, then " .. (label or "on from there"),
-             cont = cont, wx = wx, wy = wy, radius = 10, hearth = true }
+             cont = cont, wx = wx, wy = wy, radius = 10, hearth = true, route = "use your hearthstone to " .. h.name }
 end
 
 -- Dead and released: the arrow leads back to your body instead of the step, and the guide
@@ -422,6 +422,12 @@ W:On("PLAYER_UNGHOST", deathChanged)
 
 -- What the nav arrow points at: hearthstone or flight advice when it beats running, else the
 -- step target. returns { label, sub, cont, wx, wy, radius, arrived } or nil
+-- This is the travel plan. Guides don't carry flight or boat steps of their own any more: a
+-- step only says where it is, and the way there is worked out here from where you stand, each
+-- time: a boat or zeppelin when it's on the other continent (with a flight to the dock when
+-- that's far), your hearthstone when it's ready and faster, a flight between two points you've
+-- learned when that beats running, else on foot. `route` says the first leg in words, for the
+-- panel ("fly from Rog'mar to Undercity").
 function WP:ArrowTarget()
     local body = WP:CorpseTarget()
     if body then return body end
@@ -437,12 +443,14 @@ function WP:ArrowTarget()
             local A, B = advice.from, advice.to
             T:SetWantedDestination(c.from.cont, B.wx, B.wy, B.name)
             return { label = "Fly: " .. A.name, sub = "to " .. B.name .. ", then " .. boat, cont = c.from.cont, wx = A.wx, wy = A.wy,
-                     radius = 10, flight = true, via = { wx = B.wx, wy = B.wy }, final = { cont = c.from.cont, wx = c.from.wx, wy = c.from.wy } }
+                     radius = 10, flight = true, via = { wx = B.wx, wy = B.wy }, final = { cont = c.from.cont, wx = c.from.wx, wy = c.from.wy },
+                     route = "fly from " .. A.name .. " to " .. B.name .. ", then " .. boat }
         end
         T:SetWantedDestination(nil)
         return { label = "Take the " .. c.kind .. " to " .. c.to.name,
                  sub = "from " .. c.from.name .. ", then " .. label,
-                 cont = c.from.cont, wx = c.from.wx, wy = c.from.wy, radius = 15, crossing = true }
+                 cont = c.from.cont, wx = c.from.wx, wy = c.from.wy, radius = 15, crossing = true,
+                 route = "take the " .. c.kind .. " from " .. c.from.name .. " to " .. c.to.name }
     end
     -- several camps: keep pointing at the nearest as you move (unless you picked one)
     if step.areas and not step.areaPinned and not current.pickup then
@@ -463,7 +471,8 @@ function WP:ArrowTarget()
             local A, B = advice.from, advice.to
             T:SetWantedDestination(spot.cont, B.wx, B.wy, B.name)
             return { label = "Fly: " .. A.name, sub = "to " .. B.name .. ", then " .. label, cont = spot.cont, wx = A.wx, wy = A.wy, radius = 10, flight = true,
-                     via = { wx = B.wx, wy = B.wy }, final = { cont = spot.cont, wx = spot.wx, wy = spot.wy } }
+                     via = { wx = B.wx, wy = B.wy }, final = { cont = spot.cont, wx = spot.wx, wy = spot.wy },
+                     route = "fly from " .. A.name .. " to " .. B.name }
         end
         T:SetWantedDestination(nil)
         local sub = spot.name and ("nearest: " .. spot.name) or current.name
@@ -486,7 +495,8 @@ function WP:ArrowTarget()
         T:SetWantedDestination(cont, B.wx, B.wy, B.name)
         local fc, fx, fy = T.World(current.map, current.x, current.y)
         return { label = "Fly: " .. A.name, sub = "to " .. B.name .. ", then " .. label, cont = cont, wx = A.wx, wy = A.wy, radius = 10, flight = true,
-                 via = { wx = B.wx, wy = B.wy }, final = fc and { cont = fc, wx = fx, wy = fy } or nil }
+                 via = { wx = B.wx, wy = B.wy }, final = fc and { cont = fc, wx = fx, wy = fy } or nil,
+                 route = "fly from " .. A.name .. " to " .. B.name }
     end
     local cont, wx, wy = T.World(current.map, current.x, current.y)
     if not cont then return end

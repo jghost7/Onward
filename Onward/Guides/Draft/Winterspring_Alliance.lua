@@ -27,10 +27,8 @@ accept 5084 |npc Donova Snowden |at 1452 31.3,45.2 |lvl 52 |preany 5083  -- Fall
 accept 5082 |npc Donova Snowden |at 1452 31.3,45.2 |value mid |lvl 52  -- Threat of the Winterfall (56)
 turnin 6603 |npc Donova Snowden |at 1452 31.3,45.2  -- Trouble in Winterspring! (56)
 complete 8471 |item 20742  -- Winterfall Ritual Totem (56)
-fly 1448 62.5,24.2 |from 1452 62.3,36.6 |npc Felwood (Mishellena)  -- flight master Maethrya
 turnin 5084 |npc Deadwood Cauldron |at 1448 60.2,5.8  -- Falling to Corruption (56)
 accept 5085 |npc Deadwood Cauldron |at 1448 60.2,5.8 |lvl 52 |preany 5084  -- Mystery Goo (56)
-fly 1452 62.3,36.6 |from 1448 62.5,24.2 |npc Maethrya  -- flight master Mishellena
 turnin 5085 |npc Donova Snowden |at 1452 31.3,45.2  -- Mystery Goo (56)
 accept 5086 |npc Donova Snowden |at 1452 31.3,45.2 |lvl 52 |preany 5085  -- Toxic Horrors (56)
 complete 5245 |at 1452 52.4,41.5 |item 12891  -- Troubled Spirits of Kel'Theril (56)
@@ -83,22 +81,14 @@ turnin 5123 |npc Donova Snowden |at 1452 31.3,45.2  -- The Final Piece (59)
 accept 5128 |npc Donova Snowden |at 1452 31.3,45.2 |lvl 52 |preany 5123  -- Words of the High Chief (59)
 turnin 5121 |npc Donova Snowden |at 1452 31.3,45.2 |group elite  -- High Chief Winterfall (59)
 turnin 5082 |npc Donova Snowden |at 1452 31.3,45.2 |value mid  -- Threat of the Winterfall (56)
-fly 1448 62.5,24.2 |from 1452 62.3,36.6 |npc Felwood (Mishellena)  -- flight master Maethrya
 turnin 8471 |npc Kernda |at 1448 65.5,3.5  -- Winterfall Ritual Totem (56)
-fly 2482 68.7,46.8 |from 1448 62.5,24.2 |npc Mount Hyjal (Fayran Elthas)  -- flight master Mishellena
 turnin 93269 |npc Sebelia |at 2482 70.9,51.5  -- Top of the Post (58)
-fly 1448 62.5,24.2 |from 2482 68.7,46.8 |npc Felwood (Mishellena)  -- flight master Fayran Elthas
 turnin 5128 |npc Kelek Skykeeper |at 1448 51.1,81.8  -- Words of the High Chief (59)
-fly 1438 58.4,94.0 |from 1448 62.5,24.2 |npc Teldrassil (Vesprystus)  -- flight master Mishellena
 accept 4902 |npc Erelas Ambersky |at 1438 55.5,92.0 |lvl 52 |preany 4901  -- Wildkin of Elune (57)
 turnin 4902 |npc Arch Druid Fandral Staghelm |at 1457 34.8,9.3  -- Wildkin of Elune (57)
 turnin 5253 |npc Arch Druid Fandral Staghelm |at 1457 34.8,9.3  -- The Crystal of Zin-Malor (58)
-goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
-fly 1423 71.8,49.6 |from 1434 27.5,77.8 |npc Eastern Plaguelands (Khaelyn Steelwing)  -- flight master Gyll
 turnin 6030 |npc Duke Nicholas Zverenhoff |at 1423 71.6,50.1  -- Duke Nicholas Zverenhoff (52)
 turnin 5245 |npc Aurora Skycaller |at 1423 46.5,16.0  -- Troubled Spirits of Kel'Theril (56)
-fly 1422 42.9,85.1 |from 1423 71.8,49.6 |npc Western Plaguelands (Bibilfaz Featherwhistle)  -- flight master Khaelyn Steelwing
 turnin 6028 |npc Argent Officer Pureheart |at 1422 43.0,83.5  -- The Everlook Report (52)
-fly 1428 84.3,68.3 |from 1422 42.9,85.1 |npc Burning Steppes (Borgus Stoutarm) |value mid  -- flight master Bibilfaz Featherwhistle
 turnin 4810 |npc Tinkee Steamboil |at 1428 65.2,24.0 |value mid  -- Return to Tinkee (54)
 ]]}

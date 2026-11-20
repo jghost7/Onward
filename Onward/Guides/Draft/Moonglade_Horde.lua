@@ -25,10 +25,7 @@ accept 8735 |npc Keeper Remulos |at 1450 36.2,41.8 |value mid |group elite |lvl 
 complete 8735 |at 1450 51.0,40.5 |mobs Moonglade Warden;Air Elemental Fragment;Earth Elemental Fragment |value mid |group elite  -- The Nightmare's Corruption (60)
 turnin 8735 |npc Keeper Remulos |at 1450 36.2,41.8 |value mid |group elite  -- The Nightmare's Corruption (60)
 accept 8741 |npc Keeper Remulos |at 1450 36.2,41.8 |group chain |lvl 60 |preany 8736  -- The Champion Returns (60)
-fly 2482 68.7,46.8 |from 1450 44.1,45.2 |npc Mount Hyjal (Fayran Elthas) |value mid  -- flight master Silva Fil'naveth
 turnin 93773 |npc Ketharas |at 2482 73.3,81.9 |value mid  -- The Pact (58)
-fly 1451 48.7,36.7 |from 2482 68.7,46.8 |npc Silithus (Runk Windtamer)  -- flight master Fayran Elthas
 turnin 1124 |npc Layo Starstrike |at 1451 81.9,18.9  -- Wasteland (55)
-fly 1446 51.6,25.4 |from 1451 48.7,36.7 |npc Tanaris (Bulkrek Ragefist)  -- flight master Runk Windtamer
 turnin 8741 |npc Anachronos |at 1446 65.3,50.0 |group chain  -- The Champion Returns (60)
 ]]}

@@ -280,16 +280,11 @@ accept 92959 |npc Fraxinus |at 2482 53.4,84.3 |preany 91770  -- The Dying Ancien
 turnin 92959 |npc Fraxinus |at 2482 53.4,84.3  -- The Dying Ancients (56)
 turnin 90487 |npc Fraxinus |at 2482 53.4,84.3 |value mid  -- Ancient Allies (56)
 accept 95380 |npc Curious Crow |at 2482 48.3,85.7 |preany 95317  -- A Prolific Source (57)
-fly 1413 63.1,37.2 |from 2482 68.7,46.8 |npc The Barrens (Bragok)  -- flight master Fayran Elthas
-goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
 complete 91564 |at 1418 28.7,68.7 |need 11590:1:Mechanical Repair Kit:made with Engineering, so buy it at the auction house or ask a crafter  -- Itching for a Fixing (57)
 turnin 91564  -- Itching for a Fixing (57)
 turnin 96529 |npc Master Mathias Shaw |at 1453 78.3,70.7 |value mid  -- A Shaw Deal (59)
 accept 96676 |npc Master Mathias Shaw |at 1453 78.3,70.7 |value mid |lvl 54 |preany 96529  -- Unsealing Blackthorne Pact (59)
 accept 96561 |note No quest giver on record: it most likely starts from an item you loot or find in this zone. Hand it in to Broken Fishing Basket |loose  -- Last Wishes (60)
-fly 1434 27.5,77.8 |from 1453 71.3,72.2 |npc Stranglethorn Vale (Gyll)  -- flight master Dungar Longdrink
-goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
-fly 2482 68.7,46.8 |from 1413 63.1,37.2 |npc Fayran Elthas  -- flight master Bragok
 accept 93827 |npc Thobon Sapclaw |at 2482 18.5,78.6 |value mid |preany 91697  -- Windswept Wards (58)
 accept 95273 |npc Fennar Mossmane |at 2482 20.2,78.0  -- Water of Hyjal (59)
 accept 93828 |npc Fennar Mossmane |at 2482 20.2,78.0  -- Herbs of the Hollow (57)
@@ -344,14 +339,10 @@ complete 96561  -- Last Wishes (60)
 turnin 96561 |npc Broken Fishing Basket |at 2482 35.7,45.2  -- Last Wishes (60)
 turnin 99670 |npc Jereman |at 2482 41.3,45.3  -- Return to Jereman (60)
 turnin 96676 |npc Johun "Punchy" Dillas |at 2482 43.9,37.8 |value mid  -- Unsealing Blackthorne Pact (59)
-fly 1452 62.3,36.6 |from 2482 68.7,46.8 |npc Winterspring (Maethrya)  -- flight master Fayran Elthas
 turnin 93197 |npc Innkeeper Vizzie |at 1452 61.4,38.8  -- Mending Communications (58)
-fly 1450 44.1,45.2 |from 1452 62.3,36.6 |npc Moonglade (Silva Fil'naveth)  -- flight master Maethrya
 turnin 92612 |npc Dendrite Starblaze |at 1450 56.2,30.6  -- Aid from Moonglade (58)
 complete 92101 |at 1441 31.9,24.0 |item 274795  -- Lifted by Legacy (58)
 turnin 92101 |npc Carving |at 1441 31.9,24.0  -- Lifted by Legacy (58)
-goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
-fly 1433 25.5,59.4 |from 1434 27.5,77.8 |npc Redridge Mountains (Ariena Stormfeather)  -- flight master Gyll
 complete 93510 |at 1433 29.9,57.2 |item 274795  -- Wake Memories (58)
 turnin 93510 |npc Weathered Anchor |at 1433 30.4,57.0  -- Wake Memories (58)
 turnin 96077 |npc Michelle Belle |at 1429 43.4,65.5  -- Belle's Ring (58)

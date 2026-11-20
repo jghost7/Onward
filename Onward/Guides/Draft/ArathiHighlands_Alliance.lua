@@ -74,19 +74,15 @@ turnin 664 |npc Captain Steelgut |at 1417 34.0,80.8 |value mid  -- Drowned Sorro
 turnin 662 |npc First Mate Nilzlix |at 1417 32.8,81.5  -- Deep Sea Salvage (40)
 turnin 668 |npc Shakes O'Breen |at 1417 32.3,81.4  -- Sunken Treasure (40)
 accept 669 |npc Shakes O'Breen |at 1417 32.3,81.4 |lvl 35 |preany 668  -- Sunken Treasure (40)
-fly 1434 27.5,77.8 |from 1417 45.7,46.1 |npc Stranglethorn Vale (Gyll)  -- flight master Cedrik Prose
 turnin 669 |npc Fleet Master Seahorn |at 1434 27.2,77.0  -- Sunken Treasure (40)
 accept 670 |npc Fleet Master Seahorn |at 1434 27.2,77.0 |lvl 35 |preany 669  -- Sunken Treasure (40)
 accept 636 |note No quest giver on record: it most likely starts from an item you loot or find in this zone |loose |lvl 30  -- Legends of the Earth (35)
 turnin 636  -- Legends of the Earth (35)
-fly 1417 45.7,46.1 |from 1434 27.5,77.8 |npc Cedrik Prose  -- flight master Gyll
 turnin 670 |npc Shakes O'Breen |at 1417 32.3,81.4  -- Sunken Treasure (40)
-fly 1455 55.5,47.7 |from 1417 45.7,46.1 |npc Ironforge (Gryth Thurden)  -- flight master Cedrik Prose
 accept 687 |npc Gerrig Bonegrip |at 1455 50.8,5.6 |lvl 30 |preany 653,688  -- Theldurin the Lost (40)
 turnin 653 |npc Gerrig Bonegrip |at 1455 50.8,5.6  -- Myzrael's Allies (40)
 turnin 687 |npc Theldurin the Lost |at 1418 51.4,76.9  -- Theldurin the Lost (40)
 turnin 95315 |npc Demar Brant |at 2548 66.7,81.0  -- The Riverglades Report (38)
-fly 1453 71.3,72.2 |from 2548 60.6,81.5 |npc Stormwind City (Dungar Longdrink)  -- flight master Gretchen Mayberry
 turnin 697 |npc Archmage Malin |at 1453 50.5,87.5 |group chain  -- Malin's Request (39)
 ]]}
 

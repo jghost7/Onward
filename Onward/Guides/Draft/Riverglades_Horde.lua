@@ -173,10 +173,8 @@ accept 94744 |npc Krom'rosh |at 2548 59.4,45.6 |group chain |lvl 38 |preany 9542
 turnin 94481 |npc Gorg |at 2548 58.6,44.6  -- A Serving of Strength (38)
 turnin 94733 |npc Gobam |at 2548 67.0,17.2 |group chain  -- Our Ogre Friend (41)
 accept 94734 |npc Gobam |at 2548 67.0,17.2 |group chain |lvl 36 |preany 94733  -- A Boar's Delight (41)
-fly 1458 63.2,48.6 |from 2548 59.6,45.1 |npc Undercity (Michael Garrett)  -- flight master Grakna
 accept 97884 |npc Mirelle Tremayne |at 1458 61.6,28.9 |lvl 36  -- Armory of Sunnyglade (40)
 accept 93971 |note No quest giver on record: it most likely starts from an item you loot or find in this zone. Hand it in to Krom'rosh |loose |lvl 36  -- Farholde Scouting Report (45)
-fly 2548 59.6,45.1 |from 1458 63.2,48.6 |npc Grakna  -- flight master Michael Garrett
 complete 94533 |at 2548 18.2,70.1 |mobs Snargl@Snargl's Snout |group elite  -- Snargl's Snout (40)
 accept 95792 |npc Gelinda Coppergleam |at 2548 30.2,69.1  -- Clear 'em Out (42)
 accept 95934 |npc Gelinda Coppergleam |at 2548 30.2,69.1  -- Proof of Profit (42)
@@ -240,14 +238,8 @@ accept 95063 |npc Jezap Jinglesprocket |at 2548 65.6,21.4 |group chain |lvl 36 |
 turnin 95063 |npc Clugfist |at 2548 64.2,15.7 |group chain  -- Bloodmaster's Ring (45)
 turnin 94556 |npc Clugfist |at 2548 64.2,15.7  -- Jom-jom's Escape (42)
 turnin 95433 |npc Clugfist |at 2548 64.2,15.7 |group elite  -- Death to the Executioner (46)
-fly 1434 26.9,77.1 |from 2548 59.6,45.1 |npc Stranglethorn Vale (Gringer)  -- flight master Grakna
 turnin 95295 |npc Caravaneer Ruzzgot |at 1434 27.4,74.1  -- I Know a Guy (40)
-fly 1458 63.2,48.6 |from 1434 26.9,77.1 |npc Undercity (Michael Garrett)  -- flight master Gringer
 turnin 97884 |npc Mirelle Tremayne |at 1458 61.6,28.9  -- Armory of Sunnyglade (40)
-fly 1434 26.9,77.1 |from 1458 63.2,48.6 |npc Stranglethorn Vale (Gringer)  -- flight master Michael Garrett
-goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
-fly 1446 51.6,25.4 |from 1413 63.1,37.2 |npc Tanaris (Bulkrek Ragefist)  -- flight master Bragok
 turnin 95296 |npc Wharfmaster Steamfizzle |at 1446 67.6,23.1  -- Shipping and Handling (40)
-fly 1444 75.5,44.4 |from 1446 51.6,25.4 |npc Feralas (Shyn)  -- flight master Bulkrek Ragefist
 turnin 95033 |npc Witch Doctor Uzer'i |at 1444 74.4,43.4  -- On the Other Side (41)
 ]]}

@@ -28,13 +28,10 @@ turnin 3884 |npc Williden Marshal |at 1449 44.0,7.1  -- Williden's Journal (50)
 accept 3883 |npc Hol'anyee Marshal |at 1449 43.9,7.2 |lvl 48  -- Alien Ecology (52)
 accept 92020 |npc Hol'anyee Marshal |at 1449 43.9,7.2  -- Hol'anyee's Big Book of Big Lizards (55)
 accept 3882 |npc Spark Nilminer |at 1449 43.5,7.4 |value mid |lvl 49  -- Roll the Bones (51)
-fly 1452 62.3,36.6 |from 1449 45.2,5.8 |npc Winterspring (Maethrya)  -- flight master Gryfe
 turnin 3908 |npc Donova Snowden |at 1452 31.3,45.2  -- It's a Secret to Everybody (52)
 accept 3909 |npc Donova Snowden |at 1452 31.3,45.2 |lvl 47 |preany 3908  -- The Videre Elixir (52)
 accept 87494 |note No quest giver on record: it most likely starts from an item you loot or find in this zone. Hand it in to Torwa Pathfinder |loose  -- Microcrystal Contamination (55)
-fly 1413 63.1,37.2 |from 1452 62.3,36.6 |npc The Barrens (Bragok) |value mid  -- flight master Maethrya
 accept 4502 |npc Liv Rizzlefix |at 1413 62.5,38.7 |value mid |lvl 49  -- Volcanic Activity (55)
-fly 1449 45.2,5.8 |from 1413 63.1,37.2 |npc Gryfe |value mid  -- flight master Bragok
 turnin 4243 |npc A-Me 01 |at 1449 67.7,16.8  -- Chasing A-Me 01 (53)
 accept 4244 |npc A-Me 01 |at 1449 67.7,16.8 |lvl 48 |preany 4243  -- Chasing A-Me 01 (53)
 complete 4289 |at 1449 67.0,15.3 |mobs Un'Goro Stomper@Un'Goro Stomper Pelt;Un'Goro Gorilla@Un'Goro Gorilla Pelt;Un'Goro Thunderer@Un'Goro Thunderer Pelt  -- The Apes of Un'Goro (55)
@@ -61,25 +58,16 @@ accept 980 |npc Krakle |at 1449 30.9,50.4 |lvl 51 |preany 974  -- The New Spring
 complete 4501 |at 1449 33.8,44.4 |mobs Pterrordax;Frenzied Pterrordax |value low  -- Beware of Pterrordax (55)
 turnin 4141 |npc Muigin |at 1449 42.9,9.6 |value mid  -- Muigin and Larion (52)
 accept 4142 |npc Muigin |at 1449 42.9,9.6 |value mid |lvl 47 |preany 4141  -- A Visit to Gregan (52)
-fly 1444 30.2,43.2 |from 1449 45.2,5.8 |npc Feralas (Fyldren Moonfeather)  -- flight master Gryfe
 turnin 4142 |npc Gregan Brewspewer |at 1444 45.1,25.6 |value mid  -- A Visit to Gregan (52)
 accept 4143 |npc Gregan Brewspewer |at 1444 45.1,25.6 |value mid |group dungeon |lvl 47 |preany 4142  -- Haze of Evil (52)
 complete 3909 |at 1444 45.1,25.6  -- The Videre Elixir (52)
-fly 1413 63.1,37.2 |from 1444 30.2,43.2 |npc The Barrens (Bragok)  -- flight master Fyldren Moonfeather
-goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
-fly 1455 55.5,47.7 |from 1434 27.5,77.8 |npc Ironforge (Gryth Thurden)  -- flight master Gyll
 accept 95924 |npc Curator Thorius |at 1455 71.5,15.7 |lvl 55  -- Panic at the Digsite (60)
-fly 1434 27.5,77.8 |from 1455 55.5,47.7 |npc Stranglethorn Vale (Gyll)  -- flight master Gryth Thurden
-goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
-fly 1452 62.3,36.6 |from 1413 63.1,37.2 |npc Winterspring (Maethrya)  -- flight master Bragok
 turnin 3909 |npc Donova Snowden |at 1452 31.3,45.2  -- The Videre Elixir (52)
 accept 3912 |npc Donova Snowden |at 1452 31.3,45.2 |lvl 47 |preany 3909  -- Meet at the Grave (52)
-fly 1446 51.0,29.3 |from 1452 62.3,36.6 |npc Tanaris (Bera Stonehammer)  -- flight master Maethrya
 turnin 3912 |npc Gaeriyan |at 1446 53.9,23.3  -- Meet at the Grave (52)
 accept 3913 |npc Gaeriyan |at 1446 53.9,23.3 |lvl 47 |preany 3912  -- A Grave Situation (52)
 turnin 3913 |npc A Conspicuous Gravestone |at 1446 53.8,29.1  -- A Grave Situation (52)
 accept 3914 |npc A Conspicuous Gravestone |at 1446 53.8,29.1 |lvl 47 |preany 3913  -- Linken's Sword (52)
-fly 1449 45.2,5.8 |from 1446 51.0,29.3 |npc Gryfe  -- flight master Bera Stonehammer
 complete 4292 |at 1449 79.7,49.8 |item 11568 |mobs Lar'korwi@Lar'korwi's Head  -- The Bait for Lar'korwi (56)
 complete 3881 |at 1449 68.5,36.5  -- Expedition Salvation (53)
 turnin 4244 |npc A-Me 01 |at 1449 67.7,16.8  -- Chasing A-Me 01 (53)
@@ -92,15 +80,12 @@ turnin 3883 |npc Hol'anyee Marshal |at 1449 43.9,7.2  -- Alien Ecology (52)
 turnin 3941 |npc J.D. Collie |at 1449 41.9,2.7  -- A Gnome's Assistance (52)
 accept 4284 |npc J.D. Collie |at 1449 41.9,2.7 |value mid |lvl 47  -- Crystals of Power (53)
 accept 3942 |npc J.D. Collie |at 1449 41.9,2.7 |lvl 47 |preany 3941  -- Linken's Memory (54)
-fly 1448 62.5,24.2 |from 1449 45.2,5.8 |npc Felwood (Mishellena)  -- flight master Gryfe
 turnin 3942 |npc Eridan Bluewind |at 1448 51.4,81.5  -- Linken's Memory (54)
 accept 4084 |npc Eridan Bluewind |at 1448 51.4,81.5 |lvl 47 |preany 3942  -- Silver Heart (54)
 complete 4084 |at 1448 42.4,57.7  -- Silver Heart (54)
 turnin 4084 |npc Eridan Bluewind |at 1448 51.4,81.5  -- Silver Heart (54)
 accept 4005 |npc Eridan Bluewind |at 1448 51.4,81.5 |lvl 47 |preany 4084  -- Aquementas (54)
-fly 1446 51.0,29.3 |from 1448 62.5,24.2 |npc Tanaris (Bera Stonehammer)  -- flight master Mishellena
 complete 4005 |at 1446 70.4,49.9 |item 11617  -- Aquementas (54)
-fly 1449 45.2,5.8 |from 1446 51.0,29.3 |npc Gryfe  -- flight master Bera Stonehammer
 turnin 4292 |npc Torwa Pathfinder |at 1449 71.6,76.0  -- The Bait for Lar'korwi (56)
 turnin 87494 |npc Torwa Pathfinder |at 1449 71.6,76.0  -- Microcrystal Contamination (55)
 accept 95790 |note No quest giver on record: it most likely starts from an item you loot or find in this zone. Hand it in to Curator Thorius |loose |value mid |lvl 55  -- Digestible Research (60)
@@ -122,15 +107,9 @@ turnin 3962 |npc Linken |at 1449 44.7,8.1 |group elite  -- It's Dangerous to Go 
 turnin 4501 |npc Spraggle Frock |at 1449 43.6,8.5 |value low  -- Beware of Pterrordax (55)
 turnin 4144 |npc Muigin |at 1449 42.9,9.6 |value mid |group chain  -- Bloodpetal Sprouts (53)
 complete 95790 |value mid  -- Digestible Research (60)
-fly 1413 63.1,37.2 |from 1449 45.2,5.8 |npc The Barrens (Bragok) |value mid  -- flight master Gryfe
 turnin 4502 |npc Liv Rizzlefix |at 1413 62.5,38.7 |value mid  -- Volcanic Activity (55)
-fly 2482 68.7,46.8 |from 1413 63.1,37.2 |npc Mount Hyjal (Fayran Elthas)  -- flight master Bragok
 turnin 92020 |npc Tiala Whitemane |at 2482 68.8,50.6  -- Hol'anyee's Big Book of Big Lizards (55)
-fly 1452 62.3,36.6 |from 2482 68.7,46.8 |npc Winterspring (Maethrya)  -- flight master Fayran Elthas
 turnin 980 |npc Donova Snowden |at 1452 31.3,45.2  -- The New Springs (55)
-fly 1413 63.1,37.2 |from 1452 62.3,36.6 |npc The Barrens (Bragok)  -- flight master Maethrya
-goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
-fly 1455 55.5,47.7 |from 1434 27.5,77.8 |npc Ironforge (Gryth Thurden)  -- flight master Gyll
 turnin 95924 |npc Curator Thorius |at 1455 71.5,15.7  -- Panic at the Digsite (60)
 accept 95925 |npc Curator Thorius |at 1455 71.5,15.7 |lvl 55  -- Mapping the Way Forward (60)
 turnin 95790 |npc Curator Thorius |at 1455 71.5,15.7 |value mid  -- Digestible Research (60)

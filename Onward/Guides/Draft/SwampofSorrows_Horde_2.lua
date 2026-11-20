@@ -40,8 +40,5 @@ turnin 3374 |npc Itharius |at 1435 13.7,71.7  -- The Essence of Eranikus (55)
 accept 3512 |npc Itharius |at 1435 13.7,71.7 |lvl 48 |preany 3374  -- In Eranikus' Own Words (55)
 turnin 93684 |npc Kum'isha the Collector |at 1419 52.0,35.6  -- The Found One (55)
 turnin 1429 |npc Atal'ai Exile |at 1425 33.8,75.2  -- The Atal'ai Exile (44)
-fly 1434 26.9,77.1 |from 1425 81.7,81.8 |npc Stranglethorn Vale (Gringer)  -- flight master Gorkas
-goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
-fly 1452 60.5,36.3 |from 1413 63.1,37.2 |npc Winterspring (Yugrek)  -- flight master Bragok
 turnin 3512 |npc Umbranse the Spiritspeaker |at 1452 67.8,27.4  -- In Eranikus' Own Words (55)
 ]]}

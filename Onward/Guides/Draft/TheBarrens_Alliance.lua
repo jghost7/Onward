@@ -35,13 +35,10 @@ accept 901 |npc Control Console |at 1413 52.4,11.7 |lvl 10 |preany 900  -- Samop
 complete 901 |at 1413 52.8,10.4 |mobs Tinkerer Sniggles@Console Key  -- Samophlange (14)
 turnin 901 |npc Control Console |at 1413 52.4,11.7  -- Samophlange (14)
 accept 902 |npc Control Console |at 1413 52.4,11.7 |lvl 10 |preany 901  -- Samophlange (16)
-fly 1442 36.4,7.2 |from 1413 63.1,37.2 |npc Stonetalon Mountains (Teloren) |value mid  -- flight master Bragok
 complete 1069 |at 1442 61.6,59.4 |value mid  -- Deepmoss Spider Eggs (20)
-fly 1444 89.5,45.9 |from 1442 36.4,7.2 |npc Feralas (Thyssiana)  -- flight master Teloren
 accept 1101 |npc Falfindel Waywarder |at 1444 89.6,46.6 |group dungeon |lvl 29 |preany 1100  -- The Crone of the Kraul (34)
 complete 1101 |group dungeon  -- The Crone of the Kraul (34)
 accept 1142 |note Starts from Heralath Fallowbrook, whose place isn't on record. Hand it in to Treshala Fallowbrook |loose |group dungeon |lvl 25  -- Mortality Wanes (30)
-fly 1413 63.1,37.2 |from 1444 89.5,45.9 |npc Bragok  -- flight master Thyssiana
 accept 79192 |npc Nailed Plank |at 1413 46.4,73.8 |value mid |lvl 14 |preany 79007,79008  -- Stepping Stones (24)
 complete 865 |at 1413 55.6,50.8 |areas 55.6,50.8:38;59.2,7.4:13;45.5,14.7:11 |mobs Sunscale Scytheclaw@Intact Raptor Horn;Ishamuhale@Intact Raptor Horn;Takk the Leaper@Intact Raptor Horn |value mid  -- Raptor Horns (18)
 complete 888 |at 1413 62.6,49.6 |value low  -- Stolen Booty (16)
@@ -60,10 +57,8 @@ turnin 895 |npc Gazlowe |at 1413 62.7,36.2  -- WANTED: Baron Longshore (16)
 turnin 888 |npc Gazlowe |at 1413 62.7,36.2 |value low  -- Stolen Booty (16)
 accept 3370 |npc Falla Sagewind |at 1413 48.2,32.8 |lvl 15 |preany 6981  -- In Nightmares (25)
 complete 1142 |group dungeon  -- Mortality Wanes (30)
-fly 1442 36.4,7.2 |from 1413 63.1,37.2 |npc Stonetalon Mountains (Teloren)  -- flight master Bragok
 turnin 1483 |npc Ziz Fizziks |at 1442 59.0,62.6  -- Ziz Fizziks (21)
 turnin 79192 |npc Pocket Litter |at 1442 40.8,52.6 |value mid  -- Stepping Stones (24)
-fly 1444 89.5,45.9 |from 1442 36.4,7.2 |npc Feralas (Thyssiana)  -- flight master Teloren
 turnin 1101 |npc Falfindel Waywarder |at 1444 89.6,46.6 |group dungeon  -- The Crone of the Kraul (34)
 turnin 1142 |npc Treshala Fallowbrook |at 1457 69.5,67.8 |group dungeon  -- Mortality Wanes (30)
 turnin 3370 |npc Mathrengyl Bearwalker |at 1457 35.4,8.4  -- In Nightmares (25)

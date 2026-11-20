@@ -53,7 +53,6 @@ turnin 2939 |npc Daryn Lightwind |at 1438 55.4,92.2  -- In Search of Knowledge (
 accept 2940 |npc Feralas: A History |at 1438 55.2,91.5 |lvl 42 |preany 2939  -- Feralas: A History (47)
 turnin 2940 |npc Daryn Lightwind |at 1438 55.4,92.2  -- Feralas: A History (47)
 accept 2941 |npc Daryn Lightwind |at 1438 55.4,92.2 |lvl 42 |preany 2940  -- The Borrower (48)
-fly 1444 89.5,45.9 |from 1438 58.4,94.0 |npc Thyssiana  -- flight master Vesprystus
 complete 92858 |at 1444 74.8,27.6 |mobs Ohk'zi@Staff of Ohk'zi |group elite  -- WANTED: Ohk'zi (43)
 complete 2982 |at 1444 75.4,29.7 |areas 59.9,67.0:27;75.4,29.7:15 |mobs Gordunni Warlock;Gordunni Shaman;Gordunni Brute |value mid  -- The High Wilderness (44)
 accept 3841 |npc Kindal Moonweaver |at 1444 65.9,45.6 |lvl 38 |preany 2972  -- An Orphan Looking For a Home (47)
@@ -69,21 +68,14 @@ turnin 3842 |npc Quentin |at 1441 78.3,74.7  -- A Short Incubation (47)
 accept 3843 |npc Quentin |at 1441 78.3,74.7 |lvl 38 |preany 3842  -- The Newest Member of the Family (47)
 turnin 2941 |npc Curgle Cranklehop |at 1446 52.4,26.9  -- The Borrower (48)
 accept 2944 |npc Curgle Cranklehop |at 1446 52.4,26.9 |group elite |lvl 42 |preany 2941  -- The Super Snapper FX (48)
-fly 1444 89.5,45.9 |from 1446 51.0,29.3 |npc Thyssiana  -- flight master Bera Stonehammer
 turnin 4135 |npc Zukk'ash Pod |at 1444 72.1,63.7  -- The Writhing Deep (46)
 complete 2870 |at 1444 28.5,70.5 |mobs Lord Shalzaru@Mysterious Relic  -- Against Lord Shalzaru (45)
-fly 1413 63.1,37.2 |from 1444 30.2,43.2 |npc The Barrens (Bragok)  -- flight master Fyldren Moonfeather
-goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
-fly 1425 11.1,46.1 |from 1434 27.5,77.8 |npc The Hinterlands (Guthrum Thunderfist)  -- flight master Gyll
 complete 2944 |at 1425 80.4,58.2 |item 9328 |group elite  -- The Super Snapper FX (48)
 turnin 3843 |npc Agnar Beastamer |at 1425 14.2,43.6  -- The Newest Member of the Family (47)
 accept 4297 |npc Agnar Beastamer |at 1425 14.2,43.6 |value mid |lvl 38 |preany 3843  -- Food for Baby (47)
 accept 81951 |npc Owen Thadd |at 1458 73.4,33.0  -- The Liminal and the Arcane (45)
-goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
-fly 1438 58.4,94.0 |from 1413 63.1,37.2 |npc Teldrassil (Vesprystus)  -- flight master Bragok
 turnin 2944 |npc Daryn Lightwind |at 1438 55.4,92.2 |group elite  -- The Super Snapper FX (48)
 accept 2943 |npc Daryn Lightwind |at 1438 55.4,92.2 |group chain |lvl 42 |preany 2944  -- Return to Troyas (48)
-fly 1444 30.2,43.2 |from 1438 58.4,94.0 |npc Fyldren Moonfeather  -- flight master Vesprystus
 complete 81951 |at 1444 50.6,15.7  -- The Liminal and the Arcane (45)
 turnin 81951  -- The Liminal and the Arcane (45)
 accept 2844 |npc Rockbiter |at 1444 42.4,22.0 |lvl 44  -- The Giant Guardian (49)
@@ -111,11 +103,8 @@ turnin 92858 |npc Latronicus Moonspear |at 1444 30.4,46.2 |group elite  -- WANTE
 turnin 2870 |npc Latronicus Moonspear |at 1444 30.4,46.2  -- Against Lord Shalzaru (45)
 accept 2871 |npc Latronicus Moonspear |at 1444 30.4,46.2 |lvl 40 |preany 2870  -- Delivering the Relic (45)
 turnin 2871 |npc Vestia Moonspear |at 1444 30.1,45.1  -- Delivering the Relic (45)
-fly 1446 51.0,29.3 |from 1444 30.2,43.2 |npc Tanaris (Bera Stonehammer)  -- flight master Fyldren Moonfeather
 turnin 3445 |npc Marvon Rivetseeker |at 1446 52.7,45.9  -- The Sunken Temple (51)
 turnin 4267 |npc Gracina Spiritmight |at 1457 41.8,85.6  -- Rise of the Silithid (46)
-goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
-fly 1425 11.1,46.1 |from 1434 27.5,77.8 |npc The Hinterlands (Guthrum Thunderfist) |value mid  -- flight master Gyll
 turnin 4297 |npc Agnar Beastamer |at 1425 14.2,43.6 |value mid  -- Food for Baby (47)
 accept 4298 |npc Agnar Beastamer |at 1425 14.2,43.6 |value mid |lvl 37 |preany 4297  -- Becoming a Parent (48)
 turnin 4298 |npc Agnar Beastamer |at 1425 14.2,43.6 |value mid  -- Becoming a Parent (48)

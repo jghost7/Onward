@@ -88,10 +88,8 @@ accept 96139 |npc Sirra Von'Indi |at 1431 72.6,47.6 |lvl 18  -- The Valor Family
 complete 173 |at 1431 62.0,47.8 |areas 65.5,69.1:12;62.0,47.8:7 |mobs Nightbane Shadow Weaver  -- Worgen in the Woods (28)
 complete 93 |at 1431 30.1,51.2 |areas 30.1,51.2:24;66.7,20.8:20 |mobs Black Widow Hatchling@Gooey Spider Leg;Pygmy Venom Web Spider@Gooey Spider Leg;Venom Web Spider@Gooey Spider Leg;Green Recluse@Gooey Spider Leg |value mid  -- Dusky Crab Cakes (20)
 complete 245 |at 1431 10.8,55.4 |areas 10.8,55.4:9;66.7,17.9:7 |mobs Pygmy Venom Web Spider |value low  -- Eight-Legged Menaces (21)
-fly 1436 56.5,52.6 |from 1431 77.5,44.3 |npc Westfall (Thor)  -- flight master Felicia Maline
 turnin 67 |npc Old Footlocker |at 1436 41.5,66.7  -- The Legend of Stalvan (28)
 accept 68 |npc Old Footlocker |at 1436 41.5,66.7 |lvl 22 |preany 67  -- The Legend of Stalvan (28)
-fly 1431 77.5,44.3 |from 1436 56.5,52.6 |npc Felicia Maline  -- flight master Thor
 turnin 230 |npc Sven Yorgen |at 1431 7.8,34.1  -- Sven's Camp (25)
 accept 262 |npc Sven Yorgen |at 1431 7.8,34.1 |lvl 20 |preany 230  -- The Shadowy Figure (25)
 accept 226 |npc Lars |at 1431 7.7,33.2 |value mid |lvl 19  -- Wolves at Our Heels (21)
@@ -132,14 +130,12 @@ complete 323 |at 1431 16.9,35.0 |mobs Skeletal Raider;Skeletal Healer;Skeletal W
 turnin 323 |npc Sven Yorgen |at 1431 7.8,34.1  -- Proving Your Worth (28)
 accept 269 |npc Sven Yorgen |at 1431 7.8,34.1 |lvl 20 |preany 323  -- Seeking Wisdom (29)
 turnin 226 |npc Lars |at 1431 7.7,33.2 |value mid  -- Wolves at Our Heels (21)
-fly 1453 71.3,72.2 |from 1431 77.5,44.3 |npc Stormwind City (Dungar Longdrink)  -- flight master Felicia Maline
 turnin 70 |npc Caretaker Folsom |at 1453 42.5,72.4  -- The Legend of Stalvan (28)
 accept 72 |npc Caretaker Folsom |at 1453 42.5,72.4 |lvl 22 |preany 70  -- The Legend of Stalvan (28)
 turnin 72 |npc Sealed Crate |at 1453 42.5,72.0  -- The Legend of Stalvan (28)
 accept 74 |npc Sealed Crate |at 1453 42.5,72.0 |lvl 22 |preany 72  -- The Legend of Stalvan (28)
 turnin 269 |npc Bishop Farthing |at 1453 49.9,46.0  -- Seeking Wisdom (29)
 accept 270 |npc Bishop Farthing |at 1453 49.9,46.0 |lvl 20 |preany 269  -- The Doomed Fleet (29)
-fly 1437 9.5,59.7 |from 1453 71.3,72.2 |npc Wetlands (Shellei Brondir)  -- flight master Dungar Longdrink
 turnin 270 |npc Glorin Steelbrow |at 1437 10.6,60.6  -- The Doomed Fleet (29)
 accept 321 |npc Glorin Steelbrow |at 1437 10.6,60.6 |lvl 20 |preany 270  -- Lightforge Iron (29)
 turnin 321 |npc Waterlogged Chest |at 1437 12.1,64.2  -- Lightforge Iron (29)
@@ -148,10 +144,7 @@ complete 324 |at 1437 11.8,64.4  -- The Lost Ingots (29)
 turnin 324 |npc Glorin Steelbrow |at 1437 10.6,60.6  -- The Lost Ingots (29)
 accept 322 |npc Glorin Steelbrow |at 1437 10.6,60.6 |lvl 20 |preany 324  -- Blessed Arm (29)
 accept 96137 |npc Bath'rah the Windwatcher |at 1416 80.5,66.9 |startitem 281143 |value mid |lvl 18  -- Ira's Dagger (25)
-goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
 complete 174 |at 1413 47.8,84.9  -- Look To The Stars (25)
-goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
-fly 1453 71.3,72.2 |from 1434 27.5,77.8 |npc Stormwind City (Dungar Longdrink)  -- flight master Gyll
 turnin 322 |npc Grimand Elmore |at 1453 59.7,33.8  -- Blessed Arm (29)
 accept 325 |npc Grimand Elmore |at 1453 59.7,33.8 |lvl 20 |preany 322  -- Armed and Ready (29)
 turnin 74 |npc Marshal Haggard |at 1429 84.6,69.4  -- The Legend of Stalvan (28)
@@ -188,6 +181,5 @@ complete 133 |at 1431 23.7,34.1 |mobs Plague Spreader@Ghoul Rib;Brain Eater@Ghou
 turnin 133 |npc Abercrombie |at 1431 28.1,31.5 |value mid  -- Ghoulish Effigy (27)
 turnin 325 |npc Sven Yorgen |at 1431 7.8,34.1  -- Armed and Ready (29)
 turnin 164 |npc Sven Yorgen |at 1431 7.8,34.1  -- Deliveries to Sven (23)
-fly 1453 71.3,72.2 |from 1431 77.5,44.3 |npc Stormwind City (Dungar Longdrink)  -- flight master Felicia Maline
 turnin 337 |npc Milton Sheaf |at 1453 77.1,30.2  -- An Old History Book (25)
 ]]}

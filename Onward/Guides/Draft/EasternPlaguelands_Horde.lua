@@ -73,7 +73,6 @@ accept 5210 |npc Chromie |at 1422 39.5,66.8 |lvl 50 |preany 5154  -- Brother Car
 turnin 97986  -- Argent Arbiter (57)
 turnin 6144 |npc Varimathras |at 1458 56.2,92.2 |group chain  -- The Call to Command (60)
 accept 6145 |npc Varimathras |at 1458 56.2,92.2 |group elite |lvl 56 |preany 6144  -- The Crimson Courier (60)
-fly 1423 70.5,47.5 |from 1458 63.2,48.6 |npc Georgia  -- flight master Michael Garrett
 turnin 5845 |npc Tirion Fordring |at 1423 5.2,35.6  -- Of Lost Honor (58)
 accept 5846 |npc Tirion Fordring |at 1423 5.2,35.6 |lvl 52 |preany 5845  -- Of Love and Family (58)
 complete 6145 |at 1423 51.4,30.6 |mobs Crimson Courier@The Grand Crusader's Command |group elite  -- The Crimson Courier (60)
@@ -113,15 +112,9 @@ turnin 6147 |npc Nathanos Blightcaller |at 1423 22.2,63.5 |group chain  -- Retur
 accept 6148 |npc Nathanos Blightcaller |at 1423 22.2,63.5 |group elite |lvl 56 |preany 6147  -- The Scarlet Oracle, Demetria (60)
 accept 5142 |npc Marlene Redpath |at 1422 49.2,78.6 |lvl 50  -- Little Pamela (55)
 complete 5168 |at 1422 42.5,19.0  -- Heroes of Darrowshire (56)
-goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
-fly 1446 51.6,25.4 |from 1413 63.1,37.2 |npc Tanaris (Bulkrek Ragefist)  -- flight master Bragok
 accept 5065 |npc Prospector Ironboot |at 1446 66.9,24.0 |group chain |lvl 40 |preany 3528  -- The Lost Tablets of Mosh'aru (58)
 accept 5464 |note Starts from Menethil's Gift, whose place isn't on record. Hand it in to Leonid Barthalomew the Revered |loose |group chain |lvl 57 |preany 5463  -- Menethil's Gift (60)
-fly 1454 45.1,63.9 |from 1446 51.6,25.4 |npc Orgrimmar (Doras)  -- flight master Bulkrek Ragefist
 accept 8930 |npc Mokvar |at 1454 35.0,38.3 |class WARRIOR,HUNTER,ROGUE,PRIEST,SHAMAN,MAGE,WARLOCK,DRUID |group chain |lvl 58 |preany 8927,8938,8939,8940,8941,8942,8943,8944  -- In Search of Anthion (60)
-fly 1413 63.1,37.2 |from 1454 45.1,63.9 |npc The Barrens (Bragok)  -- flight master Doras
-goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
-fly 1423 70.5,47.5 |from 1434 26.9,77.1 |npc Georgia  -- flight master Gringer
 turnin 8946 |npc Anthion Harmon |at 1423 26.1,11.3 |class WARRIOR,HUNTER,ROGUE,PRIEST,SHAMAN,MAGE,WARLOCK,DRUID |group chain  -- Proof of Life (60)
 turnin 8930 |npc Anthion Harmon |at 1423 26.1,11.3 |class WARRIOR,HUNTER,ROGUE,PRIEST,SHAMAN,MAGE,WARLOCK,DRUID |group chain  -- In Search of Anthion (60)
 accept 8947 |npc Anthion Harmon |at 1423 26.1,11.3 |class WARRIOR,HUNTER,ROGUE,PRIEST,SHAMAN,MAGE,WARLOCK,DRUID |group chain |lvl 58 |preany 8946  -- Anthion's Strange Request (60)
@@ -167,9 +160,6 @@ turnin 5152 |npc Marlene Redpath |at 1422 49.2,78.6  -- Auntie Marlene (56)
 accept 5153 |npc Marlene Redpath |at 1422 49.2,78.6 |lvl 50 |preany 5152  -- A Strange Historian (56)
 complete 5153 |at 1422 49.7,76.8  -- A Strange Historian (56)
 turnin 5153 |npc Chromie |at 1422 39.5,66.8  -- A Strange Historian (56)
-goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
-fly 1454 45.1,63.9 |from 1413 63.1,37.2 |npc Orgrimmar (Doras)  -- flight master Bragok
 turnin 97988 |npc Corswyn Aseril |at 1454 38.1,39.0  -- Orgrimmar's Windshapers (57)
-fly 1446 51.6,25.4 |from 1454 45.1,63.9 |npc Tanaris (Bulkrek Ragefist)  -- flight master Doras
 turnin 5065 |npc Prospector Ironboot |at 1446 66.9,24.0 |group chain  -- The Lost Tablets of Mosh'aru (58)
 ]]}

@@ -74,11 +74,9 @@ turnin 666 |npc Doctor Draxlegauge |at 1417 33.9,80.5  -- Sunken Treasure (40)
 accept 668 |npc Doctor Draxlegauge |at 1417 33.9,80.5 |lvl 35 |preany 666  -- Sunken Treasure (40)
 turnin 668 |npc Shakes O'Breen |at 1417 32.3,81.4  -- Sunken Treasure (40)
 accept 669 |npc Shakes O'Breen |at 1417 32.3,81.4 |lvl 35 |preany 668  -- Sunken Treasure (40)
-fly 1434 26.9,77.1 |from 1417 73.0,32.7 |npc Stranglethorn Vale (Gringer)  -- flight master Urda
 turnin 669 |npc Fleet Master Seahorn |at 1434 27.2,77.0  -- Sunken Treasure (40)
 accept 670 |npc Fleet Master Seahorn |at 1434 27.2,77.0 |lvl 35 |preany 669  -- Sunken Treasure (40)
 accept 92707 |note No quest giver on record: it most likely starts from an item you loot or find in this zone. Hand it in to Drum Fel |loose |group elite |lvl 30  -- The Giant in the Den (33)
-fly 1417 73.0,32.7 |from 1434 26.9,77.1 |npc Urda  -- flight master Gringer
 turnin 670 |npc Shakes O'Breen |at 1417 32.3,81.4  -- Sunken Treasure (40)
 turnin 664 |npc Captain Steelgut |at 1417 34.0,80.8  -- Drowned Sorrows (40)
 complete 678 |at 1417 53.1,75.9 |mobs Boulderfist Brute;Boulderfist Magus  -- Call to Arms (38)
@@ -117,7 +115,6 @@ turnin 673 |npc Tor'gan |at 1417 74.7,36.3 |group elite  -- Foul Magics (40)
 turnin 847 |npc Tor'gan |at 1417 74.7,36.3  -- Guile of the Raptor (37)
 accept 687 |npc Gerrig Bonegrip |at 1455 50.8,5.6 |lvl 30 |preany 653,688  -- Theldurin the Lost (40)
 turnin 687 |npc Theldurin the Lost |at 1418 51.4,76.9  -- Theldurin the Lost (40)
-fly 2548 59.6,45.1 |from 1418 4.0,44.8 |npc Riverglades (Grakna)  -- flight master Gorrik
 turnin 95143 |npc Tan'jani |at 2548 58.1,45.3  -- Finding Tan'jani (38)
 ]]}
 

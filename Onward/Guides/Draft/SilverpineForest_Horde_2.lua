@@ -20,9 +20,7 @@ turnin 461 |npc Dusty Shelf |at 1421 65.4,24.8  -- The Hidden Niche (18)
 accept 491 |npc Dusty Shelf |at 1421 65.4,24.8 |lvl 12 |preany 461  -- Wand to Bethor (18)
 complete 442 |at 1421 65.7,23.7 |mobs Thule Ravenclaw@Thule's Head |group elite  -- Assault on Fenris Isle (24)
 complete 451 |at 1421 78.1,30.6 |areas 78.1,30.6:68;70.6,17.5:61 |mobs Vile Fin Lakestalker@Hardened Tumor;Vile Fin Shredder@Hardened Tumor;Vile Fin Tidecaller@Hardened Tumor;Vile Fin Tidehunter@Hardened Tumor  -- A Recipe For Death (18)
-fly 1458 63.2,48.6 |from 1421 45.6,42.6 |npc Undercity (Michael Garrett)  -- flight master Karos Razok
 accept 530 |npc Raleigh Andrean |at 1458 62.0,42.8 |lvl 10 |preany 441  -- A Husband's Revenge (20)
-fly 1421 45.6,42.6 |from 1458 63.2,48.6 |npc Karos Razok  -- flight master Michael Garrett
 complete 480 |at 1421 63.4,64.3 |mobs Archmage Ataeric@Ataeric's Staff |value mid  -- The Weaver (22)
 complete 516 |at 1421 58.7,71.3 |mobs Ravenclaw Drudger;Ravenclaw Guardian |value mid  -- Beren's Peril (21)
 accept 95884 |at 1421 58.7,71.3 |note Starts from Note Scrap |startitem 271343 |lvl 20  -- The Offering Stone (23)
@@ -40,11 +38,9 @@ turnin 442 |npc High Executor Hadrec |at 1421 43.4,40.9 |group elite  -- Assault
 turnin 480 |npc Shadow Priest Allister |at 1421 44.0,40.9 |value mid  -- The Weaver (22)
 turnin 516 |npc Shadow Priest Allister |at 1421 44.0,40.9 |value mid  -- Beren's Peril (21)
 turnin 98299 |npc Dalar Dawnweaver |at 1421 44.2,39.8 |group chain  -- Stop the Spread (20)
-fly 1458 63.2,48.6 |from 1421 45.6,42.6 |npc Undercity (Michael Garrett)  -- flight master Karos Razok
 turnin 451 |npc Master Apothecary Faranell |at 1458 48.8,69.3  -- A Recipe For Death (18)
 turnin 530 |npc Raleigh Andrean |at 1458 62.0,42.8  -- A Husband's Revenge (20)
 turnin 491 |npc Bethor Iceshard |at 1458 84.1,17.4  -- Wand to Bethor (18)
-fly 1424 60.1,18.6 |from 1458 63.2,48.6 |npc Hillsbrad Foothills (Zarise)  -- flight master Michael Garrett
 turnin 493 |npc Apothecary Lydon |at 1424 61.4,19.1  -- Journey to Hillsbrad Foothills (20)
 ]]}
 

@@ -21,15 +21,11 @@ turnin 1111 |npc Wharfmaster Dizzywig |at 1413 63.4,38.5  -- Wharfmaster Dizzywi
 accept 1112 |npc Wharfmaster Dizzywig |at 1413 63.4,38.5 |lvl 30 |preany 1111  -- Parts for Kravel (36)
 turnin 1178 |npc Gazlowe |at 1413 62.7,36.2  -- Goblin Sponsorship (37)
 accept 1180 |npc Gazlowe |at 1413 62.7,36.2 |lvl 29 |preany 1178  -- Goblin Sponsorship (37)
-fly 1444 89.5,45.9 |from 1413 63.1,37.2 |npc Feralas (Thyssiana)  -- flight master Bragok
 accept 98155 |npc Kristy Grant |at 1444 89.4,46.0 |lvl 24  -- Pristine Pesterhide Pelts (29)
-fly 1413 63.1,37.2 |from 1444 89.5,45.9 |npc The Barrens (Bragok)  -- flight master Thyssiana
-goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
 turnin 1180 |npc Wharfmaster Lozgil |at 1434 26.4,73.6  -- Goblin Sponsorship (37)
 accept 1181 |npc Wharfmaster Lozgil |at 1434 26.4,73.6 |lvl 29 |preany 1180  -- Goblin Sponsorship (37)
 turnin 1181 |npc Baron Revilgaz |at 1434 27.2,76.9  -- Goblin Sponsorship (37)
 accept 1182 |npc Baron Revilgaz |at 1434 27.2,76.9 |lvl 29 |preany 1181  -- Goblin Sponsorship (37)
-goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
 complete 1104 |at 1441 71.8,73.0 |areas 76.1,55.1:14;71.8,73.0:13;86.6,68.6:9 |mobs Scorpid Reaver@Salty Scorpid Venom;Scorpid Terror@Salty Scorpid Venom;Vile Sting@Salty Scorpid Venom  -- Salt Flat Venom (30)
 complete 1110 |at 1441 72.3,74.4 |areas 73.4,57.9:85;79.4,86.7:62;72.3,74.4:43;87.5,71.3:41 |value low  -- Rocket Car Parts (31)
 turnin 1112 |npc Kravel Koalbeard |at 1441 77.8,77.3  -- Parts for Kravel (36)
@@ -44,15 +40,12 @@ turnin 1110 |npc Kravel Koalbeard |at 1441 77.8,77.3 |value low  -- Rocket Car P
 complete 1182 |at 1441 79.7,77.0 |mobs Goblin Racer;Goblin Drag Car  -- Goblin Sponsorship (37)
 complete 98155 |at 1441 63.8,56.5 |areas 63.8,56.5:11;12.2,15.3:7;20.1,33.3:4 |mobs Pesterhide Snarler@Pristine Pesterhide Pelt  -- Pristine Pesterhide Pelts (29)
 accept 1100 |at 1441 30.7,24.4 |note Starts from Henrig Lonebrow's Journal |startitem 5791 |lvl 29  -- Lonebrow's Journal (34)
-goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
 accept 1137 |npc Martek the Exiled |at 1418 42.2,52.7 |lvl 28 |preany 1108  -- News for Fizzle (38)
 accept 1179 |npc Pilot Longbeard |at 1455 72.7,94.0 |lvl 28  -- The Brassbolts Brothers (30)
-fly 1434 27.5,77.8 |from 1455 55.5,47.7 |npc Stranglethorn Vale (Gyll)  -- flight master Gryth Thurden
 complete 1107 |at 1434 25.0,25.2 |group elite  -- Encrusted Tail Fins (35)
 accept 1117 |npc Krazek |at 1434 26.9,77.2 |lvl 30 |preany 1116  -- Rumors for Kravel (36)
 turnin 1182 |npc Baron Revilgaz |at 1434 27.2,76.9  -- Goblin Sponsorship (37)
 accept 1183 |npc Baron Revilgaz |at 1434 27.2,76.9 |lvl 29 |preany 1182  -- Goblin Sponsorship (37)
-goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
 complete 1175 |at 1441 77.4,59.6 |areas 77.8,87.8:31;77.4,59.6:16 |mobs Saltstone Basilisk;Saltstone Crystalhide;Saltstone Gazer |value low  -- A Bump in the Road (33)
 turnin 1117 |npc Kravel Koalbeard |at 1441 77.8,77.3  -- Rumors for Kravel (36)
 turnin 1137 |npc Fizzle Brassbolts |at 1441 78.1,77.1  -- News for Fizzle (38)
@@ -65,11 +58,8 @@ turnin 1175 |npc Trackmaster Zherin |at 1441 81.6,78.0 |value low  -- A Bump in 
 turnin 1100 |npc Falfindel Waywarder |at 1444 89.6,46.6  -- Lonebrow's Journal (34)
 turnin 98155 |npc Kristy Grant |at 1444 89.4,46.0  -- Pristine Pesterhide Pelts (29)
 accept 98156 |npc Kristy Grant |at 1444 89.4,46.0 |lvl 24 |preany 98155  -- Packaged Pristine Pelts (29)
-fly 1413 63.1,37.2 |from 1444 89.5,45.9 |npc The Barrens (Bragok)  -- flight master Thyssiana
-goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
 turnin 1106 |npc Martek the Exiled |at 1418 42.2,52.7  -- Martek the Exiled (35)
 turnin 98156 |npc Kimberly Grant |at 1453 37.8,64.8  -- Packaged Pristine Pelts (29)
-fly 1434 27.5,77.8 |from 1453 71.3,72.2 |npc Stranglethorn Vale (Gyll)  -- flight master Dungar Longdrink
 turnin 5762 |npc Hemet Nesingwary |at 1434 35.7,10.8  -- Hemet Nesingwary (31)
 turnin 1115 |npc Krazek |at 1434 26.9,77.2  -- The Rumormonger (36)
 ]]}

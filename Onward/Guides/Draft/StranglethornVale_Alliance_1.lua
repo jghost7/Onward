@@ -108,12 +108,10 @@ turnin 205 |npc Brother Nimetz |at 1434 37.8,3.6  -- Troll Witchery (40)
 accept 95786 |npc Brother Nimetz |at 1434 37.8,3.6 |lvl 30 |preany 205  -- An Acquaintance in Southshore (40)
 turnin 574 |npc Lieutenant Doren |at 1434 38.0,3.0  -- Special Forces (38)
 accept 202 |npc Lieutenant Doren |at 1434 38.0,3.0 |group elite |lvl 30 |preany 574  -- Colonel Kurzen (40)
-fly 1424 49.3,52.3 |from 1434 27.5,77.8 |npc Hillsbrad Foothills (Darla Harris)  -- flight master Gyll
 accept 98463 |npc Barkeep Kelly |at 1424 51.6,58.6 |lvl 28  -- Talk of the Town (33)
 turnin 602 |npc Archmage Ansirem Runeweaver |at 1416 18.8,78.5  -- Magical Analysis (37)
 accept 603 |npc Archmage Ansirem Runeweaver |at 1416 18.8,78.5 |lvl 32 |preany 602  -- Ansirem's Key (37)
 complete 627 |at 1417 84.6,31.3  -- Favor for Krazek (37)
-fly 1434 27.5,77.8 |from 1417 45.7,46.1 |npc Gyll  -- flight master Cedrik Prose
 complete 97047 |at 1434 49.0,5.9 |mobs Kurzen Elite@Compound Cage Key;Kurzen Subchief@Compound Cage Key;Colonel Kurzen@Compound Cage Key  -- The Cook in the Cage (38)
 complete 202 |at 1434 49.0,5.9 |mobs Kurzen Elite;Kurzen Subchief;Colonel Kurzen@Kurzen's Head |group elite  -- Colonel Kurzen (40)
 turnin 328 |npc Bookie Herod's Strongbox |at 1434 49.6,7.6  -- The Hidden Key (37)
@@ -167,9 +165,7 @@ turnin 330 |npc Corporal Sethman |at 1434 37.7,3.4  -- Patrol Schedules (37)
 accept 331 |npc Corporal Sethman |at 1434 37.7,3.4 |lvl 30 |preany 330  -- Report to Doren (37)
 turnin 622 |npc Corporal Kaleb |at 1434 37.7,3.3  -- Return to Corporal Kaleb (37)
 turnin 331 |npc Lieutenant Doren |at 1434 38.0,3.0  -- Report to Doren (37)
-fly 2548 60.6,81.5 |from 1434 27.5,77.8 |npc Riverglades (Gretchen Mayberry)  -- flight master Gyll
 turnin 93443 |npc Friz Frazzlespark |at 2548 77.1,52.9  -- Lost Shipping Crate (36)
 turnin 95327 |npc Friz Frazzlespark |at 2548 77.1,52.9  -- All's Well That Ends Well (40)
-fly 1424 49.3,52.3 |from 2548 60.6,81.5 |npc Hillsbrad Foothills (Darla Harris)  -- flight master Gretchen Mayberry
 turnin 95786 |npc Loremaster Dibbs |at 1424 50.6,57.1  -- An Acquaintance in Southshore (40)
 ]]}

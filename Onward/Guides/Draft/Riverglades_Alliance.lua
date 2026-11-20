@@ -278,18 +278,12 @@ accept 94998 |npc Ashe Amberhall |at 2548 66.8,81.1 |group chain |lvl 38 |preany
 turnin 94984 |npc Ashe Amberhall |at 2548 66.8,81.1  -- Tome of Twilight (44)
 turnin 95991 |npc Wheatley |at 2548 63.5,85.1 |group elite  -- WANTED: Ghostmaw (42)
 turnin 94998 |npc Melanie Sable |at 2548 66.2,83.4 |group chain  -- Curios of Curiosity (42)
-fly 1453 71.3,72.2 |from 2548 60.6,81.5 |npc Stormwind City (Dungar Longdrink)  -- flight master Gretchen Mayberry
 turnin 94894 |npc Highlord Bolvar Fordragon |at 1453 80.2,38.4 |group chain  -- The Twilight Threat (45)
 accept 95161 |npc Orphan Matron Nightingale |at 1453 56.3,54.0 |lvl 15 |preany 92415  -- Remember That I Love You (22)
 turnin 94893 |npc Abigail Lawson |at 1453 50.1,51.5  -- Delivering Closure (47)
-fly 1431 77.5,44.3 |from 1453 71.3,72.2 |npc Duskwood (Felicia Maline)  -- flight master Dungar Longdrink
 turnin 95161 |npc Avette Fellwood |at 1431 73.0,44.4  -- Remember That I Love You (22)
-fly 1434 27.5,77.8 |from 1431 77.5,44.3 |npc Stranglethorn Vale (Gyll)  -- flight master Felicia Maline
 turnin 95295 |npc Caravaneer Ruzzgot |at 1434 27.4,74.1  -- I Know a Guy (40)
-goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
-fly 1446 51.0,29.3 |from 1413 63.1,37.2 |npc Tanaris (Bera Stonehammer)  -- flight master Bragok
 turnin 95296 |npc Wharfmaster Steamfizzle |at 1446 67.6,23.1  -- Shipping and Handling (40)
-fly 1444 30.2,43.2 |from 1446 51.0,29.3 |npc Feralas (Fyldren Moonfeather)  -- flight master Bera Stonehammer
 turnin 95219 |npc Mardrack Greenwell |at 1444 31.0,43.1  -- From Port to Port (41)
 ]]}
 

@@ -13,7 +13,6 @@ accept 575 |npc Drizzlik |at 1434 28.3,77.6 |lvl 26  -- Supply and Demand (31)
 accept 595 |npc First Mate Crazz |at 1434 28.1,76.2 |lvl 37  -- The Bloodsail Buccaneers (41)
 accept 60870 |npc Landro |at 1434 28.1,75.9  -- A Special Gift (0)
 turnin 60870 |npc Landro |at 1434 28.1,75.9  -- A Special Gift (0)
-fly 1434 32.5,29.4 |from 1434 26.9,77.1 |npc Thysta  -- flight master Gringer
 home |npc Innkeeper Thulbek |at 1434 31.5,29.8  -- set your hearthstone at the inn
 accept 570 |npc Far Seer Mok'thardin |at 1434 32.1,29.2 |lvl 33  -- Mok'thardin's Enchantment (38)
 accept 97453 |npc Gemmil |at 1434 32.8,28.4 |lvl 33  -- Weed Whacked (38)
@@ -57,7 +56,6 @@ turnin 194 |npc Hemet Nesingwary |at 1434 35.7,10.8  -- Raptor Mastery (34)
 accept 195 |npc Hemet Nesingwary |at 1434 35.7,10.8 |lvl 28 |preany 194  -- Raptor Mastery (36)
 complete 570 |at 1434 38.7,37.1 |areas 38.7,37.1:43;48.9,23.9:31;36.2,56.7:9 |mobs Shadowmaw Panther@Shadowmaw Claw;Stranglethorn Tigress@Pristine Tigress Fang;Elder Shadowmaw Panther@Shadowmaw Claw  -- Mok'thardin's Enchantment (38)
 complete 192 |at 1434 38.7,37.1 |areas 38.7,37.1:43;48.9,23.9:31 |mobs Shadowmaw Panther  -- Panther Mastery (38)
-fly 1434 26.9,77.1 |from 1434 32.5,29.4 |npc Gringer  -- flight master Thysta
 turnin 575 |npc Drizzlik |at 1434 28.3,77.6  -- Supply and Demand (31)
 accept 577 |npc Drizzlik |at 1434 28.3,77.6 |lvl 31 |preany 575  -- Some Assembly Required (36)
 accept 605 |npc Crank Fizzlebub |at 1434 27.1,77.2 |lvl 30  -- Singing Blue Shards (35)
@@ -67,7 +65,6 @@ turnin 95322 |npc Caravaneer Ruzzgot |at 1434 27.4,74.1  -- Get the Goods (40)
 accept 95325 |npc Caravaneer Ruzzgot |at 1434 27.4,74.1 |preany 95322  -- We've Been Robbed! (40)
 turnin 595 |npc Bloodsail Correspondence |at 1434 27.3,69.5  -- The Bloodsail Buccaneers (41)
 accept 597 |npc Bloodsail Correspondence |at 1434 27.3,69.5 |lvl 37 |preany 595  -- The Bloodsail Buccaneers (41)
-fly 1434 32.5,29.4 |from 1434 26.9,77.1 |npc Thysta  -- flight master Gringer
 turnin 570 |npc Far Seer Mok'thardin |at 1434 32.1,29.2  -- Mok'thardin's Enchantment (38)
 accept 568 |npc Commander Aggro'gosh |at 1434 32.2,28.9 |lvl 33  -- The Defense of Grom'gol (36)
 turnin 581 |npc Nimboya |at 1434 32.2,27.7  -- Hunt for Yenniku (34)
@@ -160,7 +157,6 @@ turnin 95789 |npc Krazek |at 1434 26.9,77.2  -- Shady Saltseers (40)
 turnin 95791 |npc Krazek |at 1434 26.9,77.2  -- The Saltseer Captain (40)
 turnin 587 |npc Deeg |at 1434 26.9,77.3 |value mid  -- Up to Snuff (41)
 turnin 97328 |npc Wharfmaster Lozgil |at 1434 26.4,73.6  -- Anything of Value (35)
-fly 1434 32.5,29.4 |from 1434 26.9,77.1 |npc Thysta  -- flight master Gringer
 complete 95776 |at 1434 23.7,26.3 |mobs Var'Taka  -- The Only Good Brinescale... (38)
 turnin 571 |npc Far Seer Mok'thardin |at 1434 32.1,29.2  -- Mok'thardin's Enchantment (41)
 turnin 97453 |npc Nerrist |at 1434 32.7,29.2  -- Weed Whacked (38)
@@ -172,12 +168,8 @@ complete 188 |at 1434 32.2,17.4 |mobs Sin'Dall@Paw of Sin'Dall  -- Tiger Mastery
 turnin 196 |npc Hemet Nesingwary |at 1434 35.7,10.8  -- Raptor Mastery (41)
 turnin 193 |npc Sir S. J. Erlgadin |at 1434 35.5,10.6 |group elite  -- Panther Mastery (40)
 turnin 188 |npc Ajeck Rouack |at 1434 35.6,10.6  -- Tiger Mastery (37)
-fly 2548 59.6,45.1 |from 1434 32.5,29.4 |npc Riverglades (Grakna)  -- flight master Thysta
 turnin 95141 |npc Krom'rosh |at 2548 59.4,45.6  -- Report to Rog'mar (38)
 turnin 95327 |npc Friz Frazzlespark |at 2548 77.1,52.9  -- All's Well That Ends Well (40)
-fly 1417 73.0,32.7 |from 2548 59.6,45.1 |npc Arathi Highlands (Urda)  -- flight master Grakna
 turnin 638 |npc Zengu |at 1417 73.8,34.0  -- Trollbane (37)
-fly 1434 26.9,77.1 |from 1417 73.0,32.7 |npc Gringer  -- flight master Urda
-goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
 turnin 96078 |npc Master Gadrin |at 1411 56.0,74.7  -- A Tale Spun Around the Fire (40)
 ]]}

@@ -21,10 +21,8 @@ turnin 250 |npc Suspicious Barrel |at 1432 56.0,13.2  -- A Dark Threat Looms (18
 accept 199 |npc Suspicious Barrel |at 1432 56.0,13.2 |lvl 16 |preany 250  -- A Dark Threat Looms (18)
 turnin 199 |npc Chief Engineer Hinderweir VII |at 1432 46.0,13.6  -- A Dark Threat Looms (18)
 accept 161 |npc Chief Engineer Hinderweir VII |at 1432 46.0,13.6 |lvl 16 |preany 199  -- A Dark Threat Looms (18)
-fly 1437 9.5,59.7 |from 1432 33.9,51.0 |npc Wetlands (Shellei Brondir)  -- flight master Thorgrum Borrelson
 turnin 161 |npc Ashlan Stonesmirk |at 1437 50.0,18.2  -- A Dark Threat Looms (18)
 accept 274 |npc Ashlan Stonesmirk |at 1437 50.0,18.2 |lvl 16 |preany 161  -- A Dark Threat Looms (18)
-fly 1432 33.9,51.0 |from 1437 9.5,59.7 |npc Thorgrum Borrelson  -- flight master Shellei Brondir
 turnin 274 |npc Chief Engineer Hinderweir VII |at 1432 46.0,13.6  -- A Dark Threat Looms (18)
 accept 278 |npc Chief Engineer Hinderweir VII |at 1432 46.0,13.6 |group elite |lvl 16 |preany 274  -- A Dark Threat Looms (18)
 complete 255 |at 1432 70.7,22.8 |mobs Mo'grosh Ogre;Mo'grosh Brute;Mo'grosh Enforcer |group elite  -- Mercenaries (19)

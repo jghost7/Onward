@@ -31,10 +31,8 @@ complete 986 |at 1439 61.0,11.9 |areas 38.5,90.5:14;61.0,11.9:7 |mobs Moonstalke
 complete 87760 |at 1439 49.9,12.2 |mobs Stormscale Beastmistress@Rod of Deep Dominion  -- Holy Diver (20)
 turnin 741 |npc Chief Archaeologist Greywhisker |at 1457 31.2,84.5  -- The Absent Minded Prospector (20)
 accept 942 |npc Chief Archaeologist Greywhisker |at 1457 31.2,84.5 |lvl 15 |preany 741  -- The Absent Minded Prospector (20)
-goto 1439 32.4,43.8 15 |note Take the boat to Menethil Harbor  -- boat Auberdine to Menethil Harbor
 turnin 942 |npc Archaeologist Flagongut |at 1437 10.8,60.4  -- The Absent Minded Prospector (20)
 accept 943 |npc Archaeologist Flagongut |at 1437 10.8,60.4 |lvl 15 |preany 942  -- The Absent Minded Prospector (24)
-goto 1437 4.8,63.6 15 |note Take the boat to Auberdine  -- boat Menethil Harbor to Auberdine
 turnin 87760 |npc Gwennyth Bly'Leggonde |at 1439 36.6,45.6  -- Holy Diver (20)
 turnin 986 |npc Terenthis |at 1439 39.4,43.5 |value mid  -- A Lost Master (20)
 accept 993 |npc Terenthis |at 1439 39.4,43.5 |value mid |lvl 10 |preany 986  -- A Lost Master (20)
@@ -44,15 +42,12 @@ turnin 98013 |npc Arbal |at 1439 43.6,76.4 |value low  -- Swelling Forces (20)
 turnin 993 |npc Volcor |at 1439 45.0,85.3 |value mid  -- A Lost Master (20)
 turnin 729 |npc Prospector Remtravel |at 1439 35.7,83.7  -- The Absent Minded Prospector (20)
 complete 943 |at 1439 36.2,85.9 |mobs Stone Behemoth  -- The Absent Minded Prospector (24)
-fly 1440 34.4,48.0 |from 1439 36.3,45.6 |npc Ashenvale (Daelyshia)  -- flight master Caylais Moonfeather
 accept 970 |npc Delgren the Purifier |at 1440 26.2,38.7 |lvl 13 |preany 967  -- The Tower of Althalaxx (21)
 complete 970 |at 1440 31.3,31.0  -- The Tower of Althalaxx (21)
 turnin 970 |npc Delgren the Purifier |at 1440 26.2,38.7  -- The Tower of Althalaxx (21)
 accept 973 |npc Delgren the Purifier |at 1440 26.2,38.7 |lvl 13 |preany 970  -- The Tower of Althalaxx (24)
 complete 973 |at 1440 25.3,60.7  -- The Tower of Althalaxx (24)
 turnin 973 |npc Delgren the Purifier |at 1440 26.2,38.7  -- The Tower of Althalaxx (24)
-fly 1439 36.3,45.6 |from 1440 34.4,48.0 |npc Caylais Moonfeather  -- flight master Daelyshia
-goto 1439 32.4,43.8 15 |note Take the boat to Menethil Harbor  -- boat Auberdine to Menethil Harbor
 turnin 943 |npc Archaeologist Flagongut |at 1437 10.8,60.4  -- The Absent Minded Prospector (24)
 ]]}
 

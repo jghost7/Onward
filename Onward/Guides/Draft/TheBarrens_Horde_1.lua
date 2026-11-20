@@ -34,7 +34,6 @@ complete 845 |at 1413 52.0,36.8 |areas 52.0,36.8:53;57.1,20.2:40;46.8,62.7:31 |m
 accept 877 |npc Tonga Runetotem |at 1413 52.3,31.9 |lvl 10 |preany 870  -- The Stagnant Oasis (16)
 turnin 845 |npc Sergra Darkthorn |at 1413 52.2,31.0  -- The Zhevra (13)
 accept 903 |npc Sergra Darkthorn |at 1413 52.2,31.0 |lvl 10 |preany 845  -- Prowlers of the Barrens (15)
-fly 1413 63.1,37.2 |from 1413 51.5,30.3 |npc Bragok  -- flight master Devrak
 accept 887 |npc Gazlowe |at 1413 62.7,36.2 |value mid |lvl 9  -- Southsea Freebooters (14)
 accept 97253 |npc Wrenix the Wretched |at 1413 63.1,36.3 |lvl 9  -- Parts and Pieces (15)
 accept 894 |npc Sputtervalve |at 1413 63.0,37.2 |lvl 10  -- Samophlange (14)
@@ -69,7 +68,6 @@ turnin 881 |npc Sergra Darkthorn |at 1413 52.2,31.0  -- Echeyakee (16)
 accept 905 |npc Sergra Darkthorn |at 1413 52.2,31.0 |lvl 10 |preany 881  -- The Angry Scytheclaws (17)
 turnin 877 |npc Tonga Runetotem |at 1413 52.3,31.9  -- The Stagnant Oasis (16)
 accept 880 |npc Tonga Runetotem |at 1413 52.3,31.9 |lvl 10 |preany 877  -- Altered Beings (16)
-fly 1413 63.1,37.2 |from 1413 51.5,30.3 |npc Bragok  -- flight master Devrak
 turnin 887 |npc Gazlowe |at 1413 62.7,36.2 |value mid  -- Southsea Freebooters (14)
 accept 890 |npc Gazlowe |at 1413 62.7,36.2 |value mid |lvl 9 |preany 887  -- The Missing Shipment (14)
 turnin 97253 |npc Wrenix the Wretched |at 1413 63.1,36.3  -- Parts and Pieces (15)
@@ -89,14 +87,12 @@ complete 865 |at 1413 55.6,50.8 |areas 55.6,50.8:38;59.2,7.4:13;45.5,14.7:11 |mo
 complete 905 |at 1413 52.5,46.6  -- The Angry Scytheclaws (17)
 complete 851 |at 1413 53.1,41.7 |mobs Verog the Dervish@Verog's Head  -- Verog the Dervish (18)
 complete 880 |at 1413 48.0,40.0 |mobs Oasis Snapjaw@Altered Snapjaw Shell;Oasis Snapjaw Hatchling@Altered Snapjaw Shell  -- Altered Beings (16)
-fly 1456 47.0,49.8 |from 1413 51.5,30.3 |npc Thunder Bluff (Tal)  -- flight master Devrak
 accept 886 |npc Arch Druid Hamuul Runetotem |at 1456 78.6,28.6 |lvl 10  -- The Barrens Oases (10)
 accept 860 |npc Melor Stonehoof |at 1456 61.5,80.9 |lvl 10 |preany 861  -- Sergra Darkthorn (10)
 turnin 6362 |npc Ahanu |at 1456 45.8,55.8 |race Tauren  -- Ride to Thunder Bluff (10)
 accept 6363 |npc Ahanu |at 1456 45.8,55.8 |race Tauren |lvl 10 |preany 6362  -- Tal the Wind Rider Master (10)
 turnin 6363 |npc Tal |at 1456 47.0,49.8 |race Tauren  -- Tal the Wind Rider Master (10)
 accept 6364 |npc Tal |at 1456 47.0,49.8 |race Tauren |lvl 10 |preany 6363  -- Return to Jahan (10)
-fly 1413 51.5,30.3 |from 1456 47.0,49.8 |npc Devrak  -- flight master Tal
 complete 867 |at 1413 39.8,15.6 |mobs Witchwing Slayer@Witchwing Talon;Witchwing Harpy@Witchwing Talon;Witchwing Windcaller@Witchwing Talon;Witchwing Roguefeather@Witchwing Talon |value mid  -- Harpy Raiders (15)
 accept 95494 |npc Vrang Wildgore |at 1413 43.8,12.2 |lvl 14  -- Bruised Pride and Lion Hides (18)
 accept 95507 |npc Vrang Wildgore |at 1413 43.8,12.2 |lvl 14  -- Vrang's Game (18)
@@ -128,13 +124,11 @@ turnin 95508 |npc Walton |at 1413 42.0,11.4  -- Unwelcome Guests (18)
 turnin 3922 |npc Wenikee Boltbucket |at 1413 49.0,11.2 |value low  -- Nugget Slugs (15)
 accept 3923 |npc Wenikee Boltbucket |at 1413 49.0,11.2 |value low |lvl 10 |preany 3922  -- Rilli Greasygob (18)
 complete 896 |at 1413 60.5,3.8 |mobs Venture Co. Enforcer@Cats Eye Emerald;Venture Co. Overseer@Cats Eye Emerald;Boss Copperplug@Cats Eye Emerald  -- Miner's Fortune (18)
-fly 1454 45.1,63.9 |from 1413 51.5,30.3 |npc Orgrimmar (Doras)  -- flight master Devrak
 turnin 6384 |npc Innkeeper Gryshka |at 1454 54.1,68.4 |race Orc,Troll  -- Ride to Orgrimmar (10)
 accept 6385 |npc Innkeeper Gryshka |at 1454 54.1,68.4 |race Orc,Troll |lvl 10 |preany 6384  -- Doras the Wind Rider Master (10)
 accept 98024 |npc Thrall |at 1454 31.7,37.8 |race SkyborneHorde |lvl 7 |preany 95350  -- Journey to the Crossroads (13)
 turnin 6385 |npc Doras |at 1454 45.1,63.9 |race Orc,Troll  -- Doras the Wind Rider Master (10)
 accept 6386 |npc Doras |at 1454 45.1,63.9 |race Orc,Troll |lvl 10 |preany 6385  -- Return to the Crossroads. (10)
-fly 1413 51.5,30.3 |from 1454 45.1,63.9 |npc Devrak  -- flight master Doras
 complete 5041 |at 1413 59.4,24.9  -- Supplies for the Crossroads (14)
 complete 872 |at 1413 58.9,25.0 |mobs Razormane Geomancer;Razormane Defender;Kreenig Snarlsnout@Kreenig Snarlsnout's Tusk |value mid  -- The Disruption Ends (15)
 turnin 6386 |npc Zargh |at 1413 52.6,29.8 |race Orc,Troll  -- Return to the Crossroads. (10)
@@ -149,23 +143,16 @@ accept 3261 |npc Sergra Darkthorn |at 1413 52.2,31.0 |lvl 10 |preany 905  -- Jor
 turnin 886 |npc Tonga Runetotem |at 1413 52.3,31.9  -- The Barrens Oases (10)
 turnin 880 |npc Tonga Runetotem |at 1413 52.3,31.9  -- Altered Beings (16)
 accept 3301 |npc Tonga Runetotem |at 1413 52.3,31.9 |lvl 10 |preany 880  -- Mura Runetotem (15)
-fly 1413 63.1,37.2 |from 1413 51.5,30.3 |npc Bragok  -- flight master Devrak
 turnin 888 |npc Gazlowe |at 1413 62.7,36.2 |value mid  -- Stolen Booty (16)
 turnin 895 |npc Gazlowe |at 1413 62.7,36.2  -- WANTED: Baron Longshore (16)
 turnin 865 |npc Mebok Mizzyrix |at 1413 62.4,37.6  -- Raptor Horns (18)
 turnin 896 |npc Wharfmaster Dizzywig |at 1413 63.4,38.5  -- Miner's Fortune (18)
 turnin 1492 |npc Wharfmaster Dizzywig |at 1413 63.4,38.5  -- Wharfmaster Dizzywig (11)
-fly 1413 44.5,59.1 |from 1413 63.1,37.2 |npc Omusa Thunderhorn  -- flight master Bragok
 accept 907 |npc Jorn Skyseer |at 1413 44.9,59.1 |lvl 10 |preany 882  -- Enraged Thunder Lizards (18)
 complete 907 |at 1413 48.5,59.5 |areas 48.5,59.5:65;47.8,75.9:42 |mobs Stormsnout@Thunder Lizard Blood;Thunderhead@Thunder Lizard Blood;Stormhide@Thunder Lizard Blood  -- Enraged Thunder Lizards (18)
 turnin 907 |npc Jorn Skyseer |at 1413 44.9,59.1  -- Enraged Thunder Lizards (18)
 turnin 3261 |npc Jorn Skyseer |at 1413 44.9,59.1  -- Jorn Skyseer (18)
-fly 1456 47.0,49.8 |from 1413 44.5,59.1 |npc Thunder Bluff (Tal)  -- flight master Omusa Thunderhorn
 turnin 853 |npc Apothecary Zamah |at 1456 22.8,20.9  -- Apothecary Zamah (15)
-fly 1454 45.1,63.9 |from 1456 47.0,49.8 |npc Orgrimmar (Doras) |value low  -- flight master Tal
 turnin 3923 |npc Rilli Greasygob |at 1454 76.5,24.4 |value low  -- Rilli Greasygob (18)
-fly 1413 63.1,37.2 |from 1454 45.1,63.9 |npc Bragok |value low  -- flight master Doras
-goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
-fly 1421 45.6,42.6 |from 1434 26.9,77.1 |npc Silverpine Forest (Karos Razok)  -- flight master Gringer
 turnin 3301 |npc Mura Runetotem |at 1421 42.9,42.0  -- Mura Runetotem (15)
 ]]}

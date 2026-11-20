@@ -110,21 +110,13 @@ complete 91488 |at 1447 20.5,56.5 |areas 49.6,80.8:32;20.5,56.5:18;50.2,26.4:17;
 complete 91608 |at 1447 19.5,55.4 |item 238501 |mobs Honey Wasp@Wild Honey |value mid  -- Gettin' Buzzed (48)
 complete 6804 |at 1447 15.0,49.8 |item 17310 |mobs Azshara Sentinel;Moderate Manifestation of Water;Corrupt Moderate Manifestation of Water |value mid  -- Poisoned Water (56)
 turnin 92065  -- Blackmaw Reclamation (60)
-fly 1413 63.1,37.2 |from 1447 22.0,49.6 |npc The Barrens (Bragok)  -- flight master Kroum
-goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
-fly 1458 63.2,48.6 |from 1434 26.9,77.1 |npc Undercity (Michael Garrett)  -- flight master Gringer
 turnin 3542 |npc Andron Gant |at 1458 54.8,76.3  -- Delivery to Andron Gant (52)
 accept 91734 |npc Andron Gant |at 1458 54.8,76.3 |lvl 44  -- Remote Contact (52)
 accept 3564 |npc Andron Gant |at 1458 54.8,76.3 |lvl 45 |preany 3542  -- Andron's Payment to Jediga (52)
-fly 1434 26.9,77.1 |from 1458 63.2,48.6 |npc Stranglethorn Vale (Gringer)  -- flight master Michael Garrett
-goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
-fly 1456 47.0,49.8 |from 1413 63.1,37.2 |npc Thunder Bluff (Tal)  -- flight master Bragok
 turnin 3518 |npc Magatha Grimtotem |at 1456 69.8,30.9  -- Delivery to Magatha (52)
 accept 3562 |npc Magatha Grimtotem |at 1456 69.8,30.9 |lvl 45 |preany 3518  -- Magatha's Payment to Jediga (52)
-fly 1454 45.1,63.9 |from 1456 47.0,49.8 |npc Orgrimmar (Doras)  -- flight master Tal
 turnin 3541 |npc Jes'rimon |at 1454 55.5,34.1  -- Delivery to Jes'rimon (52)
 accept 3563 |npc Jes'rimon |at 1454 55.5,34.1 |lvl 45 |preany 3541  -- Jes'rimon's Payment to Jediga (52)
-fly 1447 22.0,49.6 |from 1454 45.1,63.9 |npc Kroum  -- flight master Doras
 complete 6805 |at 1447 11.9,78.1 |mobs Dust Stormer;Desert Rumbler |value mid  -- Stormers and Rumblers (57)
 complete 91685 |at 1447 40.5,80.0 |item 247238 |mobs Celegosa@Tear of Mennar |group elite  -- Ley of the Land (54)
 complete 91611 |at 1447 79.1,75.5 |areas 79.1,75.5:3;79.6,91.5:3 |mobs Mammoth Shark@Mammoth Shark Steak  -- Deadliest Catch (56)
@@ -153,9 +145,7 @@ accept 6823 |npc Duke Hydraxis |at 1447 79.3,73.7 |value mid |group chain |lvl 6
 accept 8575 |npc Spirit of Azuregos |at 1447 53.0,81.7 |group chain |lvl 60 |preany 8555  -- Azuregos's Magical Ledger (60)
 complete 6823 |at 1447 11.9,78.1 |mobs Azshara Sentinel |value mid |group chain  -- Agent of Hydraxis (60)
 accept 86747 |note No quest giver on record: it most likely starts from an item you loot or find in this zone. Hand it in to Ekkal |loose |value mid |preany 86746  -- Legashi Horns (0)
-fly 1446 51.6,25.4 |from 1447 22.0,49.6 |npc Tanaris (Bulkrek Ragefist)  -- flight master Kroum
 accept 8729 |npc Narain Soothfancy |at 1446 65.2,18.6 |group chain |lvl 60 |preany 8728  -- The Wrath of Neptulon (60)
-fly 1447 22.0,49.6 |from 1446 51.6,25.4 |npc Kroum  -- flight master Bulkrek Ragefist
 complete 92069 |at 1447 68.3,87.8 |mobs Great Wavethrasher;Azshara Sentinel  -- Claws That Rend, Tusks that Gore (58)
 turnin 6823 |npc Duke Hydraxis |at 1447 79.3,73.7 |value mid |group chain  -- Agent of Hydraxis (60)
 accept 6824 |npc Duke Hydraxis |at 1447 79.3,73.7 |value mid |group dungeon |lvl 60 |preany 6823  -- Hands of the Enemy (60)
@@ -168,17 +158,11 @@ complete 8729 |at 1447 11.9,78.1 |item 21136 |mobs Azshara Sentinel |group chain
 turnin 6824 |npc Duke Hydraxis |at 1447 79.3,73.7 |value mid |group dungeon  -- Hands of the Enemy (60)
 accept 7486 |npc Duke Hydraxis |at 1447 79.3,73.7 |value mid |group chain |lvl 60 |preany 6824  -- A Hero's Reward (60)
 turnin 7486 |npc Hydraxis' Coffer |at 1447 79.2,74.9 |value mid |group chain  -- A Hero's Reward (60)
-fly 1454 45.1,63.9 |from 1447 22.0,49.6 |npc Orgrimmar (Doras)  -- flight master Kroum
 turnin 91547 |npc Zevrost |at 1454 48.5,45.4  -- Sin'dorei Tome of Summoning (55)
-fly 2482 68.7,46.8 |from 1454 45.1,63.9 |npc Mount Hyjal (Fayran Elthas)  -- flight master Doras
 turnin 91877 |npc Maerion Thaelemaches |at 2482 63.3,25.9  -- Demon Hunter's Hunter (55)
-fly 1448 34.4,54.0 |from 2482 68.7,46.8 |npc Felwood (Brakkar)  -- flight master Fayran Elthas
 turnin 86798 |npc Gorn One Eye |at 1448 65.2,2.7  -- Timbermaw Reinforcements (55)
-fly 1456 47.0,49.8 |from 1448 34.4,54.0 |npc Thunder Bluff (Tal)  -- flight master Brakkar
 turnin 92346 |npc Nara Wildmane |at 1456 75.7,31.6  -- Beneath Nordrassil (55)
-fly 1446 51.6,25.4 |from 1456 47.0,49.8 |npc Tanaris (Bulkrek Ragefist)  -- flight master Tal
 turnin 8575 |npc Narain Soothfancy |at 1446 65.2,18.6 |group chain  -- Azuregos's Magical Ledger (60)
 turnin 8729 |npc Anachronos |at 1446 65.3,50.0 |group chain  -- The Wrath of Neptulon (60)
-goto 1411 50.8,13.6 15 |note Take the zeppelin to Grom'gol  -- zeppelin Orgrimmar to Grom'gol
 turnin 3621 |npc Galvan the Ancient |at 1434 50.6,20.5 |group chain  -- The Formation of Felbane (58)
 ]]}

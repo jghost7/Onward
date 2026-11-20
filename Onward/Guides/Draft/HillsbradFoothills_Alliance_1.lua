@@ -29,8 +29,6 @@ accept 563 |npc Lieutenant Farren Orinelle |at 1424 51.5,58.4 |lvl 25 |preany 56
 turnin 555 |npc Chef Jessen |at 1424 51.9,58.7  -- Soothing Turtle Bisque (31)
 accept 98071 |npc Brewmeister Bilger |at 1424 52.1,58.7 |lvl 23  -- Brewer's Trade (27)
 turnin 98071 |npc Brewmeister Bilger |at 1424 52.1,58.7  -- Brewer's Trade (27)
-fly 1417 45.7,46.1 |from 1424 49.3,52.3 |npc Arathi Highlands (Cedrik Prose)  -- flight master Darla Harris
 turnin 659 |npc Quae |at 1417 60.2,53.9  -- Hints of a New Plague? (33)
-fly 1453 71.3,72.2 |from 1417 45.7,46.1 |npc Stormwind City (Dungar Longdrink)  -- flight master Cedrik Prose
 turnin 563 |npc Major Samuelson |at 1453 75.8,36.7  -- Reassignment (32)
 ]]}

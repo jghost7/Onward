@@ -20,9 +20,7 @@ turnin 1007 |npc Talen |at 1440 14.8,31.3  -- The Ancient Statuette (20)
 accept 1009 |npc Talen |at 1440 14.8,31.3 |lvl 20 |preany 1007  -- Ruuzel (25)
 complete 1008 |at 1440 7.8,14.4 |areas 7.8,14.4:38;11.3,28.0:37 |mobs Wrathtail Sorceress@Wrathtail Head;Wrathtail Priestess@Wrathtail Head;Wrathtail Myrmidon@Wrathtail Head;Wrathtail Razortail@Wrathtail Head |value mid  -- The Zoram Strand (19)
 complete 1009 |at 1440 7.2,13.1 |mobs Ruuzel@Ring of Zoram  -- Ruuzel (25)
-fly 1439 36.3,45.6 |from 1440 34.4,48.0 |npc Darkshore (Caylais Moonfeather)  -- flight master Daelyshia
 accept 990 |npc Sentinel Selarin |at 1439 39.3,43.5 |lvl 15 |preany 994,995  -- Trek to Ashenvale (19)
-fly 1440 34.4,48.0 |from 1439 36.3,45.6 |npc Daelyshia  -- flight master Caylais Moonfeather
 complete 1010 |at 1440 31.9,22.9  -- Bathran's Hair (20)
 turnin 1009 |npc Talen |at 1440 14.8,31.3  -- Ruuzel (25)
 turnin 1010 |npc Orendil Broadleaf |at 1440 26.4,38.6  -- Bathran's Hair (20)
@@ -40,9 +38,7 @@ complete 1033 |at 1440 46.1,46.3  -- Elune's Tear (22)
 turnin 1033 |npc Pelturas Whitemoon |at 1440 37.4,51.8  -- Elune's Tear (22)
 accept 1034 |npc Pelturas Whitemoon |at 1440 37.4,51.8 |lvl 20 |preany 1033  -- The Ruins of Stardust (23)
 complete 1034 |at 1440 33.3,68.0  -- The Ruins of Stardust (23)
-fly 1442 36.4,7.2 |from 1440 34.4,48.0 |npc Stonetalon Mountains (Teloren) |value mid  -- flight master Daelyshia
 complete 1134 |at 1442 51.8,43.2 |value mid  -- Pridewings of Stonetalon (21)
-fly 1440 34.4,48.0 |from 1442 36.4,7.2 |npc Daelyshia |value mid  -- flight master Teloren
 accept 78133 |npc Alonso |at 1440 43.4,70.4 |lvl 15  -- Dragonslayer's Shield (25)
 accept 78134 |npc Alonso |at 1440 43.4,70.4 |lvl 15  -- Dragonslayer's Lance (25)
 accept 78132 |npc Alonso |at 1440 43.4,70.4 |lvl 15  -- Dragonslayer's Helm (25)
@@ -68,7 +64,6 @@ turnin 98027 |npc Maliynn |at 1440 36.6,50.0  -- Gleaming Crescent Necklace (26)
 complete 1017 |at 1440 35.9,50.9 |mobs Furious Astranaar Sentinel;Astranaar Sentinel;Silverwing Sentinel  -- Mage Summoner (25)
 turnin 1034 |npc Pelturas Whitemoon |at 1440 37.4,51.8  -- The Ruins of Stardust (23)
 turnin 1017 |npc Sentinel Velene Starstrike |at 1440 49.8,67.2  -- Mage Summoner (25)
-fly 1442 36.4,7.2 |from 1440 34.4,48.0 |npc Stonetalon Mountains (Teloren)  -- flight master Daelyshia
 turnin 1070 |npc Kaela Shadowspear |at 1442 59.9,66.8  -- On Guard in Stonetalon (21)
 accept 1085 |npc Kaela Shadowspear |at 1442 59.9,66.8 |lvl 17  -- On Guard in Stonetalon (21)
 turnin 1085 |npc Gaxim Rustfizzle |at 1442 59.5,67.2  -- On Guard in Stonetalon (21)

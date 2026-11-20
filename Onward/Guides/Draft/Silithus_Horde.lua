@@ -137,16 +137,9 @@ turnin 8348 |npc Bor Wildmane |at 1451 48.6,37.8 |group elite  -- Signet of the 
 turnin 8318 |npc Bor Wildmane |at 1451 48.6,37.8 |value mid  -- Secret Communication (60)
 turnin 8351 |npc Bor Wildmane |at 1451 48.6,37.8 |group chain  -- Bor Wishes to Speak (60)
 turnin 8323 |npc Hermit Ortell |at 1451 67.2,69.8 |value mid  -- True Believers (59)
-fly 1446 51.6,25.4 |from 1451 48.7,36.7 |npc Tanaris (Bulkrek Ragefist)  -- flight master Runk Windtamer
 turnin 8303 |npc Anachronos |at 1446 65.3,50.0 |group chain  -- Anachronos (60)
-fly 1450 44.1,45.2 |from 1446 51.6,25.4 |npc Moonglade (Silva Fil'naveth) |value low  -- flight master Bulkrek Ragefist
 turnin 6844 |npc Umber |at 1450 44.9,35.6 |value low  -- Umber, Archivist (57)
-fly 1413 63.1,37.2 |from 1450 44.1,45.2 |npc The Barrens (Bragok)  -- flight master Silva Fil'naveth
-goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
-fly 1423 70.5,47.5 |from 1434 26.9,77.1 |npc Eastern Plaguelands (Georgia)  -- flight master Gringer
 turnin 8859 |npc Lord Maxwell Tyrosus |at 1423 71.9,48.4  -- Secrets of the Colossus - Zora (60)
-fly 1427 34.8,30.9 |from 1423 70.5,47.5 |npc Searing Gorge (Grisha)  -- flight master Georgia
 turnin 8858 |npc Overseer Oilfist |at 1427 38.1,27.0  -- Secrets of the Colossus - Regal (60)
-fly 1434 26.9,77.1 |from 1427 34.8,30.9 |npc Stranglethorn Vale (Gringer)  -- flight master Grisha
 turnin 8857 |npc Oglethorpe Obnoticus |at 1434 28.4,76.3  -- Secrets of the Colossus - Ashi (60)
 ]]}

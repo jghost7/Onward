@@ -61,7 +61,6 @@ complete 208 |at 1434 38.2,35.6 |mobs King Bangalash@Head of Bangalash |group el
 turnin 592 |npc Nimboya |at 1434 32.2,27.7 |group chain  -- Saving Yenniku (46)
 turnin 208 |npc Hemet Nesingwary |at 1434 35.7,10.8 |group elite  -- Big Game Hunter (43)
 accept 95385 |note No quest giver on record: it most likely starts from an item you loot or find in this zone. Hand it in to Dudd Fizzlescroll |loose  -- Torn Mystical Scroll (43)
-fly 1434 26.9,77.1 |from 1434 32.5,29.4 |npc Gringer  -- flight master Thysta
 turnin 617 |npc Privateer Bloads |at 1434 26.8,76.4 |value mid  -- Akiris by the Bundle (43)
 turnin 209 |npc Kebok |at 1434 27.0,77.1 |value mid  -- Skullsplitter Tusks (42)
 turnin 621 |npc Crank Fizzlebub |at 1434 27.1,77.2 |value mid  -- Zanzil's Secret (44)
@@ -72,11 +71,7 @@ turnin 95385 |npc Dudd Fizzlescroll |at 1434 28.3,76.3  -- Torn Mystical Scroll 
 turnin 576 |npc Dizzy One-Eye |at 1434 28.6,75.9  -- Keep An Eye Out (42)
 accept 594 |at 1434 36.6,77.1 |note Starts from Carefully Folded Note |startitem 4098 |lvl 45  -- Message in a Bottle (45)
 turnin 594 |npc Princess Poobah |at 1434 38.5,80.6  -- Message in a Bottle (45)
-fly 1435 46.1,54.8 |from 1434 26.9,77.1 |npc Swamp of Sorrows (Breyk)  -- flight master Gringer
 turnin 624 |npc A Soggy Scroll |at 1435 22.9,48.2  -- Cortello's Riddle (43)
 accept 625 |npc A Soggy Scroll |at 1435 22.9,48.2 |lvl 35 |preany 624  -- Cortello's Riddle (43)
-fly 1434 26.9,77.1 |from 1435 46.1,54.8 |npc Gringer  -- flight master Breyk
-goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
-fly 1445 35.6,31.9 |from 1413 63.1,37.2 |npc Dustwallow Marsh (Shardi)  -- flight master Bragok
 turnin 625 |npc Musty Scroll |at 1445 31.1,66.1  -- Cortello's Riddle (43)
 ]]}

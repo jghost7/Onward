@@ -31,10 +31,8 @@ turnin 5083 |npc Donova Snowden |at 1452 31.3,45.2  -- Winterfall Firewater (56)
 accept 5082 |npc Donova Snowden |at 1452 31.3,45.2 |value mid |lvl 52  -- Threat of the Winterfall (56)
 accept 5084 |npc Donova Snowden |at 1452 31.3,45.2 |lvl 52 |preany 5083  -- Falling to Corruption (56)
 complete 8471 |item 20742  -- Winterfall Ritual Totem (56)
-fly 1448 34.4,54.0 |from 1452 60.5,36.3 |npc Felwood (Brakkar)  -- flight master Yugrek
 turnin 5084 |npc Deadwood Cauldron |at 1448 60.2,5.8  -- Falling to Corruption (56)
 accept 5085 |npc Deadwood Cauldron |at 1448 60.2,5.8 |lvl 52 |preany 5084  -- Mystery Goo (56)
-fly 1452 60.5,36.3 |from 1448 34.4,54.0 |npc Yugrek  -- flight master Brakkar
 turnin 5085 |npc Donova Snowden |at 1452 31.3,45.2  -- Mystery Goo (56)
 accept 5086 |npc Donova Snowden |at 1452 31.3,45.2 |lvl 52 |preany 5085  -- Toxic Horrors (56)
 complete 969 |at 1452 61.5,67.4 |mobs Hailspite@Frostmaul Shards;Frostmaul Preserver@Frostmaul Shards;Frostmaul Giant@Frostmaul Shards;Kashoch the Reaver@Frostmaul Shards  -- Luck Be With You (60)
@@ -90,18 +88,12 @@ turnin 5121 |npc Donova Snowden |at 1452 31.3,45.2 |group elite  -- High Chief W
 turnin 5082 |npc Donova Snowden |at 1452 31.3,45.2 |value mid  -- Threat of the Winterfall (56)
 accept 5128 |npc Donova Snowden |at 1452 31.3,45.2 |lvl 52 |preany 5123  -- Words of the High Chief (59)
 turnin 8471 |npc Kernda |at 1448 65.5,3.5  -- Winterfall Ritual Totem (56)
-fly 2482 68.7,46.8 |from 1448 34.4,54.0 |npc Mount Hyjal (Fayran Elthas)  -- flight master Brakkar
 turnin 93269 |npc Sebelia |at 2482 70.9,51.5  -- Top of the Post (58)
-fly 1448 34.4,54.0 |from 2482 68.7,46.8 |npc Felwood (Brakkar)  -- flight master Fayran Elthas
 turnin 5128 |npc Kelek Skykeeper |at 1448 51.1,81.8  -- Words of the High Chief (59)
 turnin 4882 |npc Trull Failbane |at 1448 34.7,52.8  -- Guarding Secrets (59)
 accept 4883 |npc Trull Failbane |at 1448 34.7,52.8 |lvl 52 |preany 4882  -- Guarding Secrets (59)
 turnin 6605 |npc Winna Hazzard |at 1448 34.2,52.3  -- A Strange One (54)
-fly 1456 47.0,49.8 |from 1448 34.4,54.0 |npc Thunder Bluff (Tal)  -- flight master Brakkar
 turnin 4883 |npc Nara Wildmane |at 1456 75.7,31.6  -- Guarding Secrets (59)
-fly 1413 63.1,37.2 |from 1456 47.0,49.8 |npc The Barrens (Bragok)  -- flight master Tal
-goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
-fly 1423 70.5,47.5 |from 1434 26.9,77.1 |npc Eastern Plaguelands (Georgia)  -- flight master Gringer
 turnin 6030 |npc Duke Nicholas Zverenhoff |at 1423 71.6,50.1  -- Duke Nicholas Zverenhoff (52)
 turnin 6029 |npc Argent Officer Garush |at 1420 83.2,68.5  -- The Everlook Report (52)
 turnin 4810 |npc Tinkee Steamboil |at 1428 65.2,24.0 |value mid  -- Return to Tinkee (54)

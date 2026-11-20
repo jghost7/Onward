@@ -82,11 +82,7 @@ accept 5236 |npc Scourge Cauldron |at 1422 62.5,58.5 |lvl 50 |preany 5235  -- Re
 accept 5461 |npc Magistrate Marduke |at 1422 70.6,74.1 |group chain |lvl 57 |preany 5384  -- The Human, Ras Frostwhisper (60)
 complete 5461 |at 1417 20.8,65.8 |group chain  -- The Human, Ras Frostwhisper (60)
 accept 5050 |npc Ol' Emma |at 1453 60.2,57.0 |lvl 50 |preany 5048,5049  -- Good Luck Charm (52)
-goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
-fly 1452 60.5,36.3 |from 1413 63.1,37.2 |npc Winterspring (Yugrek)  -- flight master Bragok
 accept 5162 |npc Haleh |at 1452 54.5,51.2 |lvl 57 |preany 5161  -- Wrath of the Blue Flight (60)
-fly 1413 63.1,37.2 |from 1452 60.5,36.3 |npc The Barrens (Bragok)  -- flight master Yugrek
-goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
 turnin 5162 |npc Jeziba |at 1422 39.4,66.8  -- Wrath of the Blue Flight (60)
 accept 5164 |npc Jeziba |at 1422 39.4,66.8 |lvl 57 |preany 5162  -- Catalogue of the Wayward (60)
 turnin 4971 |npc Chromie |at 1422 39.5,66.8 |value mid  -- A Matter of Time (56)
@@ -125,19 +121,11 @@ accept 97319 |npc Argent Officer Garush |at 1420 83.2,68.5 |lvl 55  -- A Cousin 
 turnin 5504 |npc Argent Quartermaster Hasana |at 1420 83.3,68.1 |value mid  -- Mantles of the Dawn (60)
 turnin 5524 |npc Argent Quartermaster Hasana |at 1420 83.3,68.1 |value low  -- Chromatic Mantle of the Dawn (60)
 turnin 5023 |npc Royal Overseer Bauhaus |at 1458 69.8,43.2  -- Better Late Than Never (52)
-fly 1423 70.5,47.5 |from 1458 63.2,48.6 |npc Eastern Plaguelands (Georgia)  -- flight master Michael Garrett
 turnin 5462 |npc Leonid Barthalomew the Revered |at 1423 71.9,48.3 |group chain  -- The Dying, Ras Frostwhisper (60)
-fly 1434 26.9,77.1 |from 1423 70.5,47.5 |npc Stranglethorn Vale (Gringer)  -- flight master Georgia
-goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
-fly 1454 45.1,63.9 |from 1413 63.1,37.2 |npc Orgrimmar (Doras)  -- flight master Bragok
 accept 5093 |npc Warcaller Gorlach |at 1454 37.7,75.2 |lvl 50  -- A Call to Arms: The Plaguelands! (50)
-fly 2482 68.7,46.8 |from 1454 45.1,63.9 |npc Mount Hyjal (Fayran Elthas)  -- flight master Doras
 turnin 97319 |npc Thark Gorax |at 2482 79.9,70.7  -- A Cousin Abroad (55)
 turnin 92842 |npc Quintus Wainworth |at 2482 79.8,70.7  -- A Cousin Abroad (55)
-fly 1456 47.0,49.8 |from 2482 68.7,46.8 |npc Thunder Bluff (Tal) |value mid  -- flight master Fayran Elthas
 turnin 4987 |npc Nara Wildmane |at 1456 75.7,31.6 |value mid  -- Glyphed Oaken Branch (56)
-fly 1446 51.6,25.4 |from 1456 47.0,49.8 |npc Tanaris (Bulkrek Ragefist) |value mid  -- flight master Tal
 turnin 5514 |npc Krinkle Goodsteel |at 1446 51.5,28.8 |value mid  -- Mold Rhymes With... (57)
-goto 1411 50.6,12.6 15 |note Take the zeppelin to Undercity  -- zeppelin Orgrimmar to Undercity
 turnin 5093 |npc High Executor Derrington |at 1420 83.1,68.9  -- A Call to Arms: The Plaguelands! (50)
 ]]}

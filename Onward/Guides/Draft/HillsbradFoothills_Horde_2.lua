@@ -17,7 +17,6 @@ accept 506 |npc Gol'dir |at 1416 60.0,43.7 |lvl 29 |preany 503  -- Blackmoore's 
 complete 556 |at 1416 17.9,76.2 |value mid  -- Stone Tokens (33)
 complete 544 |at 1416 19.9,86.0  -- Prison Break In (33)
 accept 515 |npc Master Apothecary Faranell |at 1458 48.8,69.3 |value mid |lvl 24 |preany 513  -- Elixir of Agony (30)
-fly 1424 60.1,18.6 |from 1458 63.2,48.6 |npc Zarise  -- flight master Michael Garrett
 complete 552 |at 1424 44.0,30.2 |mobs Cave Yeti@Helcular's Rod;Ferocious Yeti@Helcular's Rod  -- Helcular's Revenge (33)
 complete 515 |at 1424 57.2,68.3 |areas 28.1,72.8:37;65.0,80.3:29;57.2,68.3:28 |item 3508 |mobs Torn Fin Coastrunner@Torn Fin Eye;Torn Fin Muckdweller@Torn Fin Eye;Torn Fin Oracle@Torn Fin Eye;Torn Fin Tidehunter@Torn Fin Eye |need 3388:1:Strong Troll's Blood Potion:made with Alchemy, so buy it at the auction house or ask a crafter |value mid  -- Elixir of Agony (30)
 turnin 544 |npc Magus Wordeen Voidglare |at 1424 61.6,20.9  -- Prison Break In (33)
@@ -64,10 +63,8 @@ turnin 520 |npc Melisara |at 1424 62.6,20.6 |group elite  -- The Crown of Will (
 accept 521 |npc Melisara |at 1424 62.6,20.6 |group chain |lvl 34 |preany 520  -- The Crown of Will (43)
 turnin 508 |npc Krusk |at 1424 63.2,20.7  -- Taretha's Gift (40)
 turnin 524 |npc Dusty Rug |at 1424 62.8,18.7 |value mid  -- Elixir of Agony (30)
-fly 1417 73.0,32.7 |from 1424 60.1,18.6 |npc Arathi Highlands (Urda) |value mid  -- flight master Zarise
 complete 676 |at 1417 33.6,44.6 |mobs Boulderfist Ogre;Boulderfist Enforcer |value mid  -- The Hammer May Fall (32)
 turnin 676 |npc Drum Fel |at 1417 74.2,33.9 |value mid  -- The Hammer May Fall (32)
-fly 1458 63.2,48.6 |from 1417 73.0,32.7 |npc Undercity (Michael Garrett)  -- flight master Urda
 turnin 521 |npc Sharlindra |at 1458 57.6,93.8 |group chain  -- The Crown of Will (43)
 turnin 550 |npc Varimathras |at 1458 56.2,92.2 |group chain  -- Battle of Hillsbrad (32)
 ]]}

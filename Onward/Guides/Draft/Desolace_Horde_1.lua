@@ -89,9 +89,7 @@ turnin 92754  -- A New Need for Shadow Protection (35)
 complete 1375 |at 1443 40.5,95.5 |mobs Khan Shaka@Khan Shaka's Head  -- Khan Shaka (37)
 complete 6134 |at 1443 64.2,91.6 |item 15848 |mobs Magrami Spectre@Ghost-o-plasm |value low  -- Ghost-o-plasm Round Up (39)
 turnin 1375 |npc Warug |at 1443 75.0,68.2  -- Khan Shaka (37)
-fly 1413 51.5,30.3 |from 1443 21.6,74.1 |npc The Barrens (Devrak)  -- flight master Thalon
 accept 1362 |npc Regthar Deathgate |at 1413 45.3,28.4 |lvl 30  -- The Kolkar of Desolace (32)
-fly 1443 21.6,74.1 |from 1413 51.5,30.3 |npc Thalon  -- flight master Devrak
 accept 5501 |npc Bibbly F'utzbuckle |at 1443 62.3,39.0 |value low |lvl 33  -- Bone Collector (39)
 turnin 1482 |npc Maurin Bonesplitter |at 1443 52.2,53.4  -- The Corrupter (35)
 accept 1484 |npc Maurin Bonesplitter |at 1443 52.2,53.4 |lvl 25 |preany 1482  -- The Corrupter (35)
@@ -103,14 +101,8 @@ turnin 1362 |npc Felgur Twocuts |at 1443 56.2,59.6  -- The Kolkar of Desolace (3
 turnin 5386 |npc Nataka Longhorn |at 1443 55.4,55.8  -- Catch of the Day (37)
 turnin 5501 |npc Bibbly F'utzbuckle |at 1443 62.3,39.0 |value low  -- Bone Collector (39)
 turnin 93045 |npc Nerlokh |at 2652 20.9,22.7  -- Test Your Theory (38)
-goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
-fly 2548 59.6,45.1 |from 1434 26.9,77.1 |npc Riverglades (Grakna)  -- flight master Gringer
 turnin 94895 |npc Friz Frazzlespark |at 2548 77.1,52.9  -- Lost Shipping Crate (38)
-fly 1434 32.5,29.4 |from 2548 59.6,45.1 |npc Stranglethorn Vale (Thysta)  -- flight master Grakna
 turnin 5763 |npc Hemet Nesingwary |at 1434 35.7,10.8  -- Hunting in Stranglethorn (31)
-fly 1424 60.1,18.6 |from 1434 32.5,29.4 |npc Hillsbrad Foothills (Zarise)  -- flight master Thysta
 accept 1361 |npc Krusk |at 1424 63.2,20.7 |lvl 30  -- Regthar Deathgate (32)
-fly 1434 26.9,77.1 |from 1424 60.1,18.6 |npc Stranglethorn Vale (Gringer)  -- flight master Zarise
-goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
 turnin 1361 |npc Regthar Deathgate |at 1413 45.3,28.4  -- Regthar Deathgate (32)
 ]]}

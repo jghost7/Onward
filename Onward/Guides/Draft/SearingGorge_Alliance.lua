@@ -62,14 +62,9 @@ turnin 3372 |npc Altar of Suntara |at 1427 41.2,25.4  -- Release Them (52)
 accept 3566 |npc Dying Archaeologist |at 1427 41.1,25.6 |group elite |lvl 45 |preany 3372  -- Rise, Obsidion! (52)
 complete 3566 |at 1427 41.3,25.5 |mobs Lathoric the Black@Head of Lathoric the Black;Obsidion@Heart of Obsidion |group elite  -- Rise, Obsidion! (52)
 accept 3368 |npc Singed Letter |at 1427 74.5,19.3 |lvl 40 |preany 3367  -- Suntara Stones (48)
-fly 1432 33.9,51.0 |from 1427 37.9,30.9 |npc Loch Modan (Thorgrum Borrelson)  -- flight master Lanie Reed
 turnin 3181 |npc Mountaineer Pebblebitty |at 1432 18.2,84.0  -- The Horn of the Beast (48)
-fly 1455 55.5,47.7 |from 1432 33.9,51.0 |npc Ironforge (Gryth Thurden)  -- flight master Thorgrum Borrelson
 turnin 3368 |npc Curator Thorius |at 1455 71.5,15.7  -- Suntara Stones (48)
 turnin 3566 |npc Curator Thorius |at 1455 71.5,15.7 |group elite  -- Rise, Obsidion! (52)
-fly 1434 27.5,77.8 |from 1455 55.5,47.7 |npc Stranglethorn Vale (Gyll)  -- flight master Gryth Thurden
-goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
-fly 1446 51.0,29.3 |from 1413 63.1,37.2 |npc Tanaris (Bera Stonehammer)  -- flight master Bragok
 turnin 4450 |npc Krinkle Goodsteel |at 1446 51.5,28.8 |value low  -- Ledger from Tanaris (46)
 turnin 3378 |npc Astarii Starseeker |at 1457 38.3,81.0 |group elite  -- Prayer to Elune (50)
 ]]}

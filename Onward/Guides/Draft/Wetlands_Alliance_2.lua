@@ -85,18 +85,12 @@ turnin 98310 |npc Prospector Whelgar |at 1437 38.8,52.4 |group elite  -- Gleanin
 accept 1302 |npc Vincent Hyal |at 1437 10.8,60.4 |lvl 30  -- James Hyal (35)
 turnin 292 |npc Glorin Steelbrow |at 1437 10.6,60.6 |value mid  -- The Eye of Paleth (30)
 accept 293 |npc Glorin Steelbrow |at 1437 10.6,60.6 |value mid |lvl 22 |preany 292  -- Cleansing the Eye (30)
-fly 1417 45.7,46.1 |from 1437 9.5,59.7 |npc Arathi Highlands (Cedrik Prose)  -- flight master Shellei Brondir
 accept 647 |npc Foggy MacKreel |at 1417 43.2,92.6 |lvl 28  -- MacKreel's Moonshine (30)
 turnin 634 |npc Captain Nials |at 1417 45.8,47.6  -- Plea To The Alliance (31)
-fly 1424 49.3,52.3 |from 1417 45.7,46.1 |npc Hillsbrad Foothills (Darla Harris)  -- flight master Cedrik Prose
 turnin 647 |npc Brewmeister Bilger |at 1424 52.1,58.7  -- MacKreel's Moonshine (30)
-fly 1453 71.3,72.2 |from 1424 49.3,52.3 |npc Stormwind City (Dungar Longdrink) |value mid  -- flight master Darla Harris
 turnin 293 |npc Archbishop Benedictus |at 1453 50.3,45.5 |value mid  -- Cleansing the Eye (30)
-fly 1437 9.5,59.7 |from 1453 71.3,72.2 |npc Shellei Brondir |value mid  -- flight master Dungar Longdrink
-goto 1437 4.6,57.1 15 |note Take the boat to Theramore  -- boat Menethil Harbor to Theramore
 turnin 1302 |npc Clerk Lendry |at 1445 67.9,48.2  -- James Hyal (35)
 turnin 1132 |npc Fiora Longears |at 1445 66.5,45.1  -- Fiora Longears (30)
-fly 1439 36.3,45.6 |from 1445 67.5,51.3 |npc Darkshore (Caylais Moonfeather)  -- flight master Baldruc
 turnin 98209 |npc Thundris Windweaver |at 1439 37.4,40.1  -- Bloom of the Heavens (29)
 ]]}
 

@@ -58,7 +58,6 @@ turnin 849 |npc Gann Stonespire |at 1413 45.9,77.0 |value mid  -- Revenge of Gan
 accept 79007 |npc Burned-Out Remains |at 1413 46.4,73.9 |lvl 14  -- ... and that note you found (22)
 accept 79192 |npc Nailed Plank |at 1413 46.4,73.8 |lvl 14 |preany 79007,79008  -- Stepping Stones (24)
 accept 884 |at 1413 45.4,62.8 |note Starts from Owatanka's Tailspike |startitem 5102 |lvl 10  -- Owatanka (24)
-fly 1413 51.5,30.3 |from 1413 44.5,59.1 |npc Devrak  -- flight master Omusa Thunderhorn
 turnin 4921 |npc Mankrik |at 1413 52.0,31.6  -- Lost in Battle (20)
 accept 95774 |npc Mankrik |at 1413 52.0,31.6 |lvl 14 |preany 4921  -- Her Name Is Olgra (20)
 turnin 899 |npc Mankrik |at 1413 52.0,31.6 |value low  -- Consumed by Hatred (20)
@@ -66,9 +65,7 @@ accept 876 |npc Darsok Swiftdagger |at 1413 51.6,30.9 |lvl 12 |preany 875  -- Se
 turnin 97003 |npc Gur'ak |at 1413 52.6,29.1 |group elite  -- Chol'aruk the Ravener (21)
 turnin 868 |npc Korran |at 1413 51.1,29.6 |value low  -- Egg Hunt (22)
 accept 852 |npc Regthar Deathgate |at 1413 45.3,28.4 |lvl 11 |preany 851  -- Hezrul Bloodmark (19)
-fly 1442 45.1,59.8 |from 1413 51.5,30.3 |npc Stonetalon Mountains (Tharm) |value low  -- flight master Devrak
 complete 1069 |at 1442 61.6,59.4 |value low  -- Deepmoss Spider Eggs (20)
-fly 1413 51.5,30.3 |from 1442 45.1,59.8 |npc Devrak |value low  -- flight master Tharm
 complete 876 |at 1413 39.2,12.2 |mobs Serena Bloodfeather@Serena's Head  -- Serena Bloodfeather (20)
 turnin 3513 |npc Kadrak |at 1413 48.1,5.4  -- The Runed Scroll (25)
 accept 6543 |npc Kadrak |at 1413 48.1,5.4 |lvl 17  -- The Warsong Reports (19)
@@ -102,19 +99,13 @@ complete 4021 |at 1413 44.5,28.1  -- Counterattack! (20)
 turnin 4021 |npc Regthar Deathgate |at 1413 45.3,28.4  -- Counterattack! (20)
 turnin 6541 |npc Kadrak |at 1413 48.1,5.4  -- Report to Kadrak (19)
 turnin 6543 |npc Kadrak |at 1413 48.1,5.4  -- The Warsong Reports (19)
-fly 1440 73.2,61.6 |from 1413 51.5,30.3 |npc Ashenvale (Vhulgra)  -- flight master Devrak
 turnin 6382 |npc Senani Thunderheart |at 1440 73.8,61.5  -- The Ashenvale Hunt (20)
-fly 1454 45.1,63.9 |from 1440 73.2,61.6 |npc Orgrimmar (Doras)  -- flight master Vhulgra
 accept 3924 |npc Rilli Greasygob |at 1454 76.5,24.4 |lvl 10 |preany 3923  -- Samophlange Manual (19)
 complete 3924  -- Samophlange Manual (19)
 turnin 3924 |npc Rilli Greasygob |at 1454 76.5,24.4  -- Samophlange Manual (19)
-fly 1442 45.1,59.8 |from 1454 45.1,63.9 |npc Stonetalon Mountains (Tharm)  -- flight master Doras
 turnin 1483 |npc Ziz Fizziks |at 1442 59.0,62.6  -- Ziz Fizziks (21)
 turnin 79192 |npc Pocket Litter |at 1442 40.8,52.6  -- Stepping Stones (24)
 turnin 1060 |npc Witch Doctor Jin'Zil |at 1442 74.5,97.9  -- Letter to Jin'Zil (20)
-fly 1456 47.0,49.8 |from 1442 45.1,59.8 |npc Thunder Bluff (Tal)  -- flight master Tharm
 turnin 3369 |npc Arch Druid Hamuul Runetotem |at 1456 78.6,28.6  -- In Nightmares (25)
-fly 1413 63.1,37.2 |from 1456 47.0,49.8 |npc Bragok  -- flight master Tal
-goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
 turnin 79007 |npc Burned-Out Remains |at 1436 37.4,50.7  -- ... and that note you found (22)
 ]]}

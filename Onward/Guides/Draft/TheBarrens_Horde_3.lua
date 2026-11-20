@@ -16,23 +16,14 @@ accept 857 |npc Feegly the Exiled |at 1413 49.0,86.3 |value low |lvl 22  -- The 
 complete 857 |at 1413 49.1,84.2 |value low  -- The Tear of the Moons (30)
 turnin 857 |npc Feegly the Exiled |at 1413 49.0,86.3 |value low  -- The Tear of the Moons (30)
 turnin 1153 |npc Tatternack Steelforge |at 1413 45.1,57.7  -- A New Ore Sample (29)
-fly 1456 47.0,49.8 |from 1413 44.5,59.1 |npc Thunder Bluff (Tal)  -- flight master Omusa Thunderhorn
 accept 1102 |npc Auld Stonespire |at 1456 36.0,59.9 |group dungeon |lvl 29  -- A Vengeful Fate (34)
-fly 1413 51.5,30.3 |from 1456 47.0,49.8 |npc Devrak  -- flight master Tal
 accept 1145 |npc Korran |at 1413 51.1,29.6 |lvl 29  -- The Swarm Grows (33)
 complete 1102 |at 1413 51.8,30.3 |mobs Vengeful Guard |group dungeon  -- A Vengeful Fate (34)
 accept 3514 |npc Kadrak |at 1413 48.1,5.4 |group elite |lvl 15 |preany 3513  -- Horde Presence (29)
-fly 1442 45.1,59.8 |from 1413 51.5,30.3 |npc Stonetalon Mountains (Tharm)  -- flight master Devrak
 complete 3514 |at 1442 29.7,16.9 |item 10622 |mobs Rynthariel the Keymaster |group elite  -- Horde Presence (29)
-fly 1413 51.5,30.3 |from 1442 45.1,59.8 |npc Devrak  -- flight master Tharm
 turnin 3514 |npc Kadrak |at 1413 48.1,5.4 |group elite  -- Horde Presence (29)
-fly 1454 45.1,63.9 |from 1413 51.5,30.3 |npc Orgrimmar (Doras)  -- flight master Devrak
 turnin 1145 |npc Belgrom Rockmaul |at 1454 75.2,34.2  -- The Swarm Grows (33)
-fly 1456 47.0,49.8 |from 1454 45.1,63.9 |npc Thunder Bluff (Tal)  -- flight master Doras
 turnin 1102 |npc Auld Stonespire |at 1456 36.0,59.9 |group dungeon  -- A Vengeful Fate (34)
-fly 1413 63.1,37.2 |from 1456 47.0,49.8 |npc Bragok  -- flight master Tal
-goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
-fly 1458 63.2,48.6 |from 1434 26.9,77.1 |npc Undercity (Michael Garrett)  -- flight master Gringer
 accept 1109 |npc Master Apothecary Faranell |at 1458 48.8,69.3 |group dungeon |lvl 30  -- Going, Going, Guano! (33)
 complete 1109 |group dungeon  -- Going, Going, Guano! (33)
 turnin 1109 |npc Master Apothecary Faranell |at 1458 48.8,69.3 |group dungeon  -- Going, Going, Guano! (33)

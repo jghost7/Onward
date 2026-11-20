@@ -36,11 +36,8 @@ turnin 98233 |npc Guard Jameson |at 1445 65.5,45.4  -- Sword in the Slime (42)
 turnin 1218 |npc "Swamp Eye" Jarl |at 1445 55.4,26.3  -- Soothing Spices (35)
 accept 1206 |npc "Swamp Eye" Jarl |at 1445 55.4,26.3 |value mid |lvl 30 |preany 1218  -- Jarl Needs Eyes (35)
 complete 1177 |at 1445 58.4,15.3 |mobs Mirefin Warrior@Mirefin Head;Mirefin Murloc@Mirefin Head;Mirefin Muckdweller@Mirefin Head;Mirefin Coastrunner@Mirefin Head |value mid  -- Hungry! (36)
-goto 1445 71.6,56.4 15 |note Take the boat to Menethil Harbor  -- boat Theramore to Menethil Harbor
-fly 1453 71.3,72.2 |from 1437 9.5,59.7 |npc Stormwind City (Dungar Longdrink)  -- flight master Shellei Brondir
 accept 1260 |npc Angus Stern |at 1453 51.8,93.6 |lvl 33  -- Morgan Stern (38)
 complete 1258 |at 1435 96.0,57.6  -- ... and Bugs (40)
-goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
 complete 1135 |at 1441 12.3,37.1  -- Highperch Venom (30)
 accept 98215 |npc Drazzit Dripvalve |at 1445 41.0,75.7  -- Dragon Scales, Post Burnt Tails (44)
 accept 98205 |npc Drazzit Dripvalve |at 1445 41.0,75.7  -- Whelps are the Worst! (44)
@@ -69,11 +66,7 @@ turnin 1282 |npc Captain Garran Vimes |at 1445 68.2,48.6  -- They Call Him Smili
 turnin 1220 |npc Captain Garran Vimes |at 1445 68.2,48.6  -- Captain Vimes (35)
 turnin 1320 |npc Captain Garran Vimes |at 1445 68.2,48.6  -- The Black Shield (35)
 turnin 1287 |npc Captain Garran Vimes |at 1445 68.2,48.6  -- The Deserters (38)
-fly 1440 34.4,48.0 |from 1445 67.5,51.3 |npc Ashenvale (Daelyshia)  -- flight master Baldruc
 turnin 1133 |npc Shindrell Swiftfire |at 1440 34.7,48.8  -- Journey to Astranaar (20)
-fly 1413 63.1,37.2 |from 1440 34.4,48.0 |npc The Barrens (Bragok)  -- flight master Daelyshia
-goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
-fly 1453 71.3,72.2 |from 1434 27.5,77.8 |npc Stormwind City (Dungar Longdrink)  -- flight master Gyll
 accept 1271 |npc Angus Stern |at 1453 51.8,93.6 |lvl 30 |preany 1222  -- Feast at the Blue Recluse (37)
 turnin 1271 |npc Angus Stern |at 1453 51.8,93.6  -- Feast at the Blue Recluse (37)
 ]]}

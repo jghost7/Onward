@@ -63,10 +63,8 @@ accept 8575 |npc Spirit of Azuregos |at 1447 53.0,81.7 |group chain |lvl 60 |pre
 complete 6823 |at 1447 11.9,78.1 |mobs Azshara Sentinel |group chain  -- Agent of Hydraxis (60)
 turnin 6823 |npc Duke Hydraxis |at 1447 79.3,73.7 |group chain  -- Agent of Hydraxis (60)
 accept 6824 |npc Duke Hydraxis |at 1447 79.3,73.7 |group dungeon |lvl 60 |preany 6823  -- Hands of the Enemy (60)
-fly 1446 51.0,29.3 |from 1447 11.9,77.6 |npc Tanaris (Bera Stonehammer)  -- flight master Jarrodenus
 accept 8729 |npc Narain Soothfancy |at 1446 65.2,18.6 |group chain |lvl 60 |preany 8728  -- The Wrath of Neptulon (60)
 accept 92070 |note No quest giver on record: it most likely starts from an item you loot or find in this zone. Hand it in to Unele |loose  -- A Lost Memento (55)
-fly 1447 11.9,77.6 |from 1446 51.0,29.3 |npc Jarrodenus  -- flight master Bera Stonehammer
 complete 8729 |at 1447 11.9,78.1 |item 21136 |mobs Azshara Sentinel |group chain  -- The Wrath of Neptulon (60)
 complete 6824 |at 1447 11.9,78.1 |mobs Azshara Sentinel |group dungeon  -- Hands of the Enemy (60)
 complete 92070 |at 1447 35.9,26.7 |mobs Legashi Slayer@Feathered Charm Necklace;Swarming Imp@Feathered Charm Necklace;Legashi Satyr@Feathered Charm Necklace  -- A Lost Memento (55)
@@ -75,14 +73,10 @@ turnin 92070 |npc Unele |at 1447 43.2,18.1  -- A Lost Memento (55)
 turnin 6824 |npc Duke Hydraxis |at 1447 79.3,73.7 |group dungeon  -- Hands of the Enemy (60)
 accept 7486 |npc Duke Hydraxis |at 1447 79.3,73.7 |group chain |lvl 60 |preany 6824  -- A Hero's Reward (60)
 turnin 7486 |npc Hydraxis' Coffer |at 1447 79.2,74.9 |group chain  -- A Hero's Reward (60)
-fly 2482 68.7,46.8 |from 1447 11.9,77.6 |npc Mount Hyjal (Fayran Elthas)  -- flight master Jarrodenus
 turnin 91877 |npc Maerion Thaelemaches |at 2482 63.3,25.9  -- Demon Hunter's Hunter (55)
-fly 1448 62.5,24.2 |from 2482 68.7,46.8 |npc Felwood (Mishellena)  -- flight master Fayran Elthas
 turnin 86798 |npc Gorn One Eye |at 1448 65.2,2.7  -- Timbermaw Reinforcements (55)
 turnin 92345 |npc Mathrengyl Bearwalker |at 1457 35.4,8.4  -- Beneath Nordrassil (55)
 turnin 8575 |npc Narain Soothfancy |at 1446 65.2,18.6 |group chain  -- Azuregos's Magical Ledger (60)
 turnin 8729 |npc Anachronos |at 1446 65.3,50.0 |group chain  -- The Wrath of Neptulon (60)
-fly 1413 63.1,37.2 |from 1446 51.0,29.3 |npc The Barrens (Bragok)  -- flight master Bera Stonehammer
-goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
 turnin 3621 |npc Galvan the Ancient |at 1434 50.6,20.5 |group chain  -- The Formation of Felbane (58)
 ]]}

@@ -40,10 +40,8 @@ turnin 5157 |npc Greta Mosshoof |at 1448 51.2,82.1  -- Collection of the Corrupt
 accept 5158 |npc Greta Mosshoof |at 1448 51.2,82.1 |lvl 48 |preany 5157  -- Seeking Spiritual Aid (52)
 accept 8460 |npc Grazle |at 1448 50.9,85.0 |value mid |lvl 45  -- Timbermaw Ally (48)
 complete 8460 |at 1448 48.3,90.9 |mobs Deadwood Warrior;Deadwood Pathfinder;Deadwood Gardener |value mid  -- Timbermaw Ally (48)
-fly 1413 63.1,37.2 |from 1448 62.5,24.2 |npc The Barrens (Bragok)  -- flight master Mishellena
 turnin 5158 |npc Islen Waterseer |at 1413 65.8,43.8  -- Seeking Spiritual Aid (52)
 accept 5159 |npc Islen Waterseer |at 1413 65.8,43.8 |lvl 48 |preany 5158  -- Cleansed Water Returns to Felwood (54)
-fly 1448 62.5,24.2 |from 1413 63.1,37.2 |npc Mishellena  -- flight master Bragok
 turnin 4101 |npc Arathandris Silversky |at 1448 54.1,86.8 |value mid  -- Cleansing Felwood (55)
 accept 5882 |npc Arathandris Silversky |at 1448 54.1,86.8 |value mid |lvl 48 |preany 4101  -- Salve via Hunting (55)
 turnin 8460 |npc Grazle |at 1448 50.9,85.0 |value mid  -- Timbermaw Ally (48)
@@ -87,16 +85,10 @@ turnin 4441 |npc Eridan Bluewind |at 1448 51.4,81.5  -- Felbound Ancients (54)
 accept 4442 |npc Eridan Bluewind |at 1448 51.4,81.5 |lvl 49 |preany 4441  -- Purified! (54)
 turnin 4442 |npc Eridan Bluewind |at 1448 51.4,81.5  -- Purified! (54)
 turnin 5156 |npc Taronn Redfeather |at 1448 50.9,81.6  -- Verifying the Corruption (54)
-fly 2482 68.7,46.8 |from 1448 62.5,24.2 |npc Mount Hyjal (Fayran Elthas)  -- flight master Mishellena
 turnin 91952 |npc Ketharas |at 2482 73.3,81.9  -- The Source of the Corruption (55)
-fly 1447 11.9,77.6 |from 2482 68.7,46.8 |npc Azshara (Jarrodenus)  -- flight master Fayran Elthas
 turnin 86814 |npc Gatekeeper Rageroar |at 1447 42.3,20.1 |group elite  -- Blackmaw Counter-Offensive (55)
-fly 1452 62.3,36.6 |from 1447 11.9,77.6 |npc Winterspring (Maethrya)  -- flight master Jarrodenus
 turnin 5249 |npc Wynd Nightchaser |at 1452 52.0,30.4  -- To Winterspring! (56)
 turnin 8464 |npc Salfa |at 1452 27.7,34.5 |value mid  -- Winterfall Activity (58)
 turnin 8465 |npc Salfa |at 1452 27.7,34.5  -- Speak to Salfa (55)
-fly 1413 63.1,37.2 |from 1452 62.3,36.6 |npc The Barrens (Bragok)  -- flight master Maethrya
-goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
-fly 1455 55.5,47.7 |from 1434 27.5,77.8 |npc Ironforge (Gryth Thurden)  -- flight master Gyll
 turnin 8484 |npc King Magni Bronzebeard |at 1455 39.1,56.2  -- The Brokering of Peace (60)
 ]]}

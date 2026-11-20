@@ -35,15 +35,11 @@ accept 1425 |npc Watcher Biggs |at 1435 26.7,59.8 |lvl 30 |preany 1398  -- Deliv
 turnin 93176 |npc Amaryllis Webb |at 1435 25.2,54.0  -- My Little Friends (35)
 complete 1116 |at 1435 14.3,61.3 |areas 14.3,61.3:13;86.0,45.9:10;62.2,41.7:9;76.6,68.8:7 |mobs Scalebane Captain@Speck of Dream Dust;Green Scalebane@Speck of Dream Dust;Adolescent Whelp@Speck of Dream Dust;Wyrmkin Dreamwalker@Speck of Dream Dust |value mid  -- Dream Dust in the Swamp (36)
 turnin 1425 |npc Quartermaster Lungertz |at 1419 66.5,21.4  -- Deliver the Shipment (42)
-fly 2548 60.6,81.5 |from 1419 65.5,24.3 |npc Riverglades (Gretchen Mayberry)  -- flight master Alexandra Constantine
 turnin 94929 |npc Demar Brant |at 2548 66.7,81.0  -- Deliver the Second Shipment (38)
-fly 1434 27.5,77.8 |from 2548 60.6,81.5 |npc Stranglethorn Vale (Gyll)  -- flight master Gretchen Mayberry
 turnin 1116 |npc Krazek |at 1434 26.9,77.2 |value mid  -- Dream Dust in the Swamp (36)
 accept 79953 |npc Owen Thadd |at 1458 73.4,33.0  -- A Ludite's Guide to Caring for Your Demonic Pet (35)
 complete 79953  -- A Ludite's Guide to Caring for Your Demonic Pet (35)
 turnin 79953 |npc Owen Thadd |at 1458 73.4,33.0  -- A Ludite's Guide to Caring for Your Demonic Pet (35)
-goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
-fly 1443 64.7,10.5 |from 1413 63.1,37.2 |npc Desolace (Baritanas Skyriver)  -- flight master Bragok
 turnin 93464 |npc Azore Aldamort |at 1443 38.9,27.2  -- The Visiting Mage (38)
 ]]}
 

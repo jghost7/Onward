@@ -6,19 +6,12 @@ Onward:RegisterGuide{
   levels = { 45, 55 },
   steps = [[
 accept 2933 |npc Venom Bottle |at 1425 23.5,58.8 |lvl 40  -- Venom Bottles (43)
-fly 1424 60.1,18.6 |from 1425 81.7,81.8 |npc Hillsbrad Foothills (Zarise)  -- flight master Gorkas
 turnin 2933 |npc Apothecary Lydon |at 1424 61.4,19.1  -- Venom Bottles (43)
 accept 2934 |npc Apothecary Lydon |at 1424 61.4,19.1 |lvl 40 |preany 2933  -- Undamaged Venom Sac (45)
-fly 1425 81.7,81.8 |from 1424 60.1,18.6 |npc Gorkas  -- flight master Zarise
 complete 2934 |at 1425 33.3,69.3 |mobs Witherbark Broodguard@Undamaged Venom Sac  -- Undamaged Venom Sac (45)
 accept 1444 |npc Atal'ai Exile |at 1425 33.8,75.2 |lvl 38 |preany 1429  -- Return to Fel'Zerul (44)
-fly 1434 26.9,77.1 |from 1425 81.7,81.8 |npc Stranglethorn Vale (Gringer)  -- flight master Gorkas
-goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
 accept 2937 |npc Master Gadrin |at 1411 56.0,74.7 |lvl 40 |preany 2936  -- Summoning Shadra (55)
 accept 4787 |npc Yeh'kinya |at 1446 67.0,22.4 |group chain |lvl 40 |preany 3527  -- The Ancient Egg (50)
-fly 1413 63.1,37.2 |from 1446 51.6,25.4 |npc The Barrens (Bragok)  -- flight master Bulkrek Ragefist
-goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
-fly 1425 81.7,81.8 |from 1434 26.9,77.1 |npc Gorkas  -- flight master Gringer
 home |npc Lard |at 1425 78.1,81.4  -- set your hearthstone at the inn
 accept 7815 |npc Katoom the Angler |at 1425 80.3,81.5 |lvl 44  -- Snapjaws, Mon! (50)
 accept 7816 |npc Katoom the Angler |at 1425 80.3,81.5 |group elite |lvl 44  -- Gammerita, Mon! (48)
@@ -80,21 +73,15 @@ turnin 7862 |npc Primal Torntusk |at 1425 78.2,81.2 |value mid |group elite  -- 
 turnin 7850 |npc Primal Torntusk |at 1425 78.2,81.2  -- Dark Vessels (50)
 turnin 7839 |npc Smith Slagtree |at 1425 77.2,80.1  -- Vilebranch Hooligans (48)
 turnin 77 |npc Gilveradin Sunchaser |at 1425 26.7,48.6  -- A Sticky Situation (48)
-fly 1424 60.1,18.6 |from 1425 81.7,81.8 |npc Hillsbrad Foothills (Zarise)  -- flight master Gorkas
 turnin 2934 |npc Apothecary Lydon |at 1424 61.4,19.1  -- Undamaged Venom Sac (45)
 accept 2935 |npc Apothecary Lydon |at 1424 61.4,19.1 |lvl 40 |preany 2934  -- Consult Master Gadrin (45)
 turnin 2937 |npc Apothecary Lydon |at 1424 61.4,19.1  -- Summoning Shadra (55)
 accept 2938 |npc Apothecary Lydon |at 1424 61.4,19.1 |lvl 40 |preany 2937  -- Venom to the Undercity (55)
-fly 1458 63.2,48.6 |from 1424 60.1,18.6 |npc Undercity (Michael Garrett)  -- flight master Zarise
 turnin 2938 |npc Master Apothecary Faranell |at 1458 48.8,69.3  -- Venom to the Undercity (55)
 turnin 2782 |npc Oran Snakewrithe |at 1458 73.1,32.9  -- Rin'ji's Secret (47)
 accept 8273 |npc Oran Snakewrithe |at 1458 73.1,32.9 |lvl 42 |preany 2782  -- Oran's Gratitude (47)
 turnin 8273 |npc Oran Snakewrithe |at 1458 73.1,32.9  -- Oran's Gratitude (47)
-fly 1435 46.1,54.8 |from 1458 63.2,48.6 |npc Swamp of Sorrows (Breyk)  -- flight master Michael Garrett
 turnin 1444 |npc Fel'zerul |at 1435 47.9,54.8  -- Return to Fel'Zerul (44)
-fly 1434 26.9,77.1 |from 1435 46.1,54.8 |npc Stranglethorn Vale (Gringer)  -- flight master Breyk
-goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
-fly 1446 51.6,25.4 |from 1413 63.1,37.2 |npc Tanaris (Bulkrek Ragefist)  -- flight master Bragok
 turnin 4787 |npc Yeh'kinya |at 1446 67.0,22.4 |group chain  -- The Ancient Egg (50)
 turnin 2935 |npc Master Gadrin |at 1411 56.0,74.7  -- Consult Master Gadrin (45)
 ]]}

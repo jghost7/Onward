@@ -19,15 +19,11 @@ accept 4183 |npc Helendis Riverhorn |at 1428 85.8,69.0 |group chain |lvl 48 |pre
 turnin 3823 |npc Oralius |at 1428 84.6,68.7  -- Extinguish the Firegut (52)
 accept 4283 |npc Oralius |at 1428 84.6,68.7 |value mid |lvl 50  -- FIFTY! YEP! (56)
 accept 3824 |npc Oralius |at 1428 84.6,68.7 |lvl 48 |preany 3823  -- Gor'tesh the Brute Lord (53)
-fly 1453 71.3,72.2 |from 1428 84.3,68.3 |npc Stormwind City (Dungar Longdrink)  -- flight master Borgus Stoutarm
 accept 4186 |npc Highlord Bolvar Fordragon |at 1453 80.2,38.4 |group chain |lvl 48 |preany 4185  -- The True Masters (54)
-fly 1428 84.3,68.3 |from 1453 71.3,72.2 |npc Borgus Stoutarm  -- flight master Dungar Longdrink
 complete 4283 |at 1428 51.7,54.3 |areas 41.1,34.9:28;51.7,54.3:24 |mobs Blackrock Slayer@Blackrock Medallion;Blackrock Warlock@Blackrock Medallion;Blackrock Soldier@Blackrock Medallion;Blackrock Sorcerer@Blackrock Medallion |value mid  -- FIFTY! YEP! (56)
 complete 3824 |at 1428 55.5,54.4 |mobs Grubbub@Gor'tesh's Lopped Off Head;Gor'tesh@Gor'tesh's Lopped Off Head  -- Gor'tesh the Brute Lord (53)
-fly 1433 25.5,59.4 |from 1428 84.3,68.3 |npc Redridge Mountains (Ariena Stormfeather)  -- flight master Borgus Stoutarm
 turnin 4186 |npc Magistrate Solomon |at 1433 24.9,44.5 |group chain  -- The True Masters (54)
 accept 4223 |npc Magistrate Solomon |at 1433 24.9,44.5 |group chain |lvl 48 |preany 4186  -- The True Masters (54)
-fly 1428 84.3,68.3 |from 1433 25.5,59.4 |npc Borgus Stoutarm  -- flight master Ariena Stormfeather
 turnin 4223 |npc Marshal Maxwell |at 1428 84.7,69.0 |group chain  -- The True Masters (54)
 turnin 4283 |npc Oralius |at 1428 84.6,68.7 |value mid  -- FIFTY! YEP! (56)
 turnin 3824 |npc Oralius |at 1428 84.6,68.7  -- Gor'tesh the Brute Lord (53)
@@ -40,15 +36,9 @@ accept 5522 |npc Tinkee Steamboil |at 1428 65.2,24.0 |group chain |lvl 57 |prean
 turnin 4726 |npc Tinkee Steamboil |at 1428 65.2,24.0  -- Broodling Essence (52)
 accept 4808 |npc Tinkee Steamboil |at 1428 65.2,24.0 |lvl 50 |preany 4726  -- Felnok Steelspring (54)
 turnin 4296 |npc Maxwort Uberglint |at 1428 65.2,23.9  -- Tablet of the Seven (50)
-fly 1433 25.5,59.4 |from 1428 84.3,68.3 |npc Redridge Mountains (Ariena Stormfeather)  -- flight master Borgus Stoutarm
 turnin 4183 |npc Magistrate Solomon |at 1433 24.9,44.5 |group chain  -- The True Masters (54)
 accept 4184 |npc Magistrate Solomon |at 1433 24.9,44.5 |group chain |lvl 48 |preany 4183  -- The True Masters (54)
-fly 1453 71.3,72.2 |from 1433 25.5,59.4 |npc Stormwind City (Dungar Longdrink)  -- flight master Ariena Stormfeather
 turnin 4184 |npc Highlord Bolvar Fordragon |at 1453 80.2,38.4 |group chain  -- The True Masters (54)
-fly 1423 71.8,49.6 |from 1453 71.3,72.2 |npc Eastern Plaguelands (Khaelyn Steelwing)  -- flight master Dungar Longdrink
 turnin 5522 |npc Leonid Barthalomew the Revered |at 1423 71.9,48.3 |group chain  -- Leonid Barthalomew (60)
-fly 1434 27.5,77.8 |from 1423 71.8,49.6 |npc Stranglethorn Vale (Gyll)  -- flight master Khaelyn Steelwing
-goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
-fly 1452 62.3,36.6 |from 1413 63.1,37.2 |npc Winterspring (Maethrya)  -- flight master Bragok
 turnin 4808 |npc Felnok Steelspring |at 1452 61.6,38.6  -- Felnok Steelspring (54)
 ]]}

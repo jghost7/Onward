@@ -143,13 +143,11 @@ turnin 5843 |npc Magga |at 1411 43.0,69.4 |race Orc,Troll  -- Welcome! (1)
 turnin 840 |npc Kargal Battlescar |at 1413 62.3,19.4  -- Conscript of the Horde (12)
 accept 842 |npc Kargal Battlescar |at 1413 62.3,19.4 |lvl 10 |preany 840  -- Crossroads Conscription (12)
 turnin 842 |npc Sergra Darkthorn |at 1413 52.2,31.0  -- Crossroads Conscription (12)
-fly 1454 45.1,63.9 |from 1413 51.5,30.3 |npc Orgrimmar (Doras)  -- flight master Devrak
 turnin 832 |npc Neeru Fireblade |at 1454 49.5,50.6  -- Burning Shadows (12)
 turnin 829 |npc Neeru Fireblade |at 1454 49.5,50.6  -- Neeru Fireblade (12)
 accept 809 |npc Neeru Fireblade |at 1454 49.5,50.6 |lvl 4 |preany 829  -- Ak'Zeloth (13)
 turnin 96877 |npc Kamari |at 1454 63.3,44.8  -- Halikor's Hoof (12)
 turnin 831 |npc Nazgrel |at 1454 32.3,35.8  -- The Admiral's Orders (7)
-fly 1413 51.5,30.3 |from 1454 45.1,63.9 |npc The Barrens (Devrak)  -- flight master Doras
 complete 809 |at 1413 62.3,20.1  -- Ak'Zeloth (13)
 turnin 809 |npc Ak'Zeloth |at 1413 62.3,20.1  -- Ak'Zeloth (13)
 ]]}

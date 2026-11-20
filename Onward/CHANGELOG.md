@@ -1,5 +1,16 @@
 # Changelog
 
+## Unreleased
+
+- Travel is worked out live. Guides no longer contain "Fly to ..." and "Take the boat to ..."
+  steps. A step only says where it is, and the arrow plans the way from wherever you are: a
+  boat or zeppelin when it's on the other continent, your hearthstone when it's ready and
+  faster, a flight between two points you've learned when that beats running, otherwise on
+  foot. The step card shows the first leg ("first fly from Rog'mar to Undercity"). This ends
+  the round trips and flights to nowhere that written travel steps caused whenever a quest
+  was already done or not on offer.
+- Guides are rebuilt without travel steps, so they are shorter and step numbers change.
+
 ## 0.6.33
 
 - Items to bring. Some quests want something no mob drops: Frost Oil for "Coolant Heads

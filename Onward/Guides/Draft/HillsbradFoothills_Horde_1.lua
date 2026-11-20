@@ -54,6 +54,5 @@ turnin 509 |npc Apothecary Lydon |at 1424 61.4,19.1  -- Elixir of Agony (28)
 accept 513 |npc Apothecary Lydon |at 1424 61.4,19.1 |lvl 24 |preany 509  -- Elixir of Agony (28)
 accept 499 |npc Apothecary Lydon |at 1424 61.4,19.1 |lvl 19 |preany 496  -- Elixir of Suffering (22)
 turnin 499 |npc Umpi |at 1424 61.5,19.1  -- Elixir of Suffering (22)
-fly 1458 63.2,48.6 |from 1424 60.1,18.6 |npc Undercity (Michael Garrett)  -- flight master Zarise
 turnin 513 |npc Master Apothecary Faranell |at 1458 48.8,69.3  -- Elixir of Agony (28)
 ]]}

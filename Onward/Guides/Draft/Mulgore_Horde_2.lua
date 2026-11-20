@@ -26,11 +26,9 @@ turnin 99080 |npc Baine Bloodhoof |at 1412 46.7,63.4 |value mid |race Scourge,Ta
 accept 99082 |npc Baine Bloodhoof |at 1412 46.7,63.4 |value mid |race Scourge,Tauren |lvl 4 |preany 99080  -- The High Chieftain (11)
 turnin 770 |npc Skorn Whitecloud |at 1412 46.0,63.4  -- The Demon Scarred Cloak (12)
 accept 854 |npc Kirge Sternhorn |at 1413 44.9,58.6 |race Tauren |lvl 9  -- Journey to the Crossroads (12)
-fly 1456 47.0,49.8 |from 1413 44.5,59.1 |npc Thunder Bluff (Tal)  -- flight master Omusa Thunderhorn
 turnin 776 |npc Cairne Bloodhoof |at 1456 60.3,51.7  -- Rites of the Earthmother (14)
 turnin 99082 |npc Cairne Bloodhoof |at 1456 60.3,51.7 |value mid |race Scourge,Tauren  -- The High Chieftain (11)
 turnin 76240 |npc Boarton Shadetotem |at 1456 39.4,65.8 |race Tauren  -- Stalk With The Earthmother (11)
-fly 1413 51.5,30.3 |from 1456 47.0,49.8 |npc The Barrens (Devrak)  -- flight master Tal
 turnin 854 |npc Thork |at 1413 51.5,30.9 |race Tauren  -- Journey to the Crossroads (12)
 ]]}
 

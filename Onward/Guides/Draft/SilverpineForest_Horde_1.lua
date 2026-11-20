@@ -66,7 +66,6 @@ turnin 91921 |npc Quinn Yorick |at 1421 53.4,12.6 |value mid  -- Return to Quinn
 accept 425 |npc Rane Yorick |at 1421 53.5,13.4 |value mid |lvl 10 |preany 91921  -- Ivar the Foul (12)
 complete 425 |at 1421 51.5,13.9 |mobs Ivar the Foul@Ivar's Head |value mid  -- Ivar the Foul (12)
 turnin 425 |npc Rane Yorick |at 1421 53.5,13.4 |value mid  -- Ivar the Foul (12)
-fly 1458 63.2,48.6 |from 1421 45.6,42.6 |npc Undercity (Michael Garrett)  -- flight master Karos Razok
 turnin 444 |npc Bethor Iceshard |at 1458 84.1,17.4  -- Rot Hide Origins (17)
 accept 446 |npc Bethor Iceshard |at 1458 84.1,17.4 |lvl 10 |preany 444  -- Thule Ravenclaw (16)
 turnin 6323 |npc Gordon Wendham |at 1458 61.5,41.8 |race Scourge  -- Ride to the Undercity (10)
@@ -75,7 +74,6 @@ turnin 6322 |npc Michael Garrett |at 1458 63.2,48.6 |race Scourge  -- Michael Ga
 accept 6324 |npc Michael Garrett |at 1458 63.2,48.6 |race Scourge |lvl 10 |preany 6322  -- Return to Podrig (10)
 turnin 447 |npc Master Apothecary Faranell |at 1458 48.8,69.3  -- A Recipe For Death (12)
 accept 450 |npc Master Apothecary Faranell |at 1458 48.8,69.3 |lvl 9 |preany 447  -- A Recipe For Death (15)
-fly 1421 45.6,42.6 |from 1458 63.2,48.6 |npc Karos Razok  -- flight master Michael Garrett
 complete 479 |at 1421 60.2,65.2 |mobs Dalaran Protector@Dalaran Pendant;Dalaran Mage@Dalaran Pendant;Dalaran Conjuror@Dalaran Pendant  -- Ambermill Investigations (16)
 complete 99 |at 1421 45.4,73.1 |mobs Pyrewood Sentry@Pyrewood Shackle;Pyrewood Watcher@Pyrewood Shackle;Pyrewood Elder@Pyrewood Shackle;Moonrage Watcher@Pyrewood Shackle |group elite  -- Arugal's Folly (15)
 complete 450 |at 1421 43.0,73.2  -- A Recipe For Death (15)

@@ -129,7 +129,6 @@ accept 466 |npc Pilot Stonegear |at 1426 49.6,48.6 |lvl 20  -- Search for Incend
 accept 2922 |npc Tinkmaster Overspark |at 1455 69.5,50.3 |group elite |lvl 20  -- Save Techbot's Brain! (26)
 accept 95041 |npc Jemma Quikswitch |at 1455 67.7,44.2 |value mid |lvl 7  -- Data Hoarders (10)
 accept 98423 |note Starts from the item Treaty of Understanding, found on Treaty of Understanding. Hand it in to King Magni Bronzebeard |startitem 281030 |loose |lvl 9  -- The Treaty of Understanding (16)
-fly 1437 9.5,59.7 |from 1455 55.5,47.7 |npc Wetlands (Shellei Brondir)  -- flight master Gryth Thurden
 complete 466 |at 1437 48.4,62.1  -- Search for Incendicite (22)
 accept 419 |npc Pilot Hammerfoot |at 1426 83.9,39.2 |lvl 8  -- The Lost Pilot (10)
 turnin 419 |npc A Dwarven Corpse |at 1426 79.7,36.2  -- The Lost Pilot (10)
@@ -157,14 +156,8 @@ turnin 291 |npc Senator Barin Redstone |at 1455 39.5,57.5  -- The Reports (10)
 turnin 98423 |npc King Magni Bronzebeard |at 1455 39.1,56.2  -- The Treaty of Understanding (16)
 turnin 95041 |npc Jemma Quikswitch |at 1455 67.7,44.2 |value mid  -- Data Hoarders (10)
 turnin 2922 |npc Tinkmaster Overspark |at 1455 69.5,50.3 |group elite  -- Save Techbot's Brain! (26)
-fly 1432 33.9,51.0 |from 1455 55.5,47.7 |npc Loch Modan (Thorgrum Borrelson)  -- flight master Gryth Thurden
 turnin 414 |npc Mountaineer Kadrell |at 1432 32.6,49.7  -- Stout to Kadrell (10)
-fly 1453 71.3,72.2 |from 1432 33.9,51.0 |npc Stormwind City (Dungar Longdrink)  -- flight master Thorgrum Borrelson
 accept 2923 |npc Brother Sarno |at 1453 51.0,48.4 |lvl 20  -- Tinkmaster Overspark (26)
-fly 1455 55.5,47.7 |from 1453 71.3,72.2 |npc Ironforge (Gryth Thurden)  -- flight master Dungar Longdrink
 turnin 2923 |npc Tinkmaster Overspark |at 1455 69.5,50.3  -- Tinkmaster Overspark (26)
-fly 1434 27.5,77.8 |from 1455 55.5,47.7 |npc Stranglethorn Vale (Gyll)  -- flight master Gryth Thurden
-goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
-fly 1438 58.4,94.0 |from 1413 63.1,37.2 |npc Teldrassil (Vesprystus)  -- flight master Bragok
 turnin 6722 |npc Dazalar |at 1438 56.7,59.5 |class HUNTER |race NightElf  -- The Hunter's Path (10)
 ]]}

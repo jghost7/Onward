@@ -33,14 +33,11 @@ complete 8485 |at 1448 65.6,2.9 |item 21155 |mobs Timbermaw Warder;Timbermaw Mys
 complete 8470 |at 1448 65.6,2.9 |item 20741 |mobs Timbermaw Warder;Timbermaw Mystic;Timbermaw Woodbender  -- Deadwood Ritual Totem (55)
 accept 8464 |npc Salfa |at 1452 27.7,34.5 |lvl 45  -- Winterfall Activity (58)
 complete 4521 |at 1452 49.4,35.1 |mobs Raging Owlbeast;Ragged Owlbeast  -- Wild Guardians (56)
-fly 1448 34.4,54.0 |from 1452 60.5,36.3 |npc Brakkar  -- flight master Yugrek
 turnin 5157 |npc Greta Mosshoof |at 1448 51.2,82.1  -- Collection of the Corrupt Water (52)
 accept 5158 |npc Greta Mosshoof |at 1448 51.2,82.1 |lvl 48 |preany 5157  -- Seeking Spiritual Aid (52)
 accept 8460 |npc Grazle |at 1448 50.9,85.0 |value mid |lvl 45  -- Timbermaw Ally (48)
-fly 1413 63.1,37.2 |from 1448 34.4,54.0 |npc The Barrens (Bragok)  -- flight master Brakkar
 turnin 5158 |npc Islen Waterseer |at 1413 65.8,43.8  -- Seeking Spiritual Aid (52)
 accept 5159 |npc Islen Waterseer |at 1413 65.8,43.8 |lvl 48 |preany 5158  -- Cleansed Water Returns to Felwood (54)
-fly 1448 34.4,54.0 |from 1413 63.1,37.2 |npc Brakkar  -- flight master Bragok
 complete 6162 |at 1448 48.2,94.3 |mobs Overlord Ror@Overlord Ror's Claw  -- A Husband's Last Battle (51)
 complete 8460 |at 1448 48.3,90.9 |mobs Deadwood Warrior;Deadwood Pathfinder;Deadwood Gardener |value mid  -- Timbermaw Ally (48)
 turnin 8460 |npc Grazle |at 1448 50.9,85.0 |value mid  -- Timbermaw Ally (48)
@@ -59,9 +56,7 @@ accept 5156 |npc Taronn Redfeather |at 1448 50.9,81.6 |lvl 48  -- Verifying the 
 turnin 5165 |npc Greta Mosshoof |at 1448 51.2,82.1  -- Dousing the Flames of Protection (55)
 accept 5242 |npc Greta Mosshoof |at 1448 51.2,82.1 |lvl 48 |preany 5165  -- A Final Blow (58)
 accept 5204 |npc Jessir Moonbow |at 1448 51.4,82.0 |lvl 49 |preany 5203  -- Retribution of the Light (57)
-fly 1452 60.5,36.3 |from 1448 34.4,54.0 |npc Winterspring (Yugrek)  -- flight master Brakkar
 complete 4741 |at 1452 64.2,22.9 |mobs Moontouched Owlbeast  -- Wild Guardians (58)
-fly 1448 34.4,54.0 |from 1452 60.5,36.3 |npc Brakkar  -- flight master Yugrek
 accept 5202 |at 1448 38.4,50.3 |note Starts from Blood Red Key |startitem 13140 |lvl 49  -- A Strange Red Key (55)
 complete 5204 |at 1448 38.3,50.5 |mobs Rakaiah  -- Retribution of the Light (57)
 turnin 4741 |npc Trull Failbane |at 1448 34.7,52.8  -- Wild Guardians (58)
@@ -79,9 +74,7 @@ complete 8464 |at 1448 64.9,5.6 |mobs Winterfall Shaman;Winterfall Den Watcher;W
 turnin 8470 |npc Kernda |at 1448 65.5,3.5  -- Deadwood Ritual Totem (55)
 turnin 87346 |npc Gorn One Eye |at 1448 65.2,2.7  -- Chieftain Bloodmaw (55)
 turnin 6031 |npc Meilosh |at 1448 65.7,2.8 |value low  -- Runecloth (55)
-fly 1452 60.5,36.3 |from 1448 34.4,54.0 |npc Winterspring (Yugrek)  -- flight master Brakkar
 complete 4721 |at 1452 65.7,22.3 |mobs Berserk Owlbeast  -- Wild Guardians (59)
-fly 1448 34.4,54.0 |from 1452 60.5,36.3 |npc Brakkar  -- flight master Yugrek
 turnin 5204 |npc Remains of Trey Lightforge |at 1448 38.5,50.4  -- Retribution of the Light (57)
 accept 5385 |npc Remains of Trey Lightforge |at 1448 38.5,50.4 |lvl 49 |preany 5204  -- The Remains of Trey Lightforge (57)
 turnin 86612 |npc Winna Hazzard |at 1448 34.2,52.3  -- Stag Lord's Bauble (55)
@@ -92,13 +85,9 @@ turnin 5156 |npc Taronn Redfeather |at 1448 50.9,81.6  -- Verifying the Corrupti
 turnin 86577 |npc Kelek Skykeeper |at 1448 51.1,81.8 |value low  -- A Sampling of Putrescence (55)
 turnin 5242 |npc Greta Mosshoof |at 1448 51.2,82.1  -- A Final Blow (58)
 turnin 5385 |npc Jessir Moonbow |at 1448 51.4,82.0  -- The Remains of Trey Lightforge (57)
-fly 2482 68.7,46.8 |from 1448 34.4,54.0 |npc Mount Hyjal (Fayran Elthas)  -- flight master Brakkar
 turnin 91952 |npc Ketharas |at 2482 73.3,81.9  -- The Source of the Corruption (55)
-fly 1447 22.0,49.6 |from 2482 68.7,46.8 |npc Azshara (Kroum)  -- flight master Fayran Elthas
 turnin 86814 |npc Gatekeeper Rageroar |at 1447 42.3,20.1 |group elite  -- Blackmaw Counter-Offensive (55)
-fly 1454 45.1,63.9 |from 1447 22.0,49.6 |npc Orgrimmar (Doras)  -- flight master Kroum
 turnin 8485 |npc Thrall |at 1454 31.7,37.8  -- The Brokering of Peace (60)
-fly 1452 60.5,36.3 |from 1454 45.1,63.9 |npc Winterspring (Yugrek)  -- flight master Doras
 turnin 8465 |npc Salfa |at 1452 27.7,34.5  -- Speak to Salfa (55)
 turnin 8464 |npc Salfa |at 1452 27.7,34.5  -- Winterfall Activity (58)
 ]]}

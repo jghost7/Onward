@@ -1157,6 +1157,14 @@ def crossing(zone, m0, p0, m1, p1):
     return best and best[1]
 
 
+# Flights and boats are no longer written into guides: a step says where it is and the addon
+# works out the way there from where the player stands (Waypoint.lua's travel plan). Written
+# travel was right only for a player standing where the route expected, and wrong whenever a
+# quest was already done, skipped or not on offer. add_flights still runs: add_home and the
+# route statistics read its legs. True brings the old fly / "take the boat" steps back.
+BAKE_TRAVEL = False
+
+
 def add_flights(zone, steps, level=1):
     """Insert ("fly", leg) entries where a route changes zone (fly out and back), or makes a long
     run inside the zone that two of its flight masters cut short. A change of continent becomes
@@ -1360,6 +1368,8 @@ def render(zone, steps, leftovers, levels, name, faction, gid=None, next_id=None
         if verb == "home":
             x, y = q["xy"]
             out.append(f"home |npc {clean(q['name'])} |at {q['map']} {x:.1f},{y:.1f}  -- set your hearthstone at the inn")
+            continue
+        if verb in ("fly", "boat") and not BAKE_TRAVEL:
             continue
         if verb == "boat":
             (fm, fp, fn), (tm, tp, tn) = q["from"], q["to"]

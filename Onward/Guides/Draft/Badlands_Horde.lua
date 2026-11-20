@@ -49,14 +49,8 @@ accept 2202 |npc Jarkal Mossmeld |at 1418 2.4,46.1 |value mid |lvl 36 |preany 22
 complete 782 |at 1418 12.6,75.5 |mobs Boss Tho'grun@Sign of the Earth  -- Broken Alliances (43)
 turnin 782 |npc Gorn |at 1418 2.9,45.6  -- Broken Alliances (43)
 accept 793 |npc Gorn |at 1418 2.9,45.6 |group elite |lvl 40 |preany 782  -- Broken Alliances (50)
-fly 1434 26.9,77.1 |from 1418 4.0,44.8 |npc Stranglethorn Vale (Gringer)  -- flight master Gorrik
-goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
-fly 1454 45.1,63.9 |from 1413 63.1,37.2 |npc Orgrimmar (Doras)  -- flight master Bragok
 accept 2283 |npc Dran Droffers |at 1454 59.5,36.6 |group elite |lvl 37  -- Necklace Recovery (41)
 accept 78823 |note No quest giver on record: it most likely starts from an item you loot or find in this zone. Hand it in to Hemet Nesingwary |loose |lvl 26  -- Terror of the Desert Skies (40)
-fly 1413 63.1,37.2 |from 1454 45.1,63.9 |npc The Barrens (Bragok)  -- flight master Doras
-goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
-fly 1458 63.2,48.6 |from 1434 26.9,77.1 |npc Undercity (Michael Garrett)  -- flight master Gringer
 accept 2342 |npc Patrick Garrett |at 1458 62.3,48.6 |lvl 33  -- Reclaimed Treasures (43)
 accept 737 |npc Gerrig Bonegrip |at 1455 50.8,5.6 |group chain |lvl 30 |preany 735,736  -- Forbidden Knowledge (40)
 complete 2342 |at 1418 34.2,18.6  -- Reclaimed Treasures (43)
@@ -73,18 +67,13 @@ turnin 737 |npc Theldurin the Lost |at 1418 51.4,76.9 |group chain  -- Forbidden
 turnin 709 |npc Theldurin the Lost |at 1418 51.4,76.9  -- Solution to Doom (40)
 accept 728 |npc Theldurin the Lost |at 1418 51.4,76.9 |lvl 30 |preany 709  -- To the Undercity for Yagyin's Digest (40)
 turnin 692 |npc Theldurin the Lost |at 1418 51.4,76.9  -- The Lost Fragments (41)
-fly 1434 32.5,29.4 |from 1418 4.0,44.8 |npc Stranglethorn Vale (Thysta)  -- flight master Gorrik
 turnin 78823 |npc Hemet Nesingwary |at 1434 35.7,10.8  -- Terror of the Desert Skies (40)
 accept 78830 |npc Hemet Nesingwary |at 1434 35.7,10.8 |class HUNTER |lvl 26 |preany 78823  -- Terror of the Desert Skies (40)
 accept 97821 |note No quest giver on record: it most likely starts from an item you loot or find in this zone. Hand it in to Dorgaron |loose |group elite  -- Mirage Mirror (42)
-goto 1434 31.3,29.2 15 |note Take the zeppelin to Orgrimmar  -- zeppelin Grom'gol to Orgrimmar
 turnin 2283 |npc Dran Droffers |at 1454 59.5,36.6 |group elite  -- Necklace Recovery (41)
 accept 2284 |npc Dran Droffers |at 1454 59.5,36.6 |group chain |lvl 37 |preany 2283  -- Necklace Recovery, Take 2 (41)
 turnin 2284 |group chain  -- Necklace Recovery, Take 2 (41)
 accept 2318 |note Starts from Remains of a Paladin, whose place isn't on record. Hand it in to Jarkal Mossmeld |loose |group chain |lvl 37 |preany 2284  -- Translating the Journal (42)
-fly 1413 63.1,37.2 |from 1454 45.1,63.9 |npc The Barrens (Bragok)  -- flight master Doras
-goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
-fly 1418 4.0,44.8 |from 1434 26.9,77.1 |npc Gorrik  -- flight master Gringer
 turnin 2202 |npc Jarkal Mossmeld |at 1418 2.4,46.1 |value mid  -- Uldaman Reagent Run (42)
 turnin 2318 |npc Jarkal Mossmeld |at 1418 2.4,46.1 |group chain  -- Translating the Journal (42)
 accept 2338 |npc Jarkal Mossmeld |at 1418 2.4,46.1 |group chain |lvl 37 |preany 2318  -- Translating the Journal (42)
@@ -97,14 +86,9 @@ accept 3821 |npc Thal'trak Proudtusk |at 1418 3.4,48.1 |lvl 48  -- Dreadmaul Roc
 complete 78830 |at 1418 22.5,67.7 |item 211272 |mobs Gharrik@Crimson Trophy Quill |class HUNTER  -- Terror of the Desert Skies (40)
 accept 2280 |note Starts from The Discs of Norgannon, whose place isn't on record. Hand it in to Sage Truthseeker |loose |lvl 40 |preany 2278  -- The Platinum Discs (47)
 complete 97821 |at 1418 14.7,72.3 |areas 31.2,73.6:47;36.1,46.3:44;14.7,72.3:33 |mobs Malevolent Mirage@Mirage Mirror |group elite  -- Mirage Mirror (42)
-fly 1434 32.5,29.4 |from 1418 4.0,44.8 |npc Stranglethorn Vale (Thysta) |value mid  -- flight master Gorrik
 complete 705 |at 1434 26.3,26.1 |value mid  -- Pearl Diving (37)
-goto 1434 31.3,29.2 15 |note Take the zeppelin to Orgrimmar  -- zeppelin Grom'gol to Orgrimmar
 turnin 2340 |npc Dran Droffers |at 1454 59.5,36.6 |group chain  -- Deliver the Gems (44)
 accept 2341 |npc Dran Droffers |at 1454 59.5,36.6 |group chain |lvl 40 |preany 2340  -- Necklace Recovery, Take 3 (44)
-fly 1413 63.1,37.2 |from 1454 45.1,63.9 |npc The Barrens (Bragok)  -- flight master Doras
-goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
-fly 1418 4.0,44.8 |from 1434 26.9,77.1 |npc Gorrik  -- flight master Gringer
 turnin 793 |npc Gorn |at 1418 2.9,45.6 |group elite  -- Broken Alliances (50)
 turnin 2341 |npc Jarkal Mossmeld |at 1418 2.4,46.1 |group chain  -- Necklace Recovery, Take 3 (44)
 accept 4062 |npc Hierophant Theodora Mulvadania |at 1418 3.0,47.8 |lvl 52 |preany 4061  -- The Rise of the Machines (54)
@@ -116,19 +100,12 @@ turnin 703 |npc Rigglefuzz |at 1418 42.4,52.9 |value mid  -- Barbecued Buzzard W
 turnin 705 |npc Rigglefuzz |at 1418 42.4,52.9 |value mid  -- Pearl Diving (37)
 turnin 2418 |npc Rigglefuzz |at 1418 42.4,52.9 |value mid  -- Power Stones (36)
 turnin 97821 |npc Dorgaron |at 1418 54.6,12.9 |group elite  -- Mirage Mirror (42)
-fly 1428 65.7,24.2 |from 1418 4.0,44.8 |npc Burning Steppes (Vahgruk)  -- flight master Gorrik
 turnin 3821 |npc Sha'ni Proudtusk |at 1428 80.0,45.4  -- Dreadmaul Rock (52)
-fly 1427 34.8,30.9 |from 1428 65.7,24.2 |npc Searing Gorge (Grisha)  -- flight master Vahgruk
 accept 81900 |npc Weathered Etching |at 1427 14.6,36.4 |lvl 45  -- The Burning Beast (54)
-fly 1435 46.1,54.8 |from 1427 34.8,30.9 |npc Swamp of Sorrows (Breyk)  -- flight master Grisha
 turnin 1420 |npc Helgrum the Swift |at 1435 47.7,55.2  -- Report to Helgrum (40)
 turnin 81900 |npc Bloodmage Lynnore |at 1419 50.6,14.3  -- The Burning Beast (54)
 turnin 78830 |npc Hemet Nesingwary |at 1434 35.7,10.8 |class HUNTER  -- Terror of the Desert Skies (40)
-fly 1458 63.2,48.6 |from 1434 32.5,29.4 |npc Undercity (Michael Garrett)  -- flight master Thysta
 turnin 728 |npc Keeper Bel'dugur |at 1458 53.7,54.5  -- To the Undercity for Yagyin's Digest (40)
 turnin 2342 |npc Patrick Garrett |at 1458 62.3,48.6  -- Reclaimed Treasures (43)
-fly 1434 26.9,77.1 |from 1458 63.2,48.6 |npc Stranglethorn Vale (Gringer)  -- flight master Michael Garrett
-goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
-fly 1456 47.0,49.8 |from 1413 63.1,37.2 |npc Thunder Bluff (Tal)  -- flight master Bragok
 turnin 2280 |npc Sage Truthseeker |at 1456 34.4,46.9  -- The Platinum Discs (47)
 ]]}

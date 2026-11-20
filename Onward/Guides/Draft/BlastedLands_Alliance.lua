@@ -63,7 +63,5 @@ turnin 96799 |npc Sergeant Danneth |at 1419 65.2,15.3  -- A Heavy Responsibility
 turnin 3628 |npc Fallen Hero of the Horde |at 1435 34.3,66.1 |group elite  -- You Are Rakh'likh, Demon (60)
 turnin 2743 |npc Fallen Hero of the Horde |at 1435 34.3,66.1  -- The Cover of Darkness (60)
 turnin 2783 |npc Fallen Hero of the Horde |at 1435 34.3,66.1  -- Petty Squabbles (57)
-goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
-fly 2482 68.7,46.8 |from 1413 63.1,37.2 |npc Mount Hyjal (Fayran Elthas)  -- flight master Bragok
 turnin 91882 |npc Sefira Everbright |at 2482 15.7,54.7  -- The Grand Alliance (55)
 ]]}

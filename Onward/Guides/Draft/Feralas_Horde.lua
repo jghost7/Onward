@@ -55,26 +55,16 @@ accept 2980 |npc Rok Orhan |at 1444 75.8,43.6 |lvl 38 |preany 2975  -- The Ogres
 accept 3062 |npc Talo Thornhoof |at 1444 76.2,43.8 |group elite |lvl 45  -- Dark Heart (50)
 accept 4120 |npc Talo Thornhoof |at 1444 76.2,43.8 |lvl 47  -- The Strength of Corruption (52)
 accept 3063 |npc Talo Thornhoof |at 1444 76.2,43.8 |lvl 45  -- Vengeance on the Northspring (50)
-fly 1448 34.4,54.0 |from 1444 75.5,44.4 |npc Felwood (Brakkar)  -- flight master Shyn
 complete 4120 |at 1448 56.6,19.4 |mobs Angerclaw Grizzly;Felpaw Ravager  -- The Strength of Corruption (52)
-fly 1454 45.1,63.9 |from 1448 34.4,54.0 |npc Orgrimmar (Doras)  -- flight master Brakkar
 turnin 3121 |npc Neeru Fireblade |at 1454 49.5,50.6  -- A Strange Request (45)
 accept 3122 |npc Neeru Fireblade |at 1454 49.5,50.6 |lvl 40 |preany 3121  -- Return to Witch Doctor Uzer'i (45)
-fly 1444 75.5,44.4 |from 1454 45.1,63.9 |npc Shyn  -- flight master Doras
 turnin 3122 |npc Witch Doctor Uzer'i |at 1444 74.4,43.4  -- Return to Witch Doctor Uzer'i (45)
 accept 3123 |npc Witch Doctor Uzer'i |at 1444 74.4,43.4 |lvl 40 |preany 3122  -- Testing the Vessel (47)
 accept 3128 |npc Witch Doctor Uzer'i |at 1444 74.4,43.4 |lvl 40 |preany 3122  -- Natural Materials (50)
 accept 7003 |npc Zorbin Fandazzle |at 1444 44.8,43.4 |lvl 45  -- Zapped Giants (48)
 accept 7721 |npc Zorbin Fandazzle |at 1444 44.8,43.4 |lvl 45  -- Fuel for the Zapping (48)
-fly 1413 63.1,37.2 |from 1444 75.5,44.4 |npc The Barrens (Bragok)  -- flight master Shyn
-goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
-fly 1425 81.7,81.8 |from 1434 26.9,77.1 |npc The Hinterlands (Gorkas)  -- flight master Gringer
 complete 3123 |at 1425 55.2,51.4 |item 9618  -- Testing the Vessel (47)
-fly 1458 63.2,48.6 |from 1425 81.7,81.8 |npc Undercity (Michael Garrett)  -- flight master Gorkas
 accept 81951 |npc Owen Thadd |at 1458 73.4,33.0  -- The Liminal and the Arcane (45)
-fly 1434 26.9,77.1 |from 1458 63.2,48.6 |npc Stranglethorn Vale (Gringer)  -- flight master Michael Garrett
-goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
-fly 1444 75.5,44.4 |from 1413 63.1,37.2 |npc Shyn  -- flight master Bragok
 complete 3063 |at 1444 39.1,13.1 |mobs Northspring Harpy;Northspring Roguefeather;Northspring Slayer;Northspring Windcaller  -- Vengeance on the Northspring (50)
 complete 3062 |at 1444 40.5,8.6 |mobs Edana Hatetalon@Edana's Dark Heart |group elite  -- Dark Heart (50)
 accept 95599 |note No quest giver on record: it most likely starts from an item you loot or find in this zone. Hand it in to Old Chest |loose  -- The Old Key (42)
@@ -110,7 +100,6 @@ turnin 4120 |npc Talo Thornhoof |at 1444 76.2,43.8  -- The Strength of Corruptio
 turnin 3062 |npc Talo Thornhoof |at 1444 76.2,43.8 |group elite  -- Dark Heart (50)
 turnin 3063 |npc Talo Thornhoof |at 1444 76.2,43.8  -- Vengeance on the Northspring (50)
 turnin 95599 |npc Old Chest |at 1444 79.2,49.4  -- The Old Key (42)
-fly 1454 45.1,63.9 |from 1444 75.5,44.4 |npc Orgrimmar (Doras)  -- flight master Shyn
 turnin 3002 |npc Uthel'nay |at 1454 39.2,86.3  -- The Gordunni Orb (47)
 turnin 7732 |npc Zilzibin Drumlore |at 1454 56.3,46.7  -- Zukk'ash Report (48)
 turnin 2976 |npc Belgrom Rockmaul |at 1454 75.2,34.2  -- A Grim Discovery (45)

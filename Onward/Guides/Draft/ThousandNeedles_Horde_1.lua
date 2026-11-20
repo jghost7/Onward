@@ -53,10 +53,8 @@ complete 1105 |at 1441 82.9,70.0 |areas 82.1,54.8:21;82.9,70.0:10 |mobs Sparkles
 turnin 1147 |npc Moktar Krin |at 1441 67.6,63.9  -- The Swarm Grows (35)
 turnin 1151 |npc Dorn Plainstalker |at 1441 54.0,41.5 |group elite  -- Test of Strength (30)
 accept 1152 |npc Dorn Plainstalker |at 1441 54.0,41.5 |group chain |lvl 25 |preany 1151  -- Test of Lore (30)
-fly 1413 63.1,37.2 |from 1441 45.1,49.1 |npc The Barrens (Bragok)  -- flight master Nyse
 turnin 1111 |npc Wharfmaster Dizzywig |at 1413 63.4,38.5  -- Wharfmaster Dizzywig (36)
 accept 1112 |npc Wharfmaster Dizzywig |at 1413 63.4,38.5 |lvl 30 |preany 1111  -- Parts for Kravel (36)
-fly 1441 45.1,49.1 |from 1413 63.1,37.2 |npc Nyse  -- flight master Bragok
 accept 4542 |npc Brave Moonhorn |at 1441 32.2,22.2 |lvl 23  -- Message to Freewind Post (25)
 complete 5147 |at 1441 38.1,26.9 |mobs Arnak Grimtotem@Arnak's Hoof  -- WANTED: Arnak Grimtotem (29)
 complete 5064 |at 1441 33.8,40.0 |value mid  -- Grimtotem Spying (28)
@@ -77,46 +75,26 @@ turnin 1114 |npc Fizzle Brassbolts |at 1441 78.1,77.1  -- Delivery to the Gnomes
 accept 5762 |npc Kravel Koalbeard |at 1441 77.8,77.3 |lvl 28  -- Hemet Nesingwary (31)
 accept 1115 |npc Kravel Koalbeard |at 1441 77.8,77.3 |lvl 30 |preany 1114  -- The Rumormonger (36)
 complete 1175 |at 1441 77.4,59.6 |areas 77.8,87.8:31;77.4,59.6:16 |mobs Saltstone Basilisk;Saltstone Crystalhide;Saltstone Gazer |value mid  -- A Bump in the Road (33)
-fly 1413 63.1,37.2 |from 1441 45.1,49.1 |npc The Barrens (Bragok)  -- flight master Nyse
-goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
 accept 1117 |npc Krazek |at 1434 26.9,77.2 |lvl 30 |preany 1116  -- Rumors for Kravel (36)
-fly 1434 32.5,29.4 |from 1434 26.9,77.1 |npc Stranglethorn Vale (Thysta)  -- flight master Gringer
 complete 1107 |at 1434 25.0,25.2 |group elite  -- Encrusted Tail Fins (35)
-fly 1458 63.2,48.6 |from 1434 32.5,29.4 |npc Undercity (Michael Garrett) |value mid  -- flight master Thysta
 accept 1394 |npc Parqual Fintallas |at 1458 57.8,65.4 |value mid |group chain |lvl 25 |preany 6628  -- Final Passage (36)
-fly 1434 26.9,77.1 |from 1458 63.2,48.6 |npc Stranglethorn Vale (Gringer)  -- flight master Michael Garrett
-goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
-fly 1441 45.1,49.1 |from 1413 63.1,37.2 |npc Nyse  -- flight master Bragok
 turnin 1394 |npc Dorn Plainstalker |at 1441 54.0,41.5 |value mid |group chain  -- Final Passage (36)
 turnin 1117 |npc Kravel Koalbeard |at 1441 77.8,77.3  -- Rumors for Kravel (36)
 turnin 1107 |npc Wizzle Brassbolts |at 1441 78.1,77.1 |group elite  -- Encrusted Tail Fins (35)
 turnin 1176 |npc Pozzik |at 1441 80.2,75.9 |value mid  -- Load Lightening (30)
 turnin 1175 |npc Trackmaster Zherin |at 1441 81.6,78.0 |value mid  -- A Bump in the Road (33)
-fly 1456 47.0,49.8 |from 1441 45.1,49.1 |npc Thunder Bluff (Tal) |value low  -- flight master Nyse
 turnin 5062 |npc Magatha Grimtotem |at 1456 69.8,30.9 |value low  -- Sacred Fire (27)
-fly 1443 21.6,74.1 |from 1456 47.0,49.8 |npc Desolace (Thalon)  -- flight master Tal
 turnin 5361 |npc Nataka Longhorn |at 1443 55.4,55.8  -- Family Tree (35)
-fly 1413 51.5,30.3 |from 1443 21.6,74.1 |npc The Barrens (Devrak)  -- flight master Thalon
 turnin 1148 |npc Korran |at 1413 51.1,29.6  -- Parts of the Swarm (35)
 accept 1184 |npc Korran |at 1413 51.1,29.6 |lvl 28 |preany 1148  -- Parts of the Swarm (35)
-fly 1442 45.1,59.8 |from 1413 51.5,30.3 |npc Stonetalon Mountains (Tharm)  -- flight master Devrak
 accept 1159 |npc Braug Dimspirit |at 1442 78.8,45.7 |group chain |lvl 25 |preany 6627  -- Test of Lore (30)
 turnin 1152 |npc Braug Dimspirit |at 1442 78.8,45.7 |group chain  -- Test of Lore (30)
 accept 1154 |npc Braug Dimspirit |at 1442 78.8,45.7 |group chain |lvl 25 |preany 1152  -- Test of Lore (30)
-fly 1440 73.2,61.6 |from 1442 45.1,59.8 |npc Ashenvale (Vhulgra)  -- flight master Tharm
 complete 1154 |at 1440 75.6,74.4 |group chain  -- Test of Lore (30)
-fly 1454 45.1,63.9 |from 1440 73.2,61.6 |npc Orgrimmar (Doras)  -- flight master Vhulgra
 turnin 1184 |npc Belgrom Rockmaul |at 1454 75.2,34.2  -- Parts of the Swarm (35)
-fly 1442 45.1,59.8 |from 1454 45.1,63.9 |npc Stonetalon Mountains (Tharm)  -- flight master Doras
 turnin 1154 |npc Braug Dimspirit |at 1442 78.8,45.7 |group chain  -- Test of Lore (30)
-fly 1413 63.1,37.2 |from 1442 45.1,59.8 |npc The Barrens (Bragok)  -- flight master Tharm
-goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
-fly 1418 4.0,44.8 |from 1434 26.9,77.1 |npc Badlands (Gorrik)  -- flight master Gringer
 turnin 1106 |npc Martek the Exiled |at 1418 42.2,52.7  -- Martek the Exiled (35)
-fly 1434 32.5,29.4 |from 1418 4.0,44.8 |npc Stranglethorn Vale (Thysta)  -- flight master Gorrik
 turnin 5762 |npc Hemet Nesingwary |at 1434 35.7,10.8  -- Hemet Nesingwary (31)
-fly 1434 26.9,77.1 |from 1434 32.5,29.4 |npc Stranglethorn Vale (Gringer)  -- flight master Thysta
 turnin 1115 |npc Krazek |at 1434 26.9,77.2  -- The Rumormonger (36)
-fly 1458 63.2,48.6 |from 1434 26.9,77.1 |npc Undercity (Michael Garrett)  -- flight master Gringer
 turnin 1159 |npc Parqual Fintallas |at 1458 57.8,65.4 |group chain  -- Test of Lore (30)
 ]]}

@@ -53,8 +53,5 @@ turnin 7729 |npc Taskmaster Scrange |at 1427 39.0,27.5 |value mid  -- JOB OPPORT
 turnin 7728 |npc Taskmaster Scrange |at 1427 39.0,27.5  -- STOLEN: Smithing Tuyere and Lookout's Spyglass (48)
 turnin 7722 |npc Master Smith Burninate |at 1427 38.8,28.5  -- What the Flux? (50)
 turnin 3452 |npc Kalaran Windblade |at 1427 39.1,39.0 |group elite  -- The Flame's Casing (50)
-fly 1434 26.9,77.1 |from 1427 34.8,30.9 |npc Stranglethorn Vale (Gringer)  -- flight master Grisha
-goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
-fly 1446 51.6,25.4 |from 1413 63.1,37.2 |npc Tanaris (Bulkrek Ragefist) |value mid  -- flight master Bragok
 turnin 4450 |npc Krinkle Goodsteel |at 1446 51.5,28.8 |value mid  -- Ledger from Tanaris (46)
 ]]}

@@ -806,7 +806,12 @@ local function locationLine(step)
     local who, route, place, coords, dist
     local cur = WP:Current()
     if cur and cur.step == step then
-        if cur.leg == "cross" and cur.cross then
+        -- how to get there, when it isn't simply on foot: the live travel plan's first leg
+        local tgt = step.verb ~= "fly" and WP.ArrowTarget and WP:ArrowTarget()
+        if tgt and tgt.route and not tgt.corpse then
+            route = "first " .. tgt.route
+            if cur.name and not cur.cross then who = cur.name end
+        elseif cur.leg == "cross" and cur.cross then
             route = "first the " .. cur.cross.kind .. " from " .. cur.cross.from.name .. " to " .. cur.cross.to.name
         elseif step.verb == "fly" then
             -- the place is the step's title; here, who you land by

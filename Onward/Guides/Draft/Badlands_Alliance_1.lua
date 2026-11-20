@@ -37,7 +37,6 @@ accept 97617 |npc Dorgaron |at 1418 54.6,12.9 |value mid |lvl 35  -- Safety Chec
 accept 738 |npc Prospector Ironband |at 1432 65.9,65.6 |lvl 30  -- Find Agmond (38)
 accept 17 |npc Ghak Healtouch |at 1432 37.1,49.4 |value mid |lvl 38 |preany 2500  -- Uldaman Reagent Run (42)
 accept 78823 |note No quest giver on record: it most likely starts from an item you loot or find in this zone. Hand it in to Hemet Nesingwary |loose |lvl 26  -- Terror of the Desert Skies (40)
-fly 1455 55.5,47.7 |from 1432 33.9,51.0 |npc Ironforge (Gryth Thurden)  -- flight master Thorgrum Borrelson
 accept 2398 |npc Prospector Stormpike |at 1455 74.6,11.7 |lvl 35  -- The Lost Dwarves (40)
 accept 1360 |npc Krom Stoutarm |at 1455 74.2,9.4 |lvl 33  -- Reclaimed Treasures (43)
 accept 737 |npc Gerrig Bonegrip |at 1455 50.8,5.6 |group chain |lvl 30 |preany 735,736  -- Forbidden Knowledge (40)
@@ -108,7 +107,6 @@ turnin 97821 |npc Dorgaron |at 1418 54.6,12.9 |group elite  -- Mirage Mirror (42
 turnin 97617 |npc Dorgaron |at 1418 54.6,12.9 |value mid  -- Safety Checks (40)
 turnin 704 |npc Prospector Ironband |at 1432 65.9,65.6 |value mid  -- Agmond's Fate (38)
 turnin 17 |npc Ghak Healtouch |at 1432 37.1,49.4 |value mid  -- Uldaman Reagent Run (42)
-fly 1455 55.5,47.7 |from 1432 33.9,51.0 |npc Ironforge (Gryth Thurden)  -- flight master Thorgrum Borrelson
 turnin 724 |npc Historian Karnik |at 1455 77.5,11.8 |group chain  -- Prospect of Faith (40)
 accept 725 |npc Historian Karnik |at 1455 77.5,11.8 |group chain |lvl 35 |preany 724  -- Passing Word of a Threat (40)
 turnin 725 |npc Advisor Belgrum |at 1455 77.3,9.7 |group chain  -- Passing Word of a Threat (40)
@@ -116,6 +114,5 @@ accept 726 |npc Advisor Belgrum |at 1455 77.3,9.7 |group chain |lvl 35 |preany 7
 turnin 726 |npc Historian Karnik |at 1455 77.5,11.8 |group chain  -- Passing Word of a Threat (40)
 turnin 1360 |npc Krom Stoutarm |at 1455 74.2,9.4  -- Reclaimed Treasures (43)
 turnin 727 |npc Gerrig Bonegrip |at 1455 50.8,5.6  -- To Ironforge for Yagyin's Digest (40)
-fly 1434 27.5,77.8 |from 1455 55.5,47.7 |npc Stranglethorn Vale (Gyll)  -- flight master Gryth Thurden
 turnin 78830 |npc Hemet Nesingwary |at 1434 35.7,10.8 |class HUNTER  -- Terror of the Desert Skies (40)
 ]]}

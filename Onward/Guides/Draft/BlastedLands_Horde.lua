@@ -15,12 +15,7 @@ accept 81919 |npc Bloodmage Lynnore |at 1419 50.6,14.3 |group elite |lvl 45  -- 
 accept 3627 |npc Fallen Hero of the Horde |at 1435 34.3,66.1 |group elite |lvl 45 |preany 3626  -- Uniting the Shattered Amulet (60)
 accept 2681 |npc Fallen Hero of the Horde |at 1435 34.3,66.1 |lvl 45 |preany 2801  -- The Stones That Bind Us (57)
 accept 87451 |note No quest giver on record: it most likely starts from an item you loot or find in this zone. Hand it in to Dispatch Commander Ruag |loose |lvl 45  -- Memories of Rockard (55)
-fly 1434 26.9,77.1 |from 1435 46.1,54.8 |npc Stranglethorn Vale (Gringer)  -- flight master Breyk
-goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
-fly 1454 45.1,63.9 |from 1413 63.1,37.2 |npc Orgrimmar (Doras)  -- flight master Bragok
 accept 91548 |npc Zevrost |at 1454 48.5,45.4 |group elite |lvl 44 |preany 91547  -- Vek'zol (55)
-fly 1413 63.1,37.2 |from 1454 45.1,63.9 |npc The Barrens (Bragok)  -- flight master Doras
-goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
 complete 3627 |at 1419 40.8,30.0 |mobs Grol the Destroyer@Amulet of Grol;Archmage Allistarj@Amulet of Allistarj;Lady Sevine@Amulet of Sevine |group elite  -- Uniting the Shattered Amulet (60)
 complete 91548 |at 1419 39.9,34.0 |item 246778 |mobs Vek'zol@Heart of Vek'zol |group elite  -- Vek'zol (55)
 complete 2681 |at 1419 43.3,40.7 |areas 63.1,55.7:4;43.3,40.7:3 |mobs Servant of Razelikh;Servant of Grol;Servant of Allistarj;Servant of Sevine  -- The Stones That Bind Us (57)
@@ -64,10 +59,6 @@ turnin 3628 |npc Fallen Hero of the Horde |at 1435 34.3,66.1 |group elite  -- Yo
 turnin 2743 |npc Fallen Hero of the Horde |at 1435 34.3,66.1  -- The Cover of Darkness (60)
 turnin 87451 |npc Dispatch Commander Ruag |at 1435 47.8,54.9  -- Memories of Rockard (55)
 turnin 2621 |npc Dispatch Commander Ruag |at 1435 47.8,54.9  -- The Disgraced One (50)
-fly 1434 26.9,77.1 |from 1435 46.1,54.8 |npc Stranglethorn Vale (Gringer)  -- flight master Breyk
-goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
-fly 1454 45.1,63.9 |from 1413 63.1,37.2 |npc Orgrimmar (Doras)  -- flight master Bragok
 turnin 91548 |npc Zevrost |at 1454 48.5,45.4 |group elite  -- Vek'zol (55)
-fly 2482 68.7,46.8 |from 1454 45.1,63.9 |npc Mount Hyjal (Fayran Elthas)  -- flight master Doras
 turnin 91882 |npc Sefira Everbright |at 2482 15.7,54.7  -- The Grand Alliance (55)
 ]]}

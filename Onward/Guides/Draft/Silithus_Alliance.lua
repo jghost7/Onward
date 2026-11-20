@@ -137,16 +137,9 @@ accept 8303 |npc Baristolth of the Shifting Sands |at 1451 49.5,36.5 |group chai
 complete 9023 |at 1451 50.4,37.5 |mobs Cenarion Hold Infantry;Cenarion Outrider;Cenarion Scout;Cenarion Hold Berserker |group dungeon  -- The Perfect Poison (60)
 turnin 9023 |npc Dirk Thunderwood |at 1451 52.1,39.1 |group dungeon  -- The Perfect Poison (60)
 turnin 8323 |npc Hermit Ortell |at 1451 67.2,69.8 |value mid  -- True Believers (59)
-fly 1446 51.0,29.3 |from 1451 50.6,34.5 |npc Tanaris (Bera Stonehammer)  -- flight master Cloud Skydancer
 turnin 8303 |npc Anachronos |at 1446 65.3,50.0 |group chain  -- Anachronos (60)
-fly 1450 44.1,45.2 |from 1446 51.0,29.3 |npc Moonglade (Silva Fil'naveth) |value low  -- flight master Bera Stonehammer
 turnin 6844 |npc Umber |at 1450 44.9,35.6 |value low  -- Umber, Archivist (57)
-fly 1413 63.1,37.2 |from 1450 44.1,45.2 |npc The Barrens (Bragok)  -- flight master Silva Fil'naveth
-goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
-fly 1423 71.8,49.6 |from 1434 27.5,77.8 |npc Eastern Plaguelands (Khaelyn Steelwing)  -- flight master Gyll
 turnin 8859 |npc Lord Maxwell Tyrosus |at 1423 71.9,48.4  -- Secrets of the Colossus - Zora (60)
-fly 1427 37.9,30.9 |from 1423 71.8,49.6 |npc Searing Gorge (Lanie Reed)  -- flight master Khaelyn Steelwing
 turnin 8858 |npc Overseer Oilfist |at 1427 38.1,27.0  -- Secrets of the Colossus - Regal (60)
-fly 1434 27.5,77.8 |from 1427 37.9,30.9 |npc Stranglethorn Vale (Gyll)  -- flight master Lanie Reed
 turnin 8857 |npc Oglethorpe Obnoticus |at 1434 28.4,76.3  -- Secrets of the Colossus - Ashi (60)
 ]]}

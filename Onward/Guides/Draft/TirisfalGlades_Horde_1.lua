@@ -134,6 +134,5 @@ turnin 375 |npc Gretchen Dedmar |at 1420 61.9,52.7  -- The Chill of Death (8)
 turnin 97558 |npc Shelene Rhobart |at 1420 65.4,60.1  -- Hides for the Forsaken (11)
 turnin 356 |npc Deathguard Linnea |at 1420 65.5,60.2  -- Rear Guard Patrol (11)
 turnin 405 |npc Bethor Iceshard |at 1458 84.1,17.4  -- The Prodigal Lich (8)
-fly 1421 45.6,42.6 |from 1458 63.2,48.6 |npc Silverpine Forest (Karos Razok)  -- flight master Michael Garrett
 turnin 445 |npc Apothecary Renferrel |at 1421 42.8,40.9  -- Delivery to Silverpine Forest (10)
 ]]}

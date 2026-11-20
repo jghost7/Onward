@@ -57,12 +57,9 @@ turnin 1239 |npc Nazeer Bloodpike |at 1445 35.2,30.7  -- The Severed Head (35)
 accept 1202 |npc Nazeer Bloodpike |at 1445 35.2,30.7 |value mid |lvl 30 |preany 1201  -- The Theramore Docks (35)
 accept 1240 |npc Nazeer Bloodpike |at 1445 35.2,30.7 |lvl 30 |preany 1239  -- The Troll Witchdoctor (35)
 complete 1206 |at 1445 32.2,22.2 |mobs Darkmist Silkspinner@Unpopped Darkmist Eye;Darkmist Spider@Unpopped Darkmist Eye;Darkmist Lurker@Unpopped Darkmist Eye;Darkmist Recluse@Unpopped Darkmist Eye |value mid  -- Jarl Needs Eyes (35)
-fly 1456 47.0,49.8 |from 1445 35.6,31.9 |npc Thunder Bluff (Tal)  -- flight master Shardi
 accept 1205 |npc Melor Stonehoof |at 1456 61.5,80.9 |lvl 35  -- Deadmire (45)
-goto 1411 50.8,13.6 15 |note Take the zeppelin to Grom'gol  -- zeppelin Orgrimmar to Grom'gol
 turnin 1240 |npc Kin'weelay |at 1434 32.3,27.7  -- The Troll Witchdoctor (35)
 accept 1261 |npc Bubbling Cauldron |at 1434 32.2,27.6 |lvl 30 |preany 1240  -- Marg Speaks (40)
-goto 1434 31.3,29.2 15 |note Take the zeppelin to Orgrimmar  -- zeppelin Grom'gol to Orgrimmar
 complete 98192 |at 1445 33.1,65.7 |mobs Bloodfen Lashtail@Intact Raptor Hide;Bloodfen Razormaw@Intact Raptor Hide  -- Skin Careful, Skin Sharp (43)
 complete 1166 |at 1445 38.7,65.6  -- Overlord Mok'Morokk's Concern (43)
 turnin 98215 |npc Drazzit Dripvalve |at 1445 41.0,75.7 |value mid  -- Dragon Scales, Post Burnt Tails (44)
@@ -81,10 +78,8 @@ turnin 98192 |npc Krak |at 1445 36.4,30.9  -- Skin Careful, Skin Sharp (43)
 turnin 1202 |npc Nazeer Bloodpike |at 1445 35.2,30.7 |value mid  -- The Theramore Docks (35)
 turnin 1261 |npc Nazeer Bloodpike |at 1445 35.2,30.7  -- Marg Speaks (40)
 accept 1262 |npc Nazeer Bloodpike |at 1445 35.2,30.7 |lvl 30 |preany 1261  -- Report to Zor (40)
-fly 1456 47.0,49.8 |from 1445 35.6,31.9 |npc Thunder Bluff (Tal)  -- flight master Shardi
 turnin 1205 |npc Melor Stonehoof |at 1456 61.5,80.9  -- Deadmire (45)
 turnin 1276 |npc Mosarn |at 1456 54.0,80.8  -- The Black Shield (37)
-fly 1454 45.1,63.9 |from 1456 47.0,49.8 |npc Orgrimmar (Doras)  -- flight master Tal
 turnin 1262 |npc Zor Lonetree |at 1454 38.9,38.4  -- Report to Zor (40)
 accept 7541 |npc Zor Lonetree |at 1454 38.9,38.4 |lvl 30 |preany 1262  -- Service to the Horde (40)
 turnin 7541 |npc Zor Lonetree |at 1454 38.9,38.4  -- Service to the Horde (40)

@@ -92,9 +92,7 @@ accept 5461 |npc Magistrate Marduke |at 1422 70.6,74.1 |group chain |lvl 57 |pre
 complete 5225 |at 1422 62.2,59.1 |item 13189 |mobs Cauldron Lord Soulwrath@Gahrron's Withering Cauldron Key  -- Target: Gahrron's Withering (58)
 turnin 5225 |npc Scourge Cauldron |at 1422 62.5,58.5  -- Target: Gahrron's Withering (58)
 accept 5226 |npc Scourge Cauldron |at 1422 62.5,58.5 |lvl 50 |preany 5225  -- Return to Chillwind Camp (58)
-fly 1423 71.8,49.6 |from 1422 42.9,85.1 |npc Eastern Plaguelands (Khaelyn Steelwing)  -- flight master Bibilfaz Featherwhistle
 accept 5465 |npc Leonid Barthalomew the Revered |at 1423 71.9,48.3 |group chain |lvl 57 |preany 5464  -- Soulbound Keepsake (60)
-fly 1422 42.9,85.1 |from 1423 71.8,49.6 |npc Bibilfaz Featherwhistle  -- flight master Khaelyn Steelwing
 turnin 6004 |npc Kirsta Deepshadow |at 1422 51.9,28.1 |value mid  -- Unfinished Business (56)
 accept 6023 |npc Kirsta Deepshadow |at 1422 51.9,28.1 |value mid |lvl 50 |preany 6004  -- Unfinished Business (57)
 complete 6023 |at 1422 57.8,36.1 |mobs Huntsman Radley;Cavalier Durgen |value mid  -- Unfinished Business (57)
@@ -102,19 +100,11 @@ turnin 5904 |npc Termite Barrel |at 1422 48.3,32.0  -- A Plague Upon Thee (55)
 accept 6389 |npc Termite Barrel |at 1422 48.3,32.0 |lvl 48 |preany 5904  -- A Plague Upon Thee (55)
 turnin 6023 |npc Kirsta Deepshadow |at 1422 51.9,28.1 |value mid  -- Unfinished Business (57)
 turnin 5862 |npc Highlord Taelan Fordring |at 1422 42.0,14.8 |group chain  -- Scarlet Subterfuge (60)
-fly 1434 27.5,77.8 |from 1422 42.9,85.1 |npc Stranglethorn Vale (Gyll)  -- flight master Bibilfaz Featherwhistle
-goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
-fly 1452 62.3,36.6 |from 1413 63.1,37.2 |npc Winterspring (Maethrya)  -- flight master Bragok
 accept 5162 |npc Haleh |at 1452 54.5,51.2 |lvl 57 |preany 5161  -- Wrath of the Blue Flight (60)
 turnin 8152  -- quest 8152 (0)
-fly 1413 63.1,37.2 |from 1452 62.3,36.6 |npc The Barrens (Bragok)  -- flight master Maethrya
-goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
-fly 1453 71.3,72.2 |from 1434 27.5,77.8 |npc Stormwind City (Dungar Longdrink)  -- flight master Gyll
 accept 5050 |npc Ol' Emma |at 1453 60.2,57.0 |lvl 50 |preany 5048,5049  -- Good Luck Charm (52)
 accept 6184 |npc Master Mathias Shaw |at 1453 78.3,70.7 |lvl 56 |preany 6183  -- Flint Shadowmore (60)
-fly 1417 45.7,46.1 |from 1453 71.3,72.2 |npc Arathi Highlands (Cedrik Prose)  -- flight master Dungar Longdrink
 complete 5461 |at 1417 20.8,65.8 |group chain  -- The Human, Ras Frostwhisper (60)
-fly 1422 42.9,85.1 |from 1417 45.7,46.1 |npc Bibilfaz Featherwhistle  -- flight master Cedrik Prose
 turnin 6389 |npc Nathaniel Dumah |at 1422 43.4,84.8  -- A Plague Upon Thee (55)
 turnin 6184 |npc Flint Shadowmore |at 1422 43.6,84.5  -- Flint Shadowmore (60)
 turnin 5226 |npc High Priestess MacDonnell |at 1422 43.0,84.5  -- Return to Chillwind Camp (58)
@@ -139,15 +129,9 @@ turnin 5154 |npc Chromie |at 1422 39.5,66.8  -- The Annals of Darrowshire (56)
 turnin 5461 |npc Magistrate Marduke |at 1422 70.6,74.1 |group chain  -- The Human, Ras Frostwhisper (60)
 turnin 5465 |npc Magistrate Marduke |at 1422 70.6,74.1 |group chain  -- Soulbound Keepsake (60)
 accept 5462 |npc Magistrate Marduke |at 1422 70.6,74.1 |group chain |lvl 57 |preany 5461  -- The Dying, Ras Frostwhisper (60)
-fly 1423 71.8,49.6 |from 1422 42.9,85.1 |npc Eastern Plaguelands (Khaelyn Steelwing)  -- flight master Bibilfaz Featherwhistle
 turnin 5462 |npc Leonid Barthalomew the Revered |at 1423 71.9,48.3 |group chain  -- The Dying, Ras Frostwhisper (60)
-fly 1453 71.3,72.2 |from 1423 71.8,49.6 |npc Stormwind City (Dungar Longdrink)  -- flight master Khaelyn Steelwing
 turnin 5022 |npc Royal Factor Bathrilor |at 1453 57.2,48.1  -- Better Late Than Never (52)
-fly 1434 27.5,77.8 |from 1453 71.3,72.2 |npc Stranglethorn Vale (Gyll)  -- flight master Dungar Longdrink
-goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
-fly 1446 51.0,29.3 |from 1413 63.1,37.2 |npc Tanaris (Bera Stonehammer) |value low  -- flight master Bragok
 turnin 5538 |npc Krinkle Goodsteel |at 1446 51.5,28.8 |value low  -- Mold Rhymes With... (57)
-fly 2482 68.7,46.8 |from 1446 51.0,29.3 |npc Mount Hyjal (Fayran Elthas)  -- flight master Bera Stonehammer
 turnin 92842 |npc Quintus Wainworth |at 2482 79.8,70.7  -- A Cousin Abroad (55)
 turnin 4986 |npc Mathrengyl Bearwalker |at 1457 35.4,8.4 |value mid  -- Glyphed Oaken Branch (56)
 ]]}

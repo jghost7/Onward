@@ -37,9 +37,7 @@ complete 5781 |at 1423 23.9,74.2 |mobs Mercutio Filthgorger@Taelan's Hammer  -- 
 accept 6024 |npc Torn Scroll |at 1423 22.9,73.0 |lvl 54  -- Hameya's Plea (60)
 turnin 5781 |npc Tirion Fordring |at 1423 5.2,35.6  -- Of Forgotten Memories (57)
 accept 5845 |npc Tirion Fordring |at 1423 5.2,35.6 |lvl 52 |preany 5781  -- Of Lost Honor (58)
-fly 1422 42.9,85.1 |from 1423 71.8,49.6 |npc Western Plaguelands (Bibilfaz Featherwhistle)  -- flight master Khaelyn Steelwing
 accept 5210 |npc Chromie |at 1422 39.5,66.8 |lvl 50 |preany 5154  -- Brother Carlin (56)
-fly 1423 71.8,49.6 |from 1422 42.9,85.1 |npc Khaelyn Steelwing  -- flight master Bibilfaz Featherwhistle
 accept 5149 |npc Pamela Redpath |at 1423 31.1,78.0 |lvl 50  -- Pamela's Doll (55)
 complete 5149  -- Pamela's Doll (55)
 turnin 5149 |npc Pamela Redpath |at 1423 31.1,78.0  -- Pamela's Doll (55)
@@ -90,22 +88,13 @@ turnin 5542 |npc Tirion Fordring |at 1423 5.2,35.6  -- Demon Dogs (56)
 accept 5846 |npc Tirion Fordring |at 1423 5.2,35.6 |lvl 52 |preany 5845  -- Of Love and Family (58)
 turnin 5544 |npc Tirion Fordring |at 1423 5.2,35.6  -- Carrion Grubbage (56)
 turnin 5543 |npc Tirion Fordring |at 1423 5.2,35.6  -- Blood Tinged Skies (56)
-fly 1422 42.9,85.1 |from 1423 71.8,49.6 |npc Western Plaguelands (Bibilfaz Featherwhistle)  -- flight master Khaelyn Steelwing
 complete 5168 |at 1422 42.5,19.0  -- Heroes of Darrowshire (56)
 accept 5142 |npc Marlene Redpath |at 1422 49.2,78.6 |lvl 50  -- Little Pamela (55)
 turnin 97986  -- Argent Arbiter (57)
-fly 1434 27.5,77.8 |from 1422 42.9,85.1 |npc Stranglethorn Vale (Gyll)  -- flight master Bibilfaz Featherwhistle
-goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
-fly 1446 51.0,29.3 |from 1413 63.1,37.2 |npc Tanaris (Bera Stonehammer)  -- flight master Bragok
 accept 5065 |npc Prospector Ironboot |at 1446 66.9,24.0 |group chain |lvl 40 |preany 3528  -- The Lost Tablets of Mosh'aru (58)
-fly 1413 63.1,37.2 |from 1446 51.0,29.3 |npc The Barrens (Bragok)  -- flight master Bera Stonehammer
-goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
-fly 1453 71.3,72.2 |from 1434 27.5,77.8 |npc Stormwind City (Dungar Longdrink)  -- flight master Gyll
 accept 6187 |npc Highlord Bolvar Fordragon |at 1453 80.2,38.4 |group elite |lvl 56 |preany 6186  -- Order Must Be Restored (60)
-fly 1455 55.5,47.7 |from 1453 71.3,72.2 |npc Ironforge (Gryth Thurden)  -- flight master Dungar Longdrink
 accept 8929 |npc Deliana |at 1455 43.5,52.6 |class WARRIOR,PALADIN,HUNTER,ROGUE,PRIEST,MAGE,WARLOCK,DRUID |group chain |lvl 58 |preany 8926,8931,8932,8933,8934,8935,8936,8937  -- In Search of Anthion (60)
 accept 5464 |note Starts from Menethil's Gift, whose place isn't on record. Hand it in to Leonid Barthalomew the Revered |loose |group chain |lvl 57 |preany 5463  -- Menethil's Gift (60)
-fly 1423 71.8,49.6 |from 1455 55.5,47.7 |npc Khaelyn Steelwing  -- flight master Gryth Thurden
 complete 6041 |at 1423 28.0,17.8 |item 15736 |mobs Scourge Structure  -- When Smokey Sings, I Get Violent (58)
 accept 8946 |note Starts from Ysida Harmon, whose place isn't on record. Hand it in to Anthion Harmon |loose |class WARRIOR,PALADIN,HUNTER,ROGUE,PRIEST,MAGE,WARLOCK,DRUID |group chain |lvl 58 |preany 8945  -- Proof of Life (60)
 turnin 8946 |npc Anthion Harmon |at 1423 26.1,11.3 |class WARRIOR,PALADIN,HUNTER,ROGUE,PRIEST,MAGE,WARLOCK,DRUID |group chain  -- Proof of Life (60)
@@ -139,29 +128,21 @@ complete 9121 |at 1423 67.0,53.4 |areas 48.8,56.7:14;67.0,53.4:10;53.8,22.5:9 |m
 turnin 9121 |npc Archmage Angela Dosantos |at 1423 71.7,48.7 |value low |group elite  -- The Dread Citadel - Naxxramas (60)
 turnin 6041 |npc Smokey LaRue |at 1423 70.9,48.4  -- When Smokey Sings, I Get Violent (58)
 complete 6187 |at 1423 22.2,63.5 |mobs Nathanos Blightcaller |group elite  -- Order Must Be Restored (60)
-fly 1422 42.9,85.1 |from 1423 71.8,49.6 |npc Western Plaguelands (Bibilfaz Featherwhistle)  -- flight master Khaelyn Steelwing
 turnin 5941 |npc Chromie |at 1422 39.5,66.8  -- Return to Chromie (60)
 accept 5721 |npc Chromie |at 1422 39.5,66.8 |lvl 55 |preany 5941  -- The Battle of Darrowshire (60)
-fly 1423 71.8,49.6 |from 1422 42.9,85.1 |npc Khaelyn Steelwing  -- flight master Bibilfaz Featherwhistle
 turnin 6024 |npc Mound of Dirt |at 1423 23.6,73.8  -- Hameya's Plea (60)
 complete 5721 |at 1423 33.6,78.5 |item 15209 |mobs Joseph Redpath  -- The Battle of Darrowshire (60)
 turnin 5721 |npc Pamela Redpath |at 1423 31.1,78.0  -- The Battle of Darrowshire (60)
 turnin 5142 |npc Pamela Redpath |at 1423 31.1,78.0  -- Little Pamela (55)
 accept 5942 |npc Pamela Redpath |at 1423 31.1,78.0 |lvl 50 |preany 5721  -- Hidden Treasures (60)
 turnin 5942 |npc Joseph's Chest |at 1423 30.9,77.8  -- Hidden Treasures (60)
-fly 1422 42.9,85.1 |from 1423 71.8,49.6 |npc Western Plaguelands (Bibilfaz Featherwhistle)  -- flight master Khaelyn Steelwing
 turnin 5846 |npc Artist Renfray |at 1422 65.8,75.4  -- Of Love and Family (58)
 turnin 5152 |npc Marlene Redpath |at 1422 49.2,78.6  -- Auntie Marlene (56)
 accept 5153 |npc Marlene Redpath |at 1422 49.2,78.6 |lvl 50 |preany 5152  -- A Strange Historian (56)
 complete 5153 |at 1422 49.7,76.8  -- A Strange Historian (56)
 turnin 5153 |npc Chromie |at 1422 39.5,66.8  -- A Strange Historian (56)
-fly 1453 71.3,72.2 |from 1422 42.9,85.1 |npc Stormwind City (Dungar Longdrink)  -- flight master Bibilfaz Featherwhistle
 turnin 6187 |npc Highlord Bolvar Fordragon |at 1453 80.2,38.4 |group elite  -- Order Must Be Restored (60)
 turnin 97987 |npc Saera Wirraway |at 1453 78.6,48.1  -- Stormwind's High Order (57)
-fly 1434 27.5,77.8 |from 1453 71.3,72.2 |npc Stranglethorn Vale (Gyll)  -- flight master Dungar Longdrink
-goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
-fly 1446 51.0,29.3 |from 1413 63.1,37.2 |npc Tanaris (Bera Stonehammer)  -- flight master Bragok
 turnin 5065 |npc Prospector Ironboot |at 1446 66.9,24.0 |group chain  -- The Lost Tablets of Mosh'aru (58)
-fly 1452 62.3,36.6 |from 1446 51.0,29.3 |npc Winterspring (Maethrya)  -- flight master Bera Stonehammer
 turnin 5248 |npc Remorseful Highborne |at 1452 56.1,44.4  -- Tormented By the Past (58)
 ]]}

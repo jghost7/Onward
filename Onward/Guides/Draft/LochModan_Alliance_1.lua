@@ -25,14 +25,12 @@ complete 307 |at 1432 35.3,24.4  -- Filthy Paws (15)
 turnin 1339 |npc Mountaineer Stormpike |at 1432 24.8,18.4  -- Mountaineer Stormpike's Task (15)
 accept 1338 |npc Mountaineer Stormpike |at 1432 24.8,18.4 |lvl 9  -- Stormpike's Order (14)
 turnin 307 |npc Mountaineer Stormpike |at 1432 24.8,18.4  -- Filthy Paws (15)
-fly 1455 55.5,47.7 |from 1432 33.9,51.0 |npc Ironforge (Gryth Thurden)  -- flight master Thorgrum Borrelson
 turnin 301 |npc Prospector Stormpike |at 1455 74.6,11.7 |value low  -- Report to Ironforge (15)
 accept 302 |npc Prospector Stormpike |at 1455 74.6,11.7 |value low |lvl 10 |preany 301  -- Powder to Ironband (15)
 turnin 6391 |npc Golnir Bouldertoe |at 1455 51.5,26.3 |race Dwarf,Gnome  -- Ride to Ironforge (10)
 accept 6388 |npc Golnir Bouldertoe |at 1455 51.5,26.3 |race Dwarf,Gnome |lvl 10 |preany 6391  -- Gryth Thurden (10)
 turnin 6388 |npc Gryth Thurden |at 1455 55.5,47.7 |race Dwarf,Gnome  -- Gryth Thurden (10)
 accept 6392 |npc Gryth Thurden |at 1455 55.5,47.7 |race Dwarf,Gnome |lvl 10 |preany 6388  -- Return to Brock (10)
-fly 1432 33.9,51.0 |from 1455 55.5,47.7 |npc Thorgrum Borrelson  -- flight master Gryth Thurden
 complete 416 |at 1432 26.5,43.8 |areas 36.3,23.4:55;26.5,43.8:14 |mobs Tunnel Rat Vermin@Tunnel Rat Ear;Tunnel Rat Kobold@Tunnel Rat Ear;Tunnel Rat Digger@Tunnel Rat Ear;Tunnel Rat Forager@Tunnel Rat Ear  -- Rat Catching (11)
 turnin 416 |npc Mountaineer Kadrell |at 1432 32.6,49.7  -- Rat Catching (11)
 turnin 418 |npc Vidra Hearthstove |at 1432 34.8,49.3  -- Thelsamar Blood Sausages (11)
@@ -64,6 +62,5 @@ accept 263 |npc Mountaineer Wallbang |at 1432 23.5,74.5 |value mid |lvl 10 |prea
 complete 263 |at 1432 35.9,92.1 |areas 35.9,92.1:24;52.7,24.9:16 |mobs Stonesplinter Shaman;Stonesplinter Bonesnapper |value mid  -- In Defense of the King's Lands (15)
 turnin 263 |npc Mountaineer Wallbang |at 1432 23.5,74.5 |value mid  -- In Defense of the King's Lands (15)
 turnin 267 |npc Captain Rugelfuss |at 1432 23.2,73.7  -- The Trogg Threat (12)
-fly 1453 71.3,72.2 |from 1432 33.9,51.0 |npc Stormwind City (Dungar Longdrink)  -- flight master Thorgrum Borrelson
 turnin 1338 |npc Furen Longbeard |at 1453 64.6,37.2  -- Stormpike's Order (14)
 ]]}

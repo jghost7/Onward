@@ -33,11 +33,9 @@ complete 2118 |at 1439 49.2,29.3 |areas 49.2,29.3:42;39.5,71.0:32 |item 7586 |mo
 complete 1138 |at 1439 48.3,20.7 |areas 48.3,20.7:22;36.0,75.2:10 |mobs Reef Crawler@Fine Crab Chunks;Encrusted Tide Crawler@Fine Crab Chunks |value mid  -- Fruit of the Sea (17)
 complete 983 |at 1439 52.8,19.5 |areas 35.7,50.0:36;52.8,19.5:26 |mobs Pygmy Tide Crawler@Crawler Leg;Young Reef Crawler@Crawler Leg;Tide Crawler@Crawler Leg;Raging Reef Crawler@Crawler Leg |value mid  -- Buzzbox 827 (10)
 accept 4727 |npc Beached Sea Turtle |at 1439 53.1,18.1 |lvl 12 |preany 4681  -- Beached Sea Turtle (15)
-fly 1438 58.4,94.0 |from 1439 36.3,45.6 |npc Teldrassil (Vesprystus)  -- flight master Caylais Moonfeather
 accept 6341 |npc Nessa Shadowsong |at 1438 56.3,92.4 |race NightElf |lvl 10  -- The Bounty of Teldrassil (10)
 turnin 6341 |npc Vesprystus |at 1438 58.4,94.0 |race NightElf  -- The Bounty of Teldrassil (10)
 accept 6342 |npc Vesprystus |at 1438 58.4,94.0 |race NightElf |lvl 10 |preany 6341  -- Flight to Auberdine (10)
-fly 1439 36.3,45.6 |from 1438 58.4,94.0 |npc Caylais Moonfeather  -- flight master Vesprystus
 turnin 4761 |npc Thundris Windweaver |at 1439 37.4,40.1  -- Thundris Windweaver (15)
 accept 4762 |npc Thundris Windweaver |at 1439 37.4,40.1 |lvl 11 |preany 4761  -- The Cliffspring River (15)
 accept 958 |npc Thundris Windweaver |at 1439 37.4,40.1 |value mid |lvl 9  -- Tools of the Highborne (12)
@@ -99,12 +97,8 @@ accept 950 |npc Twilight Tome |at 1439 38.5,86.0 |lvl 12 |preany 949  -- Return 
 accept 98042 |npc Twilight Tome |at 1439 38.5,86.0 |lvl 12 |preany 949  -- It's All Fun and Games Until... (17)
 complete 98042 |at 1439 38.5,86.3 |areas 38.5,86.3:18;55.5,36.0:4 |mobs Twilight Thug@Peerless Eye;Twilight Disciple@Peerless Eye  -- It's All Fun and Games Until... (17)
 accept 968 |at 1439 38.5,86.3 |note Starts from Book: The Powers Below |startitem 5352 |lvl 10  -- The Powers Below (18)
-goto 1439 32.4,43.8 15 |note Take the boat to Menethil Harbor  -- boat Auberdine to Menethil Harbor
-fly 1453 71.3,72.2 |from 1437 9.5,59.7 |npc Stormwind City (Dungar Longdrink)  -- flight master Shellei Brondir
 accept 97926 |npc Baros Alexston |at 1453 57.7,47.9 |lvl 13 |preany 97914  -- Making Do (17)
 accept 97894 |npc Borgus Steelhand |at 1453 59.4,34.3 |lvl 13  -- Business in Auberdine (17)
-fly 1434 27.5,77.8 |from 1453 71.3,72.2 |npc Stranglethorn Vale (Gyll)  -- flight master Dungar Longdrink
-goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
 accept 952 |npc Arch Druid Fandral Staghelm |at 1457 34.8,9.3 |lvl 6 |preany 940  -- Grove of the Ancients (17)
 accept 4725 |npc Beached Sea Turtle |at 1439 44.2,20.6 |value low |lvl 12 |preany 4681  -- Beached Sea Turtle (15)
 complete 4763 |at 1439 52.5,33.4 |item 12346  -- The Blackwood Corrupted (18)
@@ -131,12 +125,7 @@ turnin 4730 |npc Gwennyth Bly'Leggonde |at 1439 36.6,45.6  -- Beached Sea Creatu
 turnin 952 |npc Onu |at 1439 43.5,76.3  -- Grove of the Ancients (17)
 turnin 948 |npc Onu |at 1439 43.5,76.3  -- Onu (17)
 turnin 950 |npc Onu |at 1439 43.5,76.3  -- Return to Onu (17)
-fly 1440 34.4,48.0 |from 1439 36.3,45.6 |npc Ashenvale (Daelyshia)  -- flight master Caylais Moonfeather
 turnin 967 |npc Delgren the Purifier |at 1440 26.2,38.7  -- The Tower of Althalaxx (18)
-fly 1438 58.4,94.0 |from 1440 34.4,48.0 |npc Teldrassil (Vesprystus)  -- flight master Daelyshia
 turnin 6343 |npc Nessa Shadowsong |at 1438 56.3,92.4 |race NightElf  -- Return to Nessa (10)
-fly 1413 63.1,37.2 |from 1438 58.4,94.0 |npc The Barrens (Bragok)  -- flight master Vesprystus
-goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
-fly 1455 55.5,47.7 |from 1434 27.5,77.8 |npc Ironforge (Gryth Thurden)  -- flight master Gyll
 turnin 968 |npc Gerrig Bonegrip |at 1455 50.8,5.6  -- The Powers Below (18)
 ]]}
