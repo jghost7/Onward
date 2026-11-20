@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.6.33
 
 - Items to bring. Some quests want something no mob drops: Frost Oil for "Coolant Heads
   Prevail", a potion, a crafted weapon, a drink from a vendor two zones away. The guide now
