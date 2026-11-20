@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.6.34
 
 - Travel is worked out live. Guides no longer contain "Fly to ..." and "Take the boat to ..."
   steps. A step only says where it is, and the arrow plans the way from wherever you are: a
