@@ -355,8 +355,8 @@ choice(1, "routeMode", "Route on the world map", {
 })
 check(1, "waypoints", "Map pin on the current step", "Blizzard's own map pin and on-screen marker.")
 check(1, "tomtom", "TomTom waypoint (if installed)")
-check(1, "targetButton", "Quest mob target button", "A crosshair on kill and loot steps: click it, or bind a key under Key Bindings > AddOns > Onward, to target the nearest living quest mob. With enemy nameplates on it skips mobs someone else has tagged while you're out of combat.")
-check(1, "targetMark", "Mark the target with a skull", "Puts a skull over the mob the target button picks, so it stands out in a crowd.")
+check(1, "targetButton", "Target button", "A button on the step card: click it, or bind a key under Key Bindings > AddOns > Onward. On kill and loot steps it targets the nearest living quest mob (with enemy nameplates on it skips mobs someone else has tagged while you're out of combat). On steps where you talk to someone it targets that NPC, so you can find them in a crowd.")
+check(1, "targetMark", "Mark the target", "Puts a skull over the mob the target button picks, and a star over the NPC it picks, so they stand out in a crowd.")
 check(1, "itemButton", "Quest item button", "On steps where the quest has you use an item, a button that uses it, beside the target button. Bind a key under Key Bindings > AddOns > Onward.", function() W.Item:Sync() end)
 check(1, "targetDetached", "Buttons in a dock", "Moves the target and quest item buttons off the step card into a dock of action-button-sized buttons you can place anywhere, e.g. above your action bars, with your key bindings shown. Right-drag the target button to move it.", function() W.UI:Render() W.Target:Sync() end)
 

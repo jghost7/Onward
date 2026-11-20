@@ -869,12 +869,13 @@ local function questProgress(q)
     return need > 0 and (have .. "/" .. need) or ""
 end
 
--- the action strip shows when there's a mob to target or an item to use, unless the buttons live
+-- the action strip shows when there's a mob or NPC to target or an item to use, unless the buttons live
 -- in the dock (Options > Navigation)
 local function wantsStrip(step)
     if not step or W.db.collapsed or W.db.targetDetached then return false end
     local TG = W.Target
     if W.db.targetButton and TG and step.verb == "complete" and #TG.MobsForGroup(G:Group()) > 0 then return true end
+    if W.db.targetButton and TG and TG.TalkName and TG.TalkName(step) then return true end   -- who you talk to
     return W.db.itemButton ~= false and W.Item and #W.Item.ForGroup() > 0 or false
 end
 

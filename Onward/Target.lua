@@ -1,6 +1,9 @@
 -- Quest-mob targeting: a crosshair button on the current step card, plus a key binding
 -- (Key Bindings > AddOns > Onward). Each press targets the nearest living quest mob for the
 -- current step and, if set, marks it with a skull.
+-- On a step where you talk to someone (accept, turn in, set your hearthstone, train) the same
+-- button targets that NPC instead and marks them with a star, so you can pick them out of a
+-- crowded town. It doesn't talk for you: right-click them, or use the game's interact key.
 --
 -- Targeting by name is protected, so this is a SecureActionButton running a /targetexact macro.
 -- Blizzard only lets a secure button change its macro or move out of combat: the macro is rebuilt
@@ -21,7 +24,7 @@ local BIG = 40           -- detached: about an action button
 local MACRO_MAX = 255
 
 BINDING_HEADER_ONWARD = "Onward"
-_G["BINDING_NAME_CLICK OnwardTargetButton:LeftButton"] = "Target quest mob"
+_G["BINDING_NAME_CLICK OnwardTargetButton:LeftButton"] = "Target quest mob or NPC"
 
 local b = CreateFrame("Button", "OnwardTargetButton", UIParent, "SecureActionButtonTemplate")
 b:SetSize(SIZE, SIZE)
@@ -140,6 +143,25 @@ function TG.BuildMacro(names, mark, plate)
     return table.concat(lines, "\n")
 end
 
+-- Who a step has you talk to, by name: the NPC the guide names, else the one the arrow found.
+-- Fly steps name the far end's flight master, not the one in front of you, so they have none.
+local TALK = { accept = true, turnin = true, home = true, train = true }
+function TG.TalkName(step)
+    if not step or not TALK[step.verb] then return nil end
+    local name = step.npc
+    if not name then
+        local cur = W.Waypoint and W.Waypoint:Current()
+        name = cur and cur.step == step and cur.name or nil
+    end
+    if type(name) ~= "string" or name == "" or #name > 60 then return nil end
+    return name
+end
+
+-- target them by exact name; star via /tm (cleared first, since /tm toggles)
+function TG.BuildTalkMacro(name, mark)
+    return "/cleartarget\n/targetexact " .. name .. (mark and "\n/tm [exists,nodead] 0\n/tm [exists,nodead] 1" or "")
+end
+
 ---------------------------------------------------------------------------
 -- placement: top-right corner of the step card, by screen position
 ---------------------------------------------------------------------------
@@ -211,8 +233,14 @@ function TG:Sync()
     for _, name in ipairs(names) do   -- only what made it into the macro (tooltip honesty)
         if macro:find("/targetexact[^\n]* " .. name:gsub("%p", "%%%0") .. "\n") then TG.mobs[#TG.mobs + 1] = name end
     end
+    TG.talk = nil
+    if #names == 0 and W.db.targetButton then
+        TG.talk = TG.TalkName(G:Current())
+        if TG.talk then macro = TG.BuildTalkMacro(TG.talk, W.db.targetMark) end
+    end
+    icon:SetTexture(MEDIA .. (TG.talk and "who" or "complete"))
     b:SetAttribute("macrotext", macro)
-    local show = #names > 0 and place()
+    local show = (#names > 0 or TG.talk) and place()
     b:SetShown(show and true or false)
     if W.Item then W.Item:Sync() end   -- it sits beside this button
     if W.UI and W.UI.SetCardInset then W.UI.SetCardInset((show and not detached()) and (SIZE + 2) or 0, "target") end
@@ -257,7 +285,8 @@ W:On("WF_THEME_CHANGED", themeHover)
 b:SetScript("OnEnter", function(self)
     hover:SetVertexColor(ACC[1], ACC[2], ACC[3], 0.28)
     GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-    GameTooltip:AddLine("Target quest mob")
+    GameTooltip:AddLine(TG.talk and "Target who you talk to" or "Target quest mob")
+    if TG.talk then GameTooltip:AddLine(TG.talk, 0.93, 0.94, 0.96) end
     for _, name in ipairs(TG.mobs) do GameTooltip:AddLine(name, 0.93, 0.94, 0.96) end
     GameTooltip:AddLine("Bind a key: Key Bindings > AddOns > Onward", 0.6, 0.6, 0.6)
     if detached() then GameTooltip:AddLine("Right-drag to move", 0.6, 0.6, 0.6) end

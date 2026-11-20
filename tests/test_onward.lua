@@ -1916,6 +1916,25 @@ accept 9704
     if prev then W.Guide:Activate(prev) settle() end
 end
 
+do  -- talk steps: the target button targets the NPC you talk to
+    local prev = W.Guide:Active() and W.Guide:Active().id
+    W:RegisterGuide{ id = "talk", title = "Talk", levels = { 1, 60 }, steps = [[
+accept 9801 |npc Marla Fipps |at 1423 50.0,50.0
+complete 9801 |at 1423 51.0,51.0 |mobs Bog Lurker
+turnin 9801 |npc Marla Fipps |at 1423 50.0,50.0
+]] }
+    W.Guide:Activate("talk") settle()
+    local tb = W.Target.button
+    local m = tb:GetAttribute("macrotext") or ""
+    check("talk step: the button targets the NPC by name", m:find("/targetexact Marla Fipps", 1, true) and tb:IsShown(), m)
+    check("talk step: marked with a star, not a skull", m:find("/tm [exists,nodead] 1", 1, true) and not m:find("/tm [exists,nodead] 8", 1, true), m)
+    MOCK.addQuest(9801, "Bog work") MOCK.fire("QUEST_ACCEPTED", 9801) settle()
+    m = tb:GetAttribute("macrotext") or ""
+    check("kill step after it: back to the quest mob", m:find("Bog Lurker", 1, true) and not m:find("Marla Fipps", 1, true), m)
+    MOCK.turnIn(9801) MOCK.done[9801] = nil MOCK.fire("QUEST_REMOVED", 9801)
+    if prev then W.Guide:Activate(prev) settle() end
+end
+
 check("no runtime errors", #MOCK.errors == 0, MOCK.errors[1])
 print(("%d passed, %d failed"):format(pass, fail))
 return fail
