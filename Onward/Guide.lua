@@ -588,6 +588,57 @@ function G:TripReason(step)
     end
 end
 
+-- /ow report: everything needed to see what a step did wrong, as text to paste into an issue.
+-- No character or realm name: level, class, race and position only.
+function G:Report(note)
+    local out = {}
+    local function add(fmt, ...) out[#out + 1] = select("#", ...) > 0 and fmt:format(...) or fmt end
+    local step = G:Current()
+    local build = GetBuildInfo and select(1, GetBuildInfo()) or "?"
+    add("Onward %s, game %s", tostring(W.version), tostring(build))
+    if note and note ~= "" then add("What happened: %s", note) end
+    local _, class = UnitClass("player")
+    local _, race = UnitRace("player")
+    add("Character: level %s %s %s (%s)", tostring(UnitLevel("player")), tostring(race), tostring(class), tostring(UnitFactionGroup("player")))
+    local map = C_Map.GetBestMapForUnit("player")
+    local p = map and C_Map.GetPlayerMapPosition(map, "player")
+    add("Position: map %s %s", tostring(map), p and p.x and ("%.1f, %.1f"):format(p.x * 100, p.y * 100) or "?")
+    add("Settings: quests %s, group quests %s", tostring(W.db.questMode), tostring(W.db.groupQuests))
+    if not active then add("No guide active") return table.concat(out, "\n") end
+    add("Guide: %s (%s), step %d of %d", tostring(active.title), tostring(active.id), cursor, #active.steps)
+    local function state(s)
+        local f = {}
+        if G:IsComplete(s) then f[#f + 1] = "complete" end
+        if G:IsSkipped(s) then f[#f + 1] = "skipped" end
+        if G:IsLater(s) then f[#f + 1] = "later" end
+        if G:IsWaiting(s) then f[#f + 1] = "waiting" end
+        if G:IsBlocked(s) then f[#f + 1] = "blocked" end
+        if G:IsBehind(s) then f[#f + 1] = "behind" end
+        local why = G:HeldReason(s)
+        if why then f[#f + 1] = "held: " .. why end
+        if s.quest then
+            f[#f + 1] = QS:IsDone(s.quest) and "quest done" or QS:IsReady(s.quest) and "quest ready"
+                or QS:IsOnQuest(s.quest) and "quest in log" or "quest not in log"
+        end
+        return #f > 0 and table.concat(f, ", ") or "open"
+    end
+    for i = math.max(1, cursor - 2), math.min(#active.steps, cursor + 3) do
+        local s = active.steps[i]
+        add("%s %d. %s", i == cursor and ">" or " ", i, tostring(s.raw or s.verb))
+        add("      [%s]", state(s))
+    end
+    if step and step.quest then
+        local text = QS:ObjectiveText(step.quest)
+        if text and text ~= "" then add("Objectives: %s", tostring(text):gsub("\n", "; ")) end
+    end
+    local cur = W.Waypoint and W.Waypoint:Current()
+    if cur then
+        add("Arrow: map %s %.1f, %.1f%s%s", tostring(cur.map), cur.x or 0, cur.y or 0,
+            cur.leg and (" (" .. cur.leg .. ")") or "", cur.name and (" " .. cur.name) or "")
+    end
+    return table.concat(out, "\n")
+end
+
 function G:Current()
     return active and active.steps[cursor]
 end

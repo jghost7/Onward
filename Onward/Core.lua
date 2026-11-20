@@ -171,6 +171,7 @@ local HELP = {
     "/ow auto  - toggle auto accept / turn-in",
     "/ow party  - toggle party sync",
     "/ow drops [reset | debug]  - your quest-item drop rates vs the expected ones",
+    "/ow report <what went wrong>  - the current step and its state as text, to paste into a bug report",
     "/ow reset  - reset panel position",
 }
 
@@ -224,6 +225,9 @@ SlashCmdList.ONWARD = function(msg)
         end
         if #out == 0 then W.Print("no notes yet: /ow hint <text> on a quest step adds one") return end
         W.UI.ShowText("Your quest hints (paste into a GitHub issue to share)", table.concat(out, "\n"))
+    elseif cmd == "report" then
+        -- /ow report [what went wrong]: the current step and its state, ready to paste into an issue
+        W.UI.ShowText("Step report (Ctrl+C, then paste it at github.com/jghost7/Onward/issues)", W.Guide:Report(rest))
     elseif cmd == "area" then
         local a, n = W.Waypoint:NextArea()
         if a then

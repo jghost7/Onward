@@ -1884,6 +1884,10 @@ fly 1424 50.0,50.0 |from 1423 52.0,52.0 |npc Eastwatch
     MOCK.fire("QUEST_LOG_UPDATE")
     W.Guide:Activate("roundtrip") settle()
     check("round trip with an errand left: the flight stands", cur().verb == "fly", cur().verb)
+    local rep = W.Guide:Report("flew me away for nothing")
+    check("step report names the guide, the step and what the player said",
+        rep:find("roundtrip", 1, true) and rep:find("> 2. fly 1424", 1, true) and rep:find("flew me away for nothing", 1, true) and true, rep)
+    check("step report says why a step isn't open", rep:find("quest in log", 1, true) and true, rep)
     local why = W.Guide:TripReason(cur())
     check("a flight says what it is for", why and why.verb == "accept" and why.quest == 9702, why and why.verb)
     MOCK.addQuest(9702, "Picked up earlier") MOCK.fire("QUEST_ACCEPTED", 9702) settle()
