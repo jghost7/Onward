@@ -2,6 +2,19 @@
 
 ## Unreleased
 
+- Items to bring. Some quests want something no mob drops: Frost Oil for "Coolant Heads
+  Prevail", a potion, a crafted weapon, a drink from a vendor two zones away. The guide now
+  says so before you get there: a "to bring" link on the panel lists every such item for the
+  guide you're on, with where it comes from (which vendor, or which profession makes it), and
+  the quest's own steps say "Bring ..." until it's in your bags. 40 quests are covered so far.
+- The target button works on people too. On a step where you talk to someone (pick up, hand in,
+  innkeeper, trainer) it targets that NPC and puts a star over them, so you can find them in a
+  crowded town. Same button and key binding as for quest mobs.
+- On your way. Kill and loot quests already in your log are listed on the card when their mobs
+  are near you or near where the step sends you, even if the guide hasn't reached them yet,
+  and the target button picks up their mobs. /ow passing turns it off.
+- /ow report <what went wrong> gives the current step, its state and your position as text to
+  copy into a bug report. No character or realm name is included.
 - Far fewer trips out of the zone in the middle of a guide. A hand-in or pickup in another zone
   that nothing in the current zone depends on now waits until you're done there, instead of
   riding along on some other trip. Boat and zeppelin trips in the middle of a guide drop from

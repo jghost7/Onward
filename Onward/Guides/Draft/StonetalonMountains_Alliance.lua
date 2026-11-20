@@ -39,7 +39,7 @@ accept 79974 |npc Mound of Dirt |at 1442 39.6,49.8 |lvl 14 |preany 79980  -- Wet
 complete 1078 |at 1442 36.1,49.2 |areas 32.0,68.7:15;36.1,49.2:4 |mobs Scorched Basilisk@Crystalized Scales;Blackened Basilisk@Crystalized Scales;Singed Basilisk@Crystalized Scales |value mid  -- Retrieval for Mauren (26)
 turnin 1057 |npc Keeper Albagorm |at 1442 37.1,8.1 |value mid  -- Reclaiming the Charred Vale (27)
 accept 1059 |npc Keeper Albagorm |at 1442 37.1,8.1 |value mid |lvl 20 |preany 1057  -- Reclaiming the Charred Vale (27)
-complete 1073 |at 1442 28.3,13.5 |areas 73.1,59.9:108;81.3,87.3:88;32.6,65.6:80;28.3,13.5:58 |mobs Venture Co. Logger@Minor Mana Potion;Windshear Digger@Minor Mana Potion;Venture Co. Deforester@Minor Mana Potion;Grimtotem Mercenary@Minor Mana Potion  -- Ineptitude + Chemicals = Fun (21)
+complete 1073 |at 1442 28.3,13.5 |areas 73.1,59.9:108;81.3,87.3:88;32.6,65.6:80;28.3,13.5:58 |mobs Venture Co. Logger@Minor Mana Potion;Windshear Digger@Minor Mana Potion;Venture Co. Deforester@Minor Mana Potion;Grimtotem Mercenary@Minor Mana Potion |need 2458:1:Elixir of Minor Fortitude:made with Alchemy, so buy it at the auction house or ask a crafter  -- Ineptitude + Chemicals = Fun (21)
 fly 1413 63.1,37.2 |from 1442 36.4,7.2 |npc The Barrens (Bragok)  -- flight master Teloren
 goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
 fly 1455 55.5,47.7 |from 1434 27.5,77.8 |npc Ironforge (Gryth Thurden)  -- flight master Gyll

@@ -58,7 +58,7 @@ accept 919 |npc Denalan |at 1438 60.9,68.5 |value mid |lvl 4  -- Timberling Spro
 accept 918 |npc Denalan |at 1438 60.9,68.5 |lvl 4  -- Timberling Seeds (7)
 complete 919 |at 1438 55.1,69.9 |value mid  -- Timberling Sprouts (7)
 complete 918 |at 1438 54.5,69.8 |areas 54.5,69.8:27;43.2,30.1:20 |mobs Timberling@Timberling Seed;Timberling Bark Ripper@Timberling Seed;Timberling Trampler@Timberling Seed;Timberling Mire Beast@Timberling Seed  -- Timberling Seeds (7)
-complete 99050 |at 1438 57.1,68.9 |areas 57.1,68.9:172;42.8,38.7:82 |mobs Lasher Sproutling@Dewy Lasher Frond;Blooming Lasher@Dewy Lasher Frond;Wrathvine@Dewy Lasher Frond |value mid |race NightElf,SkyborneAlliance  -- The Great Tree Provides (10)
+complete 99050 |at 1438 57.1,68.9 |areas 57.1,68.9:172;42.8,38.7:82 |mobs Lasher Sproutling@Dewy Lasher Frond;Blooming Lasher@Dewy Lasher Frond;Wrathvine@Dewy Lasher Frond |need 3371:1:Empty Vial:sold by Narret Shadowgrove in Teldrassil and other vendors;159:1:Refreshing Spring Water:sold by Aldia in Teldrassil and other vendors |value mid |race NightElf,SkyborneAlliance  -- The Great Tree Provides (10)
 turnin 918 |npc Denalan |at 1438 60.9,68.5  -- Timberling Seeds (7)
 accept 922 |npc Denalan |at 1438 60.9,68.5 |lvl 4 |preany 918  -- Rellian Greenspyre (7)
 turnin 929 |npc Corithras Moonrage |at 1438 56.1,61.7  -- Crown of the Earth (5)

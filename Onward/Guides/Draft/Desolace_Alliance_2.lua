@@ -41,7 +41,7 @@ turnin 1052 |npc Raleigh the Devout |at 1424 51.5,58.4  -- Down the Scarlet Path
 fly 1434 27.5,77.8 |from 1424 49.3,52.3 |npc Stranglethorn Vale (Gyll)  -- flight master Darla Harris
 turnin 79235 |npc Tokal |at 1434 27.0,77.3  -- On the Lam (40)
 accept 79236 |npc Tokal |at 1434 27.0,77.3 |lvl 30 |preany 79235  -- Cherry for Your Thoughts? (40)
-complete 79236  -- Cherry for Your Thoughts? (40)
+complete 79236 |need 4600:1:Cherry Grog:sold by Barkeep Kelly in Hillsbrad Foothills and other vendors  -- Cherry for Your Thoughts? (40)
 turnin 79236 |npc Tokal |at 1434 27.0,77.3  -- Cherry for Your Thoughts? (40)
 accept 79242 |npc Tokal |at 1434 27.0,77.3 |lvl 30 |preany 79236  -- No Honor Among Thieves (40)
 fly 1417 45.7,46.1 |from 1434 27.5,77.8 |npc Arathi Highlands (Cedrik Prose)  -- flight master Gyll

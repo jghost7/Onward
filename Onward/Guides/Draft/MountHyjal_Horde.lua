@@ -242,7 +242,7 @@ turnin 96830 |npc Ortak Lomgok |at 2482 12.9,52.9  -- Farsight Guided (57)
 accept 96622 |npc Ortak Lomgok |at 2482 12.9,52.9 |value mid |lvl 54 |preany 96616  -- A Rest Without Pain (57)
 accept 97119 |npc Ortak Lomgok |at 2482 12.9,52.9 |lvl 54  -- Now We're Cooking (57)
 turnin 96622 |npc Ortak Lomgok |at 2482 12.9,52.9 |value mid  -- A Rest Without Pain (57)
-complete 97119  -- Now We're Cooking (57)
+complete 97119 |need 250065:6:Savory Stag Sliders:made with Cooking, so buy it at the auction house or ask a crafter  -- Now We're Cooking (57)
 turnin 97119 |npc Ortak Lomgok |at 2482 12.9,52.9  -- Now We're Cooking (57)
 turnin 92100 |npc Embroidered Scabbard |at 2482 8.8,46.5  -- Anywhere But Here (58)
 accept 96550 |npc Embroidered Scabbard |at 2482 8.8,46.5 |preany 92100  -- Battle Recall (58)
@@ -257,7 +257,7 @@ accept 96561 |note No quest giver on record: it most likely starts from an item 
 fly 1434 26.9,77.1 |from 1458 63.2,48.6 |npc Stranglethorn Vale (Gringer)  -- flight master Michael Garrett
 goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
 fly 1446 51.6,25.4 |from 1413 63.1,37.2 |npc Tanaris (Bulkrek Ragefist)  -- flight master Bragok
-complete 90854 |at 1446 37.6,67.4  -- Leather for Inclement Weather (57)
+complete 90854 |at 1446 37.6,67.4 |need 15407:1:Cured Rugged Hide:made with Leatherworking, so buy it at the auction house or ask a crafter  -- Leather for Inclement Weather (57)
 fly 2482 68.7,46.8 |from 1446 51.6,25.4 |npc Fayran Elthas  -- flight master Bulkrek Ragefist
 accept 95316 |npc Curious Crow |at 2482 48.3,85.7 |pre 95380,96262  -- The Experimental Method (57)
 turnin 96322 |npc Curious Crow |at 2482 48.3,85.7 |group chain  -- A Revenge Now Bitter (58)

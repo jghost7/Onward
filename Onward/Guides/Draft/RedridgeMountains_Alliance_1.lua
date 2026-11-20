@@ -8,7 +8,7 @@ Onward:RegisterGuide{
   steps = [[
 home |npc Innkeeper Brianna |at 1433 21.9,44.8  -- set your hearthstone at the inn
 accept 116 |npc Barkeep Daniels |at 1433 21.4,44.0 |lvl 12  -- Dry Times (15)
-complete 116  -- Dry Times (15)
+complete 116 |need 1262:1:Keg of Thunderbrew:sold by Grimbooze Thunderbrew in Westfall;1941:1:Cask of Merlot:sold by Roberto Pupellyverbos in Stormwind City;1942:1:Bottle of Moonshine:sold by Barkeep Hann in Duskwood;1939:1:Skin of Sweet Rum:sold by Barkeep Dobbins in Elwynn Forest  -- Dry Times (15)
 turnin 116 |npc Barkeep Daniels |at 1433 21.4,44.0  -- Dry Times (15)
 accept 129 |npc Darcy |at 1433 21.5,44.3 |lvl 12  -- A Free Lunch (15)
 accept 150 |npc Dockmaster Baren |at 1433 22.6,47.4 |lvl 20  -- Murloc Poachers (20)

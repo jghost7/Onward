@@ -11,7 +11,7 @@ accept 565 |npc Bartolo Ginsetti |at 1424 49.4,55.5 |value low |lvl 29  -- Barto
 fly 1417 45.7,46.1 |from 1424 49.3,52.3 |npc Arathi Highlands (Cedrik Prose)  -- flight master Darla Harris
 accept 658 |npc Quae |at 1417 60.2,53.9 |lvl 30 |preany 659  -- Hints of a New Plague? (36)
 fly 1424 49.3,52.3 |from 1417 45.7,46.1 |npc Darla Harris  -- flight master Cedrik Prose
-complete 565 |at 1424 44.5,31.2 |mobs Cave Yeti@Yeti Fur;Ferocious Yeti@Yeti Fur |value low  -- Bartolo's Yeti Fur Cloak (34)
+complete 565 |at 1424 44.5,31.2 |mobs Cave Yeti@Yeti Fur;Ferocious Yeti@Yeti Fur |need 2321:1:Fine Thread:sold by Micha Yance in Hillsbrad Foothills and other vendors;3719:1:Hillman's Cloak:made with Leatherworking, so buy it at the auction house or ask a crafter |value low  -- Bartolo's Yeti Fur Cloak (34)
 complete 658 |at 1424 43.5,30.2  -- Hints of a New Plague? (36)
 complete 564 |at 1424 38.8,24.6 |mobs Mountain Lion;Hulking Mountain Lion |value mid  -- Costly Menace (34)
 fly 1417 45.7,46.1 |from 1424 49.3,52.3 |npc Arathi Highlands (Cedrik Prose)  -- flight master Darla Harris

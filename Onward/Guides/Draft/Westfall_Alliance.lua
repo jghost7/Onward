@@ -83,7 +83,7 @@ accept 132 |npc Wiley the Black |at 1433 21.4,45.4 |lvl 14 |preany 65  -- The De
 fly 1436 56.5,52.6 |from 1433 25.5,59.4 |npc Thor  -- flight master Ariena Stormfeather
 turnin 6181 |npc Thor |at 1436 56.5,52.6 |race Human  -- A Swift Message (10)
 accept 6281 |npc Thor |at 1436 56.5,52.6 |race Human |lvl 10 |preany 6181  -- Continue to Stormwind (10)
-complete 92749 |at 1436 57.7,51.5 |mobs Stormwind Crier |value mid  -- A Dynamite Plan (16)
+complete 92749 |at 1436 57.7,51.5 |mobs Stormwind Crier |need 4358:10:Rough Dynamite:made with Engineering, so buy it at the auction house or ask a crafter |value mid  -- A Dynamite Plan (16)
 turnin 98021 |npc Gryan Stoutmantle |at 1436 56.3,47.5 |race SkyborneAlliance  -- Journey to Sentinel Hill (13)
 turnin 132 |npc Gryan Stoutmantle |at 1436 56.3,47.5  -- The Defias Brotherhood (18)
 accept 135 |npc Gryan Stoutmantle |at 1436 56.3,47.5 |lvl 14 |preany 132  -- The Defias Brotherhood (18)

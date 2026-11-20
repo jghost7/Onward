@@ -727,6 +727,45 @@ function G:Group()
     return out
 end
 
+-- On your way: kill/loot steps from anywhere later in the guide whose quest is already in your
+-- log and whose area is close to you or to where the current step sends you. They aren't the
+-- step yet, but there's no reason to run past their mobs: the card lists them and the target
+-- button knows their mobs. Nearest first, at most PASS_MAX; steps already in the group are left
+-- out. Nothing is listed while you're on another continent or the option is off.
+local PASS_YARDS, PASS_MAX = 700, 4
+function G:Passing()
+    local out = {}
+    local T = W.Travel
+    if not active or active.id == "smart" or not T or (W.db and W.db.passing == false) then return out end
+    local cur = active.steps[cursor]
+    if not cur then return out end
+    local inGroup, seen = {}, {}
+    for _, s in ipairs(G:Group()) do inGroup[s] = true if s.quest then seen[s.quest] = true end end
+    local pc, px, py = T.PlayerWorld()
+    local tc, tx, ty
+    if cur.at and cur.at.map then tc, tx, ty = T.World(cur.at.map, cur.at.x, cur.at.y) end
+    if not pc then return out end
+    local found = {}
+    for i = cursor + 1, #active.steps do
+        local s = active.steps[i]
+        if s.verb == "complete" and s.quest and s.at and s.at.map and not inGroup[s] and not seen[s.quest]
+           and QS:IsOnQuest(s.quest) and isOpen(s) then
+            local c, x, y = T.World(s.at.map, s.at.x, s.at.y)
+            if c == pc then
+                local d = math.sqrt((x - px) ^ 2 + (y - py) ^ 2)
+                if tc == c then d = math.min(d, math.sqrt((x - tx) ^ 2 + (y - ty) ^ 2)) end
+                if d <= PASS_YARDS then
+                    seen[s.quest] = true
+                    found[#found + 1] = { s = s, d = d }
+                end
+            end
+        end
+    end
+    table.sort(found, function(a, b) return a.d < b.d end)
+    for i = 1, math.min(PASS_MAX, #found) do out[i] = found[i].s end
+    return out
+end
+
 -- current step + the next n open steps
 function G:Upcoming(n)
     local out = {}

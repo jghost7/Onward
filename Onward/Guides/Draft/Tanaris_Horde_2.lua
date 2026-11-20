@@ -19,7 +19,7 @@ complete 4504 |at 1449 51.8,25.1 |value mid  -- Super Sticky (54)
 fly 1413 63.1,37.2 |from 1449 45.2,5.8 |npc The Barrens (Bragok)  -- flight master Gryfe
 goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay
 fly 1428 65.7,24.2 |from 1434 26.9,77.1 |npc Burning Steppes (Vahgruk) |value mid  -- flight master Gringer
-complete 8921 |at 1428 60.1,40.4 |value mid |class WARRIOR,HUNTER,ROGUE,PRIEST,SHAMAN,MAGE,WARLOCK,DRUID |group chain  -- The Ectoplasmic Distiller (60)
+complete 8921 |at 1428 60.1,40.4 |need 16006:1:Delicate Arcanite Converter:made with Engineering, so buy it at the auction house or ask a crafter;13423:10:Stonescale Oil:made with Alchemy, so buy it at the auction house or ask a crafter |value mid |class WARRIOR,HUNTER,ROGUE,PRIEST,SHAMAN,MAGE,WARLOCK,DRUID |group chain  -- The Ectoplasmic Distiller (60)
 fly 1434 26.9,77.1 |from 1428 65.7,24.2 |npc Stranglethorn Vale (Gringer)  -- flight master Vahgruk
 goto 1434 25.8,73.1 15 |note Take the boat to Ratchet  -- boat Booty Bay to Ratchet
 fly 1444 75.5,44.4 |from 1413 63.1,37.2 |npc Feralas (Shyn)  -- flight master Bragok
@@ -84,7 +84,7 @@ accept 8728 |npc Narain Soothfancy |at 1446 65.2,18.6 |value low |group dungeon 
 turnin 8925 |npc Mux Manascrambler |at 1446 52.5,27.2 |value mid |class WARRIOR,HUNTER,ROGUE,PRIEST,SHAMAN,MAGE,WARLOCK,DRUID |group chain  -- A Portable Power Source (60)
 turnin 8923 |npc Mux Manascrambler |at 1446 52.5,27.2 |class WARRIOR,HUNTER,ROGUE,PRIEST,SHAMAN,MAGE,WARLOCK,DRUID |group chain  -- A Supernatural Device (60)
 accept 8928 |npc Mux Manascrambler |at 1446 52.5,27.2 |value mid |class WARRIOR,HUNTER,ROGUE,PRIEST,SHAMAN,MAGE,WARLOCK,DRUID |group chain |lvl 58 |preany 8925  -- A Shifty Merchant (60)
-complete 8928 |value mid |class WARRIOR,HUNTER,ROGUE,PRIEST,SHAMAN,MAGE,WARLOCK,DRUID |group chain  -- A Shifty Merchant (60)
+complete 8928 |need 21939:1:Fel Elemental Rod:sold by Vi'el in Winterspring |value mid |class WARRIOR,HUNTER,ROGUE,PRIEST,SHAMAN,MAGE,WARLOCK,DRUID |group chain  -- A Shifty Merchant (60)
 turnin 8928 |npc Mux Manascrambler |at 1446 52.5,27.2 |value mid |class WARRIOR,HUNTER,ROGUE,PRIEST,SHAMAN,MAGE,WARLOCK,DRUID |group chain  -- A Shifty Merchant (60)
 accept 8747 |npc Anachronos |at 1446 65.3,50.0 |lvl 60  -- The Path of the Protector (60)
 turnin 8747 |npc Anachronos |at 1446 65.3,50.0  -- The Path of the Protector (60)
@@ -128,7 +128,7 @@ complete 8761  -- The Grand Invoker (60)
 turnin 8761 |npc Anachronos |at 1446 65.3,50.0  -- The Grand Invoker (60)
 complete 8756  -- The Qiraji Conqueror (60)
 turnin 8756 |npc Anachronos |at 1446 65.3,50.0  -- The Qiraji Conqueror (60)
-complete 8728 |at 1446 62.0,35.5 |areas 73.0,46.2:34;40.0,54.5:24;62.0,35.5:24 |mobs Southsea Pirate@Blue Sapphire;Dunemaul Enforcer@Blue Sapphire;Wastewander Shadow Mage@Blue Sapphire;Gor'marok the Ravager@Blue Sapphire |value low |group dungeon  -- The Good News and The Bad News (60)
+complete 8728 |at 1446 62.0,35.5 |areas 73.0,46.2:34;40.0,54.5:24;62.0,35.5:24 |mobs Southsea Pirate@Blue Sapphire;Dunemaul Enforcer@Blue Sapphire;Wastewander Shadow Mage@Blue Sapphire;Gor'marok the Ravager@Blue Sapphire |need 12360:20:Arcanite Bar:made with Alchemy, so buy it at the auction house or ask a crafter |value low |group dungeon  -- The Good News and The Bad News (60)
 turnin 8728 |npc Narain Soothfancy |at 1446 65.2,18.6 |value low |group dungeon  -- The Good News and The Bad News (60)
 fly 1449 45.2,5.8 |from 1446 51.6,25.4 |npc Un'Goro Crater (Gryfe)  -- flight master Bulkrek Ragefist
 complete 5802 |at 1449 48.9,47.0 |item 14644  -- Fire Plume Forged (57)

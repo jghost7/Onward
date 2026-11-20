@@ -64,7 +64,7 @@ accept 1457 |npc Kreldig Ungor |at 1443 66.2,9.6 |lvl 30 |preany 1456  -- The Ka
 accept 1459 |npc Kreldig Ungor |at 1443 66.2,9.6 |value mid |lvl 30 |preany 1458  -- Reagents for Reclaimers Inc. (35)
 accept 94841 |npc Lost Shipping Crate |at 1443 64.6,10.3 |lvl 36  -- Lost Shipping Crate (38)
 accept 5501 |npc Bibbly F'utzbuckle |at 1443 62.3,39.0 |value low |lvl 33  -- Bone Collector (39)
-complete 1371 |at 1443 35.2,60.2 |mobs Magra  -- Gizmo for Warug (35)
+complete 1371 |at 1443 35.2,60.2 |mobs Magra |need 4392:1:Advanced Target Dummy:made with Engineering, so buy it at the auction house or ask a crafter  -- Gizmo for Warug (35)
 complete 1373 |at 1443 29.1,57.1 |mobs Gelk  -- Ongeku (37)
 fly 1413 63.1,37.2 |from 1443 64.7,10.5 |npc The Barrens (Bragok)  -- flight master Baritanas Skyriver
 goto 1413 63.7,38.6 15 |note Take the boat to Booty Bay  -- boat Ratchet to Booty Bay

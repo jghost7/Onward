@@ -227,6 +227,15 @@ function TG:Sync()
     pending = false
     local group = W.db.targetButton and G:Group() or {}   -- the steps the card shows
     local names = TG.MobsForGroup(group)
+    -- on a kill step, the mobs of quests you're passing come after the step's own
+    local cur = G:Current()
+    if W.db.targetButton and cur and cur.verb == "complete" and G.Passing then
+        local have = {}
+        for _, n in ipairs(names) do have[n] = true end
+        for _, n in ipairs(TG.MobsForGroup(G:Passing())) do
+            if not have[n] then have[n] = true names[#names + 1] = n end
+        end
+    end
     TG.plate = (not namesOnly) and TG.UntaggedPlate(names) or nil
     local macro = TG.BuildMacro(names, W.db.targetMark, TG.plate)
     TG.mobs = {}

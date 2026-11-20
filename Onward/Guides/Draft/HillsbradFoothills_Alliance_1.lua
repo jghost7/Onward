@@ -12,7 +12,7 @@ complete 536 |at 1424 43.4,68.2 |mobs Torn Fin Tidehunter;Torn Fin Oracle  -- Do
 turnin 536 |npc Lieutenant Farren Orinelle |at 1424 51.5,58.4  -- Down the Coast (30)
 accept 559 |npc Lieutenant Farren Orinelle |at 1424 51.5,58.4 |lvl 25 |preany 536  -- Farren's Proof (32)
 accept 555 |npc Chef Jessen |at 1424 51.9,58.7 |lvl 28  -- Soothing Turtle Bisque (31)
-complete 555 |at 1424 55.9,54.0 |areas 63.9,39.7:4;68.0,22.9:4;55.9,54.0:3 |mobs Snapjaw@Turtle Meat  -- Soothing Turtle Bisque (31)
+complete 555 |at 1424 55.9,54.0 |areas 63.9,39.7:4;68.0,22.9:4;55.9,54.0:3 |mobs Snapjaw@Turtle Meat |need 3713:1:Soothing Spices:sold by Micha Yance in Hillsbrad Foothills and other vendors  -- Soothing Turtle Bisque (31)
 accept 98059 |npc Captain McManus |at 1424 46.4,50.2 |lvl 23  -- Hillsbrad's Hoard (27)
 turnin 98059 |npc Captain McManus |at 1424 46.4,50.2  -- Hillsbrad's Hoard (27)
 complete 559 |at 1424 32.9,71.4 |mobs Torn Fin Coastrunner@Murloc Head;Torn Fin Muckdweller@Murloc Head;Torn Fin Oracle@Murloc Head;Torn Fin Tidehunter@Murloc Head  -- Farren's Proof (32)

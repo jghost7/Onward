@@ -105,7 +105,7 @@ accept 8743 |npc The Scarab Gong |at 1451 25.7,90.9 |group chain |lvl 60 |preany
 complete 8743 |group chain  -- Bang a Gong! (60)
 turnin 8743 |npc The Scarab Gong |at 1451 25.7,90.9 |group chain  -- Bang a Gong! (60)
 complete 8323 |at 1451 18.9,84.4 |areas 39.2,44.6:44;26.2,33.5:40;18.9,84.4:37;67.5,17.0:36 |mobs Twilight Avenger@Encrypted Twilight Text;Twilight Geolord@Encrypted Twilight Text;Twilight Stonecaller@Encrypted Twilight Text;Twilight Overlord@Encrypted Twilight Text |value mid  -- True Believers (59)
-complete 8856 |at 1451 18.6,83.5 |areas 26.4,34.0:21;39.6,45.1:19;18.6,83.5:17 |item 20807 |mobs Twilight Geolord@Globe of Water;Azure Templar@Globe of Water;The Duke of Fathoms@Globe of Water;Lord Skwol@Globe of Water |value low  -- Desert Survival Kits (0)
+complete 8856 |at 1451 18.6,83.5 |areas 26.4,34.0:21;39.6,45.1:19;18.6,83.5:17 |item 20807 |mobs Twilight Geolord@Globe of Water;Azure Templar@Globe of Water;The Duke of Fathoms@Globe of Water;Lord Skwol@Globe of Water |need 19440:4:Powerful Anti-Venom:made with First Aid, so buy it at the auction house or ask a crafter;20452:1:Smoked Desert Dumplings:made with Cooking, so buy it at the auction house or ask a crafter |value low  -- Desert Survival Kits (0)
 turnin 8856 |value low  -- Desert Survival Kits (0)
 complete 8361 |at 1451 38.3,46.5 |mobs Crimson Templar@Abyssal Crest;Azure Templar@Abyssal Crest;Hoary Templar@Abyssal Crest;Earthen Templar@Abyssal Crest |group elite  -- Abyssal Contacts (60)
 complete 8332 |at 1451 38.3,46.5 |mobs Crimson Templar@Abyssal Crest;Azure Templar@Abyssal Crest;Hoary Templar@Abyssal Crest;Earthen Templar@Abyssal Crest |group elite  -- Dukes of the Council (60)

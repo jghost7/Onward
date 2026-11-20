@@ -24,6 +24,7 @@ local DEFAULTS = {
     tomtom = true,           -- also a TomTom waypoint when TomTom is installed
     routeMode = "next",      -- travel route on the world map: off | current | next
     routeStops = 3,          -- how many steps past the current one "next" shows
+    passing = true,          -- list quests in your log whose mobs are on your way
     targetButton = true,     -- crosshair on kill/loot steps that targets the nearest quest mob
     targetMark = true,       -- put a skull on the mob it targets
     itemButton = true,       -- button that uses the quest's item (fletch the bundles, throw the spear)
@@ -171,6 +172,7 @@ local HELP = {
     "/ow auto  - toggle auto accept / turn-in",
     "/ow party  - toggle party sync",
     "/ow drops [reset | debug]  - your quest-item drop rates vs the expected ones",
+    "/ow passing  - list (or stop listing) quests in your log whose mobs are on your way",
     "/ow report <what went wrong>  - the current step and its state as text, to paste into a bug report",
     "/ow reset  - reset panel position",
 }
@@ -228,6 +230,10 @@ SlashCmdList.ONWARD = function(msg)
     elseif cmd == "report" then
         -- /ow report [what went wrong]: the current step and its state, ready to paste into an issue
         W.UI.ShowText("Step report (Ctrl+C, then paste it at github.com/jghost7/Onward/issues)", W.Guide:Report(rest))
+    elseif cmd == "passing" then
+        W.db.passing = W.db.passing == false
+        W.Print("quests on your way:", W.db.passing and "listed" or "not listed")
+        W:Fire("WF_SETTINGS_CHANGED")
     elseif cmd == "area" then
         local a, n = W.Waypoint:NextArea()
         if a then

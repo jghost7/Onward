@@ -532,6 +532,8 @@ end
 
 local alsoLabel = fs(card, 10, C.dim)
 alsoLabel:SetWordWrap(false)
+UI.passLabel = fs(card, 10, C.dim)   -- "ON YOUR WAY": reached through UI (Render's upvalue limit)
+UI.passLabel:SetWordWrap(false)
 local nextLabel = fs(f, 10, C.dim)
 nextLabel:SetWordWrap(false)
 nextLabel:SetText("NEXT")
@@ -1020,6 +1022,7 @@ function UI:Render()
     for _, b in ipairs({ missedBtn, suggestBtn, busyBtn, laterBtn, waitBtn, UI.looseBtn, UI.needBtn }) do b:Hide() b.bg:Hide() end
     divider:Hide()
     alsoLabel:Hide()
+    UI.passLabel:Hide()
     nextLabel:Hide()
     strip:Hide()
 
@@ -1184,7 +1187,26 @@ function UI:Render()
                 place(r, 4, 16)
             end
         end
-    else
+    end
+    -- quests in your log whose mobs are on your way (G:Passing): listed whatever the step is
+    local passing = G:Passing()
+    if #passing > 0 then
+        local label = UI.passLabel
+        label:SetText(("ON YOUR WAY  ·  %d"):format(#passing))
+        label:Show()
+        place(label, 10, label:GetStringHeight())
+        local used = math.max(0, #G:Group() - 1)
+        for i, s in ipairs(passing) do
+            shownTogether[s] = true
+            local r = groupRow(used + i)
+            r.step = s
+            r.name:SetText(questTitle(s.quest))
+            r.count:SetText(questProgress(s.quest))
+            r:Show()
+            place(r, 4, 16)
+        end
+    end
+    if not (step.verb == "complete" and step.quest) then
         if step.quest then hints(step.quest, false) end   -- your own note on accept / turn-in too
         if G.PROF_VERB[step.verb] and W.Prof then
             -- skill, crafts left, recipe to learn, mats against your bags, the game's best pick now

@@ -421,6 +421,10 @@ class Zone:
                 continue
             if not name or drops or objs:
                 continue
+            # not really for sale: Darkmoon Faire stalls (there one week a month), and "vendors"
+            # that are the quest's own NPCs handing the item over (Warsong Scout Update)
+            vendors = [v for v in vendors if (s(self.db.npc(v, "name")) or "") not in FAIRE_VENDORS
+                       and (s(self.db.npc(v, "name")) or "?") not in name]
             where = self.vendor_text(vendors) or self.craft_text(item)
             if not where:
                 continue
@@ -438,17 +442,19 @@ class Zone:
                 continue
             spawns = self.db.npc(n, "spawns")
             here = bool(self.zone_points(spawns))
-            m = self.map if here else self.other_map_point(spawns)[0]
+            m, pt = (self.map, None) if here else self.other_map_point(spawns)
             if not m:
                 continue
-            cand = (0 if here else 1, s(self.db.npc(n, "name")), m)
+            # in this zone first, then this continent, then the nearest
+            far = 0 if here else (wdist(self.map, (50.0, 50.0), m, pt) if continent(m) == continent(self.map) else None)
+            cand = (0 if here else 1 if far is not None else 2, far or 0, s(self.db.npc(n, "name")), m)
             if best is None or cand < best:
                 best = cand
         if not best:
             return None
-        zone = map_names().get(best[2], "")
+        zone = map_names().get(best[3], "")
         more = " and other vendors" if len(vendors) > 1 else ""
-        return f"sold by {best[1]}" + (f" in {zone}" if zone else "") + more
+        return f"sold by {best[2]}" + (f" in {zone}" if zone else "") + more
 
     def craft_text(self, item):
         skill = crafted_by().get(item)
@@ -557,6 +563,7 @@ _SPOTS = {}
 _FIXES = None
 
 
+FAIRE_VENDORS = {"Lhara", "Professor Thaddeus Paleo", "Chronos", "Kruban Darkblade", "Sylannia", "Stamp Thunderhorn"}
 _CRAFTED = {}
 
 

@@ -85,7 +85,7 @@ accept 374 |npc Deathguard Burgess |at 1420 60.9,52.0 |value mid |lvl 5 |preany 
 accept 354 |npc Coleman Farthing |at 1420 61.7,52.3 |lvl 7  -- Deaths in the Family (11)
 accept 362 |npc Coleman Farthing |at 1420 61.7,52.3 |lvl 7  -- The Haunted Mills (10)
 accept 375 |npc Gretchen Dedmar |at 1420 61.9,52.7 |lvl 7  -- The Chill of Death (8)
-complete 375 |at 1420 61.1,56.3 |areas 45.5,58.9:36;70.4,33.7:26;61.1,56.3:25 |mobs Vampiric Duskbat@Duskbat Pelt;Greater Duskbat@Duskbat Pelt  -- The Chill of Death (8)
+complete 375 |at 1420 61.1,56.3 |areas 45.5,58.9:36;70.4,33.7:26;61.1,56.3:25 |mobs Vampiric Duskbat@Duskbat Pelt;Greater Duskbat@Duskbat Pelt |need 2320:1:Coarse Thread:sold by Abigail Shiel in Tirisfal Glades and other vendors  -- The Chill of Death (8)
 accept 97558 |npc Shelene Rhobart |at 1420 65.4,60.1 |lvl 6  -- Hides for the Forsaken (11)
 turnin 359 |npc Deathguard Linnea |at 1420 65.5,60.2  -- Forsaken Duties (9)
 accept 356 |npc Deathguard Linnea |at 1420 65.5,60.2 |lvl 6  -- Rear Guard Patrol (11)

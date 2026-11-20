@@ -40,7 +40,7 @@ turnin 93678 |npc Magtoor |at 1435 26.0,31.4 |value mid  -- Abridged Notes on Dr
 fly 1434 26.9,77.1 |from 1435 46.1,54.8 |npc Stranglethorn Vale (Gringer)  -- flight master Breyk
 turnin 79235 |npc Tokal |at 1434 27.0,77.3  -- On the Lam (40)
 accept 79236 |npc Tokal |at 1434 27.0,77.3 |lvl 30 |preany 79235  -- Cherry for Your Thoughts? (40)
-complete 79236  -- Cherry for Your Thoughts? (40)
+complete 79236 |need 4600:1:Cherry Grog:sold by Nixxrax Fillamug in Stranglethorn Vale and other vendors  -- Cherry for Your Thoughts? (40)
 turnin 79236 |npc Tokal |at 1434 27.0,77.3  -- Cherry for Your Thoughts? (40)
 accept 79242 |npc Tokal |at 1434 27.0,77.3 |lvl 30 |preany 79236  -- No Honor Among Thieves (40)
 fly 1417 73.0,32.7 |from 1434 26.9,77.1 |npc Arathi Highlands (Urda)  -- flight master Gringer

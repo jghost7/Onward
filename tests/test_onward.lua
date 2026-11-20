@@ -795,7 +795,7 @@ accept 961
 accept 962
 complete 960 |at 1423 40.0,40.0 |mobs Fen Crawler;Fen Hulk
 complete 961 |at 1423 42.0,41.0 |mobs Reed Stalker
-complete 962 |at 1423 90.0,90.0 |mobs Far Beast
+complete 962 |at 1424 90.0,90.0 |mobs Far Beast
 turnin 960
 turnin 961
 turnin 962
@@ -1954,6 +1954,36 @@ turnin 9811 |npc Lotwil |at 1423 50.0,50.0
     MOCK.bags[4389] = 1
     check("everything in hand: nothing to bring", #W.Guide:Needs() == 0)
     MOCK.bags[3829], MOCK.bags[4389] = nil, nil
+    if prev then W.Guide:Activate(prev) settle() end
+end
+
+do  -- on your way: a later kill step for a quest in your log, close to where you are
+    local prev = W.Guide:Active() and W.Guide:Active().id
+    local oldPos = MOCK.pos
+    MOCK.pos = { map = 1423, x = 0.5, y = 0.5 }
+    W:RegisterGuide{ id = "passing", title = "Passing", levels = { 1, 60 }, steps = [[
+accept 9821 |npc Marla Fipps |at 1423 50.0,50.0
+accept 9822 |npc Marla Fipps |at 1423 50.0,50.0
+accept 9823 |npc Marla Fipps |at 1423 50.0,50.0
+accept 9824 |npc Old Jeb |at 1423 52.0,52.0
+goto 1423 80.0,20.0 |note Cross the bridge
+complete 9821 |at 1423 50.5,50.5 |mobs Bog Lurker
+goto 1423 20.0,80.0 |note Up the hill
+complete 9822 |at 1423 50.6,50.6 |mobs Mire Toad
+complete 9823 |at 1424 90.0,90.0 |mobs Far Beast
+]] }
+    for _, q in ipairs({ 9821, 9822, 9823 }) do MOCK.addQuest(q, "Quest " .. q) end
+    MOCK.fire("QUEST_LOG_UPDATE")
+    W.Guide:Activate("passing") settle()
+    check("on your way: the step itself is a pickup", cur() and cur().verb == "accept" and cur().quest == 9824, cur() and cur().verb)
+    local pass = W.Guide:Passing()
+    check("on your way: nearby kill steps for quests in your log are listed, past travel steps",
+        #pass == 2 and pass[1].quest == 9821 and pass[2].quest == 9822, #pass)
+    W.db.passing = false
+    check("on your way: off when the option is off", #W.Guide:Passing() == 0)
+    W.db.passing = true
+    for _, q in ipairs({ 9821, 9822, 9823 }) do MOCK.turnIn(q) MOCK.done[q] = nil MOCK.fire("QUEST_REMOVED", q) end
+    MOCK.pos = oldPos
     if prev then W.Guide:Activate(prev) settle() end
 end
 
