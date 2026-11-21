@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.6.37
 
 - First Aid: the guide sent you to the Triage quest at 210 skill, but the quest isn't on offer
   until 225. It now takes you to 225 first, then to the quest. Horde Cooking had the same
