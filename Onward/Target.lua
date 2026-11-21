@@ -196,29 +196,22 @@ local function place()
 end
 
 -- Untagged first (needs enemy nameplates; out of combat only): the nameplate of a living quest
--- mob nobody else has tagged, the one nearest the middle of the screen (nameplates carry no
--- distance; the middle is what you're facing). A macro can't test "tagged", so Sync writes this
--- one mob's token into it, and refreshes it as plates come and go and tags change.
+-- mob nobody else has tagged, the first one in token order. A macro can't test "tagged", so Sync
+-- writes this one mob's token into it, and refreshes it as plates come and go and tags change.
+-- Nameplates are never measured: the game forbids reading a plate's position (GetCenter raises
+-- "Can't measure restricted regions", which pcall doesn't swallow), so there is no "nearest".
 function TG.UntaggedPlate(names)
     local want = {}
     for _, n in ipairs(names or {}) do want[n] = true end
     if not next(want) then return nil end
-    local cx, cy = UIParent:GetCenter()
-    local best, bestD
     for i = 1, 40 do
         local u = "nameplate" .. i
         local name = W.Safe(UnitName(u))
         if name and want[name] and not W.Safe(UnitIsDead(u)) and not W.Safe(UnitIsTapDenied(u))
            and W.Safe(UnitCanAttack("player", u)) then
-            local d = i * 1e-6                                   -- no position: token order
-            local plate = C_NamePlate and C_NamePlate.GetNamePlateForUnit and C_NamePlate.GetNamePlateForUnit(u)
-            local x, y
-            if plate and plate.GetCenter then x, y = plate:GetCenter() end
-            if x and cx then d = (x - cx) ^ 2 + (y - cy) ^ 2 end
-            if not bestD or d < bestD then best, bestD = u, d end
+            return u
         end
     end
-    return best
 end
 
 local namesOnly = false   -- entering combat: drop the plate line (tokens shift while it's locked)

@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+- Fixed the error "NamePlate1:GetCenter(): Can't measure restricted regions". The target button
+  read where enemy nameplates sit on screen to pick the mob you're facing, which the game no
+  longer allows. It now takes the first untagged quest mob on a nameplate without measuring.
+
 ## 0.6.37
 
 - First Aid: the guide sent you to the Triage quest at 210 skill, but the quest isn't on offer
