@@ -1,4 +1,4 @@
--- DRAFT Duskwood (Horde) generated 2026-11-20 by tools/draft_guide.py
+-- DRAFT Duskwood (Horde) generated 2026-11-21 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -22,13 +22,9 @@ accept 81738 |npc Field Captain Palandar |at 1431 45.6,51.2 |lvl 23  -- Duskwood
 accept 81742 |npc Field Captain Palandar |at 1431 45.6,51.2 |lvl 23  -- Duskwood Mission XIII: Defeat Ylanthrius (27)
 accept 81744 |npc Field Captain Palandar |at 1431 45.6,51.2 |lvl 23  -- Duskwood Mission XV: Defeat Amokarok (27)
 accept 81733 |npc Field Captain Palandar |at 1431 45.6,51.2 |lvl 23  -- Duskwood Mission IV: Ogre Intelligence (27)
-accept 79362 |npc Bath'rah the Windwatcher |at 1416 80.5,66.9 |startitem 281147 |value low |class SHAMAN |race Orc,Tauren,Troll |lvl 18  -- Grant's Shield (25)
-accept 79363 |npc Bath'rah the Windwatcher |at 1416 80.5,66.9 |startitem 281145 |class SHAMAN |race Orc,Tauren,Troll |lvl 18  -- Silvia's Sword (27)
-complete 79362 |at 1431 20.6,46.4 |areas 20.6,46.4:23;80.6,59.4:10 |item 281147 |mobs Skeletal Horror@Grant's Mace;Skeletal Fiend@Grant's Mace;Skeletal Healer@Grant's Mace |value low |class SHAMAN |race Orc,Tauren,Troll  -- Grant's Shield (25)
 complete 81731 |at 1431 34.6,75.6 |mobs Deranged Ogre;Demented Fire Weaver  -- Duskwood Mission II: Defeat Ogres (27)
 complete 81737 |at 1431 35.7,80.1  -- Duskwood Mission VIII: Recover Ogre Magi text (27)
 complete 81743 |at 1431 37.4,84.2 |mobs Vvarc' Zul  -- Duskwood Mission XIV: Defeat Vvarc'zul (27)
-complete 79363 |at 1431 49.9,77.3 |areas 21.6,73.0:14;49.9,77.3:8 |item 281145 |mobs Defias Night Blade;Defias Enchanter |class SHAMAN |race Orc,Tauren,Troll  -- Silvia's Sword (27)
 complete 81732 |at 1431 49.6,74.4 |mobs Wyrmkin Terrorwalker;Nightterror Whelp  -- Duskwood Mission III: Defeat Dragonkin (27)
 complete 81741 |at 1431 48.8,73.4 |mobs Ylanthrius@Dream-Touched Dragonscale;Nightterror Whelp@Dream-Touched Dragonscale;Wyrmkin Terrorwalker@Dream-Touched Dragonscale |value mid  -- Duskwood Mission XII: Dream-Touched Dragonscale (27)
 complete 81742 |at 1431 48.8,73.4 |mobs Ylanthrius  -- Duskwood Mission XIII: Defeat Ylanthrius (27)
@@ -41,8 +37,6 @@ complete 81735 |at 1431 62.4,68.2 |mobs Nightmare Runner;Nightmare Hound;Nightma
 complete 81739 |at 1431 62.4,68.2 |mobs Nightmare Runner;Nightmare Hound;Nightmare Weaver |value mid  -- Duskwood Mission X: Nightmare Moss (27)
 complete 81733 |at 1431 62.4,68.2 |mobs Nightmare Runner;Nightmare Hound;Nightmare Weaver;Dreamwarden Thalinar  -- Duskwood Mission IV: Ogre Intelligence (27)
 complete 81736 |at 1431 65.7,67.4  -- Duskwood Mission VII: Recover Shadowscythe (27)
-turnin 79362 |npc Sirra Von'Indi |at 1431 72.6,47.6 |value low |class SHAMAN |race Orc,Tauren,Troll  -- Grant's Shield (25)
-turnin 79363 |npc Sirra Von'Indi |at 1431 72.6,47.6 |class SHAMAN |race Orc,Tauren,Troll  -- Silvia's Sword (27)
 turnin 81730 |npc Field Captain Palandar |at 1431 45.6,51.2 |value mid  -- Duskwood Mission I: Defeat Worgen (27)
 turnin 81747 |npc Field Captain Palandar |at 1431 45.6,51.2  -- Duskwood Mission XVIII: Rescue Elenora Marshwalker (27)
 turnin 81744 |npc Field Captain Palandar |at 1431 45.6,51.2  -- Duskwood Mission XV: Defeat Amokarok (27)
@@ -62,6 +56,12 @@ turnin 81735 |npc Field Captain Palandar |at 1431 45.6,51.2  -- Duskwood Mission
 turnin 81746 |npc Field Captain Palandar |at 1431 45.6,51.2  -- Duskwood Mission XVII: Rescue Alara Grovemender (27)
 turnin 81731 |npc Field Captain Palandar |at 1431 45.6,51.2  -- Duskwood Mission II: Defeat Ogres (27)
 turnin 81739 |npc Field Captain Palandar |at 1431 45.6,51.2 |value mid  -- Duskwood Mission X: Nightmare Moss (27)
+accept 79362 |npc Bath'rah the Windwatcher |at 1416 80.5,66.9 |startitem 281147 |value low |class SHAMAN |race Orc,Tauren,Troll |lvl 18  -- Grant's Shield (25)
+accept 79363 |npc Bath'rah the Windwatcher |at 1416 80.5,66.9 |startitem 281145 |value low |class SHAMAN |race Orc,Tauren,Troll |lvl 18  -- Silvia's Sword (27)
+complete 79362 |at 1431 20.6,46.4 |areas 20.6,46.4:23;80.6,59.4:10 |item 281147 |mobs Skeletal Horror@Grant's Mace;Skeletal Fiend@Grant's Mace;Skeletal Healer@Grant's Mace |value low |class SHAMAN |race Orc,Tauren,Troll  -- Grant's Shield (25)
+complete 79363 |at 1431 49.9,77.3 |areas 21.6,73.0:14;49.9,77.3:8 |item 281145 |mobs Defias Night Blade;Defias Enchanter |value low |class SHAMAN |race Orc,Tauren,Troll  -- Silvia's Sword (27)
+turnin 79362 |npc Sirra Von'Indi |at 1431 72.6,47.6 |value low |class SHAMAN |race Orc,Tauren,Troll  -- Grant's Shield (25)
+turnin 79363 |npc Sirra Von'Indi |at 1431 72.6,47.6 |value low |class SHAMAN |race Orc,Tauren,Troll  -- Silvia's Sword (27)
 ]]}
 
 -- Not routed (far above the zone's level range, or no reachable path):

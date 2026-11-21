@@ -1,4 +1,4 @@
--- DRAFT Stranglethorn Vale (Horde) generated 2026-11-20 by tools/draft_guide.py
+-- DRAFT Stranglethorn Vale (Horde) generated 2026-11-21 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -33,7 +33,7 @@ accept 97386 |npc Commander Aggro'gosh |at 1434 32.2,28.9 |group elite |lvl 38 |
 accept 573 |npc Far Seer Mok'thardin |at 1434 32.1,29.2 |value mid |lvl 33 |preany 571  -- Mok'thardin's Enchantment (44)
 complete 197 |at 1434 32.2,42.8 |mobs Tethis@Talon of Tethis |group elite  -- Raptor Mastery (43)
 complete 573 |at 1434 26.2,62.4 |mobs Naga Explorer |value mid  -- Mok'thardin's Enchantment (44)
-complete 617 |at 1434 26.2,62.4 |areas 23.9,26.8:138;26.2,62.4:27 |mobs Brinescale Skirmisher@Akiris Reed;Naga Explorer@Akiris Reed |value mid  -- Akiris by the Bundle (43)
+complete 617 |at 1434 26.2,62.4 |mobs Naga Explorer@Akiris Reed |value mid  -- Akiris by the Bundle (43)
 complete 576 |at 1434 27.9,69.9 |areas 30.0,88.0:63;27.9,69.9:16;23.9,53.8:13 |mobs Bloodsail Sea Dog@Dizzy's Eye;Bloodsail Elder Magus@Dizzy's Eye;Bloodsail Warlock@Dizzy's Eye;Bloodsail Swashbuckler@Dizzy's Eye  -- Keep An Eye Out (42)
 turnin 8551 |npc Captain Hecklebury Smotts |at 1434 26.7,73.6 |group elite  -- The Captain's Chest (47)
 accept 348 |npc Fin Fizracket |at 1434 27.6,76.7 |lvl 40  -- Stranglethorn Fever (45)

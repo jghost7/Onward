@@ -1,4 +1,4 @@
--- DRAFT The Barrens (Horde) generated 2026-11-20 by tools/draft_guide.py
+-- DRAFT The Barrens (Horde) generated 2026-11-21 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -16,13 +16,13 @@ accept 857 |npc Feegly the Exiled |at 1413 49.0,86.3 |value low |lvl 22  -- The 
 complete 857 |at 1413 49.1,84.2 |value low  -- The Tear of the Moons (30)
 turnin 857 |npc Feegly the Exiled |at 1413 49.0,86.3 |value low  -- The Tear of the Moons (30)
 turnin 1153 |npc Tatternack Steelforge |at 1413 45.1,57.7  -- A New Ore Sample (29)
-accept 1102 |npc Auld Stonespire |at 1456 36.0,59.9 |group dungeon |lvl 29  -- A Vengeful Fate (34)
 accept 1145 |npc Korran |at 1413 51.1,29.6 |lvl 29  -- The Swarm Grows (33)
-complete 1102 |at 1413 51.8,30.3 |mobs Vengeful Guard |group dungeon  -- A Vengeful Fate (34)
 accept 3514 |npc Kadrak |at 1413 48.1,5.4 |group elite |lvl 15 |preany 3513  -- Horde Presence (29)
+turnin 1145 |npc Belgrom Rockmaul |at 1454 75.2,34.2  -- The Swarm Grows (33)
 complete 3514 |at 1442 29.7,16.9 |item 10622 |mobs Rynthariel the Keymaster |group elite  -- Horde Presence (29)
 turnin 3514 |npc Kadrak |at 1413 48.1,5.4 |group elite  -- Horde Presence (29)
-turnin 1145 |npc Belgrom Rockmaul |at 1454 75.2,34.2  -- The Swarm Grows (33)
+accept 1102 |npc Auld Stonespire |at 1456 36.0,59.9 |group dungeon |lvl 29  -- A Vengeful Fate (34)
+complete 1102 |at 1413 51.9,30.4 |mobs Vengeful Guard |group dungeon  -- A Vengeful Fate (34)
 turnin 1102 |npc Auld Stonespire |at 1456 36.0,59.9 |group dungeon  -- A Vengeful Fate (34)
 accept 1109 |npc Master Apothecary Faranell |at 1458 48.8,69.3 |group dungeon |lvl 30  -- Going, Going, Guano! (33)
 complete 1109 |group dungeon  -- Going, Going, Guano! (33)

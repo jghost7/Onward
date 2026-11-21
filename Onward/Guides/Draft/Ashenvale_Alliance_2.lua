@@ -1,4 +1,4 @@
--- DRAFT Ashenvale (Alliance) generated 2026-11-20 by tools/draft_guide.py
+-- DRAFT Ashenvale (Alliance) generated 2026-11-21 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -15,7 +15,7 @@ turnin 1026 |npc Shael'dryn |at 1440 53.5,46.2  -- Raene's Cleansing (27)
 accept 1027 |npc Shael'dryn |at 1440 53.5,46.2 |lvl 18 |preany 1026  -- Raene's Cleansing (28)
 accept 98417 |npc Maseara Autumnmoon |at 1440 86.2,45.9 |lvl 23  -- Vengeful Trail (28)
 accept 1011 |npc Kayneth Stillwind |at 1440 85.2,44.7 |lvl 24  -- Forsaken Diseases (29)
-complete 98417 |at 1440 81.3,50.3  -- Vengeful Trail (28)
+complete 98417 |at 1440 81.1,49.5  -- Vengeful Trail (28)
 complete 1027 |at 1440 74.4,73.4  -- Raene's Cleansing (28)
 complete 1011 |at 1440 75.3,71.9  -- Forsaken Diseases (29)
 turnin 98417 |npc Maseara Autumnmoon |at 1440 86.2,45.9  -- Vengeful Trail (28)
@@ -41,7 +41,7 @@ turnin 1022 |npc Sentinel Melyria Frostshadow |at 1440 22.2,53.0  -- The Howling
 accept 1037 |npc Sentinel Melyria Frostshadow |at 1440 22.2,53.0 |lvl 25 |preany 1022  -- Velinde Starsong (30)
 turnin 1031 |npc Illiyana |at 1440 21.7,53.3  -- The Branch of Cenarius (32)
 accept 1032 |npc Illiyana |at 1440 21.7,53.3 |value low |lvl 26 |preany 1031  -- Satyr Slaying! (32)
-accept 86757 |npc Shandrina |at 1440 49.5,67.1 |value mid |lvl 27  -- Slowing the Orc Advance (30)
+accept 86757 |npc Shandrina |at 1440 49.5,67.1 |value mid |lvl 25  -- Slowing the Orc Advance (30)
 turnin 1030 |npc Krolg |at 1440 50.8,75.1  -- Raene's Cleansing (28)
 accept 1045 |npc Krolg |at 1440 50.8,75.1 |lvl 18 |preany 1030  -- Raene's Cleansing (30)
 complete 1045 |at 1440 54.9,78.8 |item 5462 |mobs Bloodtooth Guard;Ran Bloodtooth@Ran Bloodtooth's Skull  -- Raene's Cleansing (30)
@@ -53,8 +53,8 @@ complete 86757 |at 1440 71.7,80.5 |areas 87.5,58.5:36;71.7,80.5:14 |mobs Horde S
 complete 1012 |at 1440 77.2,74.0 |mobs Taneel Darkwood;Uthil Mooncall;Mavoris Cloudsbreak  -- Insane Druids (32)
 complete 1032 |at 1440 80.5,48.6 |areas 80.5,48.6:54;67.3,54.6:25 |mobs Bleakheart Shadowstalker@Satyr Horns;Xavian Felsworn@Satyr Horns;Felmusk Shadowstalker@Satyr Horns;Bleakheart Hellcaller@Satyr Horns |value low  -- Satyr Slaying! (32)
 turnin 98418 |npc Maseara Autumnmoon |at 1440 86.2,45.9 |value mid  -- Shared Fury (30)
-turnin 4581 |npc Kayneth Stillwind |at 1440 85.2,44.7  -- Kayneth Stillwind (29)
 turnin 1012 |npc Kayneth Stillwind |at 1440 85.2,44.7  -- Insane Druids (32)
+turnin 4581 |npc Kayneth Stillwind |at 1440 85.2,44.7  -- Kayneth Stillwind (29)
 turnin 1032 |npc Illiyana |at 1440 21.7,53.3 |value low  -- Satyr Slaying! (32)
 turnin 1046 |npc Raene Wolfrunner |at 1440 36.6,49.6  -- Raene's Cleansing (30)
 turnin 1035 |npc Pelturas Whitemoon |at 1440 37.4,51.8  -- Fallen Sky Lake (30)

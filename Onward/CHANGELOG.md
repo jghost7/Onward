@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased
+
+- A quest you take and hand in here but do in another zone no longer sits in the middle of the
+  guide. "Screecher Spirits" sent you from Tanaris to Feralas partway through; the trip now
+  waits until the zone is done, together with the hand-in and the quest that follows it.
+  The same goes for the other guides. Guides were rebuilt from Questie's latest data, so step
+  numbers shift.
+
 ## 0.6.38
 
 - Fixed the error "NamePlate1:GetCenter(): Can't measure restricted regions". The target button

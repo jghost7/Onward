@@ -1,4 +1,4 @@
--- DRAFT Stranglethorn Vale (Alliance) generated 2026-11-20 by tools/draft_guide.py
+-- DRAFT Stranglethorn Vale (Alliance) generated 2026-11-21 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -29,7 +29,7 @@ accept 587 |npc Deeg |at 1434 26.9,77.3 |value low |lvl 37 |preany 597  -- Up to
 complete 604 |at 1434 27.2,82.7 |areas 27.2,82.7:19;24.4,54.1:6 |mobs Bloodsail Swashbuckler  -- The Bloodsail Buccaneers (43)
 accept 576 |npc Dizzy One-Eye |at 1434 28.6,75.9 |lvl 37 |preany 597  -- Keep An Eye Out (42)
 complete 609 |at 1434 34.9,51.8 |mobs Maury "Club Foot" Wilkins@Maury's Clubbed Foot;Jon-Jon the Crow@Jon-Jon's Golden Spyglass;Chucky "Ten Thumbs"@Chucky's Huge Ring  -- Voodoo Dues (44)
-complete 617 |at 1434 26.2,62.4 |areas 23.9,26.8:138;26.2,62.4:27 |mobs Brinescale Skirmisher@Akiris Reed;Naga Explorer@Akiris Reed  -- Akiris by the Bundle (43)
+complete 617 |at 1434 26.2,62.4 |mobs Naga Explorer@Akiris Reed  -- Akiris by the Bundle (43)
 complete 587 |at 1434 27.9,69.9 |areas 30.7,89.5:64;27.9,69.9:17;23.9,53.8:13 |mobs Bloodsail Sea Dog@Snuff;Bloodsail Elder Magus@Snuff;Bloodsail Warlock@Snuff;Bloodsail Swashbuckler@Snuff |value low  -- Up to Snuff (41)
 complete 576 |at 1434 27.9,69.9 |areas 30.0,88.0:63;27.9,69.9:16;23.9,53.8:13 |mobs Bloodsail Sea Dog@Dizzy's Eye;Bloodsail Elder Magus@Dizzy's Eye;Bloodsail Warlock@Dizzy's Eye;Bloodsail Swashbuckler@Dizzy's Eye  -- Keep An Eye Out (42)
 accept 97332 |npc Wharfmaster Lozgil |at 1434 26.4,73.6 |lvl 36 |pre 97328,97331  -- Twice Misplaced Trust (41)

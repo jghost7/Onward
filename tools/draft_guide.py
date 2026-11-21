@@ -1259,6 +1259,9 @@ def group_away(zone, Q, steps, lo, hi):
     return seq
 
 
+DEFER_BLOCK = 6       # steps that may follow an other-zone step to the end of the guide with it
+
+
 def defer_away(zone, Q, steps, lo, hi):
     """Steps in another zone that nothing later depends on go to the end of the guide: you leave
     the zone for them once, when you're done here, instead of in the middle. A step stays where
@@ -1281,6 +1284,30 @@ def defer_away(zone, Q, steps, lo, hi):
             continue
         # a placeless step right after it (an objective nobody can place) belongs to the trip
         cand_body, moved = body[:k] + body[k + 1:], [body[k]]
+        if hard(cand_body + moved + tail) <= base:
+            body, tail = cand_body, moved + tail
+            continue
+        # It can't go alone: the rest of its quest, or a follow-up, comes later in this zone
+        # ("Screecher Spirits": taken and handed in at Steamwheedle Port, done in Feralas, and it
+        # sat in the middle of Tanaris). Then the trip goes to the end with what hangs on it,
+        # when that is only a few steps; a long chain through this zone stays where it is.
+        gone = {body[k][1]["id"]} if body[k][0] != "accept" else set()
+        whole = {body[k][1]["id"]} if body[k][0] == "accept" else set()
+        grew = True
+        while grew:
+            grew = False
+            for v, q in body[k + 1:]:
+                pre = set(q["preAll"] or ()) | set(q["preAny"] or ())
+                if q["id"] not in whole and pre & (gone | whole):
+                    whole.add(q["id"])
+                    grew = True
+        block = [j for j in range(k, len(body))
+                 if j == k or body[j][1]["id"] in whole or (body[j][1]["id"] in gone and j > k)]
+        if len(block) - 1 > DEFER_BLOCK:
+            continue
+        pick = set(block)
+        cand_body = [s for j, s in enumerate(body) if j not in pick]
+        moved = [body[j] for j in block]
         if hard(cand_body + moved + tail) <= base:
             body, tail = cand_body, moved + tail
     # one tour through the tail
