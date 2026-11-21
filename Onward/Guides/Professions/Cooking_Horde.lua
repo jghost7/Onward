@@ -12,8 +12,9 @@ craft 2541 115 |name Coyote Steak |n 39 |mats 2673:1 |from 90
 craft 2544 138 |name Crab Cake |n 34 |mats 2674:1;2678:1 |from 115
 train 185 225 |level 20 |book 16072
 craft 15853 191 |name Lean Wolf Steak |n 69 |mats 1015:1;2678:1 |recipe 12227 |from 138
+craft 20916 225 |name Mithril Headed Trout |n 41 |mats 8365:1 |recipe 17062 |from 191
 train 185 300 |level 35 |quest 6610
-craft 20916 236 |name Mithril Headed Trout |n 54 |mats 8365:1 |recipe 17062 |from 191
+craft 20916 236 |name Mithril Headed Trout |n 14 |mats 8365:1 |recipe 17062 |from 225
 craft 18238 281 |name Spotted Yellowtail |n 50 |mats 4603:1 |recipe 13939 |from 236
 craft 18244 300 |name Poached Sunscale Salmon |n 21 |mats 13760:1 |recipe 13946 |from 281
 ]],

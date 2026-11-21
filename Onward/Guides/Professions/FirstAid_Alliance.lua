@@ -13,8 +13,9 @@ train 129 225 |level 20 |book 16084
 craft 3278 172 |name Heavy Wool Bandage |n 93 |mats 2592:2 |from 135
 craft 7928 197 |name Silk Bandage |n 63 |mats 4306:1 |from 172
 craft 7929 210 |name Heavy Silk Bandage |n 22 |mats 4306:2 |recipe 16112 |from 197
+craft 10840 225 |name Mageweave Bandage |n 29 |mats 4338:1 |recipe 16113 |from 210
 train 129 300 |level 35 |quest 6624
-craft 10840 257 |name Mageweave Bandage |n 90 |mats 4338:1 |recipe 16113 |from 210
+craft 10840 257 |name Mageweave Bandage |n 62 |mats 4338:1 |recipe 16113 |from 225
 craft 10841 260 |name Heavy Mageweave Bandage |n 5 |mats 4338:2 |from 257
 craft 18629 275 |name Runecloth Bandage |n 18 |mats 14047:1 |from 260
 craft 1244436 300 |name Major Healing Potion |n 27 |mats 8925:1;3713:3;13464:1 |recipe 255729 |from 275

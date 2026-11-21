@@ -381,6 +381,19 @@ def gather_steps(nodes, table, skill, zone_names, faction="A"):
 def render_craft(skill, route, faction, db):
     lines = [f"train {skill} 75"]
     trained = 75
+    # The Artisan quest of a secondary profession (Triage, Clamlette Surprise) isn't on offer
+    # until your skill is 225, the Expert cap itself: a run that crosses 225 is cut there, so
+    # the quest step comes at 225 and not at whatever skill the run happened to start from.
+    if skill in EXPERT_BOOK and artisan_quests(db).get((skill, faction)):
+        cut = []
+        for seg in route:
+            if seg["from"] < 225 < seg["to"]:
+                part = (225 - seg["from"]) / (seg["to"] - seg["from"])
+                cut.append(dict(seg, to=225, crafts=seg["crafts"] * part))
+                cut.append(dict(seg, **{"from": 225, "crafts": seg["crafts"] * (1 - part)}))
+            else:
+                cut.append(seg)
+        route = cut
     for seg in route:
         rec = seg["rec"]
         # learn the next rank before a run that would pass the current cap

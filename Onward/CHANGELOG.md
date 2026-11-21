@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+- First Aid: the guide sent you to the Triage quest at 210 skill, but the quest isn't on offer
+  until 225. It now takes you to 225 first, then to the quest. Horde Cooking had the same
+  mistake before its Artisan quest and is fixed too.
+
 ## 0.6.36
 
 - Rogues: a Lockpicking 1-300 guide on the Professions tab. It takes you from the practice boxes
