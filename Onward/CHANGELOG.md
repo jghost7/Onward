@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.6.39
 
 - A quest you take and hand in here but do in another zone no longer sits in the middle of the
   guide. "Screecher Spirits" sent you from Tanaris to Feralas partway through; the trip now
