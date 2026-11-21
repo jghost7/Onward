@@ -119,6 +119,9 @@ function UI.StepText(step)
         if step.obj then
             local o = QS:Objective(step.quest, step.obj)
             if o and o.text then return t .. ": " .. o.text end
+        elseif step.objName then
+            local o = QS:ObjectiveByName(step.quest, step.objName)
+            return t .. ": " .. ((o and o.text) or step.objName)
         end
         return t
     elseif v == "goto" then return step.note or ("Go to %.1f, %.1f"):format(step.at.x, step.at.y)
@@ -1067,9 +1070,15 @@ function UI:Render()
     setVerb(step)
     laterStripBtn:SetShown(step.verb == "complete" and step.quest ~= nil and not G:IsLater(step) and not W.db.collapsed)
     local text = UI.StepText(step)
-    -- a kill/loot step or turn-in for a quest you haven't picked up: send you to the quest giver
+    -- a kill/loot step or turn-in for a quest you haven't picked up, or a failed quest
     local pickup = G:IsMissing(step) and WP:Current() and WP:Current().step == step and WP:Current().pickup
-    if pickup then
+    if G:IsFailed(step) then
+        verbText:SetText("FAILED  ·  RE-ACCEPT")
+        text = questTitle(step.quest) .. "  |cffff7366(failed: abandon and pick up again)|r"
+    elseif G:IsUnfinishedTurnin(step) then
+        verbText:SetText("COMPLETE FIRST")
+        text = questTitle(step.quest)
+    elseif pickup then
         verbText:SetText("PICK UP FIRST")
         text = questTitle(step.quest)
     elseif G:IsMissing(step) then
@@ -1170,14 +1179,25 @@ function UI:Render()
             end
         end
     end
-    if step.verb == "complete" and step.quest then
+    local showObj = (step.verb == "complete" or G:IsUnfinishedTurnin(step)) and step.quest
+    local usedGroupRows = 0
+    if showObj then
         local e = W.db.showObjectives and QS:Get(step.quest)
+        local needle = step.objName and step.objName:lower()
+        local matchedAny = false
+        if needle and e and e.objectives then
+            for _, o in ipairs(e.objectives) do
+                if o.text and o.text:lower():find(needle, 1, true) then matchedAny = true break end
+            end
+        end
         for i, o in ipairs(e and e.objectives or {}) do
-            if not step.obj or step.obj == i then objective(o, step) end
+            local want = (not step.obj or step.obj == i)
+                and (not matchedAny or (o.text and o.text:lower():find(needle, 1, true)))
+            if want then objective(o, step) end
         end
         hints(step.quest, true, step)
         -- the other kill/loot quests worked in the same area: one row each, objectives on hover
-        local group = G:Group()
+        local group = step.verb == "complete" and G:Group() or {}
         if #group > 1 then
             alsoLabel:SetText(("ALSO HERE  ·  %d"):format(#group - 1))
             alsoLabel:Show()
@@ -1192,6 +1212,26 @@ function UI:Render()
                 r:Show()
                 place(r, 4, 16)
             end
+            usedGroupRows = #group - 1
+        end
+    else
+        -- grouped hub stop: co-located turn-ins and accepts at the same town/NPC
+        local hub = G:HubGroup()
+        if #hub > 1 then
+            alsoLabel:SetText(("AT THIS HUB  ·  %d"):format(#hub - 1))
+            alsoLabel:Show()
+            place(alsoLabel, 10, alsoLabel:GetStringHeight())
+            for i = 2, #hub do
+                local s = hub[i]
+                shownTogether[s] = true
+                local r = groupRow(i - 1)
+                r.step = s
+                r.name:SetText(UI.StepText(s))
+                r.count:SetText(s.npc or "")
+                r:Show()
+                place(r, 4, 16)
+            end
+            usedGroupRows = #hub - 1
         end
     end
     -- quests in your log whose mobs are on your way (G:Passing): listed whatever the step is
@@ -1201,10 +1241,9 @@ function UI:Render()
         label:SetText(("ON YOUR WAY  ·  %d"):format(#passing))
         label:Show()
         place(label, 10, label:GetStringHeight())
-        local used = math.max(0, #G:Group() - 1)
         for i, s in ipairs(passing) do
             shownTogether[s] = true
-            local r = groupRow(used + i)
+            local r = groupRow(usedGroupRows + i)
             r.step = s
             r.name:SetText(questTitle(s.quest))
             r.count:SetText(questProgress(s.quest))
@@ -1212,7 +1251,7 @@ function UI:Render()
             place(r, 4, 16)
         end
     end
-    if not (step.verb == "complete" and step.quest) then
+    if not showObj then
         if step.quest then hints(step.quest, false) end   -- your own note on accept / turn-in too
         if G.PROF_VERB[step.verb] and W.Prof then
             -- skill, crafts left, recipe to learn, mats against your bags, the game's best pick now

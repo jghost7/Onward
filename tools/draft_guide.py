@@ -95,21 +95,39 @@ class Zone:
         self._group = {}
         self.dungeon_maps = dungeon_maps()
         self.quests = {}
+        fixes = quest_fixes()
         for q in (qids if qids is not None else db.ids("Quest-")):
             if quest_zone(db, q) not in self.areas:
+                continue
+            if fixes.get(q, {}).get("drop"):
+                continue
+            if (db.quest(q, "questLevel") or 0) <= 0:        # promo / war-effort / unlevelled quests
                 continue
             races = db.quest(q, "requiredRaces")
             if races and not (races & self.bit):
                 continue
             flags = db.quest(q, "specialFlags") or 0
-            if flags & 3:                                   # repeatable or event-gated
+            if flags & 1:                                   # repeatable (bit 2 is exploration/escort: keep!)
                 continue
             if db.quest(q, "requiredSkill"):                # profession quests
                 continue
             if not all(self.who(q)):                        # no race/class of this faction can get it
                 continue
             self.quests[q] = self.describe(q)
+        self.drop_away_breadcrumbs()
         self.drop_exclusive()
+        self.prune_prereqs()
+
+    # ------------------------------------------------------------ prerequisites (with fixes)
+    def pre_all(self, q):
+        raw = [p for p in lua_list(self.db.quest(q, "preQuestGroup")) if p]
+        extra = quest_fixes().get(q, {}).get("preAll", [])
+        return list(dict.fromkeys(raw + extra))
+
+    def pre_any(self, q):
+        raw = [p for p in lua_list(self.db.quest(q, "preQuestSingle")) if p]
+        extra = quest_fixes().get(q, {}).get("preAny", [])
+        return list(dict.fromkeys(raw + extra))
 
     # ------------------------------------------------------------ who can do it
     def own_who(self, q):
@@ -133,13 +151,13 @@ class Zone:
             return self.bit, ALL_CLASSES                        # loop, or a prerequisite we can't see
         races, classes = self.own_who(q)
         stack = _stack + (q,)
-        for p in lua_list(self.db.quest(q, "preQuestGroup")):
+        for p in self.pre_all(q):
             if p:
                 r, c = self.who(p, stack)
                 races, classes = races & r, classes & c
         any_r = any_c = 0
         # a breadcrumb is a shortcut to the quest, not a requirement: it never narrows
-        singles = [p for p in lua_list(self.db.quest(q, "preQuestSingle"))
+        singles = [p for p in self.pre_any(q)
                    if p and self.db.quest(p, "breadcrumbForQuestId") != q]
         for p in singles:
             r, c = self.who(p, stack)
@@ -199,9 +217,9 @@ class Zone:
         kind = self.own_group(q)
         if not kind:
             stack = _stack + (q,)
-            pre = [self.group(p, stack) for p in lua_list(self.db.quest(q, "preQuestGroup")) if p]
-            singles = [p for p in lua_list(self.db.quest(q, "preQuestSingle"))
-                       if p and self.db.quest(p, "breadcrumbForQuestId") != q]
+            pre = [self.group(p, stack) for p in self.pre_all(q) if p]
+            singles = [p for p in self.pre_any(q)
+                       if p and self.db.quest(p, "breadcrumbForQuestId") != q and all(self.who(p))]
             one = [self.group(p, stack) for p in singles]
             if any(pre) or (one and all(one)):
                 kind = "chain"
@@ -516,14 +534,110 @@ class Zone:
                 out.append(f"{name}@{item}" if item and not any(c in item for c in ";|@") else name)
         return out[:limit]
 
+    def start_item_mobs(self, q):
+        """For quests started ONLY by an item dropped by mobs (not a clickable world object or NPC),
+        return (True, [mobNames]). Those are RNG drops, so the guide marks them |loose instead of
+        halting the linear route waiting for a drop."""
+        sb = self.db.quest(q, "startedBy") or {}
+        sb = sb if isinstance(sb, dict) else dict(enumerate(lua_list(sb), 1))
+        if lua_list(sb.get(1)) or lua_list(sb.get(2)):
+            return False, []
+        items = [i for i in lua_list(sb.get(3)) if i]
+        if not items:
+            return False, []
+        item = items[0]
+        npcs = [n for n in lua_list(self.db.field("Item-", item, 2)) if n]
+        objs = [o for o in lua_list(self.db.field("Item-", item, 3)) if o]
+        if not npcs or objs:
+            return False, []
+        ranked = []
+        for n in npcs:
+            k = len(self.zone_points(self.db.npc(n, "spawns")))
+            name = s(self.db.npc(n, "name"))
+            if name and not any(c in name for c in ";|@"):
+                ranked.append((-k, name))
+        names = list(dict.fromkeys(nm for _, nm in sorted(ranked)))[:4]
+        return True, names
+
+    def split_objectives(self, q):
+        """When a quest has 2+ distinct objectives whose spawn medoids on this map sit far apart
+        (>= 20 map units), return [{name, obj, mobs, areas}, ...] so the route can visit each
+        objective when passing near it instead of collapsing them to one combined medoid."""
+        obj = self.db.quest(q, "objectives")
+        if not obj:
+            return []
+        groups = obj if isinstance(obj, dict) else dict(enumerate(lua_list(obj), 1))
+        source_item = self.db.quest(q, "sourceItemId")
+        parts = []
+        for e in lua_list(groups.get(1)):
+            n = lua_list(e)[0]
+            name = s(self.db.npc(n, "name"))
+            pts = self.zone_points(self.db.npc(n, "spawns"))
+            if name and pts and not any(c in name for c in ";|@"):
+                parts.append({"name": name, "pts": pts, "mobs": [name]})
+        for e in lua_list(groups.get(2)):
+            o = lua_list(e)[0]
+            name = s(self.db.obj(o, "name"))
+            pts = self.zone_points(self.db.obj(o, "spawns"))
+            if name and pts and not any(c in name for c in ";|@"):
+                parts.append({"name": name, "pts": pts, "mobs": []})
+        for e in lua_list(groups.get(3)):
+            item = lua_list(e)[0]
+            if not item or item == source_item:
+                continue
+            name = s(self.db.field("Item-", item, 1))
+            pts = self.item_points(item)
+            if name and pts and not any(c in name for c in ";|@"):
+                drops = []
+                for n in lua_list(self.db.field("Item-", item, 2)):
+                    k = len(self.zone_points(self.db.npc(n, "spawns")))
+                    nm = s(self.db.npc(n, "name"))
+                    if k and nm and not any(c in nm for c in ";|@"):
+                        drops.append((-k, f"{nm}@{name}"))
+                mobs = list(dict.fromkeys(m for _, m in sorted(drops)))[:4]
+                parts.append({"name": name, "pts": pts, "mobs": mobs})
+        # also split hand-looked-up multi-item spots (e.g., Sweetberry + Riverweed)
+        if not parts and q in quest_spots():
+            for e in quest_spots()[q]:
+                if e.get("map") == self.map and e.get("what"):
+                    pts = [tuple(map(float, xy.split(","))) for xy in e["points"].split()]
+                    if pts and not any(c in e["what"] for c in ";|@"):
+                        parts.append({"name": e["what"], "pts": pts, "mobs": []})
+        if len(parts) < 2 or len(parts) > 4:
+            return []
+        # require unique names and at least two objectives far apart (>= 20 map units)
+        names = [p["name"] for p in parts]
+        if len(set(names)) != len(names):
+            return []
+        meds = [medoid(p["pts"]) for p in parts]
+        if max(dist(a, b) for i, a in enumerate(meds) for b in meds[i + 1:]) < 20.0:
+            return []
+        return [{"name": p["name"], "obj": med, "mobs": p["mobs"], "areas": areas_of(p["pts"])}
+                for p, med in zip(parts, meds)]
+
     def describe(self, q):
         db = self.db
         start, item = self.starter(q)
+        fin = self.finisher(q)
         pts = self.objective_points(q)
         texts = [s(t) for t in lua_list(db.quest(q, "objectivesText"))]
         races, classes = self.who(q)
         obj, guess, mobs = (medoid(pts) if pts else None), None, self.mob_names(q)
         has_obj = bool(db.quest(q, "objectives") or db.quest(q, "triggerEnd"))
+        if not has_obj and texts:
+            # QuestieDB leaves objectives empty on many Forever custom quests and scripted quests.
+            # If the quest starts and finishes at the same NPC/spot, or its objective text describes
+            # real work rather than a pure talk/delivery errand, keep a complete step (a genuinely
+            # instant-complete quest ticks in 0ms in-game via QS:IsReady, whereas omitting complete
+            # causes Guide.lua to skip past the quest and forget it).
+            text_all = " ".join(t for t in texts if t).strip()
+            same_npc = bool(start and fin and start[2] and start[2] == fin[2])
+            if same_npc:
+                has_obj = True
+            elif text_all and WORK_RE.search(text_all):
+                has_obj = True
+            elif text_all and not DELIVERY_RE.search(text_all):
+                has_obj = True
         far_spot = spot_note = None
         if obj is None and has_obj and q in quest_spots():
             # looked up by hand (tools/quest_spots.json): spots on this map, else the map with most
@@ -547,18 +661,23 @@ class Zone:
                 spot = self.text_place(q, text)
                 if spot:
                     obj, guess = spot, "place"
+        is_drop_start, drop_mobs = self.start_item_mobs(q)
+        excl = list(dict.fromkeys([p for p in lua_list(db.quest(q, "exclusiveTo")) if p]
+                                  + quest_fixes().get(q, {}).get("exclusive", [])))
         return {
             "classes": bits_to_tokens(classes, CLASS_BITS) if classes != ALL_CLASSES else [],
             # only worth a filter when narrower than the whole faction (e.g. dwarf+gnome start zone)
             "races": bits_to_tokens(races, RACE_BITS) if races != self.bit else [],
             "id": q, "name": s(db.quest(q, "name")) or f"quest {q}",
             "level": db.quest(q, "questLevel") or 0, "minLevel": db.quest(q, "requiredLevel") or 0,
-            "start": start, "startItem": item, "startItemId": self.start_item(q), "finish": self.finisher(q),
-            "obj": obj, "objGuess": guess, "objFar": None if obj else (far_spot or self.far_objective(q)), "hasObjectives": has_obj,
+            "start": start, "startItem": item, "startItemId": self.start_item(q),
+            "startIsDrop": is_drop_start, "startMobs": drop_mobs, "finish": fin,
+            "obj": obj, "objGuess": guess, "objFar": None if obj else (far_spot or self.far_objective(q)),
+            "hasObjectives": has_obj, "subObjs": self.split_objectives(q) if has_obj else [],
             "areas": areas_of(pts) if pts else [],
-            "preAny": [p for p in lua_list(db.quest(q, "preQuestSingle")) if p] + quest_fixes().get(q, {}).get("preAny", []),
-            "preAll": [p for p in lua_list(db.quest(q, "preQuestGroup")) if p] + quest_fixes().get(q, {}).get("preAll", []),
-            "exclusive": [p for p in lua_list(db.quest(q, "exclusiveTo")) if p],
+            "preAny": self.pre_any(q),
+            "preAll": self.pre_all(q),
+            "exclusive": excl,
             "breadcrumbFor": db.quest(q, "breadcrumbForQuestId"),
             "text": texts[0] if texts else "",
             "mobs": mobs, "objNote": spot_note,
@@ -567,13 +686,73 @@ class Zone:
             "group": self.group(q),
         }
 
+    def drop_away_breadcrumbs(self):
+        """Drop entry breadcrumbs that start in another zone (e.g. a Thunder Bluff breadcrumb back
+        to Crossroads): a player already in this zone should never leave the zone just to fetch a
+        breadcrumb back into it."""
+        for q in list(self.quests):
+            info = self.quests[q]
+            if info["breadcrumbFor"] and info["start"] and info["start"][0] != self.map:
+                del self.quests[q]
+
     def drop_exclusive(self):
-        # keep the lower id of each mutually exclusive set (deterministic; review by hand)
+        """Resolve mutually exclusive quests cleanly (preferring real quests over breadcrumbs,
+        in-zone starters over out-of-zone starters, then lower ID) and cascade-drop any quest whose
+        required prerequisites were dropped (including via quest_fixes.json)."""
+        dropped = {q for q, f in quest_fixes().items() if f.get("drop")}
+
+        def rank(qid):
+            info = self.quests[qid]
+            return (1 if info["breadcrumbFor"] else 0,
+                    0 if (info["start"] and info["start"][0] == self.map) else 1,
+                    qid)
+
         for q in sorted(self.quests):
-            if q in self.quests:
-                for x in self.quests[q]["exclusive"]:
-                    if x in self.quests and x > q:
-                        del self.quests[x]
+            if q not in self.quests:
+                continue
+            for x in list(self.quests[q]["exclusive"]):
+                if x in self.quests and x != q:
+                    loser = x if rank(q) <= rank(x) else q
+                    del self.quests[loser]
+                    dropped.add(loser)
+                    if loser == q:
+                        break
+        # cascade-drop quests whose prerequisites are now unreachable because of dropped choices
+        changed = True
+        while changed:
+            changed = False
+            for q in list(self.quests):
+                info = self.quests[q]
+                if any(p in dropped for p in info["preAll"]):
+                    del self.quests[q]
+                    dropped.add(q)
+                    changed = True
+                    continue
+                singles = [p for p in info["preAny"]
+                           if self.db.quest(p, "breadcrumbForQuestId") != q and all(self.who(p))]
+                if singles and all(p in dropped for p in singles):
+                    del self.quests[q]
+                    dropped.add(q)
+                    changed = True
+
+    def prune_prereqs(self):
+        """Keep only faction-eligible prerequisites on each quest so opposite-faction IDs never
+        leak into |preany tags or confuse route ordering."""
+        for info in self.quests.values():
+            q = info["id"]
+            info["preAny"] = [p for p in info["preAny"]
+                              if self.db.quest(p, "breadcrumbForQuestId") != q and all(self.who(p))]
+            info["preAll"] = [p for p in info["preAll"] if all(self.who(p))]
+
+
+DELIVERY_RE = re.compile(
+    r"(^(speak|talk|report|return|deliver|take|bring|give|find|meet|visit|travel|go\s+to|head\s+to|"
+    r"fly\s+to|ride\s+to|check\s+in|seek\s+out|inform|tell|show|hand)\b"
+    r"|wants\s+you\s+to\s+(speak|talk|report|return|deliver|take|bring|give|find|meet|visit|travel|go|head|inform|tell|show)\b)", re.I)
+WORK_RE = re.compile(
+    r"\b(kill|slay|collect|gather|loot|rescue|escort|protect|defeat|destroy|absorb|burn|free|"
+    r"defend|survive|test|obtain|recover|steal|retrieve|clear|hunt|capture|disarm|plant|place|"
+    r"activate|slain|help\s+\w+\s+test|bring\s+the\s+lost)\b", re.I)
 
 
 _ZONE_MOBS = {}
@@ -707,17 +886,33 @@ def route(zone, quests=None, presplit=False):
     if not presplit:
         Q, outliers = split_outliers(Q)
     done, ready, log = set(), set(), set()
+    # per-quest remaining sub-objectives (for multi-location split quests)
+    sub_rem = {}
+    for i, q in Q.items():
+        if q.get("subObjs"):
+            sub_rem[i] = [{**q, "obj": sub["obj"], "objName": sub["name"], "mobs": sub["mobs"], "areas": sub["areas"]}
+                          for sub in q["subObjs"]]
+    # in-zone breadcrumbs leading to quest T must be accepted before T (accepting T locks them out)
+    bc_for = {}
+    for i, q in Q.items():
+        t = q.get("breadcrumbFor")
+        if t and t in Q and t != i:
+            bc_for.setdefault(t, []).append(i)
     steps = []
     levels = sorted(q["level"] for q in Q.values())
     lo = levels[len(levels) // 10] if levels else 1
     hi = levels[-1] if levels else 60
 
     def available(q):
-        if q["id"] in done or q["id"] in log:
+        i = q["id"]
+        if i in done or i in log:
             return False
         if q["preAll"] and not all(p in done or p not in Q for p in q["preAll"]):
             return False
-        if q["preAny"] and not any(p in done or p not in Q for p in q["preAny"]):
+        local_pre = [p for p in q["preAny"] if p in Q]
+        if local_pre and not any(p in done for p in local_pre):
+            return False
+        if i in bc_for and not all(b in done or b in log for b in bc_for[i]):
             return False
         return True
 
@@ -736,31 +931,45 @@ def route(zone, quests=None, presplit=False):
     def sim_level():
         return lo - 1 + (hi - lo + 2) * len(done) / max(1, len(Q))
 
+    def cand_xy(verb, q):
+        return {"turnin": xy(q["finish"]), "complete": q["obj"], "accept": xy(q["start"])}[verb]
+
     while len(done) < len(Q):
         # a quest with several camps is worked at the one nearest to where the route is now
         for q in Q.values():
-            if q.get("areas") and q["id"] in log and q["id"] not in ready:
+            if q.get("areas") and q["id"] in log and q["id"] not in ready and not q.get("subObjs"):
                 q["obj"] = min((a for a, _ in q["areas"]), key=lambda a: dist(pos, a))
+        for subs in sub_rem.values():
+            for sq in subs:
+                if sq.get("areas"):
+                    sq["obj"] = min((a for a, _ in sq["areas"]), key=lambda a: dist(pos, a))
+        slvl = sim_level()
         cands = []
         for q in Q.values():
             i = q["id"]
             if i in ready:
                 cands.append((dist(pos, xy(q["finish"])) * 0.7, "turnin", q))
             elif i in log:
-                cands.append((dist(pos, q["obj"]), "complete", q))
-            elif available(q) and len(log) < LOG_SIZE and (q["minLevel"] or 0) <= max(gate, sim_level() + 1):
-                cands.append((dist(pos, xy(q["start"])) * 0.8, "accept", q))
+                lvl_pen = max(0.0, q["level"] - (slvl + 1.5)) * 12.0
+                if i in sub_rem:
+                    for sq in sub_rem[i]:
+                        cands.append((dist(pos, sq["obj"]) + lvl_pen, "complete", sq))
+                else:
+                    cands.append((dist(pos, q["obj"]) + lvl_pen, "complete", q))
+            elif available(q) and len(log) < LOG_SIZE and (q["minLevel"] or 0) <= max(gate, slvl + 1) and q["level"] <= max(gate + 3, slvl + 4):
+                lvl_pen = max(0.0, q["level"] - (slvl + 1.5)) * 10.0
+                cands.append((dist(pos, xy(q["start"])) * 0.8 + lvl_pen, "accept", q))
         if not cands:
-            if gate < hi + 5:
+            if gate < hi + 10:
                 gate += 1
                 continue
             break
         cost, verb, q = min(cands, key=lambda c: c[0])
-        here = {"turnin": xy(q["finish"]), "complete": q["obj"], "accept": xy(q["start"])}[verb] or pos
+        here = cand_xy(verb, q) or pos
         # bundle: everything doable at this spot, turn-ins first, then accepts, then objectives
-        bundle = [c for c in cands if c[2] is q or (dist(here, {"turnin": xy(c[2]["finish"]), "complete": c[2]["obj"], "accept": xy(c[2]["start"])}[c[1]]) < NEAR)]
+        bundle = [c for c in cands if c[2] is q or (dist(here, cand_xy(c[1], c[2])) < NEAR)]
         order = {"turnin": 0, "accept": 1, "complete": 2}
-        for _, v, b in sorted(bundle, key=lambda c: (order[c[1]], c[2]["id"])):
+        for _, v, b in sorted(bundle, key=lambda c: (order[c[1]], c[2]["level"], c[2]["id"], c[2].get("objName") or "")):
             i = b["id"]
             if v == "turnin" and i in ready:
                 ready.discard(i); log.discard(i); done.add(i)
@@ -771,8 +980,15 @@ def route(zone, quests=None, presplit=False):
                 if not b["hasObjectives"]:      # talk-to / delivery quests are ready on accept
                     ready.add(i)
             elif v == "complete" and i in log and i not in ready:
-                ready.add(i)
-                steps.append(("complete", b))
+                if i in sub_rem:
+                    if b in sub_rem[i]:
+                        sub_rem[i].remove(b)
+                        steps.append(("complete", b))
+                        if not sub_rem[i]:
+                            ready.add(i)
+                else:
+                    ready.add(i)
+                    steps.append(("complete", b))
         pos = here
     leftovers = [q for q in Q.values() if q["id"] not in done] + outliers
     if optimize_route:
@@ -799,6 +1015,10 @@ def refine_areas(zone, steps):
 
 
 # ---------------------------------------------------------------- route quality + optimizer
+def step_key(verb, q):
+    return (verb, q["id"], q.get("objName"))
+
+
 def step_xy(zone, verb, q):
     loc = {"accept": q["start"], "turnin": q["finish"]}.get(verb)
     if verb == "complete":
@@ -822,43 +1042,86 @@ def stats(zone, steps):
     return travel, trips_back
 
 
-def violations(Q, seq, lo, hi, loose=()):
-    """Rules a route must keep. Hard (HARD each, never traded away): accept -> objectives ->
-    turn-in per quest, prerequisites turned in first. Soft (1 each): at most LOG_SIZE quests
-    held, and no quest picked up far above the level the player has reached (simulated from the
-    share of quests handed in). The optimizer keeps a route only when its total is no worse than
-    the greedy route's, so with equal weights it used to buy off a level-gate miss with a turn-in
-    placed before its accept."""
+HARD = 10000
+LOG_HARD = 1000
+
+
+def rule_meta(Q):
+    """Precompute prerequisite/breadcrumb/split-objective tables once per route optimization."""
+    pre_all = {}
+    pre_any = {}
+    bc_for = {}
+    sub_need = {}
+    for i, q in Q.items():
+        pa = tuple(p for p in q["preAll"] if p in Q)
+        if pa:
+            pre_all[i] = pa
+        py = tuple(p for p in q["preAny"] if p in Q)
+        if py:
+            pre_any[i] = py
+        t = q.get("breadcrumbFor")
+        if t and t in Q and t != i:
+            bc_for.setdefault(t, []).append(i)
+        if q.get("subObjs"):
+            sub_need[i] = len(q["subObjs"])
+    return pre_all, pre_any, bc_for, sub_need, max(1, len(Q))
+
+
+def violations(Q, seq, lo, hi, loose=(), meta=None, max_bad=None):
+    """Rules a route must keep.
+    - HARD (10000): accept -> all objectives -> turn-in per quest, prerequisites turned in first
+      (both preAll and local preAny), in-zone breadcrumbs accepted before their target quest.
+    - LOG_HARD (1000): at most LOG_SIZE (20) quests held in the log at once.
+    - Soft (1+): minLevel and questLevel progression against simulated player level."""
+    pre_all, pre_any, bc_for, sub_need, n_q = meta or rule_meta(Q)
     accepted, ready, done = set(), set(), set()
+    sub_done = {}
+    span = (hi - lo + 2) / n_q
+    base_lvl = lo - 1
     bad = 0
     for v, q in seq:
         i = q["id"]
         if v == "accept":
-            if q["preAll"] and not all(p in done or p not in Q for p in q["preAll"]):
+            pa = pre_all.get(i)
+            if pa and not all(p in done for p in pa):
                 bad += HARD
-            if q["preAny"] and not any(p in done or p not in Q for p in q["preAny"]):
+            py = pre_any.get(i)
+            if py and not any(p in done for p in py):
+                bad += HARD
+            bc = bc_for.get(i)
+            if bc and not all(b in accepted for b in bc):
                 bad += HARD
             if len(accepted) - len(done) >= LOG_SIZE:
+                bad += LOG_HARD
+            slvl = base_lvl + span * len(done)
+            if (q["minLevel"] or 0) > slvl + 1:
                 bad += 1
-            # the game's real gate is the quest's minimum level; the player's level is simulated
-            # from progress through the zone (arrive ~1 below its range, leave at the top)
-            if (q["minLevel"] or 0) > lo - 1 + (hi - lo + 2) * len(done) / max(1, len(Q)) + 1:
-                bad += 1
+            if q["level"] > slvl + 3.5:
+                bad += max(1, int(q["level"] - slvl - 2.5))
             accepted.add(i)
             if not q["hasObjectives"] or i in loose:     # loose: its complete step is put back later
                 ready.add(i)
         elif v == "complete":
             if i not in accepted:
                 bad += HARD
-            ready.add(i)
+            slvl = base_lvl + span * len(done)
+            if q["level"] > slvl + 3.5:
+                bad += max(1, int(q["level"] - slvl - 2.5))
+            need_n = sub_need.get(i)
+            if need_n:
+                c = sub_done.get(i, 0) + 1
+                sub_done[i] = c
+                if c >= need_n:
+                    ready.add(i)
+            else:
+                ready.add(i)
         else:
             if i not in ready:
                 bad += HARD
             done.add(i)
+        if max_bad is not None and bad > max_bad:
+            return bad
     return bad
-
-
-HARD = 1000
 
 
 REGION_R = 7.0        # map units: steps this close to a region's centre are "the same area"
@@ -890,13 +1153,13 @@ def away_xy(zone, loc):
 
 
 def fixed_positions(zone, seq):
-    """{(verb, id): (x, y)} per step; steps in another zone sit where that zone really is
+    """{(verb, id, objName): (x, y)} per step; steps in another zone sit where that zone really is
     (away_xy); steps without coordinates borrow the step before them."""
     pos, last = {}, None
     for v, q in seq:
         loc = step_loc(zone, v, q)
         p = step_xy(zone, v, q) or (away_xy(zone, loc) if loc and loc[0] != zone.map else None) or last
-        pos[(v, q["id"])] = p
+        pos[step_key(v, q)] = p
         last = p
     first = next((p for p in pos.values() if p), (50.0, 50.0))
     return {k: p or first for k, p in pos.items()}
@@ -922,7 +1185,7 @@ def area_changes(zone, steps):
     reg = regions(pos)
     seen, prev, back = set(), None, 0
     for v, q in steps:
-        r = reg[(v, q["id"])]
+        r = reg[step_key(v, q)]
         if r != prev:
             back += r in seen
             seen.add(r)
@@ -938,16 +1201,17 @@ def optimize(zone, Q, steps, lo, hi):
         return seq
     # objectives nobody can place ride along with their turn-in: "finish it, then hand it in"
     # (pinned to whatever came before them, they used to drag whole areas around)
-    loose = {q["id"] for v, q in seq if v == "complete" and not step_loc(zone, v, q)}
+    loose = {q["id"] for v, q in seq if v == "complete" and not q.get("objName") and not step_loc(zone, v, q)}
     turned = {q["id"] for v, q in seq if v == "turnin"}
     loose &= turned
     seq = [(v, q) for v, q in seq if not (v == "complete" and q["id"] in loose)]
     if len(seq) < 6:
         return reattach(steps, seq, loose)
-    base_bad = violations(Q, seq, lo, hi, loose)
+    meta = rule_meta(Q)
+    base_bad = violations(Q, seq, lo, hi, loose, meta=meta)
     pos = fixed_positions(zone, seq)
     reg = regions(pos)
-    runs = [anneal(Q, seq, lo, hi, base_bad, pos, reg, seed=k, loose=loose) for k in range(4)]
+    runs = [anneal(Q, seq, lo, hi, base_bad, pos, reg, seed=k, loose=loose, meta=meta) for k in range(4)]
     return reattach(steps, min(runs, key=lambda s: route_cost(s, pos, reg)), loose)
 
 
@@ -965,20 +1229,21 @@ def reattach(steps, seq, loose):
 
 
 def route_cost(s, pos, reg):
-    keys = [(v, q["id"]) for v, q in s]
+    keys = [step_key(v, q) for v, q in s]
     return sum(dist(pos[a], pos[b]) + (SWITCH if reg[a] != reg[b] else 0) for a, b in zip(keys, keys[1:]))
 
 
-def anneal(Q, seq, lo, hi, base_bad, pos, reg, iters=None, seed=1, loose=()):
+def anneal(Q, seq, lo, hi, base_bad, pos, reg, iters=None, seed=1, loose=(), meta=None):
     """Lift a run of 1-30 steps and drop it anywhere else. Early on it accepts a slightly worse
     route so whole area visits can be regrouped later. Rule checks run only on moves it would
     accept. Keeps the best route."""
     import random
     rng = random.Random(seed)
+    meta = meta or rule_meta(Q)
     n = len(seq)
     iters = iters or min(1_500_000, 7500 * n)
     cur = list(seq)
-    K = lambda s, k: (s[k][0], s[k][1]["id"])
+    K = lambda s, k: step_key(s[k][0], s[k][1])
 
     def leg(a, b):
         return dist(pos[a], pos[b]) + (SWITCH if reg[a] != reg[b] else 0)
@@ -1004,7 +1269,7 @@ def anneal(Q, seq, lo, hi, base_bad, pos, reg, iters=None, seed=1, loose=()):
         delta = add - gain
         if delta < 0 or rng.random() < math.exp(-delta / T):
             cand = rest[:j] + cur[i:i + L] + rest[j:]
-            if violations(Q, cand, lo, hi, loose) <= base_bad:
+            if violations(Q, cand, lo, hi, loose, meta=meta, max_bad=base_bad) <= base_bad:
                 cur, cur_cost = cand, cur_cost + delta
                 if cur_cost < best_cost - 1e-9:
                     best, best_cost = list(cur), cur_cost
@@ -1272,9 +1537,8 @@ def defer_away(zone, Q, steps, lo, hi):
         return bool(loc and loc[0] != zone.map)
 
     seq = list(steps)
-    # hard rules only: handing a far quest in later holds it longer, which the soft rules (log
-    # size, simulated level) would count against the move
-    hard = lambda s: violations(Q, s, lo, hi) // HARD
+    # enforce both hard quest/prereq ordering AND the 20-quest log limit (soft level gates may shift)
+    hard = lambda s: violations(Q, s, lo, hi) // LOG_HARD
     base = hard(seq)
     # the tail that is already there: everything after the last step in this zone
     last_home = max((k for k, s in enumerate(seq) if not away(s) and step_loc(zone, *s)), default=len(seq) - 1)
@@ -1366,9 +1630,8 @@ def loose_note(zone, q):
 
 def gate_tags(zone, q):
     """What the game asks before it offers the quest, for the accept step: |lvl <minimum level>,
-    |pre a,b (all turned in) and |preany a,b (one of them). The addon holds the step back until
-    they're met instead of pointing at a quest giver with nothing to offer. A breadcrumb leads to
-    a quest without being needed for it, so it is left out."""
+    |pre a,b (all turned in), |preany a,b (one of them), and |exclusive a,b (taking or finishing
+    any of these locks this quest out, e.g. a breadcrumb's target quest)."""
     out = ""
     if (q.get("minLevel") or 0) > 1:
         out += f" |lvl {q['minLevel']}"
@@ -1377,6 +1640,14 @@ def gate_tags(zone, q):
     any_ = [p for p in q.get("preAny") or [] if zone.db.quest(p, "breadcrumbForQuestId") != q["id"]]
     if any_:
         out += " |preany " + ",".join(str(p) for p in any_)
+    excl = []
+    if q.get("breadcrumbFor"):
+        excl.append(q["breadcrumbFor"])
+    for x in q.get("exclusive") or []:
+        if x not in excl and all(zone.who(x)):
+            excl.append(x)
+    if excl:
+        out += " |exclusive " + ",".join(str(x) for x in excl)
     return out
 
 
@@ -1417,6 +1688,7 @@ def render(zone, steps, leftovers, levels, name, faction, gid=None, next_id=None
     out.append("  steps = [[")
     entries = add_home(zone, add_flights(zone, steps, levels[0]))
     ftiers = flight_tiers(zone, entries, tiers)
+    emitted_picks = set()
     for idx, (verb, q) in enumerate(entries):
         if verb == "home":
             x, y = q["xy"]
@@ -1447,16 +1719,19 @@ def render(zone, steps, leftovers, levels, name, faction, gid=None, next_id=None
             loc = q["start"]
             npc = f" |npc {clean(loc[2])}" if loc and loc[2] else ""
             note = f" |note Starts from {clean(q['startItem'])}" if q["startItem"] else ""
-            # a quest that starts from an item names it; one with no place to send you (a drop
-            # nobody has placed, a giver the data has no spawn for) is |loose: the addon doesn't
-            # wait on it, and takes it from there once it's in your log or the item is in your bags
+            # Quests with no known spot OR started by a random mob drop (not a clickable world
+            # object) are |loose: the addon doesn't halt the linear route waiting for RNG, lists
+            # them in "to find here", and brings the step up immediately when the item drops.
             item = f" |startitem {q['startItemId']}" if q.get("startItemId") else ""
-            loose = "" if loc else " |loose"
-            if not loc:
+            is_loose = (not loc) or bool(q.get("startIsDrop"))
+            loose = " |loose" if is_loose else ""
+            mobs = f" |mobs {';'.join(q['startMobs'])}" if q.get("startMobs") else ""
+            if is_loose:
                 note = f" |note {clean(loose_note(zone, q))}"
-            out.append(f"accept {q['id']}{npc}{fmt_at(loc)}{note}{item}{loose}{who}{gate_tags(zone, q)}{title}")
+            out.append(f"accept {q['id']}{npc}{fmt_at(loc)}{mobs}{note}{item}{loose}{who}{gate_tags(zone, q)}{title}")
         elif verb == "complete":
             at = f" |at {zone.map} {q['obj'][0]:.1f},{q['obj'][1]:.1f}" if q["obj"] else fmt_at(q.get("objFar"))
+            obj_tag = f" |obj {clean(q['objName'])}" if q.get("objName") else ""
             mobs = f" |mobs {';'.join(q['mobs'])}" if q.get("mobs") else ""
             use = f" |item {q['useItem']}" if q.get("useItem") else ""
             # the separate camps it can be done at, with their spawn counts: the addon leads to the
@@ -1464,15 +1739,17 @@ def render(zone, steps, leftovers, levels, name, faction, gid=None, next_id=None
             areas = (" |areas " + ";".join(f"{x:.1f},{y:.1f}:{n}" for (x, y), n in q["areas"])) if q.get("areas") and q["obj"] else ""
             note = f" |note {clean(q['objNote'])}" if q.get("objNote") else ""
             # what you need in hand first: its own step, done when the item is in your bags
-            for item, iname, xy, srcs, from_mobs in q.get("picks") or []:
-                p_at = f" |at {zone.map} {xy[0]:.1f},{xy[1]:.1f}" if xy else ""
-                p_mobs = (" |mobs " + ";".join(f"{clean(n)}@{clean(iname)}" for n in srcs)) if from_mobs and srcs else ""
-                how = ("from " if from_mobs else "at ") + " or ".join(clean(n) for n in srcs) if srcs else ""
-                out.append(f"complete {q['id']}{p_at}{p_mobs} |pick {item} |note First get {clean(iname)} {how}{who}{title}")
+            if q["id"] not in emitted_picks:
+                emitted_picks.add(q["id"])
+                for item, iname, xy, srcs, from_mobs in q.get("picks") or []:
+                    p_at = f" |at {zone.map} {xy[0]:.1f},{xy[1]:.1f}" if xy else ""
+                    p_mobs = (" |mobs " + ";".join(f"{clean(n)}@{clean(iname)}" for n in srcs)) if from_mobs and srcs else ""
+                    how = ("from " if from_mobs else "at ") + " or ".join(clean(n) for n in srcs) if srcs else ""
+                    out.append(f"complete {q['id']}{p_at}{p_mobs} |pick {item} |note First get {clean(iname)} {how}{who}{title}")
             # items to bring: id:count:name:where, ';' between items
             strip = lambda v: clean(v).replace(":", " ").replace(";", ",")
             need = (" |need " + ";".join(f"{i}:{n}:{strip(nm)}:{strip(w)}" for i, n, nm, w in q["needs"])) if q.get("needs") else ""
-            out.append(f"complete {q['id']}{at}{areas}{use}{mobs}{note}{need}{who}{title}")
+            out.append(f"complete {q['id']}{obj_tag}{at}{areas}{use}{mobs}{note}{need}{who}{title}")
         else:
             loc = q["finish"]
             npc = f" |npc {clean(loc[2])}" if loc and loc[2] else ""

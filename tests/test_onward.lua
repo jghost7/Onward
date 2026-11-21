@@ -2043,6 +2043,161 @@ do  -- recommendations never reach above your level, even for a quest in your lo
     MOCK.turnIn(9841) MOCK.done[9841] = nil MOCK.fire("QUEST_REMOVED", 9841)
 end
 
+-- engine hardening tests: exclusive breadcrumbs, split |obj, unfinished turnin fallback,
+-- resume rebuild safety, monotonic cursor on level-up, ready turn-in before next guide,
+-- failed escort handling, hub grouping, and scoped auto-accept -----------------------------
+do
+    local G, WP = W.Guide, W.Waypoint
+    local oldGuide, oldLevel = W.cdb.guide, MOCK.level
+    local function at() local s = cur() return s and (s.verb .. " " .. tostring(s.quest or s.text)) or "end" end
+
+    -- 1. |exclusive breadcrumb auto-completes and blocks its own turnin when target is taken/done
+    W:RegisterGuide{ id = "excl", title = "Exclusive", levels = { 1, 60 }, steps = [[
+accept 9901 |exclusive 9902
+turnin 9901
+accept 9902
+complete 9902
+turnin 9902
+]] }
+    MOCK.addQuest(9902, "Real Quest") MOCK.fire("QUEST_LOG_UPDATE")
+    G:Activate("excl") settle()
+    check("exclusive: skips breadcrumb accept and turnin when target is already in log", at() == "complete 9902", at())
+    MOCK.turnIn(9902) MOCK.done[9902] = nil MOCK.fire("QUEST_REMOVED", 9902)
+
+    -- 2. |obj <name> splits multi-location objectives by name without index mismatch
+    W:RegisterGuide{ id = "splitobj", title = "Split Obj", levels = { 1, 60 }, steps = [[
+accept 9905
+complete 9905 |obj Riverweed |at 1423 50.0,50.0
+complete 9905 |obj Sweetberry |at 1423 80.0,30.0
+turnin 9905
+]] }
+    MOCK.addQuest(9905, "Herbs", {
+        { text = "Sweetberry: 0/8", finished = false, numFulfilled = 0, numRequired = 8 },
+        { text = "Riverweed: 0/6", finished = false, numFulfilled = 0, numRequired = 6 },
+    })
+    MOCK.fire("QUEST_LOG_UPDATE")
+    G:Activate("splitobj") settle()
+    check("split |obj: starts on Riverweed step", cur() and cur().objName == "Riverweed", cur() and cur().objName)
+    MOCK.log[9905].objectives[2].finished = true MOCK.log[9905].objectives[2].numFulfilled = 6
+    MOCK.fire("QUEST_LOG_UPDATE") settle()
+    check("split |obj: finishing Riverweed advances to Sweetberry", cur() and cur().objName == "Sweetberry", cur() and cur().objName)
+    MOCK.log[9905].objectives[1].finished = true MOCK.log[9905].objectives[1].numFulfilled = 8
+    MOCK.fire("QUEST_LOG_UPDATE") settle()
+    check("split |obj: finishing Sweetberry advances to turnin", at() == "turnin 9905", at())
+    MOCK.turnIn(9905) MOCK.done[9905] = nil MOCK.fire("QUEST_REMOVED", 9905)
+
+    -- 3. Unfinished turnin with NO `complete` step in the guide stays active (never forgotten)
+    W:RegisterGuide{ id = "nocomp", title = "No Complete", levels = { 1, 60 }, steps = [[
+accept 9910
+turnin 9910 |npc Claire |at 1423 40.0,40.0
+accept 9911
+]] }
+    MOCK.addQuest(9910, "Abominable Magics", { { text = "Samples absorbed: 0/25", finished = false, numFulfilled = 0, numRequired = 25 } })
+    MOCK.fire("QUEST_LOG_UPDATE")
+    G:Activate("nocomp") settle()
+    check("unfinished turnin without complete step is NOT skipped/forgotten", at() == "turnin 9910" and G:IsUnfinishedTurnin(cur()), at())
+    MOCK.finish(9910) MOCK.turnIn(9910) MOCK.done[9910] = nil MOCK.fire("QUEST_REMOVED", 9910)
+
+    -- 4. Leveling up mid-complete step does NOT teleport cursor backward to an earlier |lvl accept
+    W:RegisterGuide{ id = "noyank", title = "No Yank", levels = { 1, 60 }, steps = [[
+accept 9920 |lvl 25
+complete 9920
+turnin 9920
+accept 9921
+complete 9921
+turnin 9921
+]] }
+    MOCK.level = 24
+    MOCK.addQuest(9921, "Active Grind") MOCK.fire("QUEST_LOG_UPDATE")
+    G:Activate("noyank") settle()
+    check("noyank: starts on active grind while 9920 needs level 25", at() == "complete 9921", at())
+    MOCK.level = 25 MOCK.fire("PLAYER_LEVEL_UP") settle()
+    check("noyank: leveling up does NOT interrupt active complete step", at() == "complete 9921", at())
+    MOCK.finish(9921) MOCK.turnIn(9921) MOCK.fire("QUEST_TURNED_IN", 9921) settle()
+    check("noyank: picks up unlocked 9920 once current step finishes", at() == "accept 9920", at())
+    MOCK.done[9921] = nil MOCK.level = oldLevel
+
+    -- 5. End of guide returns to ready Waiting turn-in BEFORE transitioning to `next` guide
+    W:RegisterGuide{ id = "endnext", title = "Next Zone", levels = { 1, 60 }, steps = "accept 9935\nturnin 9935\n" }
+    W:RegisterGuide{ id = "endwait", title = "End Wait", levels = { 1, 60 }, next = "endnext", steps = [[
+complete 9930
+turnin 9930
+complete 9931
+turnin 9931
+]] }
+    MOCK.addQuest(9930, "Boss Quest") MOCK.addQuest(9931, "Easy Quest")
+    MOCK.fire("QUEST_LOG_UPDATE")
+    G:Activate("endwait") settle()
+    G:Skip(1) settle()                          -- skip complete 9930 -> turnin 9930 waits
+    MOCK.finish(9930) MOCK.fire("QUEST_LOG_UPDATE") settle()
+    MOCK.finish(9931) MOCK.turnIn(9931) MOCK.fire("QUEST_TURNED_IN", 9931) settle()
+    check("end of guide: returns to ready waiting turn-in instead of abandoning it for next guide",
+        G:Active().id == "endwait" and at() == "turnin 9930", G:Active().id .. " / " .. at())
+    MOCK.turnIn(9930) MOCK.fire("QUEST_TURNED_IN", 9930) settle()
+    check("...and advances to next guide once the ready turn-in is handed in", G:Active().id == "endnext", G:Active().id)
+    MOCK.done[9930], MOCK.done[9931] = nil, nil
+
+    -- 6. Guide rebuild invalidates stale resume frontier instead of hiding reordered steps
+    W:RegisterGuide{ id = "rebuild", title = "Rebuild", levels = { 1, 60 }, steps = [[
+accept 9941
+turnin 9941
+accept 9942
+turnin 9942
+accept 9943
+turnin 9943
+]] }
+    MOCK.done[9941] = true MOCK.fire("QUEST_LOG_UPDATE")
+    G:Activate("rebuild") settle()
+    check("rebuild: saved frontier on 9941", W.cdb.resume.rebuild == 9941, W.cdb.resume.rebuild)
+    -- simulate a guide rebuild that moves 9941 to the end
+    W:RegisterGuide{ id = "rebuild", title = "Rebuild", levels = { 1, 60 }, steps = [[
+accept 9942
+turnin 9942
+accept 9943
+turnin 9943
+accept 9941
+turnin 9941
+]] }
+    G:Activate("rebuild") settle()
+    check("rebuild: stale frontier does NOT hide 9942/9943 after 9941 moved to the end", at() == "accept 9942" and #G:Missed() == 0, at() .. " missed=" .. #G:Missed())
+    MOCK.done[9941] = nil
+
+    -- 7. Failed escort quest stays incomplete and points back to quest giver
+    local realFailed = C_QuestLog.IsFailed
+    C_QuestLog.IsFailed = function(q) return q == 19950 end
+    W:RegisterGuide{ id = "escort", title = "Escort", levels = { 1, 60 }, steps = [[
+accept 19950 |npc Wizzle |at 1423 25.0,25.0
+complete 19950 |at 1423 60.0,60.0
+turnin 19950 |npc Sputter |at 1423 70.0,70.0
+]] }
+    MOCK.addQuest(19950, "The Escape") MOCK.fire("QUEST_LOG_UPDATE")
+    G:Activate("escort") settle()
+    check("failed escort: marked failed and waypoint points back to giver",
+        G:IsFailed(cur()) and WP:Current() and WP:Current().x == 25, WP:Current() and WP:Current().x)
+    C_QuestLog.IsFailed = realFailed
+    MOCK.turnIn(19950) MOCK.done[19950] = nil MOCK.fire("QUEST_REMOVED", 19950)
+
+    -- 8. Scoped Auto.lua: accepts current hub quest, refuses skipped, Later, and far-ahead quests
+    local lines = { "accept 19960 |npc Hub |at 1423 50.0,50.0", "accept 19961 |npc Hub |at 1423 50.0,50.0" }
+    for q = 19962, 19980 do lines[#lines + 1] = "accept " .. q .. " |npc Far |at 1423 80.0,80.0" end
+    W:RegisterGuide{ id = "autoscope", title = "Auto Scope", levels = { 1, 60 }, steps = table.concat(lines, "\n") }
+    G:Activate("autoscope") settle()
+    check("hub group bundles co-located hub accepts", #G:HubGroup() == 2, #G:HubGroup())
+    MOCK.calls = {} MOCK.questId = 19960 MOCK.fire("QUEST_DETAIL")
+    check("auto-accept: accepts current hub quest", called("AcceptQuest"))
+    MOCK.calls = {} MOCK.questId = 19980 MOCK.fire("QUEST_DETAIL")
+    check("auto-accept: refuses quest far ahead in the guide", not called("AcceptQuest"))
+    G:Skip(1) settle()   -- skip 19960
+    MOCK.calls = {} MOCK.questId = 19960 MOCK.fire("QUEST_DETAIL")
+    check("auto-accept: refuses skipped quest", not called("AcceptQuest"))
+    G:Later(19961) settle()
+    MOCK.calls = {} MOCK.questId = 19961 MOCK.fire("QUEST_DETAIL")
+    check("auto-accept: refuses Later quest", not called("AcceptQuest"))
+    W.cdb.later[19961] = nil
+
+    G:Activate(oldGuide) settle()
+end
+
 check("no runtime errors", #MOCK.errors == 0, MOCK.errors[1])
 print(("%d passed, %d failed"):format(pass, fail))
 return fail

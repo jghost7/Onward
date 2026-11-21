@@ -58,6 +58,37 @@ def bands(quests):
             merged[-1].update(b)
         else:
             merged.append(dict(b))
+    # keep prerequisite chains in order across bands: never leave a quest in an earlier band than
+    # its required prerequisite, and keep breadcrumbs in the same band as their target
+    if len(merged) > 1:
+        band_of = {qid: idx for idx, b in enumerate(merged) for qid in b}
+        changed = True
+        for _ in range(20):
+            if not changed:
+                break
+            changed = False
+            for qid, idx in list(band_of.items()):
+                q = merged[idx][qid]
+                need_idx = idx
+                for p in q["preAll"]:
+                    if p in band_of and band_of[p] > need_idx:
+                        need_idx = band_of[p]
+                local_any = [p for p in q["preAny"] if p in band_of]
+                if local_any:
+                    earliest = min(band_of[p] for p in local_any)
+                    if earliest > need_idx:
+                        need_idx = earliest
+                if need_idx != idx:
+                    merged[need_idx][qid] = merged[idx].pop(qid)
+                    band_of[qid] = need_idx
+                    changed = True
+                else:
+                    bc = q.get("breadcrumbFor")
+                    if bc in band_of and band_of[bc] < idx:
+                        merged[band_of[bc]][qid] = merged[idx].pop(qid)
+                        band_of[qid] = band_of[bc]
+                        changed = True
+        merged = [b for b in merged if b]
     return merged, dropped
 
 

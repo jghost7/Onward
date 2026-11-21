@@ -1,24 +1,25 @@
--- Auto accept / turn-in. Accepts only what the active guide asks for (unless autoAcceptAll),
--- turns in any finished quest, never picks between rewards. Hold Shift at the NPC to pause.
+-- Auto accept / turn-in. Accepts only upcoming quests the active guide asks for (unless
+-- autoAcceptAll), turns in any finished quest, never picks between rewards. Hold Shift to pause.
 local _, W = ...
 local A = {}
 W.Auto = A
 
-local wanted = {}   -- questIDs the active guide accepts
-
-W:On("WF_GUIDE_CHANGED", function(_, guide)
-    wipe(wanted)
-    if not guide then return end
-    for _, s in ipairs(guide.steps) do
-        if s.verb == "accept" then wanted[s.quest] = true end
-    end
-end)
+local ACCEPT_WINDOW = 15   -- only auto-accept quests within the next N open steps (not 100 steps ahead)
 
 local function paused() return IsShiftKeyDown() end
 
 local function wantAccept(q)
     if not W.db.autoAccept or paused() or not q or q == 0 then return false end
-    return W.db.autoAcceptAll or wanted[q] or false
+    if W.db.autoAcceptAll then return true end
+    local G = W.Guide
+    local g = G and G:Active()
+    local a = g and g.acceptOf and g.acceptOf[q]
+    if not a then return false end
+    if G:IsSkipped(a) or G:IsLater(a) or G:IsComplete(a) or G:IsBehind(a) then return false end
+    for _, s in ipairs(G:Upcoming(ACCEPT_WINDOW)) do
+        if s.verb == "accept" and s.quest == q then return true end
+    end
+    return false
 end
 
 local function wantTurnIn()

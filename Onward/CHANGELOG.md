@@ -1,5 +1,32 @@
 # Changelog
 
+## 0.7.0
+
+- Restored all exploration and escort quests across every zone (187 quests, including The Fargodeep
+  Mine, The Jasperlode Mine, The Forgotten Pools, The Escape, and the OOX escorts) that were
+  previously filtered out along with repeatables, fixing dozens of broken follow-up chains.
+- Fixed out-of-order quest steps: prerequisite chains with faction or class alternates no longer
+  appear ahead of their own prerequisite, zone band splits keep chains intact, quests follow level
+  progression instead of pulling high-level quests to the start of a zone, and routes stay within
+  Classic's 20-quest log limit.
+- Fixed forgotten steps: quests whose objectives are missing from Questie's Forever data now keep
+  proper objective steps (and unfinished turn-ins stay active with live Blizzard objectives instead
+  of being skipped), ready turn-ins are handed in before moving on to the next guide, and guide
+  rebuilds no longer hide earlier steps behind a stale resume point.
+- Smoother step flow: leveling up mid-objective no longer pulls you backward across the zone,
+  breadcrumbs auto-complete if you already took or finished their target quest, failed escorts
+  point you back to the quest giver, mob-drop starter quests no longer stall the route waiting on
+  RNG (with a usable bag-item button once they drop), and multi-location objectives split into
+  separate steps by objective name.
+- Hub grouping and cleaner auto-accept: co-located town turn-ins and accepts group together on the
+  card ("AT THIS HUB"), and auto-accept only takes upcoming hub quests (never skipped, Later, or
+  far-ahead quests).
+- Efficient mode now scores quests relative to their own level, so level 1-4 starting quests are no
+  longer dropped in starter zones. Desolace routes cleanly follow the Gelkis centaurs instead of
+  interleaving hostile Magram/Gelkis camps, and Stranglethorn's Green Hills ties cleanly to its
+  four chapters.
+- All 105 leveling guides were rebuilt from Questie's Forever database.
+
 ## 0.6.39
 
 - A quest you take and hand in here but do in another zone no longer sits in the middle of the

@@ -52,10 +52,28 @@ function QS:IsReady(q)
     return e and e.ready or false
 end
 
+function QS:IsFailed(q)
+    ensure()
+    local e = log[q]
+    return e and e.failed or false
+end
+
 function QS:Objective(q, idx)
     ensure()
     local e = log[q]
     return e and e.objectives[idx]
+end
+
+-- Match an objective by name substring (case-insensitive), immune to Questie vs Blizzard index order
+function QS:ObjectiveByName(q, name)
+    if not name or name == "" then return end
+    ensure()
+    local e = log[q]
+    if not (e and e.objectives) then return end
+    local needle = name:lower()
+    for _, o in ipairs(e.objectives) do
+        if o.text and o.text:lower():find(needle, 1, true) then return o end
+    end
 end
 
 function QS:Get(q)
@@ -138,8 +156,10 @@ W:On("UNIT_QUEST_LOG_CHANGED", function(_, unit)
     if unit == "player" then dirty = true W:RequestRefresh() end
 end)
 
-W:On("QUEST_ACCEPTED", function(_, questID)
+W:On("QUEST_ACCEPTED", function(_, a, b)
     dirty = true
+    -- Modern clients fire (questID); Classic Era fires (questLogIndex, questID)
+    local questID = (type(b) == "number" and b > 25) and b or a
     if questID then W:Fire("WF_QUEST_STATE", questID, "accepted") end
     W:RequestRefresh()
 end)

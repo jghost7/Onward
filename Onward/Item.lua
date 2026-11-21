@@ -115,8 +115,12 @@ IT.Names = names
 function IT.ItemsFor(step)
     local out = {}
     if not step or not step.quest then return out end
+    if step.verb == "accept" and step.startItem and itemCount(step.startItem) > 0 then
+        out[1] = step.startItem
+        return out
+    end
     if step.item and itemCount(step.item) > 0 and usable(step.item) then out[1] = step.item end
-    if step.verb ~= "complete" then return out end
+    if step.verb ~= "complete" and not (G and G:IsUnfinishedTurnin(step)) then return out end
     local e = QS:Get(step.quest)
     if not e then return out end
     local text = { QS:ObjectiveText(step.quest) or "", QS:Description(step.quest) or "" }

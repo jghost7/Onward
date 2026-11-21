@@ -179,12 +179,13 @@ local function parseLine(line, lineNo, guideId)
     -- giver the data has no spot for). |startitem <id>: the item it starts from.
     step.loose = opts.loose ~= nil
     step.startItem = tonumber(opts.startitem)
-    for name, field in pairs({ pre = "pre", preany = "preAny" }) do
+    for name, field in pairs({ pre = "pre", preany = "preAny", exclusive = "exclusive" }) do
         if opts[name] and opts[name]:find("%d") then
             step[field] = {}
             for id in opts[name]:gmatch("%d+") do table.insert(step[field], tonumber(id)) end
         end
     end
+    if opts.obj and opts.obj ~= "" then step.objName = opts.obj end
     step.item = tonumber(opts.item)
     -- |pick <itemId>: a first part of a quest that isn't one of its objectives: an item you have to
     -- get before the objective can be done (the remains you bury, the key that opens the cage).
@@ -248,7 +249,8 @@ G.ParseStep = function(line) return parseLine(line, 1, "test") end   -- one guid
 local function stepKey(step, seen)
     local k
     if step.quest then
-        k = step.verb .. ":" .. step.quest .. (step.obj and (":" .. step.obj) or "")
+        local sub = step.obj and (":" .. step.obj) or (step.objName and (":" .. step.objName) or "")
+        k = step.verb .. ":" .. step.quest .. sub
     else
         k = step.raw or step.verb
     end
@@ -257,8 +259,8 @@ local function stepKey(step, seen)
 end
 
 local function parse(def)
-    local g = { def = def, id = def.id, title = def.title, steps = {}, acceptOf = {}, turninAt = {}, needOf = {} }
-    local n, seen = 0, {}
+    local g = { def = def, id = def.id, title = def.title, steps = {}, acceptOf = {}, turninAt = {}, needOf = {}, hasComplete = {} }
+    local n, seen, sigHash = 0, {}, 0
     for raw in (def.steps .. "\n"):gmatch("(.-)\r?\n") do
         n = n + 1
         local line = raw:match("^%s*(.-)%s*$")
@@ -270,13 +272,18 @@ local function parse(def)
                 step.key = stepKey(step, seen)
                 g.steps[step.index] = step
                 if step.verb == "accept" then g.acceptOf[step.quest] = g.acceptOf[step.quest] or step end
+                if step.verb == "complete" and step.quest then g.hasComplete[step.quest] = true end
                 if step.need then g.needOf[step.quest] = step end
                 if step.pick then g.hasPick = true end
                 if step.loose and step.startItem then g.hasStartItems = true end
-                if step.verb == "turnin" then g.turninAt[step.quest] = g.turninAt[step.quest] or step.index end
+                if step.verb == "turnin" then
+                    g.turninAt[step.quest] = g.turninAt[step.quest] or step.index
+                    sigHash = (sigHash * 31 + step.quest * step.index) % 2147483647
+                end
             end
         end
     end
+    g.sig = #g.steps .. ":" .. sigHash
     return g
 end
 
@@ -322,12 +329,21 @@ local function key(step)
     return active.id == "smart" and step.quest or step.key
 end
 
+local function exclusiveDone(step)
+    if not step.exclusive then return false end
+    for _, x in ipairs(step.exclusive) do
+        if QS:IsOnQuest(x) or QS:IsDone(x) then return true end
+    end
+    return false
+end
+
 function G:IsComplete(step)
     local v, q = step.verb, step.quest
     if v == "accept" then
-        return QS:IsOnQuest(q) or QS:IsDone(q)
+        return QS:IsOnQuest(q) or QS:IsDone(q) or exclusiveDone(step)
     elseif v == "complete" then
         if QS:IsDone(q) then return true end
+        if QS:IsFailed(q) then return false end
         if step.pick then
             local have = (C_Item and C_Item.GetItemCount and C_Item.GetItemCount(step.pick)) or (GetItemCount and GetItemCount(step.pick)) or 0
             return have > 0 or QS:IsReady(q)
@@ -335,6 +351,11 @@ function G:IsComplete(step)
         if step.obj then
             local o = QS:Objective(q, step.obj)
             return o and o.finished or false
+        end
+        if step.objName then
+            local o = QS:ObjectiveByName(q, step.objName)
+            if o then return o.finished or false end
+            return QS:IsReady(q)
         end
         return QS:IsReady(q)
     elseif v == "turnin" then
@@ -361,13 +382,28 @@ function G:IsMissing(step)
     return (step.verb == "complete" or step.verb == "turnin") and not QS:IsOnQuest(step.quest) and not QS:IsDone(step.quest)
 end
 
+-- A quest in your log that failed (e.g. a failed escort or timed quest): must be abandoned and re-accepted.
+function G:IsFailed(step)
+    return step and step.quest and QS:IsFailed(step.quest) or false
+end
+
+-- A turn-in whose quest is in your log but still unfinished, and the guide had no `complete` step
+-- for it (e.g. Questie lacked structured objectives): keep it active on the card with live objectives
+-- instead of skipping past and forgetting it.
+function G:IsUnfinishedTurnin(step)
+    return step and step.verb == "turnin" and step.quest and QS:IsOnQuest(step.quest)
+        and not QS:IsReady(step.quest) and not QS:IsDone(step.quest)
+        and active and not (active.hasComplete and active.hasComplete[step.quest]) or false
+end
+
 ---------------------------------------------------------------------------
 -- Resume: where a character that already did part of this guide picks it up. Worked out ONCE
 -- per guide and character, from quests turned in only, and saved (as the quest whose turn-in it
--- sits on, so it survives the step numbers moving). It is the point in the guide that best
--- divides "handed in" from "not yet": each turn-in before it counts +1 when done, -1 when not,
--- and the highest total wins (the earlier point on a tie). One quest done far ahead doesn't
--- move it, and picking a quest up early never does.
+-- sits on, plus the guide's signature so a guide rebuild recomputes cleanly instead of hiding
+-- steps that moved before the saved quest). It is the point in the guide that best divides
+-- "handed in" from "not yet": each turn-in before it counts +1 when done, -1 when not, and the
+-- highest total wins (the earlier point on a tie). One quest done far ahead doesn't move it, and
+-- picking a quest up early never does.
 -- Everything before it that the game can't track (goto, fly, notes, level steps) counts as done.
 -- Quest steps behind it that you never took are "missed": counted and listed, not forced on you.
 -- Quests still in your log stay open wherever they are. After that the guide only follows what
@@ -376,11 +412,17 @@ end
 local forced = {}   -- steps the player stepped back to on purpose (Skip -1)
 local notified = {} -- waiting turn-ins already announced (held back / now ready)
 local readyNotified = {}
+local justAccepted = {} -- quests explicitly accepted since the last advance
 local settleUntil = 0   -- quest records are still arriving until then (see PLAYER_LOGIN)
 
 local function resumeSet()
     W.cdb.resume = W.cdb.resume or {}
     return W.cdb.resume
+end
+
+local function resumeSigSet()
+    W.cdb.resumeSig = W.cdb.resumeSig or {}
+    return W.cdb.resumeSig
 end
 
 local function computeFrontier()
@@ -394,15 +436,34 @@ local function computeFrontier()
     return best
 end
 
+local function frontierScoreAt(idx)
+    local score = 0
+    for i = 1, math.min(idx, #active.steps) do
+        local s = active.steps[i]
+        if s.verb == "turnin" then score = score + (QS:IsDone(s.quest) and 1 or -1) end
+    end
+    return score
+end
+
 local function frontierIndex()
     if not active or active.id == "smart" then return 0 end
     local saved = resumeSet()[active.id]
+    local savedSig = resumeSigSet()[active.id]
     if saved == 0 then return 0 end
-    if saved and active.turninAt[saved] then return active.turninAt[saved] end
+    if saved and active.turninAt[saved] then
+        local idx = active.turninAt[saved]
+        -- Recompute if the guide was rebuilt (sig changed) or the saved quest moved past a block
+        -- of undone quests, so a guide rebuild never silently hides steps 1..N.
+        if (not savedSig or savedSig == active.sig) and frontierScoreAt(idx) > 0 then
+            if not savedSig and GetTime() >= settleUntil then resumeSigSet()[active.id] = active.sig end
+            return idx
+        end
+    end
     local f = computeFrontier()
     -- at login the completed-quest records arrive late: keep working it out until they're in
     if GetTime() >= settleUntil then
         resumeSet()[active.id] = f > 0 and active.steps[f].quest or 0
+        resumeSigSet()[active.id] = active.sig
     end
     return f
 end
@@ -411,6 +472,7 @@ end
 function G:Resume()
     if not active or active.id == "smart" then return end
     resumeSet()[active.id] = nil
+    resumeSigSet()[active.id] = nil
     G:Activate(active.id)
 end
 
@@ -437,11 +499,13 @@ function G:Missed()
 end
 
 -- A turn-in you can't do yet: the quest is in your log but not finished (you skipped its
--- objectives, or the guide got there first). It doesn't become the current step; it waits in a
--- "waiting" list and comes back once the quest is ready (G:Waiting, G:GoToStep).
+-- objectives, or the guide got there first). Only applies when the guide actually has a `complete`
+-- step for this quest; otherwise the turn-in stays active with live objectives so the quest is
+-- never silently forgotten.
 function G:IsWaiting(step)
     return step.verb == "turnin" and step.quest and QS:IsOnQuest(step.quest)
-        and not QS:IsReady(step.quest) and not QS:IsDone(step.quest) or false
+        and not QS:IsReady(step.quest) and not QS:IsDone(step.quest)
+        and active and (active.hasComplete and active.hasComplete[step.quest]) or false
 end
 
 -- "Come back later": quests you set aside (an area overrun with players, say). Their steps are
@@ -548,7 +612,7 @@ function G:IsBlocked(step)
     if QS:IsOnQuest(q) or QS:IsDone(q) then return false end
     local a = active.acceptOf[q]
     if not a or forced[a] then return false end
-    return G:IsSkipped(a) or G:HeldReason(a) ~= nil
+    return G:IsSkipped(a) or G:HeldReason(a) ~= nil or exclusiveDone(a)
 end
 
 -- The wall: at the end of a guide, with only held quests left, the first of them becomes the
@@ -777,6 +841,35 @@ function G:Passing()
     return out
 end
 
+-- Hub stop block: co-located open turn-in / accept / home steps at the current town/NPC hub
+-- (within HUB_YARDS of the current step, stopping at any objective or travel step). Gives a clean
+-- Zygor/RXP-style grouped hub view and scopes auto-accept to the current stop.
+local HUB_YARDS, HUB_MAX = 120, 6
+local HUB_VERB = { accept = true, turnin = true, home = true }
+function G:HubGroup()
+    local list = G:Upcoming(HUB_MAX)
+    local first = list[1]
+    if not first or not HUB_VERB[first.verb] then return first and { first } or {} end
+    local T = W.Travel
+    local fc, fx, fy
+    if T and first.at and first.at.map then fc, fx, fy = T.World(first.at.map, first.at.x, first.at.y) end
+    local out = { first }
+    for i = 2, #list do
+        local s = list[i]
+        if not HUB_VERB[s.verb] or #out >= HUB_MAX then break end
+        local close = false
+        if fc and s.at and s.at.map then
+            local sc, sx, sy = T.World(s.at.map, s.at.x, s.at.y)
+            close = sc == fc and ((sx - fx) ^ 2 + (sy - fy) ^ 2 <= HUB_YARDS ^ 2)
+        elseif first.npc and s.npc and first.npc == s.npc then
+            close = true
+        end
+        if not close then break end
+        out[#out + 1] = s
+    end
+    return out
+end
+
 -- current step + the next n open steps
 function G:Upcoming(n)
     local out = {}
@@ -831,13 +924,25 @@ local function advance(fromStart)
     active.frontier = frontierIndex()
     local n = #active.steps
     local start = fromStart and 1 or cursor
+    local curStep = active.steps[cursor]
+    local curStillOpen = not fromStart and curStep and isOpen(curStep)
     wall = false
     if not fromStart then
         for k = 1, math.min(cursor - 1, n) do
             local s = active.steps[k]
-            if (s.verb == "accept" or s.verb == "complete") and isOpen(s) then start = k break end
+            if (s.verb == "accept" or s.verb == "complete") and isOpen(s) then
+                -- Don't yank the player away from an active open step just because an earlier |lvl
+                -- quest unlocked on level-up. Only jump back immediately when the current step is
+                -- done, or for a bag start-item (zero travel), or a quest the player just accepted.
+                local urgent = (s.loose and s.startItem) or (s.quest and justAccepted[s.quest])
+                if not curStillOpen or urgent then
+                    start = k
+                    break
+                end
+            end
         end
     end
+    wipe(justAccepted)
     local i = scan(start, fromStart)
     if i > n and active.id ~= "smart" and #G:LaterList() == 0 then
         wall = true
@@ -846,7 +951,18 @@ local function advance(fromStart)
     end
     local changed = i ~= cursor
     cursor = i
-    -- end of the guide: first back to the quests you left for later
+    -- end of the guide: first back to any ready turn-ins we moved past, then quests left for later
+    if cursor > n and active.id ~= "smart" then
+        local wt = G:Waiting()
+        if #wt.ready > 0 then
+            local s = wt.ready[1]
+            W.Print("before moving on, turn in " .. (QS:Title(s.quest) or ("quest " .. s.quest)))
+            forced[s] = true
+            cursor = s.index
+            W:Fire("WF_STEP_CHANGED", s)
+            return
+        end
+    end
     if cursor > n and active.id ~= "smart" and #G:LaterList() > 0 then
         local names = {}
         for _, q in ipairs(G:LaterList()) do
@@ -1252,8 +1368,9 @@ function G:CheckEmptyStart()
     end
 end
 
-W:On("WF_QUEST_STATE", function(_, _, state)
+W:On("WF_QUEST_STATE", function(_, q, state)
     if state == "removed" then needRescan = true end
+    if state == "accepted" and q then justAccepted[q] = true end
 end)
 
 W:On("PLAYER_LEVEL_UP", function() G:ClearSuggestion() W:RequestRefresh() end)

@@ -137,15 +137,21 @@ def marginal_travel(zone, steps):
 
 
 def score(zone, Q, steps):
-    """{questId: {xp, measured, seconds, rate}} rate = XP per minute."""
+    """{questId: {xp, normXp, measured, seconds, rate, normRate}}.
+    `normXp` scales XP against the expected XP of a quest at that same level, so level 1-4
+    starter quests in a 1-12 zone aren't penalized for paying less raw XP than level 10 quests."""
     travel = marginal_travel(zone, steps)
     out = {}
     for qid, q in Q.items():
         quest_xp, measured = xp_for(qid, q["level"])
+        base_xp, _ = xp_for(-1, q["level"])
         work, kills = objective_seconds(zone.db, qid)
         secs = travel.get(qid, 0.0) * YARDS_PER_UNIT / run_speed(q["level"]) + work + 2 * TALK_S
         xp = quest_xp + kills * mob_xp(q["level"])        # the kills pay XP too
-        out[qid] = {"xp": xp, "questXp": quest_xp, "measured": measured, "seconds": secs, "rate": xp / (secs / 60.0)}
+        norm_xp = xp / max(1.0, base_xp)
+        mins = secs / 60.0
+        out[qid] = {"xp": xp, "normXp": norm_xp, "questXp": quest_xp, "measured": measured,
+                    "seconds": secs, "rate": xp / mins, "normRate": norm_xp / mins}
     return out
 
 
@@ -153,11 +159,11 @@ def select(Q, scores, mode):
     """Set of quest ids kept in `mode`."""
     if mode == "all" or not Q:
         return set(Q)
-    total_xp = sum(s["xp"] for s in scores.values()) or 1
-    bar = THRESHOLDS[mode] * median(s["rate"] for s in scores.values())
+    total_xp = sum(s["normXp"] for s in scores.values()) or 1
+    bar = THRESHOLDS[mode] * median(s["normRate"] for s in scores.values())
     for _ in range(30):                     # lower the bar until enough of the zone's XP is kept
         keep = _select(Q, scores, bar)
-        if sum(scores[q]["xp"] for q in keep) / total_xp >= MIN_XP_SHARE[mode]:
+        if sum(scores[q]["normXp"] for q in keep) / total_xp >= MIN_XP_SHARE[mode]:
             return keep
         bar *= 0.9
     return keep
@@ -176,19 +182,19 @@ def _select(Q, scores, bar):
                 seen.add(p)
                 out += [p] + needed(p, seen)
         if any_of[qid] and not any(p in seen for p in any_of[qid]):
-            p = max(any_of[qid], key=lambda p: scores[p]["rate"])
+            p = max(any_of[qid], key=lambda p: scores[p]["normRate"])
             seen.add(p)
             out += [p] + needed(p, seen)
         return out
 
     keep = set()
-    for qid in sorted(Q, key=lambda i: -scores[i]["rate"]):
+    for qid in sorted(Q, key=lambda i: -scores[i]["normRate"]):
         if qid in keep:
             continue
         chain = [qid] + [p for p in needed(qid) if p not in keep]
-        xp = sum(scores[c]["xp"] for c in chain)
+        nxp = sum(scores[c]["normXp"] for c in chain)
         secs = sum(scores[c]["seconds"] for c in chain)
-        if secs <= CHEAP_S or xp / (secs / 60.0) >= bar:
+        if secs <= CHEAP_S or nxp / (secs / 60.0) >= bar:
             keep.update(chain)
     return keep
 

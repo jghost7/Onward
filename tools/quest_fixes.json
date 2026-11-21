@@ -1,5 +1,24 @@
 {
-  "_about": "Corrections to Questie's Forever quest data, looked up by hand (one quest at a time). preAny: one of these must be turned in first; preAll: all of them. They are added to what the data already says.",
+  "_about": "Corrections to Questie's Forever quest data, looked up by hand (one quest at a time). preAny: one of these must be turned in first; preAll: all of them; exclusive: mutually exclusive quests (drop the other chain); drop: omit from leveling routes. They are added to what the data already says.",
+  "338": {
+    "name": "The Green Hills of Stranglethorn",
+    "preAll": [339, 340, 341, 342],
+    "why": "Completing Green Hills requires the four bound Chapters rewarded by turning in Chapters I-IV (339-342). Tying them keeps the chain consistent across quest modes and avoids holding 338 in the quest log while gathering pages."
+  },
+  "339": { "name": "Chapter I", "preAny": [583], "why": "Offered by Barnil Stonepot after Welcome to the Jungle (583)." },
+  "340": { "name": "Chapter II", "preAny": [583], "why": "Offered by Barnil Stonepot after Welcome to the Jungle (583)." },
+  "341": { "name": "Chapter III", "preAny": [583], "why": "Offered by Barnil Stonepot after Welcome to the Jungle (583)." },
+  "342": { "name": "Chapter IV", "preAny": [583], "why": "Offered by Barnil Stonepot after Welcome to the Jungle (583)." },
+  "1367": {
+    "name": "Magram Alliance",
+    "drop": true,
+    "why": "Desolace Magram vs Gelkis centaur tribes are mutually hostile in play; routes follow Gelkis (1368/1382) so you aren't sent back and forth between hostile camps."
+  },
+  "1385": {
+    "name": "Brutal Politics",
+    "drop": true,
+    "why": "Desolace Magram vs Gelkis centaur tribes are mutually hostile in play; routes follow Gelkis (1382/1368) so you aren't sent back and forth between hostile camps."
+  },
   "95183": {
     "name": "Step One: Rock",
     "preAny": [95420],

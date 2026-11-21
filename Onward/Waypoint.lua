@@ -158,10 +158,10 @@ function WP:Resolve(step)
     if (step.verb == "train" or step.verb == "craft") and W.Prof then
         return W.Prof:Location(step)        -- trainer, book / recipe vendor or quest giver
     end
-    -- working on (or handing in) a quest you haven't picked up: go to its giver first. The
-    -- guide's own accept step knows who and where; else Questie does. The 5th value marks it.
+    -- working on (or handing in) a quest you haven't picked up, or a failed quest (escort/timed):
+    -- go to its giver first. The guide's own accept step knows who and where; else Questie does.
     local G = W.Guide
-    if (step.verb == "complete" or step.verb == "turnin") and step.quest and G and G:IsMissing(step) then
+    if (step.verb == "complete" or step.verb == "turnin") and step.quest and G and (G:IsMissing(step) or G:IsFailed(step)) then
         for _, s in ipairs(G:Active() and G:Active().steps or {}) do
             if s.verb == "accept" and s.quest == step.quest and s.at then
                 return s.at.map or C_Map.GetBestMapForUnit("player"), s.at.x, s.at.y, s.npc, true
@@ -169,6 +169,25 @@ function WP:Resolve(step)
         end
         local loc = QB:StartLocation(step.quest)
         if loc then return loc.map, loc.x, loc.y, loc.name, true end
+    end
+    -- a turn-in whose quest is in your log and unfinished (guide had no `complete` step for it):
+    -- point at the quest's live objective instead of the turn-in NPC until it's ready
+    if step.verb == "turnin" and step.quest and G and G:IsUnfinishedTurnin(step) then
+        if C_QuestLog.GetNextWaypoint and C_QuestLog.IsOnQuest(step.quest) then
+            local ok, map, x, y = pcall(C_QuestLog.GetNextWaypoint, step.quest)
+            if ok and map and x then return map, x * 100, y * 100, nil end
+        end
+        local spots = WP.ObjectiveSpots(step.quest)
+        if spots then
+            local pc, px, py = T.PlayerWorld()
+            local best, bestD
+            for _, s in ipairs(spots) do
+                local c, wx, wy = T.World(s.map, s.x, s.y)
+                local d = c and pc == c and (wx - px) ^ 2 + (wy - py) ^ 2 or math.huge
+                if not best or d < bestD then best, bestD = s, d end
+            end
+            if best then return best.map, best.x, best.y, best.name end
+        end
     end
     -- an accept that waits on a quest the guide doesn't cover: lead to that quest's giver
     if step.verb == "accept" and G then
@@ -336,6 +355,11 @@ local function nearestSpot(c)
         if step.obj then   -- a step for one objective: only that one
             for i in pairs(W.QuestState:Get(step.quest) and W.QuestState:Get(step.quest).objectives or {}) do
                 if i ~= step.obj then done[i] = true end
+            end
+        elseif step.objName then
+            local needle = step.objName:lower()
+            for i, o in ipairs(W.QuestState:Get(step.quest) and W.QuestState:Get(step.quest).objectives or {}) do
+                if not (o.text and o.text:lower():find(needle, 1, true)) then done[i] = true end
             end
         end
         for _, s in ipairs(WP.ObjectiveSpots(step.quest, done) or {}) do

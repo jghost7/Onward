@@ -66,9 +66,11 @@ local function objName(text)
 end
 local function plain(s) return (s:gsub("%p", "%%%0")) end
 function TG.MobsFor(step)
-    if not step or step.verb ~= "complete" or not step.quest then return {} end
+    if not step or not step.quest then return {} end
+    if step.verb ~= "complete" and not (G and G:IsUnfinishedTurnin(step)) then return {} end
     local out, seen, done = {}, {}, {}
     local e = QS:Get(step.quest)
+    local needle = step.objName and step.objName:lower()
     local finished, open = {}, {}
     for _, o in ipairs(e and e.objectives or {}) do
         local n = objName(o.text)
@@ -95,7 +97,7 @@ function TG.MobsFor(step)
             if name and o.finished then done[name] = true end
         end
         for _, o in ipairs(e.objectives or {}) do
-            if not o.finished then
+            if not o.finished and (not needle or (o.text and o.text:lower():find(needle, 1, true))) then
                 add(o.text and (o.text:match("^(.-) slain:") or o.text:match("^(.-) killed:")))
             end
         end
