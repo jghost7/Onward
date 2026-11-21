@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.6.35
 
 - Quests that need an item in hand first now say so. "Marla's Last Wish" sent you to the grave
   without Samuel's remains, because the remains aren't one of the quest's listed objectives.
