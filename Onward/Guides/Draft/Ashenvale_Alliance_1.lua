@@ -1,4 +1,4 @@
--- DRAFT Ashenvale (Alliance) generated 2026-11-19 by tools/draft_guide.py
+-- DRAFT Ashenvale (Alliance) generated 2026-11-20 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -49,6 +49,7 @@ turnin 78133 |npc Alonso |at 1440 43.4,70.4  -- Dragonslayer's Shield (25)
 complete 78134 |need 209874:1:Dragonslayer's Lance:sold by Dark Iron Entrepreneur in Wetlands  -- Dragonslayer's Lance (25)
 turnin 78134 |npc Alonso |at 1440 43.4,70.4  -- Dragonslayer's Lance (25)
 accept 1016 |npc Sentinel Velene Starstrike |at 1440 49.8,67.2 |lvl 20  -- Elemental Bracers (24)
+complete 1016 |at 1440 49.4,69.8 |mobs Befouled Water Elemental@Intact Elemental Bracer;Tideress@Intact Elemental Bracer |pick 12220 |note First get Intact Elemental Bracer from Befouled Water Elemental or Tideress  -- Elemental Bracers (24)
 complete 1016 |at 1440 47.1,67.4 |item 5456 |mobs Befouled Water Elemental;Furious Astranaar Sentinel;Astranaar Sentinel;Silverwing Sentinel  -- Elemental Bracers (24)
 turnin 1016 |npc Sentinel Velene Starstrike |at 1440 49.8,67.2  -- Elemental Bracers (24)
 accept 1017 |npc Sentinel Velene Starstrike |at 1440 49.8,67.2 |lvl 20 |preany 1016  -- Mage Summoner (25)

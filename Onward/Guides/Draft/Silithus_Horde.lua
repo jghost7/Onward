@@ -1,4 +1,4 @@
--- DRAFT Silithus (Horde) generated 2026-11-19 by tools/draft_guide.py
+-- DRAFT Silithus (Horde) generated 2026-11-20 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -27,6 +27,7 @@ accept 8281 |npc Windcaller Proudhorn |at 1451 51.1,38.3 |value low |lvl 54 |pre
 turnin 8277 |npc Beetix Ficklespragg |at 1451 51.6,38.6 |value mid  -- Deadly Desert Venom (55)
 accept 8278 |npc Beetix Ficklespragg |at 1451 51.6,38.6 |value mid |lvl 54 |preany 8277  -- Noggle's Last Hope (57)
 accept 9023 |npc Dirk Thunderwood |at 1451 52.1,39.1 |group dungeon |lvl 60  -- The Perfect Poison (60)
+complete 1126 |at 1451 60.4,52.6 |pick 17345 |note First get Silithid Goo at Hive'Ashi Pod |value low  -- Hive in the Tower (57)
 complete 1126 |at 1451 60.2,52.4 |mobs Hive'Ashi Ambusher@Encrusted Silithid Object |value low  -- Hive in the Tower (57)
 turnin 1126 |npc Layo Starstrike |at 1451 81.9,18.9 |value low  -- Hive in the Tower (57)
 accept 6844 |npc Layo Starstrike |at 1451 81.9,18.9 |value low |lvl 54 |preany 1126  -- Umber, Archivist (57)

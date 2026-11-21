@@ -1,4 +1,4 @@
--- DRAFT Tanaris (Horde) generated 2026-11-19 by tools/draft_guide.py
+-- DRAFT Tanaris (Horde) generated 2026-11-20 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -106,6 +106,9 @@ accept 32 |npc Senior Surveyor Fizzledowser |at 1446 50.2,27.5 |lvl 39 |preany 1
 accept 2872 |npc "Sea Wolf" MacKinley |at 1434 27.8,77.1 |lvl 40  -- Stoley's Debt (45)
 accept 2864 |npc Krazek |at 1434 26.9,77.2 |lvl 40  -- Tran'rek (45)
 complete 2641 |at 1425 41.0,59.8  -- Sprinkle's Secret Ingredient (49)
+complete 654 |at 1446 45.4,48.8 |mobs Glasshide Basilisk@Untested Basilisk Sample;Glasshide Gazer@Untested Basilisk Sample;Glasshide Petrifier@Untested Basilisk Sample |pick 9437 |note First get Untested Basilisk Sample from Glasshide Basilisk or Glasshide Gazer or Glasshide Petrifier |value low  -- Tanaris Field Sampling (46)
+complete 654 |at 1446 48.2,49.5 |mobs Starving Blisterpaw@Untested Hyena Sample;Blisterpaw Hyena@Untested Hyena Sample;Rabid Blisterpaw@Untested Hyena Sample |pick 9439 |note First get Untested Hyena Sample from Starving Blisterpaw or Blisterpaw Hyena or Rabid Blisterpaw |value low  -- Tanaris Field Sampling (46)
+complete 654 |at 1446 47.3,42.9 |mobs Scorpid Hunter@Untested Scorpid Sample;Scorpid Tail Lasher@Untested Scorpid Sample;Scorpid Dunestalker@Untested Scorpid Sample |pick 9442 |note First get Untested Scorpid Sample from Scorpid Hunter or Scorpid Tail Lasher or Scorpid Dunestalker |value low  -- Tanaris Field Sampling (46)
 complete 654 |at 1458 58.6,54.7 |value low  -- Tanaris Field Sampling (46)
 complete 3444 |at 1413 62.5,38.5  -- The Stone Circle (51)
 accept 2846 |npc Tabetha |at 1445 46.1,57.1 |group dungeon |lvl 40  -- Tiara of the Deep (46)

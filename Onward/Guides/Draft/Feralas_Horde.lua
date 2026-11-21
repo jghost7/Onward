@@ -1,4 +1,4 @@
--- DRAFT Feralas (Horde) generated 2026-11-19 by tools/draft_guide.py
+-- DRAFT Feralas (Horde) generated 2026-11-20 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -66,6 +66,7 @@ accept 7721 |npc Zorbin Fandazzle |at 1444 44.8,43.4 |lvl 45  -- Fuel for the Za
 complete 3123 |at 1425 55.2,51.4 |item 9618  -- Testing the Vessel (47)
 accept 81951 |npc Owen Thadd |at 1458 73.4,33.0  -- The Liminal and the Arcane (45)
 complete 3063 |at 1444 39.1,13.1 |mobs Northspring Harpy;Northspring Roguefeather;Northspring Slayer;Northspring Windcaller  -- Vengeance on the Northspring (50)
+complete 3062 |at 1444 39.1,13.1 |mobs Northspring Harpy@Horn of Hatetalon;Northspring Roguefeather@Horn of Hatetalon;Northspring Slayer@Horn of Hatetalon |pick 9530 |note First get Horn of Hatetalon from Northspring Harpy or Northspring Roguefeather or Northspring Slayer |group elite  -- Dark Heart (50)
 complete 3062 |at 1444 40.5,8.6 |mobs Edana Hatetalon@Edana's Dark Heart |group elite  -- Dark Heart (50)
 accept 95599 |note No quest giver on record: it most likely starts from an item you loot or find in this zone. Hand it in to Old Chest |loose  -- The Old Key (42)
 complete 81951 |at 1444 50.6,15.7  -- The Liminal and the Arcane (45)

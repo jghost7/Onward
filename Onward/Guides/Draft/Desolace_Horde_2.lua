@@ -1,4 +1,4 @@
--- DRAFT Desolace (Horde) generated 2026-11-19 by tools/draft_guide.py
+-- DRAFT Desolace (Horde) generated 2026-11-20 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -11,7 +11,9 @@ accept 93128 |npc Nerlokh |at 2652 20.9,22.7 |lvl 35 |preany 93122  -- Khan Jehn
 accept 96222 |npc Umarak |at 1443 43.5,79.0 |group elite |lvl 35  -- Khan Hratha (42)
 accept 1380 |npc Uthek the Wise |at 1443 36.2,79.2 |group elite |lvl 30 |preany 1374  -- Khan Hratha (42)
 turnin 93128 |npc Uthek the Wise |at 1443 36.2,79.2  -- Khan Jehn (42)
+complete 1380 |at 1443 30.7,56.8 |mobs Maraudine Scout@War Horn Mouthpiece;Maraudine Wrangler@War Horn Mouthpiece;Maraudine Mauler@War Horn Mouthpiece |pick 6074 |note First get War Horn Mouthpiece from Maraudine Scout or Maraudine Wrangler or Maraudine Mauler |group elite  -- Khan Hratha (42)
 complete 1380 |at 1443 29.6,52.0 |mobs Khan Hratha@Maraudine Key Fragment |group elite  -- Khan Hratha (42)
+complete 1381 |at 1443 30.7,56.8 |mobs Maraudine Scout@War Horn Mouthpiece;Maraudine Wrangler@War Horn Mouthpiece;Maraudine Mauler@War Horn Mouthpiece |pick 6074 |note First get War Horn Mouthpiece from Maraudine Scout or Maraudine Wrangler or Maraudine Mauler |group elite  -- Khan Hratha (42)
 complete 1381 |at 1443 29.6,52.0 |mobs Khan Hratha@Maraudine Key Fragment |group elite  -- Khan Hratha (42)
 complete 96222 |at 1443 29.6,52.0 |mobs Khan Hratha@Maraudine Key Fragment |group elite  -- Khan Hratha (42)
 accept 93465 |npc Azore Aldamort |at 1443 38.9,27.2 |value mid |lvl 30 |preany 93464  -- Notes on Draenethyst (40)

@@ -1,4 +1,4 @@
--- DRAFT Eastern Plaguelands (Horde) generated 2026-11-19 by tools/draft_guide.py
+-- DRAFT Eastern Plaguelands (Horde) generated 2026-11-20 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -42,6 +42,7 @@ accept 84319 |npc Orthas |at 1423 53.3,58.3  -- Oh No Ye Don't! (58)
 complete 84319 |at 1423 50.1,59.6 |areas 27.5,23.1:15;50.1,59.6:5 |mobs Stitched Horror@Partially-Digested Plate Armor;Abomination@Partially-Digested Plate Armor  -- Oh No Ye Don't! (58)
 complete 9126 |at 1423 51.6,57.6 |areas 27.1,26.1:17;58.9,30.7:14;51.6,57.6:10 |mobs Scourge Soldier@Bone Fragments;Cursed Mage@Bone Fragments;Scourge Guard@Bone Fragments;Scourge Champion@Bone Fragments |value mid  -- Bonescythe Digs (60)
 turnin 84319 |npc Orthas |at 1423 53.3,58.3  -- Oh No Ye Don't! (58)
+complete 6022 |at 1423 35.0,31.3 |mobs Scourge Warder@Living Rot;Dark Caster@Living Rot;Gibbering Ghoul@Living Rot |pick 15447 |note First get Living Rot from Scourge Warder or Dark Caster or Gibbering Ghoul  -- To Kill With Purpose (58)
 complete 6022 |at 1423 59.7,70.3 |item 15454  -- To Kill With Purpose (58)
 complete 9128 |at 1423 53.9,67.9 |areas 53.9,67.9:20;44.0,41.0:10;62.6,27.3:5 |mobs Plague Ravager@Core of Elements;Blighted Surge@Core of Elements;Blighted Horror@Core of Elements;Plague Monstrosity@Core of Elements |value mid  -- The Elemental Equation (60)
 complete 5543 |at 1423 30.1,72.1 |areas 13.7,63.8:15;45.9,66.2:12;30.1,72.1:11 |mobs Plaguebat |value mid  -- Blood Tinged Skies (56)
@@ -80,6 +81,9 @@ turnin 6145 |npc Nathanos Blightcaller |at 1423 22.2,63.5 |group elite  -- The C
 accept 6146 |npc Nathanos Blightcaller |at 1423 22.2,63.5 |group chain |lvl 56 |preany 6145  -- Nathanos' Ruse (60)
 complete 6146 |at 1423 26.7,73.3 |item 15876 |group chain  -- Nathanos' Ruse (60)
 accept 5149 |npc Pamela Redpath |at 1423 31.1,78.0 |lvl 50  -- Pamela's Doll (55)
+complete 5149 |at 1423 32.6,79.6 |pick 12886 |note First get Pamela's Doll's Head at Pamela's Doll's Head  -- Pamela's Doll (55)
+complete 5149 |at 1423 34.0,79.8 |pick 12887 |note First get Pamela's Doll's Left Side at Pamela's Doll's Left Side  -- Pamela's Doll (55)
+complete 5149 |at 1423 33.9,77.2 |pick 12888 |note First get Pamela's Doll's Right Side at Pamela's Doll's Right Side  -- Pamela's Doll (55)
 complete 5149  -- Pamela's Doll (55)
 turnin 5149 |npc Pamela Redpath |at 1423 31.1,78.0  -- Pamela's Doll (55)
 accept 5152 |npc Pamela Redpath |at 1423 31.1,78.0 |lvl 50 |preany 5149  -- Auntie Marlene (56)
@@ -141,6 +145,7 @@ turnin 5181 |npc Carlin Redpath |at 1423 71.7,50.0  -- Villains of Darrowshire (
 turnin 5168 |npc Carlin Redpath |at 1423 71.7,50.0  -- Heroes of Darrowshire (56)
 turnin 5241 |npc Carlin Redpath |at 1423 71.7,50.0  -- Uncle Carlin (56)
 accept 5206 |npc Carlin Redpath |at 1423 71.7,50.0 |lvl 50 |pre 5168,5181  -- Marauders of Darrowshire (60)
+complete 5206 |at 1423 67.2,39.7 |mobs Scourge Champion@Fetid Skull |pick 13157 |note First get Fetid Skull from Scourge Champion  -- Marauders of Darrowshire (60)
 complete 5206 |item 13156  -- Marauders of Darrowshire (60)
 turnin 5206 |npc Carlin Redpath |at 1423 71.7,50.0  -- Marauders of Darrowshire (60)
 accept 5941 |npc Carlin Redpath |at 1423 71.7,50.0 |lvl 50 |preany 5206  -- Return to Chromie (60)

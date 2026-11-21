@@ -1,4 +1,4 @@
--- DRAFT Winterspring (Horde) generated 2026-11-19 by tools/draft_guide.py
+-- DRAFT Winterspring (Horde) generated 2026-11-20 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -56,6 +56,7 @@ turnin 97264 |npc Sar Browneye |at 1452 58.3,12.8  -- Shardtooth Pulling (58)
 accept 97404 |npc Sar Browneye |at 1452 58.3,12.8 |lvl 55 |preany 97264  -- Too Bad to Bear (59)
 complete 97404 |at 1452 59.3,11.5 |mobs Kuroma@Kuroma's Head;Kamuro@Kamuro's Head  -- Too Bad to Bear (59)
 turnin 97404 |npc Sar Browneye |at 1452 58.3,12.8  -- Too Bad to Bear (59)
+complete 5056 |at 1452 51.6,14.2 |mobs Frostsaber Pride Watcher@Sacred Frostsaber Meat;Frostsaber Huntress@Sacred Frostsaber Meat;Frostsaber Cub@Sacred Frostsaber Meat |pick 12733 |note First get Sacred Frostsaber Meat from Frostsaber Pride Watcher or Frostsaber Huntress or Frostsaber Cub |group elite  -- Shy-Rotam (60)
 complete 5056 |at 1452 49.8,9.8 |mobs Shy-Rotam |group elite  -- Shy-Rotam (60)
 turnin 5086 |npc Donova Snowden |at 1452 31.3,45.2  -- Toxic Horrors (56)
 accept 5087 |npc Donova Snowden |at 1452 31.3,45.2 |lvl 52 |preany 5086  -- Winterfall Runners (57)

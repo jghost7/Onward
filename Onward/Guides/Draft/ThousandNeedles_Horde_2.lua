@@ -1,4 +1,4 @@
--- DRAFT Thousand Needles (Horde) generated 2026-11-19 by tools/draft_guide.py
+-- DRAFT Thousand Needles (Horde) generated 2026-11-20 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -21,6 +21,7 @@ turnin 1181 |npc Baron Revilgaz |at 1434 27.2,76.9  -- Goblin Sponsorship (37)
 accept 1182 |npc Baron Revilgaz |at 1434 27.2,76.9 |lvl 29 |preany 1181  -- Goblin Sponsorship (37)
 turnin 1118 |npc Crank Fizzlebub |at 1434 27.1,77.2  -- Back to Booty Bay (43)
 accept 1119 |npc Crank Fizzlebub |at 1434 27.1,77.2 |lvl 35 |pre 621,1118  -- Zanzil's Mixture and a Fool's Stout (44)
+complete 1182 |mobs Foreman Cozzle@Cozzle's Key |pick 5851 |note First get Cozzle's Key from Foreman Cozzle  -- Goblin Sponsorship (37)
 complete 1182 |at 1441 79.7,77.0 |mobs Goblin Racer;Goblin Drag Car  -- Goblin Sponsorship (37)
 turnin 1137 |npc Fizzle Brassbolts |at 1441 78.1,77.1  -- News for Fizzle (38)
 turnin 1119 |npc Kravel Koalbeard |at 1441 77.8,77.3  -- Zanzil's Mixture and a Fool's Stout (44)

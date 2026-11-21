@@ -1,4 +1,4 @@
--- DRAFT Stonetalon Mountains (Horde) generated 2026-11-19 by tools/draft_guide.py
+-- DRAFT Stonetalon Mountains (Horde) generated 2026-11-20 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -26,6 +26,7 @@ accept 5881 |npc Maggran Earthbinder |at 1442 47.2,61.2 |lvl 23  -- Calling in t
 turnin 1088 |npc Braelyn Firehand |at 1442 45.9,60.4  -- Ordanus (29)
 accept 1089 |npc Braelyn Firehand |at 1442 45.9,60.4 |lvl 20 |preany 1088  -- The Den (29)
 accept 79974 |npc Mound of Dirt |at 1442 39.6,49.8 |lvl 14 |preany 79980  -- Wet Job (32)
+complete 1089 |at 1442 29.9,15.4 |pick 5687 |note First get Gatekeeper's Key at Gatekeeper's Hold  -- The Den (29)
 complete 1089 |at 1442 28.0,13.8  -- The Den (29)
 turnin 1089 |npc Talon Den Hoard |at 1442 26.6,10.9  -- The Den (29)
 complete 1058 |at 1442 38.2,15.4 |mobs Antlered Courser@Courser Eye;Sap Beast@Stonetalon Sap;Twilight Runner@Twilight Whisker;Great Courser@Courser Eye  -- Jin'Zil's Forest Magic (26)

@@ -1,4 +1,4 @@
--- DRAFT Mulgore (Horde) generated 2026-11-19 by tools/draft_guide.py
+-- DRAFT Mulgore (Horde) generated 2026-11-20 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -10,6 +10,7 @@ accept 99080 |npc Baine Bloodhoof |at 1412 46.7,63.4 |value mid |race Scourge,Ta
 accept 98427 |npc Morin Cloudstalker |at 1412 54.8,64.3 |group elite |lvl 5 |preany 98424  -- Ceasing Operations (12)
 accept 765 |npc Morin Cloudstalker |at 1412 54.8,64.3 |lvl 5 |preany 751  -- Supervisor Fizsprocket (12)
 accept 76160 |npc Boarton Shadetotem |at 1456 39.4,65.8 |race Tauren |lvl 4 |preany 76156  -- Stalk With The Earthmother (11)
+complete 76160 |at 1412 38.2,23.5 |pick 206170 |note First get Windfury Cone at Windfury Cone |race Tauren  -- Stalk With The Earthmother (11)
 complete 76160 |at 1412 39.4,36.2 |item 206176 |race Tauren  -- Stalk With The Earthmother (11)
 accept 770 |at 1412 34.7,34.2 |note Starts from Demon Scarred Cloak |startitem 4854 |lvl 6  -- The Demon Scarred Cloak (12)
 turnin 76160 |npc Boarton Shadetotem |at 1456 39.4,65.8 |race Tauren  -- Stalk With The Earthmother (11)

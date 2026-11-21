@@ -401,6 +401,32 @@ class Zone:
         return pts
 
     # ------------------------------------------------------------ items you have to bring
+    def picks(self, q):
+        """Items a quest needs in hand before its objective can be done, that the world drops:
+        [(itemId, name, (x, y) or None, [sources])]. Questie lists them apart from the objectives
+        (requiredSourceItems), so the route went straight to the grave without the remains."""
+        out = []
+        try:
+            items = [i for i in lua_list(self.db.field("Quest-", q, 21)) if i]
+        except Exception:
+            return out
+        for item in items:
+            if item == self.db.quest(q, "sourceItemId"):
+                continue
+            try:
+                name = s(self.db.field("Item-", item, 1))
+                mobs = [n for n in lua_list(self.db.field("Item-", item, 2)) if n and self.db.npc(n, "spawns")]
+                objs = [o for o in lua_list(self.db.field("Item-", item, 3)) if o and self.db.obj(o, "spawns")]
+            except Exception:
+                continue
+            if not name or not (mobs or objs):
+                continue
+            pts = self.item_points(item)
+            names = [s(self.db.npc(n, "name")) for n in mobs] + [s(self.db.obj(o, "name")) for o in objs]
+            names = list(dict.fromkeys(n for n in names if n))[:3]
+            out.append((item, name, medoid(pts) if pts else None, names, bool(mobs)))
+        return out
+
     def needs(self, q):
         """Objective items nothing in the world drops: ones a vendor sells or a profession makes.
         [(itemId, count, name, where)]: the guide tells you to bring them (a quest that wants
@@ -536,7 +562,7 @@ class Zone:
             "breadcrumbFor": db.quest(q, "breadcrumbForQuestId"),
             "text": texts[0] if texts else "",
             "mobs": mobs, "objNote": spot_note,
-            "needs": self.needs(q),
+            "needs": self.needs(q), "picks": self.picks(q),
             "useItem": db.quest(q, "sourceItemId") or None,   # the item the quest hands you, often the one you use
             "group": self.group(q),
         }
@@ -1410,6 +1436,12 @@ def render(zone, steps, leftovers, levels, name, faction, gid=None, next_id=None
             # nearest and offers the others
             areas = (" |areas " + ";".join(f"{x:.1f},{y:.1f}:{n}" for (x, y), n in q["areas"])) if q.get("areas") and q["obj"] else ""
             note = f" |note {clean(q['objNote'])}" if q.get("objNote") else ""
+            # what you need in hand first: its own step, done when the item is in your bags
+            for item, iname, xy, srcs, from_mobs in q.get("picks") or []:
+                p_at = f" |at {zone.map} {xy[0]:.1f},{xy[1]:.1f}" if xy else ""
+                p_mobs = (" |mobs " + ";".join(f"{clean(n)}@{clean(iname)}" for n in srcs)) if from_mobs and srcs else ""
+                how = ("from " if from_mobs else "at ") + " or ".join(clean(n) for n in srcs) if srcs else ""
+                out.append(f"complete {q['id']}{p_at}{p_mobs} |pick {item} |note First get {clean(iname)} {how}{who}{title}")
             # items to bring: id:count:name:where, ';' between items
             strip = lambda v: clean(v).replace(":", " ").replace(";", ",")
             need = (" |need " + ";".join(f"{i}:{n}:{strip(nm)}:{strip(w)}" for i, n, nm, w in q["needs"])) if q.get("needs") else ""

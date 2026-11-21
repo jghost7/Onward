@@ -1,4 +1,4 @@
--- DRAFT The Barrens (Horde) generated 2026-11-19 by tools/draft_guide.py
+-- DRAFT The Barrens (Horde) generated 2026-11-20 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -84,6 +84,7 @@ complete 895 |at 1413 63.3,49.0 |mobs Baron Longshore@Baron Longshore's Head  --
 complete 888 |at 1413 62.6,49.6 |value mid  -- Stolen Booty (16)
 complete 3281 |at 1413 58.0,53.9 |value mid  -- Stolen Silver (18)
 complete 865 |at 1413 55.6,50.8 |areas 55.6,50.8:38;59.2,7.4:13;45.5,14.7:11 |mobs Sunscale Scytheclaw@Intact Raptor Horn;Ishamuhale@Intact Raptor Horn;Takk the Leaper@Intact Raptor Horn  -- Raptor Horns (18)
+complete 905 |at 1413 53.4,34.4 |mobs Sunscale Lashtail@Sunscale Feather;Sunscale Screecher@Sunscale Feather;Sunscale Scytheclaw@Sunscale Feather |pick 5165 |note First get Sunscale Feather from Sunscale Lashtail or Sunscale Screecher or Sunscale Scytheclaw  -- The Angry Scytheclaws (17)
 complete 905 |at 1413 52.5,46.6  -- The Angry Scytheclaws (17)
 complete 851 |at 1413 53.1,41.7 |mobs Verog the Dervish@Verog's Head  -- Verog the Dervish (18)
 complete 880 |at 1413 48.0,40.0 |mobs Oasis Snapjaw@Altered Snapjaw Shell;Oasis Snapjaw Hatchling@Altered Snapjaw Shell  -- Altered Beings (16)

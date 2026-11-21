@@ -1,4 +1,4 @@
--- DRAFT Eastern Plaguelands (Alliance) generated 2026-11-19 by tools/draft_guide.py
+-- DRAFT Eastern Plaguelands (Alliance) generated 2026-11-20 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -39,6 +39,9 @@ turnin 5781 |npc Tirion Fordring |at 1423 5.2,35.6  -- Of Forgotten Memories (57
 accept 5845 |npc Tirion Fordring |at 1423 5.2,35.6 |lvl 52 |preany 5781  -- Of Lost Honor (58)
 accept 5210 |npc Chromie |at 1422 39.5,66.8 |lvl 50 |preany 5154  -- Brother Carlin (56)
 accept 5149 |npc Pamela Redpath |at 1423 31.1,78.0 |lvl 50  -- Pamela's Doll (55)
+complete 5149 |at 1423 32.6,79.6 |pick 12886 |note First get Pamela's Doll's Head at Pamela's Doll's Head  -- Pamela's Doll (55)
+complete 5149 |at 1423 34.0,79.8 |pick 12887 |note First get Pamela's Doll's Left Side at Pamela's Doll's Left Side  -- Pamela's Doll (55)
+complete 5149 |at 1423 33.9,77.2 |pick 12888 |note First get Pamela's Doll's Right Side at Pamela's Doll's Right Side  -- Pamela's Doll (55)
 complete 5149  -- Pamela's Doll (55)
 turnin 5149 |npc Pamela Redpath |at 1423 31.1,78.0  -- Pamela's Doll (55)
 accept 5241 |npc Pamela Redpath |at 1423 31.1,78.0 |lvl 50 |preany 5149  -- Uncle Carlin (56)
@@ -120,6 +123,7 @@ turnin 5168 |npc Carlin Redpath |at 1423 71.7,50.0  -- Heroes of Darrowshire (56
 turnin 5517 |npc Quartermaster Miranda Breechlock |at 1423 71.8,50.2 |value mid  -- Chromatic Mantle of the Dawn (60)
 turnin 5513 |npc Quartermaster Miranda Breechlock |at 1423 71.8,50.2  -- Mantles of the Dawn (60)
 accept 5206 |npc Carlin Redpath |at 1423 71.7,50.0 |lvl 50 |pre 5168,5181  -- Marauders of Darrowshire (60)
+complete 5206 |at 1423 67.2,39.7 |mobs Scourge Champion@Fetid Skull |pick 13157 |note First get Fetid Skull from Scourge Champion  -- Marauders of Darrowshire (60)
 complete 5206 |item 13156  -- Marauders of Darrowshire (60)
 turnin 5206 |npc Carlin Redpath |at 1423 71.7,50.0  -- Marauders of Darrowshire (60)
 accept 5941 |npc Carlin Redpath |at 1423 71.7,50.0 |lvl 50 |preany 5206  -- Return to Chromie (60)

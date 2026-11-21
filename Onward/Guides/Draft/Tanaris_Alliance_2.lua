@@ -1,4 +1,4 @@
--- DRAFT Tanaris (Alliance) generated 2026-11-19 by tools/draft_guide.py
+-- DRAFT Tanaris (Alliance) generated 2026-11-20 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -66,6 +66,14 @@ complete 8606 |at 1452 67.2,72.6 |item 21042 |mobs Number Two |group elite  -- D
 turnin 8606 |npc Narain Soothfancy |at 1446 65.2,18.6 |group elite  -- Decoy! (60)
 accept 8620 |npc Narain Soothfancy |at 1446 65.2,18.6 |group chain |lvl 60 |preany 8606  -- The Only Prescription (60)
 turnin 8587 |npc Narain Soothfancy |at 1446 65.2,18.6 |value mid |group chain  -- Return to Narain (60)
+complete 8620 |mobs Doctor Weavil@Draconic for Dummies |pick 21103 |note First get Draconic for Dummies from Doctor Weavil |group chain  -- The Only Prescription (60)
+complete 8620 |mobs Dreadlord@Draconic for Dummies;Felguard Elite@Draconic for Dummies;Doomguard Commander@Draconic for Dummies |pick 21104 |note First get Draconic for Dummies from Dreadlord or Felguard Elite or Doomguard Commander |group chain  -- The Only Prescription (60)
+complete 8620 |mobs Hederine Initiate@Draconic for Dummies;Hederine Slayer@Draconic for Dummies |pick 21105 |note First get Draconic for Dummies from Hederine Initiate or Hederine Slayer |group chain  -- The Only Prescription (60)
+complete 8620 |pick 21106 |note First get Draconic for Dummies at Draconic for Dummies |group chain  -- The Only Prescription (60)
+complete 8620 |pick 21107 |note First get Draconic for Dummies at Draconic for Dummies |group chain  -- The Only Prescription (60)
+complete 8620 |mobs Onyxia@Draconic for Dummies |pick 21108 |note First get Draconic for Dummies from Onyxia |group chain  -- The Only Prescription (60)
+complete 8620 |pick 21109 |note First get Draconic for Dummies at Draconic for Dummies |group chain  -- The Only Prescription (60)
+complete 8620 |mobs Ragnaros@Draconic for Dummies |pick 21110 |note First get Draconic for Dummies from Ragnaros |group chain  -- The Only Prescription (60)
 complete 8620 |item 21112 |group chain  -- The Only Prescription (60)
 turnin 8620 |npc Narain Soothfancy |at 1446 65.2,18.6 |group chain  -- The Only Prescription (60)
 accept 8728 |npc Narain Soothfancy |at 1446 65.2,18.6 |value low |group dungeon |lvl 60 |pre 8578,8587,8620  -- The Good News and The Bad News (60)

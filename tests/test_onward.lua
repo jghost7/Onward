@@ -1988,6 +1988,38 @@ complete 9823 |at 1424 90.0,90.0 |mobs Far Beast
     if prev then W.Guide:Activate(prev) settle() end
 end
 
+do  -- an item you need in hand before the objective: its own step, done when it's in your bags
+    local prev = W.Guide:Active() and W.Guide:Active().id
+    W:RegisterGuide{ id = "pick", title = "Pick", levels = { 1, 60 }, steps = [[
+accept 9831 |npc Novice Elreth |at 1423 50.0,50.0
+complete 9831 |at 1423 60.0,60.0 |mobs Samuel Fipps@Remains |pick 16333 |note First get the Remains from Samuel Fipps
+complete 9831 |at 1423 51.0,51.0
+turnin 9831 |npc Novice Elreth |at 1423 50.0,50.0
+]] }
+    MOCK.addQuest(9831, "Last Wish") MOCK.fire("QUEST_LOG_UPDATE")
+    W.Guide:Activate("pick") settle()
+    check("needed item first: the step that gets it comes before the objective", cur().pick == 16333 and cur().at.x == 60, cur().pick)
+    MOCK.bags[16333] = 1 MOCK.fire("BAG_UPDATE_DELAYED") settle()
+    check("item in your bags: on to the objective itself", cur().verb == "complete" and not cur().pick and cur().at.x == 51, tostring(cur().pick))
+    MOCK.bags[16333] = nil
+    MOCK.turnIn(9831) MOCK.done[9831] = nil MOCK.fire("QUEST_REMOVED", 9831)
+    if prev then W.Guide:Activate(prev) settle() end
+end
+
+do  -- recommendations never reach above your level, even for a quest in your log
+    local oldLevel = MOCK.level
+    W:RegisterGuide{ id = "toohigh", title = "Too high", levels = { 30, 35 }, steps = "accept 9841\nturnin 9841\n" }
+    MOCK.level = 20
+    MOCK.addQuest(9841, "Breadcrumb") MOCK.fire("QUEST_LOG_UPDATE") settle()
+    local rec = W.Guide:Recommend()
+    check("a guide ten levels up isn't recommended for one quest in your log", not rec or rec.id ~= "toohigh", rec and rec.id)
+    MOCK.level = 29
+    rec = W.Guide:Recommend()
+    check("...but is once you're a level below its range", rec and rec.id == "toohigh", rec and rec.id)
+    MOCK.level = oldLevel
+    MOCK.turnIn(9841) MOCK.done[9841] = nil MOCK.fire("QUEST_REMOVED", 9841)
+end
+
 check("no runtime errors", #MOCK.errors == 0, MOCK.errors[1])
 print(("%d passed, %d failed"):format(pass, fail))
 return fail

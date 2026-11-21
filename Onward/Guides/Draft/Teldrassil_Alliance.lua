@@ -1,4 +1,4 @@
--- DRAFT Teldrassil (Alliance) generated 2026-11-19 by tools/draft_guide.py
+-- DRAFT Teldrassil (Alliance) generated 2026-11-20 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -99,6 +99,7 @@ accept 2459 |npc Tallonkai Swiftroot |at 1438 55.6,57.0 |preany 2438  -- Ferocit
 turnin 483 |npc Athridas Bearmantle |at 1438 56.0,57.3  -- The Relics of Wakening (9)
 accept 486 |npc Athridas Bearmantle |at 1438 56.0,57.3 |lvl 4 |preany 483  -- Ursal the Mauler (12)
 turnin 489 |npc Zenn Foulhoof |at 1438 60.4,56.2 |value mid  -- Seek Redemption! (7)
+complete 2459 |at 1438 69.4,53.4 |mobs Ferocitas the Dream Eater@Gnarlpine Necklace |pick 8049 |note First get Gnarlpine Necklace from Ferocitas the Dream Eater  -- Ferocitas the Dream Eater (8)
 complete 2459 |at 1438 68.6,52.3 |mobs Gnarlpine Mystic  -- Ferocitas the Dream Eater (8)
 accept 2159 |npc Porthannius |at 1438 61.2,47.6  -- Dolanaar Delivery (5)
 turnin 5842 |npc Orenthil Whisperwind |at 1438 58.8,44.4 |race NightElf  -- Welcome! (1)

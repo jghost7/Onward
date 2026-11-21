@@ -186,6 +186,10 @@ local function parseLine(line, lineNo, guideId)
         end
     end
     step.item = tonumber(opts.item)
+    -- |pick <itemId>: a first part of a quest that isn't one of its objectives: an item you have to
+    -- get before the objective can be done (the remains you bury, the key that opens the cage).
+    -- The step is done once the item is in your bags (or the quest is finished).
+    step.pick = tonumber(opts.pick)
     -- |need id:count:name:where;...  items the quest wants that nothing drops: bought or crafted
     if opts.need and opts.need ~= "" then
         step.need = {}
@@ -267,6 +271,7 @@ local function parse(def)
                 g.steps[step.index] = step
                 if step.verb == "accept" then g.acceptOf[step.quest] = g.acceptOf[step.quest] or step end
                 if step.need then g.needOf[step.quest] = step end
+                if step.pick then g.hasPick = true end
                 if step.loose and step.startItem then g.hasStartItems = true end
                 if step.verb == "turnin" then g.turninAt[step.quest] = g.turninAt[step.quest] or step.index end
             end
@@ -323,6 +328,10 @@ function G:IsComplete(step)
         return QS:IsOnQuest(q) or QS:IsDone(q)
     elseif v == "complete" then
         if QS:IsDone(q) then return true end
+        if step.pick then
+            local have = (C_Item and C_Item.GetItemCount and C_Item.GetItemCount(step.pick)) or (GetItemCount and GetItemCount(step.pick)) or 0
+            return have > 0 or QS:IsReady(q)
+        end
         if step.obj then
             local o = QS:Objective(q, step.obj)
             return o and o.finished or false
@@ -848,8 +857,23 @@ local function advance(fromStart)
         return advance(true)
     end
     if cursor > n and active.def.next and registry[active.def.next] then
-        W.Print("guide complete, moving on to", registry[active.def.next].title)
-        G:Activate(active.def.next)
+        local nxt = registry[active.def.next]
+        local lvl = UnitLevel("player") or 1
+        local lo = nxt.levels and nxt.levels[1] or 1
+        if lvl < lo - 1 then
+            -- you finished early (quests skipped, or a faster mode): the next part is above you.
+            -- Go to a guide that fits your level instead, if there is one.
+            local rec = G:Recommend()
+            if rec and rec ~= nxt and rec ~= active.def then
+                W.Print(("guide complete. %s starts around level %d and you're %d, so on to %s for now."):format(nxt.title, lo, lvl, rec.title))
+                G:Activate(rec.id)
+                return
+            end
+            W.Print(("guide complete. %s starts around level %d and you're %d: its first quests may not be on offer yet."):format(nxt.title, lo, lvl))
+        else
+            W.Print("guide complete, moving on to", nxt.title)
+        end
+        G:Activate(nxt.id)
         return
     end
     if changed then W:Fire("WF_STEP_CHANGED", active.steps[cursor]) end
@@ -930,8 +954,11 @@ function G:Recommend()
                     if s.quest and inLog[s.quest] and not seen[s.quest] then seen[s.quest] = true held = held + 1 end
                 end
                 local isHome = home and def.zone == home and lvl < 10 and lvl <= hi
-                local inRange = isHome or (lvl >= lo - 2 and lvl <= hi)   -- a starting zone fits from level 1
+                local inRange = isHome or (lvl >= lo - 1 and lvl <= hi)   -- a starting zone fits from level 1
                 local score, reason = 0, "level"
+                -- quests in your log speak for a guide only when you can do it: a breadcrumb to a
+                -- zone five levels up used to pull its guide in on its own
+                if held > 0 and not (isHome or lvl >= lo - 2) then held = 0 end
                 if held > 0 then score, reason = score + 20 + 3 * held, "log" end
                 if isHome then
                     score = score + 15
@@ -1233,7 +1260,7 @@ W:On("PLAYER_LEVEL_UP", function() G:ClearSuggestion() W:RequestRefresh() end)
 -- an item that starts a quest landed in your bags: its accept step can come up
 W:On("BAG_UPDATE_DELAYED", function()
     -- start items and items to bring both depend on what's in your bags
-    if not (active and (active.hasStartItems or (active.needOf and next(active.needOf)))) then return end
+    if not (active and (active.hasStartItems or active.hasPick or (active.needOf and next(active.needOf)))) then return end
     W:RequestRefresh()
 end)
 

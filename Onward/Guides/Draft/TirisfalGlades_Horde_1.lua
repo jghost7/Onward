@@ -1,4 +1,4 @@
--- DRAFT Tirisfal Glades (Horde) generated 2026-11-19 by tools/draft_guide.py
+-- DRAFT Tirisfal Glades (Horde) generated 2026-11-20 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -23,6 +23,7 @@ complete 3902 |at 1420 32.9,64.6 |value mid  -- Scavenging Deathknell (3)
 complete 3901 |at 1420 32.9,61.6 |mobs Rattlecage Skeleton |value mid  -- Rattling the Rattlecages (3)
 complete 380 |at 1420 27.1,59.2 |mobs Young Night Web Spider;Night Web Spider |value mid  -- Night Web's Hollow (4)
 complete 98389 |at 1420 25.4,59.8 |mobs Webbed Forsaken;Unknown |value mid |race Scourge  -- A Light in the Darkness (4)
+complete 6395 |at 1420 36.7,61.6 |mobs Samuel Fipps@Samuel's Remains |pick 16333 |note First get Samuel's Remains from Samuel Fipps |value mid  -- Marla's Last Wish (5)
 complete 6395 |at 1420 31.2,65.1 |value mid  -- Marla's Last Wish (5)
 turnin 98389 |npc Aramis Hammerhand |at 1420 31.0,66.2 |value mid |race Scourge  -- A Light in the Darkness (4)
 turnin 3901 |npc Shadow Priest Sarvis |at 1420 30.8,66.2 |value mid  -- Rattling the Rattlecages (3)

@@ -1,4 +1,4 @@
--- DRAFT Moonglade (Horde) generated 2026-11-19 by tools/draft_guide.py
+-- DRAFT Moonglade (Horde) generated 2026-11-20 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -10,6 +10,7 @@ accept 5527 |npc Rabine Saturna |at 1450 51.7,45.1 |lvl 56  -- A Reliquary of Pu
 complete 5527 |at 1450 51.0,40.5 |mobs Moonglade Warden  -- A Reliquary of Purity (60)
 turnin 5527 |npc Rabine Saturna |at 1450 51.7,45.1  -- A Reliquary of Purity (60)
 accept 5526 |npc Rabine Saturna |at 1450 51.7,45.1 |lvl 56 |preany 5527  -- Shards of the Felvine (60)
+complete 5526 |pick 18501 |note First get Felvine Shard at Felvine Shard  -- Shards of the Felvine (60)
 complete 5526 |at 1450 51.0,40.5 |item 18539 |mobs Moonglade Warden  -- Shards of the Felvine (60)
 accept 96209 |npc Dendrite Starblaze |at 1450 56.2,30.6 |preany 92612  -- The Ancient, Orokai (58)
 accept 6845 |npc Umber |at 1450 44.9,35.6 |lvl 54 |preany 6844  -- Uncovering Past Secrets (57)

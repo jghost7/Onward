@@ -1,4 +1,4 @@
--- DRAFT Tirisfal Glades (Horde) generated 2026-11-19 by tools/draft_guide.py
+-- DRAFT Tirisfal Glades (Horde) generated 2026-11-20 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -19,6 +19,7 @@ turnin 96897 |npc Hadric Harlson |at 1420 65.9,61.1  -- The Cult of the Damned (
 turnin 96898 |npc Hadric Harlson |at 1420 65.9,61.1  -- Remnants of War (12)
 accept 96899 |npc Hadric Harlson |at 1420 65.9,61.1 |race Orc,Scourge,Troll |lvl 10 |pre 96897,96898  -- Bandarion Keep (12)
 accept 409 |npc Gunther Arcanus |at 1420 68.2,41.9 |lvl 5 |preany 366  -- Proving Allegiance (12)
+complete 409 |at 1420 68.2,42.0 |pick 3080 |note First get Candle of Beckoning at Crate of Candles  -- Proving Allegiance (12)
 complete 409 |at 1420 66.7,45.0 |mobs Lillith Nefara  -- Proving Allegiance (12)
 turnin 409 |npc Gunther Arcanus |at 1420 68.2,41.9  -- Proving Allegiance (12)
 accept 411 |npc Gunther Arcanus |at 1420 68.2,41.9 |lvl 5 |preany 409  -- The Prodigal Lich Returns (12)

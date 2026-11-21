@@ -1,4 +1,4 @@
--- DRAFT Desolace (Horde) generated 2026-11-19 by tools/draft_guide.py
+-- DRAFT Desolace (Horde) generated 2026-11-20 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -15,6 +15,7 @@ accept 5381 |npc Taiga Wisemane |at 1443 25.8,68.2 |lvl 32  -- Hand of Iruxos (3
 accept 1370 |npc Uthek the Wise |at 1443 36.2,79.2 |lvl 30 |preany 1368,1384  -- Stealing Supplies (35)
 accept 6161 |npc Rackmore's Log |at 1443 36.1,30.4 |lvl 30  -- Claim Rackmore's Treasure! (36)
 complete 6161 |at 1443 33.0,31.1 |areas 30.9,9.8:44;23.3,80.3:23;33.0,31.1:15 |mobs Drysnap Crawler@Rackmore's Silver Key;Slitherblade Myrmidon@Rackmore's Golden Key;Drysnap Pincer@Rackmore's Silver Key;Slitherblade Naga@Rackmore's Golden Key  -- Claim Rackmore's Treasure! (36)
+complete 6142 |at 1443 33.2,30.4 |mobs Enraged Reef Crawler@Soft-shelled Clam;Giant Softshell Clam@Soft-shelled Clam |pick 15874 |note First get Soft-shelled Clam from Enraged Reef Crawler or Giant Softshell Clam |value mid  -- Clam Bait (35)
 complete 6142 |at 1443 33.2,30.4 |mobs Enraged Reef Crawler@Soft-shelled Clam Meat |value mid  -- Clam Bait (35)
 accept 5741 |npc Azore Aldamort |at 1443 38.9,27.2 |lvl 30  -- Sceptre of Light (33)
 complete 5381 |at 1443 55.0,26.6 |item 14523 |mobs Demon Spirit@Demon Box  -- Hand of Iruxos (38)

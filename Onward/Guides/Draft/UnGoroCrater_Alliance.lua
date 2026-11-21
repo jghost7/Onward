@@ -1,4 +1,4 @@
--- DRAFT Un'Goro Crater (Alliance) generated 2026-11-19 by tools/draft_guide.py
+-- DRAFT Un'Goro Crater (Alliance) generated 2026-11-20 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -60,6 +60,7 @@ turnin 4141 |npc Muigin |at 1449 42.9,9.6 |value mid  -- Muigin and Larion (52)
 accept 4142 |npc Muigin |at 1449 42.9,9.6 |value mid |lvl 47 |preany 4141  -- A Visit to Gregan (52)
 turnin 4142 |npc Gregan Brewspewer |at 1444 45.1,25.6 |value mid  -- A Visit to Gregan (52)
 accept 4143 |npc Gregan Brewspewer |at 1444 45.1,25.6 |value mid |group dungeon |lvl 47 |preany 4142  -- Haze of Evil (52)
+complete 3909 |pick 11242 |note First get Evoroot at Evoroot  -- The Videre Elixir (52)
 complete 3909 |at 1444 45.1,25.6  -- The Videre Elixir (52)
 accept 95924 |npc Curator Thorius |at 1455 71.5,15.7 |lvl 55  -- Panic at the Digsite (60)
 turnin 3909 |npc Donova Snowden |at 1452 31.3,45.2  -- The Videre Elixir (52)
@@ -85,6 +86,8 @@ accept 4084 |npc Eridan Bluewind |at 1448 51.4,81.5 |lvl 47 |preany 3942  -- Sil
 complete 4084 |at 1448 42.4,57.7  -- Silver Heart (54)
 turnin 4084 |npc Eridan Bluewind |at 1448 51.4,81.5  -- Silver Heart (54)
 accept 4005 |npc Eridan Bluewind |at 1448 51.4,81.5 |lvl 47 |preany 4084  -- Aquementas (54)
+complete 4005 |mobs Angerclaw Bear@Silvery Claws;Angerclaw Grizzly@Silvery Claws;Angerclaw Mauler@Silvery Claws |pick 11172 |note First get Silvery Claws from Angerclaw Bear or Angerclaw Grizzly or Angerclaw Mauler  -- Aquementas (54)
+complete 4005 |mobs Irontree Wanderer@Irontree Heart;Irontree Stomper@Irontree Heart |pick 11173 |note First get Irontree Heart from Irontree Wanderer or Irontree Stomper  -- Aquementas (54)
 complete 4005 |at 1446 70.4,49.9 |item 11617  -- Aquementas (54)
 turnin 4292 |npc Torwa Pathfinder |at 1449 71.6,76.0  -- The Bait for Lar'korwi (56)
 turnin 87494 |npc Torwa Pathfinder |at 1449 71.6,76.0  -- Microcrystal Contamination (55)

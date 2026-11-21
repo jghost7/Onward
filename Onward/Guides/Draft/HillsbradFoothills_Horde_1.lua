@@ -1,4 +1,4 @@
--- DRAFT Hillsbrad Foothills (Horde) generated 2026-11-19 by tools/draft_guide.py
+-- DRAFT Hillsbrad Foothills (Horde) generated 2026-11-20 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -43,6 +43,8 @@ accept 98095 |npc Deathstalker Masoj |at 1424 63.6,53.1 |lvl 19 |preany 98094  -
 turnin 98095 |npc Deathstalker Masoj |at 1424 63.6,53.1  -- Valuable Vantages (25)
 complete 549 |at 1424 79.7,43.2 |areas 79.7,43.2:57;66.0,48.1:10 |mobs Syndicate Rogue;Syndicate Watchman  -- WANTED: Syndicate Personnel (22)
 complete 546 |at 1424 79.8,43.4 |areas 79.8,43.4:105;33.8,41.6:93;29.7,56.5:56 |mobs Syndicate Watchman@Hillsbrad Human Skull;Hillsbrad Miner@Hillsbrad Human Skull;Syndicate Shadow Mage@Hillsbrad Human Skull;Lord Tomas@Hillsbrad Human Skull  -- Souvenirs of Death (25)
+complete 498 |at 1424 79.6,41.8 |mobs Jailor Eston@Dull Iron Key |pick 3467 |note First get Dull Iron Key from Jailor Eston  -- The Rescue (22)
+complete 498 |at 1424 79.5,40.6 |mobs Jailor Marlgen@Burnished Gold Key |pick 3499 |note First get Burnished Gold Key from Jailor Marlgen  -- The Rescue (22)
 complete 498 |at 1424 75.3,41.5  -- The Rescue (22)
 turnin 498 |npc Krusk |at 1424 63.2,20.7  -- The Rescue (22)
 turnin 567 |npc High Executor Darthalia |at 1424 62.3,20.4  -- Dangerous! (28)

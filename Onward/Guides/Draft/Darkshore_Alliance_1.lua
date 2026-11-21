@@ -1,4 +1,4 @@
--- DRAFT Darkshore (Alliance) generated 2026-11-19 by tools/draft_guide.py
+-- DRAFT Darkshore (Alliance) generated 2026-11-20 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -101,6 +101,10 @@ accept 97926 |npc Baros Alexston |at 1453 57.7,47.9 |lvl 13 |preany 97914  -- Ma
 accept 97894 |npc Borgus Steelhand |at 1453 59.4,34.3 |lvl 13  -- Business in Auberdine (17)
 accept 952 |npc Arch Druid Fandral Staghelm |at 1457 34.8,9.3 |lvl 6 |preany 940  -- Grove of the Ancients (17)
 accept 4725 |npc Beached Sea Turtle |at 1439 44.2,20.6 |value low |lvl 12 |preany 4681  -- Beached Sea Turtle (15)
+complete 4763 |at 1439 52.9,33.4 |pick 12341 |note First get Blackwood Fruit Sample at Blackwood Fruit Stores  -- The Blackwood Corrupted (18)
+complete 4763 |at 1439 50.7,34.9 |pick 12342 |note First get Blackwood Grain Sample at Blackwood Grain Stores  -- The Blackwood Corrupted (18)
+complete 4763 |at 1439 51.8,33.5 |pick 12343 |note First get Blackwood Nut Sample at Blackwood Nut Stores  -- The Blackwood Corrupted (18)
+complete 4763 |at 1439 37.8,44.0 |pick 12347 |note First get Filled Cleansing Bowl at Auberdine Moonwell  -- The Blackwood Corrupted (18)
 complete 4763 |at 1439 52.5,33.4 |item 12346  -- The Blackwood Corrupted (18)
 complete 2139 |at 1439 51.5,38.3 |mobs Den Mother  -- Tharnariun's Hope (18)
 turnin 957 |npc Asterion |at 1439 44.2,36.3 |value mid  -- Bashal'Aran (13)

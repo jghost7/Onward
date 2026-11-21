@@ -1,4 +1,4 @@
--- DRAFT Un'Goro Crater (Horde) generated 2026-11-19 by tools/draft_guide.py
+-- DRAFT Un'Goro Crater (Horde) generated 2026-11-20 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -61,6 +61,7 @@ accept 3909 |npc Donova Snowden |at 1452 31.3,45.2 |lvl 47 |preany 3908  -- The 
 accept 4502 |npc Liv Rizzlefix |at 1413 62.5,38.7 |value mid |lvl 49  -- Volcanic Activity (55)
 turnin 4147 |npc Liv Rizzlefix |at 1413 62.5,38.7 |value mid  -- Marvon's Workshop (52)
 accept 87494 |note No quest giver on record: it most likely starts from an item you loot or find in this zone. Hand it in to Torwa Pathfinder |loose  -- Microcrystal Contamination (55)
+complete 3909 |pick 11242 |note First get Evoroot at Evoroot  -- The Videre Elixir (52)
 complete 3909 |at 1444 45.1,25.6  -- The Videre Elixir (52)
 turnin 974 |npc Krakle |at 1449 30.9,50.4  -- Finding the Source (55)
 accept 980 |npc Krakle |at 1449 30.9,50.4 |lvl 51 |preany 974  -- The New Springs (55)
@@ -94,6 +95,8 @@ accept 4084 |npc Eridan Bluewind |at 1448 51.4,81.5 |lvl 47 |preany 3942  -- Sil
 complete 4084 |at 1448 42.4,57.7  -- Silver Heart (54)
 turnin 4084 |npc Eridan Bluewind |at 1448 51.4,81.5  -- Silver Heart (54)
 accept 4005 |npc Eridan Bluewind |at 1448 51.4,81.5 |lvl 47 |preany 4084  -- Aquementas (54)
+complete 4005 |mobs Angerclaw Bear@Silvery Claws;Angerclaw Grizzly@Silvery Claws;Angerclaw Mauler@Silvery Claws |pick 11172 |note First get Silvery Claws from Angerclaw Bear or Angerclaw Grizzly or Angerclaw Mauler  -- Aquementas (54)
+complete 4005 |mobs Irontree Wanderer@Irontree Heart;Irontree Stomper@Irontree Heart |pick 11173 |note First get Irontree Heart from Irontree Wanderer or Irontree Stomper  -- Aquementas (54)
 complete 4005 |at 1446 70.4,49.9 |item 11617  -- Aquementas (54)
 turnin 4005 |npc J.D. Collie |at 1449 41.9,2.7  -- Aquementas (54)
 accept 3961 |npc J.D. Collie |at 1449 41.9,2.7 |lvl 47 |preany 4005  -- Linken's Adventure (54)

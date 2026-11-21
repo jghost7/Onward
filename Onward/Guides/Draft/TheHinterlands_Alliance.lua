@@ -1,4 +1,4 @@
--- DRAFT The Hinterlands (Alliance) generated 2026-11-19 by tools/draft_guide.py
+-- DRAFT The Hinterlands (Alliance) generated 2026-11-20 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -28,6 +28,7 @@ accept 2994 |npc Gryphon Master Talonaxe |at 1425 9.8,44.5 |group chain |lvl 40 
 accept 86616 |npc Farseer Maret Firetend |at 1425 14.4,42.6 |value low |lvl 45  -- Repurposed Totems (48)
 turnin 1452 |npc Rhapsody Shindigger |at 1425 26.9,48.6  -- Rhapsody's Kalimdor Kocktail (43)
 accept 1469 |npc Rhapsody Shindigger |at 1425 26.9,48.6 |lvl 38 |preany 1452  -- Rhapsody's Tale (43)
+complete 2994 |at 1425 59.5,78.3 |mobs Vile Priestess Hexx@Hexx's Key |pick 9472 |note First get Hexx's Key from Vile Priestess Hexx |group chain  -- Saving Sharpbeak (51)
 complete 2994 |at 1425 53.4,67.1 |group chain  -- Saving Sharpbeak (51)
 accept 485 |at 1425 53.0,53.6 |note Starts from OOX-09/HL Distress Beacon |startitem 8704 |lvl 43  -- Find OOX-09/HL! (48)
 complete 86616 |at 1425 71.0,48.6 |areas 47.6,66.5:15;71.0,48.6:4 |mobs Vilebranch Soothsayer@Vilebranch Totem |value low  -- Repurposed Totems (48)

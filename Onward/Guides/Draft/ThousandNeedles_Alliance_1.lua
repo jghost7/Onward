@@ -1,4 +1,4 @@
--- DRAFT Thousand Needles (Alliance) generated 2026-11-19 by tools/draft_guide.py
+-- DRAFT Thousand Needles (Alliance) generated 2026-11-20 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -37,6 +37,7 @@ accept 1107 |npc Wizzle Brassbolts |at 1441 78.1,77.1 |group elite |lvl 28 |pre 
 accept 1106 |npc Fizzle Brassbolts |at 1441 78.1,77.1 |lvl 26 |pre 1104,1105  -- Martek the Exiled (35)
 accept 1115 |npc Kravel Koalbeard |at 1441 77.8,77.3 |lvl 30 |preany 1114  -- The Rumormonger (36)
 turnin 1110 |npc Kravel Koalbeard |at 1441 77.8,77.3 |value low  -- Rocket Car Parts (31)
+complete 1182 |mobs Foreman Cozzle@Cozzle's Key |pick 5851 |note First get Cozzle's Key from Foreman Cozzle  -- Goblin Sponsorship (37)
 complete 1182 |at 1441 79.7,77.0 |mobs Goblin Racer;Goblin Drag Car  -- Goblin Sponsorship (37)
 complete 98155 |at 1441 63.8,56.5 |areas 63.8,56.5:11;12.2,15.3:7;20.1,33.3:4 |mobs Pesterhide Snarler@Pristine Pesterhide Pelt  -- Pristine Pesterhide Pelts (29)
 accept 1100 |at 1441 30.7,24.4 |note Starts from Henrig Lonebrow's Journal |startitem 5791 |lvl 29  -- Lonebrow's Journal (34)

@@ -1,4 +1,4 @@
--- DRAFT Feralas (Alliance) generated 2026-11-19 by tools/draft_guide.py
+-- DRAFT Feralas (Alliance) generated 2026-11-20 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -87,10 +87,15 @@ accept 2879 |npc Troyas Moonbreeze |at 1444 31.8,45.5 |group chain |lvl 42 |prea
 complete 4297 |at 1444 52.0,60.9 |mobs Bloodroar the Stalker |value mid  -- Food for Baby (47)
 turnin 7003 |npc Zorbin Fandazzle |at 1444 44.8,43.4 |value mid  -- Zapped Giants (48)
 turnin 7721 |npc Zorbin Fandazzle |at 1444 44.8,43.4 |value mid  -- Fuel for the Zapping (48)
+complete 2879 |at 1444 37.8,12.2 |pick 9255 |note First get Lahassa Essence at Flame of Lahassa |group chain  -- The Stave of Equinex (50)
+complete 2879 |at 1444 39.9,9.4 |pick 9256 |note First get Imbel Essence at Flame of Imbel |group chain  -- The Stave of Equinex (50)
+complete 2879 |at 1444 40.5,12.7 |pick 9257 |note First get Samha Essence at Flame of Samha |group chain  -- The Stave of Equinex (50)
+complete 2879 |at 1444 38.5,15.8 |pick 9258 |note First get Byltan Essence at Flame of Byltan |group chain  -- The Stave of Equinex (50)
 complete 2879 |at 1444 38.8,13.2 |item 9263 |group chain  -- The Stave of Equinex (50)
 turnin 2879 |npc Equinex Monolith |at 1444 38.8,13.2 |group chain  -- The Stave of Equinex (50)
 accept 2942 |npc Equinex Monolith |at 1444 38.8,13.2 |group chain |lvl 42 |preany 2879  -- The Morrow Stone (50)
 turnin 2844 |npc Shay Leafrunner |at 1444 38.2,10.3  -- The Giant Guardian (49)
+complete 3791 |pick 11018 |note First get Un'Goro Soil at Un'Goro Dirt Pile |value mid  -- The Mystery of Morrowgrain (50)
 complete 3791 |at 1444 31.7,42.6 |item 11020 |mobs Feathermoon Sentinel;Furious Feathermoon Sentinel |value mid  -- The Mystery of Morrowgrain (50)
 complete 2942 |at 1444 31.7,42.6 |item 9306 |mobs Feathermoon Sentinel;Furious Feathermoon Sentinel |group chain  -- The Morrow Stone (50)
 turnin 7733 |npc Pratt McGrubben |at 1444 30.6,42.7 |value mid  -- Improved Quality (48)

@@ -1,4 +1,4 @@
--- DRAFT Badlands (Horde) generated 2026-11-19 by tools/draft_guide.py
+-- DRAFT Badlands (Horde) generated 2026-11-20 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -61,6 +61,9 @@ complete 715 |at 1418 42.1,28.9 |areas 42.1,28.9:45;10.7,75.9:15;50.9,67.7:15 |m
 complete 2418 |at 1418 47.6,12.4 |mobs Shadowforge Digger@Dentrium Power Stone;Shadowforge Surveyor@Dentrium Power Stone;Shadowforge Ruffian@Dentrium Power Stone |value mid  -- Power Stones (36)
 complete 2283 |at 1418 47.8,12.2 |mobs Shadowforge Digger@Shattered Necklace;Shadowforge Surveyor@Shattered Necklace;Shadowforge Ruffian@Shattered Necklace;Stonevault Rockchewer@Shattered Necklace |group elite  -- Necklace Recovery (41)
 complete 78823 |at 1418 65.7,23.5 |areas 10.7,75.9:23;7.6,90.4:19;49.9,68.4:19;65.7,23.5:8 |mobs Stonevault Bonesnapper@Primitive Drawing;Dustbelcher Mauler@Primitive Drawing;Dustbelcher Ogre Mage@Primitive Drawing;Dustbelcher Wyrmhunter@Primitive Drawing  -- Terror of the Desert Skies (40)
+complete 793 |at 1418 81.3,64.3 |pick 4843 |note First get Amethyst Runestone at Pillar of Amethyst |group elite  -- Broken Alliances (50)
+complete 793 |at 1418 72.3,66.9 |pick 4844 |note First get Opal Runestone at Pillar of Opal |group elite  -- Broken Alliances (50)
+complete 793 |at 1418 83.5,32.8 |pick 4845 |note First get Diamond Runestone at Pillar of Diamond |group elite  -- Broken Alliances (50)
 complete 793 |at 1418 81.9,49.5 |item 4640 |mobs Blacklash@Blacklash's Bindings;Hematus@Chains of Hematus |group elite  -- Broken Alliances (50)
 complete 692 |at 1418 53.9,83.9 |mobs Enraged Rock Elemental@Torn Scroll Fragment  -- The Lost Fragments (41)
 turnin 737 |npc Theldurin the Lost |at 1418 51.4,76.9 |group chain  -- Forbidden Knowledge (40)

@@ -1,4 +1,4 @@
--- DRAFT Ashenvale (Alliance) generated 2026-11-19 by tools/draft_guide.py
+-- DRAFT Ashenvale (Alliance) generated 2026-11-20 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -9,6 +9,7 @@ accept 1026 |npc Shael'dryn |at 1440 53.5,46.2 |lvl 18 |preany 1024  -- Raene's 
 accept 1021 |npc Illiyana |at 1440 21.7,53.3 |lvl 26  -- Vile Satyr! Dryads in Danger! (32)
 accept 1022 |npc Sentinel Melyria Frostshadow |at 1440 22.2,53.0 |lvl 25  -- The Howling Vale (30)
 complete 1022 |at 1440 50.5,39.1  -- The Howling Vale (30)
+complete 1026 |at 1440 57.8,39.1 |mobs Withered Ancient@Wooden Key;Crazed Ancient@Wooden Key |pick 5475 |note First get Wooden Key from Withered Ancient or Crazed Ancient  -- Raene's Cleansing (27)
 complete 1026 |at 1440 54.4,35.4  -- Raene's Cleansing (27)
 turnin 1026 |npc Shael'dryn |at 1440 53.5,46.2  -- Raene's Cleansing (27)
 accept 1027 |npc Shael'dryn |at 1440 53.5,46.2 |lvl 18 |preany 1026  -- Raene's Cleansing (28)

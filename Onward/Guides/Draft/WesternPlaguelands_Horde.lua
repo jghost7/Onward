@@ -1,4 +1,4 @@
--- DRAFT Western Plaguelands (Horde) generated 2026-11-19 by tools/draft_guide.py
+-- DRAFT Western Plaguelands (Horde) generated 2026-11-20 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -92,6 +92,7 @@ accept 5166 |npc Catalogue of the Wayward |at 1422 39.4,66.6 |value mid |group d
 accept 5167 |npc Catalogue of the Wayward |at 1422 39.4,66.6 |value mid |group dungeon |lvl 57 |preany 5164  -- Legplates of the Chromatic Defier (60)
 turnin 5050 |npc Janice Felstone |at 1422 38.4,54.0  -- Good Luck Charm (52)
 accept 5051 |npc Janice Felstone |at 1422 38.4,54.0 |lvl 50 |preany 5050  -- Two Halves Become One (54)
+complete 5051 |at 1422 38.0,56.4 |mobs Jabbering Ghoul@Good Luck Other-Half-Charm |pick 12722 |note First get Good Luck Other-Half-Charm from Jabbering Ghoul  -- Two Halves Become One (54)
 complete 5051 |item 12721  -- Two Halves Become One (54)
 turnin 5051 |npc Janice Felstone |at 1422 38.4,54.0  -- Two Halves Become One (54)
 complete 5166 |at 1422 40.7,57.4 |areas 53.3,66.2:16;40.7,57.4:12;68.4,77.1:12 |value mid |group dungeon  -- Breastplate of the Chromatic Flight (60)

@@ -1,4 +1,4 @@
--- DRAFT Silithus (Alliance) generated 2026-11-19 by tools/draft_guide.py
+-- DRAFT Silithus (Alliance) generated 2026-11-20 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -21,6 +21,7 @@ complete 1125 |at 1451 62.6,52.8 |mobs Tortured Druid;Tortured Sentinel |value l
 turnin 1125 |npc Layo Starstrike |at 1451 81.9,18.9 |value low  -- The Spirits of Southwind (55)
 accept 1126 |npc Layo Starstrike |at 1451 81.9,18.9 |value low |lvl 54 |preany 1125  -- Hive in the Tower (57)
 complete 8280 |at 1451 65.0,40.4 |areas 53.9,17.6:16;34.1,29.6:8;65.0,40.4:8 |mobs Dredge Striker |value mid  -- Securing the Supply Lines (55)
+complete 1126 |at 1451 60.4,52.6 |pick 17345 |note First get Silithid Goo at Hive'Ashi Pod |value low  -- Hive in the Tower (57)
 complete 1126 |at 1451 60.2,52.4 |mobs Hive'Ashi Ambusher@Encrusted Silithid Object |value low  -- Hive in the Tower (57)
 turnin 1126 |npc Layo Starstrike |at 1451 81.9,18.9 |value low  -- Hive in the Tower (57)
 accept 6844 |npc Layo Starstrike |at 1451 81.9,18.9 |value low |lvl 54 |preany 1126  -- Umber, Archivist (57)

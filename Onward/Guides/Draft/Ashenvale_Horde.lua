@@ -1,4 +1,4 @@
--- DRAFT Ashenvale (Horde) generated 2026-11-19 by tools/draft_guide.py
+-- DRAFT Ashenvale (Horde) generated 2026-11-20 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -48,6 +48,8 @@ turnin 24 |npc Senani Thunderheart |at 1440 73.8,61.5  -- Shadumbra's Head (27)
 accept 247 |npc Senani Thunderheart |at 1440 73.8,61.5 |lvl 20 |pre 2,23,24  -- The Hunt Completed (30)
 turnin 247 |npc Senani Thunderheart |at 1440 73.8,61.5  -- The Hunt Completed (30)
 turnin 6441 |npc Pixel |at 1440 73.1,61.5 |value mid  -- Satyr Horns (26)
+complete 6504 |at 1440 21.1,43.1 |mobs Saltspittle Warrior@Shredder Operating Manual - Page 6 |pick 16650 |note First get Shredder Operating Manual - Page 6 from Saltspittle Warrior  -- The Lost Pages (30)
+complete 6504 |at 1440 20.5,43.2 |mobs Saltspittle Oracle@Shredder Operating Manual - Page 11 |pick 16655 |note First get Shredder Operating Manual - Page 11 from Saltspittle Oracle  -- The Lost Pages (30)
 complete 6504 |at 1440 73.6,63.6 |mobs Splintertree Guard;Shredder 9000;Warsong Shredder;Splintertree Raider  -- The Lost Pages (30)
 turnin 6571 |npc Locke Okarr |at 1440 71.4,67.6  -- Warsong Supplies (27)
 turnin 6504 |npc Gurda Ragescar |at 1440 70.0,71.2  -- The Lost Pages (30)

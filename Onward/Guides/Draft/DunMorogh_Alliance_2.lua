@@ -1,4 +1,4 @@
--- DRAFT Dun Morogh (Alliance) generated 2026-11-19 by tools/draft_guide.py
+-- DRAFT Dun Morogh (Alliance) generated 2026-11-20 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -20,6 +20,7 @@ complete 2951 |at 1426 20.9,36.0 |mobs Irradiated Invader@Grime-Encrusted Object
 turnin 2952  -- The Sparklematic 5200! (30)
 turnin 2951  -- The Sparklematic 5200! (30)
 complete 2928 |at 1426 21.7,34.0 |mobs Irradiated Invader@Robo-mechanical Guts;Caverndeep Invader@Robo-mechanical Guts;Techbot@Robo-mechanical Guts  -- Gyrodrillmatic Excavationators (30)
+complete 2930 |at 1426 21.9,38.6 |mobs Caverndeep Invader@White Punch Card;Caverndeep Looter@White Punch Card;Caverndeep Pillager@White Punch Card |pick 9279 |note First get White Punch Card from Caverndeep Invader or Caverndeep Looter or Caverndeep Pillager |group dungeon  -- Data Rescue (30)
 complete 2930 |at 1426 47.9,53.8 |mobs Ironforge Protector |group dungeon  -- Data Rescue (30)
 complete 2924 |at 1426 47.9,53.8 |mobs Ironforge Protector |value low |group dungeon  -- Essential Artificials (30)
 turnin 2926 |npc Ozzie Togglevolt |at 1426 45.9,49.4 |group elite  -- Gnogaine (27)

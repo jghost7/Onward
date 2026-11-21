@@ -1,4 +1,4 @@
--- DRAFT Mulgore (Horde) generated 2026-11-19 by tools/draft_guide.py
+-- DRAFT Mulgore (Horde) generated 2026-11-20 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -11,6 +11,7 @@ turnin 98476 |npc Nuara Tremorhoof |at 1412 33.6,22.5 |value low  -- More Unstab
 home |npc Innkeeper Kauth |at 1412 45.9,64.2  -- set your hearthstone at the inn
 accept 99411 |npc Ahab Wheathoof |at 1412 47.3,57.6 |lvl 5  -- Kyle's Gone Missing! (7)
 accept 766 |npc Maur Raincaller |at 1412 46.2,60.8 |lvl 5  -- Mazzranache (8)
+complete 99411 |at 1412 46.6,48.1 |mobs Adult Plainstrider@Tender Strider Meat;Elder Plainstrider@Tender Strider Meat;Mazzranache@Tender Strider Meat |pick 287505 |note First get Tender Strider Meat from Adult Plainstrider or Elder Plainstrider or Mazzranache  -- Kyle's Gone Missing! (7)
 complete 99411 |at 1412 46.3,62.3 |mobs Kyle the Frenzied  -- Kyle's Gone Missing! (7)
 accept 746 |npc Baine Bloodhoof |at 1412 46.7,63.4 |lvl 6  -- Dwarven Digging (8)
 accept 767 |npc Baine Bloodhoof |at 1412 46.7,63.4 |lvl 3  -- Rite of Vision (6)
@@ -81,6 +82,7 @@ turnin 743 |npc Ruul Eagletalon |at 1412 46.5,64.9  -- Dangers of the Windfury (
 complete 96130 |at 1412 39.5,66.2 |mobs Chakuyak@Chakuyak's Pelt  -- Chakuyak (5)
 accept 98430 |npc Perith Stormhoof |at 1412 33.1,66.0  -- The Longwalkers (8)
 complete 98430 |at 1412 37.2,64.6  -- The Longwalkers (8)
+complete 746 |at 1412 33.4,54.0 |mobs Bael'dun Digger@Prospector's Pick;Bael'dun Appraiser@Prospector's Pick |pick 4702 |note First get Prospector's Pick from Bael'dun Digger or Bael'dun Appraiser  -- Dwarven Digging (8)
 complete 746 |at 1412 33.1,54.8  -- Dwarven Digging (8)
 turnin 772 |npc Seer Wiserunner |at 1412 34.3,43.3  -- Rite of Vision (7)
 accept 773 |npc Seer Wiserunner |at 1412 34.3,43.3 |lvl 3 |preany 772  -- Rite of Wisdom (10)

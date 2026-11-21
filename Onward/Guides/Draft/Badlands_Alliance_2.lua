@@ -1,4 +1,4 @@
--- DRAFT Badlands (Alliance) generated 2026-11-19 by tools/draft_guide.py
+-- DRAFT Badlands (Alliance) generated 2026-11-20 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -8,6 +8,9 @@ Onward:RegisterGuide{
 accept 706 |npc Sigrun Ironhew |at 1418 53.8,43.3 |value low |lvl 40  -- Fiery Blaze Enchantments (45)
 accept 717 |npc Garek |at 1418 61.9,54.3 |value mid |group elite |lvl 40 |preany 732  -- Tremors of the Earth (50)
 complete 706 |at 1418 80.4,53.6 |areas 83.2,32.7:14;80.4,53.6:12 |mobs Scalding Whelp@Black Drake's Heart;Scorched Guardian@Black Drake's Heart |value low  -- Fiery Blaze Enchantments (45)
+complete 717 |at 1418 81.3,64.3 |pick 4843 |note First get Amethyst Runestone at Pillar of Amethyst |value mid |group elite  -- Tremors of the Earth (50)
+complete 717 |at 1418 72.3,66.9 |pick 4844 |note First get Opal Runestone at Pillar of Opal |value mid |group elite  -- Tremors of the Earth (50)
+complete 717 |at 1418 83.5,32.8 |pick 4845 |note First get Diamond Runestone at Pillar of Diamond |value mid |group elite  -- Tremors of the Earth (50)
 complete 717 |at 1418 81.9,49.5 |item 4640 |mobs Blacklash@Blacklash's Bindings;Hematus@Chains of Hematus |value mid |group elite  -- Tremors of the Earth (50)
 turnin 717 |npc Garek |at 1418 61.9,54.3 |value mid |group elite  -- Tremors of the Earth (50)
 turnin 706 |npc Sigrun Ironhew |at 1418 53.8,43.3 |value low  -- Fiery Blaze Enchantments (45)
@@ -25,6 +28,7 @@ accept 1139 |npc Advisor Belgrum |at 1455 77.3,9.7 |group dungeon |lvl 35 |prean
 complete 1139 |group dungeon  -- The Lost Tablets of Will (45)
 turnin 1139 |npc Advisor Belgrum |at 1455 77.3,9.7 |group dungeon  -- The Lost Tablets of Will (45)
 accept 735 |npc Gerrig Bonegrip |at 1455 50.8,5.6 |value mid |group elite |lvl 30 |preany 727  -- The Star, the Hand and the Heart (44)
+complete 735 |mobs Mirefin Oracle@Enchanted Sea Kelp |pick 4639 |note First get Enchanted Sea Kelp from Mirefin Oracle |value mid |group elite  -- The Star, the Hand and the Heart (44)
 complete 735 |item 4649 |value mid |group elite  -- The Star, the Hand and the Heart (44)
 turnin 735 |npc Gerrig Bonegrip |at 1455 50.8,5.6 |value mid |group elite  -- The Star, the Hand and the Heart (44)
 turnin 2204 |npc Talvash del Kissel |at 1455 36.4,3.6 |group dungeon  -- Restoring the Necklace (44)

@@ -1,4 +1,4 @@
--- DRAFT The Barrens (Horde) generated 2026-11-19 by tools/draft_guide.py
+-- DRAFT The Barrens (Horde) generated 2026-11-20 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -69,6 +69,7 @@ complete 1069 |at 1442 61.6,59.4 |value low  -- Deepmoss Spider Eggs (20)
 complete 876 |at 1413 39.2,12.2 |mobs Serena Bloodfeather@Serena's Head  -- Serena Bloodfeather (20)
 turnin 3513 |npc Kadrak |at 1413 48.1,5.4  -- The Runed Scroll (25)
 accept 6543 |npc Kadrak |at 1413 48.1,5.4 |lvl 17  -- The Warsong Reports (19)
+complete 882 |at 1413 50.8,34.1 |mobs Zhevra Runner@Fresh Zhevra Carcass;Zhevra Charger@Fresh Zhevra Carcass;Zhevra Courser@Fresh Zhevra Carcass |pick 10338 |note First get Fresh Zhevra Carcass from Zhevra Runner or Zhevra Charger or Zhevra Courser  -- Ishamuhale (19)
 complete 882 |at 1413 59.8,30.6 |mobs Ishamuhale@Ishamuhale's Fang  -- Ishamuhale (19)
 turnin 92706 |npc Gazlowe |at 1413 62.7,36.2 |group elite  -- WANTED: Bruuz (20)
 complete 1221 |at 1413 62.3,37.6 |item 6684 |group dungeon  -- Blueleaf Tubers (26)
@@ -101,6 +102,8 @@ turnin 6541 |npc Kadrak |at 1413 48.1,5.4  -- Report to Kadrak (19)
 turnin 6543 |npc Kadrak |at 1413 48.1,5.4  -- The Warsong Reports (19)
 turnin 6382 |npc Senani Thunderheart |at 1440 73.8,61.5  -- The Ashenvale Hunt (20)
 accept 3924 |npc Rilli Greasygob |at 1454 76.5,24.4 |lvl 10 |preany 3923  -- Samophlange Manual (19)
+complete 3924 |at 1413 60.7,3.8 |mobs Venture Co. Enforcer@Samophlange Manual Page;Venture Co. Overseer@Samophlange Manual Page |pick 11148 |note First get Samophlange Manual Page from Venture Co. Enforcer or Venture Co. Overseer  -- Samophlange Manual (19)
+complete 3924 |at 1413 60.0,4.1 |mobs Boss Copperplug@Samophlange Manual Cover |pick 11147 |note First get Samophlange Manual Cover from Boss Copperplug  -- Samophlange Manual (19)
 complete 3924  -- Samophlange Manual (19)
 turnin 3924 |npc Rilli Greasygob |at 1454 76.5,24.4  -- Samophlange Manual (19)
 turnin 1483 |npc Ziz Fizziks |at 1442 59.0,62.6  -- Ziz Fizziks (21)

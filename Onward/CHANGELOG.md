@@ -1,5 +1,16 @@
 # Changelog
 
+## Unreleased
+
+- Quests that need an item in hand first now say so. "Marla's Last Wish" sent you to the grave
+  without Samuel's remains, because the remains aren't one of the quest's listed objectives.
+  63 steps like it across the guides now get a step of their own first ("First get ... from
+  ..."), with an arrow to where the item comes from; it's done once the item is in your bags.
+- Guides above your level are no longer recommended. A quest in your log could pull in a guide
+  many levels up, and finishing a guide early moved you on to its next part whatever your
+  level. A guide is now suggested from one level below its range, and at the end of a guide
+  you're sent to one that fits your level when the next part is still above you.
+
 ## 0.6.34
 
 - Travel is worked out live. Guides no longer contain "Fly to ..." and "Take the boat to ..."
