@@ -25,4 +25,6 @@
     <Script file="Skinning_Horde.lua"/>
     <Script file="Tailoring_Alliance.lua"/>
     <Script file="Tailoring_Horde.lua"/>
+    <Script file="Lockpicking_Alliance.lua"/>
+    <Script file="Lockpicking_Horde.lua"/>
 </Ui>

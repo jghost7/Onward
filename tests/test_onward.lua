@@ -1286,6 +1286,29 @@ gather 182 50 |at 1423 50.0,50.0 |note Peacebloom
     check("clicking the Leveling tab switches back", p2 == 0 and z2 > 0, p2 .. "/" .. z2)
     W.UI:ShowPicker("professions")
     check("/ow prof opens on the Professions tab", (listed()) > 0)
+    -- Lockpicking: a class skill, read from the skill list, and its guide is listed for rogues only
+    local function hasLock()
+        for _, def in ipairs(W.UI.pickerList or {}) do
+            if def.id == "prof-lockpicking-A" or def.id == "prof-lockpicking-H" then return def end
+        end
+    end
+    W.UI:ShowPicker("professions")
+    check("a warrior isn't shown the Lockpicking guide", W.Guide:Get("prof-lockpicking-A") and not hasLock())
+    local realClass = UnitClass
+    UnitClass = function(u) if u == "player" then return "Rogue", "ROGUE" end return realClass(u) end
+    W.UI:ShowPicker("professions")
+    local lock = hasLock()
+    check("a rogue is shown the Lockpicking guide for their faction", lock and lock.id == "prof-lockpicking-A", lock and lock.id)
+    GetNumSkillLines = function() return 2 end
+    GetSkillLineInfo = function(i) if i == 1 then return "Class Skills", true end return "Lockpicking", nil, nil, 80, 0, 0, 100 end
+    MOCK.fire("SKILL_LINES_CHANGED")
+    check("Lockpicking rank comes from the skill list", P:Rank(633) == 80, tostring(P:Rank(633)))
+    W.Guide:Activate("prof-lockpicking-A") settle()
+    cur = W.Guide:Current()
+    check("at 80 the practice boxes are done: on to the footlockers", cur and cur.verb == "gather" and cur.untilSkill == 150 and cur.at and cur.at.map == 1437, cur and cur.untilSkill)
+    check("lockpicking step text", W.UI.StepText(cur) == "Pick locks to 150", W.UI.StepText(cur))
+    GetNumSkillLines, GetSkillLineInfo, UnitClass = nil, nil, realClass
+    W.Guide:Activate("proftest") settle()
     W.UI:ShowPicker("zones")
     MOCK.level = 20
     MOCK.profs, MOCK.recipes, MOCK.tradeLine = {}, {}, nil

@@ -764,6 +764,7 @@ local VERB_LABEL = {
 }
 local OBJ_LABEL = { monster = "KILL", item = "LOOT", object = "USE", event = "EXPLORE" }
 local function verbLabel(step)
+    if step.verb == "gather" and step.skill == 633 then return "PICK LOCKS" end
     if step.verb ~= "complete" then return VERB_LABEL[step.verb] or step.verb:upper() end
     local e = step.quest and QS:Get(step.quest)
     local kinds, first = {}, nil
@@ -1552,6 +1553,11 @@ local function guideFits(def)
     if (def.kind == "profession") ~= (pickerTab == "professions") then return false end
     local f = UnitFactionGroup("player")
     if def.faction and def.faction ~= "" and f and def.faction:sub(1, 1):upper() ~= f:sub(1, 1) then return false end
+    -- class = "ROGUE" (or a comma list) on a guide: listed for those classes only (Lockpicking)
+    if def.class then
+        local _, cls = UnitClass("player")
+        if cls and not ("," .. def.class:upper() .. ","):find("," .. cls:upper() .. ",", 1, true) then return false end
+    end
     return true
 end
 

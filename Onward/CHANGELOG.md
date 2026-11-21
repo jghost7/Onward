@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+- Rogues: a Lockpicking 1-300 guide on the Professions tab. It takes you from the practice boxes
+  (Alther's Mill for the Alliance, the pirate ship off Ratchet for the Horde) through the
+  footlockers of each skill band up to Tyr's Hand, with an arrow to each spot, the skill the
+  boxes need and the level each band takes. Only rogues are shown it.
+
 ## 0.6.35
 
 - Quests that need an item in hand first now say so. "Marla's Last Wish" sent you to the grave

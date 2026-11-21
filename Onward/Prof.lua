@@ -14,9 +14,10 @@ W.Prof = P
 local T = W.Travel
 P.NAMES = { [171] = "Alchemy", [164] = "Blacksmithing", [333] = "Enchanting", [202] = "Engineering",
             [165] = "Leatherworking", [197] = "Tailoring", [185] = "Cooking", [129] = "First Aid",
-            [182] = "Herbalism", [186] = "Mining", [393] = "Skinning", [356] = "Fishing" }
+            [182] = "Herbalism", [186] = "Mining", [393] = "Skinning", [356] = "Fishing",
+            [633] = "Lockpicking" }   -- a rogue's class skill, levelled like a gathering profession
 P.RANK_NAME = { [75] = "Apprentice", [150] = "Journeyman", [225] = "Expert", [300] = "Artisan" }
-local GATHER_VERB = { [182] = "Gather herbs", [186] = "Mine", [393] = "Skin beasts", [356] = "Fish" }
+local GATHER_VERB = { [182] = "Gather herbs", [186] = "Mine", [393] = "Skin beasts", [356] = "Fish", [633] = "Pick locks" }
 -- Enum.TradeskillRelativeDifficulty: Optimal (orange) 0, Medium (yellow) 1, Easy (green) 2, Trivial (grey) 3
 P.COLOR = { [0] = "ffff8040", [1] = "ffffff00", [2] = "ff40bf40", [3] = "ff808080" }
 P.COLOR_NAME = { [0] = "orange", [1] = "yellow", [2] = "green", [3] = "grey" }
@@ -39,12 +40,13 @@ function P:Scan()
             end
         end
     end
-    -- older skill list (and a fallback when the above is empty)
-    if not next(ranks) and GetNumSkillLines and GetSkillLineInfo then
+    -- the skill list: the fallback when the above is empty, and where a class skill that isn't a
+    -- profession is found (a rogue's Lockpicking)
+    if GetNumSkillLines and GetSkillLineInfo then
         for i = 1, GetNumSkillLines() do
             local name, header, _, rank, _, _, max = GetSkillLineInfo(i)
             local line = not header and name and byName[name]
-            if line then ranks[line] = { rank = rank or 0, max = max or 0 } end
+            if line and not ranks[line] then ranks[line] = { rank = W.Safe(rank) or 0, max = W.Safe(max) or 0 } end
         end
     end
 end
