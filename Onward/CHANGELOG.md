@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.6.38
 
 - Fixed the error "NamePlate1:GetCenter(): Can't measure restricted regions". The target button
   read where enemy nameplates sit on screen to pick the mob you're facing, which the game no
