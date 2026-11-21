@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.6.36
 
 - Rogues: a Lockpicking 1-300 guide on the Professions tab. It takes you from the practice boxes
   (Alther's Mill for the Alliance, the pirate ship off Ratchet for the Horde) through the
