@@ -2562,6 +2562,130 @@ do
     _G.QuestInfoRewardsFrame, _G.QuestFrameRewardPanel = saved.QuestInfoRewardsFrame, saved.QuestFrameRewardPanel
 end
 
+-- Neutral town flight masters (Gadgetzan, Booty Bay, Everlook): never point to opposite-faction FM
+do
+    local T = W.Travel
+    local savedFaction = UnitFactionGroup
+    local savedEnum = Enum.FlightPathFaction
+    local savedTaxi = MOCK.taxi
+    Enum.FlightPathFaction = { Horde = 0, Alliance = 1, Neutral = 2 }
+    UnitFactionGroup = function() return "Horde" end
+
+    -- 1. With n.faction present: Alliance Gadgetzan (0.51, 0.29) is ignored; Horde Gadgetzan (0.52, 0.25) is used
+    MOCK.taxi = {
+        { name = "Gadgetzan, Tanaris", nodeID = 39, state = 2, faction = 1, position = { x = 0.51, y = 0.29 } },
+        { name = "Gadgetzan, Tanaris", nodeID = 40, state = 1, faction = 0, position = { x = 0.52, y = 0.25 } },
+    }
+    T:Refresh(true)
+    local _, hwx, hwy = T.World(1415, 52, 25)
+    local gNode
+    for _, n in ipairs(T:KnownNodes(1)) do if n.name == "Gadgetzan, Tanaris" then gNode = n break end end
+    check("neutral hub taxi: Horde uses Horde flight master when faction is set",
+        gNode and math.abs(gNode.wx - hwx) < 1 and math.abs(gNode.wy - hwy) < 1, gNode and (gNode.wx .. "," .. gNode.wy))
+
+    -- 2. Even without n.faction (fallback): an unreachable opposite-faction node listed first
+    --    must NOT steal the coordinates of the reachable same-name node listed second
+    MOCK.taxi = {
+        { name = "Booty Bay, Stranglethorn", nodeID = 19, state = 2, position = { x = 0.27, y = 0.77 } },
+        { name = "Booty Bay, Stranglethorn", nodeID = 18, state = 1, position = { x = 0.26, y = 0.73 } },
+    }
+    T:Refresh(true)
+    local _, bwx, bwy = T.World(1415, 26, 73)
+    local bNode
+    for _, n in ipairs(T:KnownNodes(1)) do if n.name == "Booty Bay, Stranglethorn" then bNode = n break end end
+    check("neutral hub taxi: reachable node overwrites unreachable same-name node coords even without faction field",
+        bNode and math.abs(bNode.wx - bwx) < 1 and math.abs(bNode.wy - bwy) < 1, bNode and (bNode.wx .. "," .. bNode.wy))
+
+    UnitFactionGroup = savedFaction
+    Enum.FlightPathFaction = savedEnum
+    MOCK.taxi = savedTaxi
+    T:Refresh(true)
+end
+
+-- Travel audit: Forever sea lanes (Powderfuse<->Steamwheedle, Stormwind Harbor, Southshore),
+-- cross-continent Hearthstone priority, and flight-aware crossing selection
+do
+    local T, WP, H = W.Travel, W.Waypoint, W.Hearth
+    local savedPos = MOCK.pos
+    local savedCont = MOCK.mapCont
+    local savedOff = {}
+    for k, v in pairs(MOCK.mapOffset) do savedOff[k] = v end
+    local savedFaction = UnitFactionGroup
+    local savedBind = GetBindLocation
+    local savedStone = MOCK.bags[6948]
+    local savedHome = W.cdb.home
+
+    -- Place Eastern Kingdoms (cont 0) and Kalimdor (cont 1) maps in mock world space
+    MOCK.mapOffset[2548] = 0       -- Riverglades (EK)
+    MOCK.mapOffset[1434] = 4000    -- Stranglethorn Vale (EK, far south of Riverglades)
+    MOCK.mapOffset[1453] = 2000    -- Stormwind City (EK)
+    MOCK.mapOffset[1437] = 5000    -- Wetlands / Menethil (EK, far from Stormwind in this layout)
+    MOCK.mapOffset[1424] = 7000    -- Hillsbrad / Southshore (EK)
+    MOCK.mapOffset[1446] = 0       -- Tanaris (Kalimdor)
+    MOCK.mapOffset[1413] = 4000    -- Barrens / Ratchet (Kalimdor, far north of Tanaris)
+    MOCK.mapOffset[1439] = 6000    -- Darkshore / Auberdine (Kalimdor)
+    MOCK.mapOffset[1445] = 2000    -- Dustwallow (Kalimdor)
+    MOCK.mapCont = { [2548] = 0, [1434] = 0, [1453] = 0, [1437] = 0, [1424] = 0, [1446] = 1, [1413] = 1, [1439] = 1, [1445] = 1 }
+
+    -- 1. Horde in Riverglades heading to Tanaris -> takes Powderfuse Port -> Steamwheedle Port boat!
+    UnitFactionGroup = function() return "Horde" end
+    MOCK.pos = { map = 2548, x = 0.65, y = 0.50 }
+    MOCK.advance(4)
+    local tc, tx, ty = T.World(1446, 52, 27)
+    local cx = T:Crossing(tc, tx, ty)
+    check("travel: Riverglades -> Tanaris uses Powderfuse Port -> Steamwheedle Port boat",
+        cx and cx.from.name == "Powderfuse Port" and cx.to.name == "Steamwheedle Port",
+        cx and (cx.from.name .. " -> " .. cx.to.name))
+
+    -- 2. Alliance in Stormwind heading to Darkshore -> takes Stormwind Harbor -> Auberdine!
+    UnitFactionGroup = function() return "Alliance" end
+    MOCK.pos = { map = 1453, x = 0.30, y = 0.55 }
+    MOCK.advance(4)
+    local dc, dx, dy = T.World(1439, 36, 44)
+    cx = T:Crossing(dc, dx, dy)
+    check("travel: Stormwind -> Darkshore uses Stormwind Harbor -> Auberdine boat",
+        cx and cx.from.name == "Stormwind Harbor" and cx.to.name == "Auberdine",
+        cx and (cx.from.name .. " -> " .. cx.to.name))
+
+    -- 3. Alliance in Hillsbrad heading to Darkshore -> takes Southshore -> Auberdine!
+    MOCK.pos = { map = 1424, x = 0.51, y = 0.65 }
+    MOCK.advance(4)
+    cx = T:Crossing(dc, dx, dy)
+    check("travel: Hillsbrad -> Darkshore uses Southshore -> Auberdine boat",
+        cx and cx.from.name == "Southshore" and cx.to.name == "Auberdine",
+        cx and (cx.from.name .. " -> " .. cx.to.name))
+
+    -- 4. Cross-continent Hearthstone bound in Tanaris beats taking the boat from Riverglades!
+    UnitFactionGroup = function() return "Horde" end
+    MOCK.pos = { map = 2548, x = 0.65, y = 0.50 }
+    MOCK.bags[6948] = 1
+    GetBindLocation = function() return "Gadgetzan" end
+    local gc, gx, gy = T.World(1446, 52, 27)
+    W.cdb.home = { name = "Gadgetzan", cont = gc, wx = gx, wy = gy }
+    W:RegisterGuide{ id = "crosshs", title = "Cross HS", faction = "", steps = "goto 1446 52.0,27.0 |note Gadgetzan\n" }
+    MOCK.advance(4)
+    W.Guide:Activate("crosshs") settle()
+    local tgt = WP:ArrowTarget()
+    check("travel: cross-continent Hearthstone ready on target continent beats taking a boat",
+        tgt and tgt.hearth and tgt.label == "Hearth to Gadgetzan", tgt and tgt.label)
+
+    -- Without hearthstone ready, falls back to Powderfuse Port -> Steamwheedle Port boat
+    MOCK.bags[6948] = 0
+    tgt = WP:ArrowTarget()
+    check("travel: without Hearthstone, points directly to Powderfuse Port -> Steamwheedle Port boat",
+        tgt and tgt.crossing and tgt.label == "Take the boat to Steamwheedle Port", tgt and tgt.label)
+
+    -- restore mock state
+    MOCK.pos = savedPos
+    MOCK.mapCont = savedCont
+    MOCK.mapOffset = savedOff
+    UnitFactionGroup = savedFaction
+    GetBindLocation = savedBind
+    MOCK.bags[6948] = savedStone
+    W.cdb.home = savedHome
+    MOCK.advance(4)
+end
+
 check("no runtime errors", #MOCK.errors == 0, MOCK.errors[1])
 print(("%d passed, %d failed"):format(pass, fail))
 return fail

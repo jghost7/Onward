@@ -295,21 +295,22 @@ function WP:Update()
         if pickup then title = "Pick up " .. (W.QuestState:Title(step.quest) or "the quest") .. " first" end
     end
 
-    -- the target is on the other continent: first to the boat or zeppelin that crosses nearest it
-    local cross
+    -- the target is on the other continent: first to the boat or zeppelin that makes the trip shortest
+    local cross, dest
     if map and x then
         local tm, tx, ty = map, x, y
         if step.verb == "fly" then tm, tx, ty = step.at.map, step.at.x, step.at.y end
         local tc, wx, wy = T.World(tm, tx, ty)
         cross = tc and T:Crossing(tc, wx, wy)
         if cross then
+            dest = { cont = tc, wx = wx, wy = wy, map = tm, x = tx, y = ty }
             map, x, y, name, legKind = cross.from.map, cross.from.x, cross.from.y, cross.from.name, "cross"
             T:SetWantedDestination(nil)
         end
     end
 
     if map and x then
-        current = { step = step, map = map, x = x, y = y, name = name, title = title, leg = legKind, pickup = pickup, cross = cross }
+        current = { step = step, map = map, x = x, y = y, name = name, title = title, leg = legKind, pickup = pickup, cross = cross, dest = dest }
         if old and old.step == step then   -- same step re-resolved (settings, delayed refresh): keep the chosen spot
             current.spots, current.spot, current.spotSig = old.spots, old.spot, old.spotSig
         end
@@ -459,10 +460,19 @@ function WP:ArrowTarget()
     local step = current.step
     local label = current.title
     if current.cross then
+        -- hearthstone bound on the destination continent beats taking a boat/zeppelin every time
+        if current.dest then
+            local hsDest = hearthFor(current.dest.cont, current.dest.wx, current.dest.wy, label)
+            if hsDest then return hsDest end
+            local fresh = T:Crossing(current.dest.cont, current.dest.wx, current.dest.wy)
+            if fresh then current.cross = fresh end
+        end
         local c = current.cross
         local boat = "take the " .. c.kind .. " to " .. c.to.name
-        -- the dock is far: fly to the flight point nearest it first (marked on the flight map)
+        -- the dock is far: check hearthstone toward the dock or flight to the flight point nearest it
         local advice = T:Advice(c.from.map, c.from.x, c.from.y)
+        local hsDock = hearthFor(c.from.cont, c.from.wx, c.from.wy, boat, advice)
+        if hsDock then return hsDock end
         if advice then
             local A, B = advice.from, advice.to
             T:SetWantedDestination(c.from.cont, B.wx, B.wy, B.name)

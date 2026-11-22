@@ -74,10 +74,26 @@ local function flyable(n)
 end
 T.Flyable = flyable
 
-local function storeNodes(contMap, list)
+local function isWrongFaction(n)
+    local f = n and n.faction
+    if f == nil then return false end
+    local player = UnitFactionGroup and UnitFactionGroup("player")
+    if not player then return false end
+    if type(f) == "string" then
+        local fl = f:lower()
+        return (fl == "alliance" and player == "Horde") or (fl == "horde" and player == "Alliance")
+    end
+    local E = Enum and Enum.FlightPathFaction
+    if not E then return false end
+    if player == "Horde" and E.Alliance ~= nil and f == E.Alliance then return true end
+    if player == "Alliance" and E.Horde ~= nil and f == E.Horde then return true end
+    return false
+end
+
+local function storeNodes(contMap, list, authoritative)
     if type(list) ~= "table" then return end
     for _, n in ipairs(list) do
-        if n.position and n.name then
+        if n.position and n.name and not isWrongFaction(n) then
             local cont, wx, wy = T.World(contMap, n.position.x * 100, n.position.y * 100)
             if cont then
                 nodes[cont] = nodes[cont] or {}
@@ -87,6 +103,12 @@ local function storeNodes(contMap, list)
                     if e.name == n.name then found = e break end
                 end
                 if found then
+                    -- Neutral towns (Gadgetzan, Booty Bay, Everlook) have two flight masters with
+                    -- the same name. Never keep an unreachable (opposite-faction) node's position
+                    -- once a known or authoritative flight-map node arrives.
+                    if authoritative or (known and not found.known) then
+                        found.wx, found.wy, found.id = wx, wy, n.nodeID
+                    end
                     found.known = found.known or known
                 else
                     local net = W.cdb and W.cdb.taxiNet and W.cdb.taxiNet[n.name] or nil
@@ -185,11 +207,12 @@ function T:FlightPlan(step)
 end
 
 ---------------------------------------------------------------------------
--- Between continents: boats and zeppelins. A target on the other continent can't be flown or
--- walked to, so the arrow leads to the dock or tower whose crossing lands nearest it.
--- Positions are the classic docks (map x,y in 0-100); faction nil = anyone can ride.
+-- Between continents: boats and zeppelins (Classic + WoW Forever sea lanes).
+-- Positions are the docks/towers (map x,y in 0-100); faction nil = anyone can ride.
 ---------------------------------------------------------------------------
 local CROSSINGS = {
+    { kind = "boat", faction = nil,
+      a = { map = 2548, x = 79.5, y = 52.7, name = "Powderfuse Port" }, b = { map = 1446, x = 67.6, y = 23.1, name = "Steamwheedle Port" } },
     { kind = "boat", faction = nil,
       a = { map = 1434, x = 25.8, y = 73.1, name = "Booty Bay" }, b = { map = 1413, x = 63.7, y = 38.6, name = "Ratchet" } },
     { kind = "zeppelin", faction = "Horde",
@@ -197,57 +220,21 @@ local CROSSINGS = {
     { kind = "zeppelin", faction = "Horde",
       a = { map = 1420, x = 60.8, y = 58.8, name = "Undercity" }, b = { map = 1411, x = 50.6, y = 12.6, name = "Orgrimmar" } },
     { kind = "boat", faction = "Alliance",
+      a = { map = 1453, x = 22.8, y = 56.1, name = "Stormwind Harbor" }, b = { map = 1439, x = 32.4, y = 43.8, name = "Auberdine" } },
+    { kind = "boat", faction = "Alliance",
       a = { map = 1437, x = 4.6, y = 57.1, name = "Menethil Harbor" }, b = { map = 1445, x = 71.6, y = 56.4, name = "Theramore" } },
     { kind = "boat", faction = "Alliance",
       a = { map = 1437, x = 4.8, y = 63.6, name = "Menethil Harbor" }, b = { map = 1439, x = 32.4, y = 43.8, name = "Auberdine" } },
+    { kind = "boat", faction = "Alliance",
+      a = { map = 1424, x = 50.7, y = 68.6, name = "Southshore" }, b = { map = 1439, x = 32.4, y = 43.8, name = "Auberdine" } },
 }
 T.CROSSINGS = CROSSINGS
-
--- From where you stand to a target on another continent: the crossing that makes the whole trip
--- shortest. Returns { kind, from = {cont, wx, wy, map, x, y, name}, to = {...} } or nil.
-function T:Crossing(tc, tx, ty)
-    local pc, px, py = T.PlayerWorld()
-    if not (pc and tc) or pc == tc then return end
-    local faction = UnitFactionGroup and UnitFactionGroup("player")
-    local best, bestCost
-    for _, c in ipairs(CROSSINGS) do
-        if not c.faction or c.faction == faction then
-            for _, ends in ipairs({ { c.a, c.b }, { c.b, c.a } }) do
-                local A, B = ends[1], ends[2]
-                local ac, ax, ay = T.World(A.map, A.x, A.y)
-                local bc, bx, by = T.World(B.map, B.x, B.y)
-                if ac == pc and bc == tc then
-                    local cost = d2(px, py, ax, ay) + d2(bx, by, tx, ty)
-                    if not bestCost or cost < bestCost then
-                        bestCost = cost
-                        best = { kind = c.kind,
-                                 from = { cont = ac, wx = ax, wy = ay, map = A.map, x = A.x, y = A.y, name = A.name },
-                                 to = { cont = bc, wx = bx, wy = by, map = B.map, x = B.x, y = B.y, name = B.name } }
-                    end
-                end
-            end
-        end
-    end
-    return best
-end
 
 function T:KnownNodes(cont)
     local out = {}
     for _, n in ipairs(nodes[cont] or {}) do if n.known then out[#out + 1] = n end end
     return out
 end
-
----------------------------------------------------------------------------
--- Advice: is flying faster than running to map x,y?
--- returns { from = node, to = node, save = yards } or nil
----------------------------------------------------------------------------
-local cache = { key = nil, at = 0, result = nil }
--- Advice is sticky: once a flight is suggested for a target, it stays (same flight masters)
--- while it still saves at least 10% over running, so the arrow doesn't flip between the flight
--- master and the quest as the numbers drift with every step you take.
-local sticky = { key = nil, pick = nil }
-T.toldCut = {}
-local function forgetAdvice() cache.key, sticky.key, sticky.pick = nil, nil, nil end
 
 -- Your travel speed (yd/s): on foot 7, or your mount's speed once you've ridden it, since you'd
 -- ride to the flight master and on from it. Speed boosts without a mount (Cheetah) don't count.
@@ -263,6 +250,97 @@ end
 -- seconds from here to the target via flight A -> B
 local function flightTime(v, px, py, A, B, tx, ty)
     return d2(px, py, A.wx, A.wy) / v + d2(A.wx, A.wy, B.wx, B.wy) / TAXI_SPEED + FLIGHT_OVERHEAD + d2(B.wx, B.wy, tx, ty) / v
+end
+
+-- Pick up to `limit` nearest nodes to (x, y), also guaranteeing the nearest node of any other
+-- known flight network so an isolated local network never hides a connected mainland flight master.
+local function pickNearestNodes(known, x, y, limit)
+    table.sort(known, function(a, b) return d2(x, y, a.wx, a.wy) < d2(x, y, b.wx, b.wy) end)
+    local out, seenNet = {}, {}
+    for i = 1, math.min(limit, #known) do
+        local n = known[i]
+        out[#out + 1] = n
+        if n.net then seenNet[n.net] = true end
+    end
+    for i = limit + 1, #known do
+        local n = known[i]
+        if n.net and not seenNet[n.net] then
+            seenNet[n.net] = true
+            out[#out + 1] = n
+        end
+    end
+    return out
+end
+
+-- Fastest estimated travel time (seconds) between two points on the same continent, accounting for
+-- known flight paths on that continent when flying beats riding.
+local function legTime(cont, sx, sy, ex, ey)
+    local v = T.Speed()
+    local best = d2(sx, sy, ex, ey) / v
+    if not (W.db and W.db.travelAdvice) then return best end
+    local known = T:KnownNodes(cont)
+    if #known < 2 then return best end
+    local froms = pickNearestNodes(known, sx, sy, 4)
+    local tos = pickNearestNodes(known, ex, ey, 4)
+    for _, A in ipairs(froms) do
+        for _, B in ipairs(tos) do
+            if A ~= B and T.SameNetwork(A, B) then
+                local t = flightTime(v, sx, sy, A, B, ex, ey)
+                if t < best then best = t end
+            end
+        end
+    end
+    return best
+end
+
+local crossCache = { key = nil, at = 0, result = nil }
+
+-- From where you stand to a target on another continent: the crossing with the shortest total
+-- travel time (walking or known flights on both continents).
+-- Returns { kind, from = {cont, wx, wy, map, x, y, name}, to = {...}, cost = seconds } or nil.
+function T:Crossing(tc, tx, ty)
+    local pc, px, py = T.PlayerWorld()
+    if not (pc and tc) or pc == tc then return end
+    local ck = ("%d:%d:%d:%d:%d:%d"):format(pc, math.floor(px / 40), math.floor(py / 40), tc, math.floor(tx / 40), math.floor(ty / 40))
+    if crossCache.key == ck and GetTime() - crossCache.at < 3 then return crossCache.result end
+    T:Refresh()
+    local faction = UnitFactionGroup and UnitFactionGroup("player")
+    local best, bestCost
+    for _, c in ipairs(CROSSINGS) do
+        if not c.faction or c.faction == faction then
+            for _, ends in ipairs({ { c.a, c.b }, { c.b, c.a } }) do
+                local A, B = ends[1], ends[2]
+                local ac, ax, ay = T.World(A.map, A.x, A.y)
+                local bc, bx, by = T.World(B.map, B.x, B.y)
+                if ac == pc and bc == tc then
+                    local cost = legTime(pc, px, py, ax, ay) + legTime(tc, bx, by, tx, ty)
+                    if not bestCost or cost < bestCost then
+                        bestCost = cost
+                        best = { kind = c.kind, cost = cost,
+                                 from = { cont = ac, wx = ax, wy = ay, map = A.map, x = A.x, y = A.y, name = A.name },
+                                 to = { cont = bc, wx = bx, wy = by, map = B.map, x = B.x, y = B.y, name = B.name } }
+                    end
+                end
+            end
+        end
+    end
+    crossCache.key, crossCache.at, crossCache.result = ck, GetTime(), best
+    return best
+end
+
+---------------------------------------------------------------------------
+-- Advice: is flying faster than running to map x,y?
+-- returns { from = node, to = node, save = yards } or nil
+---------------------------------------------------------------------------
+local cache = { key = nil, at = 0, result = nil }
+-- Advice is sticky: once a flight is suggested for a target, it stays (same flight masters)
+-- while it still saves at least 10% over running, so the arrow doesn't flip between the flight
+-- master and the quest as the numbers drift with every step you take.
+local sticky = { key = nil, pick = nil }
+T.toldCut = {}
+local function forgetAdvice()
+    cache.key, sticky.key, sticky.pick = nil, nil, nil
+    crossCache.key, crossCache.result = nil, nil
 end
 
 function T:Advice(map, x, y)
@@ -291,16 +369,15 @@ function T:Advice(map, x, y)
 
     local known = T:KnownNodes(pc)
     if #known < 2 then return end
-    -- best departure is near the player, best arrival near the target: check the closest few of each
-    table.sort(known, function(a, b) return d2(px, py, a.wx, a.wy) < d2(px, py, b.wx, b.wy) end)
-    local froms = { known[1], known[2], known[3] }
+    -- best departure is near the player, best arrival near the target (spanning all known networks)
+    local froms = pickNearestNodes(known, px, py, 4)
     table.sort(known, function(a, b) return d2(tx, ty, a.wx, a.wy) < d2(tx, ty, b.wx, b.wy) end)
-    local tos = {}   -- the nearest three a departure can reach (not ones on another network)
+    local tos = {}
     for _, B in ipairs(known) do
         for _, A in ipairs(froms) do
             if A ~= B and T.SameNetwork(A, B) then tos[#tos + 1] = B break end
         end
-        if #tos == 3 then break end
+        if #tos == 4 then break end
     end
     local best, bestCost
     for _, A in ipairs(froms) do
@@ -336,7 +413,7 @@ function T.WantedNode()
     if taxiMap and C_TaxiMap and C_TaxiMap.GetAllTaxiNodes then
         local ok, list = pcall(C_TaxiMap.GetAllTaxiNodes, taxiMap)
         if ok and type(list) == "table" then
-            storeNodes(taxiMap, list)
+            storeNodes(taxiMap, list, true)
             local CURRENT = (Enum and Enum.FlightPathState and Enum.FlightPathState.Current) or 0
             local best, bestD
             for _, n in ipairs(list) do
@@ -420,6 +497,7 @@ local function learnNetwork()
     if not (taxiMap and C_TaxiMap and C_TaxiMap.GetAllTaxiNodes) then return end
     local ok, list = pcall(C_TaxiMap.GetAllTaxiNodes, taxiMap)
     if not (ok and type(list) == "table") then return end
+    storeNodes(taxiMap, list, true)
     local offered, key = {}, nil
     for _, n in ipairs(list) do
         if n.name and flyable(n) then

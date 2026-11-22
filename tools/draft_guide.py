@@ -1409,11 +1409,14 @@ def nearest_fm(fms, m, xy):
 # Between continents there are no flights: boats and zeppelins (the same docks as Travel.lua's
 # CROSSINGS). faction None = anyone.
 CROSSINGS = [
+    ("boat", None, (2548, (79.5, 52.7), "Powderfuse Port"), (1446, (67.6, 23.1), "Steamwheedle Port")),
     ("boat", None, (1434, (25.8, 73.1), "Booty Bay"), (1413, (63.7, 38.6), "Ratchet")),
     ("zeppelin", "H", (1434, (31.3, 29.2), "Grom'gol"), (1411, (50.8, 13.6), "Orgrimmar")),
     ("zeppelin", "H", (1420, (60.8, 58.8), "Undercity"), (1411, (50.6, 12.6), "Orgrimmar")),
+    ("boat", "A", (1453, (22.8, 56.1), "Stormwind Harbor"), (1439, (32.4, 43.8), "Auberdine")),
     ("boat", "A", (1437, (4.6, 57.1), "Menethil Harbor"), (1445, (71.6, 56.4), "Theramore")),
     ("boat", "A", (1437, (4.8, 63.6), "Menethil Harbor"), (1439, (32.4, 43.8), "Auberdine")),
+    ("boat", "A", (1424, (50.7, 68.6), "Southshore"), (1439, (32.4, 43.8), "Auberdine")),
 ]
 _CONT = {}
 

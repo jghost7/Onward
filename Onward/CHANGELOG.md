@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.8.2
+
+- Fixed neutral-town flight master targeting (Gadgetzan, Booty Bay, Everlook, etc.): filters out
+  opposite-faction taxi nodes and prioritizes reachable/authoritative flight master coordinates so
+  Horde players are no longer pointed to Alliance flight masters (and vice versa).
+- Added WoW Forever's cross-continent sea lanes to travel routing:
+  **Powderfuse Port (Riverglades) ↔ Steamwheedle Port (Tanaris)** (neutral boat),
+  **Stormwind Harbor ↔ Auberdine** (Alliance boat), and **Southshore ↔ Auberdine** (Alliance boat).
+- Upgraded cross-continent travel planning to compare real total travel time (combining riding and
+  known flight paths on both continents), check ready Hearthstones on the destination continent or
+  toward the dock before suggesting boats/zeppelins, refresh crossings dynamically as you move, and
+  look across all known flight networks near isolated local hubs.
+- Restored the nav arrow toggle button in the panel header.
+
 ## 0.8.1
 
 - Multi-choice quest turn-ins now highlight the reward with the highest vendor sell value

@@ -215,8 +215,12 @@ btnGear:SetScript("OnClick", function(self, button)
 end)
 btnGear:SetPoint("RIGHT", btnCollapse, "LEFT", -1, 0)
 
+local btnArrow = iconButton(f, "nav", "Nav arrow on / off", function() W.Arrow:Toggle() end)
+btnArrow:SetPoint("RIGHT", btnGear, "LEFT", -1, 0)
+UI.btnArrow = btnArrow
+
 local btnMenu = iconButton(f, "list", "Guides", function() UI:TogglePicker() end)
-btnMenu:SetPoint("RIGHT", btnGear, "LEFT", -1, 0)
+btnMenu:SetPoint("RIGHT", btnArrow, "LEFT", -1, 0)
 local btnNext = iconButton(f, "next", "Skip step", function()
     local gid = G:Active() and G:Active().id
     local skipped = G:Skip(1)
@@ -1171,6 +1175,7 @@ function UI:Render()
     local sameGuide = g ~= nil and last.guide == g.id
     setBar(barTarget, sameGuide and last.done ~= nil and done > last.done)
     btnCollapse.icon:SetTexture(MEDIA .. (W.db.collapsed and "expand" or "collapse"))
+    UI.btnArrow:SetTint(W.db.arrow and C.accent or C.sub)
     f.glass:SetOpacity(W.db.bgAlpha or 0.72)
     renderArt(g)
 
