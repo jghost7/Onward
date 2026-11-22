@@ -1102,7 +1102,7 @@ MOCK.finish(990) MOCK.turnIn(990) MOCK.fire("QUEST_TURNED_IN", 990) MOCK.fire("Q
 -- theme: every look is glass, in its own colours; onward by default, EllesmereUI's looks in "flat"
 local SK = W.Skin
 local pg = W.UI.panel.glass
-check("onward theme by default, as glass", SK.Theme() == "onward" and pg.grain.shown and pg.body.parts[1].shown and not pg.body.flat[1].shown)
+check("onward theme by default, as glass (no dead flat textures)", SK.Theme() == "onward" and pg.grain.shown and pg.body.parts[1].shown and pg.body.flat == nil)
 check("onward: gold accent, teal glass, gold rim", SK.AccentHex() == "ffe2c153" and SK.TINT[2] > 0.1 and SK.TINT[1] < 0.05
       and SK.RIM[1] > 0.8 and pg.rim.color[1] > 0.8, SK.AccentHex())
 check("onward headlines in Friz Quadrata", SK.FontPath("head") == SK.FONT_HEAD and SK.FontPath("body") == SK.FONT_BODY)
@@ -1210,7 +1210,7 @@ accept 9743
     W.Guide:Activate(oldGuide)
 end
 
-check("options fit the window", W.Options.cursor[1] > -764 and W.Options.cursor[2] > -764, W.Options.cursor[1] .. " / " .. W.Options.cursor[2])   -- window is 780 tall
+check("options fit the tabbed window", W.Options.cursor[1] > -(W.Options.pageHeight or 432) and W.Options.cursor[2] > -(W.Options.pageHeight or 432), W.Options.cursor[1] .. " / " .. W.Options.cursor[2])
 
 -- profession guides: steps complete on your skill, the card shows mats against your bags,
 -- the trainer is found, and the game's own best recipe is offered when the route's isn't usable
@@ -2291,6 +2291,191 @@ do
     GetCursorInfo, DeleteCursorItem, ClearCursor = saved.GetCursorInfo, saved.DeleteCursorItem, saved.ClearCursor
     MOCK.combat = saved.combat
     CL:Invalidate()
+end
+
+-- UI/UX overhaul tests: interactive upcoming/grouped rows, popups, searchable picker, tabbed
+-- options, Undo toast, clickable ready toast, collapsed 1-line mode, arrow quick menu & route pins
+do
+    W:RegisterGuide{ id = "uxtest", title = "UX Test Zone", zone = "UX Test Zone", faction = "", levels = { 30, 40 }, steps = [[
+accept 19901 |at 1423 20.0,20.0 |npc Giver A
+complete 19901 |at 1423 30.0,30.0 |mobs Boar
+complete 19902 |at 1423 31.0,31.0 |mobs Wolf
+turnin 19901 |at 1423 20.0,20.0 |npc Giver A
+note Manual check step
+accept 19903 |loose |note Drops from Rare Mob
+]]}
+    MOCK.addQuest(19901, "Boar Hunt")
+    MOCK.addQuest(19902, "Wolf Hunt")
+    MOCK.fire("QUEST_ACCEPTED", 19901) MOCK.fire("QUEST_ACCEPTED", 19902)
+    W.Guide:Activate("uxtest") settle()
+    W.UI.panel:Show() W.UI:Render()
+
+    -- 1. Interactive grouped row (ALSO HERE): left-click focuses that quest
+    local gr = W.UI.groupRows[1]
+    check("ux: grouped row exists and is clickable", gr and gr:IsShown() and gr.step and gr.step.quest == 19902)
+    gr:GetScript("OnClick")(gr, "LeftButton") settle()
+    check("ux: clicking grouped row focuses that quest step", cur() and cur().quest == 19902, cur() and cur().quest)
+
+    -- 2. Interactive upcoming row (NEXT): click jumps directly to that step
+    W.Guide:GoToStep(W.Guide:Active().steps[2]) settle()
+    W.UI:Render()
+    local ur = W.UI.upcomingRows[1]
+    check("ux: upcoming row is a clickable button with step attached", ur and ur:IsShown() and ur.step ~= nil)
+    local targetStep = ur.step
+    ur:GetScript("OnClick")(ur, "LeftButton") settle()
+    check("ux: clicking upcoming row jumps to that step", cur() == targetStep)
+
+    -- 3. Manual Done button + clickable Undo toast
+    local noteStep = W.Guide:Active().steps[5]
+    W.Guide:GoToStep(noteStep) settle()
+    W.UI:Render()
+    check("ux: manual note step shows explicit Done button", W.UI.doneStripBtn:IsShown())
+    W.UI.doneStripBtn:GetScript("OnClick")(W.UI.doneStripBtn) settle()
+    check("ux: Done button advances step and shows clickable Undo toast", cur() ~= noteStep and W.UI.toast:IsShown() and W.UI.toast.onClick ~= nil)
+    W.UI.toast:GetScript("OnClick")(W.UI.toast, "LeftButton") settle()
+    check("ux: clicking Undo toast restores the skipped step", cur() == noteStep)
+
+    -- 4. Compact 1-line collapsed mode
+    W.Guide:GoToStep(W.Guide:Active().steps[2]) settle()
+    W.db.collapsed = false W.UI:Render()
+    local expandedH = W.UI.panel:GetHeight()
+    W.db.collapsed = true W.UI:Render()
+    local collapsedH = W.UI.panel:GetHeight()
+    check("ux: collapsed mode shrinks panel to compact 1-line summary", collapsedH < expandedH and collapsedH <= 90, collapsedH .. " vs " .. expandedH)
+    W.db.collapsed = false W.UI:Render()
+
+    -- 5. Footer links open glass popups instead of dumping to chat
+    W.UI.looseBtn:GetScript("OnClick")(W.UI.looseBtn)
+    check("ux: clicking loose footer opens OnwardLoose popup", W.Popups.looseWin and W.Popups.looseWin:IsShown())
+    W.Popups.looseWin:Hide()
+    W.Popups:ShowNeeds({ { name = "Bronze Tube", have = 0, n = 1, bank = 0, where = "Auction House", quest = 19901 } })
+    check("ux: ShowNeeds opens OnwardNeeds popup", W.Popups.needsWin and W.Popups.needsWin:IsShown())
+    W.Popups.needsWin:Hide()
+
+    -- 6. Searchable Guide Picker & tab scroll reset
+    W.UI:ShowPicker("zones")
+    local allZonesCount = #(W.UI.pickerList or {})
+    W.UI.pickerSearch:SetText("UX Test")
+    W.UI.pickerSearch:GetScript("OnTextChanged")(W.UI.pickerSearch)
+    check("ux: picker search filters guides live", #(W.UI.pickerList or {}) == 1 and W.UI.pickerList[1].id == "uxtest", #(W.UI.pickerList or {}))
+    W.UI.pickerSearch:SetText("")
+    W.UI.pickerSearch:GetScript("OnTextChanged")(W.UI.pickerSearch)
+    check("ux: clearing picker search restores full list", #(W.UI.pickerList or {}) == allZonesCount)
+    W.UI.picker:Hide()
+
+    -- 7. Tabbed Options switching
+    W.Options.SelectTab("appearance")
+    check("ux: tabbed options switches pages cleanly", W.Options.tabs.appearance:IsShown() and not W.Options.tabs.questing:IsShown())
+    W.Options.SelectTab("navigation")
+    check("ux: navigation tab shows cleanly", W.Options.tabs.navigation:IsShown() and not W.Options.tabs.appearance:IsShown())
+    W.Options.SelectTab("questing")
+
+    -- 8. Arrow right-click quick menu & World Map rounded stop tooltips
+    W.Arrow:ShowMenu()
+    check("ux: arrow right-click opens glass quick menu", W.Popups.menu and W.Popups.menu:IsShown())
+    W.Popups:HideMenu()
+    WorldMapFrame:Show()
+    W.Route:Draw()
+    local m1 = W.Route.marks and W.Route.marks[1]
+    check("ux: route stop markers use circle texture and carry tooltip data",
+        m1 and m1:IsShown() and m1.bg.texture == W.Skin.MEDIA .. "circle" and m1.tipTitle and m1.tipTitle:find("Stop 1", 1, true),
+        m1 and tostring(m1.tipTitle))
+    WorldMapFrame:Hide()
+
+    -- clean up test quests
+    for _, q in ipairs({ 19901, 19902 }) do
+        MOCK.finish(q) MOCK.turnIn(q) MOCK.done[q] = nil MOCK.fire("QUEST_REMOVED", q)
+    end
+    settle()
+end
+
+-- Regression tests: going back to skipped / unfinished steps + never hijacking manual guide picks
+do
+    local G = W.Guide
+    W:RegisterGuide{ id = "skipnext", title = "Next Zone (57-62)", faction = "", levels = { 57, 62 }, steps = "accept 19929\nturnin 19929\n" }
+    W:RegisterGuide{ id = "skipback", title = "Skip Back Test", faction = "", levels = { 43, 53 }, next = "skipnext", steps = [[
+accept 19921 |at 1423 20.0,20.0
+goto 1423 25.0,25.0
+complete 19921 |at 1423 30.0,30.0
+turnin 19921 |at 1423 20.0,20.0
+complete 19922 |at 1423 35.0,35.0
+turnin 19922 |at 1423 20.0,20.0
+]]}
+    MOCK.addQuest(19921, "Unfinished A", { { text = "Mobs: 0/5", finished = false, numFulfilled = 0, numRequired = 5 } })
+    MOCK.addQuest(19922, "Unfinished B", { { text = "Items: 0/3", finished = false, numFulfilled = 0, numRequired = 3 } })
+    MOCK.fire("QUEST_ACCEPTED", 19921) MOCK.fire("QUEST_ACCEPTED", 19922)
+    G:Activate("skipback") settle()
+    G:Skip(1) settle()   -- skip goto -> now on complete 19921
+    check("skipback: starts on complete 19921", cur() and cur().verb == "complete" and cur().quest == 19921)
+
+    -- 1. Skip unfinished complete 19921 -> moves to complete 19922, turnin 19921 waits
+    G:Skip(1) settle()
+    check("skipback: skipping unfinished 19921 advances to 19922", cur() and cur().quest == 19922)
+    check("skipback: skipped unfinished step appears in G:SkippedSteps()", #G:SkippedSteps() >= 1)
+
+    -- 2. Clicking waitBtn ("Turn-in waiting: Unfinished A") jumps straight back to complete 19921!
+    W.UI.panel:Show() W.UI:Render()
+    check("skipback: waitBtn shown for waiting unfinished quest", W.UI.waitBtn:IsShown())
+    W.UI.waitBtn:GetScript("OnClick")(W.UI.waitBtn) settle()
+    check("skipback: clicking waiting notice returns to unfinished complete 19921",
+        cur() and cur().verb == "complete" and cur().quest == 19921, cur() and (cur().verb .. " " .. tostring(cur().quest)))
+
+    -- 3. Skip complete 19921, then press Back (<): returns straight to complete 19921 (even past goto/turnin)
+    G:Skip(1) settle()
+    G:Skip(-1) settle()
+    check("skipback: Skip(-1) returns directly to skipped unfinished 19921",
+        cur() and cur().verb == "complete" and cur().quest == 19921, cur() and (cur().verb .. " " .. tostring(cur().quest)))
+
+    -- 4. Later + Skip(-1): returns to deferred quest
+    G:Later(19921) settle()
+    check("skipback: Later moves past 19921", cur() and cur().quest == 19922)
+    G:Skip(-1) settle()
+    check("skipback: Skip(-1) restores quest deferred with Later",
+        cur() and cur().verb == "complete" and cur().quest == 19921, cur() and (cur().verb .. " " .. tostring(cur().quest)))
+
+    -- 5. Footer N skipped link + OnwardSkipped popup Go back button
+    G:Skip(1) settle()
+    W.UI:Render()
+    check("skipback: footer shows skipped link", W.UI.skippedBtn:IsShown() and W.UI.skippedBtn.text:GetText():find("skipped", 1, true))
+    W.UI.skippedBtn:GetScript("OnClick")(W.UI.skippedBtn)
+    check("skipback: clicking skipped link opens OnwardSkipped popup", W.Popups.skipWin and W.Popups.skipWin:IsShown())
+    local sr = W.Popups.skipRows[1]
+    for _, row in ipairs(W.Popups.skipRows) do if row:IsShown() and row.step and row.step.quest == 19921 then sr = row break end end
+    sr.goBtn:GetScript("OnClick")(sr.goBtn) settle()
+    check("skipback: popup Go back button jumps back to skipped 19921",
+        cur() and cur().verb == "complete" and cur().quest == 19921, cur() and (cur().verb .. " " .. tostring(cur().quest)))
+    W.Popups.skipWin:Hide()
+
+    -- 6. Skipping the last open step auto-switches to next guide; Skip(-1) brings you back to previous guide & step
+    G:Skip(1) settle()
+    G:Skip(1) settle()   -- skips 19922 -> auto-switches away from skipback
+    check("skipback: skipping last step auto-switched guide", G:Active().id ~= "skipback", G:Active().id)
+    G:Skip(-1) settle()
+    check("skipback: Skip(-1) after auto-switch returns to skipback & restores 19922",
+        G:Active().id == "skipback" and cur() and cur().quest == 19922, G:Active().id .. " / " .. tostring(cur() and cur().quest))
+
+    -- 7. Tanaris->Hinterlands bug: manually picking a partially-done guide whose last quest is turned in
+    --    MUST stay on that guide and open its remaining undone quests (never auto-jump to another zone!)
+    W:RegisterGuide{ id = "tanaris_repro", title = "Tanaris Repro (43-53)", faction = "", levels = { 43, 53 }, next = "skipnext", steps = [[
+accept 19925
+turnin 19925
+accept 19926
+turnin 19926
+]]}
+    MOCK.done[19926] = true   -- end quest already turned in, earlier quest 19925 still undone (50% progress)
+    MOCK.level = 48
+    G:Activate("tanaris_repro") settle()
+    check("manual guide pick: stays on tanaris_repro instead of jumping to next/recommended guide",
+        G:Active().id == "tanaris_repro", G:Active().id)
+    check("manual guide pick: opens remaining undone quest behind frontier instead of Guide complete",
+        cur() and cur().verb == "accept" and cur().quest == 19925, cur() and (cur().verb .. " " .. tostring(cur().quest)))
+
+    -- clean up
+    MOCK.done[19926] = nil
+    for _, q in ipairs({ 19921, 19922 }) do
+        MOCK.finish(q) MOCK.turnIn(q) MOCK.done[q] = nil MOCK.fire("QUEST_REMOVED", q)
+    end
+    settle()
 end
 
 check("no runtime errors", #MOCK.errors == 0, MOCK.errors[1])

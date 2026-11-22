@@ -1,5 +1,31 @@
 # Changelog
 
+## 0.8.0
+
+- Interactive step rows: click any **ALSO HERE**, **AT THIS HUB**, or **ON YOUR WAY** row to focus
+  that step (right-click to defer or mark done), and hover/click **NEXT** upcoming steps to inspect
+  details or jump straight to them.
+- Upgraded Guide Picker (`Onward/Picker.lua`): live search by zone, title, or level; thin visible
+  scrollbar; section headers (Recommended, In Progress, Your Level, Other Zones, Completed); hover
+  previews anchored cleanly away from the panel; and scroll reset on tab switch.
+- Tabbed Options window (**Questing**, **Navigation**, **Appearance**, **Party & Tools**) with live
+  color swatch previews for every theme, plus exposed **Header art**, **Route stops ahead**, and
+  **List quests on your way** controls.
+- Frosted-glass popups (`Onward/Popups.lua`) for **Items to bring** (checklist + copy button),
+  **Quests to find** (drop notes + Map pin button), and **Skipped steps** (per-step **Go back** +
+  **Restore all**), replacing chat dumps.
+- Reliable Back (`<` / `/ow prev`) and skip recovery: tracks manual skips, `MarkDone`, and `Later`
+  in a LIFO history stack so Back works past `goto`/`fly` steps, on `Quest log (auto)`, and across
+  accidental end-of-guide switches; clicking a **Turn-in waiting** notice now jumps back to the
+  unfinished quest; and manual skips show a clickable **Undo** toast.
+- Fixed selecting a partially completed guide (such as Tanaris at 63%) from auto-jumping to another
+  zone: manually activating a guide never auto-transitions to `next`, and automatically opens any
+  remaining undone quests behind a stale resume frontier.
+- Panel header, collapsed mode, toasts, arrow, and world map polish: decluttered 5-icon header with
+  Gear right-click quick menu; compact 1-line collapsed summary with live distance; wrapping,
+  clickable toasts; adaptive-width nav arrow pill with contextual travel/corpse badges and right-click
+  quick menu; rounded World Map route pins with hover tooltips; and dead flat-skin texture pruning.
+
 ## 0.7.1
 
 - Voluntary completed quest item cleanup (`/ow clean`, the "N old quest items" link in the panel

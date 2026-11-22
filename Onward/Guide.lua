@@ -413,6 +413,8 @@ local forced = {}   -- steps the player stepped back to on purpose (Skip -1)
 local notified = {} -- waiting turn-ins already announced (held back / now ready)
 local readyNotified = {}
 local justAccepted = {} -- quests explicitly accepted since the last advance
+local skipHistory = {}  -- LIFO session history of manual skips / MarkDone / Later for reliable Back
+local smartForcedQuest  -- quest pinned on the smart guide via Skip(-1) / UnmarkDone
 local settleUntil = 0   -- quest records are still arriving until then (see PLAYER_LOGIN)
 
 local function resumeSet()
@@ -679,8 +681,8 @@ end
 
 function isOpen(step)
     if G:IsComplete(step) then return false end
-    if G:IsWaiting(step) then return false end
     if forced[step] then return true end
+    if G:IsWaiting(step) then return false end
     if G:IsLater(step) then return false end
     if G:IsSkipped(step) then return false end
     if step.index and (step.verb == "fly" and (idleFlight(step) or pointlessLeg(step))
@@ -919,7 +921,7 @@ local function scan(i, fromStart)
     return i
 end
 
-local function advance(fromStart)
+local function advance(fromStart, noAutoNext)
     if not active then return end
     active.frontier = frontierIndex()
     local n = #active.steps
@@ -972,24 +974,28 @@ local function advance(fromStart)
         W.Print("before moving on, back to the quests you left for later: " .. table.concat(names, ", "))
         return advance(true)
     end
-    if cursor > n and active.def.next and registry[active.def.next] then
+    if not noAutoNext and cursor > n and active.def.next and registry[active.def.next] then
         local nxt = registry[active.def.next]
         local lvl = UnitLevel("player") or 1
         local lo = nxt.levels and nxt.levels[1] or 1
+        local targetId = nxt.id
         if lvl < lo - 1 then
             -- you finished early (quests skipped, or a faster mode): the next part is above you.
             -- Go to a guide that fits your level instead, if there is one.
             local rec = G:Recommend()
             if rec and rec ~= nxt and rec ~= active.def then
                 W.Print(("guide complete. %s starts around level %d and you're %d, so on to %s for now."):format(nxt.title, lo, lvl, rec.title))
-                G:Activate(rec.id)
-                return
+                targetId = rec.id
+            else
+                W.Print(("guide complete. %s starts around level %d and you're %d: its first quests may not be on offer yet."):format(nxt.title, lo, lvl))
             end
-            W.Print(("guide complete. %s starts around level %d and you're %d: its first quests may not be on offer yet."):format(nxt.title, lo, lvl))
         else
             W.Print("guide complete, moving on to", nxt.title)
         end
-        G:Activate(nxt.id)
+        -- tag the most recent skip entry (if any) so Back / Undo can return across an auto-switch
+        local top = skipHistory[#skipHistory]
+        if top and top.guide == active.id then top.autoSwitchedTo = targetId end
+        G:Activate(targetId, true)
         return
     end
     if changed then W:Fire("WF_STEP_CHANGED", active.steps[cursor]) end
@@ -1142,12 +1148,14 @@ function G:StartRecommended(quiet)
     return def
 end
 
-function G:Activate(id)
+function G:Activate(id, keepHistory)
     local def = registry[id] or registry.smart
     reached = {}
     wipe(forced)
     wipe(notified)
     wipe(readyNotified)
+    smartForcedQuest = nil
+    if not keepHistory then wipe(skipHistory) end
     cursor = 1
     if def.smart then
         active = nil
@@ -1164,38 +1172,123 @@ function G:Activate(id)
     end
     wall = false
     W.cdb.guide = def.id
-    advance(true)
+    advance(true, true)
+    -- If the player opened a partially-done guide whose only remaining quests sit behind the
+    -- saved resume frontier (e.g. Tanaris at 63%), open those missed quests instead of declaring
+    -- the guide complete or bouncing them to another zone.
+    if not def.smart and cursor > #active.steps and #G:Missed() > 0 then
+        resumeSet()[active.id] = 0
+        resumeSigSet()[active.id] = active.sig
+        active.frontier = 0
+        advance(true, true)
+    end
     W:Fire("WF_GUIDE_CHANGED", active)
     W:Fire("WF_STEP_CHANGED", active.steps[cursor])
     W:Fire("WF_UPDATED")
 end
 
--- Manual skip (+1) or back (-1). Back un-skips the previous step.
+local function pushHistory(entry)
+    skipHistory[#skipHistory + 1] = entry
+    while #skipHistory > 50 do table.remove(skipHistory, 1) end
+end
+
+local function findStepByKey(k, quest)
+    if not active then return nil end
+    for _, s in ipairs(active.steps) do
+        if active.id == "smart" then
+            if quest and s.quest == quest then return s end
+        elseif key(s) == k then
+            return s
+        end
+    end
+end
+
+local function canReopen(step)
+    if not step then return false end
+    if step.verb == "goto" or step.verb == "fly" then return true end
+    return not G:IsComplete(step)
+end
+
+local function restoreStep(step)
+    local s = skippedSet()
+    s[key(step)] = nil
+    reached[step] = nil
+    forced[step] = true
+    cursor = step.index
+    if active.id == "smart" then smartForcedQuest = step.quest end
+    W:Fire("WF_STEP_CHANGED", step)
+    W:Fire("WF_UPDATED")
+    return step
+end
+
+-- Manual skip (+1) or back (-1). Back un-skips the step you most recently skipped / deferred,
+-- falling back to earlier persisted skips, missed quests, and travel/note steps.
 function G:Skip(delta)
     if not active then return end
     local s = skippedSet()
+    local skipped
     if delta > 0 then
         local step = active.steps[cursor]
         if step then
+            local gid = active.id
             s[key(step)] = true
             forced[step] = nil
+            if active.id == "smart" and smartForcedQuest == step.quest then smartForcedQuest = nil end
+            pushHistory({ kind = "skip", guide = gid, key = key(step), quest = step.quest })
+            skipped = step
         end
         advance()
-    else
-        -- step back to the previous step you can still do: one you skipped, a travel/note step,
-        -- or a quest you missed earlier
-        for i = cursor - 1, 1, -1 do
-            local step = active.steps[i]
-            if s[key(step)] or step.verb == "goto" or step.verb == "fly" or step.verb == "note" or G:IsMissed(step) then
-                s[key(step)] = nil
-                reached[step] = nil
-                forced[step] = true
-                cursor = i
-                break
+        W:Fire("WF_UPDATED")
+        return skipped
+    end
+
+    -- 1. Exact LIFO session history (handles skipped steps past gotos, backwards jumps, Later,
+    --    re-sorted smart-guide quests, and even accidental auto-switch at the end of a guide)
+    while #skipHistory > 0 do
+        local entry = table.remove(skipHistory)
+        if entry.guide ~= active.id then
+            if entry.autoSwitchedTo == active.id and registry[entry.guide] then
+                G:Activate(entry.guide, true)
+                s = skippedSet()
+            else
+                entry = nil
             end
         end
-        W:Fire("WF_STEP_CHANGED", active.steps[cursor])
+        if entry then
+            if entry.kind == "later" then
+                if entry.quest and laterSet()[entry.quest] and not QS:IsDone(entry.quest) then
+                    G:ResumeLater(entry.quest)
+                    return active.steps[cursor]
+                end
+            else
+                local step = findStepByKey(entry.key, entry.quest)
+                if canReopen(step) then
+                    return restoreStep(step)
+                end
+            end
+        end
     end
+
+    -- 2. Fallback (e.g. after /reload): prefer persisted skipped/deferred steps behind cursor
+    --    first so an intermediate goto/fly never traps Back before reaching your skipped step
+    local limit = math.min(cursor - 1, #active.steps)
+    for i = limit, 1, -1 do
+        local step = active.steps[i]
+        if s[key(step)] and canReopen(step) then
+            return restoreStep(step)
+        elseif G:IsLater(step) then
+            G:ResumeLater(step.quest)
+            return active.steps[cursor]
+        end
+    end
+    -- 3. Otherwise step back to an earlier travel/note step or missed quest behind cursor
+    for i = limit, 1, -1 do
+        local step = active.steps[i]
+        if step.verb == "goto" or step.verb == "fly" or step.verb == "note" or G:IsMissed(step) then
+            return restoreStep(step)
+        end
+    end
+    W:Fire("WF_STEP_CHANGED", active.steps[cursor])
     W:Fire("WF_UPDATED")
 end
 
@@ -1255,8 +1348,10 @@ end
 function G:Later(q)
     q = q or (G:Current() and G:Current().quest)
     if not q or not active then return end
-    laterSet()[q] = { guide = active.id, t = GetTime() }
+    local gid = active.id
+    laterSet()[q] = { guide = gid, t = GetTime() }
     for _, s in ipairs(active.steps) do if s.quest == q then forced[s] = nil end end
+    pushHistory({ kind = "later", guide = gid, quest = q })
     W.Print(("left %s for later: it's listed on the panel, and the guide comes back to it before moving on.")
         :format(QS:Title(q) or ("quest " .. q)))
     advance()
@@ -1316,12 +1411,90 @@ function G:LaterNearby()
     end
 end
 
--- Click on a note step = done
+-- Click on a note step (or manual done) = done
 function G:MarkDone(step)
-    if not active then return end
+    if not active or not step then return end
+    local gid = active.id
     skippedSet()[key(step)] = true
     forced[step] = nil
+    if active.id == "smart" and smartForcedQuest == step.quest then smartForcedQuest = nil end
+    pushHistory({ kind = "skip", guide = gid, key = key(step), quest = step.quest })
     advance()
+    W:Fire("WF_UPDATED")
+    return step
+end
+
+-- Undo a manual skip / mark-done on a step (even across a guide auto-switch or smart rebuild)
+function G:UnmarkDone(step, guideId)
+    if not step then return end
+    if guideId and active and active.id ~= guideId and registry[guideId] then
+        G:Activate(guideId, true)
+    end
+    if not active then return end
+    local target = (step.index and active.steps[step.index] == step) and step
+        or findStepByKey(step.key or (active.id == "smart" and step.quest), step.quest)
+    if not target then return end
+    -- if restoring an objective/turnin whose accept was also skipped (and quest not in log), restore accept too
+    if target.quest and (target.verb == "complete" or target.verb == "turnin") and not QS:IsOnQuest(target.quest) then
+        local a = active.acceptOf and active.acceptOf[target.quest]
+        if a and G:IsSkipped(a) then skippedSet()[key(a)] = nil end
+    end
+    for i = #skipHistory, 1, -1 do
+        local e = skipHistory[i]
+        if e.guide == active.id and e.key == key(target) then table.remove(skipHistory, i) break end
+    end
+    return restoreStep(target)
+end
+
+-- Jump back to an unfinished quest (e.g. clicking a waiting turn-in notice): un-skips its
+-- unfinished complete/accept step and moves the cursor straight to it.
+function G:GoBackToQuest(q)
+    if not active or not q then return end
+    laterSet()[q] = nil
+    local s = skippedSet()
+    local target
+    for _, st in ipairs(active.steps) do
+        if st.quest == q and canReopen(st) then
+            if QS:IsOnQuest(q) then
+                if st.verb == "complete" then target = st break end
+                if not target and st.verb == "turnin" then target = st end
+            else
+                if st.verb == "accept" then target = st break end
+                if not target then target = st end
+            end
+        end
+    end
+    if not target then return end
+    s[key(target)] = nil
+    return restoreStep(target)
+end
+
+-- All manually skipped steps in the active guide that are still unfinished (for the Skipped popup).
+function G:SkippedSteps()
+    local out = {}
+    if not active then return out end
+    local s = skippedSet()
+    for _, st in ipairs(active.steps) do
+        if s[key(st)] and canReopen(st) then
+            out[#out + 1] = st
+        end
+    end
+    return out
+end
+
+-- Un-skip every unfinished skipped step in the active guide and jump to the first open step.
+function G:RestoreAllSkipped()
+    if not active then return end
+    local s = skippedSet()
+    for _, st in ipairs(active.steps) do
+        if s[key(st)] and canReopen(st) then
+            s[key(st)] = nil
+            reached[st] = nil
+        end
+    end
+    wipe(skipHistory)
+    advance(true)
+    W:Fire("WF_STEP_CHANGED", active.steps[cursor])
     W:Fire("WF_UPDATED")
 end
 
@@ -1388,7 +1561,20 @@ W:On("WF_REFRESH", function()
         local before = cur and (cur.verb .. cur.quest)
         buildSmart()
         cursor = 1
-        while cursor <= #active.steps and not isOpen(active.steps[cursor]) do cursor = cursor + 1 end
+        local foundForced = false
+        if smartForcedQuest then
+            for i, s in ipairs(active.steps) do
+                if s.quest == smartForcedQuest and isOpen(s) then
+                    cursor = i
+                    foundForced = true
+                    break
+                end
+            end
+            if not foundForced then smartForcedQuest = nil end
+        end
+        if not foundForced then
+            while cursor <= #active.steps and not isOpen(active.steps[cursor]) do cursor = cursor + 1 end
+        end
         cur = active.steps[cursor]
         if (cur and (cur.verb .. cur.quest)) ~= before then
             W:Fire("WF_STEP_CHANGED", cur)

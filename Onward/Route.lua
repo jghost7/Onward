@@ -112,7 +112,7 @@ local function dot(i)
     local d = dots[i]
     if not d then
         d = overlay:CreateTexture(nil, "OVERLAY")
-        d:SetTexture("Interface\\Buttons\\WHITE8x8")
+        d:SetTexture(W.Skin.MEDIA .. "circle")
         dots[i] = d
     end
     return d
@@ -122,18 +122,30 @@ local function mark(i)
     local m = marks[i]
     if not m then
         m = CreateFrame("Frame", nil, overlay)
+        m:EnableMouse(true)
         m.bg = m:CreateTexture(nil, "ARTWORK")
         m.bg:SetAllPoints()
-        m.bg:SetTexture("Interface\\Buttons\\WHITE8x8")
+        m.bg:SetTexture(W.Skin.MEDIA .. "circle")
         m.edge = m:CreateTexture(nil, "BACKGROUND")
-        m.edge:SetPoint("TOPLEFT", -1, 1) m.edge:SetPoint("BOTTOMRIGHT", 1, -1)
-        m.edge:SetColorTexture(0, 0, 0, 0.9)
+        m.edge:SetPoint("TOPLEFT", -2, 2) m.edge:SetPoint("BOTTOMRIGHT", 2, -2)
+        m.edge:SetTexture(W.Skin.MEDIA .. "circle")
+        m.edge:SetVertexColor(0, 0, 0, 0.85)
         m.num = m:CreateFontString(nil, "OVERLAY")
         m.num:SetPoint("CENTER", 0, 0)
+        m:SetScript("OnEnter", function(self)
+            if not self.tipTitle then return end
+            GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+            GameTooltip:AddLine(self.tipTitle)
+            if self.tipBody then GameTooltip:AddLine(self.tipBody, 0.85, 0.87, 0.90, true) end
+            if self.tipSub then GameTooltip:AddLine(self.tipSub, 0.62, 0.65, 0.70, true) end
+            GameTooltip:Show()
+        end)
+        m:SetScript("OnLeave", function() GameTooltip:Hide() end)
         marks[i] = m
     end
     return m
 end
+R.marks, R.dots = marks, dots
 
 local function project(mapID, p)
     if not (C_Map.GetMapPosFromWorldPos and p.cont) then return end
@@ -201,10 +213,13 @@ function R:Draw()
             m.num:SetFont(W.Skin.FontPath("body"), math.max(6, math.floor(10 / scale)), "")
             m.num:SetTextColor(0.05, 0.06, 0.07)
             m.num:SetText(tostring(p.stop))
+            m.tipTitle = ("Stop %d%s"):format(p.stop, p.stop == 1 and " (current)" or "")
+            m.tipBody = p.label
+            m.tipSub = p.leg == "fly" and "Flight leg" or nil
             m:Show()
         end
     end
-    -- the step's other areas: small hollow markers, so you can see where else it can be done
+    -- the step's other areas: small translucent circle markers, so you can see where else it can be done
     local areas, chosen = WP:Areas()
     local na = 0
     for _, a in ipairs(areas or {}) do
@@ -212,13 +227,16 @@ function R:Draw()
         if a ~= chosen and x and inside(x, y) then
             nm, na = nm + 1, na + 1
             local m = mark(nm)
-            m:SetSize(msize * 0.8, msize * 0.8)
+            m:SetSize(msize * 0.85, msize * 0.85)
             m:ClearAllPoints()
             m:SetPoint("CENTER", overlay, "TOPLEFT", x * cw, -y * ch)
-            m.bg:SetVertexColor(A[1], A[2], A[3], 0.45)
+            m.bg:SetVertexColor(A[1], A[2], A[3], 0.48)
             m.num:SetFont(W.Skin.FontPath("body"), math.max(6, math.floor(9 / scale)), "")
             m.num:SetTextColor(0.05, 0.06, 0.07)
             m.num:SetText(tostring(a.index))
+            m.tipTitle = ("Alternate area %d"):format(a.index)
+            m.tipBody = a.name or "Another camp for this step"
+            m.tipSub = "Click Area on the panel (or /ow area) to switch"
             m:Show()
         end
     end

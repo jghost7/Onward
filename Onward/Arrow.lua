@@ -49,10 +49,44 @@ function A.PlayArrive()
 end
 A.pulse = pulse
 
+-- contextual mode badge tucked at bottom-right of the arrow (flight, hearth, boat/zep, corpse)
+local modeBg = f:CreateTexture(nil, "OVERLAY", nil, 0)
+modeBg:SetTexture(MEDIA .. "circle")
+modeBg:SetSize(20, 20)
+modeBg:SetPoint("BOTTOMRIGHT", arrow, "BOTTOMRIGHT", 2, 2)
+modeBg:SetVertexColor(0.05, 0.06, 0.08, 0.9)
+modeBg:Hide()
+local modeIcon = f:CreateTexture(nil, "OVERLAY", nil, 1)
+modeIcon:SetSize(13, 13)
+modeIcon:SetPoint("CENTER", modeBg)
+modeIcon:Hide()
+
+local function updateModeBadge(tgt)
+    local icon, r, g, b
+    if tgt.corpse then
+        icon, r, g, b = "complete", 1.00, 0.42, 0.38
+    elseif tgt.hearth then
+        icon, r, g, b = "arrive", W.Skin.ACCENT[1], W.Skin.ACCENT[2], W.Skin.ACCENT[3]
+    elseif tgt.flight then
+        icon, r, g, b = "fly", 0.75, 0.60, 1.00
+    elseif tgt.cross or tgt.route then
+        icon, r, g, b = "nav", 0.75, 0.60, 1.00
+    end
+    if icon then
+        modeIcon:SetTexture(MEDIA .. icon)
+        modeIcon:SetVertexColor(r, g, b, 1)
+        modeBg:Show()
+        modeIcon:Show()
+    else
+        modeBg:Hide()
+        modeIcon:Hide()
+    end
+end
+
 -- the readout under the arrow: no box, just text with a firm shadow over a soft dark fade that
--- keeps it readable on bright ground. Its size is its own setting (Options > Navigation).
+-- keeps it readable on bright ground. Width adapts to long titles and wraps cleanly up to 2 lines.
 local pill = CreateFrame("Frame", nil, f)
-pill:SetSize(196, 54)
+pill:SetSize(210, 54)
 pill:SetPoint("TOP", arrow, "BOTTOM", 0, -2)
 local fade = pill:CreateTexture(nil, "BACKGROUND")
 fade:SetTexture(MEDIA .. "text_fade")
@@ -60,39 +94,50 @@ fade:SetPoint("TOPLEFT", -26, 8)
 fade:SetPoint("BOTTOMRIGHT", 26, -8)
 
 local texts = {}
-local function text(size, r, g, b, font)
+local function text(size, r, g, b, font, wrap)
     local t = pill:CreateFontString(nil, "OVERLAY")
     t.baseSize, t.kind = size, font and "head" or "body"
     W.Skin.Font(t, size, t.kind)
     t:SetShadowColor(0, 0, 0, 1)
     t:SetShadowOffset(1, -1)
     t:SetTextColor(r, g, b)
-    t:SetWidth(184)
-    t:SetWordWrap(false)
+    t:SetWidth(200)
+    t:SetWordWrap(wrap and true or false)
+    if wrap and t.SetMaxLines then t:SetMaxLines(2) end
     texts[#texts + 1] = t
     return t
 end
-local dist = text(15, 1, 1, 1, FONT)
+local dist = text(15, 1, 1, 1, FONT, false)
 dist:SetPoint("TOP", pill, "TOP", 0, -7)
-local label = text(12, 0.93, 0.94, 0.96)
+local label = text(12, 0.93, 0.94, 0.96, nil, true)
 label:SetPoint("TOP", dist, "BOTTOM", 0, -3)
-local sub = text(11, 1, 1, 1)
+local sub = text(11, 1, 1, 1, nil, true)
 W.Skin.Accent(sub, "text")
 sub:SetPoint("TOP", label, "BOTTOM", 0, -2)
 
 -- text size: W.db.arrowTextScale (0.7 - 1.6), separate from the arrow's own size
 local textScale = 1
+local function sizePill()
+    local s = math.max(1, textScale)
+    local minW, maxW = 196 * s, 276 * s
+    local wantW = math.max(dist:GetStringWidth() or 0, label:GetStringWidth() or 0, sub:GetStringWidth() or 0) + 18
+    local pw = math.max(minW, math.min(maxW, wantW))
+    pill:SetWidth(pw)
+    for _, t in ipairs(texts) do t:SetWidth(pw - 12) end
+    local h = 10 + math.max(14 * textScale, dist:GetStringHeight() or 14) + 3 + math.max(12 * textScale, label:GetStringHeight() or 12)
+    if sub:GetText() ~= "" then h = h + 2 + math.max(11 * textScale, sub:GetStringHeight() or 11) end
+    pill:SetHeight(h + 4)
+end
 local function applyTextScale()
     textScale = (W.db and W.db.arrowTextScale) or 1
     for _, t in ipairs(texts) do
         W.Skin.Font(t, math.floor(t.baseSize * textScale + 0.5), t.kind)
-        t:SetWidth(184 * math.max(1, textScale))
     end
-    pill:SetWidth(196 * math.max(1, textScale))
+    sizePill()
 end
 A.ApplyTextScale = applyTextScale
 
-A.frame, A.tex, A.dist, A.label, A.sub, A.fade = f, arrow, dist, label, sub, fade   -- for tests / skins
+A.frame, A.tex, A.dist, A.label, A.sub, A.fade, A.modeIcon, A.pill = f, arrow, dist, label, sub, fade, modeIcon, pill
 
 ---------------------------------------------------------------------------
 local function lerp(a, b, t) return a + (b - a) * t end
@@ -112,7 +157,7 @@ local function fmtTime(sec)
     return ("%ds"):format(sec)
 end
 
-local elapsed = 0
+local elapsed, lastTextSig = 0, ""
 local function update(_, dt)
     elapsed = elapsed + dt
     if elapsed < 0.03 then return end
@@ -121,14 +166,16 @@ local function update(_, dt)
     local tgt = WP:ArrowTarget()
     if not tgt then f:SetAlpha(0) return end
     f:SetAlpha(1)
-    label:SetText(tgt.label or "")
-    sub:SetText(tgt.sub or "")
-    pill:SetHeight(((tgt.sub and tgt.sub ~= "") and 54 or 40) * textScale)
+    local lbl, sb = tgt.label or "", tgt.sub or ""
+    label:SetText(lbl)
+    sub:SetText(sb)
+    updateModeBadge(tgt)
 
     local pc, px, py = T.PlayerWorld()
     if not pc or pc ~= tgt.cont then
         arrow:Hide() ring:Hide()
         dist:SetText("other continent")
+        sizePill()
         return
     end
     -- world coords: x grows north, y grows west
@@ -144,6 +191,10 @@ local function update(_, dt)
         arrow:Hide()
         ring:Show()
         dist:SetText("arrived")
+        if lastTextSig ~= lbl .. "|" .. sb .. "|arrived" then
+            lastTextSig = lbl .. "|" .. sb .. "|arrived"
+            sizePill()
+        end
         return
     end
     ring:Hide()
@@ -154,6 +205,10 @@ local function update(_, dt)
     local speed = GetUnitSpeed and W.Safe(GetUnitSpeed("player")) or 0
     local eta = speed and speed > 0 and ("  ·  " .. fmtTime(total / speed)) or ""
     dist:SetText(("%d yd%s"):format(total, eta))
+    if lastTextSig ~= lbl .. "|" .. sb then
+        lastTextSig = lbl .. "|" .. sb
+        sizePill()
+    end
 
     local facing = W.Safe(GetPlayerFacing and GetPlayerFacing())
     if not facing then
@@ -240,13 +295,36 @@ f:SetScript("OnDragStop", function(self)
     local p, _, rp, x, y = self:GetPoint()
     W.db.arrowPoint = { p, rp, x, y }
 end)
+function A:ShowMenu()
+    if not W.Popups then W:Fire("WF_SHOW_OPTIONS") return end
+    local areas = WP:Areas()
+    local items = {
+        { label = W.db.arrowLocked and "Unlock arrow" or "Lock arrow", checked = W.db.arrowLocked, onClick = function()
+            W.db.arrowLocked = not W.db.arrowLocked
+            W:Fire("WF_SETTINGS_CHANGED")
+        end },
+    }
+    if areas and #areas > 1 then
+        items[#items + 1] = { label = "Next mob area", onClick = function() WP:NextArea() end }
+    end
+    items[#items + 1] = { label = "Skip current step", onClick = function()
+        local gid = W.Guide:Active() and W.Guide:Active().id
+        local skipped = W.Guide:Skip(1)
+        if skipped and W.UI and W.UI.ToastUndo then W.UI:ToastUndo(skipped, gid) end
+    end }
+    items[#items + 1] = { label = "Hide arrow", onClick = function() A:Toggle() end }
+    items[#items + 1] = { sep = true }
+    items[#items + 1] = { label = "Settings...", accent = true, onClick = function() W:Fire("WF_SHOW_OPTIONS") end }
+    A.menu = W.Popups:ShowMenu(pill, items)
+end
+
 f:SetScript("OnMouseUp", function(_, button)
-    if button == "RightButton" then W:Fire("WF_SHOW_OPTIONS") end
+    if button == "RightButton" then A:ShowMenu() end
 end)
 f:SetScript("OnEnter", function(self)
     GameTooltip:SetOwner(self, "ANCHOR_BOTTOM")
     GameTooltip:AddLine("Onward arrow")
-    GameTooltip:AddLine("Drag to move  ·  Right-click for options", 0.7, 0.7, 0.7)
+    GameTooltip:AddLine("Drag to move  ·  Right-click for quick menu", 0.7, 0.7, 0.7)
     GameTooltip:Show()
 end)
 f:SetScript("OnLeave", function() GameTooltip:Hide() end)

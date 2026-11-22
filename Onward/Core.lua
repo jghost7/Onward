@@ -30,7 +30,7 @@ local DEFAULTS = {
     targetMark = true,       -- put a skull on the mob it targets
     itemButton = true,       -- button that uses the quest's item (fletch the bundles, throw the spear)
     targetDetached = false,  -- target, item and Later buttons in a movable dock instead of the card's action strip
-    headerArt = "shot",      -- behind the panel header: "shot" (a picture of the zone, the map when there's none), "map", "off"
+    headerArt = "off",       -- behind the panel header: "off", "shot" (zone picture, map fallback), "map"
     targetPoint = nil,
     -- travel
     trailBack = true,

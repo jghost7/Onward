@@ -1,17 +1,16 @@
--- Options window (/ow options, the gear on the panel, right-click the arrow) and an entry in
--- Blizzard's Settings > AddOns. Custom controls, so the look matches the panel and nothing
--- depends on Blizzard templates that change between clients.
+-- Options window (/ow options, gear on panel, Arrow quick menu -> Settings) and Blizzard Settings entry.
+-- Tabbed layout (Questing / Navigation / Appearance / Party & Tools) so settings stay scannable
+-- with plenty of vertical headroom.
 local _, W = ...
 local O = {}
 W.Options = O
 
 local S = W.Skin
-local ACCENT = S.ACCENT   -- shared with the theme: recoloured live
+local ACCENT = S.ACCENT
 local controls = {}
 
 local function changed() W:Fire("WF_SETTINGS_CHANGED") W:Fire("WF_UPDATED") end
 
--- r may be the ACCENT table: the text then follows the theme's accent
 local function fs(parent, size, r, g, b)
     local t = parent:CreateFontString(nil, "OVERLAY")
     S.Font(t, size + 1, "body")
@@ -26,7 +25,6 @@ local function tooltip(owner, text)
     if not text then return end
     owner:SetScript("OnEnter", function(self)
         GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-        -- a function tip is worked out when shown (the looks depend on whether EllesmereUI is on)
         GameTooltip:SetText(type(text) == "function" and text() or text, 1, 1, 1, 1, true)
         GameTooltip:Show()
     end)
@@ -34,10 +32,11 @@ local function tooltip(owner, text)
 end
 
 ---------------------------------------------------------------------------
--- window
+-- Window & Tab Bar
 ---------------------------------------------------------------------------
+local WIN_W, WIN_H = 620, 520
 local win = CreateFrame("Frame", "OnwardOptions", UIParent)
-win:SetSize(640, 780)
+win:SetSize(WIN_W, WIN_H)
 win:SetPoint("CENTER")
 win:SetFrameStrata("DIALOG")
 win:SetClampedToScreen(true)
@@ -48,11 +47,12 @@ win:SetScript("OnDragStart", win.StartMoving)
 win:SetScript("OnDragStop", win.StopMovingOrSizing)
 win:Hide()
 if UISpecialFrames then table.insert(UISpecialFrames, "OnwardOptions") end
+O.window = win
 
 do
-    S.Glass(win, { alpha = 0.88, corner = 14, titleBar = 40 })
+    S.Glass(win, { alpha = 0.90, corner = 14 })
     local title = fs(win, 16, ACCENT)
-    title:SetPoint("TOPLEFT", 18, -16)
+    title:SetPoint("TOPLEFT", 18, -14)
     title:SetText("Onward")
     local ver = fs(win, 11, 0.45, 0.48, 0.52)
     ver:SetPoint("LEFT", title, "RIGHT", 8, -1)
@@ -66,44 +66,119 @@ do
     close:SetScript("OnClick", function() win:Hide() end)
     close:SetScript("OnEnter", function() x:SetTextColor(1, 1, 1) end)
     close:SetScript("OnLeave", function() x:SetTextColor(0.62, 0.65, 0.70) end)
+
+    local sep = win:CreateTexture(nil, "ARTWORK")
+    sep:SetColorTexture(1, 1, 1, 0.08)
+    sep:SetHeight(1)
+    sep:SetPoint("TOPLEFT", 16, -74)
+    sep:SetPoint("TOPRIGHT", -16, -74)
 end
 
-local cols = { 20, 336 }
-local cursor = { -52, -52 }
+local TAB_DEFS = {
+    { key = "questing",   label = "Questing" },
+    { key = "navigation", label = "Navigation" },
+    { key = "appearance", label = "Appearance" },
+    { key = "party",      label = "Party & Tools" },
+}
+local tabs, tabButtons = {}, {}
+local activeTab = "questing"
+local cols = { 20, 322 }
+local COL_W = 278
+
+local function selectTab(key)
+    if not tabs[key] then return end
+    activeTab = key
+    for k, page in pairs(tabs) do
+        page:SetShown(k == key)
+    end
+    for k, b in pairs(tabButtons) do
+        local on = k == key
+        b.bar:SetShown(on)
+        if on then
+            b.bg:SetColor(ACCENT[1], ACCENT[2], ACCENT[3], 0.16)
+            b.text:SetTextColor(ACCENT[1], ACCENT[2], ACCENT[3])
+        else
+            b.bg:SetColor(1, 1, 1, 0.04)
+            b.text:SetTextColor(0.68, 0.71, 0.76)
+        end
+    end
+end
+O.SelectTab = selectTab
+O.tabs, O.tabButtons = tabs, tabButtons
+
+do
+    local tabW = math.floor((WIN_W - 36 - 18) / #TAB_DEFS)
+    for i, def in ipairs(TAB_DEFS) do
+        local b = CreateFrame("Button", nil, win)
+        b:SetSize(tabW, 26)
+        b:SetPoint("TOPLEFT", 18 + (i - 1) * (tabW + 6), -42)
+        b.bg = S.Nine(b, "BACKGROUND", 0, S.MEDIA .. "glass_body", 64, 16, 6, 0)
+        b.bg:SetColor(1, 1, 1, 0.04)
+        b.bar = b:CreateTexture(nil, "OVERLAY")
+        S.Accent(b.bar, "color")
+        b.bar:SetHeight(2)
+        b.bar:SetPoint("BOTTOMLEFT", 6, 0)
+        b.bar:SetPoint("BOTTOMRIGHT", -6, 0)
+        b.bar:Hide()
+        b.text = fs(b, 12, 0.68, 0.71, 0.76)
+        b.text:SetPoint("CENTER")
+        b.text:SetJustifyH("CENTER")
+        b.text:SetText(def.label)
+        b:SetScript("OnEnter", function(self)
+            if activeTab ~= def.key then self.text:SetTextColor(0.93, 0.94, 0.96) end
+        end)
+        b:SetScript("OnLeave", function(self)
+            if activeTab ~= def.key then self.text:SetTextColor(0.68, 0.71, 0.76) end
+        end)
+        b:SetScript("OnClick", function() selectTab(def.key) end)
+        tabButtons[def.key] = b
+
+        local page = CreateFrame("Frame", nil, win)
+        page:SetPoint("TOPLEFT", 0, -76)
+        page:SetPoint("BOTTOMRIGHT", 0, 12)
+        page.cursor = { -10, -10 }
+        page:Hide()
+        tabs[def.key] = page
+    end
+end
+
+-- Helper factory scoped to the currently building tab page
+local curPage
+local function useTab(key) curPage = tabs[key] end
 
 local function section(col, text)
-    local y = cursor[col] - (cursor[col] < -60 and 14 or 0)
-    local h = fs(win, 12, ACCENT)
+    local c = curPage.cursor
+    local y = c[col] - (c[col] < -16 and 12 or 0)
+    local h = fs(curPage, 11, ACCENT)
     h:SetPoint("TOPLEFT", cols[col], y)
     h:SetText(text:upper())
-    local line = win:CreateTexture(nil, "ARTWORK")
+    local line = curPage:CreateTexture(nil, "ARTWORK")
     line:SetColorTexture(1, 1, 1, 0.07)
     line:SetHeight(1)
-    line:SetPoint("TOPLEFT", cols[col], y - 18)
-    line:SetWidth(284)
-    cursor[col] = y - 28
+    line:SetPoint("TOPLEFT", cols[col], y - 17)
+    line:SetWidth(COL_W)
+    c[col] = y - 26
 end
 
 local function check(col, key, label, tip, onChange)
-    local b = CreateFrame("Button", nil, win)
-    b:SetSize(284, 22)
-    b:SetPoint("TOPLEFT", cols[col], cursor[col])
-    -- toggle box (square in flat, rounded in glass); filled with the accent and a check when on
+    local c = curPage.cursor
+    local b = CreateFrame("Button", nil, curPage)
+    b:SetSize(COL_W, 22)
+    b:SetPoint("TOPLEFT", cols[col], c[col])
     local box = CreateFrame("Frame", nil, b)
     box:SetSize(16, 16)
     box:SetPoint("LEFT", 0, 0)
-    local well = W.Skin.Nine(box, "ARTWORK", 0, W.Skin.MEDIA .. "glass_body", 64, 16, 5, 0)
+    local well = S.Nine(box, "ARTWORK", 0, S.MEDIA .. "glass_body", 64, 16, 5, 0)
     well:SetColor(1, 1, 1, 0.10)
-    local fillF = CreateFrame("Frame", nil, box)
-    fillF:SetAllPoints()
-    local fillBg = W.Skin.Nine(fillF, "ARTWORK", 1, W.Skin.MEDIA .. "glass_body", 64, 16, 5, 0)
+    local fill = CreateFrame("Frame", nil, box)
+    fill:SetAllPoints()
+    local fillBg = S.Nine(fill, "ARTWORK", 1, S.MEDIA .. "glass_body", 64, 16, 5, 0)
     S.Accent(fillBg, "nine")
-    local tick = fillF:CreateTexture(nil, "OVERLAY")
-    tick:SetTexture(W.Skin.MEDIA .. "arrive")
+    local tick = fill:CreateTexture(nil, "OVERLAY")
+    tick:SetTexture(S.MEDIA .. "arrive")
     tick:SetSize(18, 18)
     tick:SetPoint("CENTER")
     tick:SetVertexColor(0.05, 0.06, 0.07, 1)
-    local fill = fillF
     local t = fs(b, 12)
     t:SetPoint("LEFT", box, "RIGHT", 9, 0)
     t:SetText(label)
@@ -116,19 +191,20 @@ local function check(col, key, label, tip, onChange)
     end)
     tooltip(b, tip)
     controls[#controls + 1] = refresh
-    cursor[col] = cursor[col] - 24
+    c[col] = c[col] - 24
 end
 
 local function slider(col, key, label, lo, hi, step, fmt, onChange)
-    local t = fs(win, 12)
-    t:SetPoint("TOPLEFT", cols[col], cursor[col] - 2)
+    local c = curPage.cursor
+    local t = fs(curPage, 12)
+    t:SetPoint("TOPLEFT", cols[col], c[col] - 2)
     t:SetText(label)
-    local val = fs(win, 12, 0.62, 0.65, 0.70)
-    val:SetPoint("TOPRIGHT", win, "TOPLEFT", cols[col] + 284, cursor[col] - 2)
-    local s = CreateFrame("Slider", nil, win)
+    local val = fs(curPage, 12, 0.62, 0.65, 0.70)
+    val:SetPoint("TOPRIGHT", curPage, "TOPLEFT", cols[col] + COL_W, c[col] - 2)
+    local s = CreateFrame("Slider", nil, curPage)
     s:SetOrientation("HORIZONTAL")
-    s:SetSize(284, 14)
-    s:SetPoint("TOPLEFT", cols[col], cursor[col] - 20)
+    s:SetSize(COL_W, 14)
+    s:SetPoint("TOPLEFT", cols[col], c[col] - 20)
     s:SetMinMaxValues(lo, hi)
     s:SetValueStep(step)
     if s.SetObeyStepOnDrag then s:SetObeyStepOnDrag(true) end
@@ -157,30 +233,48 @@ local function slider(col, key, label, lo, hi, step, fmt, onChange)
         val:SetText(fmt:format(W.db[key] or lo))
         busy = false
     end
-    cursor[col] = cursor[col] - 44
+    c[col] = c[col] - 44
 end
 
--- segmented choice: label above, one button per value, the selected one filled with the accent
-local function choice(col, key, label, items, tip, onChange)
-    local t = fs(win, 12)
-    t:SetPoint("TOPLEFT", cols[col], cursor[col] - 2)
+-- segmented choice; when swatches=true, draws each theme's glass + accent preview dot
+local function choice(col, key, label, items, tip, onChange, swatches)
+    local c = curPage.cursor
+    local t = fs(curPage, 12)
+    t:SetPoint("TOPLEFT", cols[col], c[col] - 2)
     t:SetText(label)
-    local perRow = math.min(#items, 4)          -- more than four wrap onto another row
-    local w = math.floor(284 / perRow) - 2
+    local perRow = math.min(#items, swatches and 2 or 4)
+    local w = math.floor((COL_W - (perRow - 1) * 4) / perRow)
+    local h = swatches and 24 or 22
     local btns = {}
     for i, it in ipairs(items) do
-        local b = CreateFrame("Button", nil, win)
-        b:SetSize(w, 22)
-        local r, c = math.floor((i - 1) / perRow), (i - 1) % perRow
-        b:SetPoint("TOPLEFT", cols[col] + c * (w + 3), cursor[col] - 20 - r * 26)
-        b.bg = W.Skin.Nine(b, "BACKGROUND", 0, W.Skin.MEDIA .. "glass_body", 64, 16, 7, 0)
+        local b = CreateFrame("Button", nil, curPage)
+        b:SetSize(w, h)
+        local r, cx = math.floor((i - 1) / perRow), (i - 1) % perRow
+        b:SetPoint("TOPLEFT", cols[col] + cx * (w + 4), c[col] - 20 - r * (h + 4))
+        b.bg = S.Nine(b, "BACKGROUND", 0, S.MEDIA .. "glass_body", 64, 16, 7, 0)
         b.text = fs(b, 11)
-        b.text:SetPoint("CENTER")
+        if swatches then
+            local tint, acc = S.ThemeColors(it.value)
+            b.dotBg = b:CreateTexture(nil, "ARTWORK")
+            b.dotBg:SetTexture(S.MEDIA .. "circle")
+            b.dotBg:SetSize(12, 12)
+            b.dotBg:SetPoint("LEFT", 7, 0)
+            b.dotBg:SetVertexColor(tint[1] + 0.12, tint[2] + 0.12, tint[3] + 0.12, 1)
+            b.dot = b:CreateTexture(nil, "OVERLAY")
+            b.dot:SetTexture(S.MEDIA .. "circle")
+            b.dot:SetSize(7, 7)
+            b.dot:SetPoint("CENTER", b.dotBg)
+            b.dot:SetVertexColor(acc[1], acc[2], acc[3], 1)
+            b.text:SetPoint("LEFT", b.dotBg, "RIGHT", 6, 0)
+        else
+            b.text:SetPoint("CENTER")
+        end
         b.text:SetText(it.label)
         b:SetScript("OnClick", function()
             W.db[key] = it.value
-            if onChange then onChange(it.value) end      -- first: a theme change sets the new accent
-            for _, r in ipairs(controls) do r() end
+            if onChange then onChange(it.value) end
+            for _, fn in ipairs(controls) do fn() end
+            selectTab(activeTab)
             changed()
         end)
         tooltip(b, it.tip or tip)
@@ -193,24 +287,22 @@ local function choice(col, key, label, items, tip, onChange)
             b.text:SetTextColor(on and 0.05 or 0.93, on and 0.06 or 0.94, on and 0.07 or 0.96)
         end
     end
-    cursor[col] = cursor[col] - 50 - 26 * (math.ceil(#items / perRow) - 1)
+    c[col] = c[col] - (26 + (h + 4) * math.ceil(#items / perRow))
 end
 
--- font dropdown: label above, a box showing the current font in itself; click for a list of
--- "Automatic" plus every font the game and other addons offer, each name drawn in its own font
--- (mouse wheel scrolls when there are more than fit)
 local ROWS, ROW_H = 10, 20
 local function autoFontPath() return S.fontOverride or S.FONT_BODY end
 local function fontPicker(col, label, tip)
-    local t = fs(win, 12)
-    t:SetPoint("TOPLEFT", cols[col], cursor[col] - 2)
+    local c = curPage.cursor
+    local t = fs(curPage, 12)
+    t:SetPoint("TOPLEFT", cols[col], c[col] - 2)
     t:SetText(label)
-    local box = CreateFrame("Button", nil, win)
-    box:SetSize(284, 22)
-    box:SetPoint("TOPLEFT", cols[col], cursor[col] - 20)
-    local bg = W.Skin.Nine(box, "BACKGROUND", 0, W.Skin.MEDIA .. "glass_body", 64, 16, 7, 0)
+    local box = CreateFrame("Button", nil, curPage)
+    box:SetSize(COL_W, 22)
+    box:SetPoint("TOPLEFT", cols[col], c[col] - 20)
+    local bg = S.Nine(box, "BACKGROUND", 0, S.MEDIA .. "glass_body", 64, 16, 7, 0)
     bg:SetColor(1, 1, 1, 0.08)
-    local value = box:CreateFontString(nil, "OVERLAY")   -- drawn in the font it names, not via S.Font
+    local value = box:CreateFontString(nil, "OVERLAY")
     value:SetPoint("LEFT", 9, 0)
     value:SetPoint("RIGHT", -22, 0)
     value:SetJustifyH("LEFT")
@@ -228,18 +320,18 @@ local function fontPicker(col, label, tip)
 
     local list = CreateFrame("Frame", nil, win)
     list:SetFrameStrata("FULLSCREEN_DIALOG")
-    list:SetWidth(284)
+    list:SetWidth(COL_W)
     list:SetPoint("TOPLEFT", box, "BOTTOMLEFT", 0, -2)
     list:EnableMouse(true)
     list:EnableMouseWheel(true)
     list:Hide()
-    local lbg = W.Skin.Nine(list, "BACKGROUND", 0, W.Skin.MEDIA .. "glass_body", 64, 16, 7, 0)
+    local lbg = S.Nine(list, "BACKGROUND", 0, S.MEDIA .. "glass_body", 64, 16, 7, 0)
     lbg:SetColor(0.035, 0.04, 0.05, 0.97)
     local entries, offset, rows = {}, 0, {}
 
     local function current()
         local name = W.db.font or "auto"
-        if name ~= "auto" and not S.ChosenFont() then name = "auto" end   -- its addon is gone
+        if name ~= "auto" and not S.ChosenFont() then name = "auto" end
         return name
     end
     local function paint()
@@ -258,7 +350,7 @@ local function fontPicker(col, label, tip)
     end
     for i = 1, ROWS do
         local r = CreateFrame("Button", nil, list)
-        r:SetSize(276, ROW_H)
+        r:SetSize(COL_W - 8, ROW_H)
         r:SetPoint("TOPLEFT", 4, -4 - (i - 1) * ROW_H)
         local hl = r:CreateTexture(nil, "BACKGROUND")
         hl:SetAllPoints()
@@ -289,7 +381,6 @@ local function fontPicker(col, label, tip)
         for _, f in ipairs(S.FontChoices()) do entries[#entries + 1] = { name = f.name, label = f.name, path = f.path } end
         local n = math.min(ROWS, #entries)
         list:SetHeight(n * ROW_H + 8)
-        -- start with the current font in view
         offset = 0
         for i, e in ipairs(entries) do
             if e.name == current() then offset = math.max(0, math.min(#entries - ROWS, i - 3)) end
@@ -299,22 +390,23 @@ local function fontPicker(col, label, tip)
     end
     box:SetScript("OnClick", function() if list:IsShown() then list:Hide() else open() end end)
     win:HookScript("OnHide", function() list:Hide() end)
+    curPage:HookScript("OnHide", function() list:Hide() end)
 
     controls[#controls + 1] = function()
         local name = current()
         value:SetFont(S.ChosenFont() or autoFontPath(), 12, "")
         value:SetText(name == "auto" and "Automatic" or name)
     end
-    O.cursor = cursor
     O.fontList = { open = open, list = list, rows = rows, value = value, entries = function() return entries end }
-    cursor[col] = cursor[col] - 50
+    c[col] = c[col] - 48
 end
 
 local function button(col, label, onClick, width, xoff)
-    local b = CreateFrame("Button", nil, win)
-    b:SetSize(width or 284, 24)
-    b:SetPoint("TOPLEFT", cols[col] + (xoff or 0), cursor[col])
-    local bg = W.Skin.Nine(b, "BACKGROUND", 0, W.Skin.MEDIA .. "glass_body", 64, 16, 7, 0)
+    local c = curPage.cursor
+    local b = CreateFrame("Button", nil, curPage)
+    b:SetSize(width or COL_W, 24)
+    b:SetPoint("TOPLEFT", cols[col] + (xoff or 0), c[col])
+    local bg = S.Nine(b, "BACKGROUND", 0, S.MEDIA .. "glass_body", 64, 16, 7, 0)
     bg:SetColor(1, 1, 1, 0.08)
     local t = fs(b, 12)
     t:SetPoint("CENTER")
@@ -327,9 +419,10 @@ local function button(col, label, onClick, width, xoff)
 end
 
 ---------------------------------------------------------------------------
--- content
+-- Tab 1: Questing
 ---------------------------------------------------------------------------
-section(1, "Questing")
+useTab("questing")
+section(1, "Quest Selection")
 choice(1, "questMode", "Which quests to do", {
     { value = "all", label = "All", tip = "Every quest in the zone." },
     { value = "efficient", label = "Efficient", tip = "Skip clear time sinks: quests under half the zone's typical XP per minute, unless they unlock a worthwhile follow-up. Keeps at least 85% of the zone's XP." },
@@ -339,11 +432,28 @@ choice(1, "groupQuests", "Elite and dungeon quests", {
     { value = "show", label = "Show", tip = "Keep them in the guides, marked \"Elite\" or \"Dungeon\" on the panel." },
     { value = "hide", label = "Hide", tip = "Leave them out, with any follow-ups that need them, for solo play." },
 }, nil, function() W.Guide:Reload() end)
+section(1, "Quest Automation")
 check(1, "autoAccept", "Auto-accept guide quests", "Accept the quests the active guide picks up. Hold Shift at an NPC to pause.")
 check(1, "autoAcceptAll", "Auto-accept every quest", "Accept any quest offered, guide or not.")
 check(1, "autoTurnIn", "Auto turn-in", "Hand in finished quests. Never chooses between several rewards.")
 
-section(1, "Navigation")
+section(2, "Tracking & Bag Hygiene")
+check(2, "passing", "List quests on your way", "Show quests in your log whose mobs are right along your current path.")
+check(2, "dropStats", "Show drop rates", "Under \"collect\" objectives: how many of your kills dropped the item, the expected rate (Wowhead's, through Questie), and luck comparison.")
+check(2, "bagCleanup", "Flag old quest items in bags", "Shows a link on the panel when your bags hold quest items whose entire quest chain is finished. Voluntary only: nothing is ever deleted automatically.")
+
+section(2, "Quick Actions")
+button(2, "Clean quest items", function() W:Fire("WF_SHOW_CLEANUP") end)
+curPage.cursor[2] = curPage.cursor[2] - 32
+button(2, "Pick a guide", function() W:Fire("WF_SHOW_PICKER", "zones") end, 136)
+button(2, "Professions", function() W:Fire("WF_SHOW_PICKER", "professions") end, 136, 142)
+curPage.cursor[2] = curPage.cursor[2] - 32
+
+---------------------------------------------------------------------------
+-- Tab 2: Navigation
+---------------------------------------------------------------------------
+useTab("navigation")
+section(1, "Nav Arrow & Map")
 check(1, "arrow", "Show nav arrow", "Rotating arrow with distance and arrival time.")
 check(1, "arrowLocked", "Lock arrow", "Stops dragging and lets clicks pass through the arrow.")
 slider(1, "arrowScale", "Arrow size", 0.6, 1.8, 0.05, "%.2f")
@@ -351,78 +461,112 @@ slider(1, "arrowTextScale", "Arrow text size", 0.7, 1.6, 0.05, "%.2f")
 choice(1, "routeMode", "Route on the world map", {
     { value = "off", label = "Off" },
     { value = "current", label = "Current", tip = "A dotted line from you to the current step, via flight masters when flying is faster." },
-    { value = "next", label = "Next 3", tip = "The current step, then the next three stops, numbered in order." },
+    { value = "next", label = "Next stops", tip = "The current step, then upcoming stops numbered in order with hover tooltips." },
 })
-check(1, "waypoints", "Map pin on the current step", "Blizzard's own map pin and on-screen marker.")
+slider(1, "routeStops", "Route stops ahead", 1, 6, 1, "%d")
+check(1, "waypoints", "Blizzard map pin", "Blizzard's own map pin and on-screen marker.")
 check(1, "tomtom", "TomTom waypoint (if installed)")
-check(1, "targetButton", "Target button", "A button on the step card: click it, or bind a key under Key Bindings > AddOns > Onward. On kill and loot steps it targets the nearest living quest mob (with enemy nameplates on it skips mobs someone else has tagged while you're out of combat). On steps where you talk to someone it targets that NPC, so you can find them in a crowd.")
-check(1, "targetMark", "Mark the target", "Puts a skull over the mob the target button picks, and a star over the NPC it picks, so they stand out in a crowd.")
-check(1, "itemButton", "Quest item button", "On steps where the quest has you use an item, a button that uses it, beside the target button. Bind a key under Key Bindings > AddOns > Onward.", function() W.Item:Sync() end)
-check(1, "targetDetached", "Buttons in a dock", "Moves the target and quest item buttons off the step card into a dock of action-button-sized buttons you can place anywhere, e.g. above your action bars, with your key bindings shown. Right-drag the target button to move it.", function() W.UI:Render() W.Target:Sync() end)
 
-section(1, "Travel")
-check(1, "trailBack", "Lead back the way you came", "When you head back to a quest giver you walked away from, the arrow follows your own path (around cliffs, over bridges) instead of a straight line.")
-check(1, "hearthAdvice", "Suggest your hearthstone", "When your hearthstone is ready and hearthing beats running or flying to the next step, the arrow says so. Onward learns where you're bound when you set it, or when you're in that town.")
-check(1, "travelAdvice", "Suggest flights", "When a learned flight path beats running, the arrow points to the flight master.")
-check(1, "autoTaxi", "Pick the flight automatically", "At the flight master, take the flight the guide or suggestion wants. Hold Shift when you talk to the flight master to pick your own destination.")
+section(2, "Travel")
+check(2, "trailBack", "Lead back the way you came", "When returning to a quest giver, follow your own path around cliffs and bridges instead of a straight line.")
+check(2, "hearthAdvice", "Suggest your hearthstone", "Suggest hearthing when it is off cooldown and faster than running or flying.")
+check(2, "travelAdvice", "Suggest flights", "Point to the nearest flight master when flying beats running.")
+check(2, "autoTaxi", "Pick flight automatically", "Take the suggested flight at the flight master. Hold Shift to pick manually.")
 
--- what each look does with fonts: EllesmereUI's font in every look when it's installed
+section(2, "Action Buttons")
+check(2, "targetButton", "Target mob / NPC button", "Targets the nearest living quest mob (or the NPC to talk to). Bindable under Key Bindings > AddOns > Onward.")
+check(2, "targetMark", "Mark targeted mob / NPC", "Puts a skull over the targeted mob and a star over the targeted NPC.")
+check(2, "itemButton", "Quest item button", "Uses the quest's item beside the target button. Bindable under Key Bindings.", function() W.Item:Sync() end)
+check(2, "targetDetached", "Detach buttons into dock", "Moves target and quest item buttons off the card into a movable action-button dock with keybind labels.", function() W.UI:Render() W.Target:Sync() end)
+
+---------------------------------------------------------------------------
+-- Tab 3: Appearance
+---------------------------------------------------------------------------
 local function lookTip(text)
     if S.ChosenFont() then return text .. " Text uses the font you picked under Font." end
     if S.UsingEllesmere() then return text .. " Text uses your EllesmereUI font." end
     return text .. (text:find("plain font") and "" or " Titles in the game's headline font.")
 end
 
-section(2, "Panel")
-choice(2, "theme", "Look", {
-    { value = "onward", label = "Onward", tip = function() return lookTip("The logo's colours: deep teal glass with a gold edge and gold highlights.") end },
+useTab("appearance")
+section(1, "Theme & Typography")
+choice(1, "theme", "Look", {
+    { value = "onward", label = "Onward", tip = function() return lookTip("Deep teal glass with a gold edge and gold highlights.") end },
     { value = "glass", label = "Glass", tip = function() return lookTip("Blue-slate glass with green highlights.") end },
     { value = "flat", label = "Ellesmere", tip = function()
-        if S.UsingEllesmere() then
-            return lookTip("Dark glass in your EllesmereUI colours: its accent for highlights, its panel colour for the glass.")
-        end
-        return "Neutral dark glass with green highlights and one plain font. With EllesmereUI installed it takes your EllesmereUI accent and panel colours."
+        if S.UsingEllesmere() then return lookTip("Dark glass in your EllesmereUI colours.") end
+        return "Neutral dark glass with green highlights and one plain font. Uses EllesmereUI colours when installed."
     end },
     { value = "twilight", label = "Twilight", tip = function() return lookTip("Violet glass with teal highlights.") end },
     { value = "alliance", label = "Alliance", tip = function() return lookTip("Navy glass with a blue edge and gold highlights.") end },
     { value = "horde", label = "Horde", tip = function() return lookTip("Dark blood-iron glass with a bronze edge and ember-red highlights.") end },
-    { value = "feywood", label = "Feywood", tip = function() return lookTip("A mystical forest: deep moss glass with a violet edge and glowing fae-green highlights.") end },
+    { value = "feywood", label = "Feywood", tip = function() return lookTip("Deep moss glass with a violet edge and fae-green highlights.") end },
     { value = "neon", label = "Neon", tip = function() return lookTip("Deep purple glass with a teal edge and hot-pink highlights.") end },
-}, nil, function() S.Refresh() end)
-fontPicker(2, "Font", "The font for all of Onward's text: the panel, the arrow and this window. Automatic uses your EllesmereUI font when it's installed, otherwise each look's own fonts. The list has the game's fonts and any font your other addons share (SharedMedia and addons built on it).")
+}, nil, function() S.Refresh() end, true)
+fontPicker(1, "Font", "Font for all Onward text. Automatic uses EllesmereUI's font when installed, otherwise each look's default. Includes SharedMedia fonts.")
+choice(1, "headerArt", "Header art", {
+    { value = "off", label = "Off", tip = "Clean glass header with no background art." },
+    { value = "shot", label = "Zone art", tip = "Faded zone artwork behind the header, falling back to map tiles." },
+    { value = "map", label = "Map strip", tip = "Faded strip of the zone's map behind the header." },
+}, nil, function() if W.UI then W.UI.HEADER_ART = nil end end)
+
+section(2, "Panel Layout")
 slider(2, "showNext", "Upcoming steps shown", 0, 8, 1, "%d")
 slider(2, "scale", "Panel size", 0.7, 1.5, 0.05, "%.2f")
 slider(2, "bgAlpha", "Background opacity", 0, 1, 0.05, "%.2f")
 check(2, "showObjectives", "Show quest objectives")
 check(2, "showParty", "Show party progress")
-check(2, "dropStats", "Show drop rates", "Under \"collect\" objectives: how many of your kills dropped the item, the expected rate (Wowhead's, through Questie) and whether you're luckier or unluckier than that.")
-check(2, "bagCleanup", "Flag old quest items in bags", "Shows a link on the panel when your bags hold quest items whose entire quest chain is finished. Voluntary only: nothing is ever deleted automatically.")
+check(2, "animations", "Animations", "Subtle one-shot animations for progress, step turns, and arrival. Automatically disabled in combat.", function() if not W.db.animations then W.Anim.StopAll() end end)
 check(2, "locked", "Lock panel")
 check(2, "fadeInCombat", "Fade panel in combat")
-check(2, "animations", "Animations", "Small touches that play once: a sheen when a quest is ready to turn in, objectives ticking off, the progress bar sliding, the step card turning, a pulse when you arrive, a glow when a guide is finished, and the flight point breathing on the flight map. Never in combat.", function() if not W.db.animations then W.Anim.StopAll() end end)
 
-section(2, "Party")
-check(2, "partySync", "Share progress with party", "Sends your current step and quest state to party members running Onward. Questie users show up either way.")
-check(2, "partyToasts", "Party pop-ups", "Short notice when someone finishes or turns in a quest.")
-check(2, "partyChat", "Announce in party chat", "Also say \"done: <quest>\" in party chat, for people without the addon.")
+---------------------------------------------------------------------------
+-- Tab 4: Party & Tools
+---------------------------------------------------------------------------
+useTab("party")
+section(1, "Party Sync")
+check(1, "partySync", "Share progress with party", "Sends your current step and quest state to party members running Onward. Questie users show up either way.")
+check(1, "partyToasts", "Party pop-ups", "Short notice when someone finishes or turns in a quest.")
+check(1, "partyChat", "Announce in party chat", "Also say \"done: <quest>\" in party chat, for people without the addon.")
 
-section(2, "Tools")
-button(2, "Choose guide", function() W:Fire("WF_SHOW_PICKER") end, 138)
+section(2, "Tools & Maintenance")
+button(2, "Choose guide", function() W:Fire("WF_SHOW_PICKER", "zones") end, 136)
+button(2, "Professions", function() W:Fire("WF_SHOW_PICKER", "professions") end, 136, 142)
+curPage.cursor[2] = curPage.cursor[2] - 32
+button(2, "Clean quest items", function() W:Fire("WF_SHOW_CLEANUP") end)
+curPage.cursor[2] = curPage.cursor[2] - 32
+button(2, "Copy step report", function()
+    if W.UI and W.UI.ShowText then
+        W.UI.ShowText("Step report (Ctrl+C, then paste at github.com/jghost7/Onward/issues)", W.Guide:Report(""))
+    end
+end)
+curPage.cursor[2] = curPage.cursor[2] - 32
 button(2, "Reset positions", function()
-    W.db.point, W.db.arrowPoint = nil, nil
+    W.db.point, W.db.arrowPoint, W.db.targetPoint = nil, nil, nil
     W:Fire("WF_RESET_POSITION")
-end, 138, 146)
-cursor[2] = cursor[2] - 30
-button(2, "Clean quest items", function() W:Fire("WF_SHOW_CLEANUP") end, 284)
-cursor[2] = cursor[2] - 30
+end)
+curPage.cursor[2] = curPage.cursor[2] - 32
 
-O.cursor = cursor   -- lowest point used in each column (tests check it fits the window)
-function O:Refresh() for _, r in ipairs(controls) do r() end end
+-- expose deepest column depth across all tabs so tests verify every tab fits comfortably inside the window
+local deepest = { 0, 0 }
+for _, page in pairs(tabs) do
+    deepest[1] = math.min(deepest[1], page.cursor[1])
+    deepest[2] = math.min(deepest[2], page.cursor[2])
+end
+O.cursor = deepest
+O.pageHeight = WIN_H - 88   -- usable interior height of each tab page
+
+function O:Refresh()
+    for _, r in ipairs(controls) do r() end
+    selectTab(activeTab)
+end
 function O:Toggle()
     if win:IsShown() then win:Hide() else O:Refresh() win:Show() end
 end
 
+selectTab("questing")
 W:On("WF_SHOW_OPTIONS", function() O:Toggle() end)
+W:On("WF_THEME_CHANGED", function() selectTab(activeTab) end)
 
 ---------------------------------------------------------------------------
 -- Blizzard Settings > AddOns entry

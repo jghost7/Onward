@@ -54,7 +54,6 @@ function S.Theme()
     local t = W.db and W.db.theme
     return THEMES[t] and t or "onward"
 end
--- square geometry (solid fills, 1px borders, square badges): no theme uses it any more
 local function flat() return false end
 S.Square = flat
 S.RIM = { 1, 1, 1, 0.09 }           -- glass rim colour (lit edge), per theme
@@ -67,6 +66,17 @@ S.ONWARD = {
     jade   = { 0.106, 0.584, 0.478 },   -- #1B957A mountains
     glow   = { 0.988, 0.906, 0.592 },   -- #FCE797 the lit path
 }
+
+-- preview colours for the Appearance tab swatches
+function S.ThemeColors(id)
+    if id == "onward" then return S.ONWARD.tint, S.ONWARD.accent, S.ONWARD.rim end
+    if S.PALETTES[id] then
+        local p = S.PALETTES[id]
+        return p.tint, p.accent, p.rim
+    end
+    if id == "flat" then return S.PANEL, { 0.047, 0.824, 0.616 }, { 1, 1, 1, 0.09 } end
+    return { 0.055, 0.068, 0.092 }, { 0.047, 0.824, 0.616 }, { 1, 1, 1, 0.09 }
+end
 
 ---------------------------------------------------------------------------
 -- EllesmereUI (optional): accent, panel colour and font from the user's EUI theme
@@ -146,32 +156,14 @@ local function nine(frame, layer, sub, file, texSize, margin, corner, out)
     p[6]:SetPoint("TOPLEFT", p[3], "BOTTOMLEFT") p[6]:SetPoint("BOTTOMRIGHT", p[9], "TOPRIGHT")
     p[5]:SetPoint("TOPLEFT", p[1], "BOTTOMRIGHT") p[5]:SetPoint("BOTTOMRIGHT", p[9], "TOPLEFT")
 
-    -- the flat twin: a solid fill, or four 1px edges for a border
-    local kind = file:find("glass_rim") and "border" or file:find("glass_body") and "fill" or "glassonly"
-    local f = {}
-    if kind == "fill" then
-        f[1] = frame:CreateTexture(nil, layer, nil, sub)
-        f[1]:SetTexture(WHITE)
-        f[1]:SetAllPoints(frame)
-    elseif kind == "border" then
-        for i = 1, 4 do f[i] = frame:CreateTexture(nil, layer, nil, sub) f[i]:SetTexture(WHITE) end
-        f[1]:SetPoint("TOPLEFT") f[1]:SetPoint("TOPRIGHT") f[1]:SetHeight(1)
-        f[2]:SetPoint("BOTTOMLEFT") f[2]:SetPoint("BOTTOMRIGHT") f[2]:SetHeight(1)
-        f[3]:SetPoint("TOPLEFT", 0, -1) f[3]:SetPoint("BOTTOMLEFT", 0, 1) f[3]:SetWidth(1)
-        f[4]:SetPoint("TOPRIGHT", 0, -1) f[4]:SetPoint("BOTTOMRIGHT", 0, 1) f[4]:SetWidth(1)
-    end
-
-    local obj = { parts = p, flat = f, kind = kind, shown = true, color = { 1, 1, 1, 1 } }
+    local obj = { parts = p, shown = true, color = { 1, 1, 1, 1 } }
     function obj:SetColor(r, g, b, a)
         self.color = { r, g, b, a }
         for i = 1, 9 do p[i]:SetVertexColor(r, g, b, a) end
-        for _, t in ipairs(f) do t:SetVertexColor(r, g, b, a) end
     end
     function obj:SetShown(v) self.shown = v and true or false self:Apply() end
     function obj:Apply()
-        local isFlat = flat()
-        for i = 1, 9 do p[i]:SetShown(self.shown and not isFlat) end
-        for _, t in ipairs(f) do t:SetShown(self.shown and isFlat) end
+        for i = 1, 9 do p[i]:SetShown(self.shown) end
     end
     obj:Apply()
     nines[#nines + 1] = obj
@@ -181,7 +173,7 @@ S.Nine = nine
 
 ---------------------------------------------------------------------------
 -- window / pill background. opts: alpha (body opacity), shadow (default true), corner,
--- tint (glass body colour), titleBar (height of the flat theme's darker title strip)
+-- tint (glass body colour)
 ---------------------------------------------------------------------------
 function S.Glass(frame, opts)
     opts = opts or {}
@@ -205,40 +197,24 @@ function S.Glass(frame, opts)
     g.sheen:SetHeight(46)
     g.sheen:SetVertexColor(1, 1, 1, 0.06)
 
-    if opts.titleBar then
-        g.strip = frame:CreateTexture(nil, "BACKGROUND", nil, -4)
-        g.strip:SetTexture(WHITE)
-        g.strip:SetPoint("TOPLEFT", 1, -1)
-        g.strip:SetPoint("TOPRIGHT", -1, -1)
-        g.strip:SetHeight(opts.titleBar)
-    end
-
     g.rim = nine(frame, "BORDER", 0, MEDIA .. "glass_rim", 64, 16, corner)
     g.toplight = nine(frame, "BORDER", 1, MEDIA .. "glass_toplight", 64, 16, corner)
     g.toplight:SetColor(1, 1, 1, 0.20)
 
     function g:SetOpacity(a)
         self.alpha = a
-        if flat() then
-            g.body:SetColor(S.PANEL[1], S.PANEL[2], S.PANEL[3], a)
-            g.rim:SetColor(S.BORDER[1], S.BORDER[2], S.BORDER[3], math.min(1, a + 0.15))
-        else
-            local t = opts.tint or S.TINT
-            g.body:SetColor(t[1], t[2], t[3], a)
-            g.rim:SetColor(S.RIM[1], S.RIM[2], S.RIM[3], S.RIM[4])
-            -- the frost and edges fade with the body so a nearly clear panel stays clean
-            g.grain:SetVertexColor(1, 1, 1, 0.035 * math.min(1, a / 0.5))
-            if g.shadow then g.shadow:SetColor(0, 0, 0, 0.55 * math.min(1, a / 0.6)) end
-        end
-        if g.strip then g.strip:SetVertexColor(S.STRIP[1], S.STRIP[2], S.STRIP[3], S.STRIP[4] * math.min(1, a / 0.6)) end
+        local t = opts.tint or S.TINT
+        g.body:SetColor(t[1], t[2], t[3], a)
+        g.rim:SetColor(S.RIM[1], S.RIM[2], S.RIM[3], S.RIM[4])
+        -- the frost and edges fade with the body so a nearly clear panel stays clean
+        g.grain:SetVertexColor(1, 1, 1, 0.035 * math.min(1, a / 0.5))
+        if g.shadow then g.shadow:SetColor(0, 0, 0, 0.55 * math.min(1, a / 0.6)) end
     end
     function g:Apply()
-        local isFlat = flat()
-        g.grain:SetShown(not isFlat)
-        g.sheen:SetShown(not isFlat)
-        g.toplight:SetShown(not isFlat)
-        if g.shadow then g.shadow:SetShown(not isFlat) end
-        if g.strip then g.strip:SetShown(isFlat) end
+        g.grain:SetShown(true)
+        g.sheen:SetShown(true)
+        g.toplight:SetShown(true)
+        if g.shadow then g.shadow:SetShown(true) end
         g:SetOpacity(g.alpha or opts.alpha or 0.72)
     end
     g.alpha = opts.alpha or 0.72
@@ -251,7 +227,7 @@ end
 ---------------------------------------------------------------------------
 -- small pieces
 ---------------------------------------------------------------------------
--- hover highlight: a soft circle in glass, a square wash in flat
+-- hover highlight: soft circle
 function S.Hover(button, size)
     local h = button:CreateTexture(nil, "HIGHLIGHT")
     h:SetPoint("CENTER")
@@ -261,21 +237,15 @@ function S.Hover(button, size)
     return h
 end
 function S.ApplyHover(h)
-    if flat() then
-        h:SetTexture(WHITE)
-        h:SetSize(h.size - 2, h.size - 2)
-        h:SetVertexColor(1, 1, 1, 0.07)
-    else
-        h:SetTexture(MEDIA .. "circle")
-        h:SetSize(h.size, h.size)
-        h:SetVertexColor(1, 1, 1, 0.08)
-    end
+    h:SetTexture(MEDIA .. "circle")
+    h:SetSize(h.size, h.size)
+    h:SetVertexColor(1, 1, 1, 0.08)
 end
 
--- step badge background: circle in glass, square in flat (its colour is set by the caller)
+-- step badge background: circle (its colour is set by the caller)
 function S.Badge(tex)
     badges[#badges + 1] = tex
-    tex:SetTexture(flat() and WHITE or (MEDIA .. "circle"))
+    tex:SetTexture(MEDIA .. "circle")
     return tex
 end
 
@@ -362,7 +332,7 @@ function S.Refresh()
     for _, n in ipairs(nines) do n:Apply() end
     for _, g in ipairs(panels) do g:Apply() end
     for _, h in ipairs(hovers) do S.ApplyHover(h) end
-    for _, t in ipairs(badges) do t:SetTexture(flat() and WHITE or (MEDIA .. "circle")) end
+    for _, t in ipairs(badges) do t:SetTexture(MEDIA .. "circle") end
     for _, a in ipairs(accents) do S.ApplyAccent(a) end
     for _, f in ipairs(fonts) do f[1]:SetFont(S.FontPath(f[3]), f[2], f[4]) end
     if W.Fire then W:Fire("WF_THEME_CHANGED") end

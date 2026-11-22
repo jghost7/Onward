@@ -2,7 +2,7 @@
 -- Everything redraws only on WF_UPDATED / WF_PARTY_UPDATED (both debounced upstream).
 local _, W = ...
 local UI = {}
-UI.HEADER_ART = "off"   -- art behind the panel header: off for now (the Header art option is gone)
+UI.HEADER_ART = nil   -- nil reads W.db.headerArt ("off" by default); tests may override directly
 W.UI = UI
 
 local G, QS, P, WP = W.Guide, W.QuestState, W.Party, W.Waypoint
@@ -171,33 +171,67 @@ f:SetScript("OnDragStop", function(self)
 end)
 UI.panel = f
 
--- header
+-- header: zone title gets full width; step count sits on a slim meta line right above the bar
 local title = fs(f, 12, C.accent)
-title:SetPoint("TOPLEFT", PAD, -11)
+title:SetPoint("TOPLEFT", PAD, -9)
 title:SetWordWrap(false)
-local count = fs(f, 11, C.dim)
+local count = fs(f, 10, C.dim)
+count:SetPoint("TOPLEFT", PAD, -24)
+count:SetPoint("RIGHT", -PAD, 0)
+count:SetWordWrap(false)
 
 local btnCollapse = iconButton(f, "collapse", "Collapse / expand", function() W.db.collapsed = not W.db.collapsed UI:Render() end)
-btnCollapse:SetPoint("TOPRIGHT", -8, -7)
-local btnGear = iconButton(f, "gear", "Options", function() W:Fire("WF_SHOW_OPTIONS") end)
+btnCollapse:SetPoint("TOPRIGHT", -8, -6)
+
+local btnGear = iconButton(f, "gear", "Left-click: Settings  ·  Right-click: Quick menu", nil)
+btnGear:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+btnGear:SetScript("OnClick", function(self, button)
+    if button == "RightButton" and W.Popups then
+        W.Popups:ShowMenu(self, {
+            { label = "Nav arrow", checked = W.db.arrow, onClick = function() W.Arrow:Toggle() end },
+            { label = "Lock panel", checked = W.db.locked, onClick = function()
+                W.db.locked = not W.db.locked
+                W:Fire("WF_SETTINGS_CHANGED")
+            end },
+            { label = "Fade in combat", checked = W.db.fadeInCombat, onClick = function()
+                W.db.fadeInCombat = not W.db.fadeInCombat
+                W:Fire("WF_SETTINGS_CHANGED")
+            end },
+            { sep = true },
+            { label = "Clean quest items", onClick = function() W:Fire("WF_SHOW_CLEANUP") end },
+            { label = "Copy step report", onClick = function()
+                UI.ShowText("Step report (Ctrl+C, then paste at github.com/jghost7/Onward/issues)", G:Report(""))
+            end },
+            { label = "Reset positions", onClick = function()
+                W.db.point, W.db.arrowPoint = nil, nil
+                W:Fire("WF_RESET_POSITION")
+            end },
+            { sep = true },
+            { label = "All settings...", accent = true, onClick = function() W:Fire("WF_SHOW_OPTIONS") end },
+        })
+    else
+        W:Fire("WF_SHOW_OPTIONS")
+    end
+end)
 btnGear:SetPoint("RIGHT", btnCollapse, "LEFT", -1, 0)
-local btnArrow = iconButton(f, "nav", "Nav arrow on / off", function() W.Arrow:Toggle() end)
-btnArrow:SetPoint("RIGHT", btnGear, "LEFT", -1, 0)
+
 local btnMenu = iconButton(f, "list", "Guides", function() UI:TogglePicker() end)
-btnMenu:SetPoint("RIGHT", btnArrow, "LEFT", -1, 0)
-local btnNext = iconButton(f, "next", "Skip step", function() G:Skip(1) end)
+btnMenu:SetPoint("RIGHT", btnGear, "LEFT", -1, 0)
+local btnNext = iconButton(f, "next", "Skip step", function()
+    local gid = G:Active() and G:Active().id
+    local skipped = G:Skip(1)
+    if skipped then UI:ToastUndo(skipped, gid) end
+end)
 btnNext:SetPoint("RIGHT", btnMenu, "LEFT", -1, 0)
 local btnPrev = iconButton(f, "prev", "Back one step", function() G:Skip(-1) end)
 btnPrev:SetPoint("RIGHT", btnNext, "LEFT", -1, 0)
-count:SetPoint("RIGHT", btnPrev, "LEFT", -6, 0)
-title:SetPoint("RIGHT", count, "LEFT", -6, 0)
+title:SetPoint("RIGHT", btnPrev, "LEFT", -6, 0)
 
--- progress bar: a hairline track with the accent fill, right under the title strip
--- (glass adds a soft glow to the fill; flat keeps it a clean rule)
+-- progress bar: a hairline track with the accent fill, right under the header meta line
 local BAR_W = WIDTH - 2 * PAD
 local barBg = f:CreateTexture(nil, "ARTWORK")
 barBg:SetColorTexture(1, 1, 1, 0.07)
-barBg:SetPoint("TOPLEFT", PAD, -32)
+barBg:SetPoint("TOPLEFT", PAD, -39)
 barBg:SetSize(BAR_W, 2)
 local bar = f:CreateTexture(nil, "ARTWORK", nil, 1)
 S.Accent(bar, "color")
@@ -300,7 +334,7 @@ local INK_ALPHA = 0.22   -- added light: faint grey brushwork, about as present 
 
 local artShown
 local function renderArt(g)
-    local mode = UI.HEADER_ART   -- off for now (too faint to earn its place); "shot" / "map" bring it back
+    local mode = UI.HEADER_ART or (W.db and W.db.headerArt) or "off"
     local map = mode ~= "off" and mapFor(g) or nil
     local kind = mode == "shot" and map and W.ZoneShots and W.ZoneShots[map]
     if kind == true then kind = "shot" end
@@ -452,20 +486,43 @@ end)
 areaBtn:SetScript("OnLeave", function() GameTooltip:Hide() end)
 UI.areaBtn = areaBtn   -- Render reaches it through UI: that function is at Lua's limit of 60 upvalues
 
--- "Later" sits on the card's top-right corner, on the step-kind line: away from the target and
--- item buttons (strip or dock), so a hurried click on those never sends the quest to the end
+-- Card top-right micro-actions on the verb row: "Done" (always shown on manual steps like notes;
+-- subtle on hover for others) and "Later" (on quest steps, away from target/item buttons).
+local doneStripBtn = outlineButton(card, "Done", "Mark this step done (can be undone from the pop-up notice).",
+    function()
+        local s = card.step
+        if not s then return end
+        local gid = G:Active() and G:Active().id
+        local doneStep = G:MarkDone(s)
+        if doneStep then UI:ToastUndo(doneStep, gid) end
+    end)
+doneStripBtn:SetHeight(18)
+doneStripBtn:SetWidth(math.max(42, (doneStripBtn.text:GetStringWidth() or 0) + 16))
+doneStripBtn:SetPoint("TOPRIGHT", card, "TOPRIGHT", 0, 2)
+doneStripBtn:Hide()
+UI.doneStripBtn = doneStripBtn
+
 local laterStripBtn = outlineButton(card, "Later", "Come back to this quest later: the guide moves on, reminds you when you're back here, and returns to it at the end.",
     function() local s = card.step if s and s.quest then G:Later(s.quest) end end)
 laterStripBtn:SetHeight(18)
 laterStripBtn:SetWidth(math.max(44, (laterStripBtn.text:GetStringWidth() or 0) + 16))
-laterStripBtn:SetPoint("TOPRIGHT", card, "TOPRIGHT", 0, 2)
+laterStripBtn:SetPoint("RIGHT", doneStripBtn, "LEFT", -4, 0)
 laterStripBtn:Hide()
 verbText:SetPoint("RIGHT", laterStripBtn, "LEFT", -6, 0)
 UI.laterStripBtn = laterStripBtn
 
+-- right-aligned live distance shown on the 1-line collapsed summary
+local collapseDist = fs(card, 11, C.accent)
+collapseDist:SetPoint("RIGHT", card, "RIGHT", 0, 0)
+collapseDist:SetJustifyH("RIGHT")
+collapseDist:SetWordWrap(false)
+collapseDist:Hide()
+UI.collapseDist = collapseDist
+
 -- pools: objective rows (name, count, bar), extra lines (hints, drop rates, notes), also-here
 -- rows, party chips, upcoming rows
 local objLines, objRows, groupRows, partyChips, rows = {}, {}, {}, {}, {}
+UI.groupRows, UI.upcomingRows = groupRows, rows
 
 local function objLine(i)
     if not objLines[i] then
@@ -505,26 +562,48 @@ end
 local function groupRow(i)
     if not groupRows[i] then
         local r = CreateFrame("Button", nil, card)
-        r:SetHeight(16)
+        r:SetHeight(17)
+        r:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+        r.hl = S.Nine(r, "HIGHLIGHT", 0, MEDIA .. "glass_body", 64, 16, 4, 0)
+        r.hl:SetColor(1, 1, 1, 0.07)
         r.count = fs(r, 11, C.sub)
-        r.count:SetPoint("RIGHT")
+        r.count:SetPoint("RIGHT", -2, 0)
         r.count:SetJustifyH("RIGHT")
         r.count:SetWordWrap(false)
         r.name = fs(r, 12, C.text)
-        r.name:SetPoint("LEFT")
+        r.name:SetPoint("LEFT", 2, 0)
         r.name:SetPoint("RIGHT", r.count, "LEFT", -6, 0)
         r.name:SetWordWrap(false)
+        r:SetScript("OnClick", function(self, button)
+            local s = self.step
+            if not s then return end
+            if button == "RightButton" then
+                if s.verb == "complete" and s.quest then
+                    G:Later(s.quest)
+                else
+                    local doneStep = G:MarkDone(s)
+                    if doneStep then UI:ToastUndo(doneStep) end
+                end
+            elseif IsShiftKeyDown() and s.quest and C_QuestLog.IsOnQuest(s.quest) and QuestMapFrame_OpenToQuestDetails then
+                QuestMapFrame_OpenToQuestDetails(s.quest)
+            else
+                G:GoToStep(s)
+            end
+        end)
         r:SetScript("OnEnter", function(self)
             local s = self.step
             if not s then return end
             GameTooltip:SetOwner(self, "ANCHOR_LEFT")
-            GameTooltip:AddLine(questTitle(s.quest))
-            local e = QS:Get(s.quest)
+            GameTooltip:AddLine(s.quest and questTitle(s.quest) or UI.StepText(s))
+            local e = s.quest and QS:Get(s.quest)
             for _, o in ipairs(e and e.objectives or {}) do
                 GameTooltip:AddLine((o.finished and "+ " or "- ") .. (o.text or ""), o.finished and 0.45 or 0.8, o.finished and 0.85 or 0.8, o.finished and 0.45 or 0.8)
             end
-            local h = G:QuestHint(s.quest)
+            local h = s.quest and G:QuestHint(s.quest)
             if h then GameTooltip:AddLine(h, C.hint[1], C.hint[2], C.hint[3], true) end
+            GameTooltip:AddLine(" ")
+            GameTooltip:AddLine("Left-click: focus this step", S.ACCENT[1], S.ACCENT[2], S.ACCENT[3])
+            GameTooltip:AddLine(s.verb == "complete" and "Right-click: leave for later" or "Right-click: mark done", 0.7, 0.7, 0.7)
             GameTooltip:Show()
         end)
         r:SetScript("OnLeave", function() GameTooltip:Hide() end)
@@ -535,7 +614,7 @@ end
 
 local alsoLabel = fs(card, 10, C.dim)
 alsoLabel:SetWordWrap(false)
-UI.passLabel = fs(card, 10, C.dim)   -- "ON YOUR WAY": reached through UI (Render's upvalue limit)
+UI.passLabel = fs(card, 10, C.dim)
 UI.passLabel:SetWordWrap(false)
 local nextLabel = fs(f, 10, C.dim)
 nextLabel:SetWordWrap(false)
@@ -552,15 +631,43 @@ end
 
 local function row(i)
     if not rows[i] then
-        local r = CreateFrame("Frame", nil, f)
-        r:SetHeight(16)
+        local r = CreateFrame("Button", nil, f)
+        r:SetHeight(17)
+        r:RegisterForClicks("LeftButtonUp")
+        r.hl = S.Nine(r, "HIGHLIGHT", 0, MEDIA .. "glass_body", 64, 16, 4, 0)
+        r.hl:SetColor(1, 1, 1, 0.07)
         r.dot = r:CreateTexture(nil, "ARTWORK")
         r.dot:SetSize(11, 11)
         r.dot:SetPoint("LEFT", 2, 0)
         r.text = fs(r, 12, C.sub)
         r.text:SetWordWrap(false)
         r.text:SetPoint("LEFT", 18, 0)
-        r.text:SetPoint("RIGHT")
+        r.text:SetPoint("RIGHT", -2, 0)
+        r:SetScript("OnClick", function(self)
+            if self.step then G:GoToStep(self.step) end
+        end)
+        r:SetScript("OnEnter", function(self)
+            local s = self.step
+            if not s then return end
+            self.text:SetTextColor(rgb(C.text))
+            GameTooltip:SetOwner(self, "ANCHOR_LEFT")
+            GameTooltip:AddLine(UI.StepText(s))
+            if s.npc then GameTooltip:AddLine("NPC: " .. s.npc, 0.8, 0.8, 0.8) end
+            if s.at and s.at.x and s.at.y then
+                GameTooltip:AddLine(("Coords: %.1f, %.1f"):format(s.at.x, s.at.y), 0.7, 0.7, 0.7)
+            end
+            if s.note then GameTooltip:AddLine(s.note, C.hint[1], C.hint[2], C.hint[3], true) end
+            if s.quest then
+                local h = G:QuestHint(s.quest)
+                if h then GameTooltip:AddLine(h, C.hint[1], C.hint[2], C.hint[3], true) end
+            end
+            GameTooltip:AddLine("Click: jump to this step", S.ACCENT[1], S.ACCENT[2], S.ACCENT[3])
+            GameTooltip:Show()
+        end)
+        r:SetScript("OnLeave", function(self)
+            self.text:SetTextColor(rgb(C.sub))
+            GameTooltip:Hide()
+        end)
         rows[i] = r
     end
     return rows[i]
@@ -619,24 +726,29 @@ looseBtn:SetScript("OnEnter", function(self)
     GameTooltip:AddLine("Quests to find in this zone")
     GameTooltip:AddLine("The guide can't lead you to these. Pick one up and it takes it from there.", 0.6, 0.6, 0.6, true)
     for i, s in ipairs(self.steps or {}) do
-        if i > 8 then GameTooltip:AddLine(("...and %d more (click to list them all)"):format(#self.steps - 8), 0.6, 0.6, 0.6) break end
+        if i > 8 then GameTooltip:AddLine(("...and %d more"):format(#self.steps - 8), 0.6, 0.6, 0.6) break end
         local title, note = looseLine(s)
         GameTooltip:AddLine(" ")
         GameTooltip:AddLine(title, 1, 1, 1)
         GameTooltip:AddLine(note, 0.8, 0.8, 0.8, true)
     end
+    GameTooltip:AddLine(" ")
+    GameTooltip:AddLine("Click to open the full list window.", S.ACCENT[1], S.ACCENT[2], S.ACCENT[3])
     GameTooltip:Show()
 end)
 looseBtn:SetScript("OnClick", function(self)
-    for _, s in ipairs(self.steps or {}) do
-        local title, note = looseLine(s)
-        W.Print(title .. ": " .. note)
+    if W.Popups then
+        W.Popups:ShowLoose(self.steps)
+    else
+        for _, s in ipairs(self.steps or {}) do
+            local title, note = looseLine(s)
+            W.Print(title .. ": " .. note)
+        end
     end
 end)
-UI.looseBtn = looseBtn   -- Render reaches it through UI (60-upvalue limit)
+UI.looseBtn = looseBtn
 
--- items to bring: what the guide's quests want that you have to buy or have made. Click prints
--- the list to chat.
+-- items to bring: what the guide's quests want that you have to buy or have made.
 local function needLine(it)
     local count = it.n > 1 and (" %d/%d"):format(it.have, it.n) or ""
     local bank = it.bank > 0 and (" (%d in your bank)"):format(it.bank) or ""
@@ -649,21 +761,45 @@ needBtn:SetScript("OnEnter", function(self)
     GameTooltip:AddLine("Items to bring")
     GameTooltip:AddLine("Quests in this guide want these, and nothing out here drops them. Pick them up while you're in a city.", 0.6, 0.6, 0.6, true)
     for i, it in ipairs(self.items or {}) do
-        if i > 8 then GameTooltip:AddLine(("...and %d more (click to list them all)"):format(#self.items - 8), 0.6, 0.6, 0.6) break end
+        if i > 8 then GameTooltip:AddLine(("...and %d more"):format(#self.items - 8), 0.6, 0.6, 0.6) break end
         local title, note = needLine(it)
         GameTooltip:AddLine(" ")
         GameTooltip:AddLine(title, 1, 1, 1)
         GameTooltip:AddLine(note, 0.8, 0.8, 0.8, true)
     end
+    GameTooltip:AddLine(" ")
+    GameTooltip:AddLine("Click to open the checklist window.", S.ACCENT[1], S.ACCENT[2], S.ACCENT[3])
     GameTooltip:Show()
 end)
 needBtn:SetScript("OnClick", function(self)
-    for _, it in ipairs(self.items or {}) do
-        local title, note = needLine(it)
-        W.Print(title .. ": " .. note)
+    if W.Popups then
+        W.Popups:ShowNeeds(self.items)
+    else
+        for _, it in ipairs(self.items or {}) do
+            local title, note = needLine(it)
+            W.Print(title .. ": " .. note)
+        end
     end
 end)
 UI.needBtn = needBtn
+
+-- manually skipped steps that are still unfinished: opens OnwardSkipped to jump back to any of them
+local skippedBtn = lineButton(C.dim)
+skippedBtn:SetScript("OnEnter", function(self)
+    GameTooltip:SetOwner(self, "ANCHOR_LEFT")
+    GameTooltip:AddLine("Skipped steps")
+    GameTooltip:AddLine("Unfinished steps you skipped in this guide.", 0.6, 0.6, 0.6, true)
+    for i, s in ipairs(self.steps or {}) do
+        if i > 8 then GameTooltip:AddLine(("...and %d more"):format(#self.steps - 8), 0.6, 0.6, 0.6) break end
+        GameTooltip:AddLine(UI.StepText(s), 0.9, 0.9, 0.9)
+    end
+    GameTooltip:AddLine("Click to review and go back to any skipped step.", S.ACCENT[1], S.ACCENT[2], S.ACCENT[3])
+    GameTooltip:Show()
+end)
+skippedBtn:SetScript("OnClick", function()
+    if W.Popups then W.Popups:ShowSkipped() else G:Skip(-1) end
+end)
+UI.skippedBtn = skippedBtn
 
 -- completed quest items sitting in your bags with no further use: opens the voluntary cleanup window
 local cleanupBtn = lineButton(C.dim)
@@ -726,14 +862,21 @@ waitBtn:SetScript("OnEnter", function(self)
             local left = unfinished(s.quest)
             GameTooltip:AddDoubleLine(questTitle(s.quest), left or "", 0.8, 0.8, 0.8, 1, 0.45, 0.4)
         end
-        GameTooltip:AddLine("Finish them and they come back here as ready.", 0.6, 0.6, 0.6, true)
+        GameTooltip:AddLine(#w.ready > 0 and "Finish them and they come back here as ready." or "Click to go back and finish it.",
+            S.ACCENT[1], S.ACCENT[2], S.ACCENT[3], true)
     end
     GameTooltip:Show()
 end)
 waitBtn:SetScript("OnClick", function(self)
     local w = self.data
-    if w and w.ready[1] then G:GoToStep(w.ready[1]) end
+    if not w then return end
+    if w.ready[1] then
+        G:GoToStep(w.ready[1])
+    elseif w.waiting[1] then
+        G:GoBackToQuest(w.waiting[1].quest)
+    end
 end)
+UI.waitBtn = waitBtn
 
 local busyBtn = lineButton(C.warn)
 busyBtn:SetScript("OnEnter", function(self)
@@ -1028,13 +1171,12 @@ function UI:Render()
     local sameGuide = g ~= nil and last.guide == g.id
     setBar(barTarget, sameGuide and last.done ~= nil and done > last.done)
     btnCollapse.icon:SetTexture(MEDIA .. (W.db.collapsed and "expand" or "collapse"))
-    btnArrow:SetTint(W.db.arrow and C.accent or C.sub)
     f.glass:SetOpacity(W.db.bgAlpha or 0.72)
     renderArt(g)
 
     local list = G:Upcoming(W.db.showNext + 4)   -- extra so grouped steps don't shorten the list
     local step = list[1]
-    local y = 46
+    local y = 48
     card:ClearAllPoints()
     card:SetPoint("TOPLEFT", PAD, -y)
     card:SetPoint("RIGHT", -PAD, 0)
@@ -1044,7 +1186,7 @@ function UI:Render()
     for _, r in ipairs(groupRows) do r:Hide() end
     for _, c in ipairs(partyChips) do c:Hide() end
     for _, r in ipairs(rows) do r:Hide() end
-    for _, b in ipairs({ missedBtn, suggestBtn, busyBtn, laterBtn, waitBtn, UI.looseBtn, UI.needBtn, UI.cleanupBtn }) do b:Hide() b.bg:Hide() end
+    for _, b in ipairs({ missedBtn, suggestBtn, busyBtn, laterBtn, waitBtn, UI.looseBtn, UI.needBtn, UI.skippedBtn, UI.cleanupBtn }) do b:Hide() b.bg:Hide() end
     divider:Hide()
     alsoLabel:Hide()
     UI.passLabel:Hide()
@@ -1062,7 +1204,14 @@ function UI:Render()
     if turned and step and not W.db.collapsed then playTurn(y) elseif not A.Running("turn") then card:SetAlpha(1) end
 
     if not step then
+        UI.doneStripBtn:Hide()
         laterStripBtn:Hide()
+        UI.collapseDist:Hide()
+        verbText:Show()
+        mainText:ClearAllPoints()
+        mainText:SetPoint("TOPLEFT", verbText, "BOTTOMLEFT", 0, -2)
+        mainText:SetPoint("RIGHT", card, "RIGHT")
+        mainText:SetWordWrap(true)
         verbText:SetText("NEXT GUIDE")
         S.Accent(verbText, "text")
         -- nothing to do: offer the recommended guide (a new character's first quest is in it)
@@ -1073,7 +1222,36 @@ function UI:Render()
             or "Open the guide list to pick the next one.")
         subText:Show()
         card:SetHeight(verbText:GetStringHeight() + 2 + mainText:GetStringHeight() + subText:GetStringHeight() + 6)
-        f:SetHeight(y + card:GetHeight() + PAD)
+        y = y + card:GetHeight() + 10
+        local doneFooter = {}
+        local skipped = G:SkippedSteps()
+        if #skipped > 0 then
+            UI.skippedBtn.steps = skipped
+            UI.skippedBtn.short = ("%d skipped"):format(#skipped)
+            doneFooter[#doneFooter + 1] = UI.skippedBtn
+        end
+        local missed = G:Missed()
+        if #missed > 0 then
+            missedBtn.quests = missed
+            missedBtn.short = ("%d missed"):format(#missed)
+            doneFooter[#doneFooter + 1] = missedBtn
+        end
+        if #doneFooter > 0 then
+            local fx = PAD
+            for _, b in ipairs(doneFooter) do
+                b.text:SetText(b.short .. " ›")
+                b.text:SetTextColor(rgb(C.sub))
+                local wdt = (b.text:GetStringWidth() or 40) + 2
+                if fx + wdt > WIDTH - PAD and fx > PAD then fx = PAD y = y + 16 end
+                b:ClearAllPoints()
+                b:SetPoint("TOPLEFT", fx, -y)
+                b:SetWidth(wdt)
+                b:Show()
+                fx = fx + wdt + 14
+            end
+            y = y + 18
+        end
+        f:SetHeight(y + PAD)
         card.step = nil
         UI.areaBtn:Hide()
         if W.Target then W.Target:Sync() end
@@ -1084,7 +1262,18 @@ function UI:Render()
 
     -- current step: what kind, the title, where
     setVerb(step)
-    laterStripBtn:SetShown(step.verb == "complete" and step.quest ~= nil and not G:IsLater(step) and not W.db.collapsed)
+    local manualStep = (step.verb == "note" or step.verb == "home" or step.verb == "train")
+    local showDone = not W.db.collapsed and manualStep
+    local showLater = not W.db.collapsed and (step.verb == "complete" or step.verb == "accept") and step.quest ~= nil and not G:IsLater(step)
+    UI.doneStripBtn:SetShown(showDone)
+    laterStripBtn:ClearAllPoints()
+    if showDone then
+        laterStripBtn:SetPoint("RIGHT", UI.doneStripBtn, "LEFT", -4, 0)
+    else
+        laterStripBtn:SetPoint("TOPRIGHT", card, "TOPRIGHT", 0, 2)
+    end
+    laterStripBtn:SetShown(showLater)
+
     local text = UI.StepText(step)
     -- a kill/loot step or turn-in for a quest you haven't picked up, or a failed quest
     local pickup = G:IsMissing(step) and WP:Current() and WP:Current().step == step and WP:Current().pickup
@@ -1102,18 +1291,41 @@ function UI:Render()
     elseif G:HeldReason(step) then
         text = text .. "  |cffff7366(" .. G:HeldReason(step) .. ")|r"
     end
+
+    if W.db.collapsed then
+        verbText:Hide()
+        subText:Hide()
+        local cur = WP:Current()
+        local d = cur and cur.step == step and W.Travel.Distance(cur.map, cur.x, cur.y)
+        local distStr = d and ("%d yd"):format(d) or ""
+        UI.collapseDist:SetText(distStr)
+        UI.collapseDist:SetShown(distStr ~= "")
+        mainText:ClearAllPoints()
+        mainText:SetPoint("LEFT", card, "LEFT", 0, 0)
+        if distStr ~= "" then
+            mainText:SetPoint("RIGHT", UI.collapseDist, "LEFT", -8, 0)
+        else
+            mainText:SetPoint("RIGHT", card, "RIGHT")
+        end
+        mainText:SetWordWrap(false)
+        mainText:SetText(text)
+        card:SetHeight(20)
+        f:SetHeight(y + 20 + PAD)
+        if W.Target then W.Target:Sync() end
+        return
+    end
+
+    UI.collapseDist:Hide()
+    verbText:Show()
+    mainText:ClearAllPoints()
+    mainText:SetPoint("TOPLEFT", verbText, "BOTTOMLEFT", 0, -2)
+    mainText:SetPoint("RIGHT", card, "RIGHT")
+    mainText:SetWordWrap(true)
     mainText:SetText(text)
     local sub = locationLine(step)
     subText:SetText(sub)
     subText:SetShown(sub ~= "")
     local h = verbText:GetStringHeight() + 2 + mainText:GetStringHeight() + (sub ~= "" and (subText:GetStringHeight() + 3) or 0)
-
-    if W.db.collapsed then
-        card:SetHeight(math.max(18, h))
-        f:SetHeight(y + card:GetHeight() + PAD)
-        if W.Target then W.Target:Sync() end
-        return
-    end
 
     local anchor = sub ~= "" and subText or mainText
     local function place(region, gap, height)
@@ -1383,6 +1595,12 @@ function UI:Render()
     local footer = {}
     for _, b in ipairs(notices) do if b ~= top then footer[#footer + 1] = b end end
     if #missed > 0 then footer[#footer + 1] = missedBtn end
+    local skipped = G:SkippedSteps()
+    if #skipped > 0 then
+        UI.skippedBtn.steps = skipped
+        UI.skippedBtn.short = ("%d skipped"):format(#skipped)
+        footer[#footer + 1] = UI.skippedBtn
+    end
     local loose = G:Loose()
     if #loose > 0 then
         UI.looseBtn.steps = loose
@@ -1437,6 +1655,7 @@ function UI:Render()
         for i = 1, #rest do
             local s = rest[i]
             local r = row(i)
+            r.step = s
             local st = VERB_STYLE[s.verb] or VERB_STYLE.note
             r.dot:SetTexture(MEDIA .. st.icon)
             r.dot:SetVertexColor(rgb(st.color, 0.85))
@@ -1445,7 +1664,7 @@ function UI:Render()
             r:SetPoint("TOPLEFT", PAD, -y)
             r:SetPoint("RIGHT", -PAD, 0)
             r:Show()
-            y = y + 17
+            y = y + 18
         end
     end
     f:SetHeight(y + PAD)
@@ -1462,7 +1681,9 @@ card:SetScript("OnClick", function(self, button)
     if button == "RightButton" and IsShiftKeyDown() and step.quest then
         G:Later(step.quest)
     elseif button == "RightButton" or step.verb == "note" then
-        G:MarkDone(step)
+        local gid = G:Active() and G:Active().id
+        local doneStep = G:MarkDone(step)
+        if doneStep then UI:ToastUndo(doneStep, gid) end
     elseif step.quest and C_QuestLog.IsOnQuest(step.quest) and QuestMapFrame_OpenToQuestDetails then
         QuestMapFrame_OpenToQuestDetails(step.quest)
     else
@@ -1470,6 +1691,13 @@ card:SetScript("OnClick", function(self, button)
     end
 end)
 card:SetScript("OnEnter", function(self)
+    if self.step and not W.db.collapsed then
+        UI.doneStripBtn:Show()
+        if laterStripBtn:IsShown() then
+            laterStripBtn:ClearAllPoints()
+            laterStripBtn:SetPoint("RIGHT", UI.doneStripBtn, "LEFT", -4, 0)
+        end
+    end
     GameTooltip:SetOwner(self, "ANCHOR_LEFT")
     if not self.step then
         GameTooltip:AddLine(self.recommend and "Click: start the recommended guide" or "Click: open the guide list")
@@ -1494,16 +1722,32 @@ card:SetScript("OnEnter", function(self)
     if self.step.quest then GameTooltip:AddLine("Shift-right-click: come back to this quest later", 0.7, 0.7, 0.7) end
     GameTooltip:Show()
 end)
-card:SetScript("OnLeave", function() GameTooltip:Hide() end)
+card:SetScript("OnLeave", function(self)
+    GameTooltip:Hide()
+    local s = self.step
+    local manual = s and (s.verb == "note" or s.verb == "home" or s.verb == "train")
+    if not manual and not (UI.doneStripBtn.IsMouseOver and UI.doneStripBtn:IsMouseOver()) then
+        UI.doneStripBtn:Hide()
+        if laterStripBtn:IsShown() then
+            laterStripBtn:ClearAllPoints()
+            laterStripBtn:SetPoint("TOPRIGHT", card, "TOPRIGHT", 0, 2)
+        end
+    end
+end)
 
--- live distance: 1s refresh of the sub line only, only while a pinned step is shown
+-- live distance: 1s refresh of the sub line (or collapsed distance), only while a pinned step is shown
 local distTicker
 local function syncDistanceTicker()
     local need = f:IsShown() and WP:Current() ~= nil
     if need and not distTicker then
         distTicker = C_Timer.NewTicker(1, function()
             local step = card.step
-            if step then
+            if not step then return end
+            if W.db.collapsed then
+                local cur = WP:Current()
+                local d = cur and cur.step == step and W.Travel.Distance(cur.map, cur.x, cur.y)
+                UI.collapseDist:SetText(d and ("%d yd"):format(d) or "")
+            else
                 subText:SetText(locationLine(step))
             end
         end)
@@ -1516,33 +1760,53 @@ f:SetScript("OnShow", function() UI:Render() syncDistanceTicker() end)
 f:SetScript("OnHide", syncDistanceTicker)
 
 ---------------------------------------------------------------------------
--- Toasts (party events)
+-- Toasts (party events, turn-in ready, undo skip) — wrapping & clickable
 ---------------------------------------------------------------------------
-local toast = CreateFrame("Frame", nil, f)
-toast:SetSize(WIDTH, 30)
+local toast = CreateFrame("Button", nil, f)
+toast:SetSize(WIDTH, 32)
 toast:SetPoint("BOTTOMLEFT", f, "TOPLEFT", 0, 8)
-S.Glass(toast, { alpha = 0.8, corner = 10 })
--- flat theme: an accent stripe down the left edge marks it as a notice
-local toastStripe = toast:CreateTexture(nil, "ARTWORK")
-toastStripe:SetPoint("TOPLEFT", 1, -1)
-toastStripe:SetPoint("BOTTOMLEFT", 1, 1)
-toastStripe:SetWidth(2)
-S.Accent(toastStripe, "color")
-local function themeToast() toastStripe:SetShown(S.Square()) end
-themeToast()
-W:On("WF_THEME_CHANGED", themeToast)
+toast:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+S.Glass(toast, { alpha = 0.88, corner = 10 })
 local toastText = fs(toast, 12, C.text)
-toastText:SetPoint("LEFT", PAD, 0)
-toastText:SetPoint("RIGHT", -PAD, 0)
-toastText:SetWordWrap(false)
+toastText:SetPoint("TOPLEFT", PAD, -8)
+toastText:SetPoint("TOPRIGHT", -PAD, -8)
+toastText:SetWordWrap(true)
+if toastText.SetMaxLines then toastText:SetMaxLines(3) end
 toast:Hide()
 local toastTimer
+UI.toast = toast
 
-function UI:Toast(msg)
+toast:SetScript("OnClick", function(self, button)
+    local fn = self.onClick
+    self.onClick = nil
+    self:Hide()
+    if toastTimer then toastTimer:Cancel() toastTimer = nil end
+    if button == "LeftButton" and fn then fn() end
+end)
+toast:SetScript("OnEnter", function(self)
+    if self.onClick then
+        GameTooltip:SetOwner(self, "ANCHOR_TOP")
+        GameTooltip:AddLine("Click: act on this notice", S.ACCENT[1], S.ACCENT[2], S.ACCENT[3])
+        GameTooltip:AddLine("Right-click: dismiss", 0.7, 0.7, 0.7)
+        GameTooltip:Show()
+    end
+end)
+toast:SetScript("OnLeave", function() GameTooltip:Hide() end)
+
+function UI:Toast(msg, onClick)
+    toast.onClick = onClick
     toastText:SetText(msg)
+    toast:SetHeight(math.max(30, (toastText:GetStringHeight() or 14) + 16))
     toast:Show()
     if toastTimer then toastTimer:Cancel() end
-    toastTimer = C_Timer.NewTimer(6, function() toast:Hide() end)
+    toastTimer = C_Timer.NewTimer(6, function() toast.onClick = nil toast:Hide() end)
+end
+
+function UI:ToastUndo(step, guideId)
+    if not step then return end
+    UI:Toast(("Marked done: %s  ·  |c%sClick to undo|r"):format(UI.StepText(step), S.AccentHex()), function()
+        G:UnmarkDone(step, guideId)
+    end)
 end
 
 W:On("WF_TURNIN_WAITING", function(_, step)
@@ -1551,10 +1815,12 @@ W:On("WF_TURNIN_WAITING", function(_, step)
         :format(questTitle(step.quest), left and (" (" .. left .. ")") or ""))
 end)
 W:On("WF_TURNIN_READY", function(_, steps)
+    local first = steps and steps[1]
+    local jump = first and function() G:GoToStep(first) end or nil
     if #steps == 1 then
-        UI:Toast(("|cff66d973%s|r is finished. Click \"Ready to turn in\" to go hand it in."):format(questTitle(steps[1].quest)))
+        UI:Toast(("|cff66d973%s|r is finished. Click here (or \"Ready to turn in\") to hand it in."):format(questTitle(steps[1].quest)), jump)
     else
-        UI:Toast(("|cff66d973%d quests|r you moved past are ready to turn in."):format(#steps))
+        UI:Toast(("|cff66d973%d quests|r you moved past are ready to turn in. Click to go back."):format(#steps), jump)
     end
 end)
 
@@ -1567,164 +1833,6 @@ W:On("WF_PARTY_EVENT", function(_, name, q, state)
 end)
 
 ---------------------------------------------------------------------------
--- Guide picker
----------------------------------------------------------------------------
--- declared before the tab buttons below: their click handlers must see this local, not a global
-local pickerTab = "zones"   -- zones | professions
-local picker = CreateFrame("Frame", "OnwardPicker", UIParent)
-picker:SetSize(300, 330)
-picker:SetFrameStrata("DIALOG")
-picker:SetClampedToScreen(true)
-picker:EnableMouse(true)
-picker:Hide()
-do
-    S.Glass(picker, { alpha = 0.86, titleBar = 36 })
-    -- two tabs in the title strip: leveling (zone) guides and profession guides
-    -- The font may not be loaded when this runs (text width reads 0), so the click area gets a
-    -- fixed minimum width here and is re-measured on every RenderPicker.
-    local function tab(label, key, anchor, x, minW)
-        local b = CreateFrame("Button", nil, picker)
-        b:SetSize(minW, 22)
-        b:SetFrameLevel(picker:GetFrameLevel() + 10)
-        b.minW = minW
-        b.text = fs(b, 13, C.sub)
-        b.text:SetPoint("LEFT")
-        b.text:SetText(label)
-        b:SetScript("OnEnter", function(self) if self.key ~= pickerTab then self.text:SetTextColor(rgb(C.text)) end end)
-        b:SetScript("OnLeave", function(self) if self.key ~= pickerTab then self.text:SetTextColor(rgb(C.sub)) end end)
-        b:SetPoint("TOPLEFT", anchor or picker, anchor and "TOPRIGHT" or "TOPLEFT", x, anchor and 0 or -9)
-        b:SetScript("OnClick", function() pickerTab = key UI:RenderPicker() end)
-        b.key = key
-        UI.pickerTabs = UI.pickerTabs or {}
-        UI.pickerTabs[key] = b
-        return b
-    end
-    picker.tabZones = tab("Leveling", "zones", nil, PAD, 64)
-    picker.tabProf = tab("Professions", "professions", picker.tabZones, 8, 90)
-    local close = textButton(picker, "x", nil, function() picker:Hide() end)
-    close:SetPoint("TOPRIGHT", -4, -4)
-end
-function UI:ShowPicker(tabKey)
-    pickerTab = tabKey or pickerTab
-    if not picker:IsShown() then UI:TogglePicker() else UI:RenderPicker() end
-end
-local pickerRows = {}
-local pickerOffset = 0
-
-local function guideFits(def)
-    if def.smart then return pickerTab == "zones" end
-    if (def.kind == "profession") ~= (pickerTab == "professions") then return false end
-    local f = UnitFactionGroup("player")
-    if def.faction and def.faction ~= "" and f and def.faction:sub(1, 1):upper() ~= f:sub(1, 1) then return false end
-    -- class = "ROGUE" (or a comma list) on a guide: listed for those classes only (Lockpicking)
-    if def.class then
-        local _, cls = UnitClass("player")
-        if cls and not ("," .. def.class:upper() .. ","):find("," .. cls:upper() .. ",", 1, true) then return false end
-    end
-    return true
-end
-
-function UI:RenderPicker()
-    for _, t in ipairs({ picker.tabZones, picker.tabProf }) do
-        t:SetWidth(math.max(t.minW, (t.text:GetStringWidth() or 0) + 8))
-        if t.key == pickerTab then S.Accent(t.text, "text") else t.text:SetTextColor(rgb(C.sub)) end
-    end
-    local lvl = UnitLevel("player") or 1
-    local zone = GetZoneText and GetZoneText() or ""
-    -- order: auto guide; guides you've started and not finished (in range); this zone in range;
-    -- other in-range guides; the rest by level; finished guides last
-    local pct = {}
-    local rec = pickerTab == "zones" and G:Recommend()
-    local function rank(def)
-        local p = pct[def.id]
-        if def == rec then return 0 end
-        if def.kind == "profession" then return p and 1 or 2 end   -- ones you have first
-        local inRange = lvl >= def.levels[1] - 2 and lvl <= def.levels[2]
-        if p and p >= 1 then return 6 end
-        if p and p > 0 and inRange then return 1 end
-        if def.zone == zone and inRange then return 2 end
-        if inRange then return 3 end
-        if def.zone == zone then return 4 end
-        return 5
-    end
-    local fits = {}
-    for i, def in ipairs(G:All()) do
-        if guideFits(def) then
-            pct[def.id] = G:ProgressFor(def)
-            fits[#fits + 1] = { def = def, r = rank(def), i = i }
-        end
-    end
-    table.sort(fits, function(a, b) if a.r ~= b.r then return a.r < b.r end return a.i < b.i end)
-    local list = pickerTab == "zones" and { G:Get("smart") } or {}
-    for _, e in ipairs(fits) do list[#list + 1] = e.def end
-    UI.pickerList = list
-    local visible = 13
-    pickerOffset = math.max(0, math.min(pickerOffset, #list - visible))
-    for _, r in ipairs(pickerRows) do r:Hide() end
-    for i = 1, math.min(visible, #list) do
-        local def = list[i + pickerOffset]
-        local r = pickerRows[i]
-        if not r then
-            r = CreateFrame("Button", nil, picker)
-            r:SetHeight(20)
-            r.hl = S.Nine(r, "HIGHLIGHT", 0, MEDIA .. "glass_body", 64, 16, 8, 0)
-            r.hl:SetColor(1, 1, 1, 0.07)
-            r.text = fs(r, 12, C.text)
-            r.text:SetWordWrap(false)
-            r.text:SetPoint("LEFT", 6, 0)
-            r.lv = fs(r, 11, C.dim)
-            r.lv:SetPoint("RIGHT", -4, 0)
-            r.text:SetPoint("RIGHT", r.lv, "LEFT", -6, 0)
-            r:SetScript("OnClick", function(self)
-                W.cdb.pickedSmart = self.id == "smart" or nil   -- chosen on purpose: never swapped out
-                G:Activate(self.id)
-                picker:Hide()
-            end)
-            pickerRows[i] = r
-        end
-        r.id = def.id
-        local isActive = G:Active() and G:Active().id == def.id
-        local prof = def.kind == "profession"
-        local inRange = def.smart or prof or (lvl >= def.levels[1] and lvl <= def.levels[2])
-        r.text:SetText((isActive and "|c" .. S.AccentHex() .. "> |r" or "") .. def.title)
-        local p = pct[def.id]
-        if prof then
-            -- your skill in it, or nothing when you haven't learned it
-            local rk = W.Prof and W.Prof:Rank(def.skill)
-            r.text:SetTextColor(rgb(rk and C.text or C.sub))
-            r.lv:SetText(rk and ("|c" .. S.AccentHex() .. "%d|r/300"):format(rk) or "")
-        else
-            r.text:SetTextColor(rgb(inRange and C.text or C.sub))
-            local done = ""
-            if p and p >= 1 then done = "  |cff66d973done|r"
-            elseif p and p > 0 then done = ("  |c" .. S.AccentHex() .. "%d%%|r"):format(math.floor(p * 100)) end
-            if def == rec then
-                -- the title already shows the level range: make room for the label instead
-                r.text:SetTextColor(rgb(C.accent))
-                r.lv:SetText("|c" .. S.AccentHex() .. "recommended|r" .. done)
-            else
-                r.lv:SetText((def.smart and "any" or (def.levels[1] .. "-" .. def.levels[2])) .. done)
-            end
-        end
-        r:ClearAllPoints()
-        r:SetPoint("TOPLEFT", PAD - 6, -38 - (i - 1) * 21)
-        r:SetPoint("RIGHT", -PAD + 4, 0)
-        r:Show()
-    end
-end
-
-picker:EnableMouseWheel(true)
-picker:SetScript("OnMouseWheel", function(_, d) pickerOffset = pickerOffset - d UI:RenderPicker() end)
-
-function UI:TogglePicker()
-    if picker:IsShown() then picker:Hide() return end
-    picker:ClearAllPoints()
-    if f:IsShown() then picker:SetPoint("TOPRIGHT", f, "TOPLEFT", -6, 0) else picker:SetPoint("CENTER") end
-    UI:RenderPicker()
-    picker:Show()
-end
-
----------------------------------------------------------------------------
 -- Copy window (recorder output)
 ---------------------------------------------------------------------------
 local copy
@@ -1735,7 +1843,8 @@ function UI.ShowText(heading, text)
         copy:SetPoint("CENTER")
         copy:SetFrameStrata("DIALOG")
         copy:EnableMouse(true)
-        S.Glass(copy, { alpha = 0.9, titleBar = 36 })
+        if UISpecialFrames then table.insert(UISpecialFrames, "OnwardCopy") end
+        S.Glass(copy, { alpha = 0.9, corner = 12 })
         copy.head = fs(copy, 13, C.accent)
         copy.head:SetPoint("TOPLEFT", PAD, -12)
         local close = textButton(copy, "x", nil, function() copy:Hide() end)
@@ -1780,8 +1889,7 @@ W:On("WF_TOGGLE_PANEL", function()
     f:SetShown(not f:IsShown())
     W.cdb.hidden = not f:IsShown()
 end)
-W:On("WF_SHOW_PICKER", function(_, tabKey) if tabKey then UI:ShowPicker(tabKey) else UI:TogglePicker() end end)
-W:On("WF_UPDATED", function() UI:Render() syncDistanceTicker() if picker:IsShown() then UI:RenderPicker() end end)
+W:On("WF_UPDATED", function() UI:Render() syncDistanceTicker() end)
 W:On("WF_PARTY_UPDATED", function() UI:Render() end)
 W:On("WF_SETTINGS_CHANGED", function()
     f:SetScale(W.db.scale or 1)
