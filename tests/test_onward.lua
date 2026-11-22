@@ -2675,6 +2675,32 @@ do
     check("travel: without Hearthstone, points directly to Powderfuse Port -> Steamwheedle Port boat",
         tgt and tgt.crossing and tgt.label == "Take the boat to Steamwheedle Port", tgt and tgt.label)
 
+    -- 5. Undercity -> Quel'Danil Lodge (3286 yd) via Tarren Mill (1988 yd flight + 1893 yd ride)
+    --    must recommend flying to Tarren Mill for both 60% mount (11.2) and 100% mount (14.0)!
+    local savedMount = W.cdb.mountSpeed
+    local savedTaxi2 = MOCK.taxi
+    MOCK.mapCont = { [1415] = 0, [1425] = 0 }
+    MOCK.mapOffset[1415] = 0
+    MOCK.mapOffset[1425] = 0
+    -- Use coordinates matching exact UC (1580, 240), Tarren Mill (-38, -915), Quel'Danil (285, -2780)
+    -- In mock: wx = (1 - y) * 1000, wy = (1 - x) * 1000  =>  x = 1 - wy/1000, y = 1 - wx/1000
+    MOCK.taxi = {
+        { name = "Undercity, Tirisfal", nodeID = 71, slotIndex = 1, state = 0, position = { x = 1 - 0.240, y = 1 - 1.580 } },
+        { name = "Tarren Mill, Hillsbrad", nodeID = 72, slotIndex = 2, state = 1, position = { x = 1 - (-0.915), y = 1 - (-0.038) } },
+    }
+    MOCK.pos = { map = 1415, x = 1 - 0.240, y = 1 - 1.580 }
+    T:Refresh(true)
+    for _, spd in ipairs({ 11.2, 14.0 }) do
+        W.cdb.mountSpeed = spd
+        MOCK.advance(4)
+        local adv = T:Advice(1425, (1 - (-2.780)) * 100, (1 - 0.285) * 100)
+        check("travel: Undercity -> Quel'Danil suggests flying to Tarren Mill at mount speed " .. spd,
+            adv and adv.from.name == "Undercity, Tirisfal" and adv.to.name == "Tarren Mill, Hillsbrad",
+            adv and (adv.from.name .. " -> " .. adv.to.name) or "nil")
+    end
+    W.cdb.mountSpeed = savedMount
+    MOCK.taxi = savedTaxi2
+
     -- restore mock state
     MOCK.pos = savedPos
     MOCK.mapCont = savedCont

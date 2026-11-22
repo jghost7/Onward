@@ -9,10 +9,14 @@ local T = {}
 W.Travel = T
 
 local CONTINENTS = { 1414, 1415 }      -- Kalimdor, Eastern Kingdoms
--- Flight advice compares travel times. Taxis fly ~32 yd/s on paths that wind ~1.25x the straight
--- line; talking, take-off and landing cost ~15 s. A flight is suggested when it saves 30 s and 15%
--- of the run, and kept (no flip-flopping as you move) while it still saves 8%.
+-- Flight advice compares real-world travel times. Taxis fly ~32 yd/s over mountains (~1.25x
+-- straight line -> 25 yd/s effective); riding within one zone (<= 2000 yd) is nearly straight,
+-- while multi-zone rides wind around mountain passes, rivers and roads (1.6x on distance past
+-- 2000 yd). Talking, take-off and landing cost ~15 s. A flight is suggested when it saves 30 s
+-- and 15% of the ride, and kept (no flip-flopping as you move) while it still saves 8%.
 local TAXI_SPEED = 25                  -- yd/s along the straight line between the flight points
+local STRAIGHT_GROUND = 2000           -- within ~1 zone, ground paths are fairly direct
+local CROSS_ZONE_WIND = 1.6            -- beyond 1 zone, roads wind around mountains and borders
 local FLIGHT_OVERHEAD = 15             -- seconds
 local MIN_SAVE, NEW_SHARE, KEEP_SHARE = 30, 0.15, 0.08
 local RUN_SPEED, MOUNT_MAX = 7, 14
@@ -247,9 +251,18 @@ function T.Speed()
     return W.cdb.mountSpeed or RUN_SPEED
 end
 
+-- seconds riding d straight-line yards: direct within one zone, winding across zone borders/mountains
+local function groundTime(d, v)
+    if d <= STRAIGHT_GROUND then return d / v end
+    return (STRAIGHT_GROUND + (d - STRAIGHT_GROUND) * CROSS_ZONE_WIND) / v
+end
+
 -- seconds from here to the target via flight A -> B
 local function flightTime(v, px, py, A, B, tx, ty)
-    return d2(px, py, A.wx, A.wy) / v + d2(A.wx, A.wy, B.wx, B.wy) / TAXI_SPEED + FLIGHT_OVERHEAD + d2(B.wx, B.wy, tx, ty) / v
+    return groundTime(d2(px, py, A.wx, A.wy), v)
+        + d2(A.wx, A.wy, B.wx, B.wy) / TAXI_SPEED
+        + FLIGHT_OVERHEAD
+        + groundTime(d2(B.wx, B.wy, tx, ty), v)
 end
 
 -- Pick up to `limit` nearest nodes to (x, y), also guaranteeing the nearest node of any other
@@ -276,7 +289,7 @@ end
 -- known flight paths on that continent when flying beats riding.
 local function legTime(cont, sx, sy, ex, ey)
     local v = T.Speed()
-    local best = d2(sx, sy, ex, ey) / v
+    local best = groundTime(d2(sx, sy, ex, ey), v)
     if not (W.db and W.db.travelAdvice) then return best end
     local known = T:KnownNodes(cont)
     if #known < 2 then return best end
@@ -354,7 +367,7 @@ function T:Advice(map, x, y)
     local tc, tx, ty = T.World(map, x, y)
     if not pc or not tc or pc ~= tc then return end
     local v = T.Speed()
-    local walk = d2(px, py, tx, ty) / v           -- seconds on foot (or mounted)
+    local walk = groundTime(d2(px, py, tx, ty), v)
     if sticky.key == key and sticky.pick then
         local A, B = sticky.pick.from, sticky.pick.to
         local t = flightTime(v, px, py, A, B, tx, ty)
@@ -530,11 +543,11 @@ T.LearnNetwork = learnNetwork
 local function takeFlight()
     T.marked = nil
     local asked = wantedDest and wantedDest.name
-    -- what this flight master really reaches, before any plan uses it
-    if learnNetwork() then
-        forgetAdvice()
-        if W.Waypoint and W.Waypoint.Update then pcall(W.Waypoint.Update, W.Waypoint) end
-    end
+    -- what this flight master really reaches, before any plan uses it; always re-evaluate advice
+    -- fresh while the flight map is open so updated nodes take effect immediately
+    local netChanged = learnNetwork()
+    forgetAdvice()
+    if netChanged and W.Waypoint and W.Waypoint.Update then pcall(W.Waypoint.Update, W.Waypoint) end
     -- talking to the flight master refreshes the guide, which can clear the wanted flight a
     -- moment before the map opens: ask the arrow again so it's set from the current step
     if W.Waypoint and W.Waypoint.ArrowTarget then pcall(W.Waypoint.ArrowTarget, W.Waypoint) end

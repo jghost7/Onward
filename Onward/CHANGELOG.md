@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.8.3
+
+- Improved multi-zone flight advice: ground travel estimates now account for cross-zone road and
+  terrain winding beyond 2,000 yards (while keeping short same-zone mounted rides direct), so
+  multi-zone trips like Undercity → Tarren Mill → The Hinterlands reliably suggest flying on both
+  60% and 100% mounts.
+- Always refreshes flight advice on `TAXIMAP_OPENED` so live flight-map nodes take effect
+  immediately.
+
 ## 0.8.2
 
 - Fixed neutral-town flight master targeting (Gadgetzan, Booty Bay, Everlook, etc.): filters out
