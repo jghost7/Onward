@@ -224,6 +224,30 @@ function QB:DropRate(itemId, npcId)
     end)
 end
 
+-- Quest IDs Questie knows are linked to this item (startQuest + relatedQuests) for the player's
+-- faction (or neutral), used as a live cross-check before offering an item for bag cleanup.
+function QB:ItemRelatedQuests(itemId)
+    return call(function()
+        if not QDB.QueryItemSingle then return end
+        local out, seen = {}, {}
+        local fac = UnitFactionGroup and UnitFactionGroup("player")
+        local bit = fac == "Horde" and 178 or 77
+        local function add(q)
+            if not q or q == 0 or seen[q] then return end
+            seen[q] = true
+            local quest = QDB.GetQuest(q)
+            local races = quest and quest.requiredRaces
+            -- include neutral quests and quests matching player's faction (conservative: unknown races included)
+            if not races or races == 0 or bit32 == nil or bit32.band(races, bit) ~= 0 then
+                out[#out + 1] = q
+            end
+        end
+        add(QDB.QueryItemSingle(itemId, "startQuest"))
+        for _, q in pairs(QDB.QueryItemSingle(itemId, "relatedQuests") or {}) do add(q) end
+        return #out > 0 and out or nil
+    end)
+end
+
 -- Party progress from Questie's own sync (works for every party member running Questie,
 -- whether or not they have Onward). Returns { [playerName] = { done = bool, have = n, need = n } }
 function QB:PartyProgress(q)

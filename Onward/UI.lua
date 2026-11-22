@@ -665,6 +665,22 @@ needBtn:SetScript("OnClick", function(self)
 end)
 UI.needBtn = needBtn
 
+-- completed quest items sitting in your bags with no further use: opens the voluntary cleanup window
+local cleanupBtn = lineButton(C.dim)
+cleanupBtn:SetScript("OnEnter", function(self)
+    GameTooltip:SetOwner(self, "ANCHOR_LEFT")
+    GameTooltip:AddLine("Completed quest items in bags")
+    GameTooltip:AddLine("These quest items belong only to quests you've already finished. Nothing is deleted automatically.", 0.6, 0.6, 0.6, true)
+    for i, it in ipairs(self.items or {}) do
+        if i > 8 then GameTooltip:AddLine(("...and %d more"):format(#self.items - 8), 0.6, 0.6, 0.6) break end
+        GameTooltip:AddLine(it.count > 1 and ("%s x%d"):format(it.name, it.count) or it.name, 0.9, 0.9, 0.9)
+    end
+    GameTooltip:AddLine("Click (or /ow clean) to review and delete.", S.ACCENT[1], S.ACCENT[2], S.ACCENT[3])
+    GameTooltip:Show()
+end)
+cleanupBtn:SetScript("OnClick", function() W:Fire("WF_SHOW_CLEANUP") end)
+UI.cleanupBtn = cleanupBtn
+
 -- a better-fitting guide than the one you're on (G:Suggestion): click to switch, right-click to hide
 local suggestBtn = lineButton(C.accent)
 suggestBtn:RegisterForClicks("LeftButtonUp", "RightButtonUp")
@@ -1028,7 +1044,7 @@ function UI:Render()
     for _, r in ipairs(groupRows) do r:Hide() end
     for _, c in ipairs(partyChips) do c:Hide() end
     for _, r in ipairs(rows) do r:Hide() end
-    for _, b in ipairs({ missedBtn, suggestBtn, busyBtn, laterBtn, waitBtn, UI.looseBtn, UI.needBtn }) do b:Hide() b.bg:Hide() end
+    for _, b in ipairs({ missedBtn, suggestBtn, busyBtn, laterBtn, waitBtn, UI.looseBtn, UI.needBtn, UI.cleanupBtn }) do b:Hide() b.bg:Hide() end
     divider:Hide()
     alsoLabel:Hide()
     UI.passLabel:Hide()
@@ -1378,6 +1394,14 @@ function UI:Render()
         UI.needBtn.items = needs
         UI.needBtn.short = ("%d to bring"):format(#needs)
         footer[#footer + 1] = UI.needBtn
+    end
+    if W.Cleanup and W.db.bagCleanup ~= false then
+        local stale = W.Cleanup:Scan()
+        if #stale > 0 then
+            UI.cleanupBtn.items = stale
+            UI.cleanupBtn.short = ("%d old quest item%s"):format(#stale, #stale == 1 and "" or "s")
+            footer[#footer + 1] = UI.cleanupBtn
+        end
     end
     local fx = PAD
     if #footer > 0 then y = y + 2 end

@@ -396,6 +396,7 @@ slider(2, "bgAlpha", "Background opacity", 0, 1, 0.05, "%.2f")
 check(2, "showObjectives", "Show quest objectives")
 check(2, "showParty", "Show party progress")
 check(2, "dropStats", "Show drop rates", "Under \"collect\" objectives: how many of your kills dropped the item, the expected rate (Wowhead's, through Questie) and whether you're luckier or unluckier than that.")
+check(2, "bagCleanup", "Flag old quest items in bags", "Shows a link on the panel when your bags hold quest items whose entire quest chain is finished. Voluntary only: nothing is ever deleted automatically.")
 check(2, "locked", "Lock panel")
 check(2, "fadeInCombat", "Fade panel in combat")
 check(2, "animations", "Animations", "Small touches that play once: a sheen when a quest is ready to turn in, objectives ticking off, the progress bar sliding, the step card turning, a pulse when you arrive, a glow when a guide is finished, and the flight point breathing on the flight map. Never in combat.", function() if not W.db.animations then W.Anim.StopAll() end end)
@@ -411,6 +412,8 @@ button(2, "Reset positions", function()
     W.db.point, W.db.arrowPoint = nil, nil
     W:Fire("WF_RESET_POSITION")
 end, 138, 146)
+cursor[2] = cursor[2] - 30
+button(2, "Clean quest items", function() W:Fire("WF_SHOW_CLEANUP") end, 284)
 cursor[2] = cursor[2] - 30
 
 O.cursor = cursor   -- lowest point used in each column (tests check it fits the window)

@@ -13,6 +13,7 @@ local DEFAULTS = {
     autoAccept = true,       -- accept quests the active guide asks for
     autoAcceptAll = false,   -- accept every quest offered, guide or not
     autoTurnIn = true,       -- turn in quests that are ready (single reward only)
+    bagCleanup = true,       -- flag leftover quest items whose entire quest chain is finished (voluntary only)
     -- navigation
     arrow = true,            -- Onward's nav arrow
     arrowScale = 1,
@@ -60,6 +61,7 @@ local CHAR_DEFAULTS = {
     guide = "smart",         -- active guide id ("smart" = built from your quest log)
     skipped = {},            -- [guideId] = { [step key] = true }   ("accept:123", or a note's own line)
     resume = {},             -- [guideId] = quest whose turn-in the guide resumed after (0 = from the start)
+    keptItems = {},          -- [itemID] = true: completed quest items the player chose to keep
     recording = nil,         -- recorder session in progress
 }
 
@@ -172,6 +174,7 @@ local HELP = {
     "/ow auto  - toggle auto accept / turn-in",
     "/ow party  - toggle party sync",
     "/ow drops [reset | debug]  - your quest-item drop rates vs the expected ones",
+    "/ow clean [reset]  - review and voluntarily delete leftover items from completed quests",
     "/ow passing  - list (or stop listing) quests in your log whose mobs are on your way",
     "/ow report <what went wrong>  - the current step and its state as text, to paste into a bug report",
     "/ow reset  - reset panel position",
@@ -272,6 +275,13 @@ SlashCmdList.ONWARD = function(msg)
     elseif cmd == "drops" then
         local sub = rest:lower()
         if sub == "reset" then W.Drops:Reset() elseif sub == "debug" then W.Drops:Debug() else W.Drops:Report() end
+    elseif cmd == "clean" or cmd == "cleanup" then
+        if rest:lower() == "reset" then
+            W.Cleanup:ResetKept()
+            W.Print("cleared kept quest items list")
+        else
+            W:Fire("WF_SHOW_CLEANUP")
+        end
     elseif cmd == "reset" then
         W.db.point = nil
         W.db.arrowPoint = nil

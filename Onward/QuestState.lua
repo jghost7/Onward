@@ -159,7 +159,7 @@ end)
 W:On("QUEST_ACCEPTED", function(_, a, b)
     dirty = true
     -- Modern clients fire (questID); Classic Era fires (questLogIndex, questID)
-    local questID = (type(b) == "number" and b > 25) and b or a
+    local questID = (type(b) == "number") and b or a
     if questID then W:Fire("WF_QUEST_STATE", questID, "accepted") end
     W:RequestRefresh()
 end)

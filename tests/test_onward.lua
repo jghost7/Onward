@@ -2198,6 +2198,101 @@ turnin 19950 |npc Sputter |at 1423 70.0,70.0
     G:Activate(oldGuide) settle()
 end
 
+-- voluntary completed quest item cleanup ---------------------------------------------------
+do
+    local CL = W.Cleanup
+    local saved = {
+        C_Container = C_Container, GetItemInfoInstant = GetItemInfoInstant,
+        GetItemNameByID = C_Item.GetItemNameByID, GetCursorInfo = GetCursorInfo,
+        DeleteCursorItem = DeleteCursorItem, ClearCursor = ClearCursor,
+        combat = MOCK.combat,
+    }
+    local bag = {}   -- [slot] = { itemID, stackCount, isLocked, iconFileID }
+    local names = { [182] = "Garrick's Head", [921] = "Page of the Ledger", [16333] = "Samuel's Remains",
+                    [9240] = "Mallet of Zul'Farrak", [5462] = "Dartol's Rod of Transformation" }
+    local classes = { [182] = 12, [921] = 12, [16333] = 12, [9240] = 12, [5462] = 12 }
+    local cursorItem, deleted = nil, {}
+
+    C_Container = {
+        GetContainerNumSlots = function(b) return b == 0 and #bag or 0 end,
+        GetContainerItemInfo = function(b, s) return b == 0 and bag[s] or nil end,
+        PickupContainerItem = function(b, s)
+            if b == 0 and bag[s] then cursorItem = { bag = b, slot = s, id = bag[s].itemID } end
+        end,
+    }
+    GetItemInfoInstant = function(id) return id, nil, nil, nil, nil, classes[id] end
+    C_Item.GetItemNameByID = function(id) return names[id] end
+    GetCursorInfo = function() if cursorItem then return "item", cursorItem.id end end
+    ClearCursor = function() cursorItem = nil end
+    DeleteCursorItem = function()
+        if cursorItem then
+            table.insert(deleted, cursorItem.id)
+            bag[cursorItem.slot] = nil
+            cursorItem = nil
+        end
+    end
+
+    -- 1. Single-quest item (182 -> quest 6), multi-quest item (921 -> quests 75, 78),
+    --    unlisted permanent item (9240 Mallet of ZF), reward item (5462 Dartol's Rod)
+    bag[1] = { itemID = 182, stackCount = 1 }
+    bag[2] = { itemID = 921, stackCount = 1 }
+    bag[3] = { itemID = 9240, stackCount = 1 }
+    bag[4] = { itemID = 5462, stackCount = 1 }
+    MOCK.done[6] = true
+    MOCK.done[75] = true   -- 78 NOT done yet!
+    MOCK.fire("BAG_UPDATE_DELAYED") settle()
+
+    local list = CL:Scan(true)
+    check("cleanup: never deletes automatically on bag/quest events", #deleted == 0, #deleted)
+    check("cleanup: flags ONLY completed single-quest item 182 (protects incomplete chain 921, Mallet 9240, Dartol's Rod 5462)",
+        #list == 1 and list[1].id == 182, #list .. " / " .. tostring(list[1] and list[1].id))
+
+    -- 2. Completing the rest of 921's chain (quest 78) makes 921 eligible
+    MOCK.done[78] = true
+    list = CL:Scan(true)
+    check("cleanup: multi-quest item becomes eligible only after ALL chain quests are done", #list == 2, #list)
+
+    -- 3. Active quest log text mentioning the item name blocks it even if DB quests are done
+    MOCK.addQuest(19991, "Still needs Garrick's Head", { { text = "Bring Garrick's Head: 0/1", finished = false, numFulfilled = 0, numRequired = 1 } })
+    MOCK.fire("QUEST_LOG_UPDATE") settle()
+    list = CL:Scan(true)
+    check("cleanup: active quest mentioning item name protects it", #list == 1 and list[1].id == 921, #list)
+    MOCK.turnIn(19991) MOCK.done[19991] = nil MOCK.fire("QUEST_REMOVED", 19991) settle()
+
+    -- 4. Keep button permanently hides an item for this character; Reset restores it
+    CL:Keep(921)
+    list = CL:Scan(true)
+    check("cleanup: Keep hides item from cleanup list", #list == 1 and list[1].id == 182, #list)
+    CL:ResetKept()
+    list = CL:Scan(true)
+    check("cleanup: ResetKept restores kept items", #list == 2, #list)
+
+    -- 5. Voluntary DeleteEntry safety gates: refuses in combat, refuses with busy cursor, deletes cleanly otherwise
+    local target = list[1]
+    MOCK.combat = true
+    local ok, why = CL:DeleteEntry(target)
+    check("cleanup: refuses delete in combat", not ok and why == "combat" and #deleted == 0, why)
+    MOCK.combat = false
+    cursorItem = { id = 99999 }
+    ok, why = CL:DeleteEntry(target)
+    check("cleanup: refuses delete when cursor is holding something", not ok and why == "cursor" and #deleted == 0, why)
+    cursorItem = nil
+    ok = CL:DeleteEntry(target)
+    check("cleanup: voluntary click deletes verified slot cleanly", ok and #deleted == 1 and deleted[1] == target.id and bag[target.slot] == nil, tostring(ok))
+
+    -- 6. Window opens via /ow clean and renders remaining item
+    SlashCmdList.ONWARD("clean")
+    check("cleanup: /ow clean opens cleanup window", CL.win and CL.win:IsShown())
+    CL:Hide()
+
+    -- cleanup mock state
+    MOCK.done[6], MOCK.done[75], MOCK.done[78] = nil, nil, nil
+    C_Container, GetItemInfoInstant, C_Item.GetItemNameByID = saved.C_Container, saved.GetItemInfoInstant, saved.GetItemNameByID
+    GetCursorInfo, DeleteCursorItem, ClearCursor = saved.GetCursorInfo, saved.DeleteCursorItem, saved.ClearCursor
+    MOCK.combat = saved.combat
+    CL:Invalidate()
+end
+
 check("no runtime errors", #MOCK.errors == 0, MOCK.errors[1])
 print(("%d passed, %d failed"):format(pass, fail))
 return fail

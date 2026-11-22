@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.7.1
+
+- Voluntary completed quest item cleanup (`/ow clean`, the "N old quest items" link in the panel
+  footer, or Options → Tools → Clean quest items). Lists soulbound/quest-bound items in your bags
+  whose entire quest chain is finished and no longer needed by any downstream quest, with per-item
+  **Delete**, **Delete next** (one click per item, never automatic), and **Keep** buttons.
+- Protects quest rewards, repeatable/war-effort items, tradable/vendorable/equippable/Rare+ items,
+  usable dungeon/raid tools, and any item mentioned by an active quest in your quest log, with a
+  live Questie cross-check when Questie is installed.
+- Options → Panel → "Flag old quest items in bags" toggles the footer link.
+
 ## 0.7.0
 
 - Restored all exploration and escort quests across every zone (187 quests, including The Fargodeep
