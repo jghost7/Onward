@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.8.1
+
+- Multi-choice quest turn-ins now highlight the reward with the highest vendor sell value
+  (`sellPrice × stackCount`) with a gold border and formatted price badge (`2g 50s`, `15s`, etc.),
+  handling ties, unsellable `0c` items, and async item-cache loads (`GET_ITEM_INFO_RECEIVED`).
+- Added **Options → Questing → Highlight highest-value reward** (enabled by default).
+
 ## 0.8.0
 
 - Interactive step rows: click any **ALSO HERE**, **AT THIS HUB**, or **ON YOUR WAY** row to focus

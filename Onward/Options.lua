@@ -436,6 +436,7 @@ section(1, "Quest Automation")
 check(1, "autoAccept", "Auto-accept guide quests", "Accept the quests the active guide picks up. Hold Shift at an NPC to pause.")
 check(1, "autoAcceptAll", "Auto-accept every quest", "Accept any quest offered, guide or not.")
 check(1, "autoTurnIn", "Auto turn-in", "Hand in finished quests. Never chooses between several rewards.")
+check(1, "highlightBestReward", "Highlight highest-value reward", "When a quest turn-in offers multiple reward choices, highlights the item that sells for the most vendor gold and shows its sell price.")
 
 section(2, "Tracking & Bag Hygiene")
 check(2, "passing", "List quests on your way", "Show quests in your log whose mobs are right along your current path.")

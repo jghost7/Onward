@@ -13,6 +13,7 @@ local DEFAULTS = {
     autoAccept = true,       -- accept quests the active guide asks for
     autoAcceptAll = false,   -- accept every quest offered, guide or not
     autoTurnIn = true,       -- turn in quests that are ready (single reward only)
+    highlightBestReward = true, -- highlight the highest vendor-value reward when turning in multi-choice quests
     bagCleanup = true,       -- flag leftover quest items whose entire quest chain is finished (voluntary only)
     -- navigation
     arrow = true,            -- Onward's nav arrow

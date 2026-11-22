@@ -36,12 +36,190 @@ W:On("QUEST_PROGRESS", function()
 end)
 
 W:On("QUEST_COMPLETE", function()
+    A:ScheduleRewardHighlight()
     if not wantTurnIn() then return end
     local choices = GetNumQuestChoices() or 0
     if choices <= 1 then
         GetQuestReward(1)
     else
         W.Print("pick a reward to finish this quest")
+    end
+end)
+
+---------------------------------------------------------------------------
+-- Multi-choice quest turn-in: highlight the reward with the highest vendor sell value
+---------------------------------------------------------------------------
+local S = W.Skin
+local rewardHighlights = {}
+local pendingRewardInfo = false
+
+local function formatCopper(copper)
+    local g = math.floor(copper / 10000)
+    local s = math.floor((copper % 10000) / 100)
+    local c = copper % 100
+    local parts = {}
+    if g > 0 then parts[#parts + 1] = ("|cffffd100%dg|r"):format(g) end
+    if s > 0 or g > 0 then parts[#parts + 1] = ("|cffd0d4dc%ds|r"):format(s) end
+    if g == 0 and (c > 0 or s == 0) then parts[#parts + 1] = ("|cffeda55f%dc|r"):format(c) end
+    return table.concat(parts, " ")
+end
+A.FormatCopper = formatCopper
+
+local function getItemSellPrice(link)
+    if not link then return nil end
+    local getInfo = (C_Item and C_Item.GetItemInfo) or GetItemInfo
+    if not getInfo then return nil end
+    local _, _, _, _, _, _, _, _, _, _, sellPrice = getInfo(link)
+    sellPrice = W.Safe(sellPrice)
+    if sellPrice == nil and C_Item and C_Item.RequestLoadItemDataByID then
+        local id = tonumber(tostring(link):match("item:(%d+)"))
+        if id then pcall(C_Item.RequestLoadItemDataByID, id) end
+    end
+    return sellPrice
+end
+
+local function findChoiceButton(index)
+    local rf = _G.QuestInfoRewardsFrame
+    if rf and rf.RewardButtons then
+        for _, btn in ipairs(rf.RewardButtons) do
+            if btn and btn:IsShown() and btn.type == "choice" and btn.GetID and btn:GetID() == index then
+                return btn
+            end
+        end
+    end
+    for _, name in ipairs({ "QuestInfoRewardsFrameQuestInfoItem" .. index, "QuestInfoItem" .. index }) do
+        local btn = _G[name]
+        if btn and btn:IsShown() and (btn.type == "choice" or btn.type == nil)
+            and (not btn.GetID or btn:GetID() == index) then
+            return btn
+        end
+    end
+end
+
+local function getOverlay(idx)
+    local ov = rewardHighlights[idx]
+    if not ov then
+        ov = CreateFrame("Frame", nil, UIParent)
+        ov:EnableMouse(false)
+        ov.wash = S.Nine(ov, "BACKGROUND", 0, S.MEDIA .. "glass_body", 64, 16, 6, 0)
+        ov.wash:SetColor(1.00, 0.82, 0.25, 0.14)
+        ov.border = S.Nine(ov, "BORDER", 0, S.MEDIA .. "outline", 16, 6, 6, 0)
+        ov.border:SetColor(1.00, 0.82, 0.25, 0.95)
+
+        ov.pill = CreateFrame("Frame", nil, ov)
+        ov.pill:SetHeight(16)
+        ov.pill:SetPoint("TOPRIGHT", ov, "TOPRIGHT", 2, 6)
+        ov.pillBg = S.Nine(ov.pill, "BACKGROUND", 0, S.MEDIA .. "glass_body", 64, 16, 5, 0)
+        ov.pillBg:SetColor(0.05, 0.06, 0.08, 0.94)
+        ov.pillRim = S.Nine(ov.pill, "BORDER", 0, S.MEDIA .. "outline", 16, 6, 5, 0)
+        ov.pillRim:SetColor(1.00, 0.82, 0.25, 0.90)
+
+        ov.text = ov.pill:CreateFontString(nil, "OVERLAY")
+        S.Font(ov.text, 10, "body")
+        ov.text:SetPoint("CENTER", 0, 0)
+        ov.text:SetShadowColor(0, 0, 0, 0.9)
+        ov.text:SetShadowOffset(1, -1)
+        ov:Hide()
+        rewardHighlights[idx] = ov
+    end
+    return ov
+end
+
+function A:ClearRewardHighlight()
+    pendingRewardInfo = false
+    for _, ov in ipairs(rewardHighlights) do
+        ov:Hide()
+        ov:SetParent(UIParent)
+    end
+end
+
+-- Returns bestIndices (table of choice indices tied for highest non-zero sell value), bestCopper, pending
+function A:BestRewardChoices()
+    local choices = GetNumQuestChoices and (GetNumQuestChoices() or 0) or 0
+    if choices <= 1 then return {}, 0, false end
+    local bestVal, winners, pending = 0, {}, false
+    for i = 1, choices do
+        local link = GetQuestItemLink and W.Safe(GetQuestItemLink("choice", i))
+        local count = 1
+        if GetQuestItemInfo then
+            local _, _, num = GetQuestItemInfo("choice", i)
+            num = W.Safe(num)
+            if num and num > 1 then count = num end
+        end
+        local price = getItemSellPrice(link)
+        if price == nil and link then
+            pending = true
+        elseif price and price > 0 then
+            local total = price * count
+            if total > bestVal then
+                bestVal = total
+                winners = { i }
+            elseif total == bestVal then
+                winners[#winners + 1] = i
+            end
+        end
+    end
+    return winners, bestVal, pending
+end
+
+function A:HighlightBestReward()
+    A:ClearRewardHighlight()
+    if W.db and W.db.highlightBestReward == false then return end
+    local winners, bestVal, pending = A:BestRewardChoices()
+    pendingRewardInfo = pending
+    if #winners == 0 or bestVal <= 0 then return end
+    local label = formatCopper(bestVal)
+    local shown = 0
+    for _, idx in ipairs(winners) do
+        local btn = findChoiceButton(idx)
+        if btn then
+            shown = shown + 1
+            local ov = getOverlay(shown)
+            ov:SetParent(btn)
+            ov:SetFrameStrata(btn:GetFrameStrata() or "HIGH")
+            ov:SetFrameLevel((btn:GetFrameLevel() or 1) + 6)
+            ov:ClearAllPoints()
+            ov:SetPoint("TOPLEFT", btn, "TOPLEFT", -2, 2)
+            ov:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", 2, -2)
+            ov.pill:SetFrameLevel(ov:GetFrameLevel() + 2)
+            ov.text:SetText(label)
+            ov.pill:SetWidth(math.max(38, (ov.text:GetStringWidth() or 30) + 12))
+            ov.choiceIndex = idx
+            ov.sellValue = bestVal
+            ov:Show()
+        end
+    end
+    return winners, bestVal
+end
+A.rewardHighlights = rewardHighlights
+
+function A:ScheduleRewardHighlight()
+    A:HighlightBestReward()
+    if C_Timer and C_Timer.After then
+        C_Timer.After(0, function()
+            if (GetNumQuestChoices and (GetNumQuestChoices() or 0) or 0) > 1 then
+                A:HighlightBestReward()
+            end
+        end)
+    end
+end
+
+W:On("QUEST_FINISHED", function() A:ClearRewardHighlight() end)
+W:On("GET_ITEM_INFO_RECEIVED", function()
+    if not pendingRewardInfo then return end
+    local rp = _G.QuestFrameRewardPanel
+    if not rp or rp:IsShown() then
+        A:HighlightBestReward()
+    end
+end)
+W:On("WF_INIT", function()
+    if hooksecurefunc and _G.QuestInfo_Display then
+        hooksecurefunc(_G, "QuestInfo_Display", function()
+            local rp = _G.QuestFrameRewardPanel
+            if rp and rp:IsShown() and (GetNumQuestChoices and (GetNumQuestChoices() or 0) or 0) > 1 then
+                A:HighlightBestReward()
+            end
+        end)
     end
 end)
 

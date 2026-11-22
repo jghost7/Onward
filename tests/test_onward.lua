@@ -2478,6 +2478,90 @@ turnin 19926
     settle()
 end
 
+-- Multi-choice quest turn-in: highlight highest vendor sell value reward
+do
+    local A = W.Auto
+    local saved = {
+        choices = MOCK.choices,
+        GetQuestItemLink = GetQuestItemLink,
+        GetQuestItemInfo = GetQuestItemInfo,
+        GetItemInfo = C_Item.GetItemInfo,
+        QuestInfoRewardsFrame = _G.QuestInfoRewardsFrame,
+        QuestFrameRewardPanel = _G.QuestFrameRewardPanel,
+    }
+    local prices = { ["item:7001"] = 1200, ["item:7002"] = 300, ["item:7003"] = 500 }
+    local links  = { [1] = "|Hitem:7001|h[Sword]|h", [2] = "|Hitem:7002|h[Potions]|h", [3] = "|Hitem:7003|h[Ring]|h" }
+    local counts = { [1] = 1, [2] = 5, [3] = 1 }   -- choice 2: 5 * 300c = 1500c > 1200c!
+    GetQuestItemLink = function(kind, i) return kind == "choice" and links[i] or nil end
+    GetQuestItemInfo = function(kind, i) return "Item" .. i, 0, counts[i] or 1 end
+    C_Item.GetItemInfo = function(link)
+        local key = link and link:match("(item:%d+)")
+        if not key or prices[key] == nil then return nil end
+        return "Name", link, 2, 30, 25, "Armor", "Cloth", 1, "", 0, prices[key]
+    end
+    local btns = {}
+    for i = 1, 3 do
+        local b = CreateFrame("Button")
+        b.type = "choice"
+        b.GetID = function() return i end
+        btns[i] = b
+    end
+    _G.QuestInfoRewardsFrame = { RewardButtons = btns }
+    _G.QuestFrameRewardPanel = CreateFrame("Frame")
+    _G.QuestFrameRewardPanel:Show()
+
+    -- 1. Stack count * sell price wins (5 * 300c = 15s beats 1 * 12s)
+    MOCK.choices = 3
+    MOCK.fire("QUEST_COMPLETE") settle()
+    local hl1 = A.rewardHighlights[1]
+    check("reward highlight: picks highest total sell value (stack * unit price)",
+        hl1 and hl1:IsShown() and hl1.choiceIndex == 2 and hl1.sellValue == 1500, hl1 and tostring(hl1.choiceIndex))
+    check("reward highlight: formats price badge cleanly", hl1.text:GetText():find("15s", 1, true), hl1.text:GetText())
+    check("reward highlight: only one overlay shown when no tie", not (A.rewardHighlights[2] and A.rewardHighlights[2]:IsShown()))
+
+    -- 2. Tie highlights both winners
+    prices["item:7001"] = 1500
+    A:HighlightBestReward()
+    check("reward highlight: ties highlight both winning choices",
+        A.rewardHighlights[1]:IsShown() and A.rewardHighlights[2]:IsShown()
+        and A.rewardHighlights[1].choiceIndex == 1 and A.rewardHighlights[2].choiceIndex == 2)
+
+    -- 3. Async item cache: nil price initially, then GET_ITEM_INFO_RECEIVED refreshes highlight
+    prices["item:7001"] = 100
+    prices["item:7002"] = 100
+    prices["item:7003"] = nil   -- uncached!
+    A:HighlightBestReward()
+    check("reward highlight: handles uncached item without error", A.rewardHighlights[1]:IsShown() and A.rewardHighlights[1].choiceIndex == 2)
+    prices["item:7003"] = 25000   -- 2g 50s arrives asynchronously
+    MOCK.fire("GET_ITEM_INFO_RECEIVED", 7003, true)
+    check("reward highlight: refreshes on GET_ITEM_INFO_RECEIVED to new winner",
+        A.rewardHighlights[1]:IsShown() and A.rewardHighlights[1].choiceIndex == 3 and A.rewardHighlights[1].sellValue == 25000,
+        tostring(A.rewardHighlights[1].choiceIndex))
+    check("reward highlight: formats gold & silver", A.rewardHighlights[1].text:GetText():find("2g", 1, true)
+        and A.rewardHighlights[1].text:GetText():find("50s", 1, true), A.rewardHighlights[1].text:GetText())
+
+    -- 4. Unsellable rewards (all 0c) highlight nothing
+    prices["item:7001"], prices["item:7002"], prices["item:7003"] = 0, 0, 0
+    A:HighlightBestReward()
+    check("reward highlight: all 0c rewards highlight nothing", not A.rewardHighlights[1]:IsShown())
+
+    -- 5. Option off disables highlight; QUEST_FINISHED clears highlight
+    prices["item:7003"] = 25000
+    W.db.highlightBestReward = false
+    A:HighlightBestReward()
+    check("reward highlight: setting off hides highlight", not A.rewardHighlights[1]:IsShown())
+    W.db.highlightBestReward = true
+    A:HighlightBestReward()
+    check("reward highlight: re-enabled shows highlight", A.rewardHighlights[1]:IsShown())
+    MOCK.fire("QUEST_FINISHED")
+    check("reward highlight: QUEST_FINISHED clears highlight", not A.rewardHighlights[1]:IsShown())
+
+    -- restore mock state
+    MOCK.choices = saved.choices
+    GetQuestItemLink, GetQuestItemInfo, C_Item.GetItemInfo = saved.GetQuestItemLink, saved.GetQuestItemInfo, saved.GetItemInfo
+    _G.QuestInfoRewardsFrame, _G.QuestFrameRewardPanel = saved.QuestInfoRewardsFrame, saved.QuestFrameRewardPanel
+end
+
 check("no runtime errors", #MOCK.errors == 0, MOCK.errors[1])
 print(("%d passed, %d failed"):format(pass, fail))
 return fail
