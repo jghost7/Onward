@@ -105,6 +105,15 @@ function TG.MobsFor(step)
     for _, name in ipairs(step.mobs or {}) do
         if stillNeeded(name) then add(name) end
     end
+    -- Fallback when the guide step has no |mobs tag (e.g. out-of-zone objectives like Bungle in
+    -- the Jungle, or quests in the smart quest-log guide): pull unfinished droppers from Questie.
+    if #out == 0 and W.QuestieBridge and W.QuestieBridge.QuestMobs then
+        local doneLow = {}
+        for n in pairs(finished) do doneLow[n:lower()] = true end
+        for _, name in ipairs(W.QuestieBridge:QuestMobs(step.quest, doneLow)) do
+            if stillNeeded(name) then add(name) end
+        end
+    end
     return out
 end
 
@@ -242,7 +251,7 @@ function TG:Sync()
         TG.talk = TG.TalkName(G:Current())
         if TG.talk then macro = TG.BuildTalkMacro(TG.talk, W.db.targetMark) end
     end
-    icon:SetTexture(MEDIA .. (TG.talk and "who" or "complete"))
+    icon:SetTexture(MEDIA .. (TG.talk and "talk" or "complete"))
     b:SetAttribute("macrotext", macro)
     local show = (#names > 0 or TG.talk) and place()
     b:SetShown(show and true or false)

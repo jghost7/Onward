@@ -2807,6 +2807,77 @@ do
     MOCK.advance(4)
 end
 
+-- Objective context lines (what to kill / loot for non-obvious objectives) & Target live mob fallback
+do
+    local UI, QB, TG = W.UI, W.QuestieBridge, W.Target
+    local savedObjSrc = QB.ObjectiveSource
+    local savedQMobs = QB.QuestMobs
+    local mockSrc = {}
+    QB.ObjectiveSource = function(_, q, name) return mockSrc[q .. ":" .. (name or "")] end
+    QB.QuestMobs = function(_, q)
+        if q == 4496 then return { "Gorishi Wasp", "Gorishi Worker", "Gorishi Reaver" } end
+        return {}
+    end
+
+    local step = { verb = "complete", quest = 4496 }
+    mockSrc["4496:Gorishi Scent Gland"] = {
+        kind = "item", label = "Gorishi Scent Gland",
+        mobs = { "Gorishi Wasp", "Gorishi Worker", "Gorishi Reaver", "Gorishi Stinger", "Gorishi Tunneler" },
+        objs = {}, vendors = {},
+    }
+    mockSrc["4496:Un'Goro Soil"] = {
+        kind = "item", label = "Un'Goro Soil",
+        mobs = {}, objs = { "Un'Goro Dirt Pile" }, vendors = {},
+    }
+    mockSrc["4496:Vessel of Tainted Blood"] = {
+        kind = "item", label = "Vessel of Tainted Blood",
+        mobs = {}, objs = { "Vessel of Tainted Blood" }, vendors = {},
+    }
+    mockSrc["4496:Mixed Relic"] = {
+        kind = "item", label = "Mixed Relic",
+        mobs = { "Hive Drone", "Hive Guard" }, objs = { "Strange Mound" }, vendors = {},
+    }
+
+    local c1 = UI.ObjectiveContext({ text = "Gorishi Scent Gland: 0/1", type = "item", finished = false }, step)
+    check("obj context: lists top 3 mob droppers + overflow count",
+        c1 == "Kill: Gorishi Wasp, Gorishi Worker, Gorishi Reaver (+2)", tostring(c1))
+
+    local c2 = UI.ObjectiveContext({ text = "Un'Goro Soil: 0/5", type = "item", finished = false }, step)
+    check("obj context: names ground object when different from item name",
+        c2 == "Loot: Un'Goro Dirt Pile", tostring(c2))
+
+    local c3 = UI.ObjectiveContext({ text = "Vessel of Tainted Blood: 0/10", type = "item", finished = false }, step)
+    check("obj context: labels same-name ground object clearly",
+        c3 == "Loot ground object", tostring(c3))
+
+    local c4 = UI.ObjectiveContext({ text = "Mixed Relic: 0/3", type = "item", finished = false }, step)
+    check("obj context: combines ground object and mob droppers",
+        c4 == "Loot: Strange Mound  ·  or kill Hive Drone, Hive Guard", tostring(c4))
+
+    local c5 = UI.ObjectiveContext({ text = "Highvale Scout slain: 1/15", type = "monster", finished = false }, step)
+    check("obj context: stays silent on already-obvious slain objectives", c5 == nil, tostring(c5))
+
+    local c6 = UI.ObjectiveContext({ text = "Gorishi Scent Gland: 1/1", type = "item", finished = true }, step)
+    check("obj context: hides once objective is finished", c6 == nil, tostring(c6))
+
+    -- Fallback without Questie: reads step.mobItem / step.mobs
+    local stepBaked = { verb = "complete", quest = 99999, mobs = { "Sand Crawler", "Crusty Crab" }, mobItem = { ["Sand Crawler"] = "Crawler Meat" } }
+    local c7 = UI.ObjectiveContext({ text = "Crawler Meat: 0/6", type = "item", finished = false }, stepBaked)
+    check("obj context: falls back to guide |mobs Mob@Item when Questie has no entry",
+        c7 == "Kill: Sand Crawler", tostring(c7))
+
+    -- Target.MobsFor live Questie fallback when step has no |mobs (e.g. out-of-zone Bungle in the Jungle)
+    MOCK.addQuest(4496, "Bungle in the Jungle", { { text = "Gorishi Scent Gland: 0/1", finished = false } })
+    MOCK.fire("QUEST_LOG_UPDATE")
+    local mobs = TG.MobsFor(step)
+    check("target button: pulls live Questie droppers when step has no |mobs",
+        #mobs == 3 and mobs[1] == "Gorishi Wasp", table.concat(mobs, ","))
+    MOCK.turnIn(4496) MOCK.done[4496] = nil
+
+    QB.ObjectiveSource = savedObjSrc
+    QB.QuestMobs = savedQMobs
+end
+
 check("no runtime errors", #MOCK.errors == 0, MOCK.errors[1])
 print(("%d passed, %d failed"):format(pass, fail))
 return fail

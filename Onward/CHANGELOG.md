@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.9.3
+
+- **Lucide icon overhaul:** Replaced all 17 UI icons with crisp 64×64 Lucide sprites (ISC license,
+  credited in `CREDITS.txt`), including a new speech-bubble icon (`talk.tga`) on the Target button
+  when targeting an NPC to talk to.
+- **Objective source context:** Unfinished, non-obvious objectives now display what to kill, loot,
+  click, or buy right under the objective row (e.g. `Kill: Gorishi Wasp, Gorishi Worker, Gorishi
+  Reaver (+4)` and `Loot: Un'Goro Dirt Pile`), staying silent on already-obvious `slain` lines.
+  Vague event or zero-objective steps with no guide note fall back to a concise quest-log summary.
+- **Live Target button fallback:** `Target.lua` now pulls unfinished mob droppers live from Questie
+  when a step has no baked `|mobs` list (restoring the Target button on out-of-zone objectives like
+  *Bungle in the Jungle* and in the Quest Log smart guide).
+
 ## 0.9.2
 
 - Fixed auto-accept requiring a second click on quest givers:

@@ -15,5 +15,8 @@ Quest data
 Optional integrations
   Questie and TomTom are used when installed; neither is bundled.
 
+Icons
+  UI icons in media/ are rendered from Lucide (https://lucide.dev), licensed under the ISC License.
+
 Source
   The addon ships as plain Lua: every file in this folder is its own source code.

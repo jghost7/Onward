@@ -958,7 +958,7 @@ end
 
 -- a small icon at the start of a detail line, in the colour of that line's information
 local function glyph(name, c)
-    return ("|T%s%s:11:11:0:0:32:32:0:32:0:32:%d:%d:%d|t "):format(MEDIA, name, c[1] * 255, c[2] * 255, c[3] * 255)
+    return ("|T%s%s:11:11:0:0:64:64:0:64:0:64:%d:%d:%d|t "):format(MEDIA, name, c[1] * 255, c[2] * 255, c[3] * 255)
 end
 UI.Glyph = glyph
 
@@ -1078,6 +1078,93 @@ local function questProgress(q)
     if all and #(e.objectives or {}) > 0 then return "|cff66d973done|r" end
     return need > 0 and (have .. "/" .. need) or ""
 end
+
+local function joinSome(list, limit)
+    local n = #list
+    if n == 0 then return "" end
+    local take = math.min(n, limit or 3)
+    local out = {}
+    for i = 1, take do out[i] = list[i] end
+    local s = table.concat(out, ", ")
+    if n > take then s = s .. (" (+%d)"):format(n - take) end
+    return s
+end
+
+-- Short context line for an unfinished, non-obvious objective ("Kill: Gorishi Wasp, ...",
+-- "Loot: Un'Goro Dirt Pile", "Loot ground object", "Buy from: ..."). Returns nil when the
+-- objective already names its target clearly (e.g. "Highvale Scout slain").
+local function objectiveContext(o, step)
+    if not (o and step and step.quest) or o.finished then return nil end
+    local name = splitObjective(o)
+    if not name or name == "" then return nil end
+    local low = name:lower()
+    local isKillText = low:find(" slain$") ~= nil or low:find(" killed$") ~= nil
+    local src = W.QuestieBridge and W.QuestieBridge.ObjectiveSource
+        and W.QuestieBridge:ObjectiveSource(step.quest, name, o.type)
+    if isKillText and not (src and src.kind == "killcredit") then return nil end
+    local mobs = src and src.mobs or {}
+    local objs = src and src.objs or {}
+    local vendors = src and src.vendors or {}
+    -- Fallback without Questie: guide-baked |mobs Mob@Item entries
+    if #mobs == 0 and #objs == 0 and step.mobs and #step.mobs > 0 and o.type ~= "event" then
+        local matched = {}
+        if step.mobItem then
+            for _, m in ipairs(step.mobs) do
+                local item = step.mobItem[m]
+                if item and item:lower() == low then matched[#matched + 1] = m end
+            end
+        elseif not isKillText then
+            local e = QS:Get(step.quest)
+            if e and e.objectives and #e.objectives == 1 then matched = step.mobs end
+        end
+        if #matched > 0 then mobs = matched end
+    end
+    if src and src.kind == "monster" then
+        if #mobs == 1 and low:find(mobs[1]:lower(), 1, true) then return nil end
+        return #mobs > 0 and ("Kill: " .. joinSome(mobs, 3)) or nil
+    elseif src and src.kind == "object" then
+        if #objs == 0 then return "Click ground object" end
+        if low:find(objs[1]:lower(), 1, true) then return "Click ground object" end
+        return "Click: " .. joinSome(objs, 2)
+    end
+    if #objs > 0 and #mobs > 0 then
+        local oPart = (objs[1]:lower() == low) and "ground object" or joinSome(objs, 2)
+        return "Loot: " .. oPart .. "  ·  or kill " .. joinSome(mobs, 2)
+    elseif #objs > 0 then
+        if #objs == 1 and objs[1]:lower() == low then return "Loot ground object" end
+        return "Loot: " .. joinSome(objs, 2)
+    elseif #mobs > 0 then
+        if #mobs == 1 and low:find(mobs[1]:lower(), 1, true) then return nil end
+        return "Kill: " .. joinSome(mobs, 3)
+    elseif #vendors > 0 then
+        return "Buy from: " .. joinSome(vendors, 2)
+    end
+end
+UI.ObjectiveContext = objectiveContext
+
+-- Concise quest-log objective summary fallback for unexplained complete steps (0 objectives or
+-- vague event objectives with no guide note / Questie source).
+local function fallbackObjectiveSummary(step, shownAnyContext)
+    if shownAnyContext or not (step and step.quest) then return nil end
+    if step.note and step.note ~= "" then return nil end
+    if G:QuestHint(step.quest) then return nil end
+    local e = QS:Get(step.quest)
+    local needSummary = not (e and e.objectives and #e.objectives > 0)
+    if not needSummary then
+        for _, o in ipairs(e.objectives) do
+            if not o.finished and o.type == "event" then needSummary = true break end
+        end
+    end
+    if not needSummary then return nil end
+    local txt = QS:ObjectiveText(step.quest)
+    if type(txt) ~= "string" then return nil end
+    txt = txt:gsub("%s+", " "):match("^%s*(.-)%s*$")
+    if txt == "" or #txt < 8 then return nil end
+    if #txt > 140 then txt = txt:sub(1, 137):gsub("%s+%S*$", "") .. "..." end
+    return txt
+end
+
+UI.FallbackObjectiveSummary = fallbackObjectiveSummary
 
 -- the action strip shows when there's a mob or NPC to target or an item to use, unless the buttons live
 -- in the dock (Options > Navigation)
@@ -1365,6 +1452,7 @@ function UI:Render()
         anchor = l
         h = h + l:GetStringHeight() + (gap or 3)
     end
+    local shownContext = false
     local function objective(o, s)
         nr = nr + 1
         local r = objRow(nr)
@@ -1390,6 +1478,11 @@ function UI:Render()
         r:SetHeight((need and need > 1) and 20 or 16)
         r:Show()
         place(r, nr == 1 and 8 or 4, r:GetHeight())
+        local ctx = UI.ObjectiveContext(o, s)
+        if ctx then
+            shownContext = true
+            line(ctx, C.sub, 1)
+        end
         local drop = W.Drops and W.Drops:Line(o, s.quest)
         if drop then line(drop, C.dim, 1) end
     end
@@ -1423,6 +1516,8 @@ function UI:Render()
                 and (not matchedAny or (o.text and o.text:lower():find(needle, 1, true)))
             if want then objective(o, step) end
         end
+        local summary = UI.FallbackObjectiveSummary(step, shownContext)
+        if summary then line(summary, C.sub, 4) end
         hints(step.quest, true, step)
         -- the other kill/loot quests worked in the same area: one row each, objectives on hover
         local group = step.verb == "complete" and G:Group() or {}

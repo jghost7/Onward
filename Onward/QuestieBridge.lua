@@ -248,6 +248,143 @@ function QB:ItemRelatedQuests(itemId)
     end)
 end
 
+-- Count spawns for an NPC/object table (total and on a preferred uiMap) so the most common local
+-- mobs/objects surface first in objective context hints and the target button.
+local function countSpawns(spawns, preferMap)
+    local total, here = 0, 0
+    if type(spawns) ~= "table" then return 0, 0 end
+    for areaId, list in pairs(spawns) do
+        if type(list) == "table" then
+            local n = #list
+            total = total + n
+            if preferMap and ZoneDB and ZoneDB:GetUiMapIdByAreaId(areaId) == preferMap then
+                here = here + n
+            end
+        end
+    end
+    return here, total
+end
+
+local function rankedNames(ids, kind, preferMap)
+    if type(ids) ~= "table" then return {} end
+    local byName = {}
+    for _, id in pairs(ids) do
+        local name, spawns
+        if kind == "npc" then
+            local npc = QDB:GetNPC(id)
+            name, spawns = npc and npc.name, npc and npc.spawns
+        else
+            name = QDB.QueryObjectSingle and QDB.QueryObjectSingle(id, "name")
+            spawns = QDB.QueryObjectSingle and QDB.QueryObjectSingle(id, "spawns")
+        end
+        if type(name) == "string" and name ~= "" then
+            local here, total = countSpawns(spawns, preferMap)
+            local prev = byName[name]
+            if not prev or here > prev.here or (here == prev.here and total > prev.total) then
+                byName[name] = { name = name, here = here, total = total }
+            end
+        end
+    end
+    local rows = {}
+    for _, r in pairs(byName) do rows[#rows + 1] = r end
+    table.sort(rows, function(a, b)
+        if a.here ~= b.here then return a.here > b.here end
+        if a.total ~= b.total then return a.total > b.total end
+        return a.name < b.name
+    end)
+    local out = {}
+    for i, r in ipairs(rows) do out[i] = r.name end
+    return out
+end
+
+-- Per-objective source info for a quest: { kind = "item"|"object"|"killcredit"|"monster",
+-- label = string, mobs = {names}, objs = {names}, vendors = {names} }
+local sourceCache, sourceCacheMap = {}, nil
+local function questSources(q)
+    local pMap = C_Map and C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit("player")
+    if pMap ~= sourceCacheMap then
+        wipe(sourceCache)
+        sourceCacheMap = pMap
+    end
+    local cached = sourceCache[q]
+    if cached ~= nil then return cached or nil end
+    local res = call(function()
+        local quest = QDB.GetQuest(q)
+        if not quest or type(quest.ObjectiveData) ~= "table" then return end
+        local list = {}
+        for idx, o in ipairs(quest.ObjectiveData) do
+            if o.Type == "item" and o.Id and QDB.QueryItemSingle then
+                local name = QDB.QueryItemSingle(o.Id, "name")
+                local mobs = rankedNames(QDB.QueryItemSingle(o.Id, "npcDrops"), "npc", pMap)
+                local objs = rankedNames(QDB.QueryItemSingle(o.Id, "objectDrops"), "object", pMap)
+                local vendors = (#mobs == 0 and #objs == 0) and rankedNames(QDB.QueryItemSingle(o.Id, "vendors"), "npc", pMap) or {}
+                list[#list + 1] = { idx = idx, kind = "item", label = name, mobs = mobs, objs = objs, vendors = vendors }
+            elseif o.Type == "object" and o.Id then
+                local name = QDB.QueryObjectSingle and QDB.QueryObjectSingle(o.Id, "name")
+                list[#list + 1] = { idx = idx, kind = "object", label = o.Text or name, mobs = {}, objs = name and { name } or {}, vendors = {} }
+            elseif o.Type == "killcredit" and type(o.IdList) == "table" then
+                local mobs = rankedNames(o.IdList, "npc", pMap)
+                list[#list + 1] = { idx = idx, kind = "killcredit", label = o.Text, mobs = mobs, objs = {}, vendors = {} }
+            elseif o.Type == "monster" and o.Id then
+                local npc = QDB:GetNPC(o.Id)
+                local name = npc and npc.name
+                list[#list + 1] = { idx = idx, kind = "monster", label = o.Text or name, mobs = name and { name } or {}, objs = {}, vendors = {} }
+            end
+        end
+        return #list > 0 and list or nil
+    end)
+    sourceCache[q] = res or false
+    return res
+end
+
+-- Match one quest log objective (by its clean name and optional WoW type) to its Questie source row.
+function QB:ObjectiveSource(q, objName, objType)
+    local list = questSources(q)
+    if not list then return nil end
+    local needle = objName and objName:lower() or ""
+    if needle ~= "" then
+        for _, row in ipairs(list) do
+            if row.label and row.label:lower() == needle then return row end
+        end
+        for _, row in ipairs(list) do
+            local l = row.label and row.label:lower()
+            if l and (needle:find(l, 1, true) or l:find(needle, 1, true)) then return row end
+        end
+    end
+    -- single-entry fallback when the objective kind matches unambiguously
+    local match, count = nil, 0
+    for _, row in ipairs(list) do
+        local sameKind = (not objType)
+            or (objType == "item" and row.kind == "item")
+            or (objType == "object" and row.kind == "object")
+            or (objType == "monster" and (row.kind == "monster" or row.kind == "killcredit"))
+        if sameKind then match, count = row, count + 1 end
+    end
+    if count == 1 then return match end
+end
+
+-- Prioritized mob names to target for unfinished objectives of quest `q` (fallback when the guide
+-- step has no |mobs tag, e.g. out-of-zone objectives or the smart quest-log guide).
+function QB:QuestMobs(q, doneNames, limit)
+    local list = questSources(q)
+    if not list then return {} end
+    limit = limit or 6
+    local out, seen = {}, {}
+    for _, row in ipairs(list) do
+        local finished = row.label and doneNames and doneNames[row.label:lower()]
+        if not finished and row.mobs then
+            for _, name in ipairs(row.mobs) do
+                if not seen[name] then
+                    seen[name] = true
+                    out[#out + 1] = name
+                    if #out >= limit then return out end
+                end
+            end
+        end
+    end
+    return out
+end
+
 -- Party progress from Questie's own sync (works for every party member running Questie,
 -- whether or not they have Onward). Returns { [playerName] = { done = bool, have = n, need = n } }
 function QB:PartyProgress(q)
