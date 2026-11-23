@@ -4,32 +4,105 @@ local _, W = ...
 local A = {}
 W.Auto = A
 
-local ACCEPT_WINDOW = 15   -- only auto-accept quests within the next N open steps (not 100 steps ahead)
+local ACCEPT_WINDOW = 15   -- only auto-accept quests within the next N active steps (not 100 steps ahead)
+local RECENT_TTL = 1.5     -- seconds to ignore stale gossip/greeting rows for a quest we just accepted/turned in
+
+local recentAccept = {}    -- [questID] = timestamp
+local recentTurnIn = {}    -- [questID] = timestamp
+
+local function now() return GetTime and GetTime() or 0 end
+local function markRecent(tbl, q)
+    if q and q > 0 then tbl[q] = now() end
+end
+local function isRecent(tbl, q)
+    local t = q and tbl[q]
+    if not t then return false end
+    if now() - t > RECENT_TTL then
+        tbl[q] = nil
+        return false
+    end
+    return true
+end
 
 local function paused() return IsShiftKeyDown() end
 
-local function wantAccept(q)
+local function followsRecentTurnIn(step)
+    if step.pre then
+        for _, p in ipairs(step.pre) do
+            if isRecent(recentTurnIn, p) then return true end
+        end
+    end
+    if step.preAny then
+        for _, p in ipairs(step.preAny) do
+            if isRecent(recentTurnIn, p) then return true end
+        end
+    end
+    return false
+end
+
+local function wantAccept(q, skipRecent)
     if not W.db.autoAccept or paused() or not q or q == 0 then return false end
+    if skipRecent and isRecent(recentAccept, q) then return false end
     if W.db.autoAcceptAll then return true end
     local G = W.Guide
     local g = G and G:Active()
     local a = g and g.acceptOf and g.acceptOf[q]
     if not a then return false end
-    if G:IsSkipped(a) or G:IsLater(a) or G:IsComplete(a) or G:IsBehind(a) then return false end
-    for _, s in ipairs(G:Upcoming(ACCEPT_WINDOW)) do
-        if s.verb == "accept" and s.quest == q then return true end
+    if G:IsSkipped(a) or G:IsLater(a) or G:IsComplete(a) then return false end
+    local cur = G:Current()
+    if G:IsBehind(a) and cur ~= a then return false end
+    -- Immediate follow-up to a quest we just turned in: never wait on debounced WF_REFRESH or HeldReason
+    if followsRecentTurnIn(a) then return true end
+    local startIdx = (cur and cur.index) or 1
+    -- Uncompleted, unskipped accept earlier than cursor (e.g. hub NPCs visited out of order)
+    if a.index < startIdx then return true end
+    -- Scan forward without filtering on HeldReason: the NPC is literally offering this quest right now
+    local seen = 0
+    for i = startIdx, #g.steps do
+        local s = g.steps[i]
+        if s == a then return true end
+        if not (G:IsComplete(s) or G:IsSkipped(s) or G:IsLater(s) or G:IsBlocked(s)) then
+            seen = seen + 1
+            if seen >= ACCEPT_WINDOW then break end
+        end
     end
     return false
+end
+
+local function findQuestByTitle(title)
+    if not title or title == "" then return nil end
+    local G, QS = W.Guide, W.QuestState
+    local g = G and G:Active()
+    if not (g and g.acceptOf and QS) then return nil end
+    for q in pairs(g.acceptOf) do
+        if QS:Title(q) == title then return q end
+    end
 end
 
 local function wantTurnIn()
     return W.db.autoTurnIn and not paused()
 end
 
+W:On("QUEST_ACCEPTED", function(_, a, b)
+    local q = (type(b) == "number") and b or a
+    markRecent(recentAccept, q)
+end)
+
+W:On("QUEST_TURNED_IN", function(_, q)
+    markRecent(recentTurnIn, q)
+end)
+
 W:On("QUEST_DETAIL", function()
     A:ClearRewardHighlight()
     local q = GetQuestID()
-    if wantAccept(q) then AcceptQuest() end
+    if wantAccept(q) then
+        markRecent(recentAccept, q)
+        if QuestGetAutoAccept and QuestGetAutoAccept() and AcknowledgeAutoAcceptQuest then
+            AcknowledgeAutoAcceptQuest()
+        else
+            AcceptQuest()
+        end
+    end
 end)
 
 W:On("QUEST_PROGRESS", function()
@@ -42,6 +115,8 @@ W:On("QUEST_COMPLETE", function()
     if not wantTurnIn() then return end
     local choices = GetNumQuestChoices() or 0
     if choices <= 1 then
+        local q = GetQuestID and GetQuestID()
+        markRecent(recentTurnIn, q)
         GetQuestReward(1)
     else
         W.Print("pick a reward to finish this quest")
@@ -278,14 +353,14 @@ W:On("GOSSIP_SHOW", function()
     if paused() then return end
     if W.db.autoTurnIn then
         for _, info in ipairs(C_GossipInfo.GetActiveQuests() or {}) do
-            if info.isComplete and info.questID then
+            if info.isComplete and info.questID and not isRecent(recentTurnIn, info.questID) then
                 C_GossipInfo.SelectActiveQuest(info.questID)
                 return
             end
         end
     end
     for _, info in ipairs(C_GossipInfo.GetAvailableQuests() or {}) do
-        if wantAccept(info.questID) then
+        if wantAccept(info.questID, true) then
             C_GossipInfo.SelectAvailableQuest(info.questID)
             return
         end
@@ -294,15 +369,20 @@ end)
 
 -- Old-style quest greeting (NPCs that offer several quests without gossip)
 W:On("QUEST_GREETING", function()
+    A:ClearRewardHighlight()
     if paused() then return end
     if W.db.autoTurnIn then
         for i = 1, (GetNumActiveQuests() or 0) do
             local _, isComplete = GetActiveTitle(i)
-            if isComplete then SelectActiveQuest(i) return end
+            local q = GetActiveQuestID and GetActiveQuestID(i)
+            if isComplete and not isRecent(recentTurnIn, q) then SelectActiveQuest(i) return end
         end
     end
     for i = 1, (GetNumAvailableQuests() or 0) do
         local q = GetAvailableQuestInfo and select(5, GetAvailableQuestInfo(i))
-        if wantAccept(q) then SelectAvailableQuest(i) return end
+        if (not q or q == 0) and GetAvailableTitle then
+            q = findQuestByTitle(GetAvailableTitle(i))
+        end
+        if wantAccept(q, true) then SelectAvailableQuest(i) return end
     end
 end)

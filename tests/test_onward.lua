@@ -2211,6 +2211,53 @@ turnin 19950 |npc Sputter |at 1423 70.0,70.0
     check("auto-accept: refuses Later quest", not called("AcceptQuest"))
     W.cdb.later[19961] = nil
 
+    -- 8b. Auto-accept reliability: follow-up after turn-in before WF_REFRESH, stale gossip list after accept/turn-in, and out-of-order hub accept
+    W:RegisterGuide{ id = "autoflow", title = "Auto Flow", levels = { 1, 60 }, steps = [[
+accept 19981 |npc Elder |at 1423 50.0,50.0
+accept 19982 |npc Elder |at 1423 50.0,50.0
+complete 19981 |at 1423 55.0,55.0
+turnin 19981 |npc Elder |at 1423 50.0,50.0
+accept 19983 |npc Elder |at 1423 50.0,50.0 |pre 19981
+]] }
+    G:Activate("autoflow") settle()
+    -- Multi-quest NPC: accept 19981, then GOSSIP_SHOW re-fires immediately with stale 19981 still in available list
+    MOCK.now = 100
+    local savedGossip = C_GossipInfo
+    local availList = { { questID = 19981 }, { questID = 19982 } }
+    local activeList = {}
+    local selectedAvail, selectedActive = {}, {}
+    C_GossipInfo = {
+        GetAvailableQuests = function() return availList end,
+        GetActiveQuests = function() return activeList end,
+        SelectAvailableQuest = function(id) selectedAvail[#selectedAvail + 1] = id end,
+        SelectActiveQuest = function(id) selectedActive[#selectedActive + 1] = id end,
+    }
+    MOCK.fire("GOSSIP_SHOW")
+    check("auto-accept: selects first quest from gossip", selectedAvail[1] == 19981, tostring(selectedAvail[1]))
+    MOCK.calls = {} MOCK.questId = 19981 MOCK.fire("QUEST_DETAIL")
+    check("auto-accept: accepts first quest on QUEST_DETAIL", called("AcceptQuest"))
+    -- Gossip re-fires immediately BEFORE QUEST_LOG_UPDATE removes 19981 from available list or marks IsOnQuest
+    MOCK.fire("GOSSIP_SHOW")
+    check("auto-accept: skips stale just-accepted quest and selects second quest immediately",
+        selectedAvail[2] == 19982, tostring(selectedAvail[2]))
+    -- Turn in 19981 -> NPC immediately offers follow-up 19983 (|pre 19981) BEFORE IsQuestFlaggedCompleted or WF_REFRESH updates
+    MOCK.addQuest(19981, "First") MOCK.addQuest(19982, "Second")
+    MOCK.log[19981].ready = true
+    MOCK.fire("QUEST_LOG_UPDATE") settle()
+    MOCK.choices = 0 MOCK.questId = 19981 MOCK.fire("QUEST_COMPLETE")
+    -- Stale gossip re-fires with 19981 still marked isComplete AND 19983 offered (before done[19981] flips!)
+    activeList = { { questID = 19981, isComplete = true } }
+    availList = { { questID = 19983 } }
+    selectedAvail, selectedActive = {}, {}
+    MOCK.fire("GOSSIP_SHOW")
+    check("auto-accept: skips stale just-turned-in active quest", #selectedActive == 0, tostring(selectedActive[1]))
+    check("auto-accept: selects immediate follow-up before WF_REFRESH/IsDone updates",
+        selectedAvail[1] == 19983, tostring(selectedAvail[1]))
+    MOCK.calls = {} MOCK.questId = 19983 MOCK.fire("QUEST_DETAIL")
+    check("auto-accept: accepts immediate follow-up without needing re-click", called("AcceptQuest"))
+    C_GossipInfo = savedGossip
+    MOCK.turnIn(19981) MOCK.turnIn(19982) MOCK.done[19981] = nil MOCK.done[19982] = nil
+
     G:Activate(oldGuide) settle()
 end
 

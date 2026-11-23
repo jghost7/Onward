@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.9.2
+
+- Fixed auto-accept requiring a second click on quest givers:
+  - Follow-up quests offered immediately after a turn-in now auto-accept without waiting on the
+    100 ms refresh debounce or stale `HeldReason` checks.
+  - Multi-quest NPCs and turn-in + pickup NPCs now skip stale just-accepted / just-turned-in rows
+    when `GOSSIP_SHOW` or `QUEST_GREETING` re-fires before `QUEST_LOG_UPDATE`, immediately selecting
+    the next quest instead of stalling.
+  - Added title-matching fallback for `QUEST_GREETING` when `GetAvailableQuestInfo` omits the quest
+    ID, and `AcknowledgeAutoAcceptQuest()` handling for auto-accepted quests.
+
 ## 0.9.1
 
 - Added **DialogueUI** support for highest vendor sell-value quest reward highlighting: detects
