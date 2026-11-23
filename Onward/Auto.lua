@@ -27,11 +27,13 @@ local function wantTurnIn()
 end
 
 W:On("QUEST_DETAIL", function()
+    A:ClearRewardHighlight()
     local q = GetQuestID()
     if wantAccept(q) then AcceptQuest() end
 end)
 
 W:On("QUEST_PROGRESS", function()
+    A:ClearRewardHighlight()
     if wantTurnIn() and IsQuestCompletable() then CompleteQuest() end
 end)
 
@@ -78,7 +80,38 @@ local function getItemSellPrice(link)
     return sellPrice
 end
 
+local function findDialogueUIChoiceButton(index)
+    local dui = _G.DUIQuestFrame
+    if not (dui and dui:IsShown() and dui.itemButtonPool) then return nil end
+    local pool = dui.itemButtonPool
+    local found
+    if pool.ProcessActiveObjects then
+        pool:ProcessActiveObjects(function(btn)
+            if not found and btn and btn:IsShown() and btn.type == "choice" and btn.index == index then
+                found = btn
+            end
+        end)
+    elseif pool.activeObjects then
+        for _, btn in ipairs(pool.activeObjects) do
+            if btn and btn:IsShown() and btn.type == "choice" and btn.index == index then
+                return btn
+            end
+        end
+    end
+    return found
+end
+
+local function isRewardPanelShown()
+    local dui = _G.DUIQuestFrame
+    if dui and dui:IsShown() then return true end
+    local rp = _G.QuestFrameRewardPanel
+    if rp and rp:IsShown() then return true end
+    return not dui and not rp
+end
+
 local function findChoiceButton(index)
+    local duiBtn = findDialogueUIChoiceButton(index)
+    if duiBtn then return duiBtn end
     local rf = _G.QuestInfoRewardsFrame
     if rf and rf.RewardButtons then
         for _, btn in ipairs(rf.RewardButtons) do
@@ -108,7 +141,7 @@ local function getOverlay(idx)
 
         ov.pill = CreateFrame("Frame", nil, ov)
         ov.pill:SetHeight(16)
-        ov.pill:SetPoint("TOPRIGHT", ov, "TOPRIGHT", 2, 6)
+        ov.pill:SetPoint("TOPRIGHT", ov, "TOPRIGHT", -4, 6)
         ov.pillBg = S.Nine(ov.pill, "BACKGROUND", 0, S.MEDIA .. "glass_body", 64, 16, 5, 0)
         ov.pillBg:SetColor(0.05, 0.06, 0.08, 0.94)
         ov.pillRim = S.Nine(ov.pill, "BORDER", 0, S.MEDIA .. "outline", 16, 6, 5, 0)
@@ -189,26 +222,29 @@ function A:HighlightBestReward()
             ov:Show()
         end
     end
-    return winners, bestVal
+    return winners, bestVal, shown
 end
 A.rewardHighlights = rewardHighlights
 
 function A:ScheduleRewardHighlight()
-    A:HighlightBestReward()
+    local winners, bestVal, shown = A:HighlightBestReward()
     if C_Timer and C_Timer.After then
-        C_Timer.After(0, function()
-            if (GetNumQuestChoices and (GetNumQuestChoices() or 0) or 0) > 1 then
+        local function retry()
+            if isRewardPanelShown() and (GetNumQuestChoices and (GetNumQuestChoices() or 0) or 0) > 1 then
                 A:HighlightBestReward()
             end
-        end)
+        end
+        C_Timer.After(0, retry)
+        if pendingRewardInfo or not (winners and bestVal and bestVal > 0 and shown and shown > 0) then
+            C_Timer.After(0.25, retry)
+        end
     end
 end
 
 W:On("QUEST_FINISHED", function() A:ClearRewardHighlight() end)
 W:On("GET_ITEM_INFO_RECEIVED", function()
     if not pendingRewardInfo then return end
-    local rp = _G.QuestFrameRewardPanel
-    if not rp or rp:IsShown() then
+    if isRewardPanelShown() then
         A:HighlightBestReward()
     end
 end)
@@ -221,10 +257,24 @@ W:On("WF_INIT", function()
             end
         end)
     end
+    local dui = _G.DUIQuestFrame
+    if dui then
+        if hooksecurefunc and dui.RequestSellPrice then
+            hooksecurefunc(dui, "RequestSellPrice", function()
+                if dui:IsShown() and (GetNumQuestChoices and (GetNumQuestChoices() or 0) or 0) > 1 then
+                    A:HighlightBestReward()
+                end
+            end)
+        end
+        if dui.HookScript then
+            dui:HookScript("OnHide", function() A:ClearRewardHighlight() end)
+        end
+    end
 end)
 
 -- Modern gossip window (most NPCs)
 W:On("GOSSIP_SHOW", function()
+    A:ClearRewardHighlight()
     if paused() then return end
     if W.db.autoTurnIn then
         for _, info in ipairs(C_GossipInfo.GetActiveQuests() or {}) do

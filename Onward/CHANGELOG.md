@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.9.1
+
+- Added **DialogueUI** support for highest vendor sell-value quest reward highlighting: detects
+  active choice buttons inside `DUIQuestFrame.itemButtonPool`, refreshes on async item-cache loads
+  (`GET_ITEM_INFO_RECEIVED`) while DialogueUI is open, hooks `DUIQuestFrame:RequestSellPrice`, and
+  clears cleanly when DialogueUI closes or changes quest dialogs.
+
 ## 0.9.0
 
 - **Hub-and-loop guide routing overhaul (all 103 zone guides rebuilt):**

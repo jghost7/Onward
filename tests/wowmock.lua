@@ -43,6 +43,8 @@ function Obj:GetHeight() return self.h end
 function Obj:SetSize(w, h) self.w, self.h = w, h end
 function Obj:GetPoint() return "CENTER", nil, "CENTER", 0, 0 end
 function Obj:SetRotation(r) self.rotation = r end
+function Obj:SetParent(p) self.parent = p end
+function Obj:GetParent() return rawget(self, "parent") end
 function Obj:GetFrameLevel() return 1 end
 function Obj:SetVertexColor(r, g, b) self.color = { r, g, b } end
 function Obj:SetScript(k, fn) self.scripts[k] = fn end

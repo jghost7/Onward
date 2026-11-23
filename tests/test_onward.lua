@@ -2572,6 +2572,38 @@ do
     MOCK.fire("QUEST_FINISHED")
     check("reward highlight: QUEST_FINISHED clears highlight", not A.rewardHighlights[1]:IsShown())
 
+    -- 6. DialogueUI support: Blizzard QuestFrameRewardPanel is hidden, DUIQuestFrame holds choice buttons
+    _G.QuestFrameRewardPanel:Hide()
+    local dui = CreateFrame("Frame")
+    dui:Show()
+    local duiBtns = {}
+    for i = 1, 3 do
+        local b = CreateFrame("Button", nil, dui)
+        b.type = "choice"
+        b.index = i
+        b:Show()
+        duiBtns[i] = b
+    end
+    dui.itemButtonPool = {
+        ProcessActiveObjects = function(_, fn)
+            for _, b in ipairs(duiBtns) do fn(b) end
+        end
+    }
+    _G.DUIQuestFrame = dui
+    prices["item:7001"], prices["item:7002"], prices["item:7003"] = 5000, nil, 12000
+    A:HighlightBestReward()
+    check("reward highlight (DialogueUI): highlights DialogueUI button even when Blizzard panel is hidden",
+        A.rewardHighlights[1]:IsShown() and A.rewardHighlights[1]:GetParent() == duiBtns[3]
+        and A.rewardHighlights[1].choiceIndex == 3)
+    prices["item:7002"] = 31500   -- 5 * 31500 = 157500c
+    MOCK.fire("GET_ITEM_INFO_RECEIVED", 7002, true)
+    check("reward highlight (DialogueUI): refreshes on GET_ITEM_INFO_RECEIVED while DUIQuestFrame is shown",
+        A.rewardHighlights[1]:IsShown() and A.rewardHighlights[1]:GetParent() == duiBtns[2]
+        and A.rewardHighlights[1].choiceIndex == 2 and A.rewardHighlights[1].sellValue == 157500)
+    MOCK.fire("QUEST_FINISHED")
+    check("reward highlight (DialogueUI): clears on QUEST_FINISHED", not A.rewardHighlights[1]:IsShown())
+    _G.DUIQuestFrame = nil
+
     -- restore mock state
     MOCK.choices = saved.choices
     GetQuestItemLink, GetQuestItemInfo, C_Item.GetItemInfo = saved.GetQuestItemLink, saved.GetQuestItemInfo, saved.GetItemInfo
