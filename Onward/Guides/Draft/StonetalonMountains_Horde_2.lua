@@ -1,4 +1,4 @@
--- DRAFT Stonetalon Mountains (Horde) generated 2026-11-21 by tools/draft_guide.py
+-- DRAFT Stonetalon Mountains (Horde) generated 2026-11-22 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -7,11 +7,11 @@ Onward:RegisterGuide{
   steps = [[
 home |npc Innkeeper Jayka |at 1442 47.5,62.1  -- set your hearthstone at the inn
 accept 6282 |npc Maggran Earthbinder |at 1442 47.2,61.2 |lvl 18  -- Harpies Threaten (26)
-accept 86576 |npc Maggran Earthbinder |at 1442 47.2,61.2 |value mid |lvl 18  -- Bloodfury Trinkets (26)
+accept 86576 |npc Maggran Earthbinder |at 1442 47.2,61.2 |lvl 18  -- Bloodfury Trinkets (26)
 accept 5881 |npc Maggran Earthbinder |at 1442 47.2,61.2 |lvl 23  -- Calling in the Reserves (28)
-complete 86576 |at 1442 32.2,64.9 |mobs Bloodfury Windcaller@Glittering Sunstone;Bloodfury Storm Witch@Glittering Sunstone;Bloodfury Harpy@Glittering Sunstone;Bloodfury Roguefeather@Glittering Sunstone |value mid  -- Bloodfury Trinkets (26)
+complete 86576 |at 1442 32.2,64.9 |mobs Bloodfury Windcaller@Glittering Sunstone;Bloodfury Storm Witch@Glittering Sunstone;Bloodfury Harpy@Glittering Sunstone;Bloodfury Roguefeather@Glittering Sunstone  -- Bloodfury Trinkets (26)
 complete 6282 |at 1442 31.9,66.5 |mobs Bloodfury Harpy;Bloodfury Ambusher;Bloodfury Slayer;Bloodfury Roguefeather  -- Harpies Threaten (26)
-turnin 86576 |npc Mor'rogal |at 1442 47.2,64.0 |value mid  -- Bloodfury Trinkets (26)
+turnin 86576 |npc Mor'rogal |at 1442 47.2,64.0  -- Bloodfury Trinkets (26)
 turnin 6282 |npc Maggran Earthbinder |at 1442 47.2,61.2  -- Harpies Threaten (26)
 accept 6283 |npc Maggran Earthbinder |at 1442 47.2,61.2 |group elite |lvl 18 |preany 6282  -- Bloodfury Bloodline (26)
 accept 1088 |npc Braelyn Firehand |at 1442 45.9,60.4 |lvl 20 |preany 1087  -- Ordanus (29)
@@ -34,13 +34,12 @@ turnin 97538 |npc Tah Winterhoof |at 1456 54.1,47.0 |value low  -- Pigments for 
 turnin 5881 |npc Grish Longrunner |at 1441 31.9,21.7  -- Calling in the Reserves (28)
 complete 1088 |at 1440 62.0,51.4  -- Ordanus (29)
 turnin 1088 |npc Braelyn Firehand |at 1442 45.9,60.4  -- Ordanus (29)
-accept 1089 |npc Braelyn Firehand |at 1442 45.9,60.4 |lvl 20 |preany 1088  -- The Den (29)
-complete 1089 |at 1442 29.9,15.4 |pick 5687 |note First get Gatekeeper's Key at Gatekeeper's Hold  -- The Den (29)
-complete 1089 |at 1442 28.0,13.8  -- The Den (29)
-turnin 1089 |npc Talon Den Hoard |at 1442 26.6,10.9  -- The Den (29)
+accept 1089 |npc Braelyn Firehand |at 1442 45.9,60.4 |group elite |lvl 20 |preany 1088  -- The Den (29)
+complete 1089 |at 1442 29.9,15.4 |pick 5687 |note First get Gatekeeper's Key at Gatekeeper's Hold |group elite  -- The Den (29)
+complete 1089 |at 1442 28.0,13.8 |group elite  -- The Den (29)
+turnin 1089 |npc Talon Den Hoard |at 1442 26.6,10.9 |group elite  -- The Den (29)
 turnin 79974 |npc Carved Figurine |at 1432 49.4,12.9  -- Wet Job (32)
 ]]}
 
 -- Not routed (far above the zone's level range, or no reachable path):
---   80001  Rekindle (40)
 --   97446  Your First Riding Kodo (40)

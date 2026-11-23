@@ -160,10 +160,16 @@ def select(Q, scores, mode):
     if mode == "all" or not Q:
         return set(Q)
     total_xp = sum(s["normXp"] for s in scores.values()) or 1
-    bar = THRESHOLDS[mode] * median(s["normRate"] for s in scores.values())
-    for _ in range(30):                     # lower the bar until enough of the zone's XP is kept
+    solo = {qid for qid, q in Q.items() if not q.get("group")}
+    solo_xp = sum(scores[qid]["normXp"] for qid in solo)
+    # Compute the median rate over solo quests when available so heavy-elite zones don't skew solo selection
+    rate_pool = [scores[qid]["normRate"] for qid in solo] if len(solo) >= 5 else [s["normRate"] for s in scores.values()]
+    bar = THRESHOLDS[mode] * median(rate_pool)
+    for _ in range(30):                     # lower the bar until enough of the zone's XP (and solo XP) is kept
         keep = _select(Q, scores, bar)
-        if sum(scores[q]["normXp"] for q in keep) / total_xp >= MIN_XP_SHARE[mode]:
+        ok_all = sum(scores[q]["normXp"] for q in keep) / total_xp >= MIN_XP_SHARE[mode]
+        ok_solo = not solo_xp or (sum(scores[q]["normXp"] for q in keep if q in solo) / solo_xp >= MIN_XP_SHARE[mode])
+        if ok_all and ok_solo:
             return keep
         bar *= 0.9
     return keep
@@ -202,7 +208,8 @@ def _select(Q, scores, bar):
 def tiers(zone, Q, steps):
     """{questId: 0 always | 1 dropped in fastest | 2 dropped in efficient and fastest}, scores, report"""
     sc = score(zone, Q, steps)
-    eff, fast = select(Q, sc, "efficient"), select(Q, sc, "fastest")
+    fast = select(Q, sc, "fastest")
+    eff = select(Q, sc, "efficient") | fast
     tier = {qid: 0 if qid in fast else (1 if qid in eff else 2) for qid in Q}
     total_xp = sum(s["xp"] for s in sc.values()) or 1
     total_s = sum(s["seconds"] for s in sc.values()) or 1

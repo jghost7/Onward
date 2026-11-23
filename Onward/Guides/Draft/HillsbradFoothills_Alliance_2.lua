@@ -1,4 +1,4 @@
--- DRAFT Hillsbrad Foothills (Alliance) generated 2026-11-21 by tools/draft_guide.py
+-- DRAFT Hillsbrad Foothills (Alliance) generated 2026-11-22 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -6,19 +6,19 @@ Onward:RegisterGuide{
   levels = { 34, 40 },
   steps = [[
 home |npc Innkeeper Anderson |at 1424 51.2,58.9  -- set your hearthstone at the inn
-accept 564 |npc Darren Malvew |at 1424 52.4,56.0 |value mid |lvl 30  -- Costly Menace (34)
-accept 565 |npc Bartolo Ginsetti |at 1424 49.4,55.5 |value mid |lvl 29  -- Bartolo's Yeti Fur Cloak (34)
-complete 565 |at 1424 44.5,31.2 |mobs Cave Yeti@Yeti Fur;Ferocious Yeti@Yeti Fur |need 2321:1:Fine Thread:sold by Micha Yance in Hillsbrad Foothills and other vendors;3719:1:Hillman's Cloak:made with Leatherworking, so buy it at the auction house or ask a crafter |value mid  -- Bartolo's Yeti Fur Cloak (34)
-complete 564 |at 1424 38.8,24.6 |mobs Mountain Lion;Hulking Mountain Lion |value mid  -- Costly Menace (34)
-turnin 565 |npc Bartolo Ginsetti |at 1424 49.4,55.5 |value mid  -- Bartolo's Yeti Fur Cloak (34)
-accept 95787 |npc Loremaster Dibbs |at 1424 50.6,57.1 |lvl 30 |preany 95786  -- Take Two With Water (40)
-accept 95788 |npc Loremaster Dibbs |at 1424 50.6,57.1 |lvl 30 |preany 95786  -- Magics of the Drowned City (40)
-complete 95787  -- Take Two With Water (40)
-turnin 95787 |npc Loremaster Dibbs |at 1424 50.6,57.1  -- Take Two With Water (40)
-complete 95788  -- Magics of the Drowned City (40)
-turnin 95788 |npc Loremaster Dibbs |at 1424 50.6,57.1  -- Magics of the Drowned City (40)
+accept 564 |npc Darren Malvew |at 1424 52.4,56.0 |lvl 30  -- Costly Menace (34)
+accept 565 |npc Bartolo Ginsetti |at 1424 49.4,55.5 |lvl 29  -- Bartolo's Yeti Fur Cloak (34)
+complete 564 |at 1424 38.8,24.6 |mobs Mountain Lion;Hulking Mountain Lion  -- Costly Menace (34)
+complete 565 |at 1424 44.5,31.2 |mobs Cave Yeti@Yeti Fur;Ferocious Yeti@Yeti Fur |need 2321:1:Fine Thread:sold by Micha Yance in Hillsbrad Foothills and other vendors;3719:1:Hillman's Cloak:made with Leatherworking, so buy it at the auction house or ask a crafter  -- Bartolo's Yeti Fur Cloak (34)
+turnin 565 |npc Bartolo Ginsetti |at 1424 49.4,55.5  -- Bartolo's Yeti Fur Cloak (34)
+accept 95787 |npc Loremaster Dibbs |at 1424 50.6,57.1 |group dungeon |lvl 30 |preany 95786  -- Take Two With Water (40)
+turnin 564 |npc Darren Malvew |at 1424 52.4,56.0  -- Costly Menace (34)
+accept 95788 |npc Loremaster Dibbs |at 1424 50.6,57.1 |group dungeon |lvl 30 |preany 95786  -- Magics of the Drowned City (40)
+complete 95787 |group dungeon  -- Take Two With Water (40)
+turnin 95787 |npc Loremaster Dibbs |at 1424 50.6,57.1 |group dungeon  -- Take Two With Water (40)
+complete 95788 |group dungeon  -- Magics of the Drowned City (40)
+turnin 95788 |npc Loremaster Dibbs |at 1424 50.6,57.1 |group dungeon  -- Magics of the Drowned City (40)
 accept 99326 |note No quest giver on record: it most likely starts from an item you loot or find in this zone |loose |race Human |lvl 40 |exclusive 95511,96996,97017,97045,97046,97171,98166  -- Your First Horse (40)
-turnin 564 |npc Darren Malvew |at 1424 52.4,56.0 |value mid  -- Costly Menace (34)
 complete 99326 |at 1424 52.3,55.6 |mobs Brown Horse |race Human  -- Your First Horse (40)
 turnin 99326 |race Human  -- Your First Horse (40)
 accept 658 |npc Quae |at 1417 60.2,53.9 |lvl 30 |preany 659  -- Hints of a New Plague? (36)

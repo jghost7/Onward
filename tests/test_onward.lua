@@ -1350,13 +1350,29 @@ check("guides parse without warnings", warnings == 0, MOCK.printed[1])
 check("every guide parses every line", #mismatched == 0, mismatched[1])
 check("every step has a quest", noQuest == 0, noQuest)
 W.Guide:Activate("elwynn-forest-a") settle()
-local sawNote, sawRace = false, false
+local sawNote = false
 for _, s in ipairs(W.Guide:Active().steps) do
-    if s.quest == 5805 then sawRace = true end
     if s.note and s.note:find("%-%-") then sawNote = true end
+end
+W.Guide:Activate("westfall-a") settle()
+local sawRace = false
+for _, s in ipairs(W.Guide:Active().steps) do
+    if s.quest == 6181 then sawRace = true end
 end
 check("race filter keeps Human-only quest for a Human", sawRace)
 check("trailing comments never leak into notes", not sawNote)
+-- Hidden elite quests (including object-loot / talk-to / summoned-boss elites in Hinterlands)
+local prevFac, prevGrp = MOCK.faction, W.db.groupQuests
+MOCK.faction = "Horde"
+W.db.groupQuests = "hide"
+W.Guide:Activate("the-hinterlands-h") settle()
+local leakedElite = {}
+local hiddenElites = { [7850] = true, [7849] = true, [7845] = true, [2937] = true }
+for _, s in ipairs(W.Guide:Active().steps) do
+    if hiddenElites[s.quest] then leakedElite[#leakedElite + 1] = s.quest end
+end
+check("groupQuests=hide removes Hinterlands object/talk/summon elites", #leakedElite == 0, table.concat(leakedElite, ","))
+MOCK.faction, W.db.groupQuests = prevFac, prevGrp
 print(("parsed %d guides, %d steps"):format(nGuides, nSteps))
 
 -- class/race eligibility: Forever's Skyborne by race ID, chains inherit their prerequisite's limits

@@ -1,7 +1,25 @@
 # Changelog
 
-## 0.8.4
+## 0.9.0
 
+- **Hub-and-loop guide routing overhaul (all 103 zone guides rebuilt):**
+  - Guides now start at the zone's main quest hub instead of lone roadside edge quests, flush all
+    ready turn-ins and new pickups in a single town pass (`flush_hubs()`), batch nearby objectives
+    into clean regional loops (`REGION_R = 9`, stronger area-change penalties), and group
+    out-of-zone errands into a zone- and continent-ordered tour at the end.
+- **Complete Elite, Dungeon, and Raid quest hiding:**
+  - Merged Questie's Classic Era quest tag corrections (`Elite`, `Dungeon`, `Raid`, `Heroic`) with
+    NPC-rank and instance detection, fixing 115 previously untagged object-loot, talk-to, and
+    summoned-boss elite/dungeon quests (e.g. *Separation Anxiety*, *Dark Vessels*,
+    *Kidnapped Elder Torntusk!*, *Summoning Shadra*, Uldaman, Gnomeregan, Zul'Farrak, and Forever
+    dungeon quests) so **Elite and dungeon quests: Hide** reliably hides them and their follow-ups.
+- **Removed dead and Season of Discovery quests:**
+  - Applied Questie's WoW Forever quest blacklist and filtered `"no longer available"` entries,
+    removing 77 unreachable/promo/SoD quests (including 54 Nightmare Incursion missions in
+    Hinterlands, Feralas, and Duskwood).
+- **Improved `Efficient` and `Fastest` quest value scoring:**
+  - Computes zone median XP/min and the 85% / 60% XP floor against solo quests too, so heavy-elite
+    zones never starve solo players when elites are hidden.
 - Fixed rapid hover flashing on the step card's **Later** and **Done** buttons: **Done** now stays
   steadily visible beside **Later** on expanded cards instead of shifting layout on hover.
 

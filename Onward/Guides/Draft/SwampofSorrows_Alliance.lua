@@ -1,4 +1,4 @@
--- DRAFT Swamp of Sorrows (Alliance) generated 2026-11-21 by tools/draft_guide.py
+-- DRAFT Swamp of Sorrows (Alliance) generated 2026-11-22 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -14,6 +14,8 @@ accept 93176 |npc Amaryllis Webb |at 1435 25.2,54.0 |lvl 25  -- My Little Friend
 accept 93429 |npc Karana |at 1435 24.7,32.6 |lvl 30  -- Blood of My Blood (35)
 accept 1389 |npc Magtoor |at 1435 26.0,31.4 |lvl 30  -- Draenethyst Crystals (35)
 accept 93430 |npc Pelluk |at 1435 26.5,30.4 |lvl 30  -- Taking the Bait Back (35)
+complete 93585  -- This Light of Mine (34)
+turnin 93585 |npc Magtoor |at 1435 26.0,31.4  -- This Light of Mine (34)
 complete 1421 |at 1435 64.5,18.3  -- The Lost Caravan (35)
 accept 1393 |npc Galen Goodward |at 1435 65.5,18.2 |lvl 30  -- Galen's Escape (38)
 complete 93429 |at 1435 65.1,22.4  -- Blood of My Blood (35)
@@ -23,10 +25,8 @@ complete 93430 |at 1435 53.7,30.6 |mobs Lost One Fisherman@Lucky Lure  -- Taking
 complete 1393 |at 1435 53.1,29.6  -- Galen's Escape (38)
 turnin 93430 |npc Pelluk |at 1435 26.5,30.4  -- Taking the Bait Back (35)
 turnin 1389 |npc Magtoor |at 1435 26.0,31.4  -- Draenethyst Crystals (35)
-accept 93464 |npc Magtoor |at 1435 26.0,31.4 |lvl 30 |preany 1389  -- The Visiting Mage (38)
 turnin 1392 |npc Magtoor |at 1435 26.0,31.4  -- Noboru the Cudgel (39)
-complete 93585  -- This Light of Mine (34)
-turnin 93585 |npc Magtoor |at 1435 26.0,31.4  -- This Light of Mine (34)
+accept 93464 |npc Magtoor |at 1435 26.0,31.4 |lvl 30 |preany 1389  -- The Visiting Mage (38)
 turnin 93429 |npc Karana |at 1435 24.7,32.6  -- Blood of My Blood (35)
 turnin 1421 |npc Watcher Biggs |at 1435 26.7,59.8  -- The Lost Caravan (35)
 accept 1398 |npc Watcher Biggs |at 1435 26.7,59.8 |value low |lvl 30 |preany 1421  -- Driftwood (42)
@@ -34,8 +34,8 @@ turnin 1393 |npc Galen's Strongbox |at 1435 47.8,39.8  -- Galen's Escape (38)
 complete 1398 |at 1435 91.9,68.6 |areas 84.8,87.7:5;91.9,68.6:5;90.0,25.9:4;80.5,9.4:3 |value low  -- Driftwood (42)
 complete 93176 |at 1435 62.9,67.6 |item 213565 |mobs Deathstrike Tarantula  -- My Little Friends (35)
 turnin 1398 |npc Watcher Biggs |at 1435 26.7,59.8 |value low  -- Driftwood (42)
-accept 94929 |npc Watcher Biggs |at 1435 26.7,59.8 |value low |lvl 36 |preany 1398  -- Deliver the Second Shipment (38)
 accept 1425 |npc Watcher Biggs |at 1435 26.7,59.8 |value low |lvl 30 |preany 1398  -- Deliver the Shipment (42)
+accept 94929 |npc Watcher Biggs |at 1435 26.7,59.8 |value low |lvl 36 |preany 1398  -- Deliver the Second Shipment (38)
 turnin 93176 |npc Amaryllis Webb |at 1435 25.2,54.0  -- My Little Friends (35)
 turnin 1425 |npc Quartermaster Lungertz |at 1419 66.5,21.4 |value low  -- Deliver the Shipment (42)
 turnin 94929 |npc Demar Brant |at 2548 66.7,81.0 |value low  -- Deliver the Second Shipment (38)

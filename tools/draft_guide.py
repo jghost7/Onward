@@ -18,7 +18,7 @@ import math
 import pathlib
 import re
 
-from questiedb import NPC, QuestieDB, area_to_uimap, lua_list
+from questiedb import FOREVER, NPC, QuestieDB, area_to_uimap, lua_list
 
 NPC_FLAGS = NPC["npcFlags"]
 
@@ -96,12 +96,16 @@ class Zone:
         self.dungeon_maps = dungeon_maps()
         self.quests = {}
         fixes = quest_fixes()
+        black = questie_blacklist()
         for q in (qids if qids is not None else db.ids("Quest-")):
             if quest_zone(db, q) not in self.areas:
                 continue
-            if fixes.get(q, {}).get("drop"):
+            if fixes.get(q, {}).get("drop") or q in black:
                 continue
             if (db.quest(q, "questLevel") or 0) <= 0:        # promo / war-effort / unlevelled quests
+                continue
+            raw_text = " ".join(s(t) or "" for t in lua_list(db.quest(q, "objectivesText")))
+            if "no longer available within the game" in raw_text.lower():
                 continue
             races = db.quest(q, "requiredRaces")
             if races and not (races & self.bit):
@@ -174,8 +178,13 @@ class Zone:
         return {self.a2m.get(a) for a, lst in (as_area_map(spawns) or {}).items() if lst}
 
     def own_group(self, q):
-        """"elite" when the quest's targets are elite (every mob that drops a quest item, or any
-        kill target), "dungeon" when they only live inside an instance, else None."""
+        """"elite" when the quest is tagged Elite in Classic Era (Questie's tag corrections) or its
+        targets are elite (every mob that drops a quest item, or any kill target); "dungeon" when
+        tagged Dungeon/Raid/Heroic or targets only live inside an instance; else None."""
+        kinds = set()
+        tag = questie_era_tags().get(q)
+        if tag:
+            kinds.add(tag)
         obj = self.db.quest(q, "objectives")
         groups = obj if isinstance(obj, dict) else dict(enumerate(lua_list(obj), 1))
         kills = [lua_list(e)[0] for e in lua_list(groups.get(1))]
@@ -185,7 +194,6 @@ class Zone:
         # elite, rare elite or boss, and an enemy: talk-to and escort credit often names friendly elites
         elite = lambda n: (self.db.npc(n, "rank") or 0) in (1, 2, 3) and me not in (self.db.npc(n, "friendlyToFaction") or b"")             and (self.db.npc(n, "minLevel") or 0) < 100        # 9999 = scripted story NPC
         inside = lambda maps: bool(maps) and maps <= self.dungeon_maps
-        kinds = set()
         for n in kills:
             if inside(self.spawn_maps(self.db.npc(n, "spawns"))):
                 kinds.add("dungeon")
@@ -699,7 +707,7 @@ class Zone:
         """Resolve mutually exclusive quests cleanly (preferring real quests over breadcrumbs,
         in-zone starters over out-of-zone starters, then lower ID) and cascade-drop any quest whose
         required prerequisites were dropped (including via quest_fixes.json)."""
-        dropped = {q for q, f in quest_fixes().items() if f.get("drop")}
+        dropped = {q for q, f in quest_fixes().items() if f.get("drop")} | questie_blacklist()
 
         def rank(qid):
             info = self.quests[qid]
@@ -766,6 +774,81 @@ _SPOTS = {}
 
 
 _FIXES = None
+_BLACKLIST = None
+_ERA_TAGS = None
+
+
+def questie_blacklist():
+    """Quest IDs blacklisted by Questie for WoW Forever (Classic Era, IsForever=True, IsSoD=False):
+    removed/duplicate quests, Collector's Edition promos, world events, and SoD Nightmare Incursions.
+    Keeps HIDE_ON_MAP quests (real Forever quests merely hidden from map pins)."""
+    global _BLACKLIST
+    if _BLACKLIST is not None:
+        return _BLACKLIST
+    out = set()
+    path = FOREVER / "Questie" / "Database" / "Corrections" / "QuestieQuestBlacklist.lua"
+    if path.exists():
+        txt = path.read_text(encoding="utf-8", errors="ignore")
+        if "function QuestieQuestBlacklist:Load()" in txt:
+            body = txt.split("function QuestieQuestBlacklist:Load()", 1)[1].split("\nend\n", 1)[0]
+            active_for_forever = {
+                "true",
+                "Expansions.Current < Expansions.Cata",
+                "Expansions.Current < Expansions.Wotlk",
+                "Expansions.Current == Expansions.Era or Expansions.Current >= Expansions.Cata",
+                "Expansions.Current == Expansions.Era or Expansions.Current >= Expansions.Wotlk",
+                "Expansions.Current >= Expansions.Cata or Questie.IsForever",
+                "Expansions.Current ~= Expansions.Wotlk",
+                "not Questie.IsChinaRegion",
+                "not Questie.IsSoD",
+            }
+            for line in body.splitlines():
+                m = re.match(r"^\s*\[(\d+)\]\s*=\s*(.+?)(?:,|\s*--|$)", line)
+                if m:
+                    val = m.group(2).split("--")[0].strip().rstrip(",")
+                    if val in active_for_forever:
+                        out.add(int(m.group(1)))
+    _BLACKLIST = out
+    return _BLACKLIST
+
+
+def questie_era_tags():
+    """{questId: 'elite' | 'dungeon'} from Questie's Classic Era questTagInfoCorrections.lua
+    (GPL-3.0). Catches object-loot, talk-to, and summoned-boss Elite/Dungeon/Raid quests whose
+    objectives don't directly list hostile elite NPCs."""
+    global _ERA_TAGS
+    if _ERA_TAGS is not None:
+        return _ERA_TAGS
+    out = {}
+    path = FOREVER / "Questie" / "Database" / "Corrections" / "questTagInfoCorrections.lua"
+    if path.exists():
+        era_conds = (
+            "Expansions.Current == Expansions.Era",
+            "Expansions.Current <= Expansions.Era",
+            "Expansions.Current < Expansions.Tbc",
+            "Expansions.Current < Expansions.Wotlk",
+            "Expansions.Current <= Expansions.Wotlk",
+            "Expansions.Current < Expansions.Cata",
+            "Expansions.Current < Expansions.MoP",
+        )
+        for line in path.read_text(encoding="utf-8", errors="ignore").splitlines():
+            m = re.match(r"^\s*\[(\d+)\]\s*=\s*(.+?),?\s*(?:--.*)?$", line)
+            if not m:
+                continue
+            expr = m.group(2).strip()
+            tm = re.search(r"\{(\d+)\s*,", expr)
+            if not tm:
+                continue
+            cond = expr.split("and")[0].strip() if " and " in expr else "ALWAYS"
+            if cond != "ALWAYS" and not any(k in cond for k in era_conds):
+                continue
+            tag_id = int(tm.group(1))
+            if tag_id in (81, 62, 85):
+                out[int(m.group(1))] = "dungeon"
+            elif tag_id == 1:
+                out[int(m.group(1))] = "elite"
+    _ERA_TAGS = out
+    return _ERA_TAGS
 
 
 FAIRE_VENDORS = {"Lhara", "Professor Thaddeus Paleo", "Chronos", "Kruban Darkblade", "Sylannia", "Stamp Thunderhorn"}
@@ -919,10 +1002,14 @@ def route(zone, quests=None, presplit=False):
     def xy(loc):
         return loc[1] if loc and loc[0] == zone.map else None
 
-    # start at the giver hub of the lowest-level open quests
+    # start at the main faction hub of low-level open quests (prefer a real hub with >= 4 open
+    # quests near the zone's entry level over a lone roadside quest at the zone edge)
     opens = [q for q in Q.values() if available(q) and xy(q["start"])]
     if opens:
-        first = min(opens, key=lambda q: (q["level"], -sum(1 for o in opens if dist(xy(o["start"]), xy(q["start"])) < NEAR)))
+        hub_count = lambda q: sum(1 for o in opens if dist(xy(o["start"]), xy(q["start"])) < NEAR)
+        real_hubs = [q for q in opens if hub_count(q) >= 4 and q["level"] <= lo + 5]
+        pool = real_hubs or opens
+        first = min(pool, key=lambda q: (-hub_count(q) if real_hubs else q["level"], q["level"], q["id"]))
         pos = xy(first["start"])
     else:
         pos = (50.0, 50.0)
@@ -993,8 +1080,10 @@ def route(zone, quests=None, presplit=False):
     leftovers = [q for q in Q.values() if q["id"] not in done] + outliers
     if optimize_route:
         steps = optimize(zone, Q, steps, lo, hi)
+        steps = flush_hubs(zone, Q, steps, lo, hi)
         steps = group_away(zone, Q, steps, lo, hi)
         steps = defer_away(zone, Q, steps, lo, hi)
+        steps = flush_hubs(zone, Q, steps, lo, hi)
     refine_areas(zone, steps)
     return steps, leftovers, (lo, hi)
 
@@ -1124,8 +1213,8 @@ def violations(Q, seq, lo, hi, loose=(), meta=None, max_bad=None):
     return bad
 
 
-REGION_R = 7.0        # map units: steps this close to a region's centre are "the same area"
-SWITCH = 10.0         # cost of leaving an area, in map units: favours finishing one area before the next
+REGION_R = 9.0        # map units (~350-400 yd): steps this close to a region's centre are "the same area"
+SWITCH = 18.0         # cost of leaving an area, in map units: strongly favours finishing one area per sweep
 
 
 AWAY = (-150.0, 50.0)  # stand-in spot for steps in another zone: one far-off area, so trips out are
@@ -1212,7 +1301,74 @@ def optimize(zone, Q, steps, lo, hi):
     pos = fixed_positions(zone, seq)
     reg = regions(pos)
     runs = [anneal(Q, seq, lo, hi, base_bad, pos, reg, seed=k, loose=loose, meta=meta) for k in range(4)]
-    return reattach(steps, min(runs, key=lambda s: route_cost(s, pos, reg)), loose)
+    return reattach(steps, min(runs, key=lambda s: route_cost(s, pos, reg) + 25.0 * area_changes(zone, s)), loose)
+
+
+def flush_hubs(zone, Q, steps, lo, hi):
+    """Zygor/RestedXP-style hub flushing: whenever the route is already standing at an in-zone town
+    or quest hub, pull forward any ready turn-ins and available accepts at that exact same hub
+    instead of leaving them in your bags until a later visit. Frees quest log space early and
+    unlocks follow-up chains before you head back out into the field."""
+    seq = list(steps)
+    meta = rule_meta(Q)
+    hard = lambda s: violations(Q, s, lo, hi, meta=meta) // LOG_HARD
+    base_hard = hard(seq)
+    base_soft = violations(Q, seq, lo, hi, meta=meta)
+
+    def in_zone_hub_xy(s):
+        v, q = s
+        if v not in ("accept", "turnin"):
+            return None
+        loc = q["start"] if v == "accept" else q["finish"]
+        return loc[1] if loc and loc[0] == zone.map else None
+
+    for _ in range(3):
+        changed = False
+        i = 0
+        while i < len(seq):
+            p = in_zone_hub_xy(seq[i])
+            if not p:
+                i += 1
+                continue
+            # find end of this contiguous hub visit (all consecutive in-zone steps within NEAR)
+            end = i + 1
+            while end < len(seq):
+                pe = step_xy(zone, *seq[end])
+                if pe and dist(p, pe) < NEAR:
+                    end += 1
+                else:
+                    break
+            # 1. Pull forward any later turn-ins at this exact same hub that are ALREADY ready here
+            k = end
+            while k < len(seq):
+                pk = in_zone_hub_xy(seq[k])
+                if seq[k][0] == "turnin" and pk and dist(p, pk) < NEAR:
+                    cand = seq[:end] + [seq[k]] + seq[end:k] + seq[k + 1:]
+                    if hard(cand) <= base_hard:
+                        seq = cand
+                        end += 1
+                        changed = True
+                        k += 1
+                        continue
+                k += 1
+            # 2. Pull forward any later accepts at this exact same hub whose prereqs are now done
+            #    and that don't violate level progression or log cap
+            k = end
+            while k < len(seq):
+                pk = in_zone_hub_xy(seq[k])
+                if seq[k][0] == "accept" and pk and dist(p, pk) < NEAR:
+                    cand = seq[:end] + [seq[k]] + seq[end:k] + seq[k + 1:]
+                    if violations(Q, cand, lo, hi, meta=meta, max_bad=base_soft) <= base_soft:
+                        seq = cand
+                        end += 1
+                        changed = True
+                        k += 1
+                        continue
+                k += 1
+            i = end
+        if not changed:
+            break
+    return seq
 
 
 def reattach(steps, seq, loose):
@@ -1547,7 +1703,7 @@ def defer_away(zone, Q, steps, lo, hi):
     last_home = max((k for k, s in enumerate(seq) if not away(s) and step_loc(zone, *s)), default=len(seq) - 1)
     body, tail = seq[:last_home + 1], seq[last_home + 1:]
     for k in range(len(body) - 1, -1, -1):
-        if not away(body[k]):
+        if k >= len(body) or not away(body[k]):
             continue
         # a placeless step right after it (an objective nobody can place) belongs to the trip
         cand_body, moved = body[:k] + body[k + 1:], [body[k]]
@@ -1570,6 +1726,18 @@ def defer_away(zone, Q, steps, lo, hi):
                     grew = True
         block = [j for j in range(k, len(body))
                  if j == k or body[j][1]["id"] in whole or (body[j][1]["id"] in gone and j > k)]
+        # If moving just this out-of-zone turnin failed (often due to LOG_SIZE while held across
+        # the zone), try deferring its entire quest + short follow-ups together to the tail.
+        if body[k][0] == "turnin":
+            qid = body[k][1]["id"]
+            qblock = [j for j in range(len(body)) if body[j][1]["id"] == qid]
+            if len(qblock) <= DEFER_BLOCK:
+                qpick = set(qblock)
+                cand_body2 = [s for j, s in enumerate(body) if j not in qpick]
+                moved2 = [body[j] for j in qblock]
+                if hard(cand_body2 + moved2 + tail) <= base:
+                    body, tail = cand_body2, moved2 + tail
+                    continue
         if len(block) - 1 > DEFER_BLOCK:
             continue
         pick = set(block)
@@ -1577,16 +1745,28 @@ def defer_away(zone, Q, steps, lo, hi):
         moved = [body[j] for j in block]
         if hard(cand_body + moved + tail) <= base:
             body, tail = cand_body, moved + tail
-    # one tour through the tail
+    # one tour through the tail: strongly prefer staying in the same zone and continent
     pos_of = lambda s: (away_xy(zone, step_loc(zone, *s)) if away(s) else step_xy(zone, *s)) if step_loc(zone, *s) else None
+    map_of = lambda s: (step_loc(zone, *s)[0] if step_loc(zone, *s) else None)
     here = next((p for p in (step_xy(zone, *s) for s in reversed(body)) if p), None)
+    cur_map = zone.map
     out, rest = [], list(tail)
     while rest:
-        order = sorted(range(len(rest)), key=lambda i: dist(here, pos_of(rest[i])) if here and pos_of(rest[i]) else 0)
+        def tail_cost(i):
+            s = rest[i]
+            p, m = pos_of(s), map_of(s)
+            c = dist(here, p) if here and p else 0.0
+            if m and cur_map and m != cur_map:
+                c += 60.0
+                if continent(m) != continent(cur_map):
+                    c += 500.0
+            return c
+        order = sorted(range(len(rest)), key=tail_cost)
         pick = next((i for i in order if hard(body + out + [rest[i]] + rest[:i] + rest[i + 1:]) <= base), 0)
         s = rest.pop(pick)
         out.append(s)
         here = pos_of(s) or here
+        cur_map = map_of(s) or cur_map
     return body + out
 
 

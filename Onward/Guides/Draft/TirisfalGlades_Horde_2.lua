@@ -1,4 +1,4 @@
--- DRAFT Tirisfal Glades (Horde) generated 2026-11-21 by tools/draft_guide.py
+-- DRAFT Tirisfal Glades (Horde) generated 2026-11-22 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -33,10 +33,10 @@ turnin 96896 |npc Leonid Barthalomew the Revered |at 1420 22.0,44.7 |race Scourg
 accept 98545 |npc Leonid Barthalomew the Revered |at 1420 22.0,44.7 |race Scourge |lvl 10 |preany 96896  -- Leonid's Letter (12)
 accept 99152 |npc Hilda the Breaker |at 1420 22.0,47.2 |race Scourge |lvl 10 |preany 96896  -- As Above, So Below (12)
 accept 99153 |npc Ephram Barbaro |at 1420 20.2,46.5 |race Scourge |lvl 10 |preany 96896  -- The One That Got Away (12)
-complete 99152 |at 1420 10.3,65.4 |mobs Shadowvale Lurcher@Faintly Glowing Bone;Shadowvale Mystic@Faintly Glowing Bone |race Scourge  -- As Above, So Below (12)
-complete 99153 |at 1420 9.7,69.4 |race Scourge  -- The One That Got Away (12)
 accept 95328 |at 1420 8.7,60.1 |mobs Whispering Horror |note Starts from the item Whispering Horror Residue, found on Whispering Horror. Hand it in to Father Lankester |startitem 268812 |loose |group elite |lvl 7  -- Whispering Horror Residue (13)
 complete 95328 |at 1420 8.7,60.1 |mobs Whispering Horror@Whispering Horror Residue |group elite  -- Whispering Horror Residue (13)
+complete 99153 |at 1420 9.7,69.4 |race Scourge  -- The One That Got Away (12)
+complete 99152 |at 1420 10.3,65.4 |mobs Shadowvale Lurcher@Faintly Glowing Bone;Shadowvale Mystic@Faintly Glowing Bone |race Scourge  -- As Above, So Below (12)
 turnin 99153 |npc Ephram Barbaro |at 1420 20.2,46.5 |race Scourge  -- The One That Got Away (12)
 turnin 99152 |npc Hilda the Breaker |at 1420 22.0,47.2 |race Scourge  -- As Above, So Below (12)
 turnin 372 |npc Executor Zygand |at 1420 60.6,51.8  -- At War With The Scarlet Crusade (12)

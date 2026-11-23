@@ -1,4 +1,4 @@
--- DRAFT Darkshore (Alliance) generated 2026-11-21 by tools/draft_guide.py
+-- DRAFT Darkshore (Alliance) generated 2026-11-22 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -9,9 +9,9 @@ accept 4731 |npc Beached Sea Turtle |at 1439 31.7,83.7 |lvl 13 |preany 4681  -- 
 accept 4733 |npc Beached Sea Creature |at 1439 31.3,87.4 |lvl 13 |preany 4681  -- Beached Sea Creature (19)
 accept 4732 |npc Beached Sea Turtle |at 1439 31.2,85.6 |lvl 13 |preany 4681  -- Beached Sea Turtle (19)
 home |npc Innkeeper Shaussiy |at 1439 37.0,44.1  -- set your hearthstone at the inn
+turnin 4731 |npc Gwennyth Bly'Leggonde |at 1439 36.6,45.6  -- Beached Sea Turtle (19)
 turnin 4732 |npc Gwennyth Bly'Leggonde |at 1439 36.6,45.6  -- Beached Sea Turtle (19)
 turnin 4733 |npc Gwennyth Bly'Leggonde |at 1439 36.6,45.6  -- Beached Sea Creature (19)
-turnin 4731 |npc Gwennyth Bly'Leggonde |at 1439 36.6,45.6  -- Beached Sea Turtle (19)
 accept 87760 |npc Gwennyth Bly'Leggonde |at 1439 36.6,45.6 |lvl 15 |pre 4722,4723,4725,4727,4728,4730,4731,4732,4733  -- Holy Diver (20)
 accept 729 |npc Archaeologist Hollee |at 1439 37.4,41.8 |lvl 15  -- The Absent Minded Prospector (20)
 accept 986 |npc Terenthis |at 1439 39.4,43.5 |lvl 10 |preany 985  -- A Lost Master (20)
@@ -31,13 +31,13 @@ accept 98028 |at 1439 59.2,22.7 |mobs Baron Marinous |note Starts from the item 
 complete 951 |at 1439 60.3,21.7  -- Mathystra Relics (20)
 complete 98013 |at 1439 58.9,20.9 |mobs Stormscale Myrmidon;Stormscale Sorceress;Stormscale Warrior |value mid  -- Swelling Forces (20)
 accept 2098 |npc Gelkak Gyromast |at 1439 56.7,13.5 |value mid |lvl 14  -- Gyromast's Retrieval (20)
-complete 2098 |obj Top of Gelkak's Key |at 1439 61.6,12.2 |areas 38.0,91.4:33;61.6,12.2:10 |mobs Giant Foreststrider@Top of Gelkak's Key |value mid  -- Gyromast's Retrieval (20)
 complete 2098 |obj Middle of Gelkak's Key |at 1439 38.7,29.2 |areas 38.7,29.2:35;33.0,81.2:28 |mobs Greymist Coastrunner@Middle of Gelkak's Key;Greymist Seer@Middle of Gelkak's Key;Greymist Tidehunter@Middle of Gelkak's Key;Greymist Oracle@Middle of Gelkak's Key |value mid  -- Gyromast's Retrieval (20)
 complete 2098 |obj Bottom of Gelkak's Key |at 1439 54.8,18.3 |areas 54.8,18.3:21;30.6,89.7:12 |mobs Raging Reef Crawler@Bottom of Gelkak's Key;Encrusted Tide Crawler@Bottom of Gelkak's Key |value mid  -- Gyromast's Retrieval (20)
+complete 2098 |obj Top of Gelkak's Key |at 1439 61.6,12.2 |areas 38.0,91.4:33;61.6,12.2:10 |mobs Giant Foreststrider@Top of Gelkak's Key |value mid  -- Gyromast's Retrieval (20)
 turnin 2098 |npc Gelkak Gyromast |at 1439 56.7,13.5 |value mid  -- Gyromast's Retrieval (20)
-accept 2078 |npc Gelkak Gyromast |at 1439 56.7,13.5 |value mid |lvl 14 |preany 2098  -- Gyromast's Revenge (20)
-complete 2078 |at 1439 55.8,18.3 |item 7442 |mobs The Threshwackonator 4100 |value mid  -- Gyromast's Revenge (20)
-turnin 2078 |npc Gelkak Gyromast |at 1439 56.7,13.5 |value mid  -- Gyromast's Revenge (20)
+accept 2078 |npc Gelkak Gyromast |at 1439 56.7,13.5 |value mid |group elite |lvl 14 |preany 2098  -- Gyromast's Revenge (20)
+complete 2078 |at 1439 55.8,18.3 |item 7442 |mobs The Threshwackonator 4100 |value mid |group elite  -- Gyromast's Revenge (20)
+turnin 2078 |npc Gelkak Gyromast |at 1439 56.7,13.5 |value mid |group elite  -- Gyromast's Revenge (20)
 complete 87760 |at 1439 49.4,12.9 |mobs Stormscale Beastmistress@Rod of Deep Dominion  -- Holy Diver (20)
 turnin 993 |npc Volcor |at 1439 45.0,85.3  -- A Lost Master (20)
 accept 994 |npc Volcor |at 1439 45.0,85.3 |lvl 10 |preany 993 |exclusive 995  -- Escape Through Force (22)

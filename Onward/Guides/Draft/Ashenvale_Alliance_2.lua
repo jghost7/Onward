@@ -1,4 +1,4 @@
--- DRAFT Ashenvale (Alliance) generated 2026-11-21 by tools/draft_guide.py
+-- DRAFT Ashenvale (Alliance) generated 2026-11-22 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -10,21 +10,22 @@ complete 1026 |at 1440 57.8,39.1 |mobs Withered Ancient@Wooden Key;Crazed Ancien
 complete 1026 |at 1440 54.4,35.4  -- Raene's Cleansing (27)
 turnin 1026 |npc Shael'dryn |at 1440 53.5,46.2  -- Raene's Cleansing (27)
 accept 1027 |npc Shael'dryn |at 1440 53.5,46.2 |lvl 18 |preany 1026  -- Raene's Cleansing (28)
-accept 1022 |npc Sentinel Melyria Frostshadow |at 1440 22.2,53.0 |lvl 25  -- The Howling Vale (30)
-accept 1021 |npc Illiyana |at 1440 21.7,53.3 |lvl 26  -- Vile Satyr! Dryads in Danger! (32)
-accept 86757 |npc Shandrina |at 1440 49.5,67.1 |value low |lvl 25  -- Slowing the Orc Advance (30)
-accept 98417 |npc Maseara Autumnmoon |at 1440 86.2,45.9 |lvl 23  -- Vengeful Trail (28)
 accept 1011 |npc Kayneth Stillwind |at 1440 85.2,44.7 |lvl 24  -- Forsaken Diseases (29)
+accept 98417 |npc Maseara Autumnmoon |at 1440 86.2,45.9 |lvl 23  -- Vengeful Trail (28)
 complete 98417 |at 1440 81.1,49.5  -- Vengeful Trail (28)
-complete 86757 |at 1440 87.5,58.5 |areas 87.5,58.5:36;71.7,80.5:14 |mobs Horde Scout@Curved Orcish Dagger;Horde Grunt@Jagged Orcish Sword |value low  -- Slowing the Orc Advance (30)
 complete 1011 |at 1440 75.3,71.9  -- Forsaken Diseases (29)
 complete 1027 |at 1440 74.4,73.4  -- Raene's Cleansing (28)
+accept 86757 |npc Shandrina |at 1440 49.5,67.1 |value low |lvl 25  -- Slowing the Orc Advance (30)
+accept 1021 |npc Illiyana |at 1440 21.7,53.3 |lvl 26  -- Vile Satyr! Dryads in Danger! (32)
+accept 1022 |npc Sentinel Melyria Frostshadow |at 1440 22.2,53.0 |lvl 25  -- The Howling Vale (30)
+complete 1022 |at 1440 50.5,39.1  -- The Howling Vale (30)
 turnin 1027 |npc Shael'dryn |at 1440 53.5,46.2  -- Raene's Cleansing (28)
 accept 1028 |npc Shael'dryn |at 1440 53.5,46.2 |lvl 18 |preany 1027  -- Raene's Cleansing (28)
 turnin 1028 |npc Hidden Shrine |at 1440 56.4,49.2  -- Raene's Cleansing (28)
 accept 1055 |npc Hidden Shrine |at 1440 56.4,49.2 |lvl 18 |preany 1028  -- Raene's Cleansing (28)
 turnin 1055 |npc Shael'dryn |at 1440 53.5,46.2  -- Raene's Cleansing (28)
 accept 1029 |npc Shael'dryn |at 1440 53.5,46.2 |lvl 18 |preany 1055  -- Raene's Cleansing (28)
+complete 86757 |at 1440 87.5,58.5 |areas 87.5,58.5:36;71.7,80.5:14 |mobs Horde Scout@Curved Orcish Dagger;Horde Grunt@Jagged Orcish Sword |value low  -- Slowing the Orc Advance (30)
 turnin 98417 |npc Maseara Autumnmoon |at 1440 86.2,45.9  -- Vengeful Trail (28)
 accept 98418 |npc Maseara Autumnmoon |at 1440 86.2,45.9 |value mid |lvl 23 |preany 98417  -- Shared Fury (30)
 turnin 1011 |npc Kayneth Stillwind |at 1440 85.2,44.7  -- Forsaken Diseases (29)
@@ -33,7 +34,6 @@ complete 98418 |at 1440 78.4,45.1 |mobs Xavian Betrayer;Xavian Felsworn;Xavian H
 turnin 1021 |npc Anilia |at 1440 78.3,44.8  -- Vile Satyr! Dryads in Danger! (32)
 accept 1031 |npc Anilia |at 1440 78.3,44.8 |lvl 26 |preany 1021  -- The Branch of Cenarius (32)
 complete 1031 |at 1440 78.0,42.4 |mobs Geltharis@Branch of Cenarius  -- The Branch of Cenarius (32)
-complete 1022 |at 1440 50.5,39.1  -- The Howling Vale (30)
 home |npc Innkeeper Kimlya |at 1440 37.0,49.2  -- set your hearthstone at the inn
 accept 1035 |npc Pelturas Whitemoon |at 1440 37.4,51.8 |lvl 20 |preany 1034  -- Fallen Sky Lake (30)
 turnin 1029 |npc Raene Wolfrunner |at 1440 36.6,49.6  -- Raene's Cleansing (28)
@@ -77,6 +77,3 @@ turnin 1043 |npc Jonathan Carevin |at 1431 75.3,49.0  -- The Scythe of Elune (30
 accept 1044 |npc Jonathan Carevin |at 1431 75.3,49.0 |lvl 25 |preany 1043  -- Answered Questions (30)
 turnin 1044 |npc Thyn'tel Bladeweaver |at 1457 61.8,39.2  -- Answered Questions (30)
 ]]}
-
--- Not routed (far above the zone's level range, or no reachable path):
---   79090  Repelling Invaders (60)
