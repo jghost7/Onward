@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.8.4
+
+- Fixed rapid hover flashing on the step card's **Later** and **Done** buttons: **Done** now stays
+  steadily visible beside **Later** on expanded cards instead of shifting layout on hover.
+
 ## 0.8.3
 
 - Improved multi-zone flight advice: ground travel estimates now account for cross-zone road and

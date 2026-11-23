@@ -1267,16 +1267,11 @@ function UI:Render()
 
     -- current step: what kind, the title, where
     setVerb(step)
-    local manualStep = (step.verb == "note" or step.verb == "home" or step.verb == "train")
-    local showDone = not W.db.collapsed and manualStep
+    local showDone = not W.db.collapsed
     local showLater = not W.db.collapsed and (step.verb == "complete" or step.verb == "accept") and step.quest ~= nil and not G:IsLater(step)
     UI.doneStripBtn:SetShown(showDone)
     laterStripBtn:ClearAllPoints()
-    if showDone then
-        laterStripBtn:SetPoint("RIGHT", UI.doneStripBtn, "LEFT", -4, 0)
-    else
-        laterStripBtn:SetPoint("TOPRIGHT", card, "TOPRIGHT", 0, 2)
-    end
+    laterStripBtn:SetPoint("RIGHT", UI.doneStripBtn, "LEFT", -4, 0)
     laterStripBtn:SetShown(showLater)
 
     local text = UI.StepText(step)
@@ -1696,13 +1691,6 @@ card:SetScript("OnClick", function(self, button)
     end
 end)
 card:SetScript("OnEnter", function(self)
-    if self.step and not W.db.collapsed then
-        UI.doneStripBtn:Show()
-        if laterStripBtn:IsShown() then
-            laterStripBtn:ClearAllPoints()
-            laterStripBtn:SetPoint("RIGHT", UI.doneStripBtn, "LEFT", -4, 0)
-        end
-    end
     GameTooltip:SetOwner(self, "ANCHOR_LEFT")
     if not self.step then
         GameTooltip:AddLine(self.recommend and "Click: start the recommended guide" or "Click: open the guide list")
@@ -1727,18 +1715,7 @@ card:SetScript("OnEnter", function(self)
     if self.step.quest then GameTooltip:AddLine("Shift-right-click: come back to this quest later", 0.7, 0.7, 0.7) end
     GameTooltip:Show()
 end)
-card:SetScript("OnLeave", function(self)
-    GameTooltip:Hide()
-    local s = self.step
-    local manual = s and (s.verb == "note" or s.verb == "home" or s.verb == "train")
-    if not manual and not (UI.doneStripBtn.IsMouseOver and UI.doneStripBtn:IsMouseOver()) then
-        UI.doneStripBtn:Hide()
-        if laterStripBtn:IsShown() then
-            laterStripBtn:ClearAllPoints()
-            laterStripBtn:SetPoint("TOPRIGHT", card, "TOPRIGHT", 0, 2)
-        end
-    end
-end)
+card:SetScript("OnLeave", function() GameTooltip:Hide() end)
 
 -- live distance: 1s refresh of the sub line (or collapsed distance), only while a pinned step is shown
 local distTicker
