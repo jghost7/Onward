@@ -966,7 +966,7 @@ MOCK.addQuest(970, "Charms", { { text = "Hag Charm: 0/8", type = "item", finishe
 MOCK.fire("QUEST_ACCEPTED", 970) settle()
 -- before any kill the line already shows, with Questie's rate and a kill estimate
 local pre = D:Line({ text = "Hag Charm: 0/8", type = "item", finished = false, have = 0, need = 8 }, 970)
-check("drop line shows before the first kill", pre and pre:find("Wowhead 50%%") and pre:find("~16 kills"), pre)
+check("drop line shows before the first kill", pre and pre:find("50%% drop rate") and pre:find("~16 kills"), pre)
 -- objective type missing on the client, but Questie knows it's an item
 local untyped = D:Line({ text = "Hag Charm: 0/8", finished = false, have = 0, need = 8 }, 970)
 check("drop line for an untyped item objective Questie knows", untyped ~= nil, untyped)
@@ -1033,8 +1033,8 @@ local s = D:Stats(5001)
 check("per-kill basis when kills are seen", s.basis == "kill" and s.kills == 6 and s.drops == 2, s.basis .. " " .. s.kills .. "/" .. s.drops)
 check("expected drops from the rate", math.abs(s.expected - 3) < 1e-9 and s.source == "wowhead", s.expected)
 local lineText = D:Line(W.QuestState:Get(970).objectives[1]) or ""
-check("card line: your rate per kill and Wowhead's", lineText:find("2 in 6 kills (33%)", 1, true) and lineText:find("Wowhead 50%", 1, true), lineText)
-check("card line estimates kills left", lineText:find("~16 more kills", 1, true), lineText)
+check("card line: compact drop rate and expected avg on line 1", lineText:find("2/6 kills · 33% (avg 50%)", 1, true), lineText)
+check("card line puts verdict and kills-left estimate on line 2", lineText:find("\nabout average · ~16 kills left", 1, true), lineText)
 check("looted corpses kept as the fallback count", e5001.corpses == 3 and e5001.cgot == 2, e5001.corpses)
 MOCK.loot = { { link = CHARM, sources = { g1, 1 } } } MOCK.fire("LOOT_READY")
 check("re-opening a corpse is not a new drop", e5001.got == 2)
@@ -1062,13 +1062,31 @@ do
     local hm2, vm2 = D.LuckInfo(-2.4, -25)
     check("luck tier -2 sigma: vivid red very unlucky + rain icon",
         hm2 == "ff5252" and vm2:find("media\\unlucky", 1, true) and vm2:find("very unlucky (-25%)", 1, true), vm2)
+    -- 1 in 3 kills on a 12% drop (z = +1.14): shows lucky clover immediately at 3 kills
+    local savedStats = D.Stats
+    local savedFromMobs = QB.ItemFromMobs
+    local savedItemObj = D.ItemObjective
+    D.ItemObjective = function() return "Crawler Leg", 99901 end
+    QB.ItemFromMobs = function() return true end
+    D.Stats = function()
+        return { name = "Crawler Leg", kills = 3, drops = 1, basis = "kill",
+                 expected = 0.36, var = 3 * 0.12 * 0.88, ratedKills = 3, source = "cmangos" }
+    end
+    local earlyLine = D:Line({ text = "Crawler Leg: 1/10", type = "item", have = 1, need = 10, finished = false }, 999) or ""
+    check("luck verdict shows at 3 kills (1 in 3 vs 12% -> lucky +21% + clover)",
+        earlyLine:find("media\\lucky", 1, true) and earlyLine:find("lucky (+21%)", 1, true) and earlyLine:find("|cff66d97333%|r", 1, true),
+        earlyLine)
+    D.Stats, QB.ItemFromMobs, D.ItemObjective = savedStats, savedFromMobs, savedItemObj
 end
 W:RegisterGuide{ id = "drops", title = "Drops", faction = "", steps = "complete 970\nturnin 970\n" }
 W.Guide:Activate("drops") settle()
 W.UI.panel:Show() W.UI:Render()
-local shownDrop = false
-for _, fs in ipairs(MOCK.strings) do if fs.shown and fs.text:find("2 in 10 kills", 1, true) then shownDrop = true end end
-check("drop line appears on the step card", shownDrop)
+local shownDrop, shownVerdict = false, false
+for _, fs in ipairs(MOCK.strings) do
+    if fs.shown and fs.text:find("2/10 kills", 1, true) then shownDrop = true end
+    if fs.shown and fs.text:find("unlucky (-30%)", 1, true) then shownVerdict = true end
+end
+check("drop rate and luck verdict appear as separate clean lines on the step card", shownDrop and shownVerdict)
 -- missed kills (more drops than kills seen) fall back to looted corpses
 for _ = 1, 9 do loot(3001, true) end
 s = D:Stats(5001)
@@ -2932,6 +2950,168 @@ do
 
     WP.ArrowTarget = savedAT
     upd(A.frame, 0.1)
+end
+
+-- Mountain-wall flight routing: never land on the wrong side of an impassable border
+-- (e.g. Hammerfall, Arathi for Shadra'Alor in The Hinterlands instead of Tarren Mill, Hillsbrad)
+do
+    local TR = W.Travel
+    local savedTaxi, savedPos = MOCK.taxi, MOCK.pos
+    local savedMount, savedNet, savedKnown = W.cdb.mountSpeed, W.cdb.taxiNet, W.cdb.taxi
+    W.cdb.mountSpeed, W.cdb.taxiNet, W.cdb.taxi = nil, nil, {}
+
+    check("zone graph: Arathi -> Hinterlands is not directly walkable (2 hops via Hillsbrad)",
+        TR.ZoneHops(1417, 1425) == 2, tostring(TR.ZoneHops(1417, 1425)))
+    check("zone graph: Hillsbrad -> Hinterlands is directly walkable (1 hop)",
+        TR.ZoneHops(1424, 1425) == 1, tostring(TR.ZoneHops(1424, 1425)))
+    check("zone graph: Teldrassil -> Darkshore has no walkable path (island)",
+        TR.ZoneHops(1438, 1439) == nil, tostring(TR.ZoneHops(1438, 1439)))
+    check("nodeZone: resolves flight point zone suffixes",
+        TR.NodeZone({ name = "Hammerfall, Arathi" }) == 1417
+        and TR.NodeZone({ name = "Tarren Mill, Hillsbrad" }) == 1424
+        and TR.NodeZone({ name = "Revantusk Village, The Hinterlands" }) == 1425,
+        tostring(TR.NodeZone({ name = "Hammerfall, Arathi" })))
+
+    -- Reproduce Swamp of Sorrows -> Shadra'Alor (The Hinterlands 34, 75) on a clean continent (9):
+    -- Hammerfall is only 800 yd straight-line across the mountain wall; Tarren Mill is twice as
+    -- far straight-line (1600 yd) but connects directly into The Hinterlands.
+    local savedCont = MOCK.mapCont
+    MOCK.mapCont = { [1414] = 9, [1435] = 9, [1417] = 9, [1424] = 9, [1425] = 9 }
+    MOCK.mapOffset[1414] = 0       -- continent taxi map for cont 9
+    MOCK.mapOffset[1435] = 8000    -- Swamp of Sorrows: (50,50) -> world (500, -7500)
+    MOCK.mapOffset[1417] = 800     -- Arathi Highlands: (34,75) -> world (250, -140)
+    MOCK.mapOffset[1424] = -1600   -- Hillsbrad Foothills: (34,75) -> world (250, 2260)
+    MOCK.mapOffset[1425] = 0       -- The Hinterlands: (34,75) -> world (250, 660)
+    -- Taxi nodes sit on map 1414 (off=0): pos.x = 1 - wy/1000, pos.y = 1 - wx/1000
+    MOCK.taxi = {
+        { name = "Stonard, Swamp of Sorrows", nodeID = 401, slotIndex = 1, state = 0, position = { x = 8.5,   y = 0.50 } },
+        { name = "Hammerfall, Arathi",        nodeID = 402, slotIndex = 2, state = 1, position = { x = 1.14,  y = 0.75 } },
+        { name = "Tarren Mill, Hillsbrad",    nodeID = 403, slotIndex = 3, state = 1, position = { x = -1.26, y = 0.75 } },
+    }
+    MOCK.pos = { map = 1435, x = 0.50, y = 0.50 }
+    TR:Refresh(true)
+    MOCK.advance(4)
+    local adv = TR:Advice(1425, 34, 75)
+    check("mountain wall: Swamp of Sorrows -> Hinterlands flies to Tarren Mill (Hillsbrad), not Hammerfall (Arathi)",
+        adv and adv.to and adv.to.name == "Tarren Mill, Hillsbrad",
+        adv and adv.to and adv.to.name or "nil")
+
+    -- Standing in Arathi (Hammerfall) with target across the mountain wall in The Hinterlands:
+    -- flying to Hillsbrad beats riding around the mountains.
+    MOCK.pos = { map = 1417, x = 0.34, y = 0.75 }
+    MOCK.advance(4)
+    adv = TR:Advice(1425, 34, 75)
+    check("mountain wall: standing in Arathi advises flying to Hillsbrad instead of running into the ridge",
+        adv and adv.from and adv.from.name == "Hammerfall, Arathi"
+        and adv.to and adv.to.name == "Tarren Mill, Hillsbrad",
+        adv and (adv.from.name .. " -> " .. adv.to.name) or "nil")
+
+    MOCK.mapCont = savedCont
+    MOCK.mapOffset[1414], MOCK.mapOffset[1435], MOCK.mapOffset[1417], MOCK.mapOffset[1424], MOCK.mapOffset[1425] = nil, nil, nil, nil, nil
+    MOCK.taxi, MOCK.pos = savedTaxi, savedPos
+    W.cdb.mountSpeed, W.cdb.taxiNet, W.cdb.taxi = savedMount, savedNet, savedKnown
+    TR:Refresh(true)
+    MOCK.advance(4)
+end
+
+-- External prerequisite full 3-stage guidance (e.g. Lack of Surplus part 2 gated on part 1 from earlier band)
+do
+    local G, WP, UI, QB, TG, QS = W.Guide, W.Waypoint, W.UI, W.QuestieBridge, W.Target, W.QuestState
+    local savedStart, savedEnd, savedSpots, savedQMobs = QB.StartLocation, QB.EndLocation, WP.ObjectiveSpots, QB.QuestMobs
+    local savedTitleFn = QS.Title
+    local savedAutoAccept, savedAutoAll = W.db.autoAccept, W.db.autoAcceptAll
+    W.db.autoAccept, W.db.autoAcceptAll = true, false
+
+    QS.Title = function(self, q)
+        if q == 698 or q == 699 then return "Lack of Surplus" end
+        return savedTitleFn(self, q)
+    end
+    QB.StartLocation = function(self, q)
+        if q == 698 then return { map = 1435, x = 44.7, y = 57.2, name = "Dar" } end
+        return savedStart(self, q)
+    end
+    QB.EndLocation = function(self, q)
+        if q == 698 then return { map = 1435, x = 81.4, y = 80.8, name = "Tok'Kar" } end
+        return savedEnd(self, q)
+    end
+    WP.ObjectiveSpots = function(q)
+        if q == 698 then return { { map = 1435, x = 62.0, y = 45.0, name = "Sawtooth Crocolisk" } } end
+        return savedSpots(q)
+    end
+    QB.QuestMobs = function(self, q)
+        if q == 698 then return { "Sawtooth Crocolisk" } end
+        return savedQMobs(self, q)
+    end
+
+    W:RegisterGuide{ id = "extpre_test", title = "Swamp of Sorrows (43-55)", levels = { 43, 55 }, faction = "", steps = [[
+accept 699 |at 1435 81.4,80.8 |npc Tok'Kar |preany 698
+complete 699 |at 1435 70.0,60.0
+turnin 699 |at 1435 81.4,80.8 |npc Tok'Kar
+]]}
+    G:Activate("extpre_test")
+    settle()
+
+    -- Stage 1: prerequisite 698 not yet accepted
+    local step = G:Current()
+    local pre, state = G:ExternalPrereq(step)
+    check("ext prereq stage 1: detects external prereq accept state", pre == 698 and state == "accept", tostring(pre) .. "/" .. tostring(state))
+    local m, x, y, who = WP:Resolve(step)
+    check("ext prereq stage 1: waypoint points to prereq giver (Dar)", m == 1435 and who == "Dar", tostring(m) .. "/" .. tostring(who))
+    check("ext prereq stage 1: UI shows PREREQUISITE · ACCEPT without red (after ...) text",
+        UI.verbText.text == "PREREQUISITE  ·  ACCEPT" and UI.mainText.text == "Accept Lack of Surplus",
+        tostring(UI.verbText.text) .. " | " .. tostring(UI.mainText.text))
+    check("ext prereq stage 1: StepText matches prereq accept", UI.StepText(step) == "Accept Lack of Surplus", tostring(UI.StepText(step)))
+    check("ext prereq stage 1: talk target is prereq giver", TG.TalkName(step) == "Dar", tostring(TG.TalkName(step)))
+
+    -- Auto-accept picks up external prerequisite 698 when offered
+    MOCK.calls = {}
+    MOCK.questId = 698
+    MOCK.fire("QUEST_DETAIL")
+    check("ext prereq stage 1: Auto.lua auto-accepts the external prerequisite", called("AcceptQuest", 698))
+    MOCK.questId = nil
+
+    -- Stage 2: prerequisite 698 accepted, objectives unfinished
+    MOCK.addQuest(698, "Lack of Surplus", { { text = "Unprepared Sawtooth Snapper: 1/6", finished = false } })
+    MOCK.fire("QUEST_LOG_UPDATE")
+    settle()
+    pre, state = G:ExternalPrereq(step)
+    check("ext prereq stage 2: transitions to complete state once prereq is accepted", pre == 698 and state == "complete", tostring(pre) .. "/" .. tostring(state))
+    m, x, y = WP:Resolve(step)
+    check("ext prereq stage 2: waypoint routes to prereq objective area", m == 1435 and math.abs(x - 62.0) < 0.1 and math.abs(y - 45.0) < 0.1,
+        tostring(m) .. " " .. tostring(x) .. "," .. tostring(y))
+    check("ext prereq stage 2: UI shows PREREQUISITE · COMPLETE",
+        UI.verbText.text == "PREREQUISITE  ·  COMPLETE" and UI.mainText.text == "Lack of Surplus",
+        tostring(UI.verbText.text) .. " | " .. tostring(UI.mainText.text))
+    local mobs = TG.MobsFor(step)
+    check("ext prereq stage 2: Target button targets prereq mobs", #mobs == 1 and mobs[1] == "Sawtooth Crocolisk", table.concat(mobs, ","))
+
+    -- Stage 3: prerequisite 698 ready to turn in
+    MOCK.log[698].objectives[1] = { text = "Unprepared Sawtooth Snapper: 6/6", finished = true }
+    MOCK.fire("QUEST_LOG_UPDATE")
+    settle()
+    pre, state = G:ExternalPrereq(step)
+    check("ext prereq stage 3: transitions to turnin state once prereq is ready", pre == 698 and state == "turnin", tostring(pre) .. "/" .. tostring(state))
+    m, x, y, who = WP:Resolve(step)
+    check("ext prereq stage 3: waypoint routes to prereq finisher (Tok'Kar)", m == 1435 and who == "Tok'Kar", tostring(m) .. "/" .. tostring(who))
+    check("ext prereq stage 3: UI shows PREREQUISITE · TURN IN",
+        UI.verbText.text == "PREREQUISITE  ·  TURN IN" and UI.mainText.text == "Turn in Lack of Surplus",
+        tostring(UI.verbText.text) .. " | " .. tostring(UI.mainText.text))
+
+    -- Stage 4: prerequisite 698 turned in -> step 699 unlocks cleanly
+    MOCK.turnIn(698)
+    MOCK.fire("QUEST_TURNED_IN", 698)
+    MOCK.fire("QUEST_LOG_UPDATE")
+    settle()
+    pre, state = G:ExternalPrereq(step)
+    local held = G:HeldReason(step)
+    check("ext prereq stage 4: unlocks target accept step once prereq is turned in",
+        pre == nil and held == nil and UI.verbText.text == "ACCEPT",
+        tostring(pre) .. " / " .. tostring(held) .. " / " .. tostring(UI.verbText.text))
+
+    MOCK.done[698] = nil
+    QS.Title = savedTitleFn
+    QB.StartLocation, QB.EndLocation, WP.ObjectiveSpots, QB.QuestMobs = savedStart, savedEnd, savedSpots, savedQMobs
+    W.db.autoAccept, W.db.autoAcceptAll = savedAutoAccept, savedAutoAll
 end
 
 check("no runtime errors", #MOCK.errors == 0, MOCK.errors[1])

@@ -251,24 +251,155 @@ function T.Speed()
     return W.cdb.mountSpeed or RUN_SPEED
 end
 
+-- Walkable zone borders (undirected uiMapID graph) so flight advice never lands on the wrong
+-- side of an impassable mountain wall (e.g. Hammerfall in Arathi for a target in The Hinterlands,
+-- which has no path and must be entered via Hillsbrad Foothills).
+local ZONE_ADJ = {}
+local function linkZones(a, list)
+    ZONE_ADJ[a] = ZONE_ADJ[a] or {}
+    for _, b in ipairs(list) do
+        ZONE_ADJ[a][b] = true
+        ZONE_ADJ[b] = ZONE_ADJ[b] or {}
+        ZONE_ADJ[b][a] = true
+    end
+end
+-- Eastern Kingdoms
+linkZones(1420, { 1458, 1421, 1422 })                 -- Tirisfal <-> Undercity, Silverpine, WPL
+linkZones(1421, { 1424 })                             -- Silverpine <-> Hillsbrad
+linkZones(1424, { 1416, 1417, 1425 })                 -- Hillsbrad <-> Alterac, Arathi, Hinterlands
+linkZones(1416, { 1422 })                             -- Alterac <-> WPL
+linkZones(1422, { 1423 })                             -- WPL <-> EPL
+linkZones(1417, { 1437 })                             -- Arathi <-> Wetlands (Thandol Span)
+linkZones(1437, { 1432 })                             -- Wetlands <-> Loch Modan (Dun Algaz)
+linkZones(1432, { 1426, 1418 })                       -- Loch Modan <-> Dun Morogh, Badlands
+linkZones(1426, { 1455 })                             -- Dun Morogh <-> Ironforge
+linkZones(1418, { 1427 })                             -- Badlands <-> Searing Gorge
+linkZones(1427, { 1428 })                             -- Searing Gorge <-> Burning Steppes
+linkZones(1428, { 1433 })                             -- Burning Steppes <-> Redridge
+linkZones(1429, { 1453, 1436, 1431, 1433 })           -- Elwynn <-> Stormwind, Westfall, Duskwood, Redridge
+linkZones(1436, { 1431 })                             -- Westfall <-> Duskwood
+linkZones(1431, { 1433, 1434, 1430 })                 -- Duskwood <-> Redridge, STV, Deadwind Pass
+linkZones(1430, { 1435 })                             -- Deadwind Pass <-> Swamp of Sorrows
+linkZones(1435, { 1419 })                             -- Swamp of Sorrows <-> Blasted Lands
+-- Kalimdor
+linkZones(1438, { 1457 })                             -- Teldrassil <-> Darnassus (island)
+linkZones(1439, { 1440 })                             -- Darkshore <-> Ashenvale
+linkZones(1440, { 1448, 1447, 1413, 1442 })           -- Ashenvale <-> Felwood, Azshara, Barrens, Stonetalon
+linkZones(1448, { 1450, 1452 })                       -- Felwood <-> Moonglade, Winterspring
+linkZones(1450, { 1452 })                             -- Moonglade <-> Winterspring
+linkZones(1411, { 1454, 1413 })                       -- Durotar <-> Orgrimmar, Barrens
+linkZones(1413, { 1412, 1442, 1445, 1441 })           -- Barrens <-> Mulgore, Stonetalon, Dustwallow, 1k Needles
+linkZones(1412, { 1456 })                             -- Mulgore <-> Thunder Bluff
+linkZones(1442, { 1443 })                             -- Stonetalon <-> Desolace
+linkZones(1443, { 1444 })                             -- Desolace <-> Feralas
+linkZones(1444, { 1441 })                             -- Feralas <-> 1k Needles
+linkZones(1441, { 1446 })                             -- 1k Needles <-> Tanaris
+linkZones(1446, { 1449 })                             -- Tanaris <-> Un'Goro
+linkZones(1449, { 1451 })                             -- Un'Goro <-> Silithus
+
+-- Flight-point zone suffix (", Arathi", ", Hillsbrad", etc.) -> uiMapID
+local ZONE_NAME_MAP = {
+    ["durotar"] = 1411, ["orgrimmar"] = 1454, ["mulgore"] = 1412, ["thunder bluff"] = 1456,
+    ["the barrens"] = 1413, ["barrens"] = 1413, ["alterac mountains"] = 1416, ["alterac"] = 1416,
+    ["arathi highlands"] = 1417, ["arathi"] = 1417, ["badlands"] = 1418, ["blasted lands"] = 1419,
+    ["tirisfal glades"] = 1420, ["tirisfal"] = 1420, ["undercity"] = 1458,
+    ["silverpine forest"] = 1421, ["silverpine"] = 1421,
+    ["western plaguelands"] = 1422, ["eastern plaguelands"] = 1423,
+    ["hillsbrad foothills"] = 1424, ["hillsbrad"] = 1424,
+    ["the hinterlands"] = 1425, ["hinterlands"] = 1425,
+    ["dun morogh"] = 1426, ["ironforge"] = 1455, ["searing gorge"] = 1427, ["burning steppes"] = 1428,
+    ["elwynn forest"] = 1429, ["elwynn"] = 1429, ["stormwind"] = 1453, ["stormwind city"] = 1453,
+    ["deadwind pass"] = 1430, ["duskwood"] = 1431, ["loch modan"] = 1432,
+    ["redridge mountains"] = 1433, ["redridge"] = 1433,
+    ["stranglethorn vale"] = 1434, ["stranglethorn"] = 1434,
+    ["swamp of sorrows"] = 1435, ["westfall"] = 1436, ["wetlands"] = 1437,
+    ["teldrassil"] = 1438, ["darnassus"] = 1457, ["darkshore"] = 1439, ["ashenvale"] = 1440,
+    ["thousand needles"] = 1441, ["stonetalon mountains"] = 1442, ["stonetalon"] = 1442,
+    ["desolace"] = 1443, ["feralas"] = 1444, ["dustwallow marsh"] = 1445, ["dustwallow"] = 1445,
+    ["tanaris"] = 1446, ["azshara"] = 1447, ["felwood"] = 1448, ["un'goro crater"] = 1449,
+    ["moonglade"] = 1450, ["silithus"] = 1451, ["winterspring"] = 1452,
+}
+
+local function nodeZone(n)
+    if not n then return nil end
+    if n.map then return n.map end
+    local name = n.name
+    if type(name) ~= "string" then return nil end
+    local suffix = name:match(",%s*([^,]+)%s*$")
+    if suffix then
+        local m = ZONE_NAME_MAP[suffix:lower()]
+        if m then return m end
+    end
+    return ZONE_NAME_MAP[name:lower()]
+end
+T.NodeZone = nodeZone
+
+local hopCache = {}
+local function zoneHops(a, b)
+    if not (a and b) then return nil end
+    if a == b then return 0 end
+    if not (ZONE_ADJ[a] and ZONE_ADJ[b]) then return nil end
+    if ZONE_ADJ[a][b] then return 1 end
+    local key = a * 10000 + b
+    local cached = hopCache[key]
+    if cached ~= nil then return cached >= 0 and cached or nil end
+    local dists = { [a] = 0 }
+    local q, head = { a }, 1
+    while head <= #q do
+        local u = q[head]
+        head = head + 1
+        local d = dists[u]
+        for v in pairs(ZONE_ADJ[u]) do
+            if v == b then
+                hopCache[key] = d + 1
+                return d + 1
+            end
+            if not dists[v] then
+                dists[v] = d + 1
+                q[#q + 1] = v
+            end
+        end
+    end
+    hopCache[key] = -1
+    return nil
+end
+T.ZoneHops = zoneHops
+
+-- Extra riding distance added when two zones have no direct walkable border (mountain wall or sea).
+local BARRIER_DETOUR = 2600
+local ISLAND_DETOUR = 25000
+local function barrierDist(aMap, bMap, straight)
+    if not (aMap and bMap and ZONE_ADJ[aMap] and ZONE_ADJ[bMap]) then return straight end
+    local h = zoneHops(aMap, bMap)
+    if not h then return straight + ISLAND_DETOUR end
+    if h >= 2 then return straight + (h - 1) * BARRIER_DETOUR end
+    return straight
+end
+
 -- seconds riding d straight-line yards: direct within one zone, winding across zone borders/mountains
 local function groundTime(d, v)
     if d <= STRAIGHT_GROUND then return d / v end
     return (STRAIGHT_GROUND + (d - STRAIGHT_GROUND) * CROSS_ZONE_WIND) / v
 end
 
--- seconds from here to the target via flight A -> B
-local function flightTime(v, px, py, A, B, tx, ty)
-    return groundTime(d2(px, py, A.wx, A.wy), v)
+-- seconds from here to the target via flight A -> B (accounting for impassable mountain borders)
+local function flightTime(v, px, py, A, B, tx, ty, pMap, tMap)
+    local dDep = barrierDist(pMap, nodeZone(A), d2(px, py, A.wx, A.wy))
+    local dArr = barrierDist(nodeZone(B), tMap, d2(B.wx, B.wy, tx, ty))
+    return groundTime(dDep, v)
         + d2(A.wx, A.wy, B.wx, B.wy) / TAXI_SPEED
         + FLIGHT_OVERHEAD
-        + groundTime(d2(B.wx, B.wy, tx, ty), v)
+        + groundTime(dArr, v)
 end
 
 -- Pick up to `limit` nearest nodes to (x, y), also guaranteeing the nearest node of any other
 -- known flight network so an isolated local network never hides a connected mainland flight master.
-local function pickNearestNodes(known, x, y, limit)
-    table.sort(known, function(a, b) return d2(x, y, a.wx, a.wy) < d2(x, y, b.wx, b.wy) end)
+local function pickNearestNodes(known, x, y, limit, zoneMap)
+    table.sort(known, function(a, b)
+        local da = barrierDist(zoneMap, nodeZone(a), d2(x, y, a.wx, a.wy))
+        local db = barrierDist(zoneMap, nodeZone(b), d2(x, y, b.wx, b.wy))
+        return da < db
+    end)
     local out, seenNet = {}, {}
     for i = 1, math.min(limit, #known) do
         local n = known[i]
@@ -366,25 +497,38 @@ function T:Advice(map, x, y)
     local pc, px, py = T.PlayerWorld()
     local tc, tx, ty = T.World(map, x, y)
     if not pc or not tc or pc ~= tc then return end
+    local pMap = C_Map and C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit("player")
     local v = T.Speed()
-    local walk = groundTime(d2(px, py, tx, ty), v)
+    local straight = d2(px, py, tx, ty)
+    local rawWalk = groundTime(straight, v)
+    local barrierWalk = groundTime(barrierDist(pMap, map, straight), v)
+    -- Only compare against the barrier-adjusted walk when both taxi nodes identify a zone,
+    -- so synthetic/unnamed nodes compare apples-to-apples against raw straight-line distance.
+    local function walkFor(A, B)
+        return (nodeZone(A) and nodeZone(B)) and barrierWalk or rawWalk
+    end
     if sticky.key == key and sticky.pick then
         local A, B = sticky.pick.from, sticky.pick.to
-        local t = flightTime(v, px, py, A, B, tx, ty)
-        if walk - t >= walk * KEEP_SHARE then
-            sticky.pick.save = (walk - t) * v      -- in yards, for the hearthstone comparison
+        local w = walkFor(A, B)
+        local t = flightTime(v, px, py, A, B, tx, ty, pMap, map)
+        if w - t >= w * KEEP_SHARE then
+            sticky.pick.save = (w - t) * v      -- in yards, for the hearthstone comparison
             cache.result = sticky.pick
             return sticky.pick
         end
     end
     sticky.key, sticky.pick = key, nil
-    if walk < MIN_SAVE + FLIGHT_OVERHEAD then return end
+    if barrierWalk < MIN_SAVE + FLIGHT_OVERHEAD then return end
 
     local known = T:KnownNodes(pc)
     if #known < 2 then return end
-    -- best departure is near the player, best arrival near the target (spanning all known networks)
-    local froms = pickNearestNodes(known, px, py, 4)
-    table.sort(known, function(a, b) return d2(tx, ty, a.wx, a.wy) < d2(tx, ty, b.wx, b.wy) end)
+    -- best departure is near the player, best arrival near the target (spanning all known networks
+    -- and penalizing landings separated from the target by impassable mountain walls)
+    local froms = pickNearestNodes(known, px, py, 4, pMap)
+    table.sort(known, function(a, b)
+        return barrierDist(nodeZone(a), map, d2(tx, ty, a.wx, a.wy))
+             < barrierDist(nodeZone(b), map, d2(tx, ty, b.wx, b.wy))
+    end)
     local tos = {}
     for _, B in ipairs(known) do
         for _, A in ipairs(froms) do
@@ -392,17 +536,21 @@ function T:Advice(map, x, y)
         end
         if #tos == 4 then break end
     end
-    local best, bestCost
+    local best, bestSave
     for _, A in ipairs(froms) do
         for _, B in ipairs(tos) do
             if A ~= B and T.SameNetwork(A, B) then
-                local cost = flightTime(v, px, py, A, B, tx, ty)
-                if not bestCost or cost < bestCost then best, bestCost = { from = A, to = B }, cost end
+                local w = walkFor(A, B)
+                local cost = flightTime(v, px, py, A, B, tx, ty, pMap, map)
+                local save = w - cost
+                if save >= math.max(MIN_SAVE, w * NEW_SHARE) and (not bestSave or save > bestSave) then
+                    best, bestSave = { from = A, to = B }, save
+                end
             end
         end
     end
-    if best and walk - bestCost >= math.max(MIN_SAVE, walk * NEW_SHARE) then
-        best.save = (walk - bestCost) * v
+    if best then
+        best.save = bestSave * v
         cache.result = best
         sticky.pick = best
         return best

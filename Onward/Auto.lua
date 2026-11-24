@@ -46,10 +46,15 @@ local function wantAccept(q, skipRecent)
     if W.db.autoAcceptAll then return true end
     local G = W.Guide
     local g = G and G:Active()
+    local cur = G and G:Current()
+    -- If the current step is guiding the player to pick up an external prerequisite, auto-accept it
+    if cur and G.ExternalPrereq then
+        local pre, state = G:ExternalPrereq(cur)
+        if pre == q and state == "accept" then return true end
+    end
     local a = g and g.acceptOf and g.acceptOf[q]
     if not a then return false end
     if G:IsSkipped(a) or G:IsLater(a) or G:IsComplete(a) then return false end
-    local cur = G:Current()
     if G:IsBehind(a) and cur ~= a then return false end
     -- Immediate follow-up to a quest we just turned in: never wait on debounced WF_REFRESH or HeldReason
     if followsRecentTurnIn(a) then return true end
@@ -72,6 +77,11 @@ end
 local function findQuestByTitle(title)
     if not title or title == "" then return nil end
     local G, QS = W.Guide, W.QuestState
+    local cur = G and G:Current()
+    if cur and G.ExternalPrereq and QS then
+        local pre, state = G:ExternalPrereq(cur)
+        if pre and state == "accept" and QS:Title(pre) == title then return pre end
+    end
     local g = G and G:Active()
     if not (g and g.acceptOf and QS) then return nil end
     for q in pairs(g.acceptOf) do

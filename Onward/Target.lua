@@ -67,10 +67,18 @@ end
 local function plain(s) return (s:gsub("%p", "%%%0")) end
 function TG.MobsFor(step)
     if not step or not step.quest then return {} end
-    if step.verb ~= "complete" and not (G and G:IsUnfinishedTurnin(step)) then return {} end
+    local qid = step.quest
+    local extPre, extState
+    if G and G.ExternalPrereq then extPre, extState = G:ExternalPrereq(step) end
+    if extPre then
+        if extState ~= "complete" then return {} end
+        qid = extPre
+    elseif step.verb ~= "complete" and not (G and G:IsUnfinishedTurnin(step)) then
+        return {}
+    end
     local out, seen, done = {}, {}, {}
-    local e = QS:Get(step.quest)
-    local needle = step.objName and step.objName:lower()
+    local e = QS:Get(qid)
+    local needle = (not extPre) and step.objName and step.objName:lower() or nil
     local finished, open = {}, {}
     for _, o in ipairs(e and e.objectives or {}) do
         local n = objName(o.text)
@@ -102,15 +110,15 @@ function TG.MobsFor(step)
             end
         end
     end
-    for _, name in ipairs(step.mobs or {}) do
+    for _, name in ipairs((not extPre and step.mobs) or {}) do
         if stillNeeded(name) then add(name) end
     end
     -- Fallback when the guide step has no |mobs tag (e.g. out-of-zone objectives like Bungle in
-    -- the Jungle, or quests in the smart quest-log guide): pull unfinished droppers from Questie.
+    -- the Jungle, external prerequisites, or quests in the smart quest-log guide): pull from Questie.
     if #out == 0 and W.QuestieBridge and W.QuestieBridge.QuestMobs then
         local doneLow = {}
         for n in pairs(finished) do doneLow[n:lower()] = true end
-        for _, name in ipairs(W.QuestieBridge:QuestMobs(step.quest, doneLow)) do
+        for _, name in ipairs(W.QuestieBridge:QuestMobs(qid, doneLow)) do
             if stillNeeded(name) then add(name) end
         end
     end
@@ -159,6 +167,15 @@ end
 local TALK = { accept = true, turnin = true, home = true, train = true }
 function TG.TalkName(step)
     if not step or not TALK[step.verb] then return nil end
+    local extPre, extState
+    if G and G.ExternalPrereq then extPre, extState = G:ExternalPrereq(step) end
+    if extPre then
+        if extState == "complete" then return nil end
+        local cur = W.Waypoint and W.Waypoint:Current()
+        local name = cur and cur.step == step and cur.name or nil
+        if type(name) ~= "string" or name == "" or #name > 60 then return nil end
+        return name
+    end
     local name = step.npc
     if not name then
         local cur = W.Waypoint and W.Waypoint:Current()

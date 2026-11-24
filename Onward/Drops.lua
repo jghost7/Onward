@@ -23,7 +23,7 @@ local D = {}
 W.Drops = D
 
 local QS, QB = W.QuestState, W.QuestieBridge
-local MIN_KILLS = 5          -- below this, show the count only, no verdict
+local MIN_KILLS = 3          -- below this, only call extreme streaks (|z| >= 1.5); from 3 kills show full verdict
 local SCHEMA = 2
 local seen, seenCount = {}, 0
 D.log = {}                   -- last few kill / loot events, for /ow drops debug
@@ -381,12 +381,11 @@ function D:Line(o, q)
     if itemId and QB:ItemFromMobs(itemId) == false then return end
     local s = itemId and D:Stats(itemId)
     if not s or s.kills == 0 then
-        local p, src = nil, nil
-        if itemId then p, src = expectedAny(itemId) end
+        local p = itemId and expectedAny(itemId) or nil
         local left = (o.need or 0) - (o.have or 0)
         if p and p > 0 then
-            local line = ("drop rate: %s %d%%"):format(SOURCE[src] or "expected", math.floor(100 * p + 0.5))
-            if left > 0 then line = line .. ("  ·  ~%d kills"):format(math.ceil(left / p)) end
+            local line = ("%d%% drop rate"):format(math.floor(100 * p + 0.5))
+            if left > 0 then line = line .. (" · ~%d kills"):format(math.ceil(left / p)) end
             return line
         end
         return nil   -- nothing to say until you've killed something (the panel shows no placeholder)
@@ -396,28 +395,31 @@ function D:Line(o, q)
     local p = s.ratedKills > 0 and s.expected / s.ratedKills or nil
     local expPct = p and math.floor(100 * p + 0.5) or nil
     local hex, verdict
-    if p and s.ratedKills >= MIN_KILLS and s.var > 0 then
+    if p and s.ratedKills > 0 and s.var > 0 then
         local z = (s.drops * s.ratedKills / s.kills - s.expected) / math.sqrt(s.var)
-        hex, verdict = luckInfo(z, obsPct - expPct)
+        if s.ratedKills >= MIN_KILLS or math.abs(z) >= 1.5 then
+            hex, verdict = luckInfo(z, obsPct - expPct)
+        end
     end
     local pctText = hex and ("|cff%s%d%%|r"):format(hex, obsPct) or ("%d%%"):format(obsPct)
-    local parts = { ("%d in %d %s (%s)"):format(s.drops, s.kills, unit, pctText) }
-    -- the per-corpse rate too: likely what Wowhead's own figure measures (its Looter addon sees
-    -- loot windows), so the two can be compared like for like
-    local e = store()[itemId]
-    if s.basis == "kill" and e and e.corpses > 0 then
-        parts[1] = parts[1] .. ("  ·  %d%% per looted"):format(math.floor(100 * e.cgot / e.corpses + 0.5))
-    end
-    if p then
-        parts[#parts + 1] = ("%s %d%%"):format(SOURCE[s.source] or "expected", expPct)
-        if verdict then parts[#parts + 1] = verdict end
-    end
     local left = (o.need or 0) - (o.have or 0)
     local rate = p or (s.kills >= MIN_KILLS and s.drops > 0 and s.drops / s.kills) or nil
-    if left > 0 and rate and rate > 0 then
-        parts[#parts + 1] = ("~%d more kills"):format(math.ceil(left / rate))
+    local eta = (left > 0 and rate and rate > 0) and ("~%d kills left"):format(math.ceil(left / rate)) or nil
+
+    local line1
+    if expPct then
+        line1 = ("%d/%d %s · %s (avg %d%%)"):format(s.drops, s.kills, unit, pctText, expPct)
+    else
+        line1 = ("%d/%d %s (%s)"):format(s.drops, s.kills, unit, pctText)
     end
-    return table.concat(parts, "  ·  ")
+    if verdict then
+        local line2 = eta and (verdict .. " · " .. eta) or verdict
+        return line1 .. "\n" .. line2
+    end
+    if eta then
+        return line1 .. " · " .. eta
+    end
+    return line1
 end
 
 function D:Reset()

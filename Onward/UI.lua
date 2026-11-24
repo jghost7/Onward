@@ -112,7 +112,15 @@ end
 
 function UI.StepText(step)
     local v = step.verb
-    if v == "accept" then return "Accept " .. questTitle(step.quest)
+    if v == "accept" then
+        local pre, preState
+        if G.ExternalPrereq then pre, preState = G:ExternalPrereq(step) end
+        if pre then
+            if preState == "complete" then return questTitle(pre)
+            elseif preState == "turnin" then return "Turn in " .. questTitle(pre)
+            else return "Accept " .. questTitle(pre) end
+        end
+        return "Accept " .. questTitle(step.quest)
     elseif v == "turnin" then return "Turn in " .. questTitle(step.quest)
     elseif v == "complete" then
         local t = questTitle(step.quest)
@@ -1172,7 +1180,7 @@ UI.FallbackObjectiveSummary = fallbackObjectiveSummary
 local function wantsStrip(step)
     if not step or W.db.collapsed or W.db.targetDetached then return false end
     local TG = W.Target
-    if W.db.targetButton and TG and step.verb == "complete" and #TG.MobsForGroup(G:Group()) > 0 then return true end
+    if W.db.targetButton and TG and (step.verb == "complete" or (G.ExternalPrereq and G:ExternalPrereq(step))) and #TG.MobsForGroup(G:Group()) > 0 then return true end
     if W.db.targetButton and TG and TG.TalkName and TG.TalkName(step) then return true end   -- who you talk to
     return W.db.itemButton ~= false and W.Item and #W.Item.ForGroup() > 0 or false
 end
@@ -1363,11 +1371,26 @@ function UI:Render()
     laterStripBtn:SetShown(showLater)
 
     local text = UI.StepText(step)
-    -- a kill/loot step or turn-in for a quest you haven't picked up, or a failed quest
+    -- a kill/loot step or turn-in for a quest you haven't picked up, a failed quest, or an
+    -- external prerequisite (e.g. part 1 of a chain from an earlier level band / zone)
     local pickup = G:IsMissing(step) and WP:Current() and WP:Current().step == step and WP:Current().pickup
+    local extPre, extState
+    if G.ExternalPrereq then extPre, extState = G:ExternalPrereq(step) end
     if G:IsFailed(step) then
         verbText:SetText("FAILED  ·  RE-ACCEPT")
         text = questTitle(step.quest) .. "  |cffff7366(failed: abandon and pick up again)|r"
+    elseif extPre then
+        local preName = questTitle(extPre)
+        if extState == "turnin" then
+            verbText:SetText("PREREQUISITE  ·  TURN IN")
+            text = "Turn in " .. preName
+        elseif extState == "complete" then
+            verbText:SetText("PREREQUISITE  ·  COMPLETE")
+            text = preName
+        else
+            verbText:SetText("PREREQUISITE  ·  ACCEPT")
+            text = "Accept " .. preName
+        end
     elseif G:IsUnfinishedTurnin(step) then
         verbText:SetText("COMPLETE FIRST")
         text = questTitle(step.quest)
@@ -1485,7 +1508,13 @@ function UI:Render()
             line(ctx, C.sub, 1)
         end
         local drop = W.Drops and W.Drops:Line(o, s.quest)
-        if drop then line(drop, C.dim, 1) end
+        if drop then
+            local dgap = 2
+            for seg in drop:gmatch("[^\n]+") do
+                line(seg, C.dim, dgap)
+                dgap = 2
+            end
+        end
     end
     local function hints(q, builtIn, s)
         local hh = builtIn and G:QuestHint(q)
@@ -1501,11 +1530,21 @@ function UI:Render()
             end
         end
     end
-    local showObj = (step.verb == "complete" or G:IsUnfinishedTurnin(step)) and step.quest
+    local showObj = ((step.verb == "complete" or G:IsUnfinishedTurnin(step)) and step.quest)
+        or (extPre and extState == "complete")
     local usedGroupRows = 0
+    if extPre then
+        local preName, targetName = questTitle(extPre), questTitle(step.quest)
+        local why = (preName == targetName)
+            and "Do this prerequisite part first to unlock the next part"
+            or ("Do this prerequisite first to unlock " .. targetName)
+        line(why, C.hint, 5)
+    end
     if showObj then
-        local e = W.db.showObjectives and QS:Get(step.quest)
-        local needle = step.objName and step.objName:lower()
+        local objQuest = (extPre and extState == "complete") and extPre or step.quest
+        local objStep = (objQuest == step.quest) and step or { verb = "complete", quest = objQuest }
+        local e = W.db.showObjectives and QS:Get(objQuest)
+        local needle = (objStep == step) and step.objName and step.objName:lower() or nil
         local matchedAny = false
         if needle and e and e.objectives then
             for _, o in ipairs(e.objectives) do
@@ -1513,15 +1552,15 @@ function UI:Render()
             end
         end
         for i, o in ipairs(e and e.objectives or {}) do
-            local want = (not step.obj or step.obj == i)
+            local want = (objStep ~= step or not step.obj or step.obj == i)
                 and (not matchedAny or (o.text and o.text:lower():find(needle, 1, true)))
-            if want then objective(o, step) end
+            if want then objective(o, objStep) end
         end
-        local summary = UI.FallbackObjectiveSummary(step, shownContext)
+        local summary = UI.FallbackObjectiveSummary(objStep, shownContext)
         if summary then line(summary, C.sub, 4) end
-        hints(step.quest, true, step)
+        hints(objQuest, true, objStep)
         -- the other kill/loot quests worked in the same area: one row each, objectives on hover
-        local group = step.verb == "complete" and G:Group() or {}
+        local group = (not extPre and step.verb == "complete") and G:Group() or {}
         if #group > 1 then
             alsoLabel:SetText(("ALSO HERE  ·  %d"):format(#group - 1))
             alsoLabel:Show()

@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.9.6
+
+- **Mountain-wall flight routing:** Flight advice now uses a walkable Classic zone-border graph so
+  it never lands on the wrong side of an impassable mountain ridge or sea barrier (for example,
+  flying to `Tarren Mill, Hillsbrad` instead of `Hammerfall, Arathi` when heading to
+  `Shadra'Alor, The Hinterlands`).
+- **Full external prerequisite guidance:** When an `accept` step waits on a prerequisite from an
+  earlier level band or zone (such as *Lack of Surplus* part 1 → part 2), Onward now guides you
+  through all three stages (`PREREQUISITE · ACCEPT` → `COMPLETE` → `TURN IN`), routes to the giver,
+  live objective areas, and finisher, targets its NPCs/mobs, and auto-accepts the prerequisite so
+  it unlocks the gated quest smoothly.
+- **Cleaner 2-line drop-rate display & faster luck feedback:** Reorganized item drop stats into two
+  compact lines (`9/34 kills · 26% (avg 12%)` above `🍀 very lucky (+14%) · ~9 kills left`) to
+  prevent mid-phrase wrapping, and lowered the luck-verdict threshold from 5 kills to 3 kills (plus
+  early streaks at `|z| ≥ 1.5`).
+
 ## 0.9.5
 
 - **Nav arrow status medallions:** Replaced the orphaned corner checkmark when hearthstoning or

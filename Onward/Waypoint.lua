@@ -189,13 +189,34 @@ function WP:Resolve(step)
             if best then return best.map, best.x, best.y, best.name end
         end
     end
-    -- an accept that waits on a quest the guide doesn't cover: lead to that quest's giver
-    if step.verb == "accept" and G then
-        local _, kind, pre = G:HeldReason(step)
-        local g = G:Active()
-        if kind == "pre" and pre and not (g and g.acceptOf and g.acceptOf[pre]) then
-            local first = QB:StartLocation(pre)
-            if first then return first.map, first.x, first.y, first.name end
+    -- an accept that waits on a quest outside this guide: guide the player through all 3 stages
+    -- of that prerequisite (giver -> live objectives -> turn-in) until it unlocks this step
+    if step.verb == "accept" and G and G.ExternalPrereq then
+        local pre, state = G:ExternalPrereq(step)
+        if pre then
+            if state == "turnin" then
+                local fin = QB:EndLocation(pre)
+                if fin then return fin.map, fin.x, fin.y, fin.name end
+            elseif state == "complete" then
+                if C_QuestLog.GetNextWaypoint and C_QuestLog.IsOnQuest(pre) then
+                    local ok, map, x, y = pcall(C_QuestLog.GetNextWaypoint, pre)
+                    if ok and map and x then return map, x * 100, y * 100, nil end
+                end
+                local spots = WP.ObjectiveSpots(pre)
+                if spots then
+                    local pc, px, py = T.PlayerWorld()
+                    local best, bestD
+                    for _, s in ipairs(spots) do
+                        local c, wx, wy = T.World(s.map, s.x, s.y)
+                        local d = c and pc == c and (wx - px) ^ 2 + (wy - py) ^ 2 or math.huge
+                        if not best or d < bestD then best, bestD = s, d end
+                    end
+                    if best then return best.map, best.x, best.y, best.name end
+                end
+            else
+                local first = QB:StartLocation(pre)
+                if first then return first.map, first.x, first.y, first.name end
+            end
         end
     end
     if step.verb == "complete" then

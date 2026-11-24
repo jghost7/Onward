@@ -554,6 +554,19 @@ function G:HeldReason(step)
     end
 end
 
+-- When an accept step is held on a prerequisite quest that lives outside this guide (e.g. an
+-- earlier level band or another zone), return (preQuestId, state) where state is "accept",
+-- "complete", or "turnin" so the guide can walk the player all the way through it cleanly.
+function G:ExternalPrereq(step)
+    if not (step and step.verb == "accept") then return nil end
+    local _, kind, pre = G:HeldReason(step)
+    if kind ~= "pre" or not pre then return nil end
+    if active and active.acceptOf and active.acceptOf[pre] then return nil end
+    if QS:IsReady(pre) then return pre, "turnin" end
+    if QS:IsOnQuest(pre) then return pre, "complete" end
+    return pre, "accept"
+end
+
 -- Items to bring: things a quest of this guide wants that no mob or object drops, so they have
 -- to be bought from a vendor or made by a profession (Frost Oil for "Coolant Heads Prevail").
 -- G:NeedsFor(quest) = what's still missing for one quest; G:Needs() = for every quest of the guide
