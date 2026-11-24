@@ -31,7 +31,9 @@ ICONS = [
     "clover",
     "sparkles",
     "cloud-rain",
-    "frown",
+    "house",
+    "globe",
+    "ship",
 ]
 
 

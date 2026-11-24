@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.9.5
+
+- **Nav arrow status medallions:** Replaced the orphaned corner checkmark when hearthstoning or
+  traveling across continents with centered Lucide medallions (`hearth` house with `"use
+  hearthstone"`, `boat` ship for crossings, and `continent` globe for other-continent targets).
+- **Safer fresh-install flight default:** Changed `Pick flight automatically` (`autoTaxi`) to off by
+  default on new installs (existing saved settings are untouched; Onward still highlights the
+  recommended destination on the flight map).
+
 ## 0.9.4
 
 - **Uncrowded step-card actions:** Replaced the boxed `Later` and `Done` text pills with compact

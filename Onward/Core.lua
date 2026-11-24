@@ -37,7 +37,7 @@ local DEFAULTS = {
     trailBack = true,
     hearthAdvice = true,     -- say when hearthing beats running or flying        -- lead back to quest givers along the way you came
     travelAdvice = true,     -- suggest flights when they beat running
-    autoTaxi = true,         -- pick the flight at the flight master (hold Shift to choose yourself)
+    autoTaxi = false,        -- pick the flight at the flight master (hold Shift to choose yourself)
     -- panel
     showNext = 3,            -- upcoming steps shown under the current one
     showObjectives = true,

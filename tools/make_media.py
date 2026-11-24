@@ -133,6 +133,7 @@ def _parse_path(d):
     i, n = 0, len(d)
     cmd = None
     x = y = sx = sy = 0.0
+    prev_c = None
     polylines = []
     cur = []
 
@@ -166,6 +167,8 @@ def _parse_path(d):
         if d[i].isalpha():
             cmd = d[i]
             i += 1
+        if cmd not in ("C", "c", "S", "s"):
+            prev_c = None
         if cmd in ("M", "m"):
             nx, ny = flt(), flt()
             if cmd == "m":
@@ -189,16 +192,33 @@ def _parse_path(d):
             ny = flt()
             y = y + ny if cmd == "v" else ny
             cur.append((x, y))
-        elif cmd in ("C", "c"):
-            x1, y1, x2, y2, nx, ny = flt(), flt(), flt(), flt(), flt(), flt()
-            if cmd == "c":
-                x1, y1, x2, y2, nx, ny = x + x1, y + y1, x + x2, y + y2, x + nx, y + ny
+        elif cmd in ("C", "c", "S", "s"):
+            if cmd in ("S", "s"):
+                x1, y1 = (2 * x - prev_c[0], 2 * y - prev_c[1]) if prev_c else (x, y)
+                x2, y2, nx, ny = flt(), flt(), flt(), flt()
+                if cmd == "s":
+                    x2, y2, nx, ny = x + x2, y + y2, x + nx, y + ny
+            else:
+                x1, y1, x2, y2, nx, ny = flt(), flt(), flt(), flt(), flt(), flt()
+                if cmd == "c":
+                    x1, y1, x2, y2, nx, ny = x + x1, y + y1, x + x2, y + y2, x + nx, y + ny
             for k in range(1, 25):
                 t = k / 24.0
                 mt = 1.0 - t
                 px = mt**3 * x + 3 * mt**2 * t * x1 + 3 * mt * t**2 * x2 + t**3 * nx
                 py = mt**3 * y + 3 * mt**2 * t * y1 + 3 * mt * t**2 * y2 + t**3 * ny
                 cur.append((px, py))
+            prev_c = (x2, y2)
+            x, y = nx, ny
+        elif cmd in ("Q", "q"):
+            x1, y1, nx, ny = flt(), flt(), flt(), flt()
+            if cmd == "q":
+                x1, y1, nx, ny = x + x1, y + y1, x + nx, y + ny
+            for k in range(1, 21):
+                t = k / 20.0
+                mt = 1.0 - t
+                cur.append((mt * mt * x + 2 * mt * t * x1 + t * t * nx, mt * mt * y + 2 * mt * t * y1 + t * t * ny))
+            prev_c = None
             x, y = nx, ny
         elif cmd in ("A", "a"):
             rx, ry, rot = flt(), flt(), flt()
@@ -484,6 +504,9 @@ def icons():
     for name, paths, sw in LUCIDE_QUEST_GLYPHS:
         lucide_custom(name, paths, size=64, stroke_width=sw)
     lucide_icon("arrive", "circle-check", size=128, stroke_width=2.0)
+    lucide_icon("hearth", "house", size=128, stroke_width=2.0)
+    lucide_icon("continent", "globe", size=128, stroke_width=1.9)
+    lucide_icon("boat", "ship", size=128, stroke_width=2.0)
 
 
 def main():

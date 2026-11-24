@@ -485,6 +485,8 @@ W.Guide:Skip(1) settle()   -- to "East zone" (1000 yd away)
 local tgt = W.Waypoint:ArrowTarget()
 check("far target: arrow suggests the flight", tgt and tgt.flight and tgt.label == "Fly: Here Town", tgt and tgt.label)
 check("the travel plan says its first leg in words", tgt and tgt.route == "fly from Here Town to Eastwatch", tgt and tgt.route)
+check("auto-taxi defaults off on a fresh install", W.db.autoTaxi == false)
+W.db.autoTaxi = true
 MOCK.calls = {}
 MOCK.fire("TAXIMAP_OPENED") settle()
 local took = called("TakeTaxiNode")
@@ -2894,6 +2896,42 @@ do
 
     QB.ObjectiveSource = savedObjSrc
     QB.QuestMobs = savedQMobs
+end
+
+-- Arrow centered medallions for Hearthstone and cross-continent states (no orphaned corner checkmark)
+do
+    local A, WP = W.Arrow, W.Waypoint
+    local savedAT = WP.ArrowTarget
+    local upd = A.frame:GetScript("OnUpdate")
+
+    WP.ArrowTarget = function()
+        return { cont = 0, wx = 100, wy = 100, label = "Hearth to Revantusk Village", sub = "hearthstone is ready", hearth = true }
+    end
+    upd(A.frame, 0.1)
+    check("arrow hearth: shows centered hearth medallion instead of rotating arrow or corner checkmark",
+        A.statusIcon:IsShown() and A.statusIcon.texture:find("hearth", 1, true)
+        and not A.tex:IsShown() and not A.modeIcon:IsShown() and A.dist.text == "use hearthstone",
+        tostring(A.statusIcon.texture) .. " / " .. tostring(A.dist.text))
+
+    WP.ArrowTarget = function()
+        return { cont = 99, wx = 100, wy = 100, label = "Accept Fresh Meat", sub = "" }
+    end
+    upd(A.frame, 0.1)
+    check("arrow other continent: shows centered globe medallion",
+        A.statusIcon:IsShown() and A.statusIcon.texture:find("continent", 1, true)
+        and not A.tex:IsShown() and not A.modeIcon:IsShown() and A.dist.text == "other continent",
+        tostring(A.statusIcon.texture) .. " / " .. tostring(A.dist.text))
+
+    WP.ArrowTarget = function()
+        return { cont = 99, wx = 100, wy = 100, label = "Take the boat to Steamwheedle Port", sub = "", crossing = true }
+    end
+    upd(A.frame, 0.1)
+    check("arrow cross-continent boat: shows centered boat medallion",
+        A.statusIcon:IsShown() and A.statusIcon.texture:find("boat", 1, true) and not A.modeIcon:IsShown(),
+        tostring(A.statusIcon.texture))
+
+    WP.ArrowTarget = savedAT
+    upd(A.frame, 0.1)
 end
 
 check("no runtime errors", #MOCK.errors == 0, MOCK.errors[1])

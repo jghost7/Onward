@@ -49,7 +49,25 @@ function A.PlayArrive()
 end
 A.pulse = pulse
 
--- contextual mode badge tucked at bottom-right of the arrow (flight, hearth, boat/zep, corpse)
+-- centered status medallion shown in place of the rotating arrow when there is no bearing
+-- (use Hearthstone, other continent, or cross-continent boat/zeppelin)
+local statusBg = f:CreateTexture(nil, "ARTWORK", nil, 0)
+statusBg:SetTexture(MEDIA .. "circle")
+statusBg:SetSize(52, 52)
+statusBg:SetPoint("CENTER", arrow)
+statusBg:SetVertexColor(0.05, 0.06, 0.08, 0.86)
+statusBg:Hide()
+local statusRim = f:CreateTexture(nil, "ARTWORK", nil, 1)
+statusRim:SetTexture(MEDIA .. "ring")
+statusRim:SetSize(54, 54)
+statusRim:SetPoint("CENTER", arrow)
+statusRim:Hide()
+local statusIcon = f:CreateTexture(nil, "OVERLAY", nil, 1)
+statusIcon:SetSize(30, 30)
+statusIcon:SetPoint("CENTER", arrow)
+statusIcon:Hide()
+
+-- contextual mode badge tucked at bottom-right of the rotating arrow (flight, boat/zep, corpse)
 local modeBg = f:CreateTexture(nil, "OVERLAY", nil, 0)
 modeBg:SetTexture(MEDIA .. "circle")
 modeBg:SetSize(20, 20)
@@ -61,14 +79,39 @@ modeIcon:SetSize(13, 13)
 modeIcon:SetPoint("CENTER", modeBg)
 modeIcon:Hide()
 
+local function hideModeBadge()
+    modeBg:Hide()
+    modeIcon:Hide()
+end
+
+local function showStatus(icon, r, g, b)
+    arrow:Hide()
+    ring:Hide()
+    hideModeBadge()
+    statusRim:SetVertexColor(r, g, b, 0.65)
+    statusIcon:SetTexture(MEDIA .. icon)
+    statusIcon:SetVertexColor(r, g, b, 1)
+    statusBg:Show()
+    statusRim:Show()
+    statusIcon:Show()
+end
+
+local function hideStatus()
+    statusBg:Hide()
+    statusRim:Hide()
+    statusIcon:Hide()
+end
+
 local function updateModeBadge(tgt)
     local icon, r, g, b
     if tgt.corpse then
         icon, r, g, b = "complete", 1.00, 0.42, 0.38
     elseif tgt.hearth then
-        icon, r, g, b = "arrive", W.Skin.ACCENT[1], W.Skin.ACCENT[2], W.Skin.ACCENT[3]
+        icon, r, g, b = "hearth", W.Skin.ACCENT[1], W.Skin.ACCENT[2], W.Skin.ACCENT[3]
     elseif tgt.flight then
         icon, r, g, b = "fly", 0.75, 0.60, 1.00
+    elseif tgt.crossing then
+        icon, r, g, b = "boat", 0.75, 0.60, 1.00
     elseif tgt.cross or tgt.route then
         icon, r, g, b = "nav", 0.75, 0.60, 1.00
     end
@@ -78,8 +121,7 @@ local function updateModeBadge(tgt)
         modeBg:Show()
         modeIcon:Show()
     else
-        modeBg:Hide()
-        modeIcon:Hide()
+        hideModeBadge()
     end
 end
 
@@ -137,7 +179,8 @@ local function applyTextScale()
 end
 A.ApplyTextScale = applyTextScale
 
-A.frame, A.tex, A.dist, A.label, A.sub, A.fade, A.modeIcon, A.pill = f, arrow, dist, label, sub, fade, modeIcon, pill
+A.frame, A.tex, A.dist, A.label, A.sub, A.fade, A.modeIcon, A.statusIcon, A.pill =
+    f, arrow, dist, label, sub, fade, modeIcon, statusIcon, pill
 
 ---------------------------------------------------------------------------
 local function lerp(a, b, t) return a + (b - a) * t end
@@ -169,15 +212,35 @@ local function update(_, dt)
     local lbl, sb = tgt.label or "", tgt.sub or ""
     label:SetText(lbl)
     sub:SetText(sb)
-    updateModeBadge(tgt)
+
+    -- Hearthstone advice: no direction to walk, show a prominent centered hearth medallion
+    if tgt.hearth then
+        local acc = W.Skin.ACCENT
+        showStatus("hearth", acc[1], acc[2], acc[3])
+        dist:SetText("use hearthstone")
+        if lastTextSig ~= lbl .. "|" .. sb .. "|hearth" then
+            lastTextSig = lbl .. "|" .. sb .. "|hearth"
+            sizePill()
+        end
+        return
+    end
 
     local pc, px, py = T.PlayerWorld()
     if not pc or pc ~= tgt.cont then
-        arrow:Hide() ring:Hide()
+        if tgt.crossing then
+            showStatus("boat", 0.75, 0.60, 1.00)
+        else
+            showStatus("continent", 0.55, 0.78, 1.00)
+        end
         dist:SetText("other continent")
-        sizePill()
+        if lastTextSig ~= lbl .. "|" .. sb .. "|other" then
+            lastTextSig = lbl .. "|" .. sb .. "|other"
+            sizePill()
+        end
         return
     end
+    hideStatus()
+    updateModeBadge(tgt)
     -- world coords: x grows north, y grows west
     local north, west = tgt.wx - px, tgt.wy - py
     local yards = math.sqrt(north * north + west * west)
@@ -189,6 +252,7 @@ local function update(_, dt)
     arrivedKey, wasArrived = key, here
     if here then
         arrow:Hide()
+        hideModeBadge()
         ring:Show()
         dist:SetText("arrived")
         if lastTextSig ~= lbl .. "|" .. sb .. "|arrived" then
