@@ -336,7 +336,29 @@ function D:ItemIdByName(name)
     for itemId, e in pairs(store()) do if e.name == name then return itemId end end
 end
 
+local MEDIA = "Interface\\AddOns\\Onward\\media\\"
 local SOURCE = { wowhead = "Wowhead", cmangos = "server data", mangos3 = "server data", questie = "Questie", mixed = "expected" }
+
+-- Variance tiers by binomial z-score (standard deviations above/below expected drop rate):
+-- mild (+/-1..2 sigma) and strong (+/-2+ sigma) get escalating colors + Lucide clover/raincloud icons.
+local function luckInfo(z, delta)
+    local icon, hex, r, g, b, word
+    if z >= 2 then
+        icon, hex, r, g, b, word = "lucky", "38f288", 56, 242, 136, "very lucky"
+    elseif z >= 1 then
+        icon, hex, r, g, b, word = "lucky", "66d973", 102, 217, 115, "lucky"
+    elseif z <= -2 then
+        icon, hex, r, g, b, word = "unlucky", "ff5252", 255, 82, 82, "very unlucky"
+    elseif z <= -1 then
+        icon, hex, r, g, b, word = "unlucky", "ff9f43", 255, 159, 67, "unlucky"
+    else
+        return nil, "about average"
+    end
+    local glyph = ("|T%s%s:12:12:0:0:64:64:0:64:0:64:%d:%d:%d|t "):format(MEDIA, icon, r, g, b)
+    local diff = (delta and delta ~= 0) and (" (%s%d%%)"):format(delta > 0 and "+" or "", delta) or ""
+    return hex, ("%s|cff%s%s%s|r"):format(glyph, hex, word, diff)
+end
+D.LuckInfo = luckInfo
 
 -- the expected rate for an item before any kill: mean over the mobs Questie lists as dropping it
 local function expectedAny(itemId)
@@ -370,20 +392,25 @@ function D:Line(o, q)
         return nil   -- nothing to say until you've killed something (the panel shows no placeholder)
     end
     local unit = s.basis == "kill" and "kills" or "looted"
-    local parts = { ("%d in %d %s (%d%%)"):format(s.drops, s.kills, unit, math.floor(100 * s.drops / s.kills + 0.5)) }
+    local obsPct = math.floor(100 * s.drops / s.kills + 0.5)
+    local p = s.ratedKills > 0 and s.expected / s.ratedKills or nil
+    local expPct = p and math.floor(100 * p + 0.5) or nil
+    local hex, verdict
+    if p and s.ratedKills >= MIN_KILLS and s.var > 0 then
+        local z = (s.drops * s.ratedKills / s.kills - s.expected) / math.sqrt(s.var)
+        hex, verdict = luckInfo(z, obsPct - expPct)
+    end
+    local pctText = hex and ("|cff%s%d%%|r"):format(hex, obsPct) or ("%d%%"):format(obsPct)
+    local parts = { ("%d in %d %s (%s)"):format(s.drops, s.kills, unit, pctText) }
     -- the per-corpse rate too: likely what Wowhead's own figure measures (its Looter addon sees
     -- loot windows), so the two can be compared like for like
     local e = store()[itemId]
     if s.basis == "kill" and e and e.corpses > 0 then
         parts[1] = parts[1] .. ("  ·  %d%% per looted"):format(math.floor(100 * e.cgot / e.corpses + 0.5))
     end
-    local p = s.ratedKills > 0 and s.expected / s.ratedKills or nil
     if p then
-        parts[#parts + 1] = ("%s %d%%"):format(SOURCE[s.source] or "expected", math.floor(100 * p + 0.5))
-        if s.ratedKills >= MIN_KILLS and s.var > 0 then
-            local z = (s.drops * s.ratedKills / s.kills - s.expected) / math.sqrt(s.var)
-            parts[#parts + 1] = z > 1 and "|cff66d973luckier|r" or z < -1 and "|cffff7366unluckier|r" or "about average"
-        end
+        parts[#parts + 1] = ("%s %d%%"):format(SOURCE[s.source] or "expected", expPct)
+        if verdict then parts[#parts + 1] = verdict end
     end
     local left = (o.need or 0) - (o.have or 0)
     local rate = p or (s.kills >= MIN_KILLS and s.drops > 0 and s.drops / s.kills) or nil

@@ -443,21 +443,24 @@ local strip = CreateFrame("Frame", nil, card)
 strip:SetHeight(STRIP_H)
 strip:Hide()
 UI.strip = strip
-local function outlineButton(parent, label, tip, onClick)
+local function cardActionButton(parent, icon, hoverColor, title, tip, onClick)
     local b = CreateFrame("Button", nil, parent)
-    b:SetHeight(24)
-    local bg = S.Nine(b, "BACKGROUND", 0, MEDIA .. "glass_rim", 64, 16, 6, 0)
-    bg:SetColor(1, 1, 1, 0.16)
-    b.text = fs(b, 11, C.sub)
-    b.text:SetPoint("CENTER")
-    b.text:SetText(label)
-    b:SetWidth(math.max(48, (b.text:GetStringWidth() or 0) + 20))
-    S.Hover(b, 24)
+    b:SetSize(20, 20)
+    local t = b:CreateTexture(nil, "ARTWORK")
+    t:SetTexture(MEDIA .. icon)
+    t:SetSize(13, 13)
+    t:SetPoint("CENTER")
+    t:SetVertexColor(rgb(C.dim))
+    b.icon = t
+    S.Hover(b, 20)
     b:SetScript("OnEnter", function(self)
-        self.text:SetTextColor(rgb(C.text))
-        if tip then GameTooltip:SetOwner(self, "ANCHOR_TOP") GameTooltip:AddLine(tip, 1, 1, 1, true) GameTooltip:Show() end
+        self.icon:SetVertexColor(rgb(hoverColor or C.text))
+        GameTooltip:SetOwner(self, "ANCHOR_TOP")
+        GameTooltip:AddLine(title, 1, 1, 1)
+        if tip then GameTooltip:AddLine(tip, 0.72, 0.75, 0.80, true) end
+        GameTooltip:Show()
     end)
-    b:SetScript("OnLeave", function(self) self.text:SetTextColor(rgb(C.sub)) GameTooltip:Hide() end)
+    b:SetScript("OnLeave", function(self) self.icon:SetVertexColor(rgb(C.dim)) GameTooltip:Hide() end)
     b:SetScript("OnClick", onClick)
     return b
 end
@@ -490,9 +493,10 @@ end)
 areaBtn:SetScript("OnLeave", function() GameTooltip:Hide() end)
 UI.areaBtn = areaBtn   -- Render reaches it through UI: that function is at Lua's limit of 60 upvalues
 
--- Card top-right micro-actions on the verb row: "Done" (always shown on manual steps like notes;
--- subtle on hover for others) and "Later" (on quest steps, away from target/item buttons).
-local doneStripBtn = outlineButton(card, "Done", "Mark this step done (can be undone from the pop-up notice).",
+-- Card top-right micro-actions on the verb row: compact Lucide icon buttons (check = Done,
+-- clock = Later) so they stay unobtrusive and never crowd the step header.
+local doneStripBtn = cardActionButton(card, "done", C.good, "Mark step done",
+    "Marks this step done (can be undone from the pop-up notice). Shortcut: right-click the card.",
     function()
         local s = card.step
         if not s then return end
@@ -500,16 +504,13 @@ local doneStripBtn = outlineButton(card, "Done", "Mark this step done (can be un
         local doneStep = G:MarkDone(s)
         if doneStep then UI:ToastUndo(doneStep, gid) end
     end)
-doneStripBtn:SetHeight(18)
-doneStripBtn:SetWidth(math.max(42, (doneStripBtn.text:GetStringWidth() or 0) + 16))
 doneStripBtn:SetPoint("TOPRIGHT", card, "TOPRIGHT", 0, 2)
 doneStripBtn:Hide()
 UI.doneStripBtn = doneStripBtn
 
-local laterStripBtn = outlineButton(card, "Later", "Come back to this quest later: the guide moves on, reminds you when you're back here, and returns to it at the end.",
+local laterStripBtn = cardActionButton(card, "later", C.text, "Come back later",
+    "Moves on, reminds you when you're back in the area, and returns to it before the guide ends. Shortcut: Shift-right-click.",
     function() local s = card.step if s and s.quest then G:Later(s.quest) end end)
-laterStripBtn:SetHeight(18)
-laterStripBtn:SetWidth(math.max(44, (laterStripBtn.text:GetStringWidth() or 0) + 16))
 laterStripBtn:SetPoint("RIGHT", doneStripBtn, "LEFT", -4, 0)
 laterStripBtn:Hide()
 verbText:SetPoint("RIGHT", laterStripBtn, "LEFT", -6, 0)

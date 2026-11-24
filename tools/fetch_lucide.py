@@ -26,6 +26,12 @@ ICONS = [
     "circle-alert",
     "circle-question-mark",
     "circle-check",
+    "clock",
+    "check",
+    "clover",
+    "sparkles",
+    "cloud-rain",
+    "frown",
 ]
 
 

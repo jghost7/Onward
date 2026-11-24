@@ -464,6 +464,10 @@ LUCIDE_ICONS = [
     ("note",     "info",                2.2),
     ("who",      "user",                2.2),
     ("talk",     "message-circle-more", 2.2),
+    ("later",    "clock",               2.2),
+    ("done",     "check",               2.5),
+    ("lucky",    "clover",              2.1),
+    ("unlucky",  "cloud-rain",          2.2),
 ]
 
 # WoW's iconic bare ! and ? glyphs in the exact same 24x24 Lucide round-stroke weight,

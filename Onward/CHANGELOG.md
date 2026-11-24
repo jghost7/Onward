@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.9.4
+
+- **Uncrowded step-card actions:** Replaced the boxed `Later` and `Done` text pills with compact
+  borderless Lucide icon buttons (`clock` for Later, `check` for Done) matching the panel header.
+- **Drop-rate luck icons and variance colors:** Added Lucide four-leaf `clover` (lucky) and
+  `cloud-rain` (unlucky) icons alongside escalating variance colors (soft green → bright emerald for
+  `+1σ` / `+2σ+`, warm amber → vivid red for `-1σ` / `-2σ+`) highlighting both your observed drop
+  rate and its percentage delta against the expected average.
+
 ## 0.9.3
 
 - **Lucide icon overhaul:** Replaced all 17 UI icons with crisp 64×64 Lucide sprites (ISC license,

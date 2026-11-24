@@ -1042,7 +1042,25 @@ MOCK.targetGuid = nil
 check("pickpocketing a living mob is not a drop", e5001.got == 2)
 for _ = 1, 4 do plateKill("Mire Hag") end                       -- 10 kills, 2 drops vs 5 expected
 lineText = D:Line(W.QuestState:Get(970).objectives[1]) or ""
-check("card line calls bad luck", lineText:find("unluckier", 1, true), lineText)
+check("card line calls bad luck with unlucky icon and colored rate",
+    lineText:find("unlucky (-30%)", 1, true) and lineText:find("media\\unlucky", 1, true) and lineText:find("|cffff9f4320%|r", 1, true), lineText)
+-- Variance-scaled luck tiers: icons + escalating colors + delta vs expected average
+do
+    local h1, v1 = D.LuckInfo(1.4, 18)
+    check("luck tier +1 sigma: soft green lucky + clover icon + delta",
+        h1 == "66d973" and v1:find("media\\lucky", 1, true) and v1:find("lucky (+18%)", 1, true), v1)
+    local h2, v2 = D.LuckInfo(2.5, 40)
+    check("luck tier +2 sigma: bright emerald very lucky + clover icon",
+        h2 == "38f288" and v2:find("media\\lucky", 1, true) and v2:find("very lucky (+40%)", 1, true), v2)
+    local h0, v0 = D.LuckInfo(0.3, 2)
+    check("luck tier average: neutral text with no icon", h0 == nil and v0 == "about average", v0)
+    local hm1, vm1 = D.LuckInfo(-1.3, -15)
+    check("luck tier -1 sigma: amber unlucky + rain icon + delta",
+        hm1 == "ff9f43" and vm1:find("media\\unlucky", 1, true) and vm1:find("unlucky (-15%)", 1, true), vm1)
+    local hm2, vm2 = D.LuckInfo(-2.4, -25)
+    check("luck tier -2 sigma: vivid red very unlucky + rain icon",
+        hm2 == "ff5252" and vm2:find("media\\unlucky", 1, true) and vm2:find("very unlucky (-25%)", 1, true), vm2)
+end
 W:RegisterGuide{ id = "drops", title = "Drops", faction = "", steps = "complete 970\nturnin 970\n" }
 W.Guide:Activate("drops") settle()
 W.UI.panel:Show() W.UI:Render()
