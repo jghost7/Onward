@@ -3114,6 +3114,59 @@ turnin 699 |at 1435 81.4,80.8 |npc Tok'Kar
     W.db.autoAccept, W.db.autoAcceptAll = savedAutoAccept, savedAutoAll
 end
 
+-- Strict faction filtering: Horde never sees Alliance guides (or Alliance-only zone guides),
+-- fails closed when UnitFactionGroup is nil, falls back to race ID, and rejects saved opposite-faction guides on login
+do
+    local G, UI = W.Guide, W.UI
+    local savedFaction = UnitFactionGroup
+    local savedRace = MOCK.race
+    local savedLevel = MOCK.level
+
+    -- 1. Horde character: picker has zero Alliance guides and zero Dun Morogh / Westfall guides
+    UnitFactionGroup = function() return "Horde" end
+    MOCK.race = { "Orc", "Orc", 2 }
+    MOCK.level = 20
+    UI:RenderPicker()
+    local badAlliance, badHome = nil, nil
+    for _, def in ipairs(UI.pickerList or {}) do
+        if def.faction == "Alliance" then badAlliance = def.id break end
+        if def.zone == "Dun Morogh" or def.zone == "Westfall" or def.zone == "Elwynn Forest" or def.zone == "Loch Modan" then
+            badHome = def.id break
+        end
+    end
+    check("faction picker: Horde sees zero Alliance guides", badAlliance == nil, badAlliance)
+    check("faction picker: Horde sees zero Alliance-only starter zones (Dun Morogh / Westfall)", badHome == nil, badHome)
+
+    -- 2. Transient nil UnitFactionGroup at login: falls back to race ID (Orc=2 -> Horde, SkyborneHorde=96 -> Horde)
+    UnitFactionGroup = function() return nil end
+    MOCK.race = { "Orc", "Orc", 2 }
+    check("PlayerFaction: falls back to race ID when UnitFactionGroup is nil (Orc -> Horde)", W.PlayerFaction() == "Horde", tostring(W.PlayerFaction()))
+    MOCK.race = { "Skyborne", "Skyborne", 96 }
+    check("PlayerFaction: Skyborne Horde (96) resolves to Horde even if UnitFactionGroup is nil", W.PlayerFaction() == "Horde", tostring(W.PlayerFaction()))
+    MOCK.race = { "Unknown", "Unknown", 999 }
+    check("FactionMatches: fails closed when neither faction nor race is known",
+        not G:FactionMatches({ faction = "Alliance" }) and not G:FactionMatches({ faction = "Horde" }))
+
+    -- 3. Saved opposite-faction guide in W.cdb.guide is dropped on PLAYER_LOGIN
+    UnitFactionGroup = function() return "Horde" end
+    MOCK.race = { "Orc", "Orc", 2 }
+    W.cdb.guide = "elwynn-forest-a"
+    MOCK.fire("PLAYER_LOGIN")
+    settle()
+    check("PLAYER_LOGIN: refuses to restore a saved Alliance guide for a Horde character",
+        G:Active() and G:Active().id ~= "elwynn-forest-a", G:Active() and G:Active().id)
+
+    -- 4. QuestieBridge.NpcFriendly distinguishes Horde/Alliance/Neutral NPCs
+    check("QuestieBridge.NpcFriendly: rejects Alliance-only NPC for Horde, allows Horde & Neutral",
+        not W.QuestieBridge.NpcFriendly({ friendlyToFaction = "A" })
+        and W.QuestieBridge.NpcFriendly({ friendlyToFaction = "H" })
+        and W.QuestieBridge.NpcFriendly({ friendlyToFaction = "AH" }))
+
+    UnitFactionGroup = savedFaction
+    MOCK.race = savedRace
+    MOCK.level = savedLevel
+end
+
 check("no runtime errors", #MOCK.errors == 0, MOCK.errors[1])
 print(("%d passed, %d failed"):format(pass, fail))
 return fail

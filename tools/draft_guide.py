@@ -260,9 +260,23 @@ class Zone:
                         return m, (float(c[0]), float(c[1]))
         return None, None
 
+    def npc_friendly(self, npc_id):
+        ft = self.db.npc(npc_id, "friendlyToFaction")
+        if not ft:
+            return True
+        if isinstance(ft, bytes):
+            return self.faction[0].encode() in ft.upper()
+        return self.faction[0] in str(ft).upper()
+
     def place(self, kind, ids):
-        """first NPC/object in ids with a spawn -> (map, (x,y), name)."""
-        for i in lua_list(ids):
+        """first NPC/object in ids with a spawn -> (map, (x,y), name). For NPCs, prefers NPCs
+        friendly to this faction so shared quests never pick an opposite-faction capital giver."""
+        seq = lua_list(ids)
+        if kind == "npc":
+            friendly = [i for i in seq if self.npc_friendly(i)]
+            if friendly:
+                seq = friendly
+        for i in seq:
             spawns = self.db.npc(i, "spawns") if kind == "npc" else self.db.obj(i, "spawns")
             name = s(self.db.npc(i, "name") if kind == "npc" else self.db.obj(i, "name"))
             pts = self.zone_points(spawns)

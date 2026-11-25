@@ -154,8 +154,7 @@ UI.pickerSearch = searchBox
 local function guideFits(def)
     if def.smart then return pickerTab == "zones" end
     if (def.kind == "profession") ~= (pickerTab == "professions") then return false end
-    local f = UnitFactionGroup("player")
-    if def.faction and def.faction ~= "" and f and def.faction:sub(1, 1):upper() ~= f:sub(1, 1) then return false end
+    if not G:FactionMatches(def) then return false end
     if def.class then
         local _, cls = UnitClass("player")
         if cls and not ("," .. def.class:upper() .. ","):find("," .. cls:upper() .. ",", 1, true) then return false end

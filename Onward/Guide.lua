@@ -81,8 +81,8 @@ end
 
 local function playerMatches(opts)
     if opts.faction then
-        local f = UnitFactionGroup("player")
-        if f and opts.faction:sub(1, 1):upper() ~= f:sub(1, 1) then return false end
+        local f = W.PlayerFaction and W.PlayerFaction() or UnitFactionGroup("player")
+        if not f or opts.faction:sub(1, 1):upper() ~= f:sub(1, 1):upper() then return false end
     end
     if opts.class then
         local _, cls = UnitClass("player")
@@ -1066,10 +1066,16 @@ function G:LogCount()
     return n
 end
 
+function G:FactionMatches(def)
+    if not (def and def.faction and def.faction ~= "") then return true end
+    local faction = W.PlayerFaction and W.PlayerFaction() or UnitFactionGroup("player")
+    if not faction or faction == "" then return false end
+    return def.faction:sub(1, 1):upper() == faction:sub(1, 1):upper()
+end
+
 -- returns def, reason ("start" | "log" | "zone" | "level"), or nil when nothing fits
 function G:Recommend()
     local lvl = UnitLevel("player") or 1
-    local faction = UnitFactionGroup("player")
     local _, _, raceId = UnitRace("player")
     local home = START_ZONE[raceId]
     local here = GetRealZoneText and GetRealZoneText() or ""
@@ -1079,7 +1085,7 @@ function G:Recommend()
     local finished = active and not active.def.smart and not active.steps[cursor] and active.def
     local best, bestScore, bestReason
     for i, def in ipairs(ordered) do
-        local factionOk = not (def.faction and def.faction ~= "" and faction and def.faction:sub(1, 1):upper() ~= faction:sub(1, 1))
+        local factionOk = G:FactionMatches(def)
         if not def.smart and def.kind ~= "profession" and factionOk and def.steps and def ~= finished then
             local lo, hi = def.levels[1], def.levels[2]
             local pct = G:ProgressFor(def) or 0
@@ -1540,7 +1546,10 @@ function G:Rescan()
 end
 W:On("PLAYER_LOGIN", function()
     settleUntil = GetTime() + SETTLE_S   -- before Activate: a resume point isn't saved until the records are in
-    G:Activate(W.cdb.guide)
+    local saved = W.cdb.guide
+    local savedDef = saved and registry[saved]
+    if savedDef and not G:FactionMatches(savedDef) then saved = nil end
+    G:Activate(saved)
     for _, t in ipairs({ 1, 3, 6, SETTLE_S }) do C_Timer.After(t, function() G:Rescan() end) end
     -- A character on the quest-log guide with nothing in its log (a new character, say) gets the
     -- recommended guide instead: its first step is the first quest to pick up. Checked once, a few

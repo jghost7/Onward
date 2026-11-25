@@ -81,7 +81,7 @@ T.Flyable = flyable
 local function isWrongFaction(n)
     local f = n and n.faction
     if f == nil then return false end
-    local player = UnitFactionGroup and UnitFactionGroup("player")
+    local player = W.PlayerFaction and W.PlayerFaction() or (UnitFactionGroup and UnitFactionGroup("player"))
     if not player then return false end
     if type(f) == "string" then
         local fl = f:lower()
@@ -448,7 +448,7 @@ function T:Crossing(tc, tx, ty)
     local ck = ("%d:%d:%d:%d:%d:%d"):format(pc, math.floor(px / 40), math.floor(py / 40), tc, math.floor(tx / 40), math.floor(ty / 40))
     if crossCache.key == ck and GetTime() - crossCache.at < 3 then return crossCache.result end
     T:Refresh()
-    local faction = UnitFactionGroup and UnitFactionGroup("player")
+    local faction = W.PlayerFaction and W.PlayerFaction() or (UnitFactionGroup and UnitFactionGroup("player"))
     local best, bestCost
     for _, c in ipairs(CROSSINGS) do
         if not c.faction or c.faction == faction then

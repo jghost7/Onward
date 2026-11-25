@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.9.7
+
+- **Removed Alliance-zone Horde guides:** Dropped `Dun Morogh (30-35)` (0 solo quests, Gnomeregan
+  only) and `Westfall (16-20)` (Alliance starter territory) from Horde's guide list and
+  recommendations, and excluded enemy-faction home zones in `tools/draft_all.py`.
+- **Fail-closed faction filtering:** Added `W.PlayerFaction()` (with Classic + Skyborne race-ID
+  fallback when `UnitFactionGroup("player")` is not yet populated at login) and `G:FactionMatches()`
+  across the guide picker, recommendations, login restore (dropping any saved opposite-faction
+  guide), profession trainers, travel, and bag cleanup.
+- **Faction-friendly NPC selection:** Updated `tools/draft_guide.py` and `QuestieBridge.lua` to
+  prefer NPCs friendly to the player's faction on shared quests, and rebuilt the 5 affected guides
+  so Horde uses `Zaruk`, `Keeper Bel'dugur`, and `Jeremiah Payson` instead of Ironforge/Stormwind
+  givers (and Alliance uses `Garion Wendell` instead of Undercity's `Owen Thadd`).
+
 ## 0.9.6
 
 - **Mountain-wall flight routing:** Flight advice now uses a walkable Classic zone-border graph so

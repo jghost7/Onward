@@ -21,6 +21,10 @@ GUIDES = ROOT / "Onward" / "Guides"
 DRAFT = GUIDES / "Draft"
 BATTLEGROUNDS = {1459, 1460, 1461, 2524}     # AV, WSG, AB, Darkspear Islands (PvP; givers sit in capitals)
 CAPITALS = {1453, 1454, 1455, 1456, 1457, 1458}   # city quests are class/profession/war-effort, not leveling
+# Faction-owned home/starter territories with no opposite-faction hubs or flight paths: never
+# generate an opposite-faction leveling guide from stray neutral/dungeon quests inside them.
+ALLIANCE_ONLY = {1429, 1426, 1438, 1436, 1432, 1439, 1433, 1431, 1437}  # Elwynn..Wetlands
+HORDE_ONLY = {1411, 1412, 1420, 1421}                                    # Durotar, Mulgore, Tirisfal, Silverpine
 MIN_QUESTS = 8
 NEW_ZONES = {2548, 2521, 2482, 2652}   # Riverglades, Zephras Isle, Mount Hyjal, Shen'dralas
 
@@ -148,11 +152,20 @@ def main():
         if not name or "dungeon" in name.lower() or m in BATTLEGROUNDS or m in CAPITALS:
             continue
         for faction in ("Alliance", "Horde"):
+            if faction == "Horde" and m in ALLIANCE_ONLY:
+                continue
+            if faction == "Alliance" and m in HORDE_ONLY:
+                continue
             jobs.append((m, name, faction, index[m]))
     # biggest zones first so the pool finishes evenly
     jobs.sort(key=lambda j: -len(j[3]))
-    with multiprocessing.Pool(max(1, (os.cpu_count() or 2) - 1), initializer=_init) as pool:
-        results = pool.map(draft_zone, jobs, chunksize=1)
+    workers = int(os.environ.get("DRAFT_WORKERS", min(6, max(1, (os.cpu_count() or 2) - 1))))
+    if workers <= 1:
+        _W["db"], _W["a2m"] = db, a2m
+        results = [draft_zone(j) for j in jobs]
+    else:
+        with multiprocessing.Pool(workers, initializer=_init) as pool:
+            results = pool.map(draft_zone, jobs, chunksize=1)
     order = {(j[0], j[2]): k for k, j in enumerate(sorted(jobs, key=lambda j: (names.get(j[0], ""), j[2])))}
     results = [r for _, r in sorted(zip(jobs, results), key=lambda p: order[(p[0][0], p[0][2])])]
 

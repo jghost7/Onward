@@ -17,7 +17,6 @@
     <Script file="Draft\TirisfalGlades_Horde_2.lua"/>
     <Script file="Draft\RedridgeMountains_Alliance_1.lua"/>
     <Script file="Draft\TheBarrens_Alliance.lua"/>
-    <Script file="Draft\Westfall_Horde.lua"/>
     <Script file="Draft\LochModan_Alliance_2.lua"/>
     <Script file="Draft\SilverpineForest_Horde_2.lua"/>
     <Script file="Draft\StonetalonMountains_Horde_1.lua"/>
@@ -36,7 +35,6 @@
     <Script file="Draft\Ashenvale_Alliance_2.lua"/>
     <Script file="Draft\Wetlands_Alliance_2.lua"/>
     <Script file="Draft\DunMorogh_Alliance_2.lua"/>
-    <Script file="Draft\DunMorogh_Horde.lua"/>
     <Script file="Draft\Duskwood_Alliance_2.lua"/>
     <Script file="Draft\HillsbradFoothills_Horde_2.lua"/>
     <Script file="Draft\ThousandNeedles_Alliance_1.lua"/>

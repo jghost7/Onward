@@ -24,7 +24,7 @@ local dirty = true
 local cached = {}
 
 local function factionKey()
-    local f = UnitFactionGroup and UnitFactionGroup("player")
+    local f = W.PlayerFaction and W.PlayerFaction() or (UnitFactionGroup and UnitFactionGroup("player"))
     return f and f:sub(1, 1):upper() or "A"
 end
 

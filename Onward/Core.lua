@@ -82,6 +82,26 @@ function W.Safe(v)
     return v
 end
 
+local RACE_FACTION = {
+    [1] = "Alliance", [3] = "Alliance", [4] = "Alliance", [7] = "Alliance", [95] = "Alliance",
+    [2] = "Horde", [5] = "Horde", [6] = "Horde", [8] = "Horde", [96] = "Horde",
+}
+-- Canonical player faction ("Alliance" | "Horde" | nil), falling back to race ID when
+-- UnitFactionGroup hasn't settled yet at login so faction filtering never fails open.
+function W.PlayerFaction()
+    local f = UnitFactionGroup and W.Safe(UnitFactionGroup("player"))
+    if f == "Alliance" or f == "Horde" then return f end
+    if type(f) == "string" and f ~= "" then
+        local c = f:sub(1, 1):upper()
+        if c == "A" then return "Alliance" end
+        if c == "H" then return "Horde" end
+    end
+    if UnitRace then
+        local _, _, raceId = UnitRace("player")
+        return RACE_FACTION[W.Safe(raceId)]
+    end
+end
+
 function W.Print(...)
     print("|c" .. (W.Skin and W.Skin.AccentHex() or "ff0cd29d") .. "Onward|r", ...)
 end

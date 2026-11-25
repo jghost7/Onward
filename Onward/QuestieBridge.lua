@@ -81,14 +81,28 @@ local function nearestSpawn(spawns)
     return best or fallback
 end
 
+local function npcFriendly(npc)
+    local ft = npc and npc.friendlyToFaction
+    if type(ft) ~= "string" or ft == "" then return true end
+    local f = W.PlayerFaction and W.PlayerFaction() or (UnitFactionGroup and UnitFactionGroup("player"))
+    if not f or f == "" then return true end
+    return ft:upper():find(f:sub(1, 1):upper(), 1, true) ~= nil
+end
+QB.NpcFriendly = npcFriendly
+
 local function locate(kind, ids)
     if type(ids) ~= "table" then return end
+    local fallback
     for _, id in ipairs(ids) do
         if kind == "npc" then
             local npc = QDB:GetNPC(id)
             if npc then
                 local p = nearestSpawn(npc.spawns)
-                if p then return { map = p[1], x = p[2], y = p[3], name = npc.name } end
+                if p then
+                    local loc = { map = p[1], x = p[2], y = p[3], name = npc.name }
+                    if npcFriendly(npc) then return loc end
+                    if not fallback then fallback = loc end
+                end
             end
         else
             local spawns = QDB.QueryObjectSingle(id, "spawns")
@@ -96,6 +110,7 @@ local function locate(kind, ids)
             if p then return { map = p[1], x = p[2], y = p[3], name = QDB.QueryObjectSingle(id, "name") } end
         end
     end
+    return fallback
 end
 
 -- Where to pick the quest up: { map, x, y, name } or nil

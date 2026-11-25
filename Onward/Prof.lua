@@ -191,7 +191,9 @@ end
 -- nearest entry of a {faction, map, x, y, name} style list for your faction
 local function nearest(list, factionIdx, mapIdx, filter)
     if not list then return end
-    local f = (UnitFactionGroup("player") or "A"):sub(1, 1)
+    local fac = W.PlayerFaction and W.PlayerFaction() or UnitFactionGroup("player")
+    if not fac or fac == "" then return end
+    local f = fac:sub(1, 1):upper()
     local pc, px, py = T.PlayerWorld()
     local best, bestD
     for _, e in ipairs(list) do
