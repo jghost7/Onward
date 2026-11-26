@@ -1338,13 +1338,31 @@ gather 182 50 |at 1423 50.0,50.0 |note Peacebloom
     local lock = hasLock()
     check("a rogue is shown the Lockpicking guide for their faction", lock and lock.id == "prof-lockpicking-A", lock and lock.id)
     GetNumSkillLines = function() return 2 end
-    GetSkillLineInfo = function(i) if i == 1 then return "Class Skills", true end return "Lockpicking", nil, nil, 80, 0, 0, 100 end
+    GetSkillLineInfo = function(i) if i == 1 then return "Class Skills", true end return "Lockpicking", nil, nil, 105, 0, 0, 150 end
     MOCK.fire("SKILL_LINES_CHANGED")
-    check("Lockpicking rank comes from the skill list", P:Rank(633) == 80, tostring(P:Rank(633)))
+    check("Lockpicking rank comes from the skill list", P:Rank(633) == 105, tostring(P:Rank(633)))
     W.Guide:Activate("prof-lockpicking-A") settle()
     cur = W.Guide:Current()
-    check("at 80 the practice boxes are done: on to the footlockers", cur and cur.verb == "gather" and cur.untilSkill == 150 and cur.at and cur.at.map == 1437, cur and cur.untilSkill)
+    check("at 105 the practice boxes are done: on to Zoram Strand footlockers", cur and cur.verb == "gather" and cur.untilSkill == 150 and cur.at and cur.at.map == 1440, cur and cur.untilSkill)
     check("lockpicking step text", W.UI.StepText(cur) == "Pick locks to 150", W.UI.StepText(cur))
+
+    -- WoW Forever profession routes: check Forever-specific recipes, Horde vendors, and clean Blacksmithing 1-300
+    local alch = W.Guide:Get("prof-alchemy-H")
+    check("Forever Alchemy starts with Elixir of Minor Force (1245250)",
+        alch and alch.steps:find("craft 1245250 10", 1, true) ~= nil)
+    local ench = W.Guide:Get("prof-enchanting-H")
+    check("Forever Enchanting uses Mote of Magic Bracer enchant (7418)",
+        ench and ench.steps:find("craft 7418 20", 1, true) ~= nil)
+    local tail = W.Guide:Get("prof-tailoring-H")
+    check("Forever Tailoring includes Mount Hyjal Runecloth Cuffs (1257487)",
+        tail and tail.steps:find("craft 1257487 280", 1, true) ~= nil)
+    local bs = W.Guide:Get("prof-blacksmithing-H")
+    check("Forever Blacksmithing uses Imperial Plate instead of Arcanite Skeleton Keys",
+        bs and bs.steps:find("craft 16649 270", 1, true) ~= nil and not bs.steps:find("19669", 1, true))
+    local widgetVendors = W.ProfData and W.ProfData.vendors and W.ProfData.vendors[16042] or {}
+    local hasHordeWidget = false
+    for _, v in ipairs(widgetVendors) do if v[1]:find("H", 1, true) then hasHordeWidget = true end end
+    check("Forever Engineering has a Horde vendor (Sovik) for Schematic: Thorium Widget (16042)", hasHordeWidget)
     GetNumSkillLines, GetSkillLineInfo, UnitClass = nil, nil, realClass
     W.Guide:Activate("proftest") settle()
     W.UI:ShowPicker("zones")

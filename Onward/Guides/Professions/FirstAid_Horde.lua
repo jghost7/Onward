@@ -5,19 +5,20 @@ Onward:RegisterGuide{
     skill = 129, faction = "Horde", levels = { 1, 60 },
     steps = [[
 train 129 75
-craft 3275 51 |name Linen Bandage |n 64 |mats 2589:1 |from 1
+craft 3275 40 |name Linen Bandage |n 50 |mats 2589:1 |from 1 |note Forever herb alt 1-75: 86x Minor Healing Potion (Peacebloom, Mild Spices, Empty Vial)
+craft 3276 75 |name Heavy Linen Bandage |n 47 |mats 2589:2 |from 40
 train 129 150 |level 10
-craft 3276 80 |name Heavy Linen Bandage |n 45 |mats 2589:2 |from 51
-craft 3277 135 |name Wool Bandage |n 107 |mats 2592:1 |from 80
-train 129 225 |level 20 |book 16084
-craft 3278 172 |name Heavy Wool Bandage |n 93 |mats 2592:2 |from 135
-craft 7928 197 |name Silk Bandage |n 63 |mats 4306:1 |from 172
-craft 7929 210 |name Heavy Silk Bandage |n 22 |mats 4306:2 |recipe 16112 |from 197
-craft 10840 225 |name Mageweave Bandage |n 29 |mats 4338:1 |recipe 16113 |from 210
-train 129 300 |level 35 |quest 6622
-craft 10840 257 |name Mageweave Bandage |n 62 |mats 4338:1 |recipe 16113 |from 225
-craft 10841 260 |name Heavy Mageweave Bandage |n 5 |mats 4338:2 |from 257
-craft 18629 275 |name Runecloth Bandage |n 18 |mats 14047:1 |from 260
-craft 1244436 300 |name Major Healing Potion |n 27 |mats 8925:1;3713:3;13464:1 |recipe 255729 |from 275
+craft 3276 80 |name Heavy Linen Bandage |n 13 |mats 2589:2 |from 75
+craft 3277 115 |name Wool Bandage |n 52 |mats 2592:1 |from 80 |note Forever herb alt 90-150: Simple Poultice (90-125) + Healing Potion (125-150)
+craft 3278 150 |name Heavy Wool Bandage |n 51 |mats 2592:2 |from 115 |note Learn Silk Bandage from your trainer before heading to the Expert vendor
+train 129 225 |book 16084 |note No level requirement in Forever; buy Heavy Silk and Mageweave manuals at the same vendor
+craft 7928 180 |name Silk Bandage |n 44 |mats 4306:1 |from 150
+craft 7929 210 |name Heavy Silk Bandage |n 44 |mats 4306:2 |recipe 16112 |from 180
+craft 10840 225 |name Mageweave Bandage |n 19 |mats 4338:1 |recipe 16113 |from 210
+train 129 300 |level 35 |quest 6622 |note Bring ~90 Mageweave Cloth and ~70 Runecloth; the Triage doctor also teaches the final bandages up to 300
+craft 10840 240 |name Mageweave Bandage |n 26 |mats 4338:1 |from 225
+craft 10841 260 |name Heavy Mageweave Bandage |n 30 |mats 4338:2 |from 240 |note Taught by the Triage doctor at 240
+craft 18629 290 |name Runecloth Bandage |n 44 |mats 14047:1 |from 260 |note Taught by the Triage doctor at 260; alt 275-300: Major Healing Potion (Manual from Pexmit in Mount Hyjal)
+craft 18630 300 |name Heavy Runecloth Bandage |n 12 |mats 14047:2 |from 290 |note Taught by the Triage doctor at 290
 ]],
 }

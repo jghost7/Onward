@@ -5,26 +5,27 @@ Onward:RegisterGuide{
     skill = 197, faction = "Alliance", levels = { 1, 60 },
     steps = [[
 train 197 75
-craft 2963 36 |name Bolt of Linen Cloth |n 39 |mats 2589:2 |from 1
-craft 12044 50 |name Simple Linen Pants |n 18 |mats 2996:1;2320:1 |from 36
+craft 2963 30 |name Bolt of Linen Cloth |n 30 |mats 2589:2 |from 1 |note Keep all bolts for Linen Belts
+craft 8776 55 |name Linen Belt |n 28 |mats 2996:1;2320:1 |from 30
 train 197 150 |level 10
-craft 8776 80 |name Linen Belt |n 66 |mats 2996:1;2320:1 |from 50
-craft 2402 110 |name Woolen Cape |n 66 |mats 2997:1;2321:1 |from 80
-craft 3848 137 |name Double-stitched Woolen Shoulders |n 51 |mats 2997:3;2321:2 |from 110
-craft 3852 150 |name Gloves of Meditation |n 37 |mats 2997:4;2321:3;3383:1 |from 137
-train 197 225 |level 20
-craft 8786 180 |name Azure Silk Cloak |n 42 |mats 4305:3;6260:2;2321:2 |recipe 7089 |from 150
-craft 8799 185 |name Crimson Silk Pantaloons |n 6 |mats 4305:4;2604:2;4291:2 |from 180
-craft 12061 192 |name Orange Mageweave Shirt |n 11 |mats 4339:1;6261:1;8343:1 |from 185
-craft 12048 204 |name Black Mageweave Vest |n 22 |mats 4339:2;4291:3 |from 192
-craft 12053 210 |name Black Mageweave Gloves |n 10 |mats 4339:2;8343:2 |from 204
-craft 18401 215 |name Bolt of Runecloth |n 12 |mats 14047:5 |from 210
-craft 12072 225 |name Black Mageweave Headband |n 21 |mats 4339:3;8343:2 |from 215
-train 197 300 |level 35
-craft 18402 243 |name Runecloth Belt |n 27 |mats 14048:3;14341:1 |from 225
-craft 18417 261 |name Runecloth Gloves |n 25 |mats 14048:4;8170:4;14341:1 |recipe 14481 |from 243
-craft 1257487 285 |name Runecloth Cuffs |n 36 |mats 14048:5;14227:1;14341:1 |recipe 254124 |from 261
-craft 22813 295 |name Gordok Ogre Suit |n 30 |mats 14048:2;8170:4;18240:1;14341:1 |from 285
-craft 19435 300 |name Mooncloth Boots |n 9 |mats 14048:6;14342:4;7971:2;14341:1 |from 295
+craft 2964 80 |name Bolt of Woolen Cloth |n 37 |mats 2592:3 |from 55 |note Keep all bolts for capes and shoulders
+craft 2402 95 |name Woolen Cape |n 22 |mats 2997:1;2321:1 |from 80
+craft 3848 100 |name Double-stitched Woolen Shoulders |n 5 |mats 2997:3;2321:2 |from 95
+craft 3839 120 |name Bolt of Silk Cloth |n 54 |mats 4306:4 |from 100 |note Keep bolts (203 total needed through 185)
+craft 8760 125 |name Azure Silk Hood |n 5 |mats 4305:2;6260:2;2321:1 |from 120
+craft 3813 140 |name Small Silk Pack |n 15 |mats 4305:3;4234:2;2321:3 |from 125
+train 197 225 |level 20 |note Expert trainers (Josef Gregorian / Georgio Bolero) also teach Bolt of Mageweave at 140
+craft 3865 150 |name Bolt of Mageweave |n 23 |mats 4338:5 |from 140 |note Keep bolts (144 total needed through 225)
+craft 8791 170 |name Crimson Silk Vest |n 20 |mats 4305:4;2604:2;2321:2 |from 150
+craft 8799 185 |name Crimson Silk Pantaloons |n 17 |mats 4305:4;2604:2;4291:2 |from 170
+craft 12049 200 |name Black Mageweave Leggings |n 22 |mats 4339:2;4291:3 |from 185
+train 197 300 |level 35 |note Daryl Stack (Tarren Mill) or Timothy Worthington (Theramore) teach Artisan and 200+ recipes (Alliance: bring Rune Thread)
+craft 12074 205 |name Black Mageweave Shoulders |n 5 |mats 4339:3;8343:2 |from 200
+craft 18401 215 |name Bolt of Runecloth |n 23 |mats 14047:5 |from 205 |note Keep bolts (311 total needed through 280)
+craft 12079 225 |name Red Mageweave Bag |n 17 |mats 4339:5;2604:2;8343:2 |from 215 |note Alt if you don't want bags: 10x Runecloth Belt
+craft 18402 240 |name Runecloth Belt |n 24 |mats 14048:3;14341:1 |from 225
+craft 18417 250 |name Runecloth Gloves |n 11 |mats 14048:4;8170:4;14341:1 |recipe 14481 |from 240 |note Pattern sold by Qia in Everlook (alt: Brightcloth Cloak)
+craft 1257487 280 |name Runecloth Cuffs |n 39 |mats 14048:5;14227:1;14341:1 |recipe 254124 |from 250 |note Pattern from Pexmit in Mount Hyjal (Horde: also from Threading a Solution); alt: Runecloth Gloves to 260 then Runecloth Shoulders
+craft 18449 300 |name Runecloth Shoulders |n 58 |mats 14048:7;14227:2;8170:4;14341:1 |from 280 |note Buy Pattern: Runecloth Shoulders (or Wizardweave Turban) on the AH
 ]],
 }

@@ -5,19 +5,23 @@ Onward:RegisterGuide{
     skill = 171, faction = "Alliance", levels = { 1, 60 },
     steps = [[
 train 171 75
+craft 1245250 10 |name Elixir of Minor Force |n 9 |mats 765:1;3371:1 |from 1 |note Buy Empty Vials from an Alchemy Supply vendor
+craft 7183 55 |name Elixir of Minor Defense |n 45 |mats 765:1;2447:1;3371:1 |from 10
+craft 2331 65 |name Minor Mana Potion |n 10 |mats 785:1;2447:1;3371:1 |from 55
 train 171 150 |level 10
-craft 7183 88 |name Elixir of Minor Defense |n 122 |mats 765:1;2447:1;3371:1 |from 1
-craft 2331 98 |name Minor Mana Potion |n 34 |mats 785:1;2447:1;3371:1 |from 88
-craft 1250801 101 |name Elixir of Lesser Intellect |n 3 |mats 3356:3;3372:1 |recipe 250388 |from 98
-train 171 225 |level 20
-craft 7255 154 |name Holy Protection Potion |n 65 |mats 2453:1;2452:1;3371:1 |recipe 6053 |from 101
-craft 7256 182 |name Shadow Protection Potion |n 38 |mats 3369:1;3356:1;3372:1 |recipe 6054 |from 154
-craft 6618 225 |name Great Rage Potion |n 67 |mats 5637:1;3356:1;3372:1 |recipe 5643 |from 182
-train 171 300 |level 35
-craft 7259 245 |name Nature Protection Potion |n 62 |mats 3357:1;3820:1;3372:1 |recipe 6057 |from 225
-craft 11460 250 |name Draught of Detect Undead |n 6 |mats 8836:1;8925:1 |from 245
-craft 17551 258 |name Stonescale Oil |n 15 |mats 13422:1;3372:1 |from 250
-craft 11460 269 |name Draught of Detect Undead |n 21 |mats 8836:1;8925:1 |from 258
-craft 17554 300 |name Elixir of Greater Defense |n 39 |mats 13423:2;8838:1;8925:1 |recipe 13478 |from 269
+craft 2334 90 |name Elixir of Minor Fortitude |n 28 |mats 2449:2;2447:1;3371:1 |from 65
+craft 3171 120 |name Elixir of Wisdom |n 30 |mats 785:1;2450:2;3371:1 |from 90
+craft 3173 130 |name Lesser Mana Potion |n 10 |mats 785:1;3820:1;3371:1 |from 120
+craft 7837 150 |name Fire Oil |n 20 |mats 6359:2;3371:1 |from 130 |note Keep 30 Fire Oil for Elixir of Fire Power at 150
+train 171 225 |level 20 |note Master Mycologist Shurome in Felwood (Emerald Sanctuary) teaches both Expert and Artisan
+craft 7845 165 |name Elixir of Fire Power |n 15 |mats 6371:2;3356:1;3372:1 |from 150
+craft 3452 195 |name Mana Potion |n 36 |mats 3820:1;3356:1;3372:1 |from 165
+craft 7259 225 |name Nature Protection Potion |n 36 |mats 3357:1;3820:1;3372:1 |recipe 6057 |from 195
+train 171 300 |level 35 |note Rogvar (Stonard), Kylanna Windwhisper (Feathermoon), or Master Mycologist Shurome (Felwood)
+craft 7259 235 |name Nature Protection Potion |n 26 |mats 3357:1;3820:1;3372:1 |recipe 6057 |from 225
+craft 11465 250 |name Elixir of Greater Intellect |n 15 |mats 8839:1;3358:1;8925:1 |from 235
+craft 17551 260 |name Stonescale Oil |n 47 |mats 13422:1;3372:1 |from 250 |note Keep all Stonescale Oil for 265 (or skip if pricey and finish with Superior Mana Potion)
+craft 11465 265 |name Elixir of Greater Intellect |n 10 |mats 8839:1;3358:1;8925:1 |from 260
+craft 17554 300 |name Elixir of Greater Defense |n 44 |mats 13423:2;8838:1;8925:1 |recipe 13478 |from 265 |note Sold as Recipe: Elixir of Superior Defense; alt: Superior Mana Potion (Algernon / Ulthir)
 ]],
 }

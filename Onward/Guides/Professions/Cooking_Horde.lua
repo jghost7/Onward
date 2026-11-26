@@ -5,17 +5,15 @@ Onward:RegisterGuide{
     skill = 185, faction = "Horde", levels = { 1, 60 },
     steps = [[
 train 185 75
-craft 2538 71 |name Charred Wolf Meat |n 86 |mats 2672:1 |from 1
+craft 7751 50 |name Brilliant Smallfish |n 55 |mats 6291:1 |recipe 6325 |from 1 |note Alt if cheaper: 55x Slitherskin Mackerel
 train 185 150 |level 10
-craft 6414 90 |name Roasted Kodo Meat |n 23 |mats 5467:1;2678:1 |recipe 5484 |from 71
-craft 2541 115 |name Coyote Steak |n 39 |mats 2673:1 |from 90
-craft 2544 138 |name Crab Cake |n 34 |mats 2674:1;2678:1 |from 115
+craft 7753 100 |name Longjaw Mud Snapper |n 55 |mats 6289:1 |recipe 6328 |from 50 |note Alt if cheaper: 55x Rainbow Fin Albacore
+craft 7755 150 |name Bristle Whisker Catfish |n 53 |mats 6308:1 |recipe 6330 |from 100
 train 185 225 |level 20 |book 16072
-craft 15853 191 |name Lean Wolf Steak |n 69 |mats 1015:1;2678:1 |recipe 12227 |from 138
-craft 20916 225 |name Mithril Headed Trout |n 41 |mats 8365:1 |recipe 17062 |from 191
-train 185 300 |level 35 |quest 6610
-craft 20916 236 |name Mithril Headed Trout |n 14 |mats 8365:1 |recipe 17062 |from 225
-craft 18238 281 |name Spotted Yellowtail |n 50 |mats 4603:1 |recipe 13939 |from 236
-craft 18244 300 |name Poached Sunscale Salmon |n 21 |mats 13760:1 |recipe 13946 |from 281
+craft 6500 175 |name Goblin Deviled Clams |n 28 |mats 5504:1;2692:1 |from 150 |note Buy Hot Spices from a Cooking Supply vendor
+craft 15855 225 |name Roast Raptor |n 55 |mats 12184:1;2692:1 |recipe 12228 |from 175 |note Alt if cheaper: 55x Mithril Headed Trout
+train 185 300 |level 35 |quest 6610 |note Bring 12 Giant Egg, 10 Zesty Clam Meat, and 20 Alterac Swiss; buy Spotted Yellowtail & Nightfin Soup recipes from Gikkix in Steamwheedle Port
+craft 18238 285 |name Spotted Yellowtail |n 72 |mats 4603:1 |recipe 13939 |from 225 |note Alt if cheaper: 72x Filet of Redgill (Kelsey Yance, Booty Bay)
+craft 18243 300 |name Nightfin Soup |n 18 |mats 13759:1;159:1 |recipe 13945 |from 285
 ]],
 }

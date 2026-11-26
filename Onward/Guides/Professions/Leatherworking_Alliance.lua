@@ -5,30 +5,25 @@ Onward:RegisterGuide{
     skill = 165, faction = "Alliance", levels = { 1, 60 },
     steps = [[
 train 165 75
-craft 2152 50 |name Light Armor Kit |n 61 |mats 2318:1 |from 1
-craft 3816 67 |name Cured Light Hide |n 36 |mats 783:1;4289:1 |from 50
-craft 9062 70 |name Small Leather Ammo Pouch |n 6 |mats 2318:3;2320:4 |from 67
+craft 2881 30 |name Light Leather |n 35 |mats 2934:3 |from 1
+craft 3816 40 |name Cured Light Hide |n 10 |mats 783:1;4289:1 |from 30 |note Keep all 10 for Embossed Leather Pants at 70 (alt: 14x Light Armor Kit)
+craft 3756 70 |name Embossed Leather Gloves |n 30 |mats 2318:3;2320:2 |from 40
 train 165 150 |level 10
-craft 3756 90 |name Embossed Leather Gloves |n 32 |mats 2318:3;2320:2 |from 70
-craft 3817 102 |name Cured Medium Hide |n 23 |mats 4232:1;4289:1 |from 90
-craft 7953 121 |name Deviate Scale Cloak |n 50 |mats 6470:8;4231:1;2321:1 |recipe 6474 |from 102
-craft 9074 125 |name Nimble Leather Gloves |n 5 |mats 2457:1;2319:6;2321:1 |from 121
-craft 3766 135 |name Dark Leather Belt |n 13 |mats 4246:1;4233:1;2321:2;4340:1 |from 125
-craft 3818 145 |name Cured Heavy Hide |n 30 |mats 4235:1;4289:3 |from 135
+craft 3759 80 |name Embossed Leather Pants |n 10 |mats 4231:1;2318:6;2320:2 |from 70 |note Alt without hides: 14x Embossed Leather Gloves
+craft 3817 95 |name Cured Medium Hide |n 20 |mats 4232:1;4289:1 |from 80 |note Keep all 20 for Dark Leather Belts at 105 (alt: 19x Fine Leather Belt)
+craft 3763 105 |name Fine Leather Belt |n 22 |mats 2318:6;2320:2 |from 95 |note Keep 20 for Dark Leather Belts
+craft 3766 125 |name Dark Leather Belt |n 20 |mats 4246:1;4233:1;2321:2;4340:1 |from 105 |note Alt without hides: Dark Leather Pants (105-120) + Hillman's Leather Gloves (120-125)
+craft 20649 130 |name Heavy Leather |n 8 |mats 2319:5 |from 125
+craft 3818 143 |name Cured Heavy Hide |n 25 |mats 4235:1;4289:3 |from 130 |note Keep all 25 for Barbaric Shoulders (150) and Guardian Gloves (165)
+craft 3764 150 |name Hillman's Leather Gloves |n 8 |mats 2319:14;2321:4 |from 143
 train 165 225 |level 20
-craft 3768 151 |name Hillman's Shoulders |n 22 |mats 4233:1;2319:4;2321:1 |from 145
-craft 1255096 169 |name Mystic Heavy Armor Kit |n 27 |mats 4265:1;11083:2;3385:2 |recipe 252811 |from 151
-craft 3778 185 |name Gem-studded Leather Belt |n 17 |mats 4236:4;5500:2;1529:2;3864:1;2321:1 |recipe 14635 |from 169
-craft 7156 197 |name Guardian Gloves |n 18 |mats 4234:4;4236:1;4291:1 |from 185
-craft 1255073 223 |name Forceful Thick Armor Kit |n 50 |mats 8173:1;11137:2;3391:2 |recipe 252834 |from 197
-craft 1255058 225 |name Skulker's Leather Shoulders |n 2 |mats 4304:10;4236:3;249428:4;4291:2;3182:3;249427:2 |recipe 252849 |from 223
-train 165 300 |level 35
-craft 19047 235 |name Cured Rugged Hide |n 30 |mats 8171:1;15409:1 |from 225
-craft 1254966 248 |name Mystic Rugged Armor Kit |n 21 |mats 15564:1;11176:2;13444:2;249429:1;248824:1 |recipe 252941 |from 235
-craft 19053 263 |name Chimeric Gloves |n 16 |mats 8170:6;15423:6;14341:1 |recipe 15729 |from 248
-craft 19066 284 |name Frostsaber Boots |n 30 |mats 8170:4;15422:6;14341:1 |recipe 15740 |from 263
-craft 19088 285 |name Heavy Scorpid Helm |n 1 |mats 8170:8;15408:12;15407:1;14341:1 |recipe 15762 |from 284
-craft 22815 293 |name Gordok Ogre Suit |n 15 |mats 8170:4;14048:2;18240:1;14341:1 |from 285
-craft 19088 300 |name Heavy Scorpid Helm |n 11 |mats 8170:8;15408:12;15407:1;14341:1 |recipe 15762 |from 293
+craft 7151 165 |name Barbaric Shoulders |n 15 |mats 4234:8;4236:1;2321:2 |from 150 |note Alt without hides: Pattern: Barbaric Leggings (Jandia / Lardan)
+craft 7156 175 |name Guardian Gloves |n 10 |mats 4234:4;4236:1;4291:1 |from 165 |note Stays orange to 185 if you have extra Cured Heavy Hides
+craft 6661 185 |name Barbaric Harness |n 10 |mats 4234:14;2321:2;7071:1 |from 175 |note Alt without Iron Buckles: 10x Thick Armor Kit
+craft 10507 205 |name Nightscape Headband |n 22 |mats 4304:5;4291:2 |from 185
+train 165 300 |level 35 |note Hahrana Ironhide (Camp Mojache) or Drakk Stonehand (Aerie Peak) teach Artisan and 205+ recipes
+craft 10548 235 |name Nightscape Pants |n 36 |mats 4304:14;4291:4 |from 205
+craft 19049 265 |name Wicked Leather Gauntlets |n 36 |mats 8170:8;2325:1;14341:1 |recipe 15725 |from 235 |note Alt with AH patterns: Blue Suede Shoes or Wicked Leather Headband (255-265)
+craft 19082 300 |name Runic Leather Headband |n 49 |mats 8170:14;14047:10;14341:1 |recipe 15756 |from 265 |note Alt with AH patterns: Tooled Leather Bracers (270-300) or Blue Suede Bracers (275-300)
 ]],
 }

@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.9.8
+
+- **WoW Forever 1–300 profession guides overhaul:** Rebuilt all 26 profession guides (Alchemy,
+  Blacksmithing, Cooking, Enchanting, Engineering, First Aid, Leatherworking, Tailoring, Herbalism,
+  Mining, Skinning, Fishing, and Lockpicking for both Alliance and Horde) using Forever-specific
+  1–300 progressions verified against Forever's DB2 tables (`1.60.1.70938`) and QuestieDB.
+- **Forever-specific recipes & smoother routes:** Added Forever's `Elixir of Minor Force` opener
+  (Alchemy), `Mote of Magic` low-level enchants (Enchanting), Mount Hyjal `Runecloth Cuffs`
+  (Tailoring), First Aid healing-potion alternatives and no-level-cap Expert book, Blacksmithing's
+  `Imperial Plate` path (replacing Arcanite Skeleton Keys / Huge Thorium Battleaxes), updated
+  gathering & Skinning mob-cluster zones, and Lockpicking's 4-band route ending at The Slag Pit.
+- **Better recipe waypoints:** Added `Sovik` (Orgrimmar) for Horde's `Schematic: Thorium Widget`
+  in `ProfData.lua`, and updated `Prof.lua` so quest-taught `craft` steps with explicit NPC coords
+  (like `Derotain Mudsipper` in Tanaris) point directly to that NPC until the recipe is learned.
+
 ## 0.9.7
 
 - **Removed Alliance-zone Horde guides:** Dropped `Dun Morogh (30-35)` (0 solo quests, Gnomeregan

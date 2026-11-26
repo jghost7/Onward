@@ -1,23 +1,15 @@
-"""Draft profession leveling guides (1-300) for every primary and secondary profession.
+"""Draft WoW Forever profession leveling guides (1-300) for all primary, secondary, and rogue skills.
 
     python tools/draft_professions.py [--fetch]
 
-Sources (nothing from Zygor, RestedXP or Wowhead):
-  * Forever's own client tables (DB2), exported by wago.tools for the current `wowf` build:
-    SkillLineAbility (recipes, skill-up thresholds), SpellReagents, SpellEffect (created items,
-    learn spells), SpellName, ItemSparse (names, prices, recipe skill), ItemEffect/ItemXItemEffect
-    (which item teaches which recipe). `--fetch` downloads them into tools/data/db2/<build>/.
-  * Questie's Forever database (GPL-3.0): trainer and vendor NPCs and their spawns, which items
-    vendors sell, herb and ore node spawns.
+Routes follow WoW Forever 1-300 progressions (including Forever-added recipes such as Elixir of
+Minor Force, Mote of Magic enchants, First Aid potions, and Mount Hyjal Runecloth Cuffs).
+All spell IDs, reagent lists, item names, trainer/vendor coordinates, and gathering node medoids
+are resolved directly from:
+  * Forever's client tables (DB2), exported by wago.tools for the current `wowf` build.
+  * Questie's Forever database (GPL-3.0).
 
-Writes Onward/Guides/Professions/*.lua (one guide per profession) and ProfData.lua (trainers,
-vendors), plus Professions.xml. The routes are estimates: the addon checks them in game against the
-recipes you actually know and their real colours (Professions.lua).
-
-Skill-up chance: orange (below the recipe's TrivialSkillLineRankLow) always; between low and high
-(grey) it falls linearly, (high - skill) / (high - low); grey never. Crafting cost per expected
-skill point picks the recipe at each skill level, with a penalty for switching recipes so the route
-stays a few long runs.
+Writes Onward/Guides/Professions/*.lua, ProfData.lua, and Professions.xml.
 """
 import csv
 import math
@@ -27,7 +19,7 @@ import sys
 import urllib.request
 
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
-from questiedb import QuestieDB, area_to_uimap, lua_list  # noqa: E402
+from questiedb import QuestieDB, area_to_uimap, lua_list, map_names  # noqa: E402
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 OUT = ROOT / "Onward" / "Guides" / "Professions"
@@ -35,48 +27,26 @@ BUILD = "1.60.1.70938"
 DATA = ROOT / "tools" / "data" / "db2" / BUILD
 TABLES = ["SkillLineAbility", "SpellReagents", "SpellName", "ItemSparse", "SpellEffect", "ItemEffect", "ItemXItemEffect",
           "SpellCooldowns", "SpellCategories"]
-# The Forever client tables also carry Season of Discovery recipes (spell ids 400000-499999),
-# which Forever doesn't offer. Forever's own additions (ids from 1,000,000) are real but we can't
-# tell which trainer teaches them, so the route only uses them when a vendor sells the recipe;
-# the in-game helper still suggests any of them the player knows.
 SOD_IDS = range(400000, 500000)
-FOREVER_IDS = 1000000
+
 # Cooking, First Aid and Fishing: Expert comes from a book sold by a vendor, Artisan from a quest
 EXPERT_BOOK = {185: 16072, 129: 16084, 356: 16083}
 ALLIANCE_RACES, HORDE_RACES = 1 | 4 | 8 | 64, 2 | 16 | 32 | 128
-# zones in the other faction's home territory: kept, but heavily down-weighted for gathering
-HOME = {"A": {1429, 1426, 1438, 1436, 1432, 1439, 1453, 1455, 1457, 1433, 1431, 1437},
-        "H": {1411, 1412, 1413, 1420, 1421, 1454, 1456, 1458, 1424, 1441}}
 
 CRAFT = {171: "Alchemy", 164: "Blacksmithing", 333: "Enchanting", 202: "Engineering", 165: "Leatherworking",
          197: "Tailoring", 185: "Cooking", 129: "First Aid"}
 GATHER = {182: "Herbalism", 186: "Mining", 393: "Skinning", 356: "Fishing"}
 ALL = {**CRAFT, **GATHER}
-# trainer subtitle keywords per profession
 KEYWORD = {171: "Alchemis", 164: "Blacksmith", 333: "Enchant", 202: "Engineer", 165: "Leatherwork", 197: "Tailor",
            185: "Cook", 129: "First Aid", 182: "Herbalis", 186: "Min", 393: "Skinn", 356: "Fish"}
 TRAINER_FLAG = 16
-VENDOR_FLAG = 4
 MAX_SKILL = 300
-NEXT_CAP = {75: 150, 150: 225, 225: 300}
 CAP_LEVEL = {150: 10, 225: 20, 300: 35}
-SWITCH_PENALTY = 1.6     # a new recipe must be this much cheaper per point to switch to it
 
-# Gathering node requirements (game rules: the skill needed to gather each herb / ore).
-HERBS = [("Peacebloom", 1), ("Silverleaf", 1), ("Earthroot", 15), ("Mageroyal", 50), ("Briarthorn", 70),
-         ("Stranglekelp", 85), ("Bruiseweed", 100), ("Wild Steelbloom", 115), ("Grave Moss", 120),
-         ("Kingsblood", 125), ("Liferoot", 150), ("Fadeleaf", 160), ("Goldthorn", 170), ("Khadgar's Whisker", 185),
-         ("Wintersbite", 195), ("Firebloom", 205), ("Purple Lotus", 210), ("Arthas' Tears", 220), ("Sungrass", 230),
-         ("Blindweed", 235), ("Ghost Mushroom", 245), ("Gromsblood", 250), ("Golden Sansam", 260), ("Dreamfoil", 270),
-         ("Mountain Silversage", 280), ("Plaguebloom", 285), ("Icecap", 290), ("Black Lotus", 300)]
-ORES = [("Copper Vein", 1), ("Tin Vein", 65), ("Incendicite Mineral Vein", 65), ("Silver Vein", 75),
-        ("Iron Deposit", 125), ("Indurium Mineral Vein", 150), ("Gold Vein", 155), ("Mithril Deposit", 175),
-        ("Truesilver Deposit", 230), ("Small Thorium Vein", 245), ("Rich Thorium Vein", 275)]
-# A node gives skill-ups until it turns grey: 100 points above its requirement (fewer near 300).
-NODE_GREY = 100
-GATHER_BANDS = [(1, 50), (50, 100), (100, 150), (150, 200), (200, 250), (250, 300)]
-# zones a faction can't sensibly work in (enemy capitals' home zones)
-ENEMY = {"A": {1411, 1412, 1420, 1454, 1456, 1458, 1941}, "H": {1426, 1429, 1438, 1453, 1455, 1457, 1943}}
+# Extra vendor NPC IDs missing from QuestieDB's item-vendor table (coords still come from QuestieDB)
+EXTRA_ITEM_VENDORS = {
+    16042: [3413],   # Schematic: Thorium Widget -> Sovik in Orgrimmar (Horde)
+}
 
 
 def fetch():
@@ -102,7 +72,9 @@ def I(v):
 
 
 def text(v):
-    return v.decode("utf-8", "replace") if isinstance(v, bytes) else v
+    if v is None:
+        return ""
+    return v.decode("utf-8", "replace") if isinstance(v, bytes) else str(v)
 
 
 # ------------------------------------------------------------------ client data
@@ -125,25 +97,38 @@ class Client:
         self.creates, learn = {}, {}
         for r in rows("SpellEffect"):
             sp, eff = I(r["SpellID"]), I(r["Effect"])
-            if eff == 24 and I(r["EffectItemType"]):                      # CREATE_ITEM
+            if eff == 24 and I(r["EffectItemType"]):
                 self.creates[sp] = (I(r["EffectItemType"]), max(1, I(r["EffectBasePointsF"])))
-            elif eff == 36 and I(r["EffectTriggerSpell"]):                # LEARN_SPELL
+            elif eff == 36 and I(r["EffectTriggerSpell"]):
                 learn.setdefault(sp, set()).add(I(r["EffectTriggerSpell"]))
         effect_spell = {I(r["ID"]): I(r["SpellID"]) for r in rows("ItemEffect")}
-        self.taught_by = {}                                               # recipe spell -> {item ids}
+        self.taught_by = {}
         for r in rows("ItemXItemEffect"):
             sp = effect_spell.get(I(r["ItemEffectID"]))
             for rec in learn.get(sp, {sp} if sp else set()):
                 self.taught_by.setdefault(rec, set()).add(I(r["ItemID"]))
         self.sla = [r for r in rows("SkillLineAbility") if I(r["SkillLine"]) in ALL]
-        # recipes with a cooldown (Mooncloth, transmutes, ...) can't be spammed for skill
-        self.cooldown = {I(r["SpellID"]) for r in rows("SpellCooldowns")
-                         if I(r["RecoveryTime"]) > 2000 or I(r["CategoryRecoveryTime"]) > 2000}
-        self.cooldown |= {I(r["SpellID"]) for r in rows("SpellCategories") if I(r["ChargeCategory"])}
-        self.item_rep = {I(r["ID"]): I(r["MinFactionID"]) for r in rows("ItemSparse")}
+        # index (skill, lower_name) -> {spell, name, mats, low, high}
+        self.by_name = {}
+        for r in self.sla:
+            sk = I(r["SkillLine"])
+            sp = I(r["Spell"])
+            if sp in SOD_IDS or sp not in self.spell_name or sp not in self.reagents:
+                continue
+            nm = self.spell_name[sp]
+            self.by_name.setdefault((sk, nm.lower()), []).append({
+                "spell": sp, "name": nm, "mats": self.reagents[sp],
+                "low": I(r["TrivialSkillLineRankLow"]), "high": I(r["TrivialSkillLineRankHigh"]),
+            })
+
+    def lookup(self, skill, name):
+        hits = self.by_name.get((skill, name.lower()))
+        if not hits:
+            raise SystemExit(f"draft_professions: spell not found in DB2 for skill {skill}: {name!r}")
+        return hits[0]
 
 
-# ------------------------------------------------------------------ Questie
+# ------------------------------------------------------------------ Questie helpers
 def npc_points(db, a2m, n):
     spawns = db.npc(n, "spawns")
     if isinstance(spawns, list):
@@ -175,147 +160,31 @@ def trainers(db, a2m):
             continue
         for s, kw in KEYWORD.items():
             if kw in sub and not (s == 186 and "Mining" not in sub and "Miner" not in sub):
-                # a trainer's title is their own rank and they teach the one below it: a
-                # Journeyman teaches Apprentice (75), an Expert Journeyman (150), an Artisan
-                # Expert (225), a Master Artisan (300). Specialisation masters (Goblin Engineer,
-                # Dragonscale Leatherworker...) teach their speciality, not a rank.
                 if re.search(r"Gnome|Goblin|Dragonscale|Elemental|Tribal|Shadoweave", sub):
                     continue
                 cap = 300 if "Master" in sub else 225 if "Artisan" in sub else 150 if "Expert" in sub else \
                     75 if re.search(r"Junior|Journeyman|Apprentice", sub) else \
                     300 if s in (182, 186, 393) else 225
-                # Herbalism, Mining and Skinning trainers carry no rank in their title ("Mining
-                # Trainer", "Herbalist", "Skinner") and teach every rank up to Artisan; only the
-                # Junior ones in the starting zones stop at Apprentice. (Checked on five trainers'
-                # pages, city and zone, 2026-11-18.)
                 name = text(db.npc(n, "name"))
                 for m, x, y in npc_points(db, a2m, n)[:1]:
                     out[s].append((cap, faction_of(db, n), m, x, y, name))
     return out
 
 
-def item_field(db, it, idx):
-    return db.field("Item-", it, idx)
-
-
-ITEM_VENDORS, ITEM_TEACHES = 14, 16
+ITEM_VENDORS = 14
 
 
 def vendors_of(db, a2m, it, cache={}):
     if it in cache:
         return cache[it]
-    out = []
-    for n in lua_list(item_field(db, it, ITEM_VENDORS)):
-        if isinstance(n, int):
+    out, seen = [], set()
+    raw = list(lua_list(db.field("Item-", it, ITEM_VENDORS))) + EXTRA_ITEM_VENDORS.get(it, [])
+    for n in raw:
+        if isinstance(n, int) and n not in seen:
+            seen.add(n)
             for m, x, y in npc_points(db, a2m, n)[:1]:
                 out.append((faction_of(db, n), m, x, y, text(db.npc(n, "name"))))
     cache[it] = out
-    return out
-
-
-# ------------------------------------------------------------------ crafting routes
-def chance(r, s):
-    lo, hi = r["low"], r["high"]
-    if s >= hi:
-        return 0.0
-    if s < lo:
-        return 1.0
-    return (hi - s) / max(1, hi - lo)
-
-
-def craft_route(skill, client, db, a2m, faction):
-    """[(spell, from, to, crafts, mats per craft, recipe item or None)], plus the recipe list."""
-    recipes = []
-    made_by = {}
-    for r in client.sla:
-        if I(r["SkillLine"]) != skill:
-            continue
-        sp, lo, hi = I(r["Spell"]), I(r["TrivialSkillLineRankLow"]), I(r["TrivialSkillLineRankHigh"])
-        if hi <= 0 or I(r["ClassMask"]) or sp not in client.reagents or sp not in client.spell_name:
-            continue
-        if sp in SOD_IDS or sp in client.cooldown:
-            continue
-        acq = I(r["AcquireMethod"])
-        items = client.taught_by.get(sp, set())
-        recipe_item, learn_at = None, (1 if acq in (1, 2) else lo)
-        if items:
-            # only recipes a vendor sells (no reputation ones); drops and quest rewards are left out
-            sold = [it for it in items if not client.item_rep.get(it) and
-                    any(faction in v[0] for v in vendors_of(db, a2m, it))]
-            if not sold:
-                continue
-            recipe_item = sold[0]
-            learn_at = client.items.get(recipe_item, {}).get("req_rank") or lo
-        elif acq not in (0, 1, 2) or sp >= FOREVER_IDS:
-            continue
-        cr = client.creates.get(sp)
-        rec = {"spell": sp, "name": client.spell_name[sp], "low": lo, "high": hi, "learn": max(1, learn_at),
-               "mats": client.reagents[sp], "recipe": recipe_item, "creates": cr}
-        recipes.append(rec)
-        if cr:
-            made_by.setdefault(cr[0], rec)
-
-    def item_cost(it, depth=0):
-        info = client.items.get(it, {})
-        if it in made_by and depth < 3:
-            rec = made_by[it]
-            return sum(item_cost(m, depth + 1) * n for m, n in rec["mats"]) / max(1, rec["creates"][1])
-        vend = vendors_of(db, a2m, it)
-        if vend and info.get("buy"):
-            return info["buy"] / info.get("stack", 1)
-        return max(info.get("sell", 0) * 6, info.get("ilvl", 1) * 12) + 20
-
-    for rec in recipes:
-        rec["cost"] = sum(item_cost(m) * n for m, n in rec["mats"]) + (1 if not rec["mats"] else 0)
-
-    route, s, cur = [], 1, None
-    while s < MAX_SKILL:
-        best, best_v = None, None
-        for rec in recipes:
-            if rec["learn"] > s:
-                continue
-            p = chance(rec, s)
-            if p <= 0.05:
-                continue
-            v = rec["cost"] / p
-            if rec is not cur and cur is not None:
-                v *= SWITCH_PENALTY
-            if best_v is None or v < best_v:
-                best, best_v = rec, v
-        if not best:
-            s += 1                     # nothing to craft at this skill (gap in data): skip a point
-            continue
-        p = chance(best, s)
-        if route and route[-1]["rec"] is best:
-            route[-1]["to"] = s + 1
-            route[-1]["crafts"] += 1 / p
-        else:
-            route.append({"rec": best, "from": s, "to": s + 1, "crafts": 1 / p})
-        cur = best
-        s += 1
-    return route
-
-
-# ------------------------------------------------------------------ gathering
-def node_zones(db, a2m, names, faction):
-    """{node name: {map: [(x, y)]}} for herb / ore objects Questie knows"""
-    want = {n for n, _ in HERBS + ORES}
-    out = {}
-    for o in db.ids("Object-"):
-        name = text(db.obj(o, "name"))
-        if name not in want:
-            continue
-        spawns = db.obj(o, "spawns")
-        if isinstance(spawns, list):
-            spawns = {i + 1: v for i, v in enumerate(spawns) if v}
-        for area, lst in (spawns or {}).items():
-            m = a2m.get(area)
-            if not m or m in ENEMY[faction]:
-                continue
-            for c in lua_list(lst):
-                c = lua_list(c)
-                if len(c) >= 2 and c[0] is not None and c[0] >= 0:
-                    out.setdefault(name, {}).setdefault(m, []).append((float(c[0]), float(c[1])))
     return out
 
 
@@ -337,149 +206,467 @@ def artisan_quests(db):
     return _artisan
 
 
-def train_line(skill, cap, faction, db):
-    if skill in EXPERT_BOOK and cap == 225:
-        return f"train {skill} 225 |level {10 if skill == 356 else 20} |book {EXPERT_BOOK[skill]}"
-    if skill in EXPERT_BOOK and cap == 300:
-        q = artisan_quests(db).get((skill, faction))
-        return f"train {skill} 300 |level 35" + (f" |quest {q}" if q else "")
-    if skill == 333 and cap == 300:
-        # the only Master Enchanter stands inside a dungeon, so there is no map spot to point at
-        return f"train 333 300 |level {CAP_LEVEL[cap]} |note Annora, the Master Enchanter, is inside the Uldaman dungeon in the Badlands"
-    return f"train {skill} {cap} |level {CAP_LEVEL[cap]}"
+def medoid(pts):
+    if len(pts) > 120:
+        step = max(1, len(pts) // 120)
+        pts = pts[::step]
+    best = min(pts, key=lambda p: sum(math.dist(p, q) for q in pts))
+    return round(best[0], 1), round(best[1], 1)
 
 
-def gather_steps(nodes, table, skill, zone_names, faction="A"):
-    lines = []
-    for lo, hi in GATHER_BANDS:
-        useful = [(n, req) for n, req in table if req <= lo and req + NODE_GREY > lo]
-        if not useful:
+def obj_medoid(db, a2m, map_id, names=None, ids=None):
+    pts = []
+    target_names = {n.lower() for n in names} if names else None
+    target_ids = set(ids) if ids else None
+    for o in (target_ids or db.ids("Object-")):
+        if target_names and text(db.obj(o, "name")).lower() not in target_names:
             continue
-        score = {}
-        for n, req in useful:
-            # yellow/green nodes give skill-ups less often: weight the ones closest to your skill
-            w = 1.0 if lo - req < 50 else 0.5
-            for m, pts in nodes.get(n, {}).items():
-                home = 0.25 if m in HOME["H" if faction == "A" else "A"] else 1.0
-                score[m] = score.get(m, 0) + w * home * len(pts)
-        if not score:
+        sp = db.obj(o, "spawns")
+        if isinstance(sp, list):
+            sp = {i + 1: v for i, v in enumerate(sp) if v}
+        for area, lst in (sp or {}).items():
+            if a2m.get(area) != map_id:
+                continue
+            for c in lua_list(lst):
+                c = lua_list(c)
+                if len(c) >= 2 and c[0] is not None and c[0] >= 0:
+                    pts.append((float(c[0]), float(c[1])))
+    if not pts:
+        raise SystemExit(f"draft_professions: no object spawns on map {map_id} for {names or ids}")
+    return medoid(pts)
+
+
+def npc_medoid(db, a2m, map_id, names):
+    pts = []
+    want = set(names)
+    for n in db.ids("Npc-"):
+        if text(db.npc(n, "name")) not in want:
             continue
-        ranked = sorted(score.items(), key=lambda kv: -kv[1])[:2]
-        for i, (m, _) in enumerate(ranked):
-            pts = [p for n, _ in useful for p in nodes.get(n, {}).get(m, [])]
-            cx = sum(p[0] for p in pts) / len(pts)
-            cy = sum(p[1] for p in pts) / len(pts)
-            here = [n for n, _ in useful if nodes.get(n, {}).get(m)]
-            note = ", ".join(here)
-            if i == 0:
-                lines.append(f"gather {skill} {hi} |at {m} {cx:.1f},{cy:.1f} |note {note} ({zone_names.get(m, 'zone')})")
-            else:
-                lines.append(f"-- or: {zone_names.get(m, m)} ({note})")
-    return lines
+        sp = db.npc(n, "spawns")
+        if isinstance(sp, list):
+            sp = {i + 1: v for i, v in enumerate(sp) if v}
+        for area, lst in (sp or {}).items():
+            if a2m.get(area) != map_id:
+                continue
+            for c in lua_list(lst):
+                c = lua_list(c)
+                if len(c) >= 2 and c[0] is not None and c[0] >= 0:
+                    pts.append((float(c[0]), float(c[1])))
+    if not pts:
+        raise SystemExit(f"draft_professions: no NPC spawns on map {map_id} for {names}")
+    return medoid(pts)
 
 
-def render_craft(skill, route, faction, db):
-    lines = [f"train {skill} 75"]
-    trained = 75
-    # The Artisan quest of a secondary profession (Triage, Clamlette Surprise) isn't on offer
-    # until your skill is 225, the Expert cap itself: a run that crosses 225 is cut there, so
-    # the quest step comes at 225 and not at whatever skill the run happened to start from.
-    if skill in EXPERT_BOOK and artisan_quests(db).get((skill, faction)):
-        cut = []
-        for seg in route:
-            if seg["from"] < 225 < seg["to"]:
-                part = (225 - seg["from"]) / (seg["to"] - seg["from"])
-                cut.append(dict(seg, to=225, crafts=seg["crafts"] * part))
-                cut.append(dict(seg, **{"from": 225, "crafts": seg["crafts"] * (1 - part)}))
-            else:
-                cut.append(seg)
-        route = cut
-    for seg in route:
-        rec = seg["rec"]
-        # learn the next rank before a run that would pass the current cap
-        while seg["to"] > trained and trained < MAX_SKILL:
-            trained = NEXT_CAP[trained]
-            lines.append(train_line(skill, trained, faction, db))
-        mats = ";".join(f"{it}:{n}" for it, n in rec["mats"])
-        opts = [f"name {rec['name']}", f"n {math.ceil(seg['crafts'])}"]
-        if mats:
-            opts.append(f"mats {mats}")
-        if rec["recipe"]:
-            opts.append(f"recipe {rec['recipe']}")
-        opts.append(f"from {seg['from']}")
-        lines.append(f"craft {rec['spell']} {seg['to']} |" + " |".join(opts))
-    return lines
+# ------------------------------------------------------------------ WoW Forever crafting routes
+# Entry formats:
+#   ("train", cap, opts_dict)
+#   ("craft", from_skill, to_skill, spell_name, crafts, opts_dict)
+# opts_dict keys: recipe (itemId), note (str), at ((map, x, y)), npc (str), level (int or None),
+#                 book (itemId), quest (bool -> auto artisan quest)
+
+CRAFT_ROUTES = {
+    171: [  # Alchemy
+        ("train", 75, {}),
+        ("craft", 1, 10, "Elixir of Minor Force", 9, {"note": "Buy Empty Vials from an Alchemy Supply vendor"}),
+        ("craft", 10, 55, "Elixir of Minor Defense", 45, {}),
+        ("craft", 55, 65, "Minor Mana Potion", 10, {}),
+        ("train", 150, {"level": 10}),
+        ("craft", 65, 90, "Elixir of Minor Fortitude", 28, {}),
+        ("craft", 90, 120, "Elixir of Wisdom", 30, {}),
+        ("craft", 120, 130, "Lesser Mana Potion", 10, {}),
+        ("craft", 130, 150, "Fire Oil", 20, {"note": "Keep 30 Fire Oil for Elixir of Fire Power at 150"}),
+        ("train", 225, {"level": 20, "note": "Master Mycologist Shurome in Felwood (Emerald Sanctuary) teaches both Expert and Artisan"}),
+        ("craft", 150, 165, "Elixir of Fire Power", 15, {}),
+        ("craft", 165, 195, "Mana Potion", 36, {}),
+        ("craft", 195, 225, "Nature Protection Potion", 36, {"recipe": 6057}),
+        ("train", 300, {"level": 35, "note": "Rogvar (Stonard), Kylanna Windwhisper (Feathermoon), or Master Mycologist Shurome (Felwood)"}),
+        ("craft", 225, 235, "Nature Protection Potion", 26, {"recipe": 6057}),
+        ("craft", 235, 250, "Elixir of Greater Intellect", 15, {}),
+        ("craft", 250, 260, "Stonescale Oil", 47, {"note": "Keep all Stonescale Oil for 265 (or skip if pricey and finish with Superior Mana Potion)"}),
+        ("craft", 260, 265, "Elixir of Greater Intellect", 10, {}),
+        ("craft", 265, 300, "Elixir of Greater Defense", 44, {
+            "recipe": 13478,
+            "note": "Sold as Recipe: Elixir of Superior Defense; alt: Superior Mana Potion (Algernon / Ulthir)",
+        }),
+    ],
+    164: [  # Blacksmithing
+        ("train", 75, {"note": "Buy a Blacksmith Hammer from a nearby vendor"}),
+        ("craft", 1, 25, "Rough Sharpening Stone", 30, {}),
+        ("craft", 25, 50, "Rough Grinding Stone", 30, {"note": "Keep 10 for Silver Rods at 75"}),
+        ("craft", 50, 75, "Coarse Grinding Stone", 36, {"note": "Make all 36 for Patterned Bronze Bracers at 95 and 112"}),
+        ("train", 150, {"level": 10}),
+        ("craft", 75, 80, "Silver Rod", 5, {"note": "Alt if Silver Bars are pricey: 5x Runed Copper Belt"}),
+        ("craft", 80, 95, "Rough Bronze Leggings", 15, {}),
+        ("craft", 95, 100, "Patterned Bronze Bracers", 5, {}),
+        ("craft", 100, 112, "Heavy Grinding Stone", 20, {"note": "Keep all 20 for Golden Scale Bracers at 180"}),
+        ("craft", 112, 125, "Patterned Bronze Bracers", 13, {}),
+        ("craft", 125, 140, "Silvered Bronze Gauntlets", 15, {"note": "Alt if Silver Bars are pricey: 15x Bronze Warhammer"}),
+        ("train", 225, {"level": 20}),
+        ("craft", 140, 175, "Green Iron Bracers", 40, {"note": "Taught by Expert trainers (Saru Steelfury / Bengus Deepforge)"}),
+        ("craft", 175, 180, "Solid Grinding Stone", 8, {"note": "Keep for 210"}),
+        ("craft", 180, 195, "Golden Scale Bracers", 20, {}),
+        ("craft", 195, 210, "Mithril Plate Pants", 17, {}),
+        ("train", 300, {"level": 35, "note": "Brikk Keencraft in Booty Bay teaches Artisan and recipes from 210+"}),
+        ("craft", 210, 215, "Heavy Mithril Axe", 6, {"note": "If you find Plans: Mithril Spurs on the AH, craft Mithril Spurs 210-225 & 235-245 instead"}),
+        ("craft", 215, 225, "Mithril Coif", 10, {}),
+        ("craft", 225, 235, "Dense Sharpening Stone", 16, {}),
+        ("craft", 235, 240, "Heavy Mithril Boots", 11, {}),
+        ("craft", 240, 245, "Imperial Plate Belt", 5, {
+            "at": (1446, 51.4, 28.7), "npc": "Derotain Mudsipper",
+            "note": "Plan from Derotain Mudsipper's Imperial Plate quest in Tanaris (bring 40+ Thorium Bars for Belt and Bracers)",
+        }),
+        ("craft", 245, 270, "Imperial Plate Bracers", 27, {
+            "at": (1446, 51.4, 28.7), "npc": "Derotain Mudsipper",
+            "note": "Plan from Derotain Mudsipper in Tanaris (alt 245-255: Thorium Belt if you have AH plans)",
+        }),
+        ("craft", 270, 290, "Imperial Plate Boots", 20, {
+            "at": (1446, 51.4, 28.7), "npc": "Derotain Mudsipper",
+            "note": "Cheaper with AH plans: Radiant Boots (270-290) + Radiant Leggings (290-300), or Thorium Leggings (275-300)",
+        }),
+        ("craft", 290, 300, "Imperial Plate Leggings", 10, {
+            "at": (1446, 51.4, 28.7), "npc": "Derotain Mudsipper",
+            "note": "Plan from Derotain Mudsipper in Tanaris (alt: Radiant Leggings or Thorium Leggings)",
+        }),
+    ],
+    185: [  # Cooking
+        ("train", 75, {}),
+        ("craft", 1, 50, "Brilliant Smallfish", 55, {"recipe": 6325, "note": "Alt if cheaper: 55x Slitherskin Mackerel"}),
+        ("train", 150, {"level": 10}),
+        ("craft", 50, 100, "Longjaw Mud Snapper", 55, {"recipe": 6328, "note": "Alt if cheaper: 55x Rainbow Fin Albacore"}),
+        ("craft", 100, 150, "Bristle Whisker Catfish", 53, {"recipe": 6330}),
+        ("train", 225, {"level": 20, "book": 16072}),
+        ("craft", 150, 175, "Goblin Deviled Clams", 28, {"note": "Buy Hot Spices from a Cooking Supply vendor"}),
+        ("craft", 175, 225, "Roast Raptor", 55, {"recipe": 12228, "note": "Alt if cheaper: 55x Mithril Headed Trout"}),
+        ("train", 300, {
+            "level": 35, "quest": True,
+            "note": "Bring 12 Giant Egg, 10 Zesty Clam Meat, and 20 Alterac Swiss; buy Spotted Yellowtail & Nightfin Soup recipes from Gikkix in Steamwheedle Port",
+        }),
+        ("craft", 225, 285, "Spotted Yellowtail", 72, {"recipe": 13939, "note": "Alt if cheaper: 72x Filet of Redgill (Kelsey Yance, Booty Bay)"}),
+        ("craft", 285, 300, "Nightfin Soup", 18, {"recipe": 13945}),
+    ],
+    333: [  # Enchanting
+        ("train", 75, {}),
+        ("craft", 1, 2, "Runed Copper Rod", 1, {"note": "Buy Copper Rod and Mote of Magic from an Enchanting Supply vendor"}),
+        ("craft", 2, 20, "Enchant Bracer - Inferior Stamina", 18, {"note": "Disenchanting green items also gives skill-ups up to 60"}),
+        ("craft", 20, 70, "Enchant Chest - Inferior Stamina", 50, {"note": "Alt if cheaper: 50x Enchant Bracer - Minor Deflect (Lesser Magic Essence)"}),
+        ("train", 150, {"level": 10}),
+        ("craft", 70, 85, "Enchant Chest - Inferior Stamina", 21, {}),
+        ("craft", 85, 100, "Enchant Bracer - Minor Stamina", 15, {}),
+        ("craft", 100, 109, "Enchant Cloak - Minor Protection", 9, {}),
+        ("craft", 109, 110, "Runed Silver Rod", 1, {}),
+        ("craft", 110, 130, "Enchant Cloak - Minor Protection", 29, {}),
+        ("craft", 130, 150, "Enchant Boots - Minor Stamina", 20, {
+            "note": "Buy Formula: Minor Mana Oil and Lesser Wizard Oil from a city vendor before heading to the Expert trainer",
+        }),
+        ("train", 225, {"level": 20}),
+        ("craft", 150, 151, "Runed Golden Rod", 1, {}),
+        ("craft", 151, 165, "Minor Mana Oil", 16, {"recipe": 20752}),
+        ("craft", 165, 200, "Enchant Boots - Lesser Agility", 44, {"note": "Alt 185-200 if Vision Dust is cheaper: Enchant Bracer - Strength"}),
+        ("craft", 200, 201, "Runed Truesilver Rod", 1, {}),
+        ("craft", 201, 220, "Lesser Wizard Oil", 25, {"recipe": 20753}),
+        ("craft", 220, 225, "Enchant Cloak - Greater Defense", 5, {}),
+        ("train", 300, {
+            "level": 35,
+            "note": "Annora is inside Uldaman (Badlands back entrance); bring ~12g and ~50 Vision Dust to learn all 230-250 recipes in one trip",
+        }),
+        ("craft", 225, 250, "Enchant Gloves - Agility", 34, {}),
+        ("craft", 250, 270, "Lesser Mana Oil", 26, {
+            "recipe": 20754,
+            "note": "Buy Formula: Wizard Oil from Kania in Silithus at the same time (alt: Enchant Bracer - Greater Strength)",
+        }),
+        ("craft", 270, 275, "Enchant Shield - Greater Stamina", 5, {"recipe": 16217}),
+        ("craft", 275, 295, "Wizard Oil", 26, {"recipe": 20755, "note": "Alt if Illusion Dust is pricey: Enchant Shield - Greater Stamina"}),
+        ("craft", 295, 299, "Enchant Shield - Greater Stamina", 8, {"recipe": 16217}),
+        ("craft", 299, 300, "Runed Arcanite Rod", 1, {
+            "recipe": 16243,
+            "note": "Needed for 300 enchants (or craft 1 more Enchant Shield - Greater Stamina for the final point)",
+        }),
+    ],
+    202: [  # Engineering
+        ("train", 75, {"note": "Buy a Blacksmith Hammer from a nearby vendor"}),
+        ("craft", 1, 35, "Rough Blasting Powder", 56, {"note": "Keep all for Rough Copper Bombs"}),
+        ("craft", 35, 55, "Handful of Copper Bolts", 28, {"note": "Keep all for Rough Copper Bombs"}),
+        ("craft", 55, 56, "Arclight Spanner", 1, {"note": "Keep as a crafting tool"}),
+        ("craft", 56, 75, "Rough Copper Bomb", 28, {}),
+        ("train", 150, {"level": 10}),
+        ("craft", 75, 90, "Coarse Blasting Powder", 51, {"note": "Keep all for Coarse Dynamite"}),
+        ("craft", 90, 100, "Coarse Dynamite", 17, {}),
+        ("craft", 100, 105, "Silver Contact", 5, {"note": "Alt if Silver Bars are pricey: 5x Flying Tiger Goggles"}),
+        ("craft", 105, 125, "Bronze Tube", 25, {"note": "Keep 10 for Standard Scopes"}),
+        ("craft", 125, 135, "Standard Scope", 10, {"note": "Skip to Heavy Blasting Powder if Moss Agate is expensive"}),
+        ("craft", 135, 145, "Heavy Blasting Powder", 40, {"note": "Keep 30 for Explosive Sheep and 3 for Iron Grenades"}),
+        ("craft", 145, 150, "Whirring Bronze Gizmo", 15, {"note": "Keep all 15 for Explosive Sheep"}),
+        ("train", 225, {"level": 20}),
+        ("craft", 150, 160, "Bronze Framework", 15, {"note": "Keep all 15 for Explosive Sheep"}),
+        ("craft", 160, 175, "Explosive Sheep", 15, {}),
+        ("craft", 175, 193, "Solid Blasting Powder", 61, {"note": "Keep all for Unstable Triggers and Hi-Explosive Bombs"}),
+        ("craft", 193, 194, "Gyromatic Micro-Adjustor", 1, {"note": "Keep as a crafting tool"}),
+        ("craft", 194, 195, "Iron Grenade", 3, {"note": "Skip if already at 195"}),
+        ("craft", 195, 200, "Mithril Tube", 6, {}),
+        ("train", 300, {"level": 35, "note": "Buzzek Bracketswing (Gadgetzan) or Kaylaena Springwhisper (Mount Hyjal) teach Artisan and 200+ recipes"}),
+        ("craft", 200, 215, "Unstable Trigger", 21, {"note": "Keep 20 for Hi-Explosive Bombs"}),
+        ("craft", 215, 238, "Mithril Casing", 40, {"note": "Keep all 40 for Hi-Explosive Bombs"}),
+        ("craft", 238, 250, "Hi-Explosive Bomb", 20, {}),
+        ("craft", 250, 260, "Dense Blasting Powder", 44, {}),
+        ("craft", 260, 280, "Thorium Widget", 20, {"recipe": 16042, "note": "PvP alt: 10x Thorium Widget + 10x Thorium Grenade"}),
+        ("craft", 280, 300, "Thorium Tube", 21, {
+            "recipe": 16047,
+            "note": "Schematic from Xizzer Fizzbolt (Winterspring) or Kor'gar (Riverglades); alt from 285: Thorium Shells",
+        }),
+    ],
+    129: [  # First Aid
+        ("train", 75, {}),
+        ("craft", 1, 40, "Linen Bandage", 50, {"note": "Forever herb alt 1-75: 86x Minor Healing Potion (Peacebloom, Mild Spices, Empty Vial)"}),
+        ("craft", 40, 75, "Heavy Linen Bandage", 47, {}),
+        ("train", 150, {"level": 10}),
+        ("craft", 75, 80, "Heavy Linen Bandage", 13, {}),
+        ("craft", 80, 115, "Wool Bandage", 52, {"note": "Forever herb alt 90-150: Simple Poultice (90-125) + Healing Potion (125-150)"}),
+        ("craft", 115, 150, "Heavy Wool Bandage", 51, {"note": "Learn Silk Bandage from your trainer before heading to the Expert vendor"}),
+        ("train", 225, {"book": 16084, "note": "No level requirement in Forever; buy Heavy Silk and Mageweave manuals at the same vendor"}),
+        ("craft", 150, 180, "Silk Bandage", 44, {}),
+        ("craft", 180, 210, "Heavy Silk Bandage", 44, {"recipe": 16112}),
+        ("craft", 210, 225, "Mageweave Bandage", 19, {"recipe": 16113}),
+        ("train", 300, {
+            "level": 35, "quest": True,
+            "note": "Bring ~90 Mageweave Cloth and ~70 Runecloth; the Triage doctor also teaches the final bandages up to 300",
+        }),
+        ("craft", 225, 240, "Mageweave Bandage", 26, {}),
+        ("craft", 240, 260, "Heavy Mageweave Bandage", 30, {"note": "Taught by the Triage doctor at 240"}),
+        ("craft", 260, 290, "Runecloth Bandage", 44, {
+            "note": "Taught by the Triage doctor at 260; alt 275-300: Major Healing Potion (Manual from Pexmit in Mount Hyjal)",
+        }),
+        ("craft", 290, 300, "Heavy Runecloth Bandage", 12, {"note": "Taught by the Triage doctor at 290"}),
+    ],
+    165: [  # Leatherworking
+        ("train", 75, {}),
+        ("craft", 1, 30, "Light Leather", 35, {}),
+        ("craft", 30, 40, "Cured Light Hide", 10, {"note": "Keep all 10 for Embossed Leather Pants at 70 (alt: 14x Light Armor Kit)"}),
+        ("craft", 40, 70, "Embossed Leather Gloves", 30, {}),
+        ("train", 150, {"level": 10}),
+        ("craft", 70, 80, "Embossed Leather Pants", 10, {"note": "Alt without hides: 14x Embossed Leather Gloves"}),
+        ("craft", 80, 95, "Cured Medium Hide", 20, {"note": "Keep all 20 for Dark Leather Belts at 105 (alt: 19x Fine Leather Belt)"}),
+        ("craft", 95, 105, "Fine Leather Belt", 22, {"note": "Keep 20 for Dark Leather Belts"}),
+        ("craft", 105, 125, "Dark Leather Belt", 20, {"note": "Alt without hides: Dark Leather Pants (105-120) + Hillman's Leather Gloves (120-125)"}),
+        ("craft", 125, 130, "Heavy Leather", 8, {}),
+        ("craft", 130, 143, "Cured Heavy Hide", 25, {"note": "Keep all 25 for Barbaric Shoulders (150) and Guardian Gloves (165)"}),
+        ("craft", 143, 150, "Hillman's Leather Gloves", 8, {}),
+        ("train", 225, {"level": 20}),
+        ("craft", 150, 165, "Barbaric Shoulders", 15, {"note": "Alt without hides: Pattern: Barbaric Leggings (Jandia / Lardan)"}),
+        ("craft", 165, 175, "Guardian Gloves", 10, {"note": "Stays orange to 185 if you have extra Cured Heavy Hides"}),
+        ("craft", 175, 185, "Barbaric Harness", 10, {"note": "Alt without Iron Buckles: 10x Thick Armor Kit"}),
+        ("craft", 185, 205, "Nightscape Headband", 22, {}),
+        ("train", 300, {"level": 35, "note": "Hahrana Ironhide (Camp Mojache) or Drakk Stonehand (Aerie Peak) teach Artisan and 205+ recipes"}),
+        ("craft", 205, 235, "Nightscape Pants", 36, {}),
+        ("craft", 235, 265, "Wicked Leather Gauntlets", 36, {
+            "recipe": 15725,
+            "note": "Alt with AH patterns: Blue Suede Shoes or Wicked Leather Headband (255-265)",
+        }),
+        ("craft", 265, 300, "Runic Leather Headband", 49, {
+            "recipe": 15756,
+            "note": "Alt with AH patterns: Tooled Leather Bracers (270-300) or Blue Suede Bracers (275-300)",
+        }),
+    ],
+    197: [  # Tailoring
+        ("train", 75, {}),
+        ("craft", 1, 30, "Bolt of Linen Cloth", 30, {"note": "Keep all bolts for Linen Belts"}),
+        ("craft", 30, 55, "Linen Belt", 28, {}),
+        ("train", 150, {"level": 10}),
+        ("craft", 55, 80, "Bolt of Woolen Cloth", 37, {"note": "Keep all bolts for capes and shoulders"}),
+        ("craft", 80, 95, "Woolen Cape", 22, {}),
+        ("craft", 95, 100, "Double-stitched Woolen Shoulders", 5, {}),
+        ("craft", 100, 120, "Bolt of Silk Cloth", 54, {"note": "Keep bolts (203 total needed through 185)"}),
+        ("craft", 120, 125, "Azure Silk Hood", 5, {}),
+        ("craft", 125, 140, "Small Silk Pack", 15, {}),
+        ("train", 225, {"level": 20, "note": "Expert trainers (Josef Gregorian / Georgio Bolero) also teach Bolt of Mageweave at 140"}),
+        ("craft", 140, 150, "Bolt of Mageweave", 23, {"note": "Keep bolts (144 total needed through 225)"}),
+        ("craft", 150, 170, "Crimson Silk Vest", 20, {}),
+        ("craft", 170, 185, "Crimson Silk Pantaloons", 17, {}),
+        ("craft", 185, 200, "Black Mageweave Leggings", 22, {}),
+        ("train", 300, {"level": 35, "note": "Daryl Stack (Tarren Mill) or Timothy Worthington (Theramore) teach Artisan and 200+ recipes (Alliance: bring Rune Thread)"}),
+        ("craft", 200, 205, "Black Mageweave Shoulders", 5, {}),
+        ("craft", 205, 215, "Bolt of Runecloth", 23, {"note": "Keep bolts (311 total needed through 280)"}),
+        ("craft", 215, 225, "Red Mageweave Bag", 17, {"note": "Alt if you don't want bags: 10x Runecloth Belt"}),
+        ("craft", 225, 240, "Runecloth Belt", 24, {}),
+        ("craft", 240, 250, "Runecloth Gloves", 11, {"recipe": 14481, "note": "Pattern sold by Qia in Everlook (alt: Brightcloth Cloak)"}),
+        ("craft", 250, 280, "Runecloth Cuffs", 39, {
+            "recipe": 254124,
+            "note": "Pattern from Pexmit in Mount Hyjal (Horde: also from Threading a Solution); alt: Runecloth Gloves to 260 then Runecloth Shoulders",
+        }),
+        ("craft", 280, 300, "Runecloth Shoulders", 58, {"note": "Buy Pattern: Runecloth Shoulders (or Wizardweave Turban) on the AH"}),
+    ],
+}
 
 
-# Lockpicking (skill line 633): a rogue's class skill, not a profession, but it levels the same
-# way: open locks that aren't grey for you. The guide is a run of "gather" steps, one per band,
-# each pointed at the middle of the boxes Questie has spawns for. The skill each box needs is
-# the classic value (Wowhead's classic object list, 2026-11-20); Forever's own numbers haven't
-# been checked in the game. Shown to rogues only (class = "ROGUE" on the guide).
+# ------------------------------------------------------------------ WoW Forever gathering routes
+# (faction letters, untilSkill, map_id, node_names, note, train_cap_before_or_None)
+HERB_BANDS = [
+    ("H", 70, 1411, ("Peacebloom", "Silverleaf", "Earthroot"),
+     "Peacebloom, Silverleaf, and Earthroot (15+) in Durotar, Mulgore, Tirisfal Glades, or Zephras Isle", None),
+    ("A", 70, 1429, ("Peacebloom", "Silverleaf", "Earthroot"),
+     "Peacebloom, Silverleaf, and Earthroot (15+) in Elwynn Forest, Dun Morogh, Teldrassil, or Zephras Isle", None),
+    ("H", 115, 1421, ("Mageroyal", "Briarthorn", "Stranglekelp"),
+     "Mageroyal, Briarthorn, and Stranglekelp (85+) in southern Silverpine Forest", 150),
+    ("A", 115, 1439, ("Mageroyal", "Briarthorn", "Stranglekelp"),
+     "Mageroyal, Briarthorn, and Stranglekelp (85+) in Darkshore (alt: Loch Modan)", 150),
+    ("AH", 170, 1424, ("Bruiseweed", "Wild Steelbloom", "Kingsblood", "Liferoot"),
+     "Bruiseweed, Wild Steelbloom, Kingsblood (125+), and Liferoot (150+) in Hillsbrad Foothills (alt: Stonetalon Mountains)", 225),
+    ("AH", 205, 1434, ("Kingsblood", "Liferoot", "Fadeleaf", "Goldthorn", "Khadgar's Whisker"),
+     "Kingsblood, Liferoot, Fadeleaf, Goldthorn, and Khadgar's Whisker (185+) in Stranglethorn Vale (alt: Arathi Highlands)", None),
+    ("AH", 230, 1446, ("Firebloom", "Purple Lotus"),
+     "Firebloom and Purple Lotus in Tanaris (alt: Searing Gorge) — train Artisan at 200 before heading out", 300),
+    ("AH", 270, 1425, ("Sungrass", "Purple Lotus", "Ghost Mushroom", "Golden Sansam"),
+     "Sungrass, Purple Lotus, Ghost Mushroom (245+ in caves), and Golden Sansam in The Hinterlands", None),
+    ("AH", 300, 1448, ("Sungrass", "Gromsblood", "Golden Sansam", "Dreamfoil", "Mountain Silversage", "Plaguebloom"),
+     "Sungrass, Gromsblood, Golden Sansam, Dreamfoil, Mountain Silversage, and Plaguebloom in Felwood", None),
+]
+
+MINING_BANDS = [
+    ("H", 65, 1411, ("Copper Vein",),
+     "Copper Veins in Durotar (alt: Mulgore, Tirisfal Glades, or Zephras Isle); buy a Mining Pick and smelt Copper Bars along the way", None),
+    ("A", 65, 1429, ("Copper Vein",),
+     "Copper Veins in Elwynn Forest (alt: Dun Morogh, Teldrassil, or Zephras Isle); buy a Mining Pick and smelt Copper Bars along the way", None),
+    ("H", 125, 1424, ("Tin Vein", "Copper Vein", "Silver Vein"),
+     "Tin (65+), Copper, and Silver (75+) in Hillsbrad Foothills or Silverpine Forest; smelt Bronze Bars up to ~105", 150),
+    ("A", 125, 1437, ("Tin Vein", "Incendicite Mineral Vein", "Silver Vein"),
+     "Tin (65+), Incendicite, and Silver (75+) in Wetlands (alt: Westfall or Ashenvale); smelt Bronze Bars up to ~105", 150),
+    ("AH", 175, 1417, ("Iron Deposit", "Tin Vein", "Gold Vein"),
+     "Iron (125+), Tin, and Gold (155+) in Arathi Highlands (safer alt: Thousand Needles or Desolace); optional Smelt Iron to 135 and Gold 155-175", 225),
+    ("AH", 245, 1425, ("Mithril Deposit", "Truesilver Deposit"),
+     "Mithril (175+) and Truesilver (230+) in The Hinterlands (alt: Tanaris) — train Artisan at 200", 300),
+    ("AH", 275, 1449, ("Small Thorium Vein", "Mithril Deposit", "Truesilver Deposit"),
+     "Small Thorium (245+), Mithril, and Truesilver in Un'Goro Crater (alt: Blasted Lands or Felwood)", None),
+    ("AH", 300, 1449, ("Rich Thorium Vein", "Small Thorium Vein"),
+     "Rich Thorium (275+) and Small Thorium in Un'Goro Crater (alt: Eastern Plaguelands, Winterspring, or Burning Steppes)", None),
+]
+
+# (faction, untilSkill, map_id, beast_lvl, mob_names, note, train_cap_before_or_None)
+SKINNING_BANDS = [
+    ("H", 75, 1411, 1, ("Mottled Boar",),
+     "Buy a Skinning Knife; skin beasts in your starting zone or Mottled Boars in Valley of Trials (Durotar) up to 75", None),
+    ("A", 75, 1429, 1, ("Young Wolf", "Timber Wolf"),
+     "Buy a Skinning Knife; skin beasts in your starting zone or wolves in Northshire Valley (Elwynn Forest) up to 75", None),
+    ("H", 150, 1413, 16, ("Sunscale Scytheclaw", "Zhevra Charger", "Ornery Plainstrider"),
+     "Raptors, zhevras, and plainstriders near Northwatch Hold in The Barrens (level 16-18)", 150),
+    ("A", 130, 1432, 16, ("Elder Mountain Boar", "Black Bear Patriarch", "Loch Crocolisk"),
+     "Boars, bears, and crocolisks around the Loch in Loch Modan (level 16-17)", 150),
+    ("A", 150, 1437, 25, ("Mottled Scytheclaw", "Mottled Razormaw"),
+     "Raptors at Whelgar's Excavation Site in Wetlands (level 25-27)", None),
+    ("AH", 225, 1424, 30, ("Cave Yeti", "Ferocious Yeti"),
+     "Bears/lions outside Foothill Caverns to 160, then Cave and Ferocious Yetis inside in Hillsbrad (alt: Duskwood worgen)", 225),
+    ("AH", 280, 1444, 43, ("Feral Scar Yeti", "Enraged Feral Scar", "Hulking Feral Scar"),
+     "Yetis in Feral Scar Vale in southern Feralas (level 43-46)", 300),
+    ("AH", 300, 1449, 50, ("Diemetradon", "Pterrordax", "Elder Diemetradon", "Frenzied Pterrordax"),
+     "Diemetradons and Pterrordax in western Un'Goro Crater (level 50-55)", None),
+]
+
 LOCKPICKING = 633
 # (faction letters, skill to reach, object ids, uiMap, note)
 LOCK_BANDS = [
-    ("A", 75, (178244, 178246), 1433,
-     "Practice Lockboxes around Alther's Mill, north-east of Lakeshire. You need Pick Lock from your trainer "
-     "(level 16) and Thieves' Tools in your bags. The boxes lock again after a moment, so go round them"),
-    ("H", 75, (123330, 123331, 123333), 1413,
-     "Buccaneer's Strongboxes aboard the pirate ship anchored off the coast south-east of Ratchet. You need "
-     "Pick Lock from your trainer (level 16) and Thieves' Tools in your bags. The boxes lock again after a moment, so go round them"),
-    ("A", 150, (179486, 179488), 1437,
-     "Battered Footlockers in the murloc camps on the coast of Bluegill Marsh, north of Menethil Harbor. They need 70 skill, "
-     "some 110. Your skill stops at five times your level, so 150 takes level 30. "
-     "Also good: Waterlogged Footlockers on the bed of Lake Everstill in Redridge"),
-    ("H", 150, (179486, 179488), 1424,
-     "Battered Footlockers in and around Durnholde Keep, in the east of Hillsbrad. They need 70 skill, some 110. "
-     "Your skill stops at five times your level, so 150 takes level 30. "
-     "Also good: Windshear Crag in Stonetalon, or Waterlogged Footlockers on the Zoram Strand in Ashenvale"),
-    ("AH", 200, (179490, 179492), 1418,
-     "Battered and Dented Footlockers in Angor Fortress, in the north of the Badlands. They need 150 skill, the dented ones 175. "
-     "200 takes level 40. Also good: Waterlogged Footlockers in the shallows off the north coast of Desolace"),
-    ("AH", 225, (179493,), 1435,
-     "Mossy Footlockers in the water along the east coast of the Swamp of Sorrows, among the murlocs. They need 175 skill. "
-     "225 takes level 45. Also good: Dented Footlockers around the Cauldron in Searing Gorge, which need 200"),
-    ("AH", 250, (179496,), 1446,
-     "Dented Footlockers in Lost Rigger Cove, the pirate town on the east coast of Tanaris. They need 225 skill. "
-     "250 takes level 50. Also good: Mossy Footlockers in the ruins along the coast of Azshara"),
-    ("AH", 300, (179498,), 1423,
-     "Scarlet Footlockers in and around Tyr's Hand, in the south-east of the Eastern Plaguelands. They need 250 skill, "
-     "and the Scarlets guarding them are elite, so stealth between them. 300 takes level 60. "
-     "Locked junkboxes you pickpocket give points too while they aren't grey"),
+    ("A", 100, (178244, 178246), 1433,
+     "Practice Lockboxes around Alther's Mill in Redridge Mountains (need Pick Lock at level 16 and Thieves' Tools)"),
+    ("H", 100, (123330, 123331, 123333), 1413,
+     "Buccaneer's Strongboxes aboard the pirate ship off the Ratchet coast in The Barrens (avoid The Jewel of the Southsea chest below deck)"),
+    ("AH", 150, (179487, 179489), 1440,
+     "Waterlogged Footlockers along the Zoram Strand shore in Ashenvale (and in the water from 110; skill caps at 5x character level)"),
+    ("AH", 225, (179490, 179492), 1418,
+     "Battered Footlockers upstairs (150+) and Dented Footlockers downstairs (175+) in Angor Fortress, Badlands"),
+    ("AH", 300, (179494, 179496), 1427,
+     "Dented Footlockers in The Slag Pit, Searing Gorge (lower pit 200+, upper pit 225 to 300; alt: Lost Rigger Cove in Tanaris)"),
 ]
 
 
-def lockpicking_guides(db, a2m):
-    """[(file name, text)] for the two Lockpicking guides."""
-    def middle(objs, m):
-        pts = []
-        for o in objs:
-            spawns = db.obj(o, "spawns")
-            if isinstance(spawns, list):
-                spawns = {i + 1: v for i, v in enumerate(spawns) if v}
-            for area, lst in (spawns or {}).items():
-                if a2m.get(area) != m:
-                    continue
-                for c in lua_list(lst):
-                    c = lua_list(c)
-                    if len(c) >= 2 and c[0] is not None and c[0] >= 0:
-                        pts.append((float(c[0]), float(c[1])))
-        if not pts:
-            raise SystemExit(f"lockpicking: no spawns for {objs} on map {m}")
-        best = min(pts, key=lambda p: sum(math.dist(p, o) for o in pts))
-        return round(best[0], 1), round(best[1], 1)
+def format_train(skill, cap, opts, faction, db, used_items):
+    parts = [f"train {skill} {cap}"]
+    lvl = opts.get("level")
+    if lvl:
+        parts.append(f"level {lvl}")
+    book = opts.get("book")
+    if book:
+        parts.append(f"book {book}")
+        used_items.add(book)
+    if opts.get("quest"):
+        q = artisan_quests(db).get((skill, faction))
+        if q:
+            parts.append(f"quest {q}")
+    note = opts.get("note")
+    if note:
+        parts.append(f"note {note}")
+    return parts[0] + ((" |" + " |".join(parts[1:])) if len(parts) > 1 else "")
 
+
+def render_craft(skill, client, faction, db, used_items):
+    lines = []
+    for entry in CRAFT_ROUTES[skill]:
+        if entry[0] == "train":
+            _, cap, opts = entry
+            lines.append(format_train(skill, cap, opts, faction, db, used_items))
+        else:
+            _, frm, to, name, crafts, opts = entry
+            rec = client.lookup(skill, name)
+            mats = ";".join(f"{it}:{n}" for it, n in rec["mats"])
+            used_items.update(it for it, _ in rec["mats"])
+            p = [f"name {rec['name']}", f"n {crafts}"]
+            if mats:
+                p.append(f"mats {mats}")
+            if opts.get("recipe"):
+                p.append(f"recipe {opts['recipe']}")
+                used_items.add(opts["recipe"])
+            if opts.get("at"):
+                m, x, y = opts["at"]
+                p.append(f"at {m} {x:.1f},{y:.1f}")
+            if opts.get("npc"):
+                p.append(f"npc {opts['npc']}")
+            p.append(f"from {frm}")
+            if opts.get("note"):
+                p.append(f"note {opts['note']}")
+            lines.append(f"craft {rec['spell']} {to} |" + " |".join(p))
+    return lines
+
+
+def render_gather(skill, faction, db, a2m, used_items):
+    lines = [f"train {skill} 75"]
+    if skill in (182, 186):
+        bands = HERB_BANDS if skill == 182 else MINING_BANDS
+        for who, hi, m, names, note, cap in bands:
+            if faction not in who:
+                continue
+            if cap:
+                lines.append(format_train(skill, cap, {"level": CAP_LEVEL[cap]}, faction, db, used_items))
+            x, y = obj_medoid(db, a2m, m, names=names)
+            lines.append(f"gather {skill} {hi} |at {m} {x:.1f},{y:.1f} |note {note}")
+    elif skill == 393:
+        for who, hi, m, mob, names, note, cap in SKINNING_BANDS:
+            if faction not in who:
+                continue
+            if cap:
+                lines.append(format_train(skill, cap, {"level": CAP_LEVEL[cap]}, faction, db, used_items))
+            x, y = npc_medoid(db, a2m, m, names)
+            lines.append(f"gather {skill} {hi} |at {m} {x:.1f},{y:.1f} |beasts {mob} |note {note}")
+    else:  # Fishing (356)
+        lines += [
+            "gather 356 75 |note Buy a Fishing Pole and Shiny Baubles; fish in any starting zone lake or river (not capital cities)",
+            format_train(356, 150, {"level": 10}, faction, db, used_items),
+            "gather 356 150 |note Fish in a capital city or level 10-20 zone (use Nightcrawlers if fish escape)",
+            format_train(356, 225, {"level": 20, "book": EXPERT_BOOK[356], "note": "Buy Expert Fishing book and Bright Baubles from Old Man Heming in Booty Bay"}, faction, db, used_items),
+            "gather 356 225 |at 1445 58.6,60.1 |note Fish in Dustwallow Marsh with Bright Baubles (Artisan quest starts right here at Nat Pagle)",
+            format_train(356, 300, {"level": 35, "quest": True, "note": "Nat Pagle in Dustwallow Marsh: catch 4 quest fish in STV, Desolace, Swamp of Sorrows, and Feralas (use Bright Baubles in Feralas)"}, faction, db, used_items),
+            "gather 356 300 |note Fish in Felwood, Azshara, Tanaris, Feralas, Un'Goro Crater, or Winterspring",
+        ]
+    return lines
+
+
+def lockpicking_guides(db, a2m):
     out = []
     for faction in "AH":
         body = []
         for who, cap, objs, m, note in LOCK_BANDS:
             if faction in who:
-                x, y = middle(objs, m)
-                body.append(f"gather {LOCKPICKING} {cap} |at {m} {x},{y} |note {note}")
+                x, y = obj_medoid(db, a2m, m, ids=objs)
+                body.append(f"gather {LOCKPICKING} {cap} |at {m} {x:.1f},{y:.1f} |note {note}")
         steps = "\n".join(body)
         fname = f"Lockpicking_{'Alliance' if faction == 'A' else 'Horde'}.lua"
         out.append((fname,
-            "-- GENERATED by tools/draft_professions.py: box spawns from Questie's Forever database (GPL-3.0).\n"
+            "-- GENERATED by tools/draft_professions.py: Forever 1-300 route, spawns from Questie's Forever database (GPL-3.0).\n"
             "-- Do not edit by hand.\n"
             "Onward:RegisterGuide{\n"
             f"    id = \"prof-lockpicking-{faction}\", title = \"Lockpicking 1-300\", kind = \"profession\",\n"
@@ -494,8 +681,6 @@ def main():
     client = Client()
     db = QuestieDB()
     a2m = area_to_uimap()
-    from questiedb import map_names
-    zone_names = map_names()
     OUT.mkdir(parents=True, exist_ok=True)
 
     tr = trainers(db, a2m)
@@ -505,58 +690,13 @@ def main():
         for faction in "AH":
             fname = f"{pname.replace(' ', '')}_{'Alliance' if faction == 'A' else 'Horde'}.lua"
             if skill in CRAFT:
-                route = craft_route(skill, client, db, a2m, faction)
-                body = render_craft(skill, route, faction, db)
-                for line in body:
-                    m = re.search(r"\|book (\d+)", line)
-                    if m:
-                        used_items.add(int(m.group(1)))
-                for seg in route:
-                    used_items.update(it for it, _ in seg["rec"]["mats"])
-                    if seg["rec"]["recipe"]:
-                        used_items.add(seg["rec"]["recipe"])
-                crafts = sum(math.ceil(seg["crafts"]) for seg in route)
-                top = route[-1]["to"] if route else 0
-                report.append(f"{pname:15} {faction}  {len(route):3} runs  ~{crafts:5} crafts  reaches {top}")
+                body = render_craft(skill, client, faction, db, used_items)
+                runs = sum(1 for l in body if l.startswith("craft "))
+                report.append(f"{pname:15} {faction}  {runs:2d} craft steps (1-300)")
             else:
-                body = [f"train {skill} 75"]
-                if skill in (182, 186):
-                    nodes = node_zones(db, a2m, zone_names, faction)
-                    table = HERBS if skill == 182 else ORES
-                    steps = gather_steps(nodes, table, skill, zone_names, faction)
-                    # train the next rank before the band that goes past the current cap
-                    trained = 75
-                    for line in steps:
-                        m = re.match(rf"gather {skill} (\d+)", line)
-                        while m and int(m.group(1)) > trained:
-                            trained = NEXT_CAP[trained]
-                            body.append(train_line(skill, trained, faction, db))
-                        body.append(line)
-                elif skill == 393:
-                    trained = 75
-                    for lo, hi in GATHER_BANDS:
-                        while hi > trained:
-                            trained = NEXT_CAP[trained]
-                            body.append(train_line(skill, trained, faction, db))
-                        # skinning needs (level - 10) * 10 up to level 20, then level * 5
-                        mob = max(1, lo // 5) if lo >= 100 else max(1, lo // 10 + 10)
-                        body.append(f"gather {skill} {hi} |beasts {mob} |note Skin beasts around level {mob}-{mob + 5}; "
-                                    "higher-level beasts work too while they're not grey for you")
-                    report.append(f"{pname:15} {faction}  level bands")
-                else:   # fishing
-                    # every catch can give a point; waters only matter for "fish got away"
-                    body += [
-                        "gather 356 75 |note Fish in any lake or river near town",
-                        train_line(356, 150, faction, db),
-                        "gather 356 150 |note Fish in the waters of the zones you're questing in",
-                        train_line(356, 225, faction, db),
-                        "gather 356 225 |note Fish in waters of level 30+ zones; if fish keep getting away, go back a zone",
-                        train_line(356, 300, faction, db),
-                        "gather 356 300 |note Fish in waters of level 40+ zones",
-                    ]
-                    used_items.add(EXPERT_BOOK[356])
-            if skill in (182, 186):
-                report.append(f"{pname:15} {faction}  {sum(1 for l in body if l.startswith('gather'))} zone bands")
+                body = render_gather(skill, faction, db, a2m, used_items)
+                bands = sum(1 for l in body if l.startswith("gather "))
+                report.append(f"{pname:15} {faction}  {bands:2d} zone bands (1-300)")
             title = f"{pname} 1-300"
             steps = "\n".join(body)
             (OUT / fname).write_text(
@@ -571,7 +711,7 @@ def main():
     for fname, text_ in lockpicking_guides(db, a2m):
         (OUT / fname).write_text(text_, encoding="utf-8")
         files.append(fname)
-    report.append("Lockpicking     A/H  footlocker bands (rogues only)")
+    report.append("Lockpicking     A/H   4 footlocker bands (1-300, rogues only)")
 
     # ProfData.lua: trainers per profession, vendors per item used in a route, item names
     def q(s):
@@ -606,8 +746,7 @@ def main():
     (OUT / "Professions.xml").write_text("\n".join(xml) + "\n", encoding="utf-8")
     for line in report:
         print(line)
-    print("trainers:", {ALL[s]: len(v) for s, v in tr.items()})
-    print(f"wrote {len(files)} guides + ProfData.lua to {OUT}")
+    print(f"wrote {len(files)} guides + ProfData.lua ({len(used_items)} tracked items) to {OUT}")
 
 
 if __name__ == "__main__":

@@ -5,12 +5,12 @@ Onward:RegisterGuide{
     skill = 356, faction = "Alliance", levels = { 1, 60 },
     steps = [[
 train 356 75
-gather 356 75 |note Fish in any lake or river near town
+gather 356 75 |note Buy a Fishing Pole and Shiny Baubles; fish in any starting zone lake or river (not capital cities)
 train 356 150 |level 10
-gather 356 150 |note Fish in the waters of the zones you're questing in
-train 356 225 |level 10 |book 16083
-gather 356 225 |note Fish in waters of level 30+ zones; if fish keep getting away, go back a zone
-train 356 300 |level 35 |quest 6607
-gather 356 300 |note Fish in waters of level 40+ zones
+gather 356 150 |note Fish in a capital city or level 10-20 zone (use Nightcrawlers if fish escape)
+train 356 225 |level 20 |book 16083 |note Buy Expert Fishing book and Bright Baubles from Old Man Heming in Booty Bay
+gather 356 225 |at 1445 58.6,60.1 |note Fish in Dustwallow Marsh with Bright Baubles (Artisan quest starts right here at Nat Pagle)
+train 356 300 |level 35 |quest 6607 |note Nat Pagle in Dustwallow Marsh: catch 4 quest fish in STV, Desolace, Swamp of Sorrows, and Feralas (use Bright Baubles in Feralas)
+gather 356 300 |note Fish in Felwood, Azshara, Tanaris, Feralas, Un'Goro Crater, or Winterspring
 ]],
 }

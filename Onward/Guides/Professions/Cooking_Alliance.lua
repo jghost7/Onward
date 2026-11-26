@@ -5,15 +5,15 @@ Onward:RegisterGuide{
     skill = 185, faction = "Alliance", levels = { 1, 60 },
     steps = [[
 train 185 75
-craft 2538 72 |name Charred Wolf Meat |n 88 |mats 2672:1 |from 1
+craft 7751 50 |name Brilliant Smallfish |n 55 |mats 6291:1 |recipe 6325 |from 1 |note Alt if cheaper: 55x Slitherskin Mackerel
 train 185 150 |level 10
-craft 8607 99 |name Smoked Bear Meat |n 34 |mats 3173:1 |recipe 6892 |from 72
-craft 2545 148 |name Cooked Crab Claw |n 60 |mats 2675:1;2678:1 |recipe 2698 |from 99
+craft 7753 100 |name Longjaw Mud Snapper |n 55 |mats 6289:1 |recipe 6328 |from 50 |note Alt if cheaper: 55x Rainbow Fin Albacore
+craft 7755 150 |name Bristle Whisker Catfish |n 53 |mats 6308:1 |recipe 6330 |from 100
 train 185 225 |level 20 |book 16072
-craft 15853 185 |name Lean Wolf Steak |n 45 |mats 1015:1;2678:1 |recipe 12227 |from 148
-craft 1295834 225 |name Plain Ol' Paletusk |n 67 |mats 769:2;2678:1 |recipe 274977 |from 185
-train 185 300 |level 35 |quest 6610
-craft 18238 281 |name Spotted Yellowtail |n 61 |mats 4603:1 |recipe 13939 |from 225
-craft 18244 300 |name Poached Sunscale Salmon |n 21 |mats 13760:1 |recipe 13946 |from 281
+craft 6500 175 |name Goblin Deviled Clams |n 28 |mats 5504:1;2692:1 |from 150 |note Buy Hot Spices from a Cooking Supply vendor
+craft 15855 225 |name Roast Raptor |n 55 |mats 12184:1;2692:1 |recipe 12228 |from 175 |note Alt if cheaper: 55x Mithril Headed Trout
+train 185 300 |level 35 |quest 6610 |note Bring 12 Giant Egg, 10 Zesty Clam Meat, and 20 Alterac Swiss; buy Spotted Yellowtail & Nightfin Soup recipes from Gikkix in Steamwheedle Port
+craft 18238 285 |name Spotted Yellowtail |n 72 |mats 4603:1 |recipe 13939 |from 225 |note Alt if cheaper: 72x Filet of Redgill (Kelsey Yance, Booty Bay)
+craft 18243 300 |name Nightfin Soup |n 18 |mats 13759:1;159:1 |recipe 13945 |from 285
 ]],
 }

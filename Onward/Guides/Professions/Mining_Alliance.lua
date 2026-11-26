@@ -5,20 +5,14 @@ Onward:RegisterGuide{
     skill = 186, faction = "Alliance", levels = { 1, 60 },
     steps = [[
 train 186 75
-gather 186 50 |at 1436 42.1,45.1 |note Copper Vein (Westfall)
--- or: Wetlands (Copper Vein)
+gather 186 65 |at 1429 51.4,67.5 |note Copper Veins in Elwynn Forest (alt: Dun Morogh, Teldrassil, or Zephras Isle); buy a Mining Pick and smelt Copper Bars along the way
 train 186 150 |level 10
-gather 186 100 |at 1436 42.1,45.1 |note Copper Vein (Westfall)
--- or: Wetlands (Copper Vein)
-gather 186 150 |at 1417 50.7,57.5 |note Copper Vein, Tin Vein, Silver Vein (Arathi Highlands)
--- or: Wetlands (Copper Vein, Tin Vein, Incendicite Mineral Vein, Silver Vein)
+gather 186 125 |at 1437 50.2,58.8 |note Tin (65+), Incendicite, and Silver (75+) in Wetlands (alt: Westfall or Ashenvale); smelt Bronze Bars up to ~105
 train 186 225 |level 20
-gather 186 200 |at 1417 50.3,57.6 |note Tin Vein, Silver Vein, Iron Deposit (Arathi Highlands)
--- or: Stranglethorn Vale (Tin Vein, Silver Vein, Iron Deposit)
+gather 186 175 |at 1417 48.3,64.4 |note Iron (125+), Tin, and Gold (155+) in Arathi Highlands (safer alt: Thousand Needles or Desolace); optional Smelt Iron to 135 and Gold 155-175
 train 186 300 |level 35
-gather 186 250 |at 1417 51.6,56.5 |note Iron Deposit, Gold Vein, Mithril Deposit (Arathi Highlands)
--- or: Burning Steppes (Iron Deposit, Gold Vein, Mithril Deposit)
-gather 186 300 |at 1428 59.4,46.3 |note Gold Vein, Mithril Deposit, Truesilver Deposit, Small Thorium Vein (Burning Steppes)
--- or: Arathi Highlands (Gold Vein, Mithril Deposit, Truesilver Deposit)
+gather 186 245 |at 1425 52.4,59.7 |note Mithril (175+) and Truesilver (230+) in The Hinterlands (alt: Tanaris) — train Artisan at 200
+gather 186 275 |at 1449 54.0,46.6 |note Small Thorium (245+), Mithril, and Truesilver in Un'Goro Crater (alt: Blasted Lands or Felwood)
+gather 186 300 |at 1449 54.0,46.6 |note Rich Thorium (275+) and Small Thorium in Un'Goro Crater (alt: Eastern Plaguelands, Winterspring, or Burning Steppes)
 ]],
 }

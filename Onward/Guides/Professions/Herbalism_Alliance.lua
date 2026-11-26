@@ -5,20 +5,15 @@ Onward:RegisterGuide{
     skill = 182, faction = "Alliance", levels = { 1, 60 },
     steps = [[
 train 182 75
-gather 182 50 |at 1429 54.1,70.8 |note Peacebloom, Silverleaf (Elwynn Forest)
--- or: Dun Morogh (Peacebloom, Silverleaf)
+gather 182 70 |at 1429 56.3,66.9 |note Peacebloom, Silverleaf, and Earthroot (15+) in Elwynn Forest, Dun Morogh, Teldrassil, or Zephras Isle
 train 182 150 |level 10
-gather 182 100 |at 1413 50.9,35.5 |note Peacebloom, Silverleaf, Earthroot, Mageroyal (The Barrens)
--- or: Darkshore (Peacebloom, Silverleaf, Earthroot, Mageroyal)
-gather 182 150 |at 1440 49.3,52.6 |note Mageroyal, Briarthorn, Stranglekelp, Bruiseweed (Ashenvale)
--- or: Westfall (Peacebloom, Silverleaf, Earthroot, Mageroyal, Briarthorn, Stranglekelp, Bruiseweed)
+gather 182 115 |at 1439 41.4,47.6 |note Mageroyal, Briarthorn, and Stranglekelp (85+) in Darkshore (alt: Loch Modan)
 train 182 225 |level 20
-gather 182 200 |at 1437 38.0,40.4 |note Briarthorn, Stranglekelp, Bruiseweed, Wild Steelbloom, Grave Moss, Kingsblood, Liferoot (Wetlands)
--- or: Arathi Highlands (Stranglekelp, Bruiseweed, Wild Steelbloom, Grave Moss, Kingsblood, Liferoot)
+gather 182 170 |at 1424 58.4,44.9 |note Bruiseweed, Wild Steelbloom, Kingsblood (125+), and Liferoot (150+) in Hillsbrad Foothills (alt: Stonetalon Mountains)
+gather 182 205 |at 1434 36.4,34.0 |note Kingsblood, Liferoot, Fadeleaf, Goldthorn, and Khadgar's Whisker (185+) in Stranglethorn Vale (alt: Arathi Highlands)
 train 182 300 |level 35
-gather 182 250 |at 1434 37.0,34.3 |note Wild Steelbloom, Kingsblood, Liferoot, Fadeleaf, Goldthorn, Khadgar's Whisker (Stranglethorn Vale)
--- or: Arathi Highlands (Wild Steelbloom, Grave Moss, Kingsblood, Liferoot, Fadeleaf, Goldthorn, Khadgar's Whisker)
-gather 182 300 |at 1435 45.9,47.5 |note Fadeleaf, Goldthorn, Khadgar's Whisker, Blindweed (Swamp of Sorrows)
--- or: Stranglethorn Vale (Fadeleaf, Goldthorn, Khadgar's Whisker, Purple Lotus)
+gather 182 230 |at 1446 52.7,45.9 |note Firebloom and Purple Lotus in Tanaris (alt: Searing Gorge) — train Artisan at 200 before heading out
+gather 182 270 |at 1425 49.7,54.4 |note Sungrass, Purple Lotus, Ghost Mushroom (245+ in caves), and Golden Sansam in The Hinterlands
+gather 182 300 |at 1448 45.7,42.1 |note Sungrass, Gromsblood, Golden Sansam, Dreamfoil, Mountain Silversage, and Plaguebloom in Felwood
 ]],
 }

@@ -4,32 +4,30 @@ Onward:RegisterGuide{
     id = "prof-blacksmithing-H", title = "Blacksmithing 1-300", kind = "profession",
     skill = 164, faction = "Horde", levels = { 1, 60 },
     steps = [[
-train 164 75
-craft 2660 45 |name Rough Sharpening Stone |n 68 |mats 2835:1 |from 1
+train 164 75 |note Buy a Blacksmith Hammer from a nearby vendor
+craft 2660 25 |name Rough Sharpening Stone |n 30 |mats 2835:1 |from 1
+craft 3320 50 |name Rough Grinding Stone |n 30 |mats 2835:2 |from 25 |note Keep 10 for Silver Rods at 75
+craft 3326 75 |name Coarse Grinding Stone |n 36 |mats 2836:2 |from 50 |note Make all 36 for Patterned Bronze Bracers at 95 and 112
 train 164 150 |level 10
-craft 3320 82 |name Rough Grinding Stone |n 98 |mats 2835:2 |from 45
-craft 2661 100 |name Copper Chain Belt |n 40 |mats 2840:6 |from 82
-craft 2674 114 |name Heavy Sharpening Stone |n 35 |mats 2838:1 |from 100
-craft 3337 119 |name Heavy Grinding Stone |n 15 |mats 2838:3 |from 114
-craft 2740 123 |name Bronze Mace |n 5 |mats 2841:6;2880:4;2319:1 |from 119
-craft 2668 125 |name Rough Bronze Leggings |n 3 |mats 2841:6 |from 123
-craft 8768 129 |name Iron Buckle |n 7 |mats 3575:1 |from 125
-craft 2668 142 |name Rough Bronze Leggings |n 28 |mats 2841:6 |from 129
+craft 7818 80 |name Silver Rod |n 5 |mats 2842:1;3470:2 |from 75 |note Alt if Silver Bars are pricey: 5x Runed Copper Belt
+craft 2668 95 |name Rough Bronze Leggings |n 15 |mats 2841:6 |from 80
+craft 2672 100 |name Patterned Bronze Bracers |n 5 |mats 2841:5;3478:2 |from 95
+craft 3337 112 |name Heavy Grinding Stone |n 20 |mats 2838:3 |from 100 |note Keep all 20 for Golden Scale Bracers at 180
+craft 2672 125 |name Patterned Bronze Bracers |n 13 |mats 2841:5;3478:2 |from 112
+craft 3333 140 |name Silvered Bronze Gauntlets |n 15 |mats 2841:8;2842:1;3478:2 |from 125 |note Alt if Silver Bars are pricey: 15x Bronze Warhammer
 train 164 225 |level 20
-craft 3333 155 |name Silvered Bronze Gauntlets |n 19 |mats 2841:8;2842:1;3478:2 |from 142
-craft 9985 175 |name Bronze Warhammer |n 32 |mats 2841:8;3466:1;2319:1 |from 155
-craft 9918 185 |name Solid Sharpening Stone |n 30 |mats 7912:1 |from 175
-craft 7223 205 |name Golden Scale Bracers |n 39 |mats 3859:5;3486:2 |from 185
-craft 9916 210 |name Steel Breastplate |n 7 |mats 3859:16;3486:3 |from 205
-train 164 300 |level 35
-craft 9935 228 |name Steel Plate Helm |n 42 |mats 3859:14;7966:1 |from 210
-craft 9961 230 |name Mithril Coif |n 3 |mats 3860:10;4338:6 |from 228
-craft 16641 235 |name Dense Sharpening Stone |n 12 |mats 12365:1 |from 230
-craft 9968 245 |name Heavy Mithril Boots |n 21 |mats 3860:14;4304:4 |from 235
-craft 1252331 250 |name Sentinel's Wristguards |n 5 |mats 12359:16;7966:2;249432:6;249410:4;8831:6;11139:1 |recipe 251434 |from 245
-craft 19669 258 |name Arcanite Skeleton Key |n 15 |mats 12360:1;12644:1 |from 250
-craft 1252311 271 |name Sentinel's Sabatons |n 18 |mats 12359:20;7966:3;249432:4;249410:4;8831:6;249427:4 |recipe 251414 |from 258
-craft 1252321 283 |name Sentinel's Waistguard |n 20 |mats 12359:24;7966:4;249432:6;249410:6;8831:10 |recipe 251424 |from 271
-craft 16971 300 |name Huge Thorium Battleaxe |n 36 |mats 12359:40;12644:6;8170:6 |recipe 12823 |from 283
+craft 3501 175 |name Green Iron Bracers |n 40 |mats 3575:6;2605:1 |from 140 |note Taught by Expert trainers (Saru Steelfury / Bengus Deepforge)
+craft 9920 180 |name Solid Grinding Stone |n 8 |mats 7912:4 |from 175 |note Keep for 210
+craft 7223 195 |name Golden Scale Bracers |n 20 |mats 3859:5;3486:2 |from 180
+craft 9931 210 |name Mithril Plate Pants |n 17 |mats 3860:12 |from 195
+train 164 300 |level 35 |note Brikk Keencraft in Booty Bay teaches Artisan and recipes from 210+
+craft 9993 215 |name Heavy Mithril Axe |n 6 |mats 3860:12;3864:2;7966:1;4234:4 |from 210 |note If you find Plans: Mithril Spurs on the AH, craft Mithril Spurs 210-225 & 235-245 instead
+craft 9961 225 |name Mithril Coif |n 10 |mats 3860:10;4338:6 |from 215
+craft 16641 235 |name Dense Sharpening Stone |n 16 |mats 12365:1 |from 225
+craft 9968 240 |name Heavy Mithril Boots |n 11 |mats 3860:14;4304:4 |from 235
+craft 16647 245 |name Imperial Plate Belt |n 5 |mats 12359:22;8170:6;7909:1 |at 1446 51.4,28.7 |npc Derotain Mudsipper |from 240 |note Plan from Derotain Mudsipper's Imperial Plate quest in Tanaris (bring 40+ Thorium Bars for Belt and Bracers)
+craft 16649 270 |name Imperial Plate Bracers |n 27 |mats 12359:20;7910:1 |at 1446 51.4,28.7 |npc Derotain Mudsipper |from 245 |note Plan from Derotain Mudsipper in Tanaris (alt 245-255: Thorium Belt if you have AH plans)
+craft 16657 290 |name Imperial Plate Boots |n 20 |mats 12359:34;7910:1;7909:1 |at 1446 51.4,28.7 |npc Derotain Mudsipper |from 270 |note Cheaper with AH plans: Radiant Boots (270-290) + Radiant Leggings (290-300), or Thorium Leggings (275-300)
+craft 16730 300 |name Imperial Plate Leggings |n 10 |mats 12359:44;7910:2 |at 1446 51.4,28.7 |npc Derotain Mudsipper |from 290 |note Plan from Derotain Mudsipper in Tanaris (alt: Radiant Leggings or Thorium Leggings)
 ]],
 }

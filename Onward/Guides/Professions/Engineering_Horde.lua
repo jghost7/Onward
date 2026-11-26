@@ -4,31 +4,32 @@ Onward:RegisterGuide{
     id = "prof-engineering-H", title = "Engineering 1-300", kind = "profession",
     skill = 202, faction = "Horde", levels = { 1, 60 },
     steps = [[
-train 202 75
-craft 3918 36 |name Rough Blasting Powder |n 50 |mats 2835:1 |from 1
-craft 3919 45 |name Rough Dynamite |n 14 |mats 4357:1;2589:1 |from 36
-craft 3922 60 |name Handful of Copper Bolts |n 50 |mats 2840:1 |from 45
+train 202 75 |note Buy a Blacksmith Hammer from a nearby vendor
+craft 3918 35 |name Rough Blasting Powder |n 56 |mats 2835:1 |from 1 |note Keep all for Rough Copper Bombs
+craft 3922 55 |name Handful of Copper Bolts |n 28 |mats 2840:1 |from 35 |note Keep all for Rough Copper Bombs
+craft 7430 56 |name Arclight Spanner |n 1 |mats 2840:6 |from 55 |note Keep as a crafting tool
+craft 3923 75 |name Rough Copper Bomb |n 28 |mats 2840:1;4359:1;4357:2;2589:1 |from 56
 train 202 150 |level 10
-craft 3923 80 |name Rough Copper Bomb |n 32 |mats 2840:1;4359:1;4357:2;2589:1 |from 60
-craft 3924 85 |name Copper Tube |n 6 |mats 2840:2;2880:1 |from 80
-craft 3929 94 |name Coarse Blasting Powder |n 20 |mats 2836:1 |from 85
-craft 3924 101 |name Copper Tube |n 17 |mats 2840:2;2880:1 |from 94
-craft 3926 110 |name Copper Modulator |n 14 |mats 4359:2;2840:1;2589:2 |from 101
-craft 3973 125 |name Silver Contact |n 21 |mats 2842:1 |from 110
-craft 3945 142 |name Heavy Blasting Powder |n 36 |mats 2838:1 |from 125
-craft 3942 150 |name Whirring Bronze Gizmo |n 14 |mats 2841:2;2592:1 |from 142
+craft 3929 90 |name Coarse Blasting Powder |n 51 |mats 2836:1 |from 75 |note Keep all for Coarse Dynamite
+craft 3931 100 |name Coarse Dynamite |n 17 |mats 4364:3;2589:1 |from 90
+craft 3973 105 |name Silver Contact |n 5 |mats 2842:1 |from 100 |note Alt if Silver Bars are pricey: 5x Flying Tiger Goggles
+craft 3938 125 |name Bronze Tube |n 25 |mats 2841:2;2880:1 |from 105 |note Keep 10 for Standard Scopes
+craft 3978 135 |name Standard Scope |n 10 |mats 4371:1;1206:1 |from 125 |note Skip to Heavy Blasting Powder if Moss Agate is expensive
+craft 3945 145 |name Heavy Blasting Powder |n 40 |mats 2838:1 |from 135 |note Keep 30 for Explosive Sheep and 3 for Iron Grenades
+craft 3942 150 |name Whirring Bronze Gizmo |n 15 |mats 2841:2;2592:1 |from 145 |note Keep all 15 for Explosive Sheep
 train 202 225 |level 20
-craft 9271 163 |name Aquadynamic Fish Attractor |n 21 |mats 2841:2;6530:1;4364:1 |from 150
-craft 3953 175 |name Bronze Framework |n 24 |mats 2841:2;2319:1;2592:1 |from 163
-craft 12585 190 |name Solid Blasting Powder |n 27 |mats 7912:2 |from 175
-craft 1266914 194 |name EZ-Thro Fireproof Fuse |n 7 |mats 4404:1;249428:1 |recipe 264211 |from 190
-craft 12590 209 |name Gyromatic Micro-Adjustor |n 48 |mats 3859:4 |from 194
-craft 12591 210 |name Unstable Trigger |n 2 |mats 3860:1;4338:1;10505:1 |from 209
-train 202 300 |level 35
-craft 12596 245 |name Hi-Impact Mithril Slugs |n 80 |mats 3860:1;10505:1 |from 210
-craft 12621 250 |name Mithril Gyro-Shot |n 6 |mats 3860:2;10505:2 |from 245
-craft 19788 259 |name Dense Blasting Powder |n 20 |mats 12365:2 |from 250
-craft 12621 277 |name Mithril Gyro-Shot |n 46 |mats 3860:2;10505:2 |from 259
-craft 19795 300 |name Thorium Tube |n 24 |mats 12359:6 |recipe 16047 |from 277
+craft 3953 160 |name Bronze Framework |n 15 |mats 2841:2;2319:1;2592:1 |from 150 |note Keep all 15 for Explosive Sheep
+craft 3955 175 |name Explosive Sheep |n 15 |mats 4382:1;4375:1;4377:2;2592:2 |from 160
+craft 12585 193 |name Solid Blasting Powder |n 61 |mats 7912:2 |from 175 |note Keep all for Unstable Triggers and Hi-Explosive Bombs
+craft 12590 194 |name Gyromatic Micro-Adjustor |n 1 |mats 3859:4 |from 193 |note Keep as a crafting tool
+craft 3962 195 |name Iron Grenade |n 3 |mats 3575:1;4377:1;4306:1 |from 194 |note Skip if already at 195
+craft 12589 200 |name Mithril Tube |n 6 |mats 3860:3 |from 195
+train 202 300 |level 35 |note Buzzek Bracketswing (Gadgetzan) or Kaylaena Springwhisper (Mount Hyjal) teach Artisan and 200+ recipes
+craft 12591 215 |name Unstable Trigger |n 21 |mats 3860:1;4338:1;10505:1 |from 200 |note Keep 20 for Hi-Explosive Bombs
+craft 12599 238 |name Mithril Casing |n 40 |mats 3860:3 |from 215 |note Keep all 40 for Hi-Explosive Bombs
+craft 12619 250 |name Hi-Explosive Bomb |n 20 |mats 10561:2;10560:1;10505:2 |from 238
+craft 19788 260 |name Dense Blasting Powder |n 44 |mats 12365:2 |from 250
+craft 19791 280 |name Thorium Widget |n 20 |mats 12359:3;14047:1 |recipe 16042 |from 260 |note PvP alt: 10x Thorium Widget + 10x Thorium Grenade
+craft 19795 300 |name Thorium Tube |n 21 |mats 12359:6 |recipe 16047 |from 280 |note Schematic from Xizzer Fizzbolt (Winterspring) or Kor'gar (Riverglades); alt from 285: Thorium Shells
 ]],
 }

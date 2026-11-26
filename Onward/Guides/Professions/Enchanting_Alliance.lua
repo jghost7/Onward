@@ -5,17 +5,29 @@ Onward:RegisterGuide{
     skill = 333, faction = "Alliance", levels = { 1, 60 },
     steps = [[
 train 333 75
-craft 7421 10 |name Runed Copper Rod |n 16 |mats 6217:1;247786:1 |from 1
-craft 25124 38 |name Minor Wizard Oil |n 29 |mats 10940:1;17034:1;3371:1 |recipe 20758 |from 10
+craft 7421 2 |name Runed Copper Rod |n 1 |mats 6217:1;247786:1 |from 1 |note Buy Copper Rod and Mote of Magic from an Enchanting Supply vendor
+craft 7418 20 |name Enchant Bracer - Inferior Stamina |n 18 |mats 247786:1 |from 2 |note Disenchanting green items also gives skill-ups up to 60
+craft 7420 70 |name Enchant Chest - Inferior Stamina |n 50 |mats 10940:1 |from 20 |note Alt if cheaper: 50x Enchant Bracer - Minor Deflect (Lesser Magic Essence)
 train 333 150 |level 10
-craft 7443 110 |name Enchant Chest - Minor Intellect |n 96 |mats 10938:1 |recipe 6342 |from 38
+craft 7420 85 |name Enchant Chest - Inferior Stamina |n 21 |mats 10940:1 |from 70
+craft 7457 100 |name Enchant Bracer - Minor Stamina |n 15 |mats 10940:2 |from 85
+craft 7771 109 |name Enchant Cloak - Minor Protection |n 9 |mats 10940:2 |from 100
+craft 7795 110 |name Runed Silver Rod |n 1 |mats 6338:1;10940:3;10938:4;1210:1 |from 109
+craft 7771 130 |name Enchant Cloak - Minor Protection |n 29 |mats 10940:2 |from 110
+craft 7863 150 |name Enchant Boots - Minor Stamina |n 20 |mats 10940:4 |from 130 |note Buy Formula: Minor Mana Oil and Lesser Wizard Oil from a city vendor before heading to the Expert trainer
 train 333 225 |level 20
-craft 13419 155 |name Enchant Cloak - Minor Agility |n 53 |mats 10998:1 |recipe 11039 |from 110
-craft 13536 196 |name Enchant Bracer - Lesser Strength |n 68 |mats 11083:1 |recipe 11101 |from 155
-craft 13646 207 |name Enchant Bracer - Lesser Deflection |n 16 |mats 11134:1;11083:1 |recipe 11163 |from 196
-train 333 300 |level 35 |note Annora, the Master Enchanter, is inside the Uldaman dungeon in the Badlands
-craft 1248498 253 |name Enchant Bracer - Lesser Healing Power |n 66 |mats 11134:2 |recipe 249489 |from 207
-craft 13931 284 |name Enchant Bracer - Deflection |n 53 |mats 11174:2;11176:1 |recipe 11223 |from 253
-craft 20017 300 |name Enchant Shield - Greater Stamina |n 20 |mats 11176:6 |recipe 16217 |from 284
+craft 13628 151 |name Runed Golden Rod |n 1 |mats 11128:1;5500:1;11082:1;11083:1 |from 150
+craft 25125 165 |name Minor Mana Oil |n 16 |mats 11083:1;17034:2;3372:1 |recipe 20752 |from 151
+craft 13637 200 |name Enchant Boots - Lesser Agility |n 44 |mats 11083:1 |from 165 |note Alt 185-200 if Vision Dust is cheaper: Enchant Bracer - Strength
+craft 13702 201 |name Runed Truesilver Rod |n 1 |mats 11144:1;7971:1;11135:1;11137:1 |from 200
+craft 25126 220 |name Lesser Wizard Oil |n 25 |mats 11137:1;17035:2;3372:1 |recipe 20753 |from 201
+craft 13746 225 |name Enchant Cloak - Greater Defense |n 5 |mats 11137:1 |from 220
+train 333 300 |level 35 |note Annora is inside Uldaman (Badlands back entrance); bring ~12g and ~50 Vision Dust to learn all 230-250 recipes in one trip
+craft 13815 250 |name Enchant Gloves - Agility |n 34 |mats 11137:1 |from 225
+craft 25127 270 |name Lesser Mana Oil |n 26 |mats 11176:1;8831:1;8925:1 |recipe 20754 |from 250 |note Buy Formula: Wizard Oil from Kania in Silithus at the same time (alt: Enchant Bracer - Greater Strength)
+craft 20017 275 |name Enchant Shield - Greater Stamina |n 5 |mats 11176:6 |recipe 16217 |from 270
+craft 25128 295 |name Wizard Oil |n 26 |mats 16204:3;4625:2;8925:1 |recipe 20755 |from 275 |note Alt if Illusion Dust is pricey: Enchant Shield - Greater Stamina
+craft 20017 299 |name Enchant Shield - Greater Stamina |n 8 |mats 11176:6 |recipe 16217 |from 295
+craft 20051 300 |name Runed Arcanite Rod |n 1 |mats 16206:1;13926:1;16204:10;16203:4;14343:4;14344:2 |recipe 16243 |from 299 |note Needed for 300 enchants (or craft 1 more Enchant Shield - Greater Stamina for the final point)
 ]],
 }

@@ -219,7 +219,11 @@ function P:Location(step)
     elseif step.verb == "craft" then
         local knows = P:Knows(step.spell, step.skill)
         if knows then return end
-        if step.recipe and D then return nearest(D.vendors[step.recipe], 1, 2) end
+        if step.recipe and D then
+            local m, x, y, name = nearest(D.vendors[step.recipe], 1, 2)
+            if m then return m, x, y, name end
+        end
+        if step.at then return step.at.map, step.at.x, step.at.y, step.npc end
         if knows == false then
             -- known profession, recipe not learned yet: the trainer
             return nearest(D and D.trainers[step.skill], 2, 3)

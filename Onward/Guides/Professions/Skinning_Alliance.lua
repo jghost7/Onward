@@ -5,14 +5,14 @@ Onward:RegisterGuide{
     skill = 393, faction = "Alliance", levels = { 1, 60 },
     steps = [[
 train 393 75
-gather 393 50 |beasts 10 |note Skin beasts around level 10-15; higher-level beasts work too while they're not grey for you
+gather 393 75 |at 1429 47.5,40.5 |beasts 1 |note Buy a Skinning Knife; skin beasts in your starting zone or wolves in Northshire Valley (Elwynn Forest) up to 75
 train 393 150 |level 10
-gather 393 100 |beasts 15 |note Skin beasts around level 15-20; higher-level beasts work too while they're not grey for you
-gather 393 150 |beasts 20 |note Skin beasts around level 20-25; higher-level beasts work too while they're not grey for you
+gather 393 130 |at 1432 62.4,38.4 |beasts 16 |note Boars, bears, and crocolisks around the Loch in Loch Modan (level 16-17)
+gather 393 150 |at 1437 33.9,48.3 |beasts 25 |note Raptors at Whelgar's Excavation Site in Wetlands (level 25-27)
 train 393 225 |level 20
-gather 393 200 |beasts 30 |note Skin beasts around level 30-35; higher-level beasts work too while they're not grey for you
+gather 393 225 |at 1424 44.0,30.2 |beasts 30 |note Bears/lions outside Foothill Caverns to 160, then Cave and Ferocious Yetis inside in Hillsbrad (alt: Duskwood worgen)
 train 393 300 |level 35
-gather 393 250 |beasts 40 |note Skin beasts around level 40-45; higher-level beasts work too while they're not grey for you
-gather 393 300 |beasts 50 |note Skin beasts around level 50-55; higher-level beasts work too while they're not grey for you
+gather 393 280 |at 1444 52.3,58.5 |beasts 43 |note Yetis in Feral Scar Vale in southern Feralas (level 43-46)
+gather 393 300 |at 1449 38.6,50.8 |beasts 50 |note Diemetradons and Pterrordax in western Un'Goro Crater (level 50-55)
 ]],
 }
