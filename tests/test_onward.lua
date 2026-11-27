@@ -3268,6 +3268,102 @@ turnin 3128 |at 1444 74.4,43.4
     MOCK.mapOffset[1425], MOCK.mapOffset[1444] = savedOff1425, savedOff1444
 end
 
+-- Class guides tab, filtering, suggestion rules, groupQuests bypass, and Librarian/REUSEME cleanup
+do
+    local G, UI = W.Guide, W.UI
+    local savedFaction, savedClass, savedRace, savedLevel = UnitFactionGroup, UnitClass, UnitRace, UnitLevel
+    local savedGroup = W.db.groupQuests
+
+    UnitFactionGroup = function(u) return u == "player" and "Horde" or savedFaction(u) end
+    UnitClass = function(u) if u == "player" then return "Rogue", "ROGUE" end return savedClass(u) end
+    UnitRace = function(u) if u == "player" then return "Undead", "Scourge", 5 end return savedRace(u) end
+    UnitLevel = function(u) return u == "player" and 45 or savedLevel(u) end
+
+    check("class tab: Picker exposes Class tab button", UI.pickerTabs and UI.pickerTabs.class ~= nil)
+    UI:ShowPicker("class")
+    local hasPoisons, wrongClassOrFac = false, nil
+    for _, def in ipairs(UI.pickerList or {}) do
+        if def.id == "class_rogue_horde_poisons" then hasPoisons = true end
+        if def.kind ~= "class" or def.class ~= "ROGUE" or def.faction ~= "Horde" then
+            wrongClassOrFac = def.id
+        end
+    end
+    check("class tab: Horde Rogue sees Rogue Horde class guides including Poisons",
+        hasPoisons and not wrongClassOrFac, tostring(hasPoisons) .. "/" .. tostring(wrongClassOrFac))
+
+    -- Switching to Leveling and Professions tabs must not show class guides
+    UI:ShowPicker("zones")
+    local leakedInZones = false
+    for _, def in ipairs(UI.pickerList or {}) do if def.kind == "class" then leakedInZones = true end end
+    UI:ShowPicker("professions")
+    local leakedInProf = false
+    for _, def in ipairs(UI.pickerList or {}) do if def.kind == "class" then leakedInProf = true end end
+    check("class tab: class guides never leak into Leveling or Professions tabs",
+        not leakedInZones and not leakedInProf)
+
+    -- /ow class slash command opens Picker to class tab
+    SlashCmdList.ONWARD("class")
+    local slashShowsRogue = false
+    for _, def in ipairs(UI.pickerList or {}) do if def.id == "class_rogue_horde_poisons" then slashShowsRogue = true end end
+    check("class tab: /ow class switches Picker to class guides", slashShowsRogue)
+
+    -- Switching to Horde Shaman shows Shaman guides (not Rogue guides)
+    UnitClass = function(u) if u == "player" then return "Shaman", "SHAMAN" end return savedClass(u) end
+    UI:ShowPicker("class")
+    local hasWater, hasRogue = false, false
+    for _, def in ipairs(UI.pickerList or {}) do
+        if def.id == "class_shaman_horde_water" then hasWater = true end
+        if def.class == "ROGUE" then hasRogue = true end
+    end
+    check("class tab: Horde Shaman sees Call of Water and zero Rogue guides", hasWater and not hasRogue)
+
+    -- G:Recommend() never recommends a class guide
+    local rec = G:Recommend()
+    check("class tab: G:Recommend() never recommends a class guide", not (rec and rec.kind == "class"),
+        rec and rec.id)
+
+    -- Group quest hiding never drops steps inside an explicitly opened class guide (e.g. Poisons 2478)
+    UnitClass = function(u) if u == "player" then return "Rogue", "ROGUE" end return savedClass(u) end
+    W.db.groupQuests = "hide"
+    G:Reload()
+    G:Activate("class_rogue_horde_poisons")
+    local has2478 = false
+    for _, s in ipairs((G:Active() and G:Active().steps) or {}) do
+        if s.quest == 2478 then has2478 = true break end
+    end
+    check("class tab: groupQuests=hide preserves elite steps in active class guide", has2478)
+
+    -- Suggestion stays quiet while doing an out-leveled class guide, then fires once 100% done
+    G:ClearSuggestion()
+    local midSug = G:Suggestion()
+    check("class tab: G:Suggestion() does not nag mid-class-guide even when over-leveled", midSug == nil,
+        midSug and midSug.id)
+    local poisonQuests = { 2460, 2458, 2478, 2479, 2480 }
+    for _, q in ipairs(poisonQuests) do MOCK.done[q] = true end
+    MOCK.fire("QUEST_LOG_UPDATE")
+    G:ClearSuggestion()
+    local doneSug = G:Suggestion()
+    check("class tab: G:Suggestion() offers leveling guide once class guide reaches 100%",
+        doneSug ~= nil and doneSug.kind ~= "class", doneSug and doneSug.id)
+    for _, q in ipairs(poisonQuests) do MOCK.done[q] = nil end
+
+    -- Regression: Librarian Mage-book quests (81951, 79953) and REUSEME (98426) removed from zone guides
+    local ferH = G:Get("feralas-h")
+    local sosH = G:Get("swamp-of-sorrows-h-1")
+    local rivH = G:Get("riverglades-h")
+    check("zone fixes: Feralas Horde no longer includes Mage Librarian quest 81951",
+        ferH and not ferH.steps:find("accept 81951", 1, true))
+    check("zone fixes: Swamp of Sorrows Horde no longer includes Mage Librarian quest 79953",
+        sosH and not sosH.steps:find("accept 79953", 1, true))
+    check("zone fixes: Riverglades Horde no longer includes REUSEME quest 98426",
+        rivH and not rivH.steps:find("accept 98426", 1, true))
+
+    W.db.groupQuests = savedGroup
+    UnitFactionGroup, UnitClass, UnitRace, UnitLevel = savedFaction, savedClass, savedRace, savedLevel
+    if UI.picker and UI.picker:IsShown() then UI.picker:Hide() end
+    G:Reload()
+end
+
 check("no runtime errors", #MOCK.errors == 0, MOCK.errors[1])
 print(("%d passed, %d failed"):format(pass, fail))
 return fail

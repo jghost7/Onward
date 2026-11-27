@@ -181,6 +181,7 @@ end)
 local HELP = {
     "/ow (or /onward)  - show or hide the guide panel",
     "/ow guides  - pick a guide",
+    "/ow class  - class questline guides for your class",
     "/ow suggest  - switch to the guide that suits your level, race and quest log",
     "/ow prof  - profession guides (1-300 for every profession)",
     "/ow options  - settings",
@@ -216,6 +217,8 @@ SlashCmdList.ONWARD = function(msg)
         W.Guide:StartRecommended()
     elseif cmd == "prof" or cmd == "professions" then
         W:Fire("WF_SHOW_PICKER", "professions")
+    elseif cmd == "class" or cmd == "classes" then
+        W:Fire("WF_SHOW_PICKER", "class")
     elseif cmd == "options" or cmd == "config" or cmd == "o" then
         W:Fire("WF_SHOW_OPTIONS")
     elseif cmd == "mode" then

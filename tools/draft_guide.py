@@ -107,6 +107,9 @@ class Zone:
             raw_text = " ".join(s(t) or "" for t in lua_list(db.quest(q, "objectivesText")))
             if "no longer available within the game" in raw_text.lower():
                 continue
+            qname = s(db.quest(q, "name")) or ""
+            if any(tok in qname for tok in ("<NYI>", "<TXT>", "[DEPRECATED", "UNUSED")) or qname.strip() == "REUSEME":
+                continue
             races = db.quest(q, "requiredRaces")
             if races and not (races & self.bit):
                 continue

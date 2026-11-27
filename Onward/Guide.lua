@@ -107,7 +107,7 @@ local function parseCoords(s)
     if x then return { x = tonumber(x), y = tonumber(y) } end
 end
 
-local function parseLine(line, lineNo, guideId)
+local function parseLine(line, lineNo, guideId, guideKind)
     line = line:gsub("%s+%-%-.*$", "")   -- trailing "  -- comment"
     local parts = {}
     for seg in (line .. "|"):gmatch("(.-)|") do parts[#parts + 1] = seg:match("^%s*(.-)%s*$") end
@@ -165,7 +165,7 @@ local function parseLine(line, lineNo, guideId)
     -- group tags: "elite" (elite targets), "dungeon" (targets inside an instance),
     -- "chain" (only reachable through one of those); hidden when group quests are off
     if opts.group then
-        if W.db and W.db.groupQuests == "hide" then return end
+        if guideKind ~= "class" and W.db and W.db.groupQuests == "hide" then return end
         step.group = opts.group ~= "" and opts.group:lower() or "elite"
     end
     if opts.at then step.at = parseCoords(opts.at) end
@@ -265,7 +265,7 @@ local function parse(def)
         n = n + 1
         local line = raw:match("^%s*(.-)%s*$")
         if line ~= "" and not line:find("^%-%-") and not line:find("^#") then
-            local step = parseLine(line, n, def.id)
+            local step = parseLine(line, n, def.id, def.kind)
             if step and PROF_VERB[step.verb] and not step.skill then step.skill = def.skill end   -- craft: the guide's profession
             if step then
                 step.index = #g.steps + 1
@@ -1096,6 +1096,21 @@ function G:FactionMatches(def)
     return def.faction:sub(1, 1):upper() == faction:sub(1, 1):upper()
 end
 
+function G:ClassMatches(def)
+    if not (def and def.class and def.class ~= "") then return true end
+    local _, cls = UnitClass("player")
+    if not cls or cls == "" then return false end
+    return inList(def.class, cls:lower())
+end
+
+function G:RaceMatches(def)
+    if not (def and def.race and def.race ~= "") then return true end
+    local _, file, id = UnitRace("player")
+    local token = RACE_TOKEN[id] or (file and file:lower())
+    if not token or token == "" then return false end
+    return inList(def.race, token) or (token == "scourge" and inList(def.race, "undead"))
+end
+
 -- returns def, reason ("start" | "log" | "zone" | "level"), or nil when nothing fits
 function G:Recommend()
     local lvl = UnitLevel("player") or 1
@@ -1109,7 +1124,7 @@ function G:Recommend()
     local best, bestScore, bestReason
     for i, def in ipairs(ordered) do
         local factionOk = G:FactionMatches(def)
-        if not def.smart and def.kind ~= "profession" and factionOk and def.steps and def ~= finished then
+        if not def.smart and def.kind ~= "profession" and def.kind ~= "class" and factionOk and def.steps and def ~= finished then
             local lo, hi = def.levels[1], def.levels[2]
             local pct = G:ProgressFor(def) or 0
             if pct < 1 and lvl <= hi + 1 then
@@ -1160,7 +1175,9 @@ function G:Suggestion()
         if rec and rec ~= cur and W.cdb.hiddenSuggestion ~= rec.id and cur.kind ~= "profession" then
             local lvl = UnitLevel("player") or 1
             local stale
-            if cur.smart then
+            if cur.kind == "class" then
+                stale = (G:ProgressFor(cur) or 0) >= 1
+            elseif cur.smart then
                 stale = not W.cdb.pickedSmart
             else
                 local lo, hi = cur.levels[1], cur.levels[2]
@@ -1571,7 +1588,7 @@ W:On("PLAYER_LOGIN", function()
     settleUntil = GetTime() + SETTLE_S   -- before Activate: a resume point isn't saved until the records are in
     local saved = W.cdb.guide
     local savedDef = saved and registry[saved]
-    if savedDef and not G:FactionMatches(savedDef) then saved = nil end
+    if savedDef and (not G:FactionMatches(savedDef) or not G:ClassMatches(savedDef)) then saved = nil end
     G:Activate(saved)
     for _, t in ipairs({ 1, 3, 6, SETTLE_S }) do C_Timer.After(t, function() G:Rescan() end) end
     -- A character on the quest-log guide with nothing in its log (a new character, say) gets the

@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.9.11
+
+- **Class guides tab:** Added a **Class** tab to the guide picker (plus `/ow class` and Options
+  shortcuts) with 119 class questline guides (556 quests) across all 9 classes and both factions,
+  generated from WoW Forever's QuestieDB via `tools/draft_classes.py` (including Classic class
+  chains and Forever additions such as Horde Paladin, Alliance Shaman, Druid Cat Form, and Rogue
+  Ravenholdt / Eye of Bhossca / Talisman of Kazdor chains).
+- **Class guide engine hooks:** Added `G:ClassMatches()` / `G:RaceMatches()` filtering (including
+  on login restore), kept class guides out of leveling recommendations, silenced out-leveled
+  switch prompts until a class guide reaches 100%, and preserved elite/dungeon steps inside
+  explicitly opened class guides even when `groupQuests = "hide"`.
+- **Removed non-leveling Mage Librarian & placeholder quests:** Dropped `81951` (*The Liminal and
+  the Arcane* in Feralas), `79953` (*A Ludite's Guide to Caring for Your Demonic Pet* in Swamp of
+  Sorrows), and `98426` (*REUSEME* in Riverglades) via `tools/quest_fixes.json` + placeholder
+  filtering in `tools/draft_guide.py`, and rebuilt the affected zone guides.
+
 ## 0.9.10
 
 - **Zone-border pass detour for flight routing:** Added `BORDER_DETOUR` (1,500 yd) in `Travel.lua`

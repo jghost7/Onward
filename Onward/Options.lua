@@ -446,8 +446,9 @@ check(2, "bagCleanup", "Flag old quest items in bags", "Shows a link on the pane
 section(2, "Quick Actions")
 button(2, "Clean quest items", function() W:Fire("WF_SHOW_CLEANUP") end)
 curPage.cursor[2] = curPage.cursor[2] - 32
-button(2, "Pick a guide", function() W:Fire("WF_SHOW_PICKER", "zones") end, 136)
-button(2, "Professions", function() W:Fire("WF_SHOW_PICKER", "professions") end, 136, 142)
+button(2, "Pick a guide", function() W:Fire("WF_SHOW_PICKER", "zones") end, 90)
+button(2, "Class", function() W:Fire("WF_SHOW_PICKER", "class") end, 90, 94)
+button(2, "Professions", function() W:Fire("WF_SHOW_PICKER", "professions") end, 90, 188)
 curPage.cursor[2] = curPage.cursor[2] - 32
 
 ---------------------------------------------------------------------------
@@ -531,8 +532,9 @@ check(1, "partyToasts", "Party pop-ups", "Short notice when someone finishes or 
 check(1, "partyChat", "Announce in party chat", "Also say \"done: <quest>\" in party chat, for people without the addon.")
 
 section(2, "Tools & Maintenance")
-button(2, "Choose guide", function() W:Fire("WF_SHOW_PICKER", "zones") end, 136)
-button(2, "Professions", function() W:Fire("WF_SHOW_PICKER", "professions") end, 136, 142)
+button(2, "Choose guide", function() W:Fire("WF_SHOW_PICKER", "zones") end, 90)
+button(2, "Class", function() W:Fire("WF_SHOW_PICKER", "class") end, 90, 94)
+button(2, "Professions", function() W:Fire("WF_SHOW_PICKER", "professions") end, 90, 188)
 curPage.cursor[2] = curPage.cursor[2] - 32
 button(2, "Clean quest items", function() W:Fire("WF_SHOW_CLEANUP") end)
 curPage.cursor[2] = curPage.cursor[2] - 32

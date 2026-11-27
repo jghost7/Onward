@@ -1,4 +1,4 @@
--- DRAFT Swamp of Sorrows (Horde) generated 2026-11-22 by tools/draft_guide.py
+-- DRAFT Swamp of Sorrows (Horde) generated 2026-11-27 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -23,9 +23,9 @@ accept 1392 |at 1435 54.9,34.1 |mobs Noboru the Cudgel |note Starts from the ite
 turnin 1393 |npc Galen's Strongbox |at 1435 47.8,39.8  -- Galen's Escape (38)
 turnin 93430 |npc Pelluk |at 1435 26.5,30.4  -- Taking the Bait Back (35)
 turnin 1389 |npc Magtoor |at 1435 26.0,31.4  -- Draenethyst Crystals (35)
-accept 93464 |npc Magtoor |at 1435 26.0,31.4 |lvl 30 |preany 1389  -- The Visiting Mage (38)
 turnin 1392 |npc Magtoor |at 1435 26.0,31.4  -- Noboru the Cudgel (39)
 turnin 93429 |npc Karana |at 1435 24.7,32.6  -- Blood of My Blood (35)
+accept 93464 |npc Magtoor |at 1435 26.0,31.4 |lvl 30 |preany 1389  -- The Visiting Mage (38)
 complete 93663  -- Lost in Transit (35)
 turnin 93663 |npc Magtoor |at 1435 26.0,31.4  -- Lost in Transit (35)
 accept 698 |npc Dar |at 1435 44.7,57.2 |lvl 35  -- Lack of Surplus (40)
@@ -35,8 +35,5 @@ turnin 1418 |npc Neeka Bloodscar |at 1418 6.5,47.2  -- Neeka Bloodscar (35)
 accept 1116 |npc Krazek |at 1434 26.9,77.2 |value mid |lvl 30 |preany 1115  -- Dream Dust in the Swamp (36)
 complete 1116 |at 1435 76.6,68.8 |areas 14.3,61.3:13;86.0,45.9:10;62.2,41.7:9;76.6,68.8:6 |mobs Scalebane Captain@Speck of Dream Dust;Green Scalebane@Speck of Dream Dust;Adolescent Whelp@Speck of Dream Dust;Elder Dragonkin@Speck of Dream Dust |value mid  -- Dream Dust in the Swamp (36)
 turnin 1116 |npc Krazek |at 1434 26.9,77.2 |value mid  -- Dream Dust in the Swamp (36)
-accept 79953 |npc Owen Thadd |at 1458 73.4,33.0  -- A Ludite's Guide to Caring for Your Demonic Pet (35)
-complete 79953  -- A Ludite's Guide to Caring for Your Demonic Pet (35)
-turnin 79953 |npc Owen Thadd |at 1458 73.4,33.0  -- A Ludite's Guide to Caring for Your Demonic Pet (35)
 turnin 93464 |npc Azore Aldamort |at 1443 38.9,27.2  -- The Visiting Mage (38)
 ]]}

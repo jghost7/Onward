@@ -19,9 +19,24 @@
     "drop": true,
     "why": "Desolace Magram vs Gelkis centaur tribes are mutually hostile in play; routes follow Gelkis (1382/1368) so you aren't sent back and forth between hostile camps."
   },
+  "79953": {
+    "name": "A Ludite's Guide to Caring for Your Demonic Pet",
+    "drop": true,
+    "why": "Mage Librarian (Owen Thadd / Garion Wendell) spell-note book quest missing zoneOrSort=-284 in QuestieDB; not a general Swamp of Sorrows leveling quest."
+  },
+  "81951": {
+    "name": "The Liminal and the Arcane",
+    "drop": true,
+    "why": "Mage Librarian (Owen Thadd / Garion Wendell) spell-note book quest missing zoneOrSort=-284 and finishedBy in QuestieDB; Owen Thadd does not offer it as a general Feralas leveling quest."
+  },
   "95183": {
     "name": "Step One: Rock",
     "preAny": [95420],
     "why": "Riverglades, Horde: Gorgegut and Hamur don't offer it until Land of Giants (95420) is done, which opens the Bolder'ok ogre quests. Questie lists no prerequisite. Source: player reports on Wowhead's quest page and Onward users, 2026-11-17. Not confirmed in game by us."
+  },
+  "98426": {
+    "name": "REUSEME",
+    "drop": true,
+    "why": "Unimplemented placeholder quest with no giver, turn-in, or objectives."
   }
 }

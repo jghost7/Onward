@@ -1,5 +1,5 @@
--- Guide picker (OnwardPicker): Leveling & Professions tabs, live search filter, section headers,
--- visible scrollbar, and guide preview tooltips.
+-- Guide picker (OnwardPicker): Leveling, Class & Professions tabs, live search filter, section
+-- headers, visible scrollbar, and guide preview tooltips.
 local _, W = ...
 local UI = W.UI
 local G, S = W.Guide, W.Skin
@@ -25,7 +25,7 @@ local function fs(parent, size, color)
     return t
 end
 
-local pickerTab = "zones"   -- zones | professions
+local pickerTab = "zones"   -- zones | class | professions
 local pickerOffset = 0
 local searchText = ""
 
@@ -67,8 +67,9 @@ local function makeTab(label, key, anchor, x, minW)
     UI.pickerTabs[key] = b
     return b
 end
-picker.tabZones = makeTab("Leveling", "zones", nil, PAD, 66)
-picker.tabProf = makeTab("Professions", "professions", picker.tabZones, 10, 92)
+picker.tabZones = makeTab("Leveling", "zones", nil, PAD, 62)
+picker.tabClass = makeTab("Class", "class", picker.tabZones, 10, 44)
+picker.tabProf = makeTab("Professions", "professions", picker.tabClass, 10, 86)
 
 local closeBtn = CreateFrame("Button", nil, picker)
 closeBtn:SetSize(22, 22)
@@ -153,12 +154,13 @@ UI.pickerSearch = searchBox
 
 local function guideFits(def)
     if def.smart then return pickerTab == "zones" end
-    if (def.kind == "profession") ~= (pickerTab == "professions") then return false end
+    local tab = def.kind == "profession" and "professions"
+        or def.kind == "class" and "class"
+        or "zones"
+    if tab ~= pickerTab then return false end
     if not G:FactionMatches(def) then return false end
-    if def.class then
-        local _, cls = UnitClass("player")
-        if cls and not ("," .. def.class:upper() .. ","):find("," .. cls:upper() .. ",", 1, true) then return false end
-    end
+    if not G:ClassMatches(def) then return false end
+    if not G:RaceMatches(def) then return false end
     return true
 end
 
@@ -187,13 +189,27 @@ local SECTION_NAME = {
     [6] = "COMPLETED",
 }
 
+local CLASS_SECTION = {
+    [1] = "IN PROGRESS",
+    [2] = "AVAILABLE",
+    [3] = "UPCOMING",
+    [6] = "COMPLETED",
+}
+
+local SEARCH_HINT = {
+    zones = "Filter guides by zone or level...",
+    class = "Filter class quests by name or level...",
+    professions = "Filter professions...",
+}
+
 function UI:RenderPicker()
-    for _, t in ipairs({ picker.tabZones, picker.tabProf }) do
+    for _, t in ipairs({ picker.tabZones, picker.tabClass, picker.tabProf }) do
         t:SetWidth(math.max(t.minW, (t.text:GetStringWidth() or 0) + 10))
         local on = t.key == pickerTab
         if on then S.Accent(t.text, "text") else t.text:SetTextColor(rgb(C.sub)) end
         t.bar:SetShown(on)
     end
+    placeholder:SetText(SEARCH_HINT[pickerTab] or SEARCH_HINT.zones)
     local lvl = UnitLevel("player") or 1
     local zone = GetZoneText and GetZoneText() or ""
     local needle = (searchText or ""):lower():match("^%s*(.-)%s*$")
@@ -204,6 +220,12 @@ function UI:RenderPicker()
         local p = pct[def.id]
         if def == rec then return 0 end
         if def.kind == "profession" then return p and 1 or 2 end
+        if def.kind == "class" then
+            if p and p >= 1 then return 6 end
+            if p and p > 0 then return 1 end
+            if lvl >= def.levels[1] then return 2 end
+            return 3
+        end
         local inRange = lvl >= def.levels[1] - 2 and lvl <= def.levels[2]
         if p and p >= 1 then return 6 end
         if p and p > 0 and inRange then return 1 end
@@ -229,16 +251,17 @@ function UI:RenderPicker()
     for _, e in ipairs(fits) do guideList[#guideList + 1] = e.def end
     UI.pickerList = guideList
 
-    -- display rows: optional section headers when browsing Leveling without a filter
+    -- display rows: optional section headers when browsing Leveling or Class without a filter
     local entries = {}
     if smart and matchesSearch(smart, needle) then
         entries[#entries + 1] = { kind = "guide", def = smart }
     end
     local lastSec
-    local useSections = (pickerTab == "zones" and needle == "")
+    local secMap = pickerTab == "zones" and SECTION_NAME or (pickerTab == "class" and CLASS_SECTION or nil)
+    local useSections = (secMap ~= nil and needle == "")
     for _, e in ipairs(fits) do
         if useSections then
-            local sec = SECTION_NAME[e.r]
+            local sec = secMap[e.r]
             if sec and sec ~= lastSec then
                 lastSec = sec
                 entries[#entries + 1] = { kind = "header", text = sec }
@@ -315,7 +338,8 @@ function UI:RenderPicker()
             r.line:Hide()
             local isActive = G:Active() and G:Active().id == def.id
             local prof = def.kind == "profession"
-            local inRange = def.smart or prof or (lvl >= def.levels[1] and lvl <= def.levels[2])
+            local isClass = def.kind == "class"
+            local inRange = def.smart or prof or (isClass and lvl >= def.levels[1]) or (not isClass and lvl >= def.levels[1] and lvl <= def.levels[2])
             r.text:SetText((isActive and "|c" .. S.AccentHex() .. "> |r" or "") .. def.title)
             local p = pct[def.id]
             if prof then
@@ -331,7 +355,9 @@ function UI:RenderPicker()
                     r.text:SetTextColor(rgb(C.accent))
                     r.lv:SetText("|c" .. S.AccentHex() .. "recommended|r" .. done)
                 else
-                    r.lv:SetText((def.smart and "any" or (def.levels[1] .. "-" .. def.levels[2])) .. done)
+                    local lvText = def.smart and "any"
+                        or (def.levels[1] == def.levels[2] and tostring(def.levels[1]) or (def.levels[1] .. "-" .. def.levels[2]))
+                    r.lv:SetText(lvText .. done)
                 end
             end
         end
