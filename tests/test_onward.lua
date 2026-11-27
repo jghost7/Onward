@@ -3024,8 +3024,35 @@ do
         and adv.to and adv.to.name == "Tarren Mill, Hillsbrad",
         adv and (adv.from.name .. " -> " .. adv.to.name) or "nil")
 
+    -- Zone-border pass detour: Orgrimmar -> The Twin Colossals, Feralas (39.7, 22.3).
+    -- Real-world distances: Orgrimmar -> Shadowprey = 8322 yd (+ 1731 yd straight-line across coastal cliffs),
+    -- Orgrimmar -> Camp Mojache = 7585 yd (+ 2682 yd inside Feralas). Without the zone-border detour penalty,
+    -- Shadowprey would win by ~59s on a 60% mount; with it, Camp Mojache wins cleanly.
+    MOCK.mapCont = { [1414] = 10, [1454] = 10, [1443] = 10, [1444] = 10 }
+    MOCK.mapOffset[1414] = 0
+    MOCK.mapOffset[1454] = 7534    -- Player at (1454, 50, -130.4) -> world (2304, -7034), at Orgrimmar FM
+    MOCK.mapOffset[1444] = 0       -- Target at (1444, 50, 50) -> world (500, 500)
+    -- Taxi nodes on map 1414 (off=0): wx = 1000*(1 - y), wy = 1000*(1 - x)
+    -- Camp Mojache: world (3182, 500)  -> 2682 yd from target, 7585 yd from Orgrimmar
+    -- Shadowprey:   world (-1231, 500) -> 1731 yd from target, 8322 yd from Orgrimmar
+    -- Orgrimmar:    world (2304, -7034)
+    MOCK.taxi = {
+        { name = "Orgrimmar, Durotar",          nodeID = 411, slotIndex = 1, state = 0, position = { x = 8.034, y = -1.304 } },
+        { name = "Shadowprey Village, Desolace", nodeID = 412, slotIndex = 2, state = 1, position = { x = 0.50,  y = 2.231  } },
+        { name = "Camp Mojache, Feralas",        nodeID = 413, slotIndex = 3, state = 1, position = { x = 0.50,  y = -2.182 } },
+    }
+    MOCK.pos = { map = 1454, x = 0.50, y = -1.304 }
+    W.cdb.mountSpeed = 11.2
+    TR:Refresh(true)
+    MOCK.advance(4)
+    adv = TR:Advice(1444, 50, 50)
+    check("zone border detour: Orgrimmar -> NW Feralas flies to Camp Mojache (Feralas), not Shadowprey Village (Desolace)",
+        adv and adv.to and adv.to.name == "Camp Mojache, Feralas",
+        adv and adv.to and adv.to.name or "nil")
+
     MOCK.mapCont = savedCont
     MOCK.mapOffset[1414], MOCK.mapOffset[1435], MOCK.mapOffset[1417], MOCK.mapOffset[1424], MOCK.mapOffset[1425] = nil, nil, nil, nil, nil
+    MOCK.mapOffset[1454], MOCK.mapOffset[1443], MOCK.mapOffset[1444] = nil, nil, nil
     MOCK.taxi, MOCK.pos = savedTaxi, savedPos
     W.cdb.mountSpeed, W.cdb.taxiNet, W.cdb.taxi = savedMount, savedNet, savedKnown
     TR:Refresh(true)

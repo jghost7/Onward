@@ -365,14 +365,16 @@ local function zoneHops(a, b)
 end
 T.ZoneHops = zoneHops
 
--- Extra riding distance added when two zones have no direct walkable border (mountain wall or sea).
+-- Extra riding distance added when a ground leg crosses a zone border (narrow mountain pass,
+-- e.g. Desolace -> Feralas) or an impassable mountain wall / sea (e.g. Arathi -> Hinterlands).
+local BORDER_DETOUR = 1500
 local BARRIER_DETOUR = 2600
 local ISLAND_DETOUR = 25000
 local function barrierDist(aMap, bMap, straight)
     if not (aMap and bMap and ZONE_ADJ[aMap] and ZONE_ADJ[bMap]) then return straight end
     local h = zoneHops(aMap, bMap)
     if not h then return straight + ISLAND_DETOUR end
-    if h >= 2 then return straight + (h - 1) * BARRIER_DETOUR end
+    if h >= 1 then return straight + BORDER_DETOUR + (h - 1) * BARRIER_DETOUR end
     return straight
 end
 
@@ -498,19 +500,29 @@ function T:Advice(map, x, y)
     local tc, tx, ty = T.World(map, x, y)
     if not pc or not tc or pc ~= tc then return end
     local pMap = C_Map and C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit("player")
+    local pZone = (pMap and ZONE_ADJ[pMap]) and pMap or nil
     local v = T.Speed()
     local straight = d2(px, py, tx, ty)
     local rawWalk = groundTime(straight, v)
-    local barrierWalk = groundTime(barrierDist(pMap, map, straight), v)
     -- Only compare against the barrier-adjusted walk when both taxi nodes identify a zone,
     -- so synthetic/unnamed nodes compare apples-to-apples against raw straight-line distance.
+    -- When the player stands on a sub-map or continent map right next to departure node A, use A's zone.
+    local function playerZoneFor(A)
+        if pZone then return pZone end
+        if A and d2(px, py, A.wx, A.wy) <= 300 then return nodeZone(A) end
+    end
     local function walkFor(A, B)
-        return (nodeZone(A) and nodeZone(B)) and barrierWalk or rawWalk
+        local pz = playerZoneFor(A)
+        if pz and nodeZone(A) and nodeZone(B) then
+            return groundTime(barrierDist(pz, map, straight), v)
+        end
+        return rawWalk
     end
     if sticky.key == key and sticky.pick then
         local A, B = sticky.pick.from, sticky.pick.to
+        local pz = playerZoneFor(A)
         local w = walkFor(A, B)
-        local t = flightTime(v, px, py, A, B, tx, ty, pMap, map)
+        local t = flightTime(v, px, py, A, B, tx, ty, pz, map)
         if w - t >= w * KEEP_SHARE then
             sticky.pick.save = (w - t) * v      -- in yards, for the hearthstone comparison
             cache.result = sticky.pick
@@ -518,13 +530,14 @@ function T:Advice(map, x, y)
         end
     end
     sticky.key, sticky.pick = key, nil
-    if barrierWalk < MIN_SAVE + FLIGHT_OVERHEAD then return end
+    local maxWalk = pZone and groundTime(barrierDist(pZone, map, straight), v) or groundTime(straight + BARRIER_DETOUR, v)
+    if maxWalk < MIN_SAVE + FLIGHT_OVERHEAD then return end
 
     local known = T:KnownNodes(pc)
     if #known < 2 then return end
     -- best departure is near the player, best arrival near the target (spanning all known networks
-    -- and penalizing landings separated from the target by impassable mountain walls)
-    local froms = pickNearestNodes(known, px, py, 4, pMap)
+    -- and penalizing landings across zone borders / impassable mountain walls)
+    local froms = pickNearestNodes(known, px, py, 4, pZone)
     table.sort(known, function(a, b)
         return barrierDist(nodeZone(a), map, d2(tx, ty, a.wx, a.wy))
              < barrierDist(nodeZone(b), map, d2(tx, ty, b.wx, b.wy))
@@ -538,10 +551,11 @@ function T:Advice(map, x, y)
     end
     local best, bestSave
     for _, A in ipairs(froms) do
+        local pz = playerZoneFor(A)
         for _, B in ipairs(tos) do
             if A ~= B and T.SameNetwork(A, B) then
                 local w = walkFor(A, B)
-                local cost = flightTime(v, px, py, A, B, tx, ty, pMap, map)
+                local cost = flightTime(v, px, py, A, B, tx, ty, pz, map)
                 local save = w - cost
                 if save >= math.max(MIN_SAVE, w * NEW_SHARE) and (not bestSave or save > bestSave) then
                     best, bestSave = { from = A, to = B }, save

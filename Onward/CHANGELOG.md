@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.9.10
+
+- **Zone-border pass detour for flight routing:** Added `BORDER_DETOUR` (1,500 yd) in `Travel.lua`
+  for ground legs crossing any adjacent zone border so flight advice accounts for mountain passes
+  instead of assuming straight-line travel across coastal cliffs or ridges (e.g., flying from
+  Orgrimmar to Camp Mojache in Feralas rather than Shadowprey Village in Desolace for NW Feralas
+  objectives).
+- **Sub-map / continent-map zone resolution:** Normalized `pZone` lookup in `T:Advice()` so
+  standing near a departure flight master on a sub-map or continent map compares symmetrically
+  against `barrierDist`.
+
 ## 0.9.9
 
 - **Hub-anchored cross-continent routing:** Fixed a route-optimizer geometry bias in
