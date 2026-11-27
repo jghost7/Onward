@@ -481,6 +481,15 @@ function WP:ArrowTarget()
     local step = current.step
     local label = current.title
     if current.cross then
+        -- If this kill/loot step can also be done right here on the player's current continent
+        -- (e.g. multi-zone drops like Natural Materials in The Hinterlands), point at those mobs
+        -- instead of sending the player across the ocean first.
+        local localSpot = step.verb == "complete" and nearestSpot(current)
+        if localSpot then
+            T:SetWantedDestination(nil)
+            local sub = localSpot.name and ("nearest: " .. localSpot.name) or current.name
+            return { label = label, sub = sub, cont = localSpot.cont, wx = localSpot.wx, wy = localSpot.wy, radius = 30, spot = true }
+        end
         -- hearthstone bound on the destination continent beats taking a boat/zeppelin every time
         if current.dest then
             local hsDest = hearthFor(current.dest.cont, current.dest.wx, current.dest.wy, label)

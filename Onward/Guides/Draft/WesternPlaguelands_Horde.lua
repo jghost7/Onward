@@ -1,4 +1,4 @@
--- DRAFT Western Plaguelands (Horde) generated 2026-11-24 by tools/draft_guide.py
+-- DRAFT Western Plaguelands (Horde) generated 2026-11-26 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{

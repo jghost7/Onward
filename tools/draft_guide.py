@@ -1296,6 +1296,50 @@ def area_changes(zone, steps):
     return back
 
 
+def hub_points(zone, pos):
+    """Flight-master positions on this zone's map (falling back to inns), used to anchor legs to
+    far-away zones and other continents so trips out always depart from and return to a town hub
+    instead of being wedged between outdoor field camps on the zone's far edge."""
+    fms = [p for p, _ in flight_masters_for(zone).get(zone.map, [])]
+    if fms:
+        return fms
+    inns = [p for p, _ in inns_for(zone)]
+    if inns:
+        return inns
+    return []
+
+
+def far_steps(zone, seq, hubs):
+    """Keys of steps on another continent or in a distant zone that require flying out of a hub."""
+    out = set()
+    zcont = continent(zone.map)
+    for v, q in seq:
+        loc = step_loc(zone, v, q)
+        if not loc or loc[0] == zone.map:
+            continue
+        m, xy = loc
+        if continent(m) != zcont:
+            out.add(step_key(v, q))
+            continue
+        if hubs:
+            dmin = min((wdist(zone.map, h, m, xy) or 1e9) for h in hubs)
+            if dmin > 2400:
+                out.add(step_key(v, q))
+    return out
+
+
+def make_leg_fn(pos, reg, hubs, far):
+    def leg(a, b):
+        sw = SWITCH if reg[a] != reg[b] else 0
+        if hubs and ((a in far) != (b in far)):
+            pin = pos[b] if a in far else pos[a]
+            pout = pos[a] if a in far else pos[b]
+            fm = min(hubs, key=lambda h: dist(pin, h))
+            return dist(pin, fm) + dist(fm, pout) + sw
+        return dist(pos[a], pos[b]) + sw
+    return leg
+
+
 def optimize(zone, Q, steps, lo, hi):
     """Simulated annealing on travel plus a fixed cost per area change, from several seeds; keeps
     the cheapest route that breaks no more rules than the greedy one."""
@@ -1314,8 +1358,11 @@ def optimize(zone, Q, steps, lo, hi):
     base_bad = violations(Q, seq, lo, hi, loose, meta=meta)
     pos = fixed_positions(zone, seq)
     reg = regions(pos)
-    runs = [anneal(Q, seq, lo, hi, base_bad, pos, reg, seed=k, loose=loose, meta=meta) for k in range(4)]
-    return reattach(steps, min(runs, key=lambda s: route_cost(s, pos, reg) + 25.0 * area_changes(zone, s)), loose)
+    hubs = hub_points(zone, pos)
+    far = far_steps(zone, seq, hubs)
+    leg_fn = make_leg_fn(pos, reg, hubs, far)
+    runs = [anneal(Q, seq, lo, hi, base_bad, pos, reg, seed=k, loose=loose, meta=meta, leg_fn=leg_fn) for k in range(4)]
+    return reattach(steps, min(runs, key=lambda s: route_cost(s, pos, reg, leg_fn) + 25.0 * area_changes(zone, s)), loose)
 
 
 def flush_hubs(zone, Q, steps, lo, hi):
@@ -1398,12 +1445,14 @@ def reattach(steps, seq, loose):
     return out
 
 
-def route_cost(s, pos, reg):
+def route_cost(s, pos, reg, leg_fn=None):
     keys = [step_key(v, q) for v, q in s]
+    if leg_fn:
+        return sum(leg_fn(a, b) for a, b in zip(keys, keys[1:]))
     return sum(dist(pos[a], pos[b]) + (SWITCH if reg[a] != reg[b] else 0) for a, b in zip(keys, keys[1:]))
 
 
-def anneal(Q, seq, lo, hi, base_bad, pos, reg, iters=None, seed=1, loose=(), meta=None):
+def anneal(Q, seq, lo, hi, base_bad, pos, reg, iters=None, seed=1, loose=(), meta=None, leg_fn=None):
     """Lift a run of 1-30 steps and drop it anywhere else. Early on it accepts a slightly worse
     route so whole area visits can be regrouped later. Rule checks run only on moves it would
     accept. Keeps the best route."""
@@ -1416,9 +1465,9 @@ def anneal(Q, seq, lo, hi, base_bad, pos, reg, iters=None, seed=1, loose=(), met
     K = lambda s, k: step_key(s[k][0], s[k][1])
 
     def leg(a, b):
-        return dist(pos[a], pos[b]) + (SWITCH if reg[a] != reg[b] else 0)
+        return leg_fn(a, b) if leg_fn else (dist(pos[a], pos[b]) + (SWITCH if reg[a] != reg[b] else 0))
 
-    cur_cost = route_cost(cur, pos, reg)
+    cur_cost = route_cost(cur, pos, reg, leg_fn)
     best, best_cost = list(cur), cur_cost
     t0, t1 = 12.0, 0.05
     maxL = max(2, min(30, n // 3))

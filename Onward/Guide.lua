@@ -836,18 +836,41 @@ function G:Passing()
     if cur.at and cur.at.map then tc, tx, ty = T.World(cur.at.map, cur.at.x, cur.at.y) end
     if not pc then return out end
     local found = {}
+    local WP = W.Waypoint
     for i = cursor + 1, #active.steps do
         local s = active.steps[i]
-        if s.verb == "complete" and s.quest and s.at and s.at.map and not inGroup[s] and not seen[s.quest]
+        if s.verb == "complete" and s.quest and not inGroup[s] and not seen[s.quest]
            and QS:IsOnQuest(s.quest) and isOpen(s) then
-            local c, x, y = T.World(s.at.map, s.at.x, s.at.y)
-            if c == pc then
-                local d = math.sqrt((x - px) ^ 2 + (y - py) ^ 2)
-                if tc == c then d = math.min(d, math.sqrt((x - tx) ^ 2 + (y - ty) ^ 2)) end
-                if d <= PASS_YARDS then
-                    seen[s.quest] = true
-                    found[#found + 1] = { s = s, d = d }
+            local bestD
+            if s.at and s.at.map then
+                local c, x, y = T.World(s.at.map, s.at.x, s.at.y)
+                if c == pc then
+                    bestD = math.sqrt((x - px) ^ 2 + (y - py) ^ 2)
+                    if tc == c then bestD = math.min(bestD, math.sqrt((x - tx) ^ 2 + (y - ty) ^ 2)) end
                 end
+            end
+            -- Also check Questie's live spawns on the player's current continent (e.g. Natural
+            -- Materials drops from Owlbeasts in The Hinterlands as well as Hippogryphs in Feralas).
+            if (not bestD or bestD > PASS_YARDS) and WP and WP.ObjectiveSpots then
+                local done = {}
+                local e = QS:Get(s.quest)
+                local needle = s.objName and s.objName:lower() or nil
+                for idx, o in ipairs(e and e.objectives or {}) do
+                    if o.finished then done[idx] = true
+                    elseif s.obj and idx ~= s.obj then done[idx] = true
+                    elseif needle and not (o.text and o.text:lower():find(needle, 1, true)) then done[idx] = true end
+                end
+                for _, sp in ipairs(WP.ObjectiveSpots(s.quest, done) or {}) do
+                    local c, x, y = T.World(sp.map, sp.x, sp.y)
+                    if c == pc then
+                        local d = math.sqrt((x - px) ^ 2 + (y - py) ^ 2)
+                        if not bestD or d < bestD then bestD = d end
+                    end
+                end
+            end
+            if bestD and bestD <= PASS_YARDS then
+                seen[s.quest] = true
+                found[#found + 1] = { s = s, d = bestD }
             end
         end
     end

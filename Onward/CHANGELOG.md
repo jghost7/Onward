@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.9.9
+
+- **Hub-anchored cross-continent routing:** Fixed a route-optimizer geometry bias in
+  `tools/draft_guide.py` that pulled cross-continent trips into western outdoor field loops (such
+  as sending Feralas Horde players from The Hinterlands directly to Northspring Harpies before
+  turning in *Testing the Vessel* at Camp Mojache). Cross-continent and long-flight legs now anchor
+  to the zone's flight master, and 19 affected zone guides were rebuilt cleanly.
+- **Multi-zone objective awareness:** Updated `G:Passing()` in `Guide.lua` and `WP:ArrowTarget()`
+  in `Waypoint.lua` to check live `ObjectiveSpots` on the player's current continent so quests with
+  drops in multiple zones (such as *Natural Materials* dropping from Owlbeasts in The Hinterlands)
+  surface under **ON YOUR WAY** and point to local mobs instead of a cross-continent boat/zeppelin.
+
 ## 0.9.8
 
 - **WoW Forever 1–300 profession guides overhaul:** Rebuilt all 26 profession guides (Alchemy,

@@ -1,4 +1,4 @@
--- DRAFT Dustwallow Marsh (Horde) generated 2026-11-22 by tools/draft_guide.py
+-- DRAFT Dustwallow Marsh (Horde) generated 2026-11-26 by tools/draft_guide.py
 -- from Questie's Forever database (GPL-3.0). The order is computed, not played:
 -- play it with /ow rec running and fix what feels wrong. Coordinates are spawn medoids.
 Onward:RegisterGuide{
@@ -18,15 +18,15 @@ turnin 96332 |npc Sergeant Ulka |at 1445 70.3,18.9 |group dungeon  -- A Little P
 complete 95309 |group dungeon  -- No Orc Left Behind (53)
 turnin 95309 |group dungeon  -- No Orc Left Behind (53)
 complete 96334 |value mid |group dungeon  -- Blood Red Bandanas (53)
-accept 95283 |npc Eitrigg |at 1454 34.3,39.4 |lvl 48  -- The Missing Kor'kron (53)
 turnin 96334 |npc Eitrigg |at 1454 34.3,39.4 |value mid |group dungeon  -- Blood Red Bandanas (53)
+accept 95283 |npc Eitrigg |at 1454 34.3,39.4 |lvl 48  -- The Missing Kor'kron (53)
 turnin 95283 |npc Nazeer Bloodpike |at 1445 35.2,30.7  -- The Missing Kor'kron (53)
 accept 6570 |npc Myranda the Hag |at 1422 50.8,77.8 |group elite |lvl 55 |preany 6569  -- Emberstrife (60)
 accept 8970 |npc Bodley |at 1415 48.9,63.9 |value mid |class WARRIOR,HUNTER,ROGUE,PRIEST,SHAMAN,MAGE,WARLOCK,DRUID |group elite |lvl 58 |preany 8966,8967,8968,8969  -- I See Alcaz Island In Your Future... (60)
 turnin 6570 |npc Emberstrife |at 1445 56.7,87.7 |group elite  -- Emberstrife (60)
 accept 6584 |npc Emberstrife |at 1445 56.7,87.7 |group dungeon |lvl 55 |preany 6570  -- The Test of Skulls, Chronalis (60)
-accept 6583 |npc Emberstrife |at 1445 56.7,87.7 |group dungeon |lvl 55 |preany 6570  -- The Test of Skulls, Somnus (60)
 accept 6582 |npc Emberstrife |at 1445 56.7,87.7 |group dungeon |lvl 55 |preany 6570  -- The Test of Skulls, Scryer (60)
+accept 6583 |npc Emberstrife |at 1445 56.7,87.7 |group dungeon |lvl 55 |preany 6570  -- The Test of Skulls, Somnus (60)
 complete 8970 |at 1445 76.4,18.4 |item 21984 |mobs Strashaz Serpent Guard@Bloodkelp;Strashaz Myrmidon@Bloodkelp;Strashaz Siren@Bloodkelp;Strashaz Warrior@Bloodkelp |value mid |class WARRIOR,HUNTER,ROGUE,PRIEST,SHAMAN,MAGE,WARLOCK,DRUID |group elite  -- I See Alcaz Island In Your Future... (60)
 complete 6584 |at 1446 64.2,48.5 |group dungeon  -- The Test of Skulls, Chronalis (60)
 turnin 6584 |npc Emberstrife |at 1445 56.7,87.7 |group dungeon  -- The Test of Skulls, Chronalis (60)

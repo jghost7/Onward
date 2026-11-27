@@ -3185,6 +3185,62 @@ do
     MOCK.level = savedLevel
 end
 
+-- Multi-zone quest awareness (e.g. Natural Materials pinned in Feralas while player kills Owlbeasts in The Hinterlands)
+do
+    local G, WP = W.Guide, W.Waypoint
+    local savedPos, savedCont = MOCK.pos, MOCK.mapCont
+    local savedOff1425, savedOff1444 = MOCK.mapOffset[1425], MOCK.mapOffset[1444]
+    local savedSpots = WP.ObjectiveSpots
+
+    MOCK.mapCont = { [1425] = 0, [1444] = 1 }   -- EK vs Kalimdor
+    MOCK.mapOffset[1425] = 0
+    MOCK.mapOffset[1444] = 0
+    MOCK.pos = { map = 1425, x = 0.55, y = 0.51 }  -- standing in The Hinterlands
+
+    WP.ObjectiveSpots = function(q, done)
+        if q == 3128 then
+            if done and done[1] then return {} end
+            return { { map = 1425, x = 55.2, y = 51.4, name = "Vicious Owlbeast" } }
+        end
+        return savedSpots(q, done)
+    end
+
+    W:RegisterGuide{ id = "multizone_test", title = "Feralas (43-52)", levels = { 43, 52 }, faction = "", steps = [[
+complete 3123 |at 1425 55.2,51.4
+complete 3128 |obj Resilient Sinew |at 1444 55.0,69.3
+turnin 3128 |at 1444 74.4,43.4
+]]}
+    MOCK.addQuest(3123, "Testing the Vessel", { { text = "Wildkin Muisek: 5/10", finished = false } })
+    MOCK.addQuest(3128, "Natural Materials", {
+        { text = "Resilient Sinew: 18/20", finished = false },
+        { text = "Splintered Log: 0/2", finished = false },
+    })
+    MOCK.fire("QUEST_LOG_UPDATE")
+    G:Activate("multizone_test")
+    settle()
+
+    -- 1. While on Testing the Vessel (3123) in The Hinterlands, G:Passing() surfaces Natural Materials (3128)
+    local passing = G:Passing()
+    check("multi-zone Passing: surfaces Natural Materials in The Hinterlands via live ObjectiveSpots",
+        #passing == 1 and passing[1].quest == 3128, #passing .. "/" .. tostring(passing[1] and passing[1].quest))
+
+    -- 2. Once on Natural Materials (3128) while still in The Hinterlands, ArrowTarget points at local Owlbeasts, not a zeppelin
+    MOCK.finish(3123)
+    MOCK.fire("QUEST_LOG_UPDATE")
+    settle()
+    local tgt = WP:ArrowTarget()
+    check("multi-zone ArrowTarget: points at local Owlbeast spot instead of cross-continent boat/zeppelin",
+        tgt and tgt.spot and not tgt.crossing and tgt.sub and tgt.sub:find("Vicious Owlbeast", 1, true),
+        tgt and (tostring(tgt.label) .. " / " .. tostring(tgt.sub)))
+
+    MOCK.turnIn(3123) MOCK.turnIn(3128)
+    MOCK.done[3123], MOCK.done[3128] = nil, nil
+    MOCK.fire("QUEST_LOG_UPDATE")
+    WP.ObjectiveSpots = savedSpots
+    MOCK.mapCont, MOCK.pos = savedCont, savedPos
+    MOCK.mapOffset[1425], MOCK.mapOffset[1444] = savedOff1425, savedOff1444
+end
+
 check("no runtime errors", #MOCK.errors == 0, MOCK.errors[1])
 print(("%d passed, %d failed"):format(pass, fail))
 return fail
