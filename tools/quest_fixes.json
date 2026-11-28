@@ -29,10 +29,70 @@
     "drop": true,
     "why": "Mage Librarian (Owen Thadd / Garion Wendell) spell-note book quest missing zoneOrSort=-284 and finishedBy in QuestieDB; Owen Thadd does not offer it as a general Feralas leveling quest."
   },
+  "90487": {
+    "name": "Ancient Allies",
+    "minLevel": 54,
+    "why": "Ketharas Mount Hyjal quest missing requiredLevel in QuestieDB."
+  },
+  "91877": {
+    "name": "Demon Hunter's Hunter",
+    "minLevel": 55,
+    "why": "Mount Hyjal intro breadcrumb from Azshara missing requiredLevel in QuestieDB (level 55 Mount Hyjal breadcrumb, matching 97319)."
+  },
+  "91882": {
+    "name": "The Grand Alliance",
+    "minLevel": 55,
+    "why": "Mount Hyjal intro breadcrumb from Blasted Lands missing requiredLevel in QuestieDB (level 55 Mount Hyjal breadcrumb, matching 97319)."
+  },
+  "91952": {
+    "name": "The Source of the Corruption",
+    "minLevel": 55,
+    "why": "Mount Hyjal intro breadcrumb from Greta Mosshoof to Ketharas. QuestieDB omits requiredLevel; Greta shows a silver ! until level 55 (matching 97319)."
+  },
+  "92020": {
+    "name": "Hol'anyee's Big Book of Big Lizards",
+    "minLevel": 55,
+    "why": "Mount Hyjal intro breadcrumb from Hol'anyee Marshal in Un'Goro Crater to Tiala Whitemane on Mount Hyjal. QuestieDB omits requiredLevel; requires level 55."
+  },
+  "92612": {
+    "name": "Aid from Moonglade",
+    "minLevel": 55,
+    "why": "Ketharas Mount Hyjal quest (level 58) missing requiredLevel in QuestieDB."
+  },
+  "92842": {
+    "name": "A Cousin Abroad",
+    "minLevel": 55,
+    "why": "Mount Hyjal intro breadcrumb from Western Plaguelands missing requiredLevel in QuestieDB (Alliance/shared counterpart of 97319 which has requiredLevel 55)."
+  },
+  "93269": {
+    "name": "Top of the Post",
+    "minLevel": 55,
+    "why": "Mount Hyjal intro breadcrumb from Winterspring (level 58) missing requiredLevel in QuestieDB."
+  },
   "95183": {
     "name": "Step One: Rock",
     "preAny": [95420],
     "why": "Riverglades, Horde: Gorgegut and Hamur don't offer it until Land of Giants (95420) is done, which opens the Bolder'ok ogre quests. Questie lists no prerequisite. Source: player reports on Wowhead's quest page and Onward users, 2026-11-17. Not confirmed in game by us."
+  },
+  "95568": {
+    "name": "Seeds for a New Season",
+    "minLevel": 54,
+    "why": "Ketharas Mount Hyjal quest missing requiredLevel in QuestieDB (follow-ups 93747/93759 require level 54)."
+  },
+  "95569": {
+    "name": "Hope for Hatchlings",
+    "minLevel": 54,
+    "why": "Ketharas Mount Hyjal quest missing requiredLevel in QuestieDB (follow-up 93759 requires level 54)."
+  },
+  "96796": {
+    "name": "Woods Workshop",
+    "minLevel": 54,
+    "why": "Ketharas Mount Hyjal quest missing requiredLevel in QuestieDB."
+  },
+  "96930": {
+    "name": "The Capricious Corvid",
+    "minLevel": 55,
+    "why": "Ketharas Mount Hyjal quest (level 58) missing requiredLevel in QuestieDB."
   },
   "98426": {
     "name": "REUSEME",

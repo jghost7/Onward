@@ -416,7 +416,31 @@ class Zone:
             pts += collect(self.db.obj(o, "spawns"))
         return pts
 
-    def objective_points(self, q, collect=None):
+    def extra_objective_points(self, q, collect=None):
+        """Spawn points + first note from Questie's extraObjectives: [spawns, icon, text, objIdx, [['object'|'monster', id], ...]]."""
+        collect = collect or self.zone_points
+        pts, note = [], None
+        for e in lua_list(self.db.quest(q, "extraObjectives")):
+            e = lua_list(e)
+            if not e:
+                continue
+            before = len(pts)
+            if isinstance(e[0], dict):
+                pts += collect(e[0])
+            if len(e) >= 5:
+                for ref in lua_list(e[4]):
+                    ref = lua_list(ref)
+                    if len(ref) >= 2 and ref[1]:
+                        kind = (s(ref[0]) or "").lower()
+                        if kind == "object":
+                            pts += collect(self.db.obj(ref[1], "spawns"))
+                        elif kind in ("monster", "npc"):
+                            pts += collect(self.db.npc(ref[1], "spawns"))
+            if len(pts) > before and not note and len(e) >= 3 and e[2]:
+                note = s(e[2])
+        return pts, note
+
+    def objective_points(self, q, collect=None, fin=None, start=None):
         """objective spawn points on this zone's map (or, with collect=self.any_points, on every
         open-world map as (map, (x, y)))"""
         collect = collect or self.zone_points
@@ -432,15 +456,25 @@ class Zone:
         for e in lua_list(groups.get(5)):                            # kill credit: [[npcIds], creditId, text]
             for n in lua_list(lua_list(e)[0]):
                 pts += collect(self.db.npc(n, "spawns"))
+        trig_pts = []
         trig = self.db.quest(q, "triggerEnd")
         if trig:
             t = lua_list(trig)
             if len(t) > 1:
-                pts += collect(t[1])
-        for e in lua_list(self.db.quest(q, "extraObjectives")):
-            e = lua_list(e)
-            if e and isinstance(e[0], dict):
-                pts += collect(e[0])
+                trig_pts = collect(t[1])
+        extra_pts, _ = self.extra_objective_points(q, collect)
+        # When a quest has no kill/collect objectives and its triggerEnd sits right on top of the
+        # quest giver / turn-in NPC (e.g. Corrupted Sabers: "Return the corrupted cat to Winna
+        # Hazzard"), point to the extraObjectives action site (the Corrupted Moonwell) instead.
+        trig_at_npc = False
+        if not pts and trig_pts and extra_pts and collect == self.zone_points:
+            npc_xys = [loc[1] for loc in (fin, start) if loc and loc[0] == self.map and loc[1]]
+            if npc_xys and all(min(dist(p, nxy) for nxy in npc_xys) <= NEAR for p in trig_pts):
+                trig_at_npc = True
+        if trig_at_npc:
+            pts += extra_pts
+        else:
+            pts += trig_pts + extra_pts
         return pts
 
     # ------------------------------------------------------------ items you have to bring
@@ -644,11 +678,12 @@ class Zone:
         db = self.db
         start, item = self.starter(q)
         fin = self.finisher(q)
-        pts = self.objective_points(q)
+        pts = self.objective_points(q, fin=fin, start=start)
+        extra_pts, extra_note = self.extra_objective_points(q)
         texts = [s(t) for t in lua_list(db.quest(q, "objectivesText"))]
         races, classes = self.who(q)
         obj, guess, mobs = (medoid(pts) if pts else None), None, self.mob_names(q)
-        has_obj = bool(db.quest(q, "objectives") or db.quest(q, "triggerEnd"))
+        has_obj = bool(db.quest(q, "objectives") or db.quest(q, "triggerEnd") or extra_pts)
         if not has_obj and texts:
             # QuestieDB leaves objectives empty on many Forever custom quests and scripted quests.
             # If the quest starts and finishes at the same NPC/spot, or its objective text describes
@@ -664,6 +699,8 @@ class Zone:
             elif text_all and not DELIVERY_RE.search(text_all):
                 has_obj = True
         far_spot = spot_note = None
+        if not db.quest(q, "objectives") and extra_pts and extra_note:
+            spot_note = extra_note
         if obj is None and has_obj and q in quest_spots():
             # looked up by hand (tools/quest_spots.json): spots on this map, else the map with most
             by_map = {}
@@ -694,7 +731,8 @@ class Zone:
             # only worth a filter when narrower than the whole faction (e.g. dwarf+gnome start zone)
             "races": bits_to_tokens(races, RACE_BITS) if races != self.bit else [],
             "id": q, "name": s(db.quest(q, "name")) or f"quest {q}",
-            "level": db.quest(q, "questLevel") or 0, "minLevel": db.quest(q, "requiredLevel") or 0,
+            "level": db.quest(q, "questLevel") or 0,
+            "minLevel": quest_fixes().get(q, {}).get("minLevel") or db.quest(q, "requiredLevel") or 0,
             "start": start, "startItem": item, "startItemId": self.start_item(q),
             "startIsDrop": is_drop_start, "startMobs": drop_mobs, "finish": fin,
             "obj": obj, "objGuess": guess, "objFar": None if obj else (far_spot or self.far_objective(q)),

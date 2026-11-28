@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.9.12
+
+- **`extraObjectives` action sites & notes:** Updated `tools/draft_guide.py`,
+  `tools/draft_classes.py`, and `Onward/QuestieBridge.lua` to resolve object and monster references
+  inside Questie's `extraObjectives` (and prefer them when `triggerEnd` sits on top of the quest
+  giver). Fixes *Corrupted Sabers* (`4506`) pointing to Winna Hazzard instead of the Corrupted
+  Moonwell (`32.3, 66.6`), adds coordinates for *A Plague Upon Thee* (`5904`), and improves 7 class
+  guide files.
+- **Mount Hyjal breadcrumb & Ketharas level gates:** Added `minLevel` override support in
+  `tools/quest_fixes.json` + `tools/draft_guide.py` and gated the 6 Mount Hyjal intro breadcrumbs
+  missing `requiredLevel` in QuestieDB (`91877`, `91882`, `91952`, `92020`, `92842`, `93269`) at
+  `|lvl 55` along with Ketharas's Felwood/Hyjal quests (`90487`, `92612`, `95568`, `95569`,
+  `96796`, `96930`), rebuilding Un'Goro Crater, Felwood, Azshara, Blasted Lands, Western
+  Plaguelands, and Winterspring.
+
 ## 0.9.11
 
 - **Class guides tab:** Added a **Class** tab to the guide picker (plus `/ow class` and Options

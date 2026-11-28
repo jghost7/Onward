@@ -266,6 +266,21 @@ def objective_spot(db, q, a2m, dm, prefer_map=None):
                 add_spawns(db.npc(n, "spawns"), s(db.npc(n, "name")))
     if trig and isinstance(trig, list) and len(trig) >= 2 and isinstance(trig[1], dict):
         add_spawns(trig[1])
+    for e in lua_list(extra):
+        e = lua_list(e)
+        if not e:
+            continue
+        if isinstance(e[0], dict):
+            add_spawns(e[0])
+        if len(e) >= 5:
+            for ref in lua_list(e[4]):
+                ref = lua_list(ref)
+                if len(ref) >= 2 and ref[1]:
+                    kind = (s(ref[0]) or "").lower()
+                    if kind == "object":
+                        add_spawns(db.obj(ref[1], "spawns"))
+                    elif kind in ("monster", "npc"):
+                        add_spawns(db.npc(ref[1], "spawns"), s(db.npc(ref[1], "name")))
 
     spot = None
     if pts_by_map:

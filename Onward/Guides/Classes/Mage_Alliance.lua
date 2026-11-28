@@ -20,7 +20,7 @@ Onward:RegisterGuide{
   class = "MAGE", faction = "Alliance", race = "Human,Gnome,SkyborneAlliance", levels = { 15, 16 },
   steps = [[
 accept 1920 |npc Jennea Cannon |at 1453 49.6,85.8  -- Investigate the Blue Recluse (16)
-complete 1920 |at 1453 49.5,85.5  -- Investigate the Blue Recluse (16)
+complete 1920 |at 1453 49.6,85.6 |mobs Rift Spawn  -- Investigate the Blue Recluse (16)
 turnin 1920 |npc Jennea Cannon |at 1453 49.6,85.8  -- Investigate the Blue Recluse (16)
 accept 1921 |npc Jennea Cannon |at 1453 49.6,85.8 |preany 1920  -- Gathering Materials (15)
 complete 1921 |at 1429 55.7,67.0  -- Gathering Materials (15)

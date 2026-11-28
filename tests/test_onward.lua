@@ -3358,6 +3358,23 @@ do
     check("zone fixes: Riverglades Horde no longer includes REUSEME quest 98426",
         rivH and not rivH.steps:find("accept 98426", 1, true))
 
+    -- Regression: extraObjectives[4] object/monster action sites (e.g. Corrupted Sabers 4506 -> Corrupted Moonwell)
+    local felH = G:Get("felwood-h")
+    check("extraObjectives: Corrupted Sabers (4506) points to Corrupted Moonwell (32.3,66.6), not Winna Hazzard",
+        felH and felH.steps:find("complete 4506 |at 1448 32.3,66.6", 1, true)
+            and not felH.steps:find("complete 4506 |at 1448 34.", 1, true))
+    local wplA = G:Get("western-plaguelands-a")
+    check("extraObjectives: A Plague Upon Thee (5904) gets Termite Barrel coordinates from extraObjectives",
+        wplA and wplA.steps:find("complete 5904 |at 1422 ", 1, true))
+    local felA = G:Get("felwood-a")
+    check("quest fixes: The Source of the Corruption (91952) carries |lvl 55 gate in Felwood guides",
+        felH and felH.steps:find("accept 91952[^\n]-|lvl 55")
+            and felA and felA.steps:find("accept 91952[^\n]-|lvl 55"))
+    local ungH, ungA = G:Get("un-goro-crater-h"), G:Get("un-goro-crater-a")
+    check("quest fixes: Hol'anyee's Big Book of Big Lizards (92020) carries |lvl 55 gate in Un'Goro guides",
+        ungH and ungH.steps:find("accept 92020[^\n]-|lvl 55")
+            and ungA and ungA.steps:find("accept 92020[^\n]-|lvl 55"))
+
     W.db.groupQuests = savedGroup
     UnitFactionGroup, UnitClass, UnitRace, UnitLevel = savedFaction, savedClass, savedRace, savedLevel
     if UI.picker and UI.picker:IsShown() then UI.picker:Hide() end

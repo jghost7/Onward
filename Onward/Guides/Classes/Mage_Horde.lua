@@ -15,7 +15,7 @@ Onward:RegisterGuide{
   class = "MAGE", faction = "Horde", race = "Orc,Scourge,Troll", levels = { 15, 16 },
   steps = [[
 accept 1960 |npc Anastasia Hartwell |at 1458 85.1,10.0  -- Investigate the Alchemist Shop (16)
-complete 1960 |at 1458 85.7,10.1  -- Investigate the Alchemist Shop (16)
+complete 1960 |at 1458 85.7,10.2 |mobs Rift Spawn  -- Investigate the Alchemist Shop (16)
 turnin 1960 |npc Anastasia Hartwell |at 1458 85.1,10.0  -- Investigate the Alchemist Shop (16)
 accept 1961 |npc Anastasia Hartwell |at 1458 85.1,10.0 |preany 1960  -- Gathering Materials (15)
 complete 1961 |at 1421 59.6,63.2 |mobs Dalaran Apprentice;Dalaran Watcher;Dalaran Wizard;Dalaran Protector  -- Gathering Materials (15)

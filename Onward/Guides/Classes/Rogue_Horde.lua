@@ -40,7 +40,7 @@ accept 2381 |npc Wrenix the Wretched |at 1413 63.1,36.3 |preany 2382  -- Plunder
 complete 2381 |at 1413 64.8,45.5 |mobs Polly  -- Plundering the Plunderers (18)
 turnin 2381 |npc Wrenix the Wretched |at 1413 63.1,36.3  -- Plundering the Plunderers (18)
 accept 1999 |npc Mennet Carkad |at 1458 83.5,69.1 |race Scourge |preany 1998  -- Tools of the Trade (20)
-complete 1999 |at 1421 63.7,65.2 |race Scourge  -- Tools of the Trade (20)
+complete 1999 |at 1458 78.2,76.3 |mobs Estelle Gendry |race Scourge  -- Tools of the Trade (20)
 turnin 1999 |npc Mennet Carkad |at 1458 83.5,69.1 |race Scourge  -- Tools of the Trade (20)
 ]]}
 

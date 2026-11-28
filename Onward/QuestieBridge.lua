@@ -145,7 +145,7 @@ local MAX_SPOTS = 400
 function QB:ObjectiveSpots(q, done)
     return call(function()
         local quest = QDB.GetQuest(q)
-        if not quest or type(quest.ObjectiveData) ~= "table" then return end
+        if not quest then return end
         local out = {}
         local function add(spawns, name)
             if type(spawns) ~= "table" then return end
@@ -166,15 +166,35 @@ function QB:ObjectiveSpots(q, done)
         local function obj(id)
             add(QDB.QueryObjectSingle(id, "spawns"), QDB.QueryObjectSingle(id, "name"))
         end
-        for i, o in ipairs(quest.ObjectiveData) do
-            if not (done and done[i]) then
-                if o.Type == "monster" and o.Id then npc(o.Id)
-                elseif o.Type == "object" and o.Id then obj(o.Id)
-                elseif o.Type == "item" and o.Id and QDB.QueryItemSingle then
-                    for _, n in pairs(QDB.QueryItemSingle(o.Id, "npcDrops") or {}) do npc(n) end
-                    for _, n in pairs(QDB.QueryItemSingle(o.Id, "objectDrops") or {}) do obj(n) end
-                elseif o.Type == "killcredit" and type(o.IdList) == "table" then
-                    for _, n in ipairs(o.IdList) do npc(n) end
+        if type(quest.ObjectiveData) == "table" then
+            for i, o in ipairs(quest.ObjectiveData) do
+                if not (done and done[i]) then
+                    if o.Type == "monster" and o.Id then npc(o.Id)
+                    elseif o.Type == "object" and o.Id then obj(o.Id)
+                    elseif o.Type == "item" and o.Id and QDB.QueryItemSingle then
+                        for _, n in pairs(QDB.QueryItemSingle(o.Id, "npcDrops") or {}) do npc(n) end
+                        for _, n in pairs(QDB.QueryItemSingle(o.Id, "objectDrops") or {}) do obj(n) end
+                    elseif o.Type == "killcredit" and type(o.IdList) == "table" then
+                        for _, n in ipairs(o.IdList) do npc(n) end
+                    end
+                end
+            end
+        end
+        -- Fallback for quests whose action site lives in Questie's extraObjectives (e.g. Corrupted
+        -- Sabers' corrupted moonwell, where ObjectiveData is empty and TriggerEnd is the turn-in NPC).
+        if #out == 0 and type(quest.ExtraObjectives) == "table" then
+            for _, e in ipairs(quest.ExtraObjectives) do
+                if type(e) == "table" then
+                    local label = type(e[3]) == "string" and e[3] or nil
+                    if type(e[1]) == "table" then add(e[1], label) end
+                    if type(e[5]) == "table" then
+                        for _, ref in ipairs(e[5]) do
+                            if type(ref) == "table" and ref[2] then
+                                if ref[1] == "object" then obj(ref[2])
+                                elseif ref[1] == "monster" or ref[1] == "npc" then npc(ref[2]) end
+                            end
+                        end
+                    end
                 end
             end
         end
